@@ -1,5 +1,5 @@
 //
-//  HLiveRoomVC.swift
+//  HUserLiveVC.swift
 //  HSwiftProject
 //
 //  Created by Wind on 17/11/2021.
@@ -13,7 +13,7 @@ enum HLiveStatus: Int {
     case liveing = 1
 }
 
-class HLiveRoomVC : HTupleController {
+class HUserLiveVC : HTupleController {
     
     private var _inputField: HTextField!
     var inputField: HTextField {
@@ -184,14 +184,14 @@ class HLiveRoomVC : HTupleController {
         
         switch (indexPath.row) {
             case 0:
-                let _ = itemBlock(nil, HLiveRoomBgCell.self, nil, true)
+                let _ = itemBlock(nil, HUserLiveBgCell.self, nil, true)
                 break;
             case 2:
-                let _ = itemBlock(nil, HLiveRoomBgCell.self, nil, true)
+                let _ = itemBlock(nil, HUserLiveBgCell.self, nil, true)
                 break;
             case 1:
                 if (self.liveStatus == .loading) {
-                    let cell = itemBlock(nil, HLiveRoomBgCell.self, nil, true) as! HLiveRoomBgCell
+                    let cell = itemBlock(nil, HUserLiveBgCell.self, nil, true) as! HUserLiveBgCell
                     // 禁止滚动
                     self.tupleView.isScrollEnabled = false;
                     // 开始旋转
@@ -208,7 +208,7 @@ class HLiveRoomVC : HTupleController {
                         }
                     }
                 }else if (self.liveStatus == .liveing) {
-                    let _ = itemBlock(nil, HLiveRoomCell.self, nil, true)
+                    let _ = itemBlock(nil, HUserLiveCell.self, nil, true)
                 }
                 break;
 

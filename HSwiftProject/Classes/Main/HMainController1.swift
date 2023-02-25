@@ -189,7 +189,7 @@ class HMainController1: HTupleController {
                 cell.didSelectCell = { (target, indexPath) in
                     let cell = target as! HTupleViewCellVertValue1
                     NSLog("选中黑客帝国%d",cell.labelHeight)
-                    let navi = HNavigationController.init(rootViewController: HLiveRoomVC.init())
+                    let navi = HNavigationController.init(rootViewController: HUserLiveVC.init())
                     UIApplication.navi?.present(navi, animated: true, completion: nil)
                 }
                 break;

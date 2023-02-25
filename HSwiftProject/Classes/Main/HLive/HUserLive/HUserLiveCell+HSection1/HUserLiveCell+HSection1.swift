@@ -1,5 +1,5 @@
 //
-//  HLiveRoomCell+HSection1.swift
+//  HUserLiveCell+HSection1.swift
 //  HSwiftProject
 //
 //  Created by Wind on 20/11/2021.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HLiveRoomMiddleBarView : UIView, HTupleViewDelegate {
+class HUserLiveMiddleBarView : UIView, HTupleViewDelegate {
     
     var mutableArr: NSMutableArray = NSMutableArray.init()
     var timer: Timer?
@@ -82,7 +82,7 @@ class HLiveRoomMiddleBarView : UIView, HTupleViewDelegate {
 
 }
 
-extension HLiveRoomCell {
+extension HUserLiveCell {
     @objc func tupleExa1_insetForSection(_ section: Any) -> Any {
         return UIEdgeInsetsMake(0, 10, 0, 10)
     }
@@ -192,9 +192,9 @@ extension HLiveRoomCell {
                 break;
             case 2:
                 let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-                var bottomBarView = cell.viewWithTag(123456) as? HLiveRoomMiddleBarView
+                var bottomBarView = cell.viewWithTag(123456) as? HUserLiveMiddleBarView
                 if (bottomBarView == nil) {
-                    bottomBarView = HLiveRoomMiddleBarView.init(frame: cell.bounds)
+                    bottomBarView = HUserLiveMiddleBarView.init(frame: cell.bounds)
                     bottomBarView!.tag = 123456
                     cell.addSubview(bottomBarView!)
                 }

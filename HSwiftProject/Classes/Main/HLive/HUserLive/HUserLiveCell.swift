@@ -1,5 +1,5 @@
 //
-//  HLiveRoomCell.swift
+//  HUserLiveCell.swift
 //  HSwiftProject
 //
 //  Created by Wind on 18/11/2021.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HLiveRoomBgCell : HTupleImageCell {
+class HUserLiveBgCell : HTupleImageCell {
 
     private var _effectView: UIVisualEffectView?
     var effectView: UIVisualEffectView {
@@ -48,7 +48,7 @@ class HLiveRoomBgCell : HTupleImageCell {
 }
 
 
-class HLiveRoomCell : HLiveRoomBgCell, HTupleViewDelegate {
+class HUserLiveCell : HUserLiveBgCell, HTupleViewDelegate {
     
     private var _liveLeftView: UIView?
     var liveLeftView: UIView {

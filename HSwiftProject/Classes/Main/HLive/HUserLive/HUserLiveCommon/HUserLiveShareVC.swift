@@ -1,5 +1,5 @@
 //
-//  HLiveRoomShareVC.swift
+//  HUserLiveShareVC.swift
 //  HSwiftProject
 //
 //  Created by Wind on 25/11/2021.
@@ -11,7 +11,7 @@ import UIKit
 private let KItemHeight   = 80.0
 private let KFooterHeight = 50.0
 
-class HLiveRoomShareVC : HViewController, HTupleViewDelegate {
+class HUserLiveShareVC : HViewController, HTupleViewDelegate {
 
     private var _visualView: UIVisualEffectView?
     private var visualView: UIVisualEffectView? {

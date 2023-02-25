@@ -1,5 +1,5 @@
 //
-//  HLiveRoomCell+HSection2.swift
+//  HUserLiveCell+HSection2.swift
 //  HSwiftProject
 //
 //  Created by Wind on 20/11/2021.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HLiveRoomBottomBarView : UIView, HTupleViewDelegate {
+class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
 
     private var _tupleView: HTupleView?
     var tupleView: HTupleView {
@@ -97,7 +97,7 @@ class HLiveRoomBottomBarView : UIView, HTupleViewDelegate {
                 cell.buttonView.setImageWithName("icon_no_server")
 //                cell.buttonView setFillet:YES];
                 cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
-                    self.viewController?.presentController(HLiveRoomNoteVC.init(), completion: { transitionType in
+                    self.viewController?.presentController(HUserLiveNoteVC.init(), completion: { transitionType in
                         NSLog("")
                     })
                 }
@@ -110,7 +110,7 @@ class HLiveRoomBottomBarView : UIView, HTupleViewDelegate {
                 cell.buttonView.setImageWithName("icon_no_server")
 //                [cell.buttonView setFillet:YES];
                 cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
-                    self.viewController?.presentController(HLiveRoomShareVC.init(), completion: { transitionType in
+                    self.viewController?.presentController(HUserLiveShareVC.init(), completion: { transitionType in
                         NSLog("")
                     })
                 }
@@ -133,7 +133,7 @@ class HLiveRoomBottomBarView : UIView, HTupleViewDelegate {
     }
 }
 
-extension HLiveRoomCell {
+extension HUserLiveCell {
     @objc func tupleExa2_numberOfItemsInSection(_ section: Any) -> Any {
         return 1
     }
@@ -152,9 +152,9 @@ extension HLiveRoomCell {
         let itemBlock = itemBlock as! HTupleItem
         let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
         
-        var bottomBarView = cell.viewWithTag(123456) as? HLiveRoomBottomBarView
+        var bottomBarView = cell.viewWithTag(123456) as? HUserLiveBottomBarView
         if (bottomBarView == nil) {
-            bottomBarView = HLiveRoomBottomBarView.init(frame: cell.bounds)
+            bottomBarView = HUserLiveBottomBarView.init(frame: cell.bounds)
             bottomBarView!.tag = 123456
             cell.addSubview(bottomBarView!)
         }

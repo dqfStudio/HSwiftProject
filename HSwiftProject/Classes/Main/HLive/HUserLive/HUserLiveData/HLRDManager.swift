@@ -8,7 +8,7 @@
 
 import Foundation
 
-/// HLiveRoomDataManager
+/// HUserLiveDataManager
 /// 管理LiveRoom中的全局数据
 class HLRDManager : NSObject {
 

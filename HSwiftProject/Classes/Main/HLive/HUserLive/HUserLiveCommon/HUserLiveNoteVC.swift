@@ -1,5 +1,5 @@
 //
-//  HLiveRoomNoteVC.swift
+//  HUserLiveNoteVC.swift
 //  HSwiftProject
 //
 //  Created by Wind on 25/11/2021.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HLiveRoomNoteVC : HViewController, HTupleViewDelegate {
+class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
 
     private var _visualView: UIVisualEffectView?
     private var visualView: UIVisualEffectView {

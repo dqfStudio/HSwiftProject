@@ -1,5 +1,5 @@
 //
-//  HLiveRoomCell+HSection0.swift
+//  HUserLiveCell+HSection0.swift
 //  HSwiftProject
 //
 //  Created by Wind on 18/11/2021.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HLiveRoomTopHeaderView : UIView, HTupleViewDelegate {
+class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -210,7 +210,7 @@ class HLiveRoomTopHeaderView : UIView, HTupleViewDelegate {
     }
 }
 
-class HLiveRoomTopHonorView : UIView, HTupleViewDelegate {
+class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.tupleView.delegate = self
@@ -307,7 +307,7 @@ class HLiveRoomTopHonorView : UIView, HTupleViewDelegate {
     }
 }
 
-extension HLiveRoomCell {
+extension HUserLiveCell {
     @objc func tupleExa0_numberOfItemsInSection(_ section: Any) -> Any {
         return 4
     }
@@ -348,18 +348,18 @@ extension HLiveRoomCell {
         switch (indexPath.row) {
             case 0:
                 let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-                var topHeaderView = cell.viewWithTag(123456) as? HLiveRoomTopHeaderView
+                var topHeaderView = cell.viewWithTag(123456) as? HUserLiveTopHeaderView
                 if (topHeaderView == nil) {
-                    topHeaderView = HLiveRoomTopHeaderView.init(frame: cell.bounds)
+                    topHeaderView = HUserLiveTopHeaderView.init(frame: cell.bounds)
                     topHeaderView!.tag = 123456
                     cell.addSubview(topHeaderView!)
                 }
                 break;
             case 1:
                 let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-                var topHonorView = cell.viewWithTag(234567) as? HLiveRoomTopHonorView
+                var topHonorView = cell.viewWithTag(234567) as? HUserLiveTopHonorView
                 if (topHonorView == nil) {
-                    topHonorView = HLiveRoomTopHonorView.init(frame: cell.bounds)
+                    topHonorView = HUserLiveTopHonorView.init(frame: cell.bounds)
                     topHonorView!.tag = 234567
                     cell.addSubview(topHonorView!)
                 }
@@ -404,7 +404,7 @@ extension HLiveRoomCell {
                 cell.buttonView.textColor = UIColor.black
                 cell.buttonView.textAlignment = .left
                 cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
-//                    [[self viewController] presentController:HLiveRoomNoteVC.new completion:^(HTransitionType transitionType) {
+//                    [[self viewController] presentController:HUserLiveNoteVC.new completion:^(HTransitionType transitionType) {
 //                        NSLog(@"");
 //                    }];
                 }

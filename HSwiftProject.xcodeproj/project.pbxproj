@@ -63,13 +63,7 @@
 		A22948BC2397990B0058B939 /* HRegisterController+KS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948BB2397990B0058B939 /* HRegisterController+KS.swift */; };
 		A22948BE239799190058B939 /* HRegisterController+SJ.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948BD239799190058B939 /* HRegisterController+SJ.swift */; };
 		A22948C02397992A0058B939 /* HServiceAuthorizationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948BF2397992A0058B939 /* HServiceAuthorizationCell.swift */; };
-		A2418C7F2744F15E005C8125 /* live_bg_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A2418C682744F15E005C8125 /* live_bg_icon.png */; };
-		A2418C892744F1B3005C8125 /* HLiveRoomVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2418C882744F1B3005C8125 /* HLiveRoomVC.swift */; };
-		A2418C8B27450843005C8125 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2418C8A27450843005C8125 /* HLRDefine.swift */; };
-		A2418C8D27450E88005C8125 /* HLRDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2418C8C27450E88005C8125 /* HLRDManager.swift */; };
 		A2418C8F2745172A005C8125 /* NSDictionary+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2418C8E2745172A005C8125 /* NSDictionary+HUtil.swift */; };
-		A2418CA2274658CB005C8125 /* HLiveRoomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2418CA1274658CB005C8125 /* HLiveRoomCell.swift */; };
-		A2418CA62747679A005C8125 /* HLiveRoomCell+HSection0.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2418CA52747679A005C8125 /* HLiveRoomCell+HSection0.swift */; };
 		A250DF1023FFC05C009F5E47 /* HTupleViewBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A250DF0F23FFC05C009F5E47 /* HTupleViewBannerCell.swift */; };
 		A250DF1223FFC2AB009F5E47 /* HTupleViewBannerApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A250DF1123FFC2AB009F5E47 /* HTupleViewBannerApex.swift */; };
 		A258395623B4E34600881941 /* di_zhuce@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A258395423B4E34600881941 /* di_zhuce@2x.png */; };
@@ -150,8 +144,6 @@
 		A2A7A94723FE3B5E0090EFD3 /* HPageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A7A94623FE3B5E0090EFD3 /* HPageControl.swift */; };
 		A2A7A94923FE8A400090EFD3 /* HCycleScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A7A94823FE8A400090EFD3 /* HCycleScrollView.swift */; };
 		A2A7A94B23FE8A5A0090EFD3 /* HCyclePlaceholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A2A7A94A23FE8A5A0090EFD3 /* HCyclePlaceholder@2x.png */; };
-		A2A8148D2748EFB900FAB929 /* HLiveRoomCell+HSection1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A8148C2748EFB900FAB929 /* HLiveRoomCell+HSection1.swift */; };
-		A2A8148F2749139600FAB929 /* HLiveRoomCell+HSection2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A8148E2749139600FAB929 /* HLiveRoomCell+HSection2.swift */; };
 		A2A814AE274C05BB00FAB929 /* HAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814AD274C05BB00FAB929 /* HAlertController.swift */; };
 		A2A814B0274C07E300FAB929 /* UIViewController+HTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814AF274C07E300FAB929 /* UIViewController+HTransition.swift */; };
 		A2A814B2274C081B00FAB929 /* HTransitionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814B1274C081B00FAB929 /* HTransitionHeader.swift */; };
@@ -166,9 +158,7 @@
 		A2A814D12750037C00FAB929 /* HUserDefaults+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814CE2750037C00FAB929 /* HUserDefaults+Extern.swift */; };
 		A2A814D22750037C00FAB929 /* HUserDefaults+Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814CF2750037C00FAB929 /* HUserDefaults+Property.swift */; };
 		A2A814D32750037C00FAB929 /* HUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814D02750037C00FAB929 /* HUserDefaults.swift */; };
-		A2A814D5275004A900FAB929 /* HLiveRoomNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814D4275004A900FAB929 /* HLiveRoomNoteVC.swift */; };
 		A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814D6275007EB00FAB929 /* NSString+HSize.swift */; };
-		A2A814DA27501DB700FAB929 /* HLiveRoomShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814D927501DB700FAB929 /* HLiveRoomShareVC.swift */; };
 		A2AC8D0023B0FCF400FD8DB7 /* HKeyChainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC8CFF23B0FCF300FD8DB7 /* HKeyChainStore.swift */; };
 		A2B42FCC237CED5A00795605 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B42FCB237CED5A00795605 /* AppDelegate.swift */; };
 		A2B42FCE237CED5A00795605 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B42FCD237CED5A00795605 /* SceneDelegate.swift */; };
@@ -213,6 +203,16 @@
 		A2B4308F2382CC8A00795605 /* UIDevice+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B4308E2382CC8A00795605 /* UIDevice+HUtil.swift */; };
 		A2CC441123B360AE00DB095F /* HTupleRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CC441023B360AE00DB095F /* HTupleRefresh.swift */; };
 		A2CC441323B3691D00DB095F /* HTableRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CC441223B3691D00DB095F /* HTableRefresh.swift */; };
+		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
+		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
+		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
+		EBC8140429AA48C000A81431 /* HUserLiveCell+HSection2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F629AA48C000A81431 /* HUserLiveCell+HSection2.swift */; };
+		EBC8140529AA48C000A81431 /* live_bg_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = EBC813F829AA48C000A81431 /* live_bg_icon.png */; };
+		EBC8140629AA48C000A81431 /* HUserLiveVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F929AA48C000A81431 /* HUserLiveVC.swift */; };
+		EBC8140729AA48C000A81431 /* HUserLiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813FA29AA48C000A81431 /* HUserLiveCell.swift */; };
+		EBC8140829AA48C000A81431 /* HLRDManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813FC29AA48C000A81431 /* HLRDManager.swift */; };
+		EBC8140929AA48C000A81431 /* HUserLiveCell+HSection1.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813FE29AA48C000A81431 /* HUserLiveCell+HSection1.swift */; };
+		EBC8140A29AA48C000A81431 /* HUserLiveCell+HSection0.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8140029AA48C000A81431 /* HUserLiveCell+HSection0.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -275,13 +275,7 @@
 		A22948BB2397990B0058B939 /* HRegisterController+KS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HRegisterController+KS.swift"; sourceTree = "<group>"; };
 		A22948BD239799190058B939 /* HRegisterController+SJ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HRegisterController+SJ.swift"; sourceTree = "<group>"; };
 		A22948BF2397992A0058B939 /* HServiceAuthorizationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HServiceAuthorizationCell.swift; sourceTree = "<group>"; };
-		A2418C682744F15E005C8125 /* live_bg_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = live_bg_icon.png; sourceTree = "<group>"; };
-		A2418C882744F1B3005C8125 /* HLiveRoomVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLiveRoomVC.swift; sourceTree = "<group>"; };
-		A2418C8A27450843005C8125 /* HLRDefine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
-		A2418C8C27450E88005C8125 /* HLRDManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLRDManager.swift; sourceTree = "<group>"; };
 		A2418C8E2745172A005C8125 /* NSDictionary+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDictionary+HUtil.swift"; sourceTree = "<group>"; };
-		A2418CA1274658CB005C8125 /* HLiveRoomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLiveRoomCell.swift; sourceTree = "<group>"; };
-		A2418CA52747679A005C8125 /* HLiveRoomCell+HSection0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HLiveRoomCell+HSection0.swift"; sourceTree = "<group>"; };
 		A250DF0F23FFC05C009F5E47 /* HTupleViewBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewBannerCell.swift; sourceTree = "<group>"; };
 		A250DF1123FFC2AB009F5E47 /* HTupleViewBannerApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewBannerApex.swift; sourceTree = "<group>"; };
 		A258395423B4E34600881941 /* di_zhuce@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "di_zhuce@2x.png"; sourceTree = "<group>"; };
@@ -362,8 +356,6 @@
 		A2A7A94623FE3B5E0090EFD3 /* HPageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPageControl.swift; sourceTree = "<group>"; };
 		A2A7A94823FE8A400090EFD3 /* HCycleScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCycleScrollView.swift; sourceTree = "<group>"; };
 		A2A7A94A23FE8A5A0090EFD3 /* HCyclePlaceholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HCyclePlaceholder@2x.png"; sourceTree = "<group>"; };
-		A2A8148C2748EFB900FAB929 /* HLiveRoomCell+HSection1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HLiveRoomCell+HSection1.swift"; sourceTree = "<group>"; };
-		A2A8148E2749139600FAB929 /* HLiveRoomCell+HSection2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HLiveRoomCell+HSection2.swift"; sourceTree = "<group>"; };
 		A2A814AD274C05BB00FAB929 /* HAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertController.swift; sourceTree = "<group>"; };
 		A2A814AF274C07E300FAB929 /* UIViewController+HTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+HTransition.swift"; sourceTree = "<group>"; };
 		A2A814B1274C081B00FAB929 /* HTransitionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTransitionHeader.swift; sourceTree = "<group>"; };
@@ -378,9 +370,7 @@
 		A2A814CE2750037C00FAB929 /* HUserDefaults+Extern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HUserDefaults+Extern.swift"; sourceTree = "<group>"; };
 		A2A814CF2750037C00FAB929 /* HUserDefaults+Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HUserDefaults+Property.swift"; sourceTree = "<group>"; };
 		A2A814D02750037C00FAB929 /* HUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserDefaults.swift; sourceTree = "<group>"; };
-		A2A814D4275004A900FAB929 /* HLiveRoomNoteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLiveRoomNoteVC.swift; sourceTree = "<group>"; };
 		A2A814D6275007EB00FAB929 /* NSString+HSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+HSize.swift"; sourceTree = "<group>"; };
-		A2A814D927501DB700FAB929 /* HLiveRoomShareVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLiveRoomShareVC.swift; sourceTree = "<group>"; };
 		A2AC8CFF23B0FCF300FD8DB7 /* HKeyChainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKeyChainStore.swift; sourceTree = "<group>"; };
 		A2B42FC8237CED5A00795605 /* HSwiftProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HSwiftProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B42FCB237CED5A00795605 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -428,6 +418,16 @@
 		A2CC441023B360AE00DB095F /* HTupleRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleRefresh.swift; sourceTree = "<group>"; };
 		A2CC441223B3691D00DB095F /* HTableRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableRefresh.swift; sourceTree = "<group>"; };
 		D6FA5573A6AEBBEE3FA9646A /* Pods-HSwiftProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSwiftProject.debug.xcconfig"; path = "Target Support Files/Pods-HSwiftProject/Pods-HSwiftProject.debug.xcconfig"; sourceTree = "<group>"; };
+		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
+		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
+		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
+		EBC813F629AA48C000A81431 /* HUserLiveCell+HSection2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HUserLiveCell+HSection2.swift"; sourceTree = "<group>"; };
+		EBC813F829AA48C000A81431 /* live_bg_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = live_bg_icon.png; sourceTree = "<group>"; };
+		EBC813F929AA48C000A81431 /* HUserLiveVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveVC.swift; sourceTree = "<group>"; };
+		EBC813FA29AA48C000A81431 /* HUserLiveCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveCell.swift; sourceTree = "<group>"; };
+		EBC813FC29AA48C000A81431 /* HLRDManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDManager.swift; sourceTree = "<group>"; };
+		EBC813FE29AA48C000A81431 /* HUserLiveCell+HSection1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HUserLiveCell+HSection1.swift"; sourceTree = "<group>"; };
+		EBC8140029AA48C000A81431 /* HUserLiveCell+HSection0.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HUserLiveCell+HSection0.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -589,66 +589,10 @@
 		A2418C662744F15E005C8125 /* HLive */ = {
 			isa = PBXGroup;
 			children = (
-				A2418C672744F15E005C8125 /* HLiveRoomAssets */,
-				A2418CA1274658CB005C8125 /* HLiveRoomCell.swift */,
-				A2418C6B2744F15E005C8125 /* HLiveRoomCell+HSection0 */,
-				A2418C742744F15E005C8125 /* HLiveRoomCell+HSection1 */,
-				A2418C7C2744F15E005C8125 /* HLiveRoomCell+HSection2 */,
-				A2418C6E2744F15E005C8125 /* HLiveRoomCommon */,
-				A2418C782744F15E005C8125 /* HLiveRoomData */,
-				A2418C882744F1B3005C8125 /* HLiveRoomVC.swift */,
+				EBC8140B29AA495C00A81431 /* HAnchorLive */,
+				EBC813F029AA48C000A81431 /* HUserLive */,
 			);
 			path = HLive;
-			sourceTree = "<group>";
-		};
-		A2418C672744F15E005C8125 /* HLiveRoomAssets */ = {
-			isa = PBXGroup;
-			children = (
-				A2418C682744F15E005C8125 /* live_bg_icon.png */,
-			);
-			path = HLiveRoomAssets;
-			sourceTree = "<group>";
-		};
-		A2418C6B2744F15E005C8125 /* HLiveRoomCell+HSection0 */ = {
-			isa = PBXGroup;
-			children = (
-				A2418CA52747679A005C8125 /* HLiveRoomCell+HSection0.swift */,
-			);
-			path = "HLiveRoomCell+HSection0";
-			sourceTree = "<group>";
-		};
-		A2418C6E2744F15E005C8125 /* HLiveRoomCommon */ = {
-			isa = PBXGroup;
-			children = (
-				A2A814D4275004A900FAB929 /* HLiveRoomNoteVC.swift */,
-				A2A814D927501DB700FAB929 /* HLiveRoomShareVC.swift */,
-				A2418C8A27450843005C8125 /* HLRDefine.swift */,
-			);
-			path = HLiveRoomCommon;
-			sourceTree = "<group>";
-		};
-		A2418C742744F15E005C8125 /* HLiveRoomCell+HSection1 */ = {
-			isa = PBXGroup;
-			children = (
-				A2A8148C2748EFB900FAB929 /* HLiveRoomCell+HSection1.swift */,
-			);
-			path = "HLiveRoomCell+HSection1";
-			sourceTree = "<group>";
-		};
-		A2418C782744F15E005C8125 /* HLiveRoomData */ = {
-			isa = PBXGroup;
-			children = (
-				A2418C8C27450E88005C8125 /* HLRDManager.swift */,
-			);
-			path = HLiveRoomData;
-			sourceTree = "<group>";
-		};
-		A2418C7C2744F15E005C8125 /* HLiveRoomCell+HSection2 */ = {
-			isa = PBXGroup;
-			children = (
-				A2A8148E2749139600FAB929 /* HLiveRoomCell+HSection2.swift */,
-			);
-			path = "HLiveRoomCell+HSection2";
 			sourceTree = "<group>";
 		};
 		A265D9F92390B8D7001F39B0 /* YPTabBarController */ = {
@@ -1083,6 +1027,78 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		EBC813F029AA48C000A81431 /* HUserLive */ = {
+			isa = PBXGroup;
+			children = (
+				EBC813FA29AA48C000A81431 /* HUserLiveCell.swift */,
+				EBC813F929AA48C000A81431 /* HUserLiveVC.swift */,
+				EBC813F729AA48C000A81431 /* HUserLiveAssets */,
+				EBC813FF29AA48C000A81431 /* HUserLiveCell+HSection0 */,
+				EBC813FD29AA48C000A81431 /* HUserLiveCell+HSection1 */,
+				EBC813F529AA48C000A81431 /* HUserLiveCell+HSection2 */,
+				EBC813F129AA48C000A81431 /* HUserLiveCommon */,
+				EBC813FB29AA48C000A81431 /* HUserLiveData */,
+			);
+			path = HUserLive;
+			sourceTree = "<group>";
+		};
+		EBC813F129AA48C000A81431 /* HUserLiveCommon */ = {
+			isa = PBXGroup;
+			children = (
+				EBC813F229AA48C000A81431 /* HLRDefine.swift */,
+				EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */,
+				EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */,
+			);
+			path = HUserLiveCommon;
+			sourceTree = "<group>";
+		};
+		EBC813F529AA48C000A81431 /* HUserLiveCell+HSection2 */ = {
+			isa = PBXGroup;
+			children = (
+				EBC813F629AA48C000A81431 /* HUserLiveCell+HSection2.swift */,
+			);
+			path = "HUserLiveCell+HSection2";
+			sourceTree = "<group>";
+		};
+		EBC813F729AA48C000A81431 /* HUserLiveAssets */ = {
+			isa = PBXGroup;
+			children = (
+				EBC813F829AA48C000A81431 /* live_bg_icon.png */,
+			);
+			path = HUserLiveAssets;
+			sourceTree = "<group>";
+		};
+		EBC813FB29AA48C000A81431 /* HUserLiveData */ = {
+			isa = PBXGroup;
+			children = (
+				EBC813FC29AA48C000A81431 /* HLRDManager.swift */,
+			);
+			path = HUserLiveData;
+			sourceTree = "<group>";
+		};
+		EBC813FD29AA48C000A81431 /* HUserLiveCell+HSection1 */ = {
+			isa = PBXGroup;
+			children = (
+				EBC813FE29AA48C000A81431 /* HUserLiveCell+HSection1.swift */,
+			);
+			path = "HUserLiveCell+HSection1";
+			sourceTree = "<group>";
+		};
+		EBC813FF29AA48C000A81431 /* HUserLiveCell+HSection0 */ = {
+			isa = PBXGroup;
+			children = (
+				EBC8140029AA48C000A81431 /* HUserLiveCell+HSection0.swift */,
+			);
+			path = "HUserLiveCell+HSection0";
+			sourceTree = "<group>";
+		};
+		EBC8140B29AA495C00A81431 /* HAnchorLive */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HAnchorLive;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1190,7 +1206,7 @@
 				A2A7A94323FE3B500090EFD3 /* HCyclePageControlCurrentDot@3x.png in Resources */,
 				A218878D238F7131005C20BF /* loading_new_2@2x.png in Resources */,
 				A2B42FD3237CED5A00795605 /* Main.storyboard in Resources */,
-				A2418C7F2744F15E005C8125 /* live_bg_icon.png in Resources */,
+				EBC8140529AA48C000A81431 /* live_bg_icon.png in Resources */,
 				A2B42FF0237CFFAB00795605 /* di_index_h@2x.png in Resources */,
 				A2A7A94223FE3B500090EFD3 /* HCyclePageControlCurrentDot@2x.png in Resources */,
 				A2188782238F7131005C20BF /* icon_load_nothing@2x.png in Resources */,
@@ -1259,6 +1275,7 @@
 				A26D43172383DE5800F457AE /* UIColor+HUtil.swift in Sources */,
 				A2B4308B2382598F00795605 /* UIButton+HFilletLayer.swift in Sources */,
 				A28DF9B823FF748A0065418F /* UIView+HExtension.swift in Sources */,
+				EBC8140A29AA48C000A81431 /* HUserLiveCell+HSection0.swift in Sources */,
 				A2B42FD0237CED5A00795605 /* ViewController.swift in Sources */,
 				A2A814D12750037C00FAB929 /* HUserDefaults+Extern.swift in Sources */,
 				A22948BC2397990B0058B939 /* HRegisterController+KS.swift in Sources */,
@@ -1274,12 +1291,12 @@
 				A28923A7238B72F800E4AB75 /* HTupleView.swift in Sources */,
 				A2294893239756A10058B939 /* HTableViewCell.swift in Sources */,
 				A26D431F238425BD00F457AE /* CGRect.swift in Sources */,
+				EBC8140729AA48C000A81431 /* HUserLiveCell.swift in Sources */,
 				A28923A2238B72F800E4AB75 /* HTupleBaseApex.swift in Sources */,
 				A265D9FD23910309001F39B0 /* HTabBar.swift in Sources */,
 				A250DF1023FFC05C009F5E47 /* HTupleViewBannerCell.swift in Sources */,
 				A28923AB238B733500E4AB75 /* HTupleViewCell.swift in Sources */,
 				A2188799238FD3E0005C20BF /* HGameCategoryVC+HSection2.swift in Sources */,
-				A2418CA62747679A005C8125 /* HLiveRoomCell+HSection0.swift in Sources */,
 				A2A7A93523FE2CBF0090EFD3 /* HTupleViewMarqueeApex.swift in Sources */,
 				A26D43292385665700F457AE /* NSUserDefaults+HUtil.swift in Sources */,
 				A258395923B4E70F00881941 /* HTableController.swift in Sources */,
@@ -1305,11 +1322,12 @@
 				A2B43078237FF2B100795605 /* NSObject+HExclusive.swift in Sources */,
 				A2B43079237FF2B100795605 /* HCenterViewController.swift in Sources */,
 				A265D9FF239250F6001F39B0 /* HTabContentView.swift in Sources */,
-				A2418C8D27450E88005C8125 /* HLRDManager.swift in Sources */,
 				A22948BE239799190058B939 /* HRegisterController+SJ.swift in Sources */,
 				A28923A4238B72F800E4AB75 /* HGeometry.swift in Sources */,
+				EBC8140629AA48C000A81431 /* HUserLiveVC.swift in Sources */,
 				A2A814BE274D6C3000FAB929 /* HPushAnimation.swift in Sources */,
 				A2A814C0274E030100FAB929 /* HSheetController.swift in Sources */,
+				EBC8140829AA48C000A81431 /* HLRDManager.swift in Sources */,
 				A22948A72397980A0058B939 /* HMainController2.swift in Sources */,
 				A2CC441323B3691D00DB095F /* HTableRefresh.swift in Sources */,
 				A28923A3238B72F800E4AB75 /* HTupleBaseCell.swift in Sources */,
@@ -1321,23 +1339,23 @@
 				A2A814B6274CC23C00FAB929 /* HTransitionAnimation.swift in Sources */,
 				A2A7A93923FE2E150090EFD3 /* HAbstractDotView.swift in Sources */,
 				A26D43392386C0A000F457AE /* UINavigationController+HUtil.swift in Sources */,
-				A2A8148D2748EFB900FAB929 /* HLiveRoomCell+HSection1.swift in Sources */,
 				A26D43352386BA5800F457AE /* UIAlertController+HError.swift in Sources */,
 				A2B4308523823B9000795605 /* HCommonBlock.swift in Sources */,
 				A2A814C5274F56C400FAB929 /* UIView+HUtil.swift in Sources */,
 				A28C314923EBB4D80050CDA1 /* HVerifyCodeView.swift in Sources */,
 				A28923A8238B72F800E4AB75 /* HCollectionViewFlowLayout.swift in Sources */,
+				EBC8140429AA48C000A81431 /* HUserLiveCell+HSection2.swift in Sources */,
 				A2B43071237FF2B100795605 /* Swifty.m in Sources */,
 				A22948AB2397986C0058B939 /* HMainController3+HSection0.swift in Sources */,
 				A28A022623EE55EB000556A2 /* HTextLoopView.swift in Sources */,
 				A2B43073237FF2B100795605 /* HCommonDefine.swift in Sources */,
 				A2B42FCC237CED5A00795605 /* AppDelegate.swift in Sources */,
+				EBC8140929AA48C000A81431 /* HUserLiveCell+HSection1.swift in Sources */,
 				A2B4307C237FF2B100795605 /* HGameCategoryVC.swift in Sources */,
 				A26D43412386CD9000F457AE /* NSTimer+HSafeUtil.swift in Sources */,
 				A2A814B2274C081B00FAB929 /* HTransitionHeader.swift in Sources */,
 				A28A022823EE62D6000556A2 /* HTupleViewTextLoopCell.swift in Sources */,
 				A28B652123FD215500B6B638 /* HNetworkDAO.swift in Sources */,
-				A2418CA2274658CB005C8125 /* HLiveRoomCell.swift in Sources */,
 				A26D432B23856F8900F457AE /* NSTimer+HUtil.swift in Sources */,
 				A265DA052394B6F7001F39B0 /* UIScrollView+HTab.swift in Sources */,
 				A2B42FCE237CED5A00795605 /* SceneDelegate.swift in Sources */,
@@ -1348,10 +1366,10 @@
 				A26D43192383E23300F457AE /* NSString+HUtil.swift in Sources */,
 				A22948A5239798000058B939 /* HMainController1.swift in Sources */,
 				A2A814D32750037C00FAB929 /* HUserDefaults.swift in Sources */,
-				A2A814DA27501DB700FAB929 /* HLiveRoomShareVC.swift in Sources */,
 				A2188797238FD3D6005C20BF /* HGameCategoryVC+HSection1.swift in Sources */,
 				A2A7A93B23FE36440090EFD3 /* HAnimatedDotView.swift in Sources */,
 				A26D434923879FB900F457AE /* Router.swift in Sources */,
+				EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */,
 				A28923C5238CDE8400E4AB75 /* HTupleController.swift in Sources */,
 				A265DA012392A2B3001F39B0 /* UIViewController+HTab.swift in Sources */,
 				A2B43076237FF2B100795605 /* UIWindow+HPrinter.swift in Sources */,
@@ -1362,7 +1380,6 @@
 				A229489923975BA80058B939 /* HTupleViewApexVertValue1.swift in Sources */,
 				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue1.swift in Sources */,
 				A265D9FB2390B8EB001F39B0 /* HTabItem.swift in Sources */,
-				A2A8148F2749139600FAB929 /* HLiveRoomCell+HSection2.swift in Sources */,
 				A28DF9BA23FF77350065418F /* HCollectionViewCell.swift in Sources */,
 				A26D433F2386CA0A00F457AE /* NSObject+HSwizzleUtil.swift in Sources */,
 				A218879C238FF891005C20BF /* HUserStore.swift in Sources */,
@@ -1373,12 +1390,10 @@
 				A28923B2238BCB5000E4AB75 /* HTupleViewCellHoriValue1.swift in Sources */,
 				A2B43089238248EB00795605 /* UIImageView+HFilletLayer.swift in Sources */,
 				A26D432F23868AFE00F457AE /* UIViewController+HDisappear.swift in Sources */,
-				A2418C892744F1B3005C8125 /* HLiveRoomVC.swift in Sources */,
 				A21887A823900832005C20BF /* HKeychainSwift.swift in Sources */,
 				A22948B8239798EC0058B939 /* HLoginController.swift in Sources */,
 				A28A022A23EE65B7000556A2 /* HTupleViewTextLoopApex.swift in Sources */,
 				A28923A5238B72F800E4AB75 /* HTupleSignal.swift in Sources */,
-				A2418C8B27450843005C8125 /* HLRDefine.swift in Sources */,
 				A22948A92397985B0058B939 /* HMainController3.swift in Sources */,
 				A2B43077237FF2B100795605 /* NSObject+HUtil.swift in Sources */,
 				A2A7A93323FE29470090EFD3 /* HTupleViewMarqueeCell.swift in Sources */,
@@ -1389,14 +1404,15 @@
 				A2B4307A237FF2B100795605 /* HMenuViewController.swift in Sources */,
 				A21887A723900832005C20BF /* HKeychainSwiftAccessOptions.swift in Sources */,
 				A2A814B8274CCA7200FAB929 /* HPresentAnimation.swift in Sources */,
+				EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */,
 				A22948B5239798AF0058B939 /* HMainController6.swift in Sources */,
 				A2A7A94723FE3B5E0090EFD3 /* HPageControl.swift in Sources */,
 				A2A7A93D23FE3A790090EFD3 /* HDotView.swift in Sources */,
 				A2B43075237FF2B100795605 /* HPrinterManager.swift in Sources */,
 				A22948A323975FB10058B939 /* HTableViewApexHoriValue1.swift in Sources */,
 				A2A7A94923FE8A400090EFD3 /* HCycleScrollView.swift in Sources */,
+				EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */,
 				A28923A6238B72F800E4AB75 /* NSIndexPath+HUtil.swift in Sources */,
-				A2A814D5275004A900FAB929 /* HLiveRoomNoteVC.swift in Sources */,
 				A28923AE238B750000E4AB75 /* HTextField.swift in Sources */,
 				A2418C8F2745172A005C8125 /* NSDictionary+HUtil.swift in Sources */,
 				A26D431D2384177900F457AE /* UIScreen+HUtil.swift in Sources */,
