@@ -734,7 +734,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             return self.dequeueReusableCellWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
         }
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: itemBlock, with: indexPath, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
         }
         //调用cell
         let cell = self.allReuseCells.object(forKey: indexPath.stringValue as NSString) as! HTupleBaseCell
@@ -755,7 +755,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 return self.dequeueReusableHeaderWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
             }
             if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-                self.tupleDelegate!.performWithUnretainedValue(selector, with: headerBlock, with: indexPath.section, withPre: prefix)
+                self.tupleDelegate!.perform(selector, with: headerBlock, with: indexPath.section, withPre: prefix)
             }
             //调用cell
             cell = self.allReuseHeaders.object(forKey: indexPath.stringValue as NSString) as? HTupleBaseApex
@@ -767,7 +767,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 return self.dequeueReusableFooterWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
             }
             if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-                self.tupleDelegate!.performWithUnretainedValue(selector, with: footerBlock, with: indexPath.section, withPre: prefix)
+                self.tupleDelegate!.perform(selector, with: footerBlock, with: indexPath.section, withPre: prefix)
             }
             //调用cell
             cell = self.allReuseFooters.object(forKey: indexPath.stringValue as NSString) as? HTupleBaseApex
@@ -783,7 +783,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.prefixWithSection(indexPath.section)
         let selector = #selector(self.tupleDelegate!.willDisplayCell(_:atIndexPath:))
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: cell, with: indexPath, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: cell, with: indexPath, withPre: prefix)
         }
     }
 
@@ -795,7 +795,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             let prefix = self.prefixWithSection(indexPath.section)
             let selector = #selector(self.tupleDelegate!.didSelectItemAtIndexPath(_:))
             if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-                self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix)
+                self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
             }
         }
     }
@@ -813,7 +813,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.tuplePrefix()
         let selector = #selector(self.tupleDelegate!.moveItemAtIndexPath(_:toIndexPath:))
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: sourceIndexPath, with: destinationIndexPath, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: sourceIndexPath, with: destinationIndexPath, withPre: prefix)
         }
     }
     
@@ -848,14 +848,14 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.prefixWithSection(indexPath.section)
         let selector = #selector(self.tupleDelegate!.didHighlightItemAtIndexPath(_:))
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
         }
     }
     internal func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         let prefix = self.prefixWithSection(indexPath.section)
         let selector = #selector(self.tupleDelegate!.didUnhighlightItemAtIndexPath(_:))
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
         }
     }
     internal func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
@@ -878,7 +878,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.prefixWithSection(indexPath.section)
         let selector = #selector(self.tupleDelegate!.didDeselectItemAtIndexPath(_:))
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
         }
     }
 
@@ -893,7 +893,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.prefixWithSection(indexPath.section)
         let selector = #selector(self.tupleDelegate!.didEndDisplayingCell(_:forItemAtIndexPath:))
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: cell, with: indexPath, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: cell, with: indexPath, withPre: prefix)
         }
     }
     internal func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
@@ -958,7 +958,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.tuplePrefix()
         let selector = #selector(self.tupleDelegate!.didUpdateFocusInContext(_:withAnimationCoordinator:))
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: context, with: coordinator, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: context, with: coordinator, withPre: prefix)
         }
     }
     internal func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
@@ -1010,7 +1010,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.prefixWithSection(indexPath.section)
         let selector = #selector(self.tupleDelegate!.didBeginMultipleSelectionInteractionAtIndexPath(_:))
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
         }
     }
 
@@ -1018,7 +1018,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.tuplePrefix()
         let selector = #selector(self.tupleDelegate!.collectionViewDidEndMultipleSelectionInteraction)
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, withPre: prefix)
+            self.tupleDelegate!.perform(selector, withPre: prefix)
         }
     }
 
@@ -1057,7 +1057,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.tuplePrefix()
         let selector = #selector(self.tupleDelegate!.willPerformPreviewActionForMenuWithConfiguration(_:animator:))
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: configuration, with: animator, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: configuration, with: animator, withPre: prefix)
         }
     }
 
@@ -1066,14 +1066,14 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.tupleScrollSplitPrefix()
         let selector = NSSelectorFromString("tupleScrollViewDidScroll:")
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: scrollView, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
         }
     }
     internal func scrollViewDidZoom(_ scrollView: UIScrollView) {
         let prefix = self.tupleScrollSplitPrefix()
         let selector = NSSelectorFromString("tupleScrollViewDidZoom:")
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: scrollView, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
         }
     }
 
@@ -1081,7 +1081,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.tupleScrollSplitPrefix()
         let selector = NSSelectorFromString("tupleScrollViewWillBeginDragging:")
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: scrollView, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
         }
     }
 
@@ -1090,7 +1090,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         //let selector = NSSelectorFromString("tupleScrollViewWillEndDragging:withVelocity:targetContentOffset:")
         let selector = NSSelectorFromString("tupleScrollViewWillEndDragging:targetContentOffset:")
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: velocity, with: targetContentOffset, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: velocity, with: targetContentOffset, withPre: prefix)
         }
     }
 
@@ -1098,7 +1098,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.tupleScrollSplitPrefix()
         let selector = NSSelectorFromString("tupleScrollViewDidEndDragging:willDecelerate:")
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: scrollView, with: decelerate, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: scrollView, with: decelerate, withPre: prefix)
         }
     }
 
@@ -1106,14 +1106,14 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.tupleScrollSplitPrefix()
         let selector = NSSelectorFromString("tupleScrollViewWillBeginDecelerating:")
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: scrollView, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
         }
     }
     internal func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let prefix = self.tupleScrollSplitPrefix()
         let selector = NSSelectorFromString("tupleScrollViewDidEndDecelerating:")
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: scrollView, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
         }
     }
 
@@ -1121,7 +1121,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.tupleScrollSplitPrefix()
         let selector = NSSelectorFromString("tupleScrollViewDidEndScrollingAnimation:")
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: scrollView, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
         }
     }
 
@@ -1137,14 +1137,14 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.tupleScrollSplitPrefix()
         let selector = NSSelectorFromString("tupleScrollViewWillBeginZooming:withView:")
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: scrollView, with: view, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: scrollView, with: view, withPre: prefix)
         }
     }
     internal func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         let prefix = self.tupleScrollSplitPrefix()
         let selector = NSSelectorFromString("tupleScrollViewDidEndZooming:atScale:")
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: view, with: scale, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: view, with: scale, withPre: prefix)
         }
     }
 
@@ -1160,7 +1160,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.tupleScrollSplitPrefix()
         let selector = NSSelectorFromString("tupleScrollViewDidScrollToTop:")
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: scrollView, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
         }
     }
 
@@ -1168,7 +1168,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.tupleScrollSplitPrefix()
         let selector = NSSelectorFromString("tupleScrollViewDidChangeAdjustedContentInset:")
         if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.performWithUnretainedValue(selector, with: scrollView, withPre: prefix)
+            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
         }
     }
     

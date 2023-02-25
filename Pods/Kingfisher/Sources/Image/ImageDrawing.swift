@@ -277,7 +277,7 @@ extension KingfisherWrapper where Base: KFCrossPlatformImage {
         
         let w = Int(size.width)
         let h = Int(size.height)
-        _ = Int(CGFloat(cgImage.bytesPerRow))
+        let rowBytes = Int(CGFloat(cgImage.bytesPerRow))
         
         func createEffectBuffer(_ context: CGContext) -> vImage_Buffer {
             let data = context.data

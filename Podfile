@@ -9,8 +9,8 @@ target 'HSwiftProject' do
 
   pod 'SwiftyLoad'
   pod 'SwizzleSwift'
-  pod 'Alamofire'
-  pod 'Kingfisher'
-  pod 'MJRefresh'
+  pod 'Alamofire',’~> 4.9.1’
+  pod 'Kingfisher',’~> 5.9.0’
+  pod 'MJRefresh',’~> 3.3.1’
 
 end

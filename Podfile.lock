@@ -8,9 +8,9 @@ PODS:
   - SwizzleSwift (1.0)
 
 DEPENDENCIES:
-  - Alamofire
-  - Kingfisher
-  - MJRefresh
+  - Alamofire (~> 4.9.1)
+  - Kingfisher (~> 5.9.0)
+  - MJRefresh (~> 3.3.1)
   - SwiftyLoad
   - SwizzleSwift
 
@@ -29,6 +29,6 @@ SPEC CHECKSUMS:
   SwiftyLoad: 8e529992e2ce9b84d56f583201117a55a526891b
   SwizzleSwift: 875aa0d66cd42caa361ab1ecbca663250d725907
 
-PODFILE CHECKSUM: c68e409d507fba55dcdfe6c7f62b681cf3d811df
+PODFILE CHECKSUM: 211e880dada1a81c26f083133b24407141315316
 
-COCOAPODS: 1.8.1
+COCOAPODS: 1.11.3

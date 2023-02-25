@@ -107,6 +107,7 @@ class HMainController1: HTupleController {
                     let cell = target as! HTupleViewCellHoriValue4
                     NSLog("选中%d",cell.label)
                 }
+                break;
             case 1:
                 let cell = itemBlock(nil, HTupleViewCellHoriValue4.self, nil, true) as! HTupleViewCellHoriValue4
                 cell.backgroundColor = UIColor.gray
@@ -125,6 +126,7 @@ class HMainController1: HTupleController {
                     let cell = target as! HTupleViewCellHoriValue4
                     NSLog("选中%d",cell.label)
                 }
+                break;
             case 2:
                 let cell = itemBlock(nil, HTupleViewCellHoriValue4.self, nil, true) as! HTupleViewCellHoriValue4
                 cell.backgroundColor = UIColor.gray
@@ -142,6 +144,7 @@ class HMainController1: HTupleController {
                 cell.label.backgroundColor = UIColor.red
 
                 cell.detailLabel.backgroundColor = UIColor.yellow
+                break;
             case 3:
                 let cell = itemBlock(nil, HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
                 cell.backgroundColor = UIColor.gray
@@ -155,6 +158,7 @@ class HMainController1: HTupleController {
                 cell.labelHeight = 25
                 cell.label.textAlignment = .center
                 cell.label.text = "黑客帝国"
+                break;
             case 4:
                 let cell = itemBlock(nil, HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
                 cell.backgroundColor = UIColor.gray
@@ -167,6 +171,7 @@ class HMainController1: HTupleController {
                 cell.labelHeight = 25
                 cell.label.textAlignment = .center
                 cell.label.text = "黑客帝国"
+                break;
             case 5:
                 let cell = itemBlock(nil, HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
                 cell.backgroundColor = UIColor.gray
@@ -187,6 +192,7 @@ class HMainController1: HTupleController {
                     let navi = HNavigationController.init(rootViewController: HLiveRoomVC.init())
                     UIApplication.navi?.present(navi, animated: true, completion: nil)
                 }
+                break;
             case 6:
                 let cell = itemBlock(nil, HTupleViewCellHoriValue3.self, nil, true) as! HTupleViewCellHoriValue3
                 cell.backgroundColor = UIColor.gray
@@ -206,6 +212,7 @@ class HMainController1: HTupleController {
                 cell.accessoryLabel.backgroundColor = UIColor.yellow
                 cell.accessoryLabel.text = "accessoryLabel"
                 cell.accessoryLabel.textAlignment = .center
+                break;
             case 7:
                 let cell = itemBlock(nil, HTupleTextFieldCell.self, nil, true) as! HTupleTextFieldCell
                 cell.backgroundColor = UIColor.gray
@@ -244,7 +251,7 @@ class HMainController1: HTupleController {
 //                cell.textField.rightVerifyCodeView.textSize = 20
 //                cell.textField.rightVerifyCodeView.textColor = UIColor.black
 //                cell.textField.rightVerifyCodeView.charsArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
-            
+                break;
             default: break
         }
     }
