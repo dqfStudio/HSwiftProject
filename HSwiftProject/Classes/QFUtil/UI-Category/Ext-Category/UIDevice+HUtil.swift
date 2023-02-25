@@ -19,11 +19,14 @@ extension UIDevice {
                 if mainWindow.safeAreaInsets.top > 20.0 {
                     iPhoneXSeries = true
                 }
+                if !iPhoneXSeries && UIApplication.shared.statusBarFrame.size.height >= 44 {
+                    iPhoneXSeries = true
+                }
             }
         }
         return iPhoneXSeries
     }()
-
+    
     static var statusBarHeight: CGFloat {
         var height: CGFloat = 0.0
         if UIApplication.statusBarOrientation()?.isPortrait ?? true {

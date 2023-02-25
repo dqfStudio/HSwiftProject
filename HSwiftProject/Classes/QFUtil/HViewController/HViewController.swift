@@ -159,7 +159,7 @@ class HViewController: UIViewController {
         if (type == .pop || type == .dismiss) {
             //tupleView default tag 1213141516
             let tupleView = self.view.viewWithTag(1213141516)
-            if tupleView?.isKind(of: NSClassFromString("HTupleView")!) ?? false {
+            if tupleView?.isKind(of: NSClassFromString("HTupleView") ?? UIView.self) ?? false {
                 let selector = NSSelectorFromString("releaseTupleBlock")
                 if tupleView?.responds(to: selector) ?? false {
                     tupleView?.perform(selector)
@@ -167,7 +167,7 @@ class HViewController: UIViewController {
             }
             //tableView default tag 1615141312
             let tableView = self.view.viewWithTag(1615141312)
-            if tableView?.isKind(of: NSClassFromString("HTableView")!) ?? false {
+            if tableView?.isKind(of: NSClassFromString("HTableView") ?? UIView.self) ?? false {
                 let selector = NSSelectorFromString("releaseTableBlock")
                 if tableView?.responds(to: selector) ?? false {
                     tableView?.perform(selector)
