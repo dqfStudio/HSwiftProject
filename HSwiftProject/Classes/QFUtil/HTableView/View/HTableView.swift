@@ -579,7 +579,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             return self.dequeueReusableCellWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
         }
         if self.tableDelegate!.responds(to: selector, withPre: prefix) {
-            self.tableDelegate!.performWithUnretainedValue(selector, with: itemBlock, with: indexPath, withPre: prefix)
+            self.tableDelegate!.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
         }
         //调用cell
         let cell = self.allReuseCells.object(forKey: indexPath.stringValue as NSString) as! HTableBaseCell
@@ -598,7 +598,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             return self.dequeueReusableHeaderWithClass(cls, iblk: iblk, pre: pre, idx: idx, section: section)
         }
         if self.tableDelegate!.responds(to: selector, withPre: prefix) {
-            self.tableDelegate!.performWithUnretainedValue(selector, with: headerBlock, with: section, withPre: prefix)
+            self.tableDelegate!.perform(selector, with: headerBlock, with: section, withPre: prefix)
         }
         //更新布局
         let cell = self.allReuseHeaders.object(forKey: "\(section)" as NSString) as? HTableBaseApex
@@ -615,7 +615,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             return self.dequeueReusableFooterWithClass(cls, iblk: iblk, pre: pre, idx: idx, section: section)
         }
         if self.tableDelegate!.responds(to: selector, withPre: prefix) {
-            self.tableDelegate!.performWithUnretainedValue(selector, with: footerBlock, with: section, withPre: prefix)
+            self.tableDelegate!.perform(selector, with: footerBlock, with: section, withPre: prefix)
         }
         //更新布局
         let cell = self.allReuseFooters.object(forKey: "\(section)" as NSString) as? HTableBaseApex
@@ -629,7 +629,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         let prefix = self.prefixWithSection(indexPath.section)
         let selector = #selector(self.tableDelegate!.willDisplayCell(_:atIndexPath:))
         if self.tableDelegate!.responds(to: selector, withPre: prefix) {
-            self.tableDelegate!.performWithUnretainedValue(selector, with: cell, with: indexPath, withPre: prefix)
+            self.tableDelegate!.perform(selector, with: cell, with: indexPath, withPre: prefix)
         }
     }
 
@@ -641,7 +641,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         let prefix = self.prefixWithSection(indexPath.section)
         let selector = #selector(self.tableDelegate!.didSelectRowAtIndexPath(_:))
         if self.tableDelegate!.responds(to: selector, withPre: prefix) {
-            self.tableDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix)
+            self.tableDelegate!.perform(selector, with: indexPath, withPre: prefix)
         }
     }
     
