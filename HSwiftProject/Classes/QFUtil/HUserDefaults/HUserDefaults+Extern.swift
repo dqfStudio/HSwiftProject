@@ -1,12 +1,12 @@
 //
-//  extern.swift
-//  go
+//  Extern.swift
+//  HUserDefaults
 //
-//  Created by Jz D on 2021/4/7.
+//  Created by wind on 2019/3/24.
+//  Copyright © 2019 wind. All rights reserved.
 //
 
 import Foundation
-
 
 // Extensions must not contain stored properties
 
