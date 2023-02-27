@@ -233,7 +233,7 @@ class HMainController1: HTupleController {
 //                cell.textField.rightButton.backgroundColor = UIColor.green
 //                cell.textField.rightButton.pressed = { (sender: AnyObject, data: AnyObject) in
 //
-//                } as? callback
+//                } as? Callback
                 //短信验证码
                 cell.textField.rightCountDownButton.text = "获取验证码";
                 cell.textField.rightCountDownButton.backgroundColor = UIColor.green

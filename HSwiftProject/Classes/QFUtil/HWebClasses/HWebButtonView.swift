@@ -39,9 +39,9 @@ class HWebButtonView: UIButton {
     }
     var placeHoderImage: UIImage?
     
-    var pressed: callback?
-    var didGetImage: callback?
-    var didGetError: callback?
+    var pressed: Callback?
+    var didGetImage: Callback?
+    var didGetError: Callback?
     
     required init() {
         super.init(frame: CGRect(x: 0, y: 0, width: 200, height: 200))

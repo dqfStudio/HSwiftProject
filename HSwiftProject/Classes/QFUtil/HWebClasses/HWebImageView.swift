@@ -35,7 +35,7 @@ class HWebImageView: UIImageView {
     }
     var placeHoderImage: UIImage?
     
-    var pressed: callback? {
+    var pressed: Callback? {
         didSet {
             self.pressed = oldValue
             if self.pressed != nil {
@@ -48,8 +48,8 @@ class HWebImageView: UIImageView {
             }
         }
     }
-    var didGetImage: callback?
-    var didGetError: callback?
+    var didGetImage: Callback?
+    var didGetError: Callback?
     
     required init() {
         super.init(frame: CGRect(x: 0, y: 0, width: 200, height: 200))

@@ -236,6 +236,9 @@
 		EBC8147529AA541F00A81431 /* HSendVideoVC+HStatus4.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147429AA541F00A81431 /* HSendVideoVC+HStatus4.swift */; };
 		EBC8147729AA542500A81431 /* HSendVideoVC+HStatus5.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147629AA542500A81431 /* HSendVideoVC+HStatus5.swift */; };
 		EBC8147929AA543300A81431 /* HSendVideoVC+HStatus6.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147829AA543300A81431 /* HSendVideoVC+HStatus6.swift */; };
+		EBC8147C29AC53A500A81431 /* HNumberFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147A29AC53A500A81431 /* HNumberFormatter.m */; };
+		EBC8147E29AC53AE00A81431 /* HNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147D29AC53AE00A81431 /* HNumberFormatter.swift */; };
+		EBC8148129AC5BAF00A81431 /* HUserRegion.m in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147F29AC5BAF00A81431 /* HUserRegion.m */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -474,6 +477,11 @@
 		EBC8147429AA541F00A81431 /* HSendVideoVC+HStatus4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HSendVideoVC+HStatus4.swift"; sourceTree = "<group>"; };
 		EBC8147629AA542500A81431 /* HSendVideoVC+HStatus5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HSendVideoVC+HStatus5.swift"; sourceTree = "<group>"; };
 		EBC8147829AA543300A81431 /* HSendVideoVC+HStatus6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HSendVideoVC+HStatus6.swift"; sourceTree = "<group>"; };
+		EBC8147A29AC53A500A81431 /* HNumberFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNumberFormatter.m; sourceTree = "<group>"; };
+		EBC8147B29AC53A500A81431 /* HNumberFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNumberFormatter.h; sourceTree = "<group>"; };
+		EBC8147D29AC53AE00A81431 /* HNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNumberFormatter.swift; sourceTree = "<group>"; };
+		EBC8147F29AC5BAF00A81431 /* HUserRegion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUserRegion.m; sourceTree = "<group>"; };
+		EBC8148029AC5BAF00A81431 /* HUserRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUserRegion.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -999,6 +1007,11 @@
 				A26D43282385665700F457AE /* NSUserDefaults+HUtil.swift */,
 				A26D432A23856F8900F457AE /* NSTimer+HUtil.swift */,
 				A26D433E2386CA0900F457AE /* NSObject+HSwizzleUtil.swift */,
+				EBC8147B29AC53A500A81431 /* HNumberFormatter.h */,
+				EBC8147A29AC53A500A81431 /* HNumberFormatter.m */,
+				EBC8148029AC5BAF00A81431 /* HUserRegion.h */,
+				EBC8147F29AC5BAF00A81431 /* HUserRegion.m */,
+				EBC8147D29AC53AE00A81431 /* HNumberFormatter.swift */,
 			);
 			path = "Ext-Category";
 			sourceTree = "<group>";
@@ -1402,6 +1415,7 @@
 				A250DF1023FFC05C009F5E47 /* HTupleViewBannerCell.swift in Sources */,
 				A28923AB238B733500E4AB75 /* HTupleViewCell.swift in Sources */,
 				A2188799238FD3E0005C20BF /* HGameCategoryVC+HSection2.swift in Sources */,
+				EBC8148129AC5BAF00A81431 /* HUserRegion.m in Sources */,
 				A2A7A93523FE2CBF0090EFD3 /* HTupleViewMarqueeApex.swift in Sources */,
 				A26D43292385665700F457AE /* NSUserDefaults+HUtil.swift in Sources */,
 				A258395923B4E70F00881941 /* HTableController.swift in Sources */,
@@ -1420,6 +1434,7 @@
 				A22948B3239798A30058B939 /* HMainController5.swift in Sources */,
 				A2A814BA274CCC1800FAB929 /* HPresentationController.swift in Sources */,
 				A2B4308F2382CC8A00795605 /* UIDevice+HUtil.swift in Sources */,
+				EBC8147C29AC53A500A81431 /* HNumberFormatter.m in Sources */,
 				A229488E239756770058B939 /* HTableBaseApex.swift in Sources */,
 				A22948B1239798960058B939 /* HMainController4.swift in Sources */,
 				A2AC8D0023B0FCF400FD8DB7 /* HKeyChainStore.swift in Sources */,
@@ -1525,6 +1540,7 @@
 				A229488F239756770058B939 /* HTableSignal.swift in Sources */,
 				A2B4307A237FF2B100795605 /* HMenuViewController.swift in Sources */,
 				A21887A723900832005C20BF /* HKeychainSwiftAccessOptions.swift in Sources */,
+				EBC8147E29AC53AE00A81431 /* HNumberFormatter.swift in Sources */,
 				A2A814B8274CCA7200FAB929 /* HPresentAnimation.swift in Sources */,
 				EBC8145D29AA53B500A81431 /* HSendAudioVC+HStatus3.swift in Sources */,
 				EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */,

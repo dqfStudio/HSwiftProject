@@ -34,14 +34,14 @@ extension NSDate {
         }
     }
 
-    static func time(callback: @escaping () -> ()) -> Void {
+    static func time(Callback: @escaping () -> ()) -> Void {
         let startDate: NSDate?
         if #available(iOS 13.0, *) {
             startDate = NSDate.now as NSDate
         } else {
             startDate = NSDate()
         }
-        callback()
+        Callback()
         NSLog("time: %f", -startDate!.timeIntervalSinceNow)
     }
     
