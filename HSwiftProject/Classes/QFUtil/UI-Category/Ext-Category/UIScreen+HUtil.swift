@@ -42,6 +42,9 @@ extension UIScreen {
                 if (mainWindow.safeAreaInsets.bottom > 0.0) {
                     iPhoneXSeries = true
                 }
+                if !iPhoneXSeries && UIApplication.shared.statusBarFrame.size.height >= 44 {
+                    iPhoneXSeries = true
+                }
             }
         }
         return iPhoneXSeries
