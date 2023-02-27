@@ -16,10 +16,10 @@ typealias Callback = (_ sender: Any?, _ data: Any?) -> Void
 
 typealias Callback2 = (_ sender: Any?, _ data: Any?, _ data2: Any?) -> Void
 
-typealias Simple_callback = (_ sender: Any?) -> Void
+typealias SimpleCallback = (_ sender: Any?) -> Void
 
-typealias Fail_callback = (_ sender: Any?, _ error: Error) -> Void
+typealias FailCallback = (_ sender: Any?, _ error: Error) -> Void
 
-typealias Returnback = (_ sender: Any?, _ data: Any?) -> Any?
+typealias ReturnBack = (_ sender: Any?, _ data: Any?) -> Any?
 
-typealias Finish_callback = (_ sender: Any?, _ data: Any?, _ error: Error) -> Void
+typealias FinishCallback = (_ sender: Any?, _ data: Any?, _ error: Error) -> Void
