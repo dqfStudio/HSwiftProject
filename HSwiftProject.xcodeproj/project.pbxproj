@@ -644,13 +644,13 @@
 		A265D9F92390B8D7001F39B0 /* YPTabBarController */ = {
 			isa = PBXGroup;
 			children = (
-				A265D9FA2390B8EB001F39B0 /* HTabItem.swift */,
 				A265D9FC23910309001F39B0 /* HTabBar.swift */,
-				A265DA042394B6F7001F39B0 /* UIScrollView+HTab.swift */,
 				A265DA062394BF12001F39B0 /* HTabBar+HSubView.swift */,
-				A265D9FE239250F6001F39B0 /* HTabContentView.swift */,
-				A265DA002392A2B3001F39B0 /* UIViewController+HTab.swift */,
 				A265DA022394B24C001F39B0 /* HTabBarController.swift */,
+				A265D9FE239250F6001F39B0 /* HTabContentView.swift */,
+				A265D9FA2390B8EB001F39B0 /* HTabItem.swift */,
+				A265DA042394B6F7001F39B0 /* UIScrollView+HTab.swift */,
+				A265DA002392A2B3001F39B0 /* UIViewController+HTab.swift */,
 			);
 			path = YPTabBarController;
 			sourceTree = "<group>";
