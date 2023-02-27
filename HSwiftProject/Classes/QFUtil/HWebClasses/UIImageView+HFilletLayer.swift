@@ -60,7 +60,7 @@ extension UIImageView {
 //        }
 //    }
     
-    open var h_image: UIImage? {
+    public var h_image: UIImage? {
         get {
             return self.image
         }
@@ -86,7 +86,7 @@ extension UIImageView {
         }
     }
     
-    open func addFilletLayer() -> Void {
+    public func addFilletLayer() -> Void {
         if self.image != nil {
             let width: CGFloat = self.frame.width
             let height: CGFloat = self.frame.height
