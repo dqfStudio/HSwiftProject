@@ -15,12 +15,12 @@ class HTupleViewTextLoopApex: HTupleBaseApex {
     private var _contentArr: NSArray?
     var contentArr: NSArray? {
         get {
-            return _contentArr;
+            return _contentArr
         }
         set {
             if _contentArr != newValue {
                 _contentArr = nil
-                _contentArr = newValue;
+                _contentArr = newValue
                 if _contentArr!.count > 0 {
                     self.layoutView.addSubview(self.textLoopView)
                 }

@@ -13,8 +13,8 @@ class HPresentationController : UIPresentationController {
     private var _contentCoverView: UIView?
     var contentCoverView: UIView {
         if (_contentCoverView == nil) {
-            _contentCoverView = UIView.init(frame: self.containerView?.bounds ?? CGRectZero)
-            let tap = UITapGestureRecognizer.init(target: self, action: #selector(dismissAction))
+            _contentCoverView = UIView(frame: self.containerView?.bounds ?? CGRect.zero)
+            let tap = UITapGestureRecognizer(target: self, action: #selector(dismissAction))
             _contentCoverView!.addGestureRecognizer(tap)
         }
         return _contentCoverView!
@@ -28,7 +28,7 @@ class HPresentationController : UIPresentationController {
         set {
             _shadowColor = newValue
             if (_shadowColor == nil) {
-                _shadowColor = UIColor.init(white: 0.1, alpha: 0.2)
+                _shadowColor = UIColor(white: 0.1, alpha: 0.2)
             }
             _contentCoverView?.backgroundColor = _shadowColor
         }
@@ -44,7 +44,7 @@ class HPresentationController : UIPresentationController {
         }
     }
     //内容层大小
-    private var _contentSize: CGSize = CGSizeZero
+    private var _contentSize: CGSize = CGSize.zero
     @objc var contentSize: CGSize {
         get {
             return _contentSize
@@ -69,7 +69,7 @@ class HPresentationController : UIPresentationController {
     override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
         super.init(presentedViewController: presentedViewController, presenting: presentingViewController)
         // 在自定义动画效果的情况下，苹果强烈建议设置为 UIModalPresentationCustom自定义
-        presentedViewController.modalPresentationStyle = .custom;
+        presentedViewController.modalPresentationStyle = .custom
     }
 
     // 呈现过渡即将开始的时候被调用的
@@ -88,7 +88,7 @@ class HPresentationController : UIPresentationController {
 
     // 在呈现过渡结束时被调用的，并且该方法提供一个布尔变量来判断过渡效果是否完成
     override func presentationTransitionDidEnd(_ completed: Bool) {
-        //NSLog(@"过渡结束");
+        //NSLog(@"过渡结束")
     }
 
     // 消失过渡即将开始的时候被调用的
@@ -110,30 +110,30 @@ class HPresentationController : UIPresentationController {
     override func containerViewWillLayoutSubviews() {
         super.containerViewWillLayoutSubviews()
         self.presentedView?.frame = self.frameOfPresentedViewInContainerView
-        self.contentCoverView.frame = self.containerView?.bounds ?? CGRectZero
+        self.contentCoverView.frame = self.containerView?.bounds ?? CGRect.zero
     }
 
     override var frameOfPresentedViewInContainerView: CGRect {
-        var makeRect = CGRectZero;
+        var makeRect = CGRect.zero
         if (self.presentType == HTransitionStyle.alert) {
-            makeRect = CGRectMake(self.containerView!.center.x - self.contentSize.width * 0.5,
-                                  self.containerView!.center.y - self.contentSize.height * 0.5,
-                                  self.contentSize.width,
-                                  self.contentSize.height);
+            makeRect = CGRect(x: self.containerView!.center.x - self.contentSize.width * 0.5,
+                              y: self.containerView!.center.y - self.contentSize.height * 0.5,
+                              width: self.contentSize.width,
+                              height: self.contentSize.height)
             
         }else if (self.presentType == HTransitionStyle.sheet) {
-            if (self.contentSize.equalTo(CGSizeZero)) {
+            if (self.contentSize.equalTo(CGSize.zero)) {
                 self.contentSize = self.containerView!.size
             }
             if (self.contentSize.width == 0 && self.contentSize.height > 0) {
-                self.contentSize = CGSizeMake(self.containerView!.bounds.width, self.contentSize.height);
+                self.contentSize = CGSize(width: self.containerView!.bounds.width, height: self.contentSize.height)
             }
-            makeRect = CGRectMake(self.containerView!.bounds.size.width - self.contentSize.width,
-                                  self.containerView!.bounds.size.height - self.contentSize.height,
-                                  self.contentSize.width,
-                                  self.contentSize.height);
+            makeRect = CGRect(x: self.containerView!.bounds.size.width - self.contentSize.width,
+                                  y: self.containerView!.bounds.size.height - self.contentSize.height,
+                                  width: self.contentSize.width,
+                                  height: self.contentSize.height)
         }
-        return makeRect;
+        return makeRect
     }
 
     override var shouldPresentInFullscreen: Bool {
@@ -144,7 +144,8 @@ class HPresentationController : UIPresentationController {
         return false
     }
 
-    @objc private func dismissAction() {
+    @objc
+    private func dismissAction() {
         if (self.isShadowDismiss) {
             self.presentedViewController.dismiss(animated: true, completion: nil)
         }

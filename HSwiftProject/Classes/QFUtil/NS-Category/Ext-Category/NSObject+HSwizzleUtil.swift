@@ -8,11 +8,11 @@
 
 import UIKit
 
-func HSwizzleClassMethod(_ cls: AnyClass, _ origSEL: Selector, _ overrideSEL: Selector) -> Void {
+func HSwizzleClassMethod(_ cls: AnyClass, _ origSEL: Selector, _ overrideSEL: Selector) {
     let originalMethod: Method = class_getClassMethod(cls, origSEL)!
     let swizzledMethod: Method = class_getClassMethod(cls, overrideSEL)!
     
-    let metacls: AnyClass  = objc_getMetaClass(NSStringFromClass(cls).cString(using: .utf8)!) as! AnyClass
+    let metacls: AnyClass = objc_getMetaClass(NSStringFromClass(cls).cString(using: .utf8)!) as! AnyClass
     if (class_addMethod(metacls,
                         origSEL,
                         method_getImplementation(swizzledMethod),
@@ -35,7 +35,7 @@ func HSwizzleClassMethod(_ cls: AnyClass, _ origSEL: Selector, _ overrideSEL: Se
     }
 }
 
-func HSwizzleInstanceMethod(_ cls: AnyClass, _ origSEL: Selector, _ overrideSEL: Selector) -> Void {
+func HSwizzleInstanceMethod(_ cls: AnyClass, _ origSEL: Selector, _ overrideSEL: Selector) {
     /* if current class not exist selector, then get super*/
     let originalMethod: Method = class_getClassMethod(cls, origSEL)!
     let swizzledMethod: Method = class_getClassMethod(cls, overrideSEL)!
@@ -64,14 +64,14 @@ func HSwizzleInstanceMethod(_ cls: AnyClass, _ origSEL: Selector, _ overrideSEL:
     }
 }
 
-func HSwizzleClassMethodNames(_ classNames: NSArray, _ origSEL: Selector, _ overrideSEL: Selector) -> Void {
+func HSwizzleClassMethodNames(_ classNames: NSArray, _ origSEL: Selector, _ overrideSEL: Selector) {
     if classNames.count == 0 { return }
     for className in classNames {
         HSwizzleClassMethod(NSClassFromString(className as! String)!, origSEL, overrideSEL)
     }
 }
 
-func HSwizzleInstanceMethodNames(_ classNames: NSArray, _ origSEL: Selector, _ overrideSEL: Selector) -> Void {
+func HSwizzleInstanceMethodNames(_ classNames: NSArray, _ origSEL: Selector, _ overrideSEL: Selector) {
     if classNames.count == 0 { return }
     for className in classNames {
         HSwizzleClassMethod(NSClassFromString(className as! String)!, origSEL, overrideSEL)
@@ -79,10 +79,10 @@ func HSwizzleInstanceMethodNames(_ classNames: NSArray, _ origSEL: Selector, _ o
 }
 
 extension NSObject {
-    static func methodSwizzleWithOrigSEL(_ origSEL: Selector, _ overrideSEL: Selector) -> Void {
+    static func methodSwizzleWithOrigSEL(_ origSEL: Selector, _ overrideSEL: Selector) {
         HSwizzleInstanceMethod(self.classForCoder(), origSEL, overrideSEL)
     }
-    static func classMethodSwizzleWithOrigSEL(_ origSEL: Selector, _ overrideSEL: Selector) -> Void {
+    static func classMethodSwizzleWithOrigSEL(_ origSEL: Selector, _ overrideSEL: Selector) {
         HSwizzleClassMethod(self.classForCoder(), origSEL, overrideSEL)
     }
 }

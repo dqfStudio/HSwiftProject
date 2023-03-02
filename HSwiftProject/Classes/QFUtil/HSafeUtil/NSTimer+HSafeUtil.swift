@@ -20,13 +20,14 @@ extension Timer {
                                    repeats: repeats)
     }
 
-    @objc private static func safe_blockInvoke(_ timer: Timer) -> Void {
+    @objc
+    private static func safe_blockInvoke(_ timer: Timer) {
         let block: HBlockInvoke = timer.userInfo as! HBlockInvoke
         block(timer)
     }
 
     ///恢复
-    func safe_resume() -> Void {
+    func safe_resume() {
         if self.isValid == false { return }
         if #available(iOS 13.0, *) {
             self.fireDate = NSDate.now
@@ -36,7 +37,7 @@ extension Timer {
     }
     
     ///暂停
-    func safe_pause() -> Void {
+    func safe_pause() {
         if self.isValid == false { return }
         self.fireDate = NSDate.distantFuture
     }

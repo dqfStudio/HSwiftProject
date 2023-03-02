@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let HCollectionViewSectionColor = "com.dqf.HCollectionElementKindSectionColor"
+private var HCollectionViewSectionColor = "com.dqf.HCollectionElementKindSectionColor"
 
 private class HCollectionViewLayoutAttributes : UICollectionViewLayoutAttributes {
     var backgroundColor: UIColor? //背景色
@@ -49,12 +49,12 @@ class HCollectionViewFlowLayout : UICollectionViewFlowLayout {
             let numberOfItems: Int = (self.collectionView?.numberOfItems(inSection: section))!
             if numberOfItems > 0 {
                 let firstAttr: UICollectionViewLayoutAttributes = self.layoutAttributesForItem(at: IndexPath(row: 0, section: section))!
-                let lastAttr: UICollectionViewLayoutAttributes = self.layoutAttributesForItem(at: IndexPath(row: numberOfItems-1, section: section))!
+                let lastAttr: UICollectionViewLayoutAttributes = self.layoutAttributesForItem(at: IndexPath(row: numberOfItems - 1, section: section))!
 
                 var sectionInset = self.sectionInset
                 if delegate.responds(to: selector) {
                     let inset: UIEdgeInsets = delegate.collectionView!(self.collectionView!, layout: self, insetForSectionAt: section)
-                    if inset !=  sectionInset {
+                    if inset != sectionInset {
                         sectionInset = inset
                     }
                 }
@@ -72,7 +72,7 @@ class HCollectionViewFlowLayout : UICollectionViewFlowLayout {
                 }
 
                 //2. 定义
-                let attr: HCollectionViewLayoutAttributes = HCollectionViewLayoutAttributes.init(forDecorationViewOfKind: HCollectionViewSectionColor, with: IndexPath(row: 0, section: section))
+                let attr: HCollectionViewLayoutAttributes = HCollectionViewLayoutAttributes(forDecorationViewOfKind: HCollectionViewSectionColor, with: IndexPath(row: 0, section: section))
                 attr.frame = sectionFrame
                 attr.zIndex = -1
                 attr.backgroundColor = delegate.collectionView(self.collectionView!, layout: self, colorForSectionAt: section)

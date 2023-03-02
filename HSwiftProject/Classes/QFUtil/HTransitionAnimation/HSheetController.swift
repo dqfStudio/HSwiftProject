@@ -15,9 +15,9 @@ class HSheetController : HViewController, HTupleViewDelegate {
     private var visualView: UIVisualEffectView? {
         get {
             if (_visualView == nil) {
-                let blur = UIBlurEffect.init(style: .extraLight)
-                _visualView = UIVisualEffectView.init(effect: blur)
-                var frame = CGRectZero
+                let blur = UIBlurEffect(style: .extraLight)
+                _visualView = UIVisualEffectView(effect: blur)
+                var frame = CGRect.zero
                 frame.size = self.containerSize
                 _visualView!.frame = frame
             }
@@ -31,11 +31,11 @@ class HSheetController : HViewController, HTupleViewDelegate {
     private var tupleView: HTupleView {
         get {
             if (_tupleView == nil) {
-                var frame = CGRectZero
+                var frame = CGRect.zero
                 frame.size = self.containerSize
-                _tupleView = HTupleView.init(frame: frame)
+                _tupleView = HTupleView(frame: frame)
                 _tupleView!.backgroundColor = UIColor.clear
-                _tupleView!.layer.cornerRadius = 3.0;//默认为3.f
+                _tupleView!.layer.cornerRadius = 3.0//默认为3.f
                 _tupleView!.bounceDisenable()
             }
             return _tupleView!
@@ -46,7 +46,7 @@ class HSheetController : HViewController, HTupleViewDelegate {
     }
 
     override var containerSize: CGSize {
-        return CGSizeZero
+        return CGSize.zero
     }
 
     override var presetType: HTransitionStyle {
@@ -72,7 +72,7 @@ class HSheetController : HViewController, HTupleViewDelegate {
         super.viewDidLayoutSubviews()
         if (!self.hideVisualView) {
             for subview in self.visualView!.subviews {
-                subview.layer.cornerRadius = self.tupleView.layer.cornerRadius;
+                subview.layer.cornerRadius = self.tupleView.layer.cornerRadius
             }
         }
     }
@@ -92,18 +92,18 @@ class HSheetController : HViewController, HTupleViewDelegate {
     }
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         switch (indexPath.row) {
-            case HCell0:
-                return CGSizeMake(self.tupleView.width, 40)
-            case HCell1:
-                return CGSizeMake(self.tupleView.width, 50)
-            case HCell2:
-                return CGSizeMake(self.tupleView.width, 50)
-            case HCell3:
-                return CGSizeMake(self.tupleView.width, 50)
-            default:
-                break;
+        case HCell0:
+            return CGSize(width: self.tupleView.width, height: 40)
+        case HCell1:
+            return CGSize(width: self.tupleView.width, height: 50)
+        case HCell2:
+            return CGSize(width: self.tupleView.width, height: 50)
+        case HCell3:
+            return CGSize(width: self.tupleView.width, height: 50)
+        default:
+            break
         }
-        return CGSizeZero;
+        return CGSize.zero
     }
     func edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         return UIEdgeInsetsZero
@@ -111,41 +111,41 @@ class HSheetController : HViewController, HTupleViewDelegate {
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         switch (indexPath.row) {
-            case HCell0:
-                let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-                cell.setBottomLineWithColor(UIColor.init(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
-                cell.label.font = UIFont.boldSystemFont(ofSize: 17)
-                cell.label.textAlignment = .center
-                cell.label.textColor = HColorHex("#0B0A0C")
-                cell.label.text = "过期提醒"
-                break;
-            case HCell1:
-                let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-                cell.setBottomLineWithColor(UIColor.init(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
-                cell.label.font = UIFont.systemFont(ofSize: 12)
-                cell.label.textAlignment = .center
-                cell.label.numberOfLines = 0
-                cell.label.textColor = HColorHex("#070507")
-                cell.label.text = "您的会员资格已不足3天，请及时充值!"
-                break;
-            case HCell2:
-                let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-                cell.setBottomLineWithColor(UIColor.init(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
-                cell.label.font = UIFont.systemFont(ofSize: 12)
-                cell.label.textAlignment = .center
-                cell.label.numberOfLines = 0
-                cell.label.textColor = HColorHex("#070507")
-                cell.label.text = "您的会员资格已不足3天，请及时充值!"
-                break;
-            case HCell3:
-                let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-                cell.label.font = UIFont.boldSystemFont(ofSize: 17)
-                cell.label.textAlignment = .center
-                cell.label.textColor = HColorHex("#3184DD")
-                cell.label.text = "确定"
-                break;
-            default:
-                break;
+        case HCell0:
+            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            cell.setBottomLineWithColor(UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
+            cell.label.font = UIFont.boldSystemFont(ofSize: 17)
+            cell.label.textAlignment = .center
+            cell.label.textColor = HColorHex("#0B0A0C")
+            cell.label.text = "过期提醒"
+            break
+        case HCell1:
+            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            cell.setBottomLineWithColor(UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
+            cell.label.font = UIFont.systemFont(ofSize: 12)
+            cell.label.textAlignment = .center
+            cell.label.numberOfLines = 0
+            cell.label.textColor = HColorHex("#070507")
+            cell.label.text = "您的会员资格已不足3天，请及时充值!"
+            break
+        case HCell2:
+            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            cell.setBottomLineWithColor(UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
+            cell.label.font = UIFont.systemFont(ofSize: 12)
+            cell.label.textAlignment = .center
+            cell.label.numberOfLines = 0
+            cell.label.textColor = HColorHex("#070507")
+            cell.label.text = "您的会员资格已不足3天，请及时充值!"
+            break
+        case HCell3:
+            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            cell.label.font = UIFont.boldSystemFont(ofSize: 17)
+            cell.label.textAlignment = .center
+            cell.label.textColor = HColorHex("#3184DD")
+            cell.label.text = "确定"
+            break
+        default:
+            break
         }
         
     }

@@ -10,33 +10,33 @@ import UIKit
 
 class HCServiceViewController: UIViewController {
     
-    typealias multipyClosure = (_ a: Int, _ b: Int) -> Int
+    typealias MultipyClosure = (_ a: Int, _ b: Int) -> Int
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.white;
+        self.view.backgroundColor = UIColor.white
         self.title = "客服"
         
-//        let multipyClosure2 = { //实现一个闭包
+//        let MultipyClosure2 = { //实现一个闭包
 //            (a:Int,b:Int) in
 //            a * b
 //        }
         
         
         
-//        multipyClosure    () -> ()    0x000000010235df8c HSwiftProject`closure #1 (Swift.Int, Swift.Int) -> Swift.Int in HSwiftProject.HCServiceViewController.viewDidLoad() -> () at HCServiceViewController.swift:19
-//        let count = handler(2, 3, operation: multipyClosure) //将闭包作为参数传递
-//        let count = self.handler(2, operation: multipyClosure)
-//        let count = self.handler(2, operation: multipyClosure2)
-////        self.perform(#selector(self.handler(_:operation:)), with: 2, with: multipyClosure2 )
-//        let unmanaged = self.perform(#selector(self.testSwift))?.takeUnretainedValue()  as! multipyClosure
+//        MultipyClosure    () -> ()    0x000000010235df8c HSwiftProject`closure #1 (Swift.Int, Swift.Int) -> Swift.Int in HSwiftProject.HCServiceViewController.viewDidLoad() -> () at HCServiceViewController.swift:19
+//        let count = handler(2, 3, operation: MultipyClosure) //将闭包作为参数传递
+//        let count = self.handler(2, operation: MultipyClosure)
+//        let count = self.handler(2, operation: MultipyClosure2)
+////        self.perform(#selector(self.handler(_:operation:)), with: 2, with: MultipyClosure2 )
+//        let unmanaged = self.perform(#selector(self.testSwift))?.takeUnretainedValue()  as! MultipyClosure
 ////        self.performWithUnretainedValue(#selector(self.testSwift), withPre: "pvc_")
-//        let ff: multipyClosure = self.performWithRetainedValue(#selector(self.testSwift), withPre: "") as! multipyClosure
+//        let ff: MultipyClosure = self.performWithRetainedValue(#selector(self.testSwift), withPre: "") as! MultipyClosure
 //        NSLog("\(count)")
 //
-////        Thread.detachNewThreadSelector(#selector(self.handler(operation:)), toTarget: self, with: multipyClosure2)
-//        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.handler(operation:)), userInfo: multipyClosure2, repeats: false)
+////        Thread.detachNewThreadSelector(#selector(self.handler(operation:)), toTarget: self, with: MultipyClosure2)
+//        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.handler(operation:)), userInfo: MultipyClosure2, repeats: false)
 //        NSLog("\(count)")
 //        Thread.detachNewThreadSelector(Selector("greetings:"), toTarget:self, withObject: "sunshine")
     }
@@ -51,34 +51,36 @@ class HCServiceViewController: UIViewController {
 //        return res
 //    }
     
-    @objc func testSwift() -> multipyClosure {
+    @objc
+    func testSwift() -> MultipyClosure {
         NSLog("")
-        let multipyClosure2 = { //实现一个闭包
-            (a:Int,b:Int) in
+        let MultipyClosure2 = { //实现一个闭包
+            (a:Int, b:Int) in
             a * b
         }
-        return multipyClosure2
+        return MultipyClosure2
     }
     
-    @objc func pvc_testSwift() -> Void {
+    @objc
+    func pvc_testSwift() {
         NSLog("")
     }
 
-    @objc func handler(_ a: Int, operation: @escaping multipyClosure) ->Int {
-        let res = operation(a,a)
+    @objc
+    func handler(_ a: Int, operation: @escaping MultipyClosure) -> Int {
+        let res = operation(a, a)
         return res
     }
     
-    @objc func handler(operation: @escaping multipyClosure) ->Int {
-        let res = operation(2,2)
+    @objc
+    func handler(operation: @escaping MultipyClosure) -> Int {
+        let res = operation(2, 2)
         return res
     }
     
-//    let multipyClosure = { //实现一个闭包
+//    let MultipyClosure = { //实现一个闭包
 //        (a:Int,b:Int) in
 //        a * b
 //    }
-
     
-
 }

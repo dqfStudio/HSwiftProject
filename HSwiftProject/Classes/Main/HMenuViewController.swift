@@ -27,35 +27,35 @@ class HMenuViewController: HTabBarController {
         
         let mainVC1 = HMainController1()
         mainVC1.h_tabItemTitle = "第一页"
-        mainVC1.h_tabItemImage = UIImage.init(named: "di_index")
-        mainVC1.h_tabItemSelectedImage = UIImage.init(named: "di_index_h")
+        mainVC1.h_tabItemImage = UIImage(named: "di_index")
+        mainVC1.h_tabItemSelectedImage = UIImage(named: "di_index_h")
         
         let mainVC2 = HMainController2()
         mainVC2.h_tabItemTitle = "第二页"
-        mainVC2.h_tabItemImage = UIImage.init(named: "di_index")
-        mainVC2.h_tabItemSelectedImage = UIImage.init(named: "di_index_h")
+        mainVC2.h_tabItemImage = UIImage(named: "di_index")
+        mainVC2.h_tabItemSelectedImage = UIImage(named: "di_index_h")
         
         let mainVC3 = HMainController3()
         mainVC3.h_tabItemTitle = "第三页"
-        mainVC3.h_tabItemImage = UIImage.init(named: "di_index")
-        mainVC3.h_tabItemSelectedImage = UIImage.init(named: "di_index_h")
+        mainVC3.h_tabItemImage = UIImage(named: "di_index")
+        mainVC3.h_tabItemSelectedImage = UIImage(named: "di_index_h")
         
         let mainVC4 = HMainController4()
         mainVC4.h_tabItemTitle = "第四页"
-        mainVC4.h_tabItemImage = UIImage.init(named: "di_index")
-        mainVC4.h_tabItemSelectedImage = UIImage.init(named: "di_index_h")
+        mainVC4.h_tabItemImage = UIImage(named: "di_index")
+        mainVC4.h_tabItemSelectedImage = UIImage(named: "di_index_h")
         
         let loginVC = HLoginController()
         loginVC.h_tabItemTitle = "登录"
-        loginVC.h_tabItemImage = UIImage.init(named: "di_index")
-        loginVC.h_tabItemSelectedImage = UIImage.init(named: "di_index_h")
+        loginVC.h_tabItemImage = UIImage(named: "di_index")
+        loginVC.h_tabItemSelectedImage = UIImage(named: "di_index_h")
         
         let registerVC = HRegisterController()
         registerVC.h_tabItemTitle = "注册"
-        registerVC.h_tabItemImage = UIImage.init(named: "di_index")
-        registerVC.h_tabItemSelectedImage = UIImage.init(named: "di_index_h")
+        registerVC.h_tabItemImage = UIImage(named: "di_index")
+        registerVC.h_tabItemSelectedImage = UIImage(named: "di_index_h")
         
-        self.viewControllers = NSMutableArray.init(objects: mainVC1, mainVC2, mainVC3, mainVC4, loginVC, registerVC)
+        self.viewControllers = NSMutableArray(objects: mainVC1, mainVC2, mainVC3, mainVC4, loginVC, registerVC)
     }
     
     func setupFrameOfTabBarAndContentView() {
@@ -84,8 +84,8 @@ class HMenuViewController: HTabBarController {
             }
         }
         
-        self.setTabBarFrame(CGRectMake(0, tabBarY, screenSize.width, kTabBarHeight),
-                            contentViewFrame: CGRectMake(0, contentViewY, screenSize.width, contentViewHeight))
+        self.setTabBarFrame(CGRect(x: 0, y: tabBarY, width: screenSize.width, height: kTabBarHeight),
+                            contentViewFrame: CGRect(x: 0, y: contentViewY, width: screenSize.width, height: contentViewHeight))
         
         self.tabBar.itemTitleColor = UIColor(hex: "#535353")
         self.tabBar.itemTitleSelectedColor = UIColor(hex: "#CFA359")
@@ -109,7 +109,7 @@ class HMenuViewController: HTabBarController {
         
         specialItem.setContentHorizontalCenterWithVerticalOffset(13, spacing: 10)
         // 设置其size，如果不设置，则默认为与其他item一样
-        specialItem.size = CGSizeMake(UIScreen.width/7, 80)
+        specialItem.size = CGSize(width: UIScreen.width / 7, height: 80)
         
         //@www
         self.tabBar.setSpecialItem(specialItem, afterItemWithIndex: 2) { (item) in
@@ -125,7 +125,7 @@ class HMenuViewController: HTabBarController {
 //
 //extension HMenuViewController {
 //
-//    objc class func swizzle() -> Void {
+//    objc class func swizzle() {
 //        Swizzle(HMenuViewController.self) {
 //            #selector(viewDidLoad) <-> #selector(myViewDidLoad)
 //            #selector(viewWillAppear(_:)) <-> #selector(myViewWillAppear(_:))

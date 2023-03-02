@@ -11,7 +11,7 @@ import UIKit
 class HPresentAnimation : HTransitionAnimation, UIViewControllerTransitioningDelegate {
 
     //转场视图尺寸大小
-    private var _contentSize: CGSize = CGSizeZero
+    private var _contentSize: CGSize = CGSize.zero
     @objc var contentSize: CGSize {
         get {
             return _contentSize
@@ -48,7 +48,7 @@ class HPresentAnimation : HTransitionAnimation, UIViewControllerTransitioningDel
     @objc var shadowColor: UIColor? {
         get {
             if (_shadowColor == nil) {
-                _shadowColor = UIColor.init(white: 0.1, alpha: 0.2)
+                _shadowColor = UIColor(white: 0.1, alpha: 0.2)
             }
             return _shadowColor
         }
@@ -108,10 +108,10 @@ class HPresentAnimation : HTransitionAnimation, UIViewControllerTransitioningDel
             transitionContext.containerView.addSubview(presentedView!)
         }
         //蒙层颜色
-        self.presentationVC?.shadowColor = self.shadowColor;
+        self.presentationVC?.shadowColor = self.shadowColor
         //设置阴影
 //        transitionContext.containerView.layer.shadowColor = self.coverColor.CGColor
-//        transitionContext.containerView.layer.shadowOffset = CGSizeMake(0, 5)
+//        transitionContext.containerView.layer.shadowOffset = CGSize(width: 0, height: 5)
 //        transitionContext.containerView.layer.shadowOpacity = 0.5
 //        transitionContext.containerView.layer.shadowRadius = 10.0
         
@@ -132,10 +132,10 @@ class HPresentAnimation : HTransitionAnimation, UIViewControllerTransitioningDel
         } else if (self.presetType == .sheet) {
             presentedView?.alpha = 0.0
             let screenHeight = UIScreen.main.bounds.height
-            presentedView?.frame = CGRectMake(0, screenHeight, self.contentSize.width, self.contentSize.height)
+            presentedView?.frame = CGRect(x: 0, y: screenHeight, width: self.contentSize.width, height: self.contentSize.height)
             UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut) {
                 presentedView?.alpha = 1.0
-                presentedView?.frame = CGRectMake(0, screenHeight-self.contentSize.height, self.contentSize.width, self.contentSize.height);
+                presentedView?.frame = CGRect(x: 0, y: screenHeight - self.contentSize.height, width: self.contentSize.width, height: self.contentSize.height)
             } completion: { finished in
                 if (finished) {
                     transitionContext.completeTransition(true)
@@ -173,12 +173,12 @@ class HPresentAnimation : HTransitionAnimation, UIViewControllerTransitioningDel
 extension HPresentAnimation {
     // UIViewControllerTransitioningDelegate
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        let presentationVC = HPresentationController.init(presentedViewController: presented, presenting: presenting)
+        let presentationVC = HPresentationController(presentedViewController: presented, presenting: presenting)
         presentationVC.presentType = self.presetType
         presentationVC.contentSize = self.contentSize
         presentationVC.isShadowDismiss = self.isShadowDismiss
         presentationVC.shadowColor = self.shadowColor
-        self.presentationVC = presentationVC;
+        self.presentationVC = presentationVC
         return presentationVC
     }
 }

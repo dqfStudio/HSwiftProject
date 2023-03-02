@@ -73,14 +73,16 @@ extension UIViewController {
      *
      *  @param isFirstTime  是否为第一次被选中
      */
-    @objc func h_tabItemDidSelected(_ isFirstTime: Bool) {
+    @objc
+    func h_tabItemDidSelected(_ isFirstTime: Bool) {
         
     }
 
     /**
      *  ViewController对应的Tab被Deselect后，执行此方法，此方法为回调方法
      */
-    @objc func h_tabItemDidDeselected() {
+    @objc
+    func h_tabItemDidDeselected() {
         
     }
 

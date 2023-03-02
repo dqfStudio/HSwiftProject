@@ -13,7 +13,7 @@ class HTableController: HViewController, HTableViewDelegate {
     private var _tableView: HTableView?
     var tableView: HTableView {
         if _tableView == nil {
-            _tableView = HTableView.init(frame: CGRectZero)
+            _tableView = HTableView(frame: CGRect.zero)
         }
         return _tableView!
     }
@@ -30,7 +30,7 @@ class HTableController: HViewController, HTableViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         if (UIDevice.isIPhoneX) {
-            extendedInset = UIEdgeInsetsMake(0, 0, UIDevice.bottomBarHeight, 0)
+            extendedInset = UIEdgeInsets(top: 0, left: 0, bottom: UIDevice.bottomBarHeight, right: 0)
         }
         self.view.addSubview(self.tableView)
     }

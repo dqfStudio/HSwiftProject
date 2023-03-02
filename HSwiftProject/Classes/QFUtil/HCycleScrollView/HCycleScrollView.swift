@@ -20,8 +20,8 @@ enum HCycleScrollViewPageContolStyle: Int {
     case None           // 不显示pagecontrol
 }
 
-private let kCycleScrollViewInitialPageControlDotSize = CGSizeMake(10, 10)
-private let KCycleID = "HCycleScrollViewCell"
+private let kCycleScrollViewInitialPageControlDotSize = CGSize(width: 10, height: 10)
+private var KCycleID = "HCycleScrollViewCell"
 
 typealias HClickItemOperationBlock = (_ currentIndex: Int) -> Void
 typealias HItemDidScrollOperationBlock = (_ currentIndex: Int) -> Void
@@ -29,10 +29,12 @@ typealias HItemDidScrollOperationBlock = (_ currentIndex: Int) -> Void
 @objc protocol HCycleScrollViewDelegate : NSObjectProtocol {
 
     /** 点击图片回调 */
-    @objc optional func cycleScrollView(_ cycleScrollView: HCycleScrollView, didSelectItemAtIndex index: Int)
+    @objc
+    optional func cycleScrollView(_ cycleScrollView: HCycleScrollView, didSelectItemAtIndex index: Int)
 
     /** 图片滚动回调 */
-    @objc optional func cycleScrollView(_ cycleScrollView: HCycleScrollView, didScrollToIndex index: Int)
+    @objc
+    optional func cycleScrollView(_ cycleScrollView: HCycleScrollView, didScrollToIndex index: Int)
 
 
     // 不需要自定义轮播cell的请忽略以下两个的代理方法
@@ -40,13 +42,16 @@ typealias HItemDidScrollOperationBlock = (_ currentIndex: Int) -> Void
     // ========== 轮播自定义cell ==========
 
     /** 如果你需要自定义cell样式，请在实现此代理方法返回你的自定义cell的class。 */
-    @objc optional func customCollectionViewCellClassForCycleScrollView(_ view: HCycleScrollView) -> AnyClass
+    @objc
+    optional func customCollectionViewCellClassForCycleScrollView(_ view: HCycleScrollView) -> AnyClass
 
     /** 如果你需要自定义cell样式，请在实现此代理方法返回你的自定义cell的Nib。 */
-    @objc optional func customCollectionViewCellNibForCycleScrollView(_ view: HCycleScrollView) -> UINib
+    @objc
+    optional func customCollectionViewCellNibForCycleScrollView(_ view: HCycleScrollView) -> UINib
 
     /** 如果你自定义了cell样式，请在实现此代理方法为你的cell填充数据以及其它一系列设置 */
-    @objc optional func setupCustomCell(_ cell: UICollectionViewCell, forIndex index: Int, cycleScrollView view: HCycleScrollView)
+    @objc
+    optional func setupCustomCell(_ cell: UICollectionViewCell, forIndex index: Int, cycleScrollView view: HCycleScrollView)
 
 }
 
@@ -318,7 +323,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     /** 分页控件距离轮播图的右边间距（在默认间距基础上）的偏移量 */
     var pageControlRightOffset: CGFloat = 0.0
 
-    private var _pageControlDotSize: CGSize = CGSizeZero
+    private var _pageControlDotSize: CGSize = CGSize.zero
     /** 分页控件小圆标大小 */
     var pageControlDotSize: CGSize {
         get {
@@ -476,7 +481,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         flowLayout.scrollDirection = .horizontal
         self.flowLayout = flowLayout
 
-        let mainView = UICollectionView.init(frame: self.bounds, collectionViewLayout: flowLayout)
+        let mainView = UICollectionView(frame: self.bounds, collectionViewLayout: flowLayout)
         mainView.backgroundColor = UIColor.clear
         mainView.isPagingEnabled = true
         mainView.showsHorizontalScrollIndicator = false
@@ -561,7 +566,8 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         }
     }
 
-    @objc private func automaticScroll() {
+    @objc
+    private func automaticScroll() {
         if (0 == totalItemsCount) { return }
         let currentIndex = self.currentIndex()
         let targetIndex = currentIndex + 1
@@ -614,14 +620,14 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         if (mainView!.contentOffset.x == 0 && totalItemsCount > 0) {
             var targetIndex = 0
             if (self.infiniteLoop) {
-                targetIndex = totalItemsCount/2
-            }else{
+                targetIndex = totalItemsCount / 2
+            }else {
                 targetIndex = 0
             }
             mainView!.scrollToItem(at: IndexPath(item: targetIndex, section: 0), at: UICollectionView.ScrollPosition.top, animated: false)
         }
 
-        var size = CGSizeZero
+        var size = CGSize.zero
         
         if (self.pageControl!.isKind(of: HPageControl.self)) {
             let pageControl = self.pageControl as! HPageControl
@@ -629,8 +635,8 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
                 pageControl.dotSize = self.pageControlDotSize
             }
             size = pageControl.sizeForNumberOfPages(self.imagePathsGroup!.count)
-        } else {
-            size = CGSizeMake(CGFloat(self.imagePathsGroup!.count) * self.pageControlDotSize.width * 1.5, self.pageControlDotSize.height)
+        }else {
+            size = CGSize(width: CGFloat(self.imagePathsGroup!.count) * self.pageControlDotSize.width * 1.5, height: self.pageControlDotSize.height)
         }
         var x = (self.hc_width - size.width) * 0.5
         if (self.pageControlAliment == .Right) {
@@ -643,7 +649,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
             pageControl.sizeToFit()
         }
 
-        var pageControlFrame = CGRectMake(x, y, size.width, size.height)
+        var pageControlFrame = CGRect(x: x, y: y, width: size.width, height: size.height)
         pageControlFrame.origin.y -= self.pageControlBottomOffset
         pageControlFrame.origin.x -= self.pageControlRightOffset
         self.pageControl!.frame = pageControlFrame

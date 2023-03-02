@@ -69,7 +69,7 @@ struct Property {
                     value = value.replacingOccurrences(of: "r", with: "")
                 }
                 
-                if value.classExists{
+                if value.classExists {
                     //  string
                     //  stringOptional
                     //  data
@@ -97,7 +97,7 @@ extension NSObject {
 
         var properties = [Property]()
         let cnt = Int(count)
-        for i in 0..<cnt{
+        for i in 0..<cnt {
             properties.append(Property(x: propertyList[i]))
         }
         free(propertyList)

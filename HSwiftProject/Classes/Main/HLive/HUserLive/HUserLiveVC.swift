@@ -18,17 +18,17 @@ class HUserLiveVC : HTupleController {
     private var _inputField: HTextField!
     var inputField: HTextField {
         if _inputField == nil {
-            let frame = CGRectMake(0, UIScreen.height, UIScreen.width, 40);
-            _inputField = HTextField.init(frame: frame)
+            let frame = CGRect(x: 0, y: UIScreen.height, width: UIScreen.width, height: 40)
+            _inputField = HTextField(frame: frame)
             _inputField.backgroundColor = UIColor.white
             _inputField.placeholderFont = UIFont.systemFont(ofSize: 14)
             _inputField.placeholder = "请输入内容..."
             
-            _inputField.leftWidth = 10;
+            _inputField.leftWidth = 10
             _inputField.leftLabel.text = ""
             
             // 去掉键盘上的toolBar
-            _inputField.inputAccessoryView = UIView.init(frame: CGRectZero)
+            _inputField.inputAccessoryView = UIView(frame: CGRect.zero)
             _inputField.reloadInputViews()
             
             _inputField.rightWidth = 60
@@ -38,14 +38,14 @@ class HUserLiveVC : HTupleController {
             
             _inputField.rightLabel.addSingleTapGestureWithBlock { sender in
                 let gesture = sender as! UIGestureRecognizer
-                let _ = gesture.view?.superview?.resignFirstResponder()
+                _ = gesture.view?.superview?.resignFirstResponder()
             }
         }
         return _inputField!
     }
     
     private func inputFieldFiniishedAction(_ sender: UILabel) {
-        let _ = sender.superview?.resignFirstResponder()
+        _ = sender.superview?.resignFirstResponder()
     }
     
     private var _liveStatus: HLiveStatus = .loading
@@ -64,7 +64,7 @@ class HUserLiveVC : HTupleController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.white;
+        self.view.backgroundColor = UIColor.white
         self.topExtendedLayout = false
         self.tupleView.isPagingEnabled = true
         self.tupleView.delegate = self
@@ -72,13 +72,13 @@ class HUserLiveVC : HTupleController {
         //添加键盘
         self.addKeyboardObserver()
         self.hideKeyboardWhenTapBackground()
-        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboardNotifyAction), name: NSNotification.Name.init(KShowKeyboardNotify), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboardNotifyAction), name: NSNotification.Name(KShowKeyboardNotify), object: nil)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        self.tupleView.contentSize = CGSizeMake(0, self.tupleView.height*3)
-        self.tupleView.contentOffset = CGPointMake(0, self.tupleView.height)
+        self.tupleView.contentSize = CGSize(width: 0, height: self.tupleView.height * 3)
+        self.tupleView.contentOffset = CGPoint(x: 0, y: self.tupleView.height)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -112,26 +112,29 @@ class HUserLiveVC : HTupleController {
                 NotificationCenter.default.removeObserver(self, name: UIScreen.capturedDidChangeNotification, object: nil)
             }
             NotificationCenter.default.removeObserver(self, name: UIApplication.userDidTakeScreenshotNotification, object: nil)
-            NotificationCenter.default.removeObserver(self, name: NSNotification.Name.init(KShowKeyboardNotify), object: nil)
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name(KShowKeyboardNotify), object: nil)
             //通知释放跟直播相关的tupleView
-            NotificationCenter.default.post(name: NSNotification.Name.init(KLiveRoomReleaseTupleKey), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(KLiveRoomReleaseTupleKey), object: nil)
         }
     }
 
     // 录屏
-    @objc private func recordingScreen() {
+    @objc
+    private func recordingScreen() {
         self.dismiss(animated: true, completion: nil)
         UIAlertController.showAlertWithTitle("安全提醒", message: "请不要录屏分享给他人以保障账户安全。", style: .alert, cancelButtonTitle: "我知道了", otherButtonTitles: nil, completion: nil)
-        //UIAlertView.init(title: "安全提醒", message: "请不要录屏分享给他人以保障账户安全。", delegate: nil, cancelButtonTitle: "我知道了").show()
+        //UIAlertView(title: "安全提醒", message: "请不要录屏分享给他人以保障账户安全。", delegate: nil, cancelButtonTitle: "我知道了").show()
     }
 
     // 截屏
-    @objc private func screenshot() {
+    @objc
+    private func screenshot() {
         //UIAlertController.showAlertWithTitle("安全提醒", message: "请不要截屏分享给他人以保障账户安全。", style: .alert, cancelButtonTitle: "我知道了", otherButtonTitles: nil, completion: nil)
-        UIAlertView.init(title: "安全提醒", message: "请不要截屏分享给他人以保障账户安全。", delegate: nil, cancelButtonTitle: "我知道了").show()
+        UIAlertView(title: "安全提醒", message: "请不要截屏分享给他人以保障账户安全。", delegate: nil, cancelButtonTitle: "我知道了").show()
     }
 
-    @objc func showKeyboardNotifyAction() {
+    @objc
+    func showKeyboardNotifyAction() {
         UIApplication.getKeyWindow?.addSubview(self.inputField)
         self.inputField.becomeFirstResponder()
     }
@@ -140,16 +143,16 @@ class HUserLiveVC : HTupleController {
         return true
     }
 
-    override func keyboardWillShowWithRect(_ keyboardRect: CGRect, animationDuration duration: CGFloat) -> Void {
+    override func keyboardWillShowWithRect(_ keyboardRect: CGRect, animationDuration duration: CGFloat) {
         UIView.animate(withDuration: 0.3) {
-            let frame = CGRectMake(0, keyboardRect.origin.y-40, UIScreen.width, 40)
+            let frame = CGRect(x: 0, y: keyboardRect.origin.y - 40, width: UIScreen.width, height: 40)
             self.inputField.frame = frame
         }
     }
 
-    override func keyboardWillHideWithRect(_ keyboardRect: CGRect, animationDuration duration: CGFloat) -> Void {
+    override func keyboardWillHideWithRect(_ keyboardRect: CGRect, animationDuration duration: CGFloat) {
         UIView.animate(withDuration: 0.3) {
-            let frame = CGRectMake(0, UIScreen.height, UIScreen.width, 40)
+            let frame = CGRect(x: 0, y: UIScreen.height, width: UIScreen.width, height: 40)
             self.inputField.frame = frame
         } completion: { finished in
             //释放textField
@@ -161,11 +164,11 @@ class HUserLiveVC : HTupleController {
 
     func tupleScrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
-        if (offsetY >= 2*self.view.height) {//向上滚动
-            scrollView.setContentOffset(CGPointMake(0, self.view.height), animated: false)
+        if (offsetY >= 2 * self.view.height) {//向上滚动
+            scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
             self.tupleScrollViewDidScrollToTop(scrollView)
         }else if (offsetY <= 0) {//向下滚动
-            scrollView.setContentOffset(CGPointMake(0, self.view.height), animated: false)
+            scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
             self.tupleScrollViewDidScrollToBottom(scrollView)
         }
     }
@@ -183,37 +186,37 @@ class HUserLiveVC : HTupleController {
         let itemBlock = itemBlock as! HTupleItem
         
         switch (indexPath.row) {
-            case 0:
-                let _ = itemBlock(nil, HUserLiveBgCell.self, nil, true)
-                break;
-            case 2:
-                let _ = itemBlock(nil, HUserLiveBgCell.self, nil, true)
-                break;
-            case 1:
-                if (self.liveStatus == .loading) {
-                    let cell = itemBlock(nil, HUserLiveBgCell.self, nil, true) as! HUserLiveBgCell
-                    // 禁止滚动
-                    self.tupleView.isScrollEnabled = false;
-                    // 开始旋转
-                    cell.activityIndicator.startAnimating()
-                    //可反复加载内容的直播功能
-                    self.reloadLiveBroadcast {
-                        DispatchQueue.main.async {
-                            // 解除禁止滚动
-                            self.tupleView.isScrollEnabled = true
-                            // 停止旋转
-                            cell.activityIndicator.stopAnimating()
-                            // 更改直播状态
-                            self.liveStatus = .liveing
-                        }
+        case 0:
+            _ = itemBlock(nil, HUserLiveBgCell.self, nil, true)
+            break
+        case 2:
+            _ = itemBlock(nil, HUserLiveBgCell.self, nil, true)
+            break
+        case 1:
+            if (self.liveStatus == .loading) {
+                let cell = itemBlock(nil, HUserLiveBgCell.self, nil, true) as! HUserLiveBgCell
+                // 禁止滚动
+                self.tupleView.isScrollEnabled = false
+                // 开始旋转
+                cell.activityIndicator.startAnimating()
+                //可反复加载内容的直播功能
+                self.reloadLiveBroadcast {
+                    DispatchQueue.main.async {
+                        // 解除禁止滚动
+                        self.tupleView.isScrollEnabled = true
+                        // 停止旋转
+                        cell.activityIndicator.stopAnimating()
+                        // 更改直播状态
+                        self.liveStatus = .liveing
                     }
-                }else if (self.liveStatus == .liveing) {
-                    let _ = itemBlock(nil, HUserLiveCell.self, nil, true)
                 }
-                break;
+            }else if (self.liveStatus == .liveing) {
+                _ = itemBlock(nil, HUserLiveCell.self, nil, true)
+            }
+            break
 
-            default:
-                break;
+        default:
+            break
         }
 
     }
@@ -221,7 +224,7 @@ class HUserLiveVC : HTupleController {
     //向上滚动
     func tupleScrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         // 更改直播状态
-        self.liveStatus = .loading;
+        self.liveStatus = .loading
     }
     //向下滚动
     func tupleScrollViewDidScrollToBottom(_ scrollView: UIScrollView) {
@@ -237,5 +240,4 @@ class HUserLiveVC : HTupleController {
             }
         }
     }
-
 }

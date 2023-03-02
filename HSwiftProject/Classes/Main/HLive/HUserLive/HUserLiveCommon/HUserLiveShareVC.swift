@@ -8,17 +8,17 @@
 
 import UIKit
 
-private let KItemHeight   = 80.0
-private let KFooterHeight = 50.0
+private var KItemHeight = 80.0
+private var KFooterHeight = 50.0
 
 class HUserLiveShareVC : HViewController, HTupleViewDelegate {
 
     private var _visualView: UIVisualEffectView?
     private var visualView: UIVisualEffectView? {
         if (_visualView == nil) {
-            let blur = UIBlurEffect.init(style: .extraLight)
-            _visualView = UIVisualEffectView.init(effect: blur)
-            var frame = CGRectZero
+            let blur = UIBlurEffect(style: .extraLight)
+            _visualView = UIVisualEffectView(effect: blur)
+            var frame = CGRect.zero
             frame.size = self.containerSize
             _visualView!.frame = frame
         }
@@ -28,11 +28,11 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     private var _tupleView: HTupleView?
     private var tupleView: HTupleView {
         if (_tupleView == nil) {
-            var frame = CGRectZero
+            var frame = CGRect.zero
             frame.size = self.containerSize
-            _tupleView = HTupleView.init(frame: frame)
+            _tupleView = HTupleView(frame: frame)
             _tupleView!.backgroundColor = UIColor.clear
-            _tupleView!.layer.cornerRadius = 3.0;//默认系统弹框圆角为10.f
+            _tupleView!.layer.cornerRadius = 3.0//默认系统弹框圆角为10.f
             _tupleView!.bounceDisenable()
         }
         return _tupleView!
@@ -41,7 +41,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     private var rowItems: Int = 0
 
     override var containerSize: CGSize {
-        return CGSizeMake(UIScreen.width, KItemHeight*2+KFooterHeight+UIScreen.bottomBarHeight)
+        return CGSize(width: UIScreen.width, height: KItemHeight * 2 + KFooterHeight + UIScreen.bottomBarHeight)
     }
 
     override var presetType: HTransitionStyle {
@@ -67,7 +67,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     override func vcWillDisappear(_ type: HVCDisappearType) {
         if type == HVCDisappearType.pop || type == HVCDisappearType.dismiss {
             self.tupleView.releaseTupleBlock()
-            self._visualView = nil;
+            self._visualView = nil
         }
     }
 
@@ -88,31 +88,31 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
         return self.rowItems
     }
     func sizeForFooterInSection(_ section: Any) -> Any {
-        var height = KFooterHeight;
+        var height = KFooterHeight
         if (UIScreen.isIPhoneX) {
             height += UIScreen.bottomBarHeight
         }
-        return CGSizeMake(self.tupleView.width, height);
+        return CGSize(width: self.tupleView.width, height: height)
     }
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return CGSizeMake(self.tupleView.width/4, KItemHeight)
+        return CGSize(width: self.tupleView.width / 4, height: KItemHeight)
     }
 
     func edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return UIEdgeInsetsMake(10, 0, 0, 0)
+        return UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
     }
     func edgeInsetsForFooterInSection(_ section: Any) -> Any {
         var height = 0.0
         if (UIScreen.isIPhoneX) {
             height += UIScreen.bottomBarHeight
         }
-        return UIEdgeInsetsMake(10, 0, height, 0)
+        return UIEdgeInsets(top: 10, left: 0, bottom: height, right: 0)
     }
     func tupleFooter(_ footerBlock: Any, inSection section: Any) {
         let footerBlock = footerBlock as! HTupleFooter
         let cell = footerBlock(nil, HTupleButtonApex.self, nil, true) as! HTupleButtonApex
-        cell.setTopLineWithColor(UIColor.init(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
-        cell.buttonView.backgroundColor = UIColor.white;
+        cell.setTopLineWithColor(UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
+        cell.buttonView.backgroundColor = UIColor.white
         cell.buttonView.textColor = UIColor.black
         cell.buttonView.text = "取消"
         cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
@@ -125,12 +125,12 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
         let cell = itemBlock(nil, HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
         cell.imageView.backgroundColor = UIColor.red
         cell.imageView.setImageWithName("icon_no_server")
-        //[cell.imageView setFillet:YES];
+        //[cell.imageView setFillet:YES]
         cell.labelHeight = 25
         cell.label.text = "Item"
         cell.label.textColor = UIColor.black
         cell.label.textAlignment = .center
-        //[cell.label setTextAlignment:NSTextAlignmentCenter];
+        //[cell.label setTextAlignment:NSTextAlignmentCenter]
     }
     func didSelectItemAtIndexPath(_ indexPath: IndexPath) {
         self.back()

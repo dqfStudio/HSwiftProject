@@ -132,18 +132,18 @@ class HTupleViewCellVertValue1 : HTupleViewCellVertBase1 {
             var tmpFrame: CGRect = frame
             tmpFrame.height = self.accessoryHeight
             tmpFrame.y += self.accessoryLabelInsets.top
-            tmpFrame.height -= self.accessoryLabelInsets.top+self.accessoryLabelInsets.bottom
+            tmpFrame.height -= self.accessoryLabelInsets.top + self.accessoryLabelInsets.bottom
             _accessoryLabel!.frame = tmpFrame
         }
         
         //计算imageView的坐标
         if _imageView != nil {
             var tmpFrame: CGRect = frame
-            tmpFrame.height -= self.labelHeight+self.detailHeight+self.accessoryHeight
+            tmpFrame.height -= self.labelHeight + self.detailHeight + self.accessoryHeight
             tmpFrame.y += self.accessoryHeight
             
             tmpFrame.y += self.imageViewInsets.top
-            tmpFrame.height -= self.imageViewInsets.top+self.imageViewInsets.bottom
+            tmpFrame.height -= self.imageViewInsets.top + self.imageViewInsets.bottom
             _imageView!.frame = tmpFrame
             
             //计算topLabel的坐标
@@ -157,7 +157,7 @@ class HTupleViewCellVertValue1 : HTupleViewCellVertBase1 {
             //计算bottomLabel的坐标
             if self.bottomHeight > 0 {
                 var tmpFrame: CGRect = frame
-                tmpFrame.y = _imageView!.size.height-self.bottomHeight
+                tmpFrame.y = _imageView!.size.height - self.bottomHeight
                 tmpFrame.height = self.bottomHeight
                 self.bottomView.frame = tmpFrame
                 self.bottomLabel.frame = self.bottomView.bounds
@@ -169,9 +169,9 @@ class HTupleViewCellVertValue1 : HTupleViewCellVertBase1 {
             var tmpFrame: CGRect = frame
             tmpFrame.height = self.labelHeight
             
-            tmpFrame.y = frame.height-self.labelHeight-self.detailHeight
+            tmpFrame.y = frame.height - self.labelHeight - self.detailHeight
             tmpFrame.y += self.labelInsets.top
-            tmpFrame.height -= self.labelInsets.top+self.labelInsets.bottom
+            tmpFrame.height -= self.labelInsets.top + self.labelInsets.bottom
             _label!.frame = tmpFrame
         }
         
@@ -180,9 +180,9 @@ class HTupleViewCellVertValue1 : HTupleViewCellVertBase1 {
             var tmpFrame: CGRect = frame
             tmpFrame.height = self.detailHeight
             
-            tmpFrame.y = frame.size.height-self.detailHeight
+            tmpFrame.y = frame.size.height - self.detailHeight
             tmpFrame.y += self.detailLabelInsets.top
-            tmpFrame.height -= self.detailLabelInsets.top+self.detailLabelInsets.bottom
+            tmpFrame.height -= self.detailLabelInsets.top + self.detailLabelInsets.bottom
             _detailLabel!.frame = tmpFrame
         }
     }

@@ -9,7 +9,7 @@
 import UIKit
 
 //@interface HNavigationController () <UIGestureRecognizerDelegate>
-//@property(nonatomic, strong) NSMutableArray *blackList;
+//@property(nonatomic, strong) NSMutableArray *blackList
 //@end
 
 class HNavigationController : UINavigationController, UIGestureRecognizerDelegate {
@@ -18,11 +18,11 @@ class HNavigationController : UINavigationController, UIGestureRecognizerDelegat
     private let blackList = NSMutableArray()
 
     /// Public
-    func addFullScreenPopBlackListItem(_ viewController: UIViewController) -> Void {
+    func addFullScreenPopBlackListItem(_ viewController: UIViewController) {
         self.blackList.add(viewController)
     }
 
-    func removeFromFullScreenPopBlackList(_ viewController: UIViewController) -> Void {
+    func removeFromFullScreenPopBlackList(_ viewController: UIViewController) {
         for item in self.blackList {
             let vc: UIViewController = item as! UIViewController
             if vc.isKind(of: UIViewController.self) {
@@ -42,7 +42,7 @@ class HNavigationController : UINavigationController, UIGestureRecognizerDelegat
         let targetView: UIView = self.interactivePopGestureRecognizer!.view!
         
         //  创建pan手势 作用范围是全屏
-        let fullScreenGes = UIPanGestureRecognizer.init(target: target, action: handler)
+        let fullScreenGes = UIPanGestureRecognizer(target: target, action: handler)
         fullScreenGes.delegate = self
         targetView.addGestureRecognizer(fullScreenGes)
         
@@ -59,7 +59,6 @@ class HNavigationController : UINavigationController, UIGestureRecognizerDelegat
 
     /// UIGestureRecognizerDelegate
     ///  防止导航控制器只有一个rootViewcontroller时触发手势
-    @available(iOS 3.2, *)
     private func gestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
         // 根据具体控制器对象决定是否开启全屏右滑返回
         for item in self.blackList {
@@ -85,15 +84,15 @@ class HNavigationController : UINavigationController, UIGestureRecognizerDelegat
     }
 
     /// 旋转支持
-    override open var shouldAutorotate: Bool {
+    override var shouldAutorotate: Bool {
         return self.topViewController!.shouldAutorotate
     }
 
-    override open var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return self.topViewController!.supportedInterfaceOrientations
     }
     
-    override open var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
         return self.topViewController!.preferredInterfaceOrientationForPresentation
     }
 
@@ -101,18 +100,18 @@ class HNavigationController : UINavigationController, UIGestureRecognizerDelegat
 
 //extension UIViewController {
 //    @available(iOS 5.0, *)
-//    open func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+//    open func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (())? = nil) {
 //
 //    }
 //    - (void)presentViewController:(UIViewController *)viewControllerToPresent param:(NSDictionary *)dict animated:(BOOL)flag completion:(void (^ __nullable)(void))completion {
-//        if (dict) [viewControllerToPresent autoFill:dict map:nil exclusive:NO isDepSearch:YES];
-//        [self presentViewController:viewControllerToPresent animated:flag completion:completion];
+//        if (dict) [viewControllerToPresent autoFill:dict map:nil exclusive:NO isDepSearch:YES]
+//        [self presentViewController:viewControllerToPresent animated:flag completion:completion]
 //    }
 //}
 //
 //extension UINavigationController {
 //    - (void)pushViewController:(UIViewController *)viewController param:(NSDictionary *)dict animated:(BOOL)animated {
-//        if (dict) [viewController autoFill:dict map:nil exclusive:NO isDepSearch:YES];
-//        [self pushViewController:viewController animated:animated];
+//        if (dict) [viewController autoFill:dict map:nil exclusive:NO isDepSearch:YES]
+//        [self pushViewController:viewController animated:animated]
 //    }
 //}

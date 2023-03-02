@@ -34,7 +34,7 @@ extension UIScrollView {
 //        }
 //        set {
 //            if (self.contentSize.height < self.minContentSizeHeight) {
-//                self.contentSize = CGSizeMake(self.contentSize.width, self.minContentSizeHeight);
+//                self.contentSize = CGSize(width: self.contentSize.width, height: self.minContentSizeHeight)
 //            }
 //            self.contentSize = newValue
 //        }
@@ -46,7 +46,7 @@ extension UIScrollView {
         }
         set {
             if (self.contentSize.height < self.minContentSizeHeight) {
-                self.contentSize = CGSizeMake(self.contentSize.width, self.minContentSizeHeight);
+                self.contentSize = CGSize(width: self.contentSize.width, height: self.minContentSizeHeight)
             }
             self.contentSize = newValue
         }

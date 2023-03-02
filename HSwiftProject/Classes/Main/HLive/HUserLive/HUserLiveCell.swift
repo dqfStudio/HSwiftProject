@@ -13,10 +13,10 @@ class HUserLiveBgCell : HTupleImageCell {
     private var _effectView: UIVisualEffectView?
     var effectView: UIVisualEffectView {
         if _effectView == nil {
-            let blur = UIBlurEffect.init(style: UIBlurEffect.Style.light)
-            _effectView = UIVisualEffectView.init(effect: blur)
-            _effectView!.alpha = 0.9;
-            _effectView!.frame = self.imageView.bounds;
+            let blur = UIBlurEffect(style: UIBlurEffect.Style.light)
+            _effectView = UIVisualEffectView(effect: blur)
+            _effectView!.alpha = 0.9
+            _effectView!.frame = self.imageView.bounds
         }
         return _effectView!
     }
@@ -24,8 +24,8 @@ class HUserLiveBgCell : HTupleImageCell {
     private var _activityIndicator: UIActivityIndicatorView?
     var activityIndicator: UIActivityIndicatorView {
         if _activityIndicator == nil {
-            _activityIndicator = UIActivityIndicatorView.init(frame: self.bounds)
-            _activityIndicator!.style = .whiteLarge;
+            _activityIndicator = UIActivityIndicatorView(frame: self.bounds)
+            _activityIndicator!.style = .whiteLarge
         }
         return _activityIndicator!
     }
@@ -53,10 +53,10 @@ class HUserLiveCell : HUserLiveBgCell, HTupleViewDelegate {
     private var _liveLeftView: UIView?
     var liveLeftView: UIView {
         if (_liveLeftView == nil) {
-            _liveLeftView = UIView.init(frame: self.bounds)
-            _liveLeftView!.backgroundColor = UIColor.clear;
+            _liveLeftView = UIView(frame: self.bounds)
+            _liveLeftView!.backgroundColor = UIColor.clear
             _liveLeftView!.isHidden = true
-            let swipeGesture = UISwipeGestureRecognizer.init(target: self, action:  #selector(leftSwipped))
+            let swipeGesture = UISwipeGestureRecognizer(target: self, action:  #selector(leftSwipped))
             swipeGesture.direction = .left
             _liveLeftView!.addGestureRecognizer(swipeGesture)
         }
@@ -71,9 +71,9 @@ class HUserLiveCell : HUserLiveBgCell, HTupleViewDelegate {
             }, exclusiveSections: {
                 return [0, 1, 2]
             })
-            _liveRightView!.backgroundColor = UIColor.clear;
+            _liveRightView!.backgroundColor = UIColor.clear
             _liveRightView!.bounceDisenable()
-//            let swipeGesture = UISwipeGestureRecognizer.init(target: self, action:  #selector(rightSwipped))
+//            let swipeGesture = UISwipeGestureRecognizer(target: self, action:  #selector(rightSwipped))
 //            swipeGesture.direction = .right
 //            _liveRightView!.addGestureRecognizer(swipeGesture)
         }
@@ -83,7 +83,7 @@ class HUserLiveCell : HUserLiveBgCell, HTupleViewDelegate {
     //cell初始化是调用的方法
     override func initUI() {
         super.initUI()
-        self.backgroundColor = UIColor.clear;
+        self.backgroundColor = UIColor.clear
         self.liveRightView.delegate = self
         self.addSubview(self.liveRightView)
         self.addSubview(self.liveLeftView)
@@ -93,7 +93,7 @@ class HUserLiveCell : HUserLiveBgCell, HTupleViewDelegate {
         //设置liveRightView release key
         self.liveRightView.releaseTupleKey = KLiveRoomReleaseTupleKey
         
-        let swipeGesture = UISwipeGestureRecognizer.init(target: self, action:  #selector(rightSwipped))
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action:  #selector(rightSwipped))
         swipeGesture.direction = .right
         self.addGestureRecognizer(swipeGesture)
     }
@@ -104,27 +104,30 @@ class HUserLiveCell : HUserLiveBgCell, HTupleViewDelegate {
         HLayoutTupleCell(self.liveRightView)
     }
 
-    @objc private func leftSwipped() {
+    @objc
+    private func leftSwipped() {
         UIView.animate(withDuration: 0.3) {
-            self.liveRightView.frame = self.liveRightView.bounds;
+            self.liveRightView.frame = self.liveRightView.bounds
         } completion: { finished in
             self.liveLeftView.isHidden = true
             self.tuple?.isScrollEnabled = true
         }
     }
 
-    @objc private func rightSwipped() {
+    @objc
+    private func rightSwipped() {
         UIView.animate(withDuration: 0.3) {
-            var frame = self.liveRightView.bounds;
-            frame.origin.x = self.liveRightView.width;
-            self.liveRightView.frame = frame;
+            var frame = self.liveRightView.bounds
+            frame.origin.x = self.liveRightView.width
+            self.liveRightView.frame = frame
         } completion: { finished in
             self.liveLeftView.isHidden = false
             self.tuple?.isScrollEnabled = false
         }
     }
 
-    @objc func tuple0_numberOfSectionsInTupleView() -> Any {
+    @objc
+    func tuple0_numberOfSectionsInTupleView() -> Any {
         return 3
     }
 

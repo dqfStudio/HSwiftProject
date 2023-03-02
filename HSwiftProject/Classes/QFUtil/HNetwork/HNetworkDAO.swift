@@ -12,13 +12,13 @@ import Alamofire
 typealias HRequestSuccessBlock = (_ response: AnyObject) -> Void
 typealias HRequestFailureBlock = (_ error: AnyObject) -> Void
  
-class HNetworkDAO: NSObject{
+class HNetworkDAO: NSObject {
     
     ///初始化域名
     static let hostName = ""
     
     ///网络请求
-    public func sendGetWith(url: String,
+    func sendGetWith(url: String,
                      parameters:[String: Any]?,
                         success:@escaping HRequestSuccessBlock,
                         failure:@escaping HRequestFailureBlock) {
@@ -42,7 +42,7 @@ class HNetworkDAO: NSObject{
         }
     }
     
-    public func sendPostWith(url: String,
+    func sendPostWith(url: String,
                       parameters:[String: Any]?,
                          success:@escaping HRequestSuccessBlock,
                          failure:@escaping HRequestFailureBlock) {
@@ -67,7 +67,7 @@ class HNetworkDAO: NSObject{
     }
     
     ///默认三次重试的网络请求
-    public func retryGetWithUrl(url: String,
+    func retryGetWithUrl(url: String,
                          parameters:[String: Any]?,
                             success:@escaping HRequestSuccessBlock,
                             failure:@escaping HRequestFailureBlock) {
@@ -91,7 +91,7 @@ class HNetworkDAO: NSObject{
         }
     }
     
-    public func retryPostWithUrl(url: String,
+    func retryPostWithUrl(url: String,
                           parameters:[String: Any]?,
                              success:@escaping HRequestSuccessBlock,
                              failure:@escaping HRequestFailureBlock) {
@@ -116,7 +116,7 @@ class HNetworkDAO: NSObject{
     }
     
     private func successWithResponse(_ response: DataResponse<Any>, block: @escaping HRequestSuccessBlock) {
-        if let value = response.result.value as? [String: Any]{
+        if let value = response.result.value as? [String: Any] {
             block(value as AnyObject)
         }
     }
@@ -128,6 +128,7 @@ class HNetworkDAO: NSObject{
 
 private class HRetrier: RequestRetrier {
     private var count: Int = 0
+    
     func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
         if count < 3 {
             completion(true, 0.25)

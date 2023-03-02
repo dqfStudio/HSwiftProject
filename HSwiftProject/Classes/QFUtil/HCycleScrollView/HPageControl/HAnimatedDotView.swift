@@ -19,7 +19,7 @@ class HAnimatedDotView: HAbstractDotView {
         }
         set {
             _dotColor = newValue
-            self.layer.borderColor  = dotColor?.cgColor
+            self.layer.borderColor = dotColor?.cgColor
         }
     }
 
@@ -33,10 +33,10 @@ class HAnimatedDotView: HAbstractDotView {
     }
     private func initialization() {
         _dotColor = UIColor.white
-        self.backgroundColor    = UIColor.clear
+        self.backgroundColor   = UIColor.clear
         self.layer.cornerRadius = self.frame.width / 2
-        self.layer.borderColor  = UIColor.white.cgColor
-        self.layer.borderWidth  = 2
+        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.borderWidth = 2
     }
     override func changeActivityState(_ active: Bool) {
         if active {

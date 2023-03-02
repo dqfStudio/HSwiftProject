@@ -33,11 +33,11 @@ class HPrinterManager: NSObject {
         return instance
     }()
     
-    open func setObject(_ anObject: Any, forKey aKey: NSCopying) -> Void {
+    func setObject(_ anObject: Any, forKey aKey: NSCopying) {
         self.printerDict!.setObject(anObject, forKey: aKey)
     }
     
-    open func containsObject(_ anObject: String) -> Bool {
+    func containsObject(_ anObject: String) -> Bool {
         self.printerDict!.allKeys.contains(where: { (object) -> Bool in
             let objectStr: String = object as! String
             if anObject == objectStr {
@@ -47,7 +47,7 @@ class HPrinterManager: NSObject {
         })
     }
     
-    open func objectForKey(_ aKey: String) -> String? {
+    func objectForKey(_ aKey: String) -> String? {
         if self .containsObject(aKey) {
             self.printerDict!.object(forKey: aKey)
         }

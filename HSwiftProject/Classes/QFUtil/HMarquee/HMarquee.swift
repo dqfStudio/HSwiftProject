@@ -9,17 +9,17 @@
 import UIKit
 
 enum HMarqueeSpeedLevel: Int {
-    case Fast       = 2
+    case Fast = 2
     case MediumFast = 4
     case MediumSlow = 6
-    case Slow       = 8
+    case Slow = 8
 }
 
 typealias HWonderfulAction = () -> Void
 
 private enum HMarqueeTapMode: Int {
-    case Move    = 1
-    case Action  = 2
+    case Move   = 1
+    case Action = 2
 }
 
 class HMarquee: UIView {
@@ -47,7 +47,7 @@ class HMarquee: UIView {
                 let text: NSString = _marqueeLbl!.text! as NSString
                 let msgSize = text.size(withAttributes: [NSAttributedString.Key.font: fnt!])
                 
-                _marqueeLbl!.frame = CGRectMake(0, 0, msgSize.width, h)
+                _marqueeLbl!.frame = CGRect(x: 0, y: 0, width: msgSize.width, height: h)
                 if self.marqueeLabelFont != nil {
                     _marqueeLbl!.font = self.marqueeLabelFont
                 }
@@ -67,7 +67,7 @@ class HMarquee: UIView {
     private var _msg: String?
     var msg: String? {
         get {
-            return _msg;
+            return _msg
         }
         set {
             _msg = newValue
@@ -79,7 +79,7 @@ class HMarquee: UIView {
     private var _bgColor: UIColor?
     var bgColor: UIColor? {
         get {
-            return _bgColor;
+            return _bgColor
         }
         set {
             _bgColor = newValue
@@ -158,7 +158,8 @@ class HMarquee: UIView {
         NotificationCenter.default.removeObserver(self)
     }
 
-    override open var frame: CGRect {
+    override
+    var frame: CGRect {
         get {
             return super.frame
         }
@@ -218,7 +219,8 @@ class HMarquee: UIView {
         self.marqueeLbl.frame = fr
     }
 
-    @objc private func bgButtonClick() {
+    @objc
+    private func bgButtonClick() {
         if self.tapAction != nil {
             self.tapAction!()
         }
@@ -243,7 +245,8 @@ class HMarquee: UIView {
         self.moveAction()
     }
 
-    @objc private func backAndRestart () {
+    @objc
+    private func backAndRestart () {
         self.marqueeLbl.layer.removeAllAnimations()
         self.marqueeLbl.removeFromSuperview()
         _marqueeLbl = nil
@@ -271,11 +274,11 @@ class HMarquee: UIView {
         fr.origin.x = self.frame.size.width
         self.marqueeLbl.frame = fr
         
-        let fromPoint = CGPoint(x: self.frame.size.width + self.marqueeLbl.frame.size.width/2, y: self.frame.size.height/2)
+        let fromPoint = CGPoint(x: self.frame.size.width + self.marqueeLbl.frame.size.width / 2, y: self.frame.size.height / 2)
         
         let movePath = UIBezierPath()
         movePath.move(to: fromPoint)
-        movePath.addLine(to: CGPoint(x: -self.marqueeLbl.frame.size.width/2, y: self.frame.size.height/2))
+        movePath.addLine(to: CGPoint(x: -self.marqueeLbl.frame.size.width / 2, y: self.frame.size.height / 2))
 
         let moveAnim: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "position")
         moveAnim.path = movePath.cgPath

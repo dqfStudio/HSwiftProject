@@ -47,7 +47,7 @@ class HTextLoopView: UIView, UITableViewDataSource, UITableViewDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        tableView = UITableView(frame: CGRectMake(0, 0, frame.size.width, frame.size.height))
+        tableView = UITableView(frame: CGRect(x: 0, y: 0, width: frame.size.width, height: frame.size.height))
         tableView!.dataSource = self
         tableView!.delegate = self
         tableView!.rowHeight = frame.size.height
@@ -68,17 +68,19 @@ class HTextLoopView: UIView, UITableViewDataSource, UITableViewDelegate {
         NotificationCenter.default.removeObserver(self)
     }
     
-    @objc private func backAndRestart() {
+    @objc
+    private func backAndRestart() {
         self.timer()
     }
     
-    @objc private func timer() {
+    @objc
+    private func timer() {
         DispatchQueue.main.async {
             self.currentRowIndex += 1
             if self.currentRowIndex >= self.dataSource!.count {
                 self.currentRowIndex = 0
             }
-            self.tableView!.setContentOffset(CGPoint(x: 0, y: CGFloat(self.currentRowIndex)*self.tableView!.rowHeight), animated: true)
+            self.tableView!.setContentOffset(CGPoint(x: 0, y: CGFloat(self.currentRowIndex) * self.tableView!.rowHeight), animated: true)
         }
     }
     

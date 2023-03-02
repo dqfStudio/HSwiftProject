@@ -22,7 +22,7 @@ extension UINavigationController {
         return success
     }
     
-    func replaceTopViewController(_ vc: UIViewController, animated: Bool) -> Void {
+    func replaceTopViewController(_ vc: UIViewController, animated: Bool) {
         let vcs = NSMutableArray(array: self.viewControllers)
         if vcs.count > 0 {
             vcs.removeLastObject()

@@ -83,12 +83,12 @@ func UISizeIntegral(_ size: CGSize) -> CGSize {
     return CGSize(width: CGFloat(floorf(Float(size.width))), height: CGFloat(floorf(Float(size.height))))
 }
 
-public let UILimitInsetsZero  = UILimitInsets(min: 0.0, max: 0.0)
-public let UITBEdgeInsetsZero = UITBEdgeInsets(top: 0.0, bottom: 0.0)
-public let UILREdgeInsetsZero = UILREdgeInsets(left: 0.0, right: 0.0)
-public let UIEdgeInsetsZero = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
-public let CGSizeZero = CGSize(width: 0.0, height: 0.0)
-public let CGRectZero = CGRect(x: 0.0, y: 0.0, width: 0.0, height: 0.0)
+public var UILimitInsetsZero = UILimitInsets(min: 0.0, max: 0.0)
+public var UITBEdgeInsetsZero = UITBEdgeInsets(top: 0.0, bottom: 0.0)
+public var UILREdgeInsetsZero = UILREdgeInsets(left: 0.0, right: 0.0)
+public var UIEdgeInsetsZero = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+//public var CGSizeZero = CGSize.zero
+//public var CGRectZero = CGRect.zero
 
 func UILimitInsetsMake(_ min: CGFloat, _ max: CGFloat) -> UILimitInsets { return UILimitInsets(min: min, max: max) }
 func UITBEdgeInsetsMake(_ top: CGFloat, _ bottom: CGFloat) -> UITBEdgeInsets { return UITBEdgeInsets(top: top, bottom: bottom) }

@@ -13,4 +13,7 @@ target 'HSwiftProject' do
   pod 'Kingfisher',’~> 5.9.0’
   pod 'MJRefresh',’~> 3.3.1’
 
+  # 代码规范
+  pod 'SwiftLint', '0.43.1', configurations: ['Debug']
+
 end

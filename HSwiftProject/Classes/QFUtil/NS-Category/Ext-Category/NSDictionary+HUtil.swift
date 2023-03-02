@@ -10,7 +10,7 @@ import Foundation
 
 extension NSDictionary {
 
-    public func containsObject(_ anObject: String) -> Bool {
+    func containsObject(_ anObject: String) -> Bool {
         self.allKeys.contains(where: { (object) -> Bool in
             let objectStr: String = object as! String
             if anObject == objectStr {
@@ -20,7 +20,7 @@ extension NSDictionary {
         })
     }
     
-    public func objectForKey(_ aKey: String) -> String? {
+    func objectForKey(_ aKey: String) -> String? {
         if self .containsObject(aKey) {
             self.object(forKey: aKey)
         }

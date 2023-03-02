@@ -8,7 +8,7 @@
 
 import UIKit
 
-private let KUSER = "H_USER_DEFAULTS"
+private var KUSER = "H_USER_DEFAULTS"
 
 class HUserStore : NSObject {
 
@@ -21,7 +21,7 @@ class HUserStore : NSObject {
         }
         set {
             if _isLogin != newValue {
-                _isLogin = newValue;
+                _isLogin = newValue
                 if _isLogin {
                     self.saveUser()
                 }else {
@@ -42,7 +42,7 @@ class HUserStore : NSObject {
 
     private init?(coder aDecoder: NSCoder) {
         super.init()
-        var count: UInt32 = 0;
+        var count: UInt32 = 0
         //let propertys = class_copyPropertyList(self.classForCoder, &count)
         let propertys = class_copyIvarList(self.classForCoder, &count)
         if propertys != nil {
@@ -59,8 +59,8 @@ class HUserStore : NSObject {
         }
     }
 
-    private func encodeWithCoder(aCoder: NSCoder){
-        var count: UInt32 = 0;
+    private func encodeWithCoder(aCoder: NSCoder) {
+        var count: UInt32 = 0
         //let propertys = class_copyPropertyList(self.classForCoder, &count)
         let propertys = class_copyIvarList(self.classForCoder, &count)
         if propertys != nil {
@@ -106,11 +106,13 @@ class HUserStore : NSObject {
     }
 
     //初始化数据
-    @objc private func initData() {
+    @objc
+    private func initData() {
         NotificationCenter.default.addObserver(self, selector: #selector(saveUser), name: UIApplication.willTerminateNotification, object: nil)
     }
 
-    @objc private func saveUser() {
+    @objc
+    private func saveUser() {
         if self.isLogin {
             var data: Data?
             if #available(iOS 11.0, *) {
@@ -150,7 +152,7 @@ class HUserStore : NSObject {
 
                 boolValue = true
                 
-                var count: UInt32 = 0;
+                var count: UInt32 = 0
                 //let propertys = class_copyPropertyList(self.classForCoder, &count)
                 let propertys = class_copyIvarList(self.classForCoder, &count)
                 if propertys != nil {
@@ -180,7 +182,7 @@ class HUserStore : NSObject {
     private func removeUser() {
         //删除记录的登录标志
         HKeyChainStore.keyChainStore.setString(string: nil, forKey: KUSER)
-        HKeyChainStore.keyChainStore.synchronizable = true;
+        HKeyChainStore.keyChainStore.synchronizable = true
         //清空所有属性值
         self.cleanAllProperties()
     }
@@ -190,7 +192,7 @@ class HUserStore : NSObject {
     */
     private func cleanAllProperties() {
         
-        var count: UInt32 = 0;
+        var count: UInt32 = 0
         //let propertys = class_copyPropertyList(self.classForCoder, &count)
         let propertys = class_copyIvarList(self.classForCoder, &count)
         if propertys != nil {
@@ -236,7 +238,7 @@ class HUserStore : NSObject {
     /// 如果属性和字典中的key不一致，可以重写此方法 / 或者readonly
     /// 不一致的key和对应的value都会通过这个方法返回，可以在此方法中做特殊处理
     override func setValue(_ value: Any?, forUndefinedKey key: String) {
-        //NSLog(@"-------> forUndefinedKey:%@  value:%@",key,value);
+        //NSLog(@"-------> forUndefinedKey:%@  value:%@",key,value)
     }
 
     ///线上环境链接

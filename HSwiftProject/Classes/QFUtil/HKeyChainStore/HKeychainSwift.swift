@@ -122,7 +122,7 @@ open class HKeychainSwift {
     withAccess access: HKeychainSwiftAccessOptions? = nil) -> Bool {
   
     let bytes: [UInt8] = value ? [1] : [0]
-    let data = Data.init(bytes)
+    let data = Data(bytes)
 
     return set(data, forKey: key, withAccess: access)
   }

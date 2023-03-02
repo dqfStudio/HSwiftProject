@@ -19,12 +19,13 @@ class HDotView: HAbstractDotView {
         self.initialization()
     }
     private func initialization() {
-        self.backgroundColor    = UIColor.clear
+        self.backgroundColor   = UIColor.clear
         self.layer.cornerRadius = self.frame.width / 2
-        self.layer.borderColor  = UIColor.white.cgColor
-        self.layer.borderWidth  = 2
+        self.layer.borderColor = UIColor.white.cgColor
+        self.layer.borderWidth = 2
     }
-    @objc override func changeActivityState(_ active: Bool) {
+    @objc
+    override func changeActivityState(_ active: Bool) {
         if active {
             self.backgroundColor = UIColor.white
         } else {

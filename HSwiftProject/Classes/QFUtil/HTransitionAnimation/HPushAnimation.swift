@@ -17,14 +17,14 @@ class HPushAnimation : HTransitionAnimation {
         switch (pushAnimationType) {
         case .ocdoor:
             self.animationForPushView(transitionContext)
-            break;
+            break
         }
     }
     override func startPopAnimation(_ transitionContext: UIViewControllerContextTransitioning) {
         switch (pushAnimationType) {
         case .ocdoor:
             self.animationForPopView(transitionContext)
-            break;
+            break
         }
     }
 
@@ -47,14 +47,14 @@ class HPushAnimation : HTransitionAnimation {
         let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from)
         let containerView = transitionContext.containerView
         //左侧动画视图
-        let leftView: UIView = UIView.init(frame: CGRectMake(-toView!.width/2, 0, toView!.width/2, toView!.height))
+        let leftView: UIView = UIView(frame: CGRect(x: -toView!.width / 2, y: 0, width: toView!.width / 2, height: toView!.height))
         leftView.clipsToBounds = true
         leftView.addSubview(toView!)
         //右侧动画视图
         // 使用系统自带的snapshotViewAfterScreenUpdates:方法，参数为YES，代表视图的属性改变渲染完毕后截屏，参数为NO代表立刻将当前状态的视图截图
         let rightToView: UIView = toView!.snapshotView(afterScreenUpdates: true)!
-        rightToView.frame = CGRectMake(-toView!.width/2, 0, toView!.width, toView!.height);
-        let rightView: UIView = UIView.init(frame: CGRectMake(toView!.width, 0, toView!.width/2, toView!.height))
+        rightToView.frame = CGRect(x: -toView!.width / 2, y: 0, width: toView!.width, height: toView!.height)
+        let rightView: UIView = UIView(frame: CGRect(x: toView!.width, y: 0, width: toView!.width / 2, height: toView!.height))
         rightView.clipsToBounds = true
         rightView.addSubview(rightToView)
         
@@ -64,8 +64,8 @@ class HPushAnimation : HTransitionAnimation {
         containerView.addSubview(rightView)
         
         UIView.animate(withDuration: self.transitionDuration(using: transitionContext), delay: 0, options: .transitionFlipFromRight) {
-            leftView.frame = CGRectMake(0, 0, toView!.width/2, toView!.height);
-            rightView.frame = CGRectMake(toView!.width/2, 0, toView!.width/2, toView!.height);
+            leftView.frame = CGRect(x: 0, y: 0, width: toView!.width / 2, height: toView!.height)
+            rightView.frame = CGRect(x: toView!.width / 2, y: 0, width: toView!.width / 2, height: toView!.height)
         } completion: { finished in
             //由于加入了手势交互转场，所以需要根据手势动作是否完成/取消来做操作
             transitionContext.completeTransition(transitionContext.transitionWasCancelled)
@@ -91,13 +91,13 @@ class HPushAnimation : HTransitionAnimation {
 
         //左侧动画视图
         let leftFromView = fromView!.snapshotView(afterScreenUpdates: false)
-        let leftView = UIView.init(frame: CGRectMake(0, 0, fromView!.width/2, fromView!.height))
+        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: fromView!.width / 2, height: fromView!.height))
         leftView.clipsToBounds = true
         leftView.addSubview(leftFromView!)
         //右侧动画视图
         let rightFromView = fromView!.snapshotView(afterScreenUpdates: false)
-        rightFromView!.frame = CGRectMake(-fromView!.width/2, 0, fromView!.width, fromView!.height);
-        let rightView = UIView.init(frame: CGRectMake(fromView!.width/2, 0, fromView!.width/2, fromView!.height))
+        rightFromView!.frame = CGRect(x: -fromView!.width / 2, y: 0, width: fromView!.width, height: fromView!.height)
+        let rightView = UIView(frame: CGRect(x: fromView!.width / 2, y: 0, width: fromView!.width / 2, height: fromView!.height))
         rightView.clipsToBounds = true
         rightView.addSubview(rightFromView!)
 
@@ -108,8 +108,8 @@ class HPushAnimation : HTransitionAnimation {
         fromView!.isHidden = true
         
         UIView.animate(withDuration: self.transitionDuration(using: transitionContext), delay: 0, options: .transitionFlipFromRight) {
-            leftView.frame = CGRectMake(-fromView!.width/2, 0, fromView!.width/2, fromView!.height);
-            rightView.frame = CGRectMake(fromView!.width, 0, fromView!.width/2, fromView!.height);
+            leftView.frame = CGRect(x: -fromView!.width / 2, y: 0, width: fromView!.width / 2, height: fromView!.height)
+            rightView.frame = CGRect(x: fromView!.width, y: 0, width: fromView!.width / 2, height: fromView!.height)
         } completion: { finished in
             fromView!.isHidden = false
             leftView.removeFromSuperview()

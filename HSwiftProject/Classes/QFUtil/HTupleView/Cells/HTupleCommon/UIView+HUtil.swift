@@ -8,8 +8,8 @@
 
 import UIKit
 
-private let TIPS_IMAGE_VIEW_TAG = 10000
-private let TIPS_LABEL_TAG = 10001
+private var TIPS_IMAGE_VIEW_TAG = 10000
+private var TIPS_LABEL_TAG = 10001
 
 private var topLineLayerKey = "topLineLayerKey"
 private var bottomLineLayerKey = "bottomLineLayerKey"
@@ -32,80 +32,66 @@ extension UIView {
     }
     
  
-    @available(iOS 2.0, *)
     var x: CGFloat {
         get { return self.frame.origin.x }
         set { self.frame.origin.x = newValue }
     }
     
-    @available(iOS 2.0, *)
     var y: CGFloat {
         get { return self.frame.origin.y }
         set { self.frame.origin.y = newValue }
     }
     
-    @available(iOS 2.0, *)
     public var width: CGFloat {
         get { return self.frame.size.width }
         set { self.frame.size.width = newValue }
     }
     
-    @available(iOS 2.0, *)
     public var height: CGFloat {
         get { return self.frame.size.height }
         set { self.frame.size.height = newValue }
     }
     
-    @available(iOS 2.0, *)
     public var origin: CGPoint {
         get { return self.frame.origin }
         set { self.frame.origin = newValue }
     }
     
-    @available(iOS 2.0, *)
     public var size: CGSize {
         get { return self.frame.size }
         set { self.frame.size = newValue }
     }
     
-    @available(iOS 2.0, *)
     var centerX: CGFloat {
         get { return self.center.x }
         set { self.center = CGPoint(x: newValue, y: self.center.y) }
     }
     
-    @available(iOS 2.0, *)
     var centerY: CGFloat {
         get { return self.center.x }
         set { self.center = CGPoint(x: self.center.y, y: newValue) }
     }
     
-    @available(iOS 2.0, *)
     var minX: CGFloat {
         return self.frame.minX
     }
 
-    @available(iOS 2.0, *)
     var minY: CGFloat {
         return self.frame.minY
     }
 
-    @available(iOS 2.0, *)
     var midX: CGFloat {
         return self.frame.midX
     }
     
-    @available(iOS 2.0, *)
     var midY: CGFloat {
         return self.frame.midY
     }
 
-    @available(iOS 2.0, *)
     var maxX: CGFloat {
         return self.frame.maxX
     }
     
-    @available(iOS 2.0, *)
     var maxY: CGFloat {
         return self.frame.maxY
     }
@@ -114,14 +100,14 @@ extension UIView {
     *  根据传入的width来水平居中
     */
     func horizontalCenterWithWidth(_ width: CGFloat) {
-        self.x = CGFloat(ceilf(Float((width - self.width)/2)))
+        self.x = CGFloat(ceilf(Float((width - self.width) / 2)))
     }
 
     /**
     *  根据传入的height来竖直居中
     */
     func verticalCenterWithHeight(_ height: CGFloat) {
-        self.x = CGFloat(ceilf(Float((height - self.height)/2)))
+        self.x = CGFloat(ceilf(Float((height - self.height) / 2)))
     }
     
     func horizontalCenterInSuperView() {
@@ -145,7 +131,7 @@ extension UIView {
 
     private func addTapGestureWithNumberOfTapsRequired(_ numberOfTapsRequired: Int, block: @escaping HGestureBlock) -> UITapGestureRecognizer {
         self.isUserInteractionEnabled = true
-        let recognizer: UITapGestureRecognizer = UITapGestureRecognizer.init(block: block)
+        let recognizer: UITapGestureRecognizer = UITapGestureRecognizer(block: block)
         recognizer.numberOfTapsRequired = numberOfTapsRequired
         self.addGestureRecognizer(recognizer)
         return recognizer
@@ -178,7 +164,7 @@ extension UIView {
                 }
             }
         }
-        let recognizer: UITapGestureRecognizer = UITapGestureRecognizer.init(target: target, action: action)
+        let recognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: target, action: action)
         self.addGestureRecognizer(recognizer)
         return recognizer
     }
@@ -207,12 +193,12 @@ extension UIView {
         return layer
     }
 
-    func setTopFillLineWithColor(_ color: UIColor) -> Void {
+    func setTopFillLineWithColor(_ color: UIColor) {
         self.setTopLineWithColor(color, paddingLeft: 0, paddingRight: 0)
     }
 
-    func setTopLineWithColor(_ color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) -> Void {
-        let frame: CGRect = CGRect(x: paddingLeft, y: 0, width: UIScreen.width-paddingLeft-paddingRight, height: UIScreen.onePixel)
+    func setTopLineWithColor(_ color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) {
+        let frame: CGRect = CGRect(x: paddingLeft, y: 0, width: UIScreen.width - paddingLeft - paddingRight, height: UIScreen.onePixel)
         if self.topLineLayer == nil {
             self.topLineLayer = self.addSubLayerWithFrame(frame, color: color)
         }else {
@@ -222,13 +208,13 @@ extension UIView {
         
     }
 
-    func setBottomFillLineWithColor(_ color: UIColor) -> Void {
+    func setBottomFillLineWithColor(_ color: UIColor) {
         self.setBottomLineWithColor(color, paddingLeft: 0, paddingRight: 0)
     }
 
     
-    func setBottomLineWithColor(_ color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) -> Void {
-        let frame: CGRect = CGRect(x: paddingLeft, y: self.frame.height-UIScreen.onePixel, width: UIScreen.width-paddingLeft-paddingRight, height: UIScreen.onePixel)
+    func setBottomLineWithColor(_ color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) {
+        let frame: CGRect = CGRect(x: paddingLeft, y: self.frame.height - UIScreen.onePixel, width: UIScreen.width - paddingLeft - paddingRight, height: UIScreen.onePixel)
         if self.bottomLineLayer == nil {
             self.bottomLineLayer = self.addSubLayerWithFrame(frame, color: color)
         }else {
@@ -238,7 +224,7 @@ extension UIView {
         
     }
 
-    func setTopAndBottomLineWithColor(_ color: UIColor) -> Void {
+    func setTopAndBottomLineWithColor(_ color: UIColor) {
         self.setTopFillLineWithColor(color)
         self.setBottomFillLineWithColor(color)
     }
@@ -324,19 +310,19 @@ extension UIView {
     *  主要用于UITableView，UIScrollView，UICollectionView等列表类的View，
     *  在数据为空时，显示一个提示性的图像和文字
     */
-    func setTipsViewWithImageName(_ imageName: String, text: String, textColor: UIColor) -> Void {
+    func setTipsViewWithImageName(_ imageName: String, text: String, textColor: UIColor) {
         var imageView: UIImageView? = self.viewWithTag(TIPS_IMAGE_VIEW_TAG) as? UIImageView
         if imageView == nil {
             imageView = UIImageView(image: UIImage(named: imageName))
         }
-        imageView?.center = CGPoint(x: self.width/2, y: self.height/2-40)
+        imageView?.center = CGPoint(x: self.width / 2, y: self.height / 2 - 40)
         imageView?.contentMode = .center
         imageView?.tag = TIPS_IMAGE_VIEW_TAG
         self.addSubview(imageView!)
         
         var label: UILabel? = self.viewWithTag(TIPS_IMAGE_VIEW_TAG) as? UILabel
         if label == nil {
-            label = UILabel(frame: CGRect(x: 0, y: imageView!.maxY+10, width: UIScreen.width, height: 20))
+            label = UILabel(frame: CGRect(x: 0, y: imageView!.maxY + 10, width: UIScreen.width, height: 20))
         }
         label?.font = UIFont.systemFont(ofSize: 16)
         label?.textColor = textColor
@@ -346,7 +332,7 @@ extension UIView {
         self.addSubview(label!)
     }
 
-    func removeTipsView() -> Void {
+    func removeTipsView() {
         self.viewWithTag(TIPS_IMAGE_VIEW_TAG)?.removeFromSuperview()
         self.viewWithTag(TIPS_LABEL_TAG)?.removeFromSuperview()
     }
@@ -364,9 +350,9 @@ extension UIView {
     
     ///设置指定角的角幅度
     func setGivenCorner(_ corners: UIRectCorner, radii: CGFloat) {
-        let maskPath: UIBezierPath = UIBezierPath.init(roundedRect: self.bounds,
+        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.bounds,
                                                        byRoundingCorners: corners,
-                                                       cornerRadii: CGSize.init(width: radii, height: radii))
+                                                       cornerRadii: CGSize(width: radii, height: radii))
         let maskLayer: CAShapeLayer = CAShapeLayer()
         maskLayer.frame = self.bounds
         maskLayer.path = maskPath.cgPath
@@ -375,7 +361,7 @@ extension UIView {
 
     ///设置视图所有角幅度
     func setAllCornerRadii(_ radii: CGFloat) {
-        let maskPath: UIBezierPath = UIBezierPath.init(roundedRect: self.bounds,
+        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.bounds,
                                                        cornerRadius: radii)
         let maskLayer: CAShapeLayer = CAShapeLayer()
         maskLayer.frame = self.bounds
@@ -395,16 +381,16 @@ extension UIView {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0)
         self.layer.render(in: UIGraphicsGetCurrentContext()!)
         let snap: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext();
+        UIGraphicsEndImageContext()
         return snap
     }
 
     func snapshotImageWithFrame(_ frame: CGRect) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, self.isOpaque, 0.0)
-        let context: CGContext  = UIGraphicsGetCurrentContext()!
+        let context: CGContext = UIGraphicsGetCurrentContext()!
         context.translateBy(x: -frame.origin.x, y: -frame.origin.y)
         self.layer.render(in: context)
-        context.translateBy(x: frame.origin.x, y: frame.origin.y);
+        context.translateBy(x: frame.origin.x, y: frame.origin.y)
         let theImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
         return theImage

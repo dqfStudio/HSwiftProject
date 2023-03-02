@@ -8,7 +8,7 @@
 
 import UIKit
 
-private var pushAnimationKey    = "pushAnimationKey"
+private var pushAnimationKey = "pushAnimationKey"
 private var presentAnimationKey = "presentAnimationKey"
 
 extension UIViewController {
@@ -54,16 +54,16 @@ extension UIViewController {
      completion     动画结束后的回调
     */
     func presentController(_ viewController:UIViewController, completion: HTransitionCompletion?) {
-        let animation = HPresentAnimation.init()
+        let animation = HPresentAnimation()
         animation.presetType = viewController.presetType
         animation.contentSize = viewController.containerSize
         animation.transitionDuration = viewController.animationDuration
         animation.shadowColor = viewController.shadowColor
-        animation.isShadowDismiss = viewController.isShadowDismiss;
-        animation.transitionCompletion = completion;
-        self.presentAnimation = animation;
-        viewController.modalPresentationStyle = .custom; //设置目标vc的动画为自定义
-        viewController.transitioningDelegate = animation; //设置动画管理代理类
+        animation.isShadowDismiss = viewController.isShadowDismiss
+        animation.transitionCompletion = completion
+        self.presentAnimation = animation
+        viewController.modalPresentationStyle = .custom //设置目标vc的动画为自定义
+        viewController.transitioningDelegate = animation //设置动画管理代理类
         self.present(viewController, animated: true, completion: nil)
     }
 
@@ -73,7 +73,7 @@ extension UIViewController {
      completion     动画结束后的回调
     */
     func pushViewController(_ viewController: UIViewController, completion: HTransitionCompletion?) {
-        let animation = HPushAnimation.init()
+        let animation = HPushAnimation()
         animation.pushAnimationType = viewController.animationType
         animation.transitionCompletion = completion
         self.pushAnimation = animation
@@ -81,7 +81,7 @@ extension UIViewController {
         if (self.isKind(of: UINavigationController.self)) {
             navigationVC = self as? UINavigationController
         }else {
-            navigationVC = viewController.navigationController;
+            navigationVC = viewController.navigationController
         }
         navigationVC?.delegate = self as? UINavigationControllerDelegate
         navigationVC?.pushViewController(viewController, animated: true)

@@ -20,8 +20,8 @@ class HMainController5: HTabBarController {
         
         let screenSize: CGSize = UIScreen.size
 
-        self.setTabBarFrame(CGRectMake(0, UIDevice.topBarHeight, screenSize.width, kTabBarHeight),
-            contentViewFrame: CGRectMake(0, kTabBarHeight, screenSize.width, screenSize.height - kTabBarHeight))
+        self.setTabBarFrame(CGRect(x: 0, y: UIDevice.topBarHeight, width: screenSize.width, height: kTabBarHeight),
+            contentViewFrame: CGRect(x: 0, y: kTabBarHeight, width: screenSize.width, height: screenSize.height - kTabBarHeight))
 
         self.tabBar.itemTitleColor = UIColor.black
         self.tabBar.itemTitleSelectedColor = UIColor.red
@@ -33,8 +33,8 @@ class HMainController5: HTabBarController {
         self.tabBar.indicatorColor = UIColor.red
 
         self.tabBar.backgroundColor = UIColor.gray
-        self.tabBar.setIndicatorWidth(screenSize.width/3, marginTop: kTabBarHeight-3, marginBottom: 0, tapSwitchAnimated: false)
-        self.tabBar.setScrollEnabledAndItemWidth(screenSize.width/3)
+        self.tabBar.setIndicatorWidth(screenSize.width / 3, marginTop: kTabBarHeight - 3, marginBottom: 0, tapSwitchAnimated: false)
+        self.tabBar.setScrollEnabledAndItemWidth(screenSize.width / 3)
 
         self.tabBar.addBottomLineViewWithColor(UIColor.black)
 
@@ -58,7 +58,7 @@ class HMainController5: HTabBarController {
         controller3.view.backgroundColor = UIColor.blue
         controller3.h_tabItemTitle = "第三个"
         
-        self.viewControllers = NSMutableArray.init(objects: controller1, controller2, controller3)
+        self.viewControllers = NSMutableArray(objects: controller1, controller2, controller3)
     }
 
 }

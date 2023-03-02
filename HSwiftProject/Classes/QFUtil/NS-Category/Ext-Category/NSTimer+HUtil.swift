@@ -10,7 +10,7 @@ import UIKit
 
 extension Timer {
 
-    static func scheduledTimerWithTimeInterval(_ interval: TimeInterval, times: TimeInterval, block: @escaping (Timer) -> Void) -> Void {
+    static func scheduledTimerWithTimeInterval(_ interval: TimeInterval, times: TimeInterval, block: @escaping (Timer) -> Void) {
         var count: TimeInterval = 0
         Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { timer in
             count += interval
@@ -23,7 +23,7 @@ extension Timer {
         }
     }
     
-    static func scheduledTimerWithTimeInterval(_ interval: TimeInterval, times: TimeInterval, block: @escaping (Timer) -> Void, completion: @escaping () -> Void) -> Void {
+    static func scheduledTimerWithTimeInterval(_ interval: TimeInterval, times: TimeInterval, block: @escaping (Timer) -> Void, completion: @escaping () -> Void) {
         var count: TimeInterval = 0
         Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { timer in
             count += interval
@@ -36,7 +36,7 @@ extension Timer {
         }
     }
 
-    static func scheduledTimerImmediatelyWithTimeInterval(_ interval: TimeInterval, times: TimeInterval, block: @escaping (Timer) -> Void) -> Void {
+    static func scheduledTimerImmediatelyWithTimeInterval(_ interval: TimeInterval, times: TimeInterval, block: @escaping (Timer) -> Void) {
         var count: TimeInterval = 0
         let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { timer in
             count += interval
@@ -50,11 +50,11 @@ extension Timer {
             }
         }
         //先调用一次
-        count += interval;
+        count += interval
         block(timer)
     }
 
-    static func scheduledTimerImmediatelyWithTimeInterval(_ interval: TimeInterval, times: TimeInterval, block: @escaping (Timer) -> Void, completion: @escaping () -> Void) -> Void {
+    static func scheduledTimerImmediatelyWithTimeInterval(_ interval: TimeInterval, times: TimeInterval, block: @escaping (Timer) -> Void, completion: @escaping () -> Void) {
         var count: TimeInterval = 0
         let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { timer in
             count += interval
@@ -66,7 +66,7 @@ extension Timer {
             }
         }
         //先调用一次
-        count += interval;
+        count += interval
         block(timer)
     }
     

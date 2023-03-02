@@ -8,7 +8,7 @@
 
 import UIKit
 
-let KSidebar: CGFloat = 80
+var KSidebar: CGFloat = 80
 
 class HMainController4: HTabBarController {
 
@@ -21,8 +21,8 @@ class HMainController4: HTabBarController {
         self.title = "第四页"
         
         let screenSize: CGSize = UIScreen.main.bounds.size
-        self.setTabBarFrame(CGRectMake(0, 0, KSidebar, screenSize.height),
-        contentViewFrame:CGRectMake(KSidebar, 0, screenSize.width - KSidebar, screenSize.height))
+        self.setTabBarFrame(CGRect(x: 0, y: 0, width: KSidebar, height: screenSize.height),
+                            contentViewFrame:CGRect(x: KSidebar, y: 0, width: screenSize.width - KSidebar, height: screenSize.height))
         
         self.tabBar.itemTitleColor = UIColor(hex: "#535353")
         self.tabBar.itemTitleSelectedColor = UIColor(hex: "#CFA359")
@@ -30,7 +30,7 @@ class HMainController4: HTabBarController {
         self.tabBar.itemTitleSelectedFont = UIFont.systemFont(ofSize: 17)
         
         self.tabBar.leadingSpace = UIDevice.topBarHeight
-        self.tabBar.trailingSpace = screenSize.height-UIDevice.topBarHeight-2*45
+        self.tabBar.trailingSpace = screenSize.height - UIDevice.topBarHeight - 2 * 45
         
         self.tabBar.layoutTabItemsVertical()
         self.tabBar.setItemSeparatorColor(UIColor.red, leading: 0, trailing: 0)
@@ -53,7 +53,7 @@ class HMainController4: HTabBarController {
         controller2.view.backgroundColor = UIColor.red
         controller2.h_tabItemTitle = "第二个"
         
-        self.viewControllers = NSMutableArray.init(objects: controller1, controller2)
+        self.viewControllers = NSMutableArray(objects: controller1, controller2)
     }
 
 }

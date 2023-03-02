@@ -14,9 +14,10 @@ typealias HGestureBlock = (_ sender: AnyObject) -> Void
 
 class UIGestureRecognizerBlockTarget : NSObject {
 
-    private var block: HGestureBlock? = nil
+    private var block: HGestureBlock?
     
-    @objc private func invoke(_ sender: AnyObject) {
+    @objc
+    private func invoke(_ sender: AnyObject) {
         if self.block != nil {
             self.block!(sender)
         }
@@ -40,7 +41,7 @@ extension UIGestureRecognizer {
     }
 
     private func addActionBlock(_ block: @escaping HGestureBlock) {
-        let target: UIGestureRecognizerBlockTarget = UIGestureRecognizerBlockTarget.init(block: block)
+        let target: UIGestureRecognizerBlockTarget = UIGestureRecognizerBlockTarget(block: block)
         self.addTarget(target, action: NSSelectorFromString("invoke:"))
         let targets: NSMutableArray = self.allGestureRecognizerBlockTargets()
         targets.add(target)
@@ -58,7 +59,7 @@ extension UIGestureRecognizer {
         var targets = objc_getAssociatedObject(self, &gesture_block_key) as? NSMutableArray
         if targets == nil {
             targets = NSMutableArray()
-            objc_setAssociatedObject(self, &gesture_block_key, targets, .OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            objc_setAssociatedObject(self, &gesture_block_key, targets, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
         return targets!
     }

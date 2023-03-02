@@ -29,8 +29,8 @@ extension NSObject {
         }
     }
     
-    func exclusive(exc: String, delay interval: TimeInterval, exclusive: HExclusive) -> Void {
-        let excString: String = String(format: "%p%@", self, exc);
+    func exclusive(exc: String, delay interval: TimeInterval, exclusive: HExclusive) {
+        let excString: String = String(format: "%p%@", self, exc)
         if (self.exclusiveSet!.contains(excString) == false) {
             self.exclusiveSet!.add(excString)
             if interval > 0 {
@@ -41,12 +41,12 @@ extension NSObject {
                     }
                 }
             }
-            exclusive();
+            exclusive()
         }
     }
     
-    func removeExclusive(_ exc: String) -> Void {
-        let excString: String = String(format: "%p%@", self, exc);
+    func removeExclusive(_ exc: String) {
+        let excString: String = String(format: "%p%@", self, exc)
         if (self.exclusiveSet!.contains(excString) == true) {
             self.exclusiveSet!.remove(excString)
         }
@@ -54,7 +54,7 @@ extension NSObject {
 
 }
 
-private let KSegStateKey = "_seg_"
+private var KSegStateKey = "_seg_"
 private var segStatueKey = "segStatueKey"
 private var segTotalStatueKey = "segTotalStatueKey"
 private var segStatueDictKey = "segStatueDictKey"
@@ -85,7 +85,7 @@ extension NSObject {
         }
     }
     
-    func setObject(_ anObject: AnyObject, forKey aKey: String, segStatue statue: Int) -> Void {
+    func setObject(_ anObject: AnyObject, forKey aKey: String, segStatue statue: Int) {
         let key = "\(aKey)+\(KSegStateKey)+\(statue)" as NSCopying
         self.segStatueDict.setObject(anObject, forKey: key)
     }
@@ -95,17 +95,17 @@ extension NSObject {
         return self.segStatueDict.object(forKey: key) as AnyObject
     }
     
-    func removeObjectForKey(_ aKey: String, segStatue statue: Int) -> Void {
+    func removeObjectForKey(_ aKey: String, segStatue statue: Int) {
         let key = "\(aKey)+\(KSegStateKey)+\(statue)"
         self.segStatueDict.removeObject(forKey: key)
     }
     
-    func removeObjectForSegStatue(_ statue: Int) -> Void {
+    func removeObjectForSegStatue(_ statue: Int) {
         let key = "\(KSegStateKey)+\(statue)"
         self.segStatueDict.removeObject(forKey: key)
     }
     
-    func clearSegStatue() -> Void {
+    func clearSegStatue() {
         self.segStatue = 0
         if self.segStatueDict.count > 0 {
             self.segStatueDict.removeAllObjects()
@@ -134,13 +134,13 @@ extension UIView {
         return self.idSet.contains(anId)
     }
     
-    func addId(_ anId: String) -> Void {
+    func addId(_ anId: String) {
         if self.idSet.contains(anId) == false {
             self.idSet.add(anId)
         }
     }
     
-    func removeId(_ anId: String) -> Void {
+    func removeId(_ anId: String) {
         if self.idSet.contains(anId) == true {
             self.idSet.remove(anId)
         }
@@ -150,11 +150,11 @@ extension UIView {
 
 extension UIView {
     
-    func exclusiveOtherTouch() -> Void {
+    func exclusiveOtherTouch() {
         self.isExclusiveTouch = true
     }
     
-    static func exclusiveOtherTouch() -> Void {
+    static func exclusiveOtherTouch() {
         UIView.appearance().isExclusiveTouch = true
     }
     

@@ -19,11 +19,11 @@ class HLRDManager : NSObject {
     }
 
     static var defaults: HLRDManager = {
-        return HLRDManager();
+        return HLRDManager()
     }()
 
     private func setupDefaults() -> NSDictionary {
-        return ["isLogin": 0,"userId": "111"]
+        return ["isLogin": 0, "userId": "111"]
     }
 
     //清空属性值
@@ -32,7 +32,7 @@ class HLRDManager : NSObject {
     }
     
     private func _setupDefaults() {
-        let setupDefaultSEL = NSSelectorFromString("setupDefaults");
+        let setupDefaultSEL = NSSelectorFromString("setupDefaults")
         if (self.responds(to: setupDefaultSEL)) {
             let defaultsDict = self.perform(setupDefaultSEL).takeUnretainedValue() as! NSDictionary
             for (aKey, aValue) in defaultsDict {
@@ -45,7 +45,7 @@ class HLRDManager : NSObject {
     清空属性值
     */
     private func cleanAllProperties() {
-        var count: UInt32 = 0;
+        var count: UInt32 = 0
         //let propertys = class_copyPropertyList(self.classForCoder, &count)
         let propertys = class_copyIvarList(self.classForCoder, &count)
         if propertys != nil {
@@ -80,6 +80,6 @@ class HLRDManager : NSObject {
     /// 如果属性和字典中的key不一致，可以重写此方法 / 或者readonly
     /// 不一致的key和对应的value都会通过这个方法返回，可以在此方法中做特殊处理
     override func setValue(_ value: Any?, forUndefinedKey key: String) {
-        //NSLog(@"-------> forUndefinedKey:%@  value:%@",key,value);
+        //NSLog(@"-------> forUndefinedKey:%@  value:%@",key,value)
     }
 }

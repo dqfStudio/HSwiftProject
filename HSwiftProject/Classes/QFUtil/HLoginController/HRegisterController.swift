@@ -44,14 +44,14 @@ class HRegisterController: HViewController, HTupleViewDelegate {
     }
     
     var tabBarView: HTabBar {
-        var frame: CGRect = CGRectZero
-        frame.origin.x = self.tupleView.width/2-200/2
-        frame.origin.y = 55/2-35/2
-        frame.size.width  = 200
+        var frame: CGRect = CGRect.zero
+        frame.origin.x = self.tupleView.width / 2 - 200 / 2
+        frame.origin.y = 55 / 2 - 35 / 2
+        frame.size.width = 200
         frame.size.height = 35
         
         let tabBar = HTabBar(frame: frame)
-        tabBar.cornerRadius = 35/2
+        tabBar.cornerRadius = 35 / 2
         tabBar.tag = 12345
         
         let item1 = HTabItem()
@@ -67,13 +67,13 @@ class HRegisterController: HViewController, HTupleViewDelegate {
             DispatchQueue.main.async { [weak self] in
                 //@sss
                 switch (idx) {
-                    case 0:
-                        item1.backgroundColor = UIColor.yellow
-                        item2.backgroundColor = UIColor.white
-                    case 1:
-                        item1.backgroundColor = UIColor.white
-                        item2.backgroundColor = UIColor.yellow
-                    default: break
+                case 0:
+                    item1.backgroundColor = UIColor.yellow
+                    item2.backgroundColor = UIColor.white
+                case 1:
+                    item1.backgroundColor = UIColor.white
+                    item2.backgroundColor = UIColor.yellow
+                default: break
                 }
                 self?.tupleView.tupleState = idx
             }
@@ -94,23 +94,28 @@ class HRegisterController: HViewController, HTupleViewDelegate {
         
         tabBar.selectedItemIndex = 0
         
-        tabBar.setScrollEnabledAndItemWidth(frame.size.width/2)
+        tabBar.setScrollEnabledAndItemWidth(frame.size.width / 2)
         return tabBar
     }
 
-    @objc func tupleExa0_numberOfItemsInSection(_ section: Any) -> Any {
+    @objc
+    func tupleExa0_numberOfItemsInSection(_ section: Any) -> Any {
         return 1
     }
-    @objc func tupleExa0_sizeForHeaderInSection(_ section: Any) -> Any {
-        return CGSizeMake(self.tupleView.width, 10)
+    @objc
+    func tupleExa0_sizeForHeaderInSection(_ section: Any) -> Any {
+        return CGSize(width: self.tupleView.width, height: 10)
     }
-    @objc func tupleExa0_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return CGSizeMake(self.tupleView.width, 55)
+    @objc
+    func tupleExa0_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+        return CGSize(width: self.tupleView.width, height: 55)
     }
-    @objc func tupleExa0_tupleHeader(_ headerBlock: Any, inSection section: Any) {
+    @objc
+    func tupleExa0_tupleHeader(_ headerBlock: Any, inSection section: Any) {
         _ = (headerBlock as! HTupleHeader)(nil, HTupleBaseApex.self, nil, false)
     }
-    @objc func tupleExa0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
+    @objc
+    func tupleExa0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
         let tabBar = cell.viewWithTag(12345) as? HTabBar

@@ -16,11 +16,11 @@ private enum HTableStyle: Int {
 ///自定义类型
 typealias HTableState = Int
 
-private let KTableDefaultTag   = 1615141312
+private var KTableDefaultTag  = 1615141312
 
-private let KDefaultPageSize   = 20
-private let KTableDesignKey    = "table"
-private let KTableExaDesignKey = "tableExa"
+private var KDefaultPageSize  = 20
+private var KTableDesignKey   = "table"
+private var KTableExaDesignKey = "tableExa"
 
 private var tableStateKey = "tableStateKey"
 private var signalBlockKey = "signalBlockKey"
@@ -33,7 +33,7 @@ typealias HTableLoadMoreBlock = () -> Void
 ///table header & footer & item block
 typealias HTableHeader = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
 typealias HTableFooter = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
-typealias HTableRow   = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
+typealias HTableRow = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
 
 ///split design exclusive sections block
 typealias HTableSectionExclusiveBlock = () -> NSArray
@@ -43,10 +43,10 @@ class HTableAppearance : NSObject {
     
     private static var hashTables = NSHashTable<AnyObject>.weakObjects()
     
-    static func addTable(_ anTable: AnyObject) -> Void {
+    static func addTable(_ anTable: AnyObject) {
         self.hashTables.add(anTable)
     }
-    static func enumerateTables(_ completion: @escaping () -> Void) -> Void {
+    static func enumerateTables(_ completion: @escaping () -> Void) {
         DispatchQueue.main.async {
             //倒序执行
             for item in self.hashTables.allObjects.reversed() {
@@ -59,23 +59,36 @@ class HTableAppearance : NSObject {
 }
 
 @objc protocol HTableViewDelegate : UITableViewDelegate {
-    @objc optional func numberOfSectionsInTableView() -> Any
-    @objc optional func numberOfRowsInSection(_ section: Any) -> Any
+    @objc
+    optional func numberOfSectionsInTableView() -> Any
+    @objc
+    optional func numberOfRowsInSection(_ section: Any) -> Any
 
-    @objc optional func heightForHeaderInSection(_ section: Any) -> Any
-    @objc optional func heightForFooterInSection(_ section: Any) -> Any
-    @objc optional func heightForRowAtIndexPath(_ indexPath: IndexPath) -> Any
+    @objc
+    optional func heightForHeaderInSection(_ section: Any) -> Any
+    @objc
+    optional func heightForFooterInSection(_ section: Any) -> Any
+    @objc
+    optional func heightForRowAtIndexPath(_ indexPath: IndexPath) -> Any
 
-    @objc optional func edgeInsetsForHeaderInSection(_ section: Any) -> Any
-    @objc optional func edgeInsetsForFooterInSection(_ section: Any) -> Any
-    @objc optional func edgeInsetsForRowAtIndexPath(_ indexPath: IndexPath) -> Any
+    @objc
+    optional func edgeInsetsForHeaderInSection(_ section: Any) -> Any
+    @objc
+    optional func edgeInsetsForFooterInSection(_ section: Any) -> Any
+    @objc
+    optional func edgeInsetsForRowAtIndexPath(_ indexPath: IndexPath) -> Any
 
-    @objc optional func tableHeader(_ headerBlock: Any, inSection section: Any)
-    @objc optional func tableFooter(_ footerBlock: Any, inSection section: Any)
-    @objc optional func tableRow(_ itemBlock: Any, atIndexPath indexPath: IndexPath)
+    @objc
+    optional func tableHeader(_ headerBlock: Any, inSection section: Any)
+    @objc
+    optional func tableFooter(_ footerBlock: Any, inSection section: Any)
+    @objc
+    optional func tableRow(_ itemBlock: Any, atIndexPath indexPath: IndexPath)
 
-    @objc optional func willDisplayCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
-    @objc optional func didSelectRowAtIndexPath(_ indexPath: IndexPath)
+    @objc
+    optional func willDisplayCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
+    @objc
+    optional func didSelectRowAtIndexPath(_ indexPath: IndexPath)
 }
 
 class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
@@ -83,9 +96,9 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     private var tableStyle: HTableStyle = .default
 
      private var allReuseIdentifiers: NSMutableSet = NSMutableSet()
-     private var allReuseCells    = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-     private var allReuseHeaders  = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-     private var allReuseFooters  = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+     private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+     private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+     private var allReuseFooters = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
 
      private var sectionPaths: NSArray?
     
@@ -105,7 +118,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     
     ///split设计初始化方法
     static func tableFrame(_ frame: () -> CGRect, exclusiveSections sections: HTableSectionExclusiveBlock) -> HTableView {
-        return HTableView.init(frame(), exclusiveSections: sections())
+        return HTableView(frame(), exclusiveSections: sections())
     }
     
     private convenience init(_ frame: CGRect, exclusiveSections sectionPaths: NSArray) {
@@ -136,12 +149,12 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    private func setup() -> Void {
+    private func setup() {
         //保存tableView用于全局刷新
         HTableAppearance.addTable(self)
         
         //设置默认tag
-        self.tag = KTableDefaultTag;
+        self.tag = KTableDefaultTag
         
         self.alwaysBounceVertical = true
         self.backgroundColor = UIColor.clear
@@ -245,7 +258,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
                 self.mj_footer = HTableRefresh.refreshFooterWithStyle(refreshFooterStyle) {
                     //@sss
                     self.pageNo += 1
-                    if self.pageSize*self.pageNo < self.totalNo {
+                    if self.pageSize * self.pageNo < self.totalNo {
                         self._loadMoreBlock!()
                     }else {
                         self.mj_footer!.endRefreshing()
@@ -266,11 +279,11 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         set {
             if _releaseTableKey != newValue {
                 if _releaseTableKey != nil && newValue != nil {
-                    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.init(_releaseTableKey!), object: nil)
+                    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(_releaseTableKey!), object: nil)
                 }
                 _releaseTableKey = newValue
                 if _releaseTableKey != nil {
-                    NotificationCenter.default.addObserver(self, selector: #selector(releaseTableBlock), name: NSNotification.Name.init(_releaseTableKey!), object: nil)
+                    NotificationCenter.default.addObserver(self, selector: #selector(releaseTableBlock), name: NSNotification.Name(_releaseTableKey!), object: nil)
                 }
             }
         }
@@ -285,11 +298,11 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         set {
             if _reloadTableKey != newValue {
                 if _reloadTableKey != nil && reloadTableKey != nil {
-                    NotificationCenter.default.removeObserver(self, name: NSNotification.Name.init(_reloadTableKey!), object: nil)
+                    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(_reloadTableKey!), object: nil)
                 }
                 _reloadTableKey = newValue
                 if _reloadTableKey != nil {
-                    NotificationCenter.default.addObserver(self, selector: #selector(reloadTableData), name: NSNotification.Name.init(_reloadTableKey!), object: nil)
+                    NotificationCenter.default.addObserver(self, selector: #selector(reloadTableData), name: NSNotification.Name(_reloadTableKey!), object: nil)
                 }
             }
         }
@@ -313,30 +326,30 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     ///bounce method
-    func horizontalBounceEnabled() -> Void {
+    func horizontalBounceEnabled() {
         self.bounces = true
         self.alwaysBounceHorizontal = true
         self.alwaysBounceVertical = false
     }
 
-    func verticalBounceEnabled() -> Void {
+    func verticalBounceEnabled() {
         self.bounces = true
         self.alwaysBounceHorizontal = false
         self.alwaysBounceVertical = true
     }
 
-    func bounceEnabled() -> Void {
+    func bounceEnabled() {
         self.bounces = true
         self.alwaysBounceHorizontal = true
         self.alwaysBounceVertical = true
     }
 
-    func bounceDisenable() -> Void {
+    func bounceDisenable() {
         self.bounces = false
     }
     
     //屏蔽系统UITableViewCell的间隔线style
-    open override var separatorStyle: UITableViewCell.SeparatorStyle {
+    override var separatorStyle: UITableViewCell.SeparatorStyle {
         get {
             return super.separatorStyle
         }
@@ -345,14 +358,16 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    @objc private func reloadTableData() {
+    @objc
+    private func reloadTableData() {
         DispatchQueue.main.async { [weak self] in
             self?.reloadData()
         }
     }
 
     /// release method
-    @objc func releaseTableBlock() -> Void {
+    @objc
+    func releaseTableBlock() {
         DispatchQueue.global().async {
             self.releaseAllSignal()
             self.clearTableState()
@@ -375,13 +390,13 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     func dequeueReusableHeaderWithClass(_ cls: AnyClass, iblk: AnyObject?, pre: String?, idx: Bool, section: Int) -> AnyObject {
         var cell: HTableBaseApex
         var identifier = NSStringFromClass(cls)
-        identifier = identifier+self.addressValue
-        identifier = identifier+"HeaderCell"
+        identifier = identifier + self.addressValue
+        identifier = identifier + "HeaderCell"
         if self.tableStyle == .split && self.sectionPaths?.contains(section) == false {
-            identifier = identifier+"\(self.tableState)"
+            identifier = identifier + "\(self.tableState)"
         }
-        if (pre != nil) { identifier = identifier+pre! }
-        if idx { identifier = identifier+"\(section)" }
+        if (pre != nil) { identifier = identifier + pre! }
+        if idx { identifier = identifier + "\(section)" }
         if self.allReuseIdentifiers.contains(identifier) == false {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
@@ -416,13 +431,13 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     func dequeueReusableFooterWithClass(_ cls: AnyClass, iblk: AnyObject?, pre: String?, idx: Bool, section: Int) -> AnyObject {
         var cell: HTableBaseApex
         var identifier = NSStringFromClass(cls)
-        identifier = identifier+self.addressValue
-        identifier = identifier+"FooterCell"
+        identifier = identifier + self.addressValue
+        identifier = identifier + "FooterCell"
         if self.tableStyle == .split && self.sectionPaths?.contains(section) == false {
-            identifier = identifier+"\(self.tableState)"
+            identifier = identifier + "\(self.tableState)"
         }
-        if (pre != nil) { identifier = identifier+pre! }
-        if idx { identifier = identifier+"\(section)" }
+        if (pre != nil) { identifier = identifier + pre! }
+        if idx { identifier = identifier + "\(section)" }
         if self.allReuseIdentifiers.contains(identifier) == false {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
@@ -457,13 +472,13 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     func dequeueReusableCellWithClass(_ cls: AnyClass, iblk: AnyObject?, pre: String?, idx: Bool, idxPath: IndexPath) -> AnyObject {
         var cell: HTableBaseCell
         var identifier = NSStringFromClass(cls)
-        identifier = identifier+self.addressValue
-        identifier = identifier+"ItemCell"
+        identifier = identifier + self.addressValue
+        identifier = identifier + "ItemCell"
         if self.tableStyle == .split && self.sectionPaths?.contains(idxPath.section) == false {
-            identifier = identifier+"\(self.tableState)"
+            identifier = identifier + "\(self.tableState)"
         }
-        if (pre != nil) { identifier = identifier+pre! }
-        if idx { identifier = identifier+idxPath.stringValue }
+        if (pre != nil) { identifier = identifier + pre! }
+        if idx { identifier = identifier + idxPath.stringValue }
         if self.allReuseIdentifiers.contains(identifier) == false {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forCellReuseIdentifier: identifier)
@@ -500,9 +515,9 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         if self.tableStyle == .split {
             if self.sectionPaths?.contains(section) ?? false {
                 let idx: Int = self.sectionPaths!.index(of: section)
-                prefix = KTableExaDesignKey+"\(idx)"+"_"
+                prefix = KTableExaDesignKey + "\(idx)" + "_"
             }else {
-                prefix = KTableExaDesignKey+"\(self.tableState)"+"_"
+                prefix = KTableExaDesignKey + "\(self.tableState)" + "_"
             }
         }
         return prefix
@@ -521,7 +536,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             return sections
         case .split:
             var sections = 0
-            let prefix = KTableDesignKey+"\(self.tableState)"+"_"
+            let prefix = KTableDesignKey + "\(self.tableState)" + "_"
             let selector = #selector(self.tableDelegate!.numberOfSectionsInTableView)
             if self.tableDelegate!.responds(to: selector, withPre: prefix) {
                 sections = self.tableDelegate!.performWithUnretainedValue(selector, withPre: prefix) as! Int
@@ -575,7 +590,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         //调用代理方法
         let prefix = self.prefixWithSection(indexPath.section)
         let selector: Selector = #selector(self.tableDelegate!.tableRow(_:atIndexPath:))
-        let itemBlock =  { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
+        let itemBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
             return self.dequeueReusableCellWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
         }
         if self.tableDelegate!.responds(to: selector, withPre: prefix) {
@@ -786,7 +801,7 @@ extension HTableView {
 
 }
 
-private let KTableStateKey = "_table_"
+private var KTableStateKey = "_table_"
 
 /// split设计数据存储分类
 extension HTableView {
@@ -816,12 +831,12 @@ extension HTableView {
     }
 
     ///向某个状态或当前状态添加一个值
-    func setObject(_ anObject: Any, forKey aKey: String) -> Void {
+    func setObject(_ anObject: Any, forKey aKey: String) {
         self.setObject(anObject, forKey: aKey, state: self.tableState)
     }
     
-    func setObject(_ anObject: Any, forKey aKey: String, state tableState: HTableState) -> Void {
-        let key: NSString = aKey+KTableStateKey+"\(tableState)" as NSString
+    func setObject(_ anObject: Any, forKey aKey: String, state tableState: HTableState) {
+        let key: NSString = aKey + KTableStateKey + "\(tableState)" as NSString
         self.tableStateSource.setObject(anObject, forKey: key)
     }
 
@@ -831,27 +846,27 @@ extension HTableView {
     }
     
     func objectForKey(_ aKey: String, state tableState: HTableState) -> Any? {
-        let key: NSString = aKey+KTableStateKey+"\(tableState)" as NSString
+        let key: NSString = aKey + KTableStateKey + "\(tableState)" as NSString
         return self.tableStateSource.object(forKey: key)
     }
 
     ///删除某个状态或当前状态下的一个值
-    func removeObjectForKey(_ aKey: String) -> Void {
+    func removeObjectForKey(_ aKey: String) {
         self.removeObjectForKey(aKey, state: self.tableState)
     }
     
-    func removeObjectForKey(_ aKey: String, state tableState: HTableState) -> Void {
-        let key: NSString = aKey+KTableStateKey+"\(tableState)" as NSString
+    func removeObjectForKey(_ aKey: String, state tableState: HTableState) {
+        let key: NSString = aKey + KTableStateKey + "\(tableState)" as NSString
         self.tableStateSource.removeObject(forKey: key)
     }
 
     ///删除某个状态或当前状态的值
-    func removeStateObject() -> Void {
+    func removeStateObject() {
         self.removeObjectForState(self.tableState)
     }
     
-    func removeObjectForState(_ tableState: HTableState) -> Void {
-        let key = KTableStateKey+"\(tableState)"
+    func removeObjectForState(_ tableState: HTableState) {
+        let key = KTableStateKey + "\(tableState)"
         for (aKey, _) in self.tableStateSource.reversed() {
             let aKey = aKey as! String
             if key == aKey {
@@ -862,7 +877,7 @@ extension HTableView {
     }
 
     ///删除所有状态的值
-    func clearTableState() -> Void {
+    func clearTableState() {
         if self.tableStateSource.count > 0 {
             self.tableStateSource.removeAllObjects()
         }

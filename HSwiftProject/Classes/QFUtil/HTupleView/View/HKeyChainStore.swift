@@ -71,17 +71,17 @@ enum HKeyChainStoreAccessibility: Int {
 }
 
 enum HKeyChainStoreAuthenticationPolicy: Int {
-    case UserPresence        = 0
-    case TouchIDAny          = 1
-    case TouchIDCurrentSet   = 2
-    case DevicePasscode      = 3
-    case ControlOr           = 4
-    case ControlAnd          = 5
-    case PrivateKeyUsage     = 6
+    case UserPresence       = 0
+    case TouchIDAny         = 1
+    case TouchIDCurrentSet  = 2
+    case DevicePasscode     = 3
+    case ControlOr          = 4
+    case ControlAnd         = 5
+    case PrivateKeyUsage    = 6
     case ApplicationPassword = 7
 }
 
-private let HKeyChainStoreErrorDomain: String = "com.kishikawakatsumi.Hkeychainstore"
+private var HKeyChainStoreErrorDomain: String = "com.kishikawakatsumi.Hkeychainstore"
 private var _defaultService: String = Bundle.main.bundleIdentifier ?? ""
 
 class HKeyChainStore : NSObject {
@@ -136,7 +136,7 @@ class HKeyChainStore : NSObject {
     var synchronizable: Bool {
         get { return _synchronizable }
         set {
-            _synchronizable = newValue;
+            _synchronizable = newValue
             if _authenticationPolicy != .UserPresence {
                 NSLog("Cannot specify both an authenticationPolicy and a synchronizable")
             }
@@ -172,23 +172,23 @@ class HKeyChainStore : NSObject {
     }
 
     static var keyChainStore: HKeyChainStore = {
-        return HKeyChainStore.init(service: nil, accessGroup: nil)
+        return HKeyChainStore(service: nil, accessGroup: nil)
     }()
 
     static func keyChainStoreWithService(_ service: String?) -> HKeyChainStore {
-        return HKeyChainStore.init(service: service, accessGroup: nil)
+        return HKeyChainStore(service: service, accessGroup: nil)
     }
 
     static func keyChainStoreWithService(_ service: String?, accessGroup: String?) -> HKeyChainStore {
-        return HKeyChainStore.init(service: service, accessGroup: accessGroup)
+        return HKeyChainStore(service: service, accessGroup: accessGroup)
     }
 
     static func keyChainStoreWithServer(_ server: URL, protocolType: HKeyChainStoreProtocolType) -> HKeyChainStore {
-        return HKeyChainStore.init(server: server, protocolType: protocolType, authenticationType: .Default)
+        return HKeyChainStore(server: server, protocolType: protocolType, authenticationType: .Default)
     }
 
     static func keyChainStoreWithServer(_ server: URL, protocolType: HKeyChainStoreProtocolType, authenticationType: HKeyChainStoreAuthenticationType) -> HKeyChainStore {
-        return HKeyChainStore.init(server: server, protocolType: protocolType, authenticationType: authenticationType)
+        return HKeyChainStore(server: server, protocolType: protocolType, authenticationType: authenticationType)
     }
 
     ///instance init methods
@@ -879,7 +879,7 @@ class HKeyChainStore : NSObject {
         query[kSecMatchLimit] = kSecMatchLimitAll
         query[kSecReturnAttributes] = kCFBooleanTrue
         
-        var result: AnyObject? = nil
+        var result: AnyObject?
         let cfquery: CFDictionary = CFBridgingRetain(query) as! CFDictionary
         
         let status: OSStatus = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(cfquery, UnsafeMutablePointer($0)) }
@@ -898,7 +898,7 @@ class HKeyChainStore : NSObject {
             }
             
             let items: NSArray = self.prettify(itemClassObject, items: array!)
-            let keys: NSMutableArray  = NSMutableArray()
+            let keys: NSMutableArray = NSMutableArray()
             for tmpItem in items {
                 let item = tmpItem as! NSDictionary
                 if itemClassObject == kSecClassGenericPassword {
@@ -932,8 +932,8 @@ class HKeyChainStore : NSObject {
             query[kSecReturnData] = kCFBooleanTrue
         #endif
         
-        var result: AnyObject? = nil
-        let cfquery: CFDictionary  = CFBridgingRetain(query) as! CFDictionary
+        var result: AnyObject?
+        let cfquery: CFDictionary = CFBridgingRetain(query) as! CFDictionary
         let status: OSStatus = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(cfquery, UnsafeMutablePointer($0)) }
         
         if (status == errSecSuccess) {
@@ -964,7 +964,7 @@ class HKeyChainStore : NSObject {
         query[kSecReturnData] = kCFBooleanTrue
     #endif
         
-        var result: AnyObject? = nil
+        var result: AnyObject?
         let status: OSStatus = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(query, UnsafeMutablePointer($0)) }
         
         if (status == errSecSuccess) {
@@ -1285,133 +1285,133 @@ class HKeyChainStore : NSObject {
 
     private var itemClassObject: CFString {
         switch (_itemClass) {
-            case HKeyChainStoreItemClass.genericPassword:
-                return kSecClassGenericPassword
-            case HKeyChainStoreItemClass.internetPassword:
-                return kSecClassInternetPassword
+        case HKeyChainStoreItemClass.genericPassword:
+            return kSecClassGenericPassword
+        case HKeyChainStoreItemClass.internetPassword:
+            return kSecClassInternetPassword
         }
     }
 
     private var protocolTypeObject: CFString {
         switch (_protocolType) {
-            case HKeyChainStoreProtocolType.FTP:
-                return kSecAttrProtocolFTP
-            case HKeyChainStoreProtocolType.FTPAccount:
-                return kSecAttrProtocolFTPAccount
-            case HKeyChainStoreProtocolType.HTTP:
-                return kSecAttrProtocolHTTP
-            case HKeyChainStoreProtocolType.IRC:
-                return kSecAttrProtocolIRC
-            case HKeyChainStoreProtocolType.NNTP:
-                return kSecAttrProtocolNNTP
-            case HKeyChainStoreProtocolType.POP3:
-                return kSecAttrProtocolPOP3
-            case HKeyChainStoreProtocolType.SMTP:
-                return kSecAttrProtocolSMTP
-            case HKeyChainStoreProtocolType.SOCKS:
-                return kSecAttrProtocolSOCKS
-            case HKeyChainStoreProtocolType.IMAP:
-                return kSecAttrProtocolIMAP
-            case HKeyChainStoreProtocolType.LDAP:
-                return kSecAttrProtocolLDAP
-            case HKeyChainStoreProtocolType.AppleTalk:
-                return kSecAttrProtocolAppleTalk
-            case HKeyChainStoreProtocolType.AFP:
-                return kSecAttrProtocolAFP
-            case HKeyChainStoreProtocolType.Telnet:
-                return kSecAttrProtocolTelnet
-            case HKeyChainStoreProtocolType.SSH:
-                return kSecAttrProtocolSSH
-            case HKeyChainStoreProtocolType.FTPS:
-                return kSecAttrProtocolFTPS
-            case HKeyChainStoreProtocolType.HTTPS:
-                return kSecAttrProtocolHTTPS
-            case HKeyChainStoreProtocolType.HTTPProxy:
-                return kSecAttrProtocolHTTPProxy
-            case HKeyChainStoreProtocolType.HTTPSProxy:
-                return kSecAttrProtocolHTTPSProxy
-            case HKeyChainStoreProtocolType.FTPProxy:
-                return kSecAttrProtocolFTPProxy
-            case HKeyChainStoreProtocolType.SMB:
-                return kSecAttrProtocolSMB
-            case HKeyChainStoreProtocolType.RTSP:
-                return kSecAttrProtocolRTSP
-            case HKeyChainStoreProtocolType.RTSPProxy:
-                return kSecAttrProtocolRTSPProxy
-            case HKeyChainStoreProtocolType.DAAP:
-                return kSecAttrProtocolDAAP
-            case HKeyChainStoreProtocolType.EPPC:
-                return kSecAttrProtocolEPPC
-            case HKeyChainStoreProtocolType.NNTPS:
-                return kSecAttrProtocolNNTPS
-            case HKeyChainStoreProtocolType.LDAPS:
-                return kSecAttrProtocolLDAPS
-            case HKeyChainStoreProtocolType.TelnetS:
-                return kSecAttrProtocolTelnetS
-            case HKeyChainStoreProtocolType.IRCS:
-                return kSecAttrProtocolIRCS
-            case HKeyChainStoreProtocolType.POP3S:
-                return kSecAttrProtocolPOP3S
+        case HKeyChainStoreProtocolType.FTP:
+            return kSecAttrProtocolFTP
+        case HKeyChainStoreProtocolType.FTPAccount:
+            return kSecAttrProtocolFTPAccount
+        case HKeyChainStoreProtocolType.HTTP:
+            return kSecAttrProtocolHTTP
+        case HKeyChainStoreProtocolType.IRC:
+            return kSecAttrProtocolIRC
+        case HKeyChainStoreProtocolType.NNTP:
+            return kSecAttrProtocolNNTP
+        case HKeyChainStoreProtocolType.POP3:
+            return kSecAttrProtocolPOP3
+        case HKeyChainStoreProtocolType.SMTP:
+            return kSecAttrProtocolSMTP
+        case HKeyChainStoreProtocolType.SOCKS:
+            return kSecAttrProtocolSOCKS
+        case HKeyChainStoreProtocolType.IMAP:
+            return kSecAttrProtocolIMAP
+        case HKeyChainStoreProtocolType.LDAP:
+            return kSecAttrProtocolLDAP
+        case HKeyChainStoreProtocolType.AppleTalk:
+            return kSecAttrProtocolAppleTalk
+        case HKeyChainStoreProtocolType.AFP:
+            return kSecAttrProtocolAFP
+        case HKeyChainStoreProtocolType.Telnet:
+            return kSecAttrProtocolTelnet
+        case HKeyChainStoreProtocolType.SSH:
+            return kSecAttrProtocolSSH
+        case HKeyChainStoreProtocolType.FTPS:
+            return kSecAttrProtocolFTPS
+        case HKeyChainStoreProtocolType.HTTPS:
+            return kSecAttrProtocolHTTPS
+        case HKeyChainStoreProtocolType.HTTPProxy:
+            return kSecAttrProtocolHTTPProxy
+        case HKeyChainStoreProtocolType.HTTPSProxy:
+            return kSecAttrProtocolHTTPSProxy
+        case HKeyChainStoreProtocolType.FTPProxy:
+            return kSecAttrProtocolFTPProxy
+        case HKeyChainStoreProtocolType.SMB:
+            return kSecAttrProtocolSMB
+        case HKeyChainStoreProtocolType.RTSP:
+            return kSecAttrProtocolRTSP
+        case HKeyChainStoreProtocolType.RTSPProxy:
+            return kSecAttrProtocolRTSPProxy
+        case HKeyChainStoreProtocolType.DAAP:
+            return kSecAttrProtocolDAAP
+        case HKeyChainStoreProtocolType.EPPC:
+            return kSecAttrProtocolEPPC
+        case HKeyChainStoreProtocolType.NNTPS:
+            return kSecAttrProtocolNNTPS
+        case HKeyChainStoreProtocolType.LDAPS:
+            return kSecAttrProtocolLDAPS
+        case HKeyChainStoreProtocolType.TelnetS:
+            return kSecAttrProtocolTelnetS
+        case HKeyChainStoreProtocolType.IRCS:
+            return kSecAttrProtocolIRCS
+        case HKeyChainStoreProtocolType.POP3S:
+            return kSecAttrProtocolPOP3S
         }
     }
 
     private var authenticationTypeObject: CFString {
         switch (_authenticationType) {
-            case HKeyChainStoreAuthenticationType.NTLM:
-                return kSecAttrAuthenticationTypeNTLM
-            case HKeyChainStoreAuthenticationType.MSN:
-                return kSecAttrAuthenticationTypeMSN
-            case HKeyChainStoreAuthenticationType.DPA:
-                return kSecAttrAuthenticationTypeDPA
-            case HKeyChainStoreAuthenticationType.RPA:
-                return kSecAttrAuthenticationTypeRPA
-            case HKeyChainStoreAuthenticationType.HTTPBasic:
-                return kSecAttrAuthenticationTypeHTTPBasic
-            case HKeyChainStoreAuthenticationType.HTTPDigest:
-                return kSecAttrAuthenticationTypeHTTPDigest
-            case HKeyChainStoreAuthenticationType.HTMLForm:
-                return kSecAttrAuthenticationTypeHTMLForm
-            case HKeyChainStoreAuthenticationType.Default:
-                return kSecAttrAuthenticationTypeDefault
+        case HKeyChainStoreAuthenticationType.NTLM:
+            return kSecAttrAuthenticationTypeNTLM
+        case HKeyChainStoreAuthenticationType.MSN:
+            return kSecAttrAuthenticationTypeMSN
+        case HKeyChainStoreAuthenticationType.DPA:
+            return kSecAttrAuthenticationTypeDPA
+        case HKeyChainStoreAuthenticationType.RPA:
+            return kSecAttrAuthenticationTypeRPA
+        case HKeyChainStoreAuthenticationType.HTTPBasic:
+            return kSecAttrAuthenticationTypeHTTPBasic
+        case HKeyChainStoreAuthenticationType.HTTPDigest:
+            return kSecAttrAuthenticationTypeHTTPDigest
+        case HKeyChainStoreAuthenticationType.HTMLForm:
+            return kSecAttrAuthenticationTypeHTMLForm
+        case HKeyChainStoreAuthenticationType.Default:
+            return kSecAttrAuthenticationTypeDefault
         }
     }
 
     private var accessibilityObject: CFString {
         switch (accessibility) {
-            case HKeyChainStoreAccessibility.WhenUnlocked:
-                return kSecAttrAccessibleWhenUnlocked
-            case HKeyChainStoreAccessibility.AfterFirstUnlock:
+        case HKeyChainStoreAccessibility.WhenUnlocked:
+            return kSecAttrAccessibleWhenUnlocked
+        case HKeyChainStoreAccessibility.AfterFirstUnlock:
+            return kSecAttrAccessibleAfterFirstUnlock
+        case HKeyChainStoreAccessibility.Always:
+            if #available(iOS 12.0, *) {
                 return kSecAttrAccessibleAfterFirstUnlock
-            case HKeyChainStoreAccessibility.Always:
-                if #available(iOS 12.0, *) {
-                    return kSecAttrAccessibleAfterFirstUnlock
-                }else {
-                    return kSecAttrAccessibleAlways
-                }
-            case HKeyChainStoreAccessibility.WhenPasscodeSetThisDeviceOnly:
-                return kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly
-            case HKeyChainStoreAccessibility.WhenUnlockedThisDeviceOnly:
-                return kSecAttrAccessibleWhenUnlockedThisDeviceOnly
-            case HKeyChainStoreAccessibility.AfterFirstUnlockThisDeviceOnly:
+            }else {
+                return kSecAttrAccessibleAlways
+            }
+        case HKeyChainStoreAccessibility.WhenPasscodeSetThisDeviceOnly:
+            return kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly
+        case HKeyChainStoreAccessibility.WhenUnlockedThisDeviceOnly:
+            return kSecAttrAccessibleWhenUnlockedThisDeviceOnly
+        case HKeyChainStoreAccessibility.AfterFirstUnlockThisDeviceOnly:
+            return kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
+        case HKeyChainStoreAccessibility.AlwaysThisDeviceOnly:
+            if #available(iOS 12.0, *) {
                 return kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
-            case HKeyChainStoreAccessibility.AlwaysThisDeviceOnly:
-                if #available(iOS 12.0, *) {
-                    return kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly
-                }else {
-                    return kSecAttrAccessibleAlwaysThisDeviceOnly
-                }
+            }else {
+                return kSecAttrAccessibleAlwaysThisDeviceOnly
+            }
         }
     }
 
     private static func argumentError(_ message: String) -> NSError {
         let error = NSError(domain: HKeyChainStoreErrorDomain, code: HKeyChainStoreErrorCode.invalidArguments.rawValue, userInfo: [NSLocalizedDescriptionKey: message])
-        NSLog("error: [\(error.code)) "+error.localizedDescription)
+        NSLog("error: [\(error.code)) " + error.localizedDescription)
         return error
     }
 
     private static func conversionError(_ message: String) -> NSError {
         let error = NSError(domain: HKeyChainStoreErrorDomain, code: -67594, userInfo: [NSLocalizedDescriptionKey: message])
-        NSLog("error: [\(error.code)) "+error.localizedDescription)
+        NSLog("error: [\(error.code)) " + error.localizedDescription)
         return error
     }
 
@@ -1424,13 +1424,13 @@ class HKeyChainStore : NSObject {
         }
     #endif
         let error = NSError(domain: HKeyChainStoreErrorDomain, code: Int(status), userInfo: [NSLocalizedDescriptionKey: message ?? ""])
-        NSLog("OSStatus error: [\(error.code)) "+error.localizedDescription)
+        NSLog("OSStatus error: [\(error.code)) " + error.localizedDescription)
         return error
     }
 
     private static func unexpectedError(_ message: String?) -> NSError {
         let error = NSError(domain: HKeyChainStoreErrorDomain, code: -99999, userInfo: [NSLocalizedDescriptionKey: message ?? ""])
-        NSLog("error: [\(error.code)) "+error.localizedDescription)
+        NSLog("error: [\(error.code)) " + error.localizedDescription)
         return error
     }
 

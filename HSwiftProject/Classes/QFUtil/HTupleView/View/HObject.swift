@@ -25,7 +25,7 @@ import UIKit
 //}
 //
 //class NSSize: NSObject {
-//    var sizeValue: CGSize = CGSizeZero
+//    var sizeValue: CGSize = CGSize.zero
 //    required init(size: CGSize) {
 //        super.init()
 //        self.sizeValue = size

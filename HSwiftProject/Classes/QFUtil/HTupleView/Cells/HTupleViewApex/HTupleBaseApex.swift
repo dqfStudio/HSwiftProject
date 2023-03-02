@@ -69,7 +69,7 @@ class HTupleBaseApex : UICollectionReusableView {
         if _separatorView == nil {
             _separatorView = UIView()
             _separatorView!.isHidden = true
-            let color = UIColor(red: 233/255.0, green: 233/255.0, blue: 233/255.0, alpha: 1.0)
+            let color = UIColor(red: 233 / 255.0, green: 233 / 255.0, blue: 233 / 255.0, alpha: 1.0)
             _separatorView!.backgroundColor = color
         }
         return _separatorView!
@@ -132,7 +132,7 @@ class HTupleBaseApex : UICollectionReusableView {
     }
     
     private var getSeparatorFrame: CGRect {
-        var frame: CGRect = CGRectMake(0, self.height - 1, self.width, 1)
+        var frame: CGRect = CGRect(x: 0, y: self.height - 1, width: self.width, height: 1)
         frame.x += self.separatorInset.left
         frame.width -= self.separatorInset.left + self.separatorInset.right
         return frame
@@ -150,7 +150,8 @@ class HTupleBaseApex : UICollectionReusableView {
 
     var layoutViewBounds: CGRect {
         var frame: CGRect = self.layoutViewFrame
-        frame.x = 0; frame.y = 0
+        frame.x = 0
+        frame.y = 0
         return frame
     }
 
@@ -168,6 +169,7 @@ class HTupleBaseApex : UICollectionReusableView {
     ///cell初始化是调用的方法
     func initUI() { }
     ///用于子类更新子视图布局
-    @objc func relayoutSubviews() { }
+    @objc
+    func relayoutSubviews() { }
 
 }

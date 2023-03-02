@@ -39,7 +39,7 @@ class HTabItem : UIButton {
      */
     var index: Int = 0
 
-    private var _frameWithOutTransform: CGRect = CGRectZero
+    private var _frameWithOutTransform: CGRect = CGRect.zero
     /**
      *  用于记录tabItem在缩放前的frame，
      *  在HTabBar的属性itemFontChangeFollowContentScroll == YES时会用到
@@ -137,7 +137,7 @@ class HTabItem : UIButton {
         }
     }
     
-    private var _indicatorFrame: CGRect = CGRectZero
+    private var _indicatorFrame: CGRect = CGRect.zero
     var indicatorFrame: CGRect {
         return _indicatorFrame
     }
@@ -277,14 +277,15 @@ class HTabItem : UIButton {
             if self.doubleTapView == nil {
                 self.doubleTapView = UIView(frame: self.bounds)
                 self.addSubview(self.doubleTapView!)
-                let doubleRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(doubleTapped(_:)))
+                let doubleRecognizer = UITapGestureRecognizer(target: self, action: #selector(doubleTapped(_:)))
                 doubleRecognizer.numberOfTapsRequired = 2
                 self.doubleTapView!.addGestureRecognizer(doubleRecognizer)
             }
         }
     }
 
-    @objc private func doubleTapped(_ recognizer: UITapGestureRecognizer) {
+    @objc
+    private func doubleTapped(_ recognizer: UITapGestureRecognizer) {
         if self.doubleTapHandler != nil {
             self.doubleTapHandler!()
         }
@@ -321,7 +322,7 @@ class HTabItem : UIButton {
     }
     
     required init() {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         self.setup()
     }
     
@@ -350,7 +351,7 @@ class HTabItem : UIButton {
     /**
      *  覆盖父类的setHighlighted:方法，按下HTabItem时，不高亮该item
      */
-    override open var isHighlighted: Bool {
+    override var isHighlighted: Bool {
         get {
             super.isHighlighted
         }
@@ -361,22 +362,22 @@ class HTabItem : UIButton {
         }
     }
 
-    override open func layoutSubviews() {
+    override func layoutSubviews() {
         super.layoutSubviews()
         if self.image(for: .normal) != nil && self.isContentHorizontalCenter {
-            var titleSize: CGSize = self.titleLabel?.frame.size ?? CGSizeZero
-            let imageSize: CGSize = self.imageView?.frame.size ?? CGSizeZero
-            titleSize = CGSizeMake(CGFloat(ceilf(Float(titleSize.width))), CGFloat(ceilf(Float(titleSize.height))))
+            var titleSize: CGSize = self.titleLabel?.frame.size ?? CGSize.zero
+            let imageSize: CGSize = self.imageView?.frame.size ?? CGSize.zero
+            titleSize = CGSize(width: CGFloat(ceilf(Float(titleSize.width))), height: CGFloat(ceilf(Float(titleSize.height))))
             let totalHeight: CGFloat = (imageSize.height + titleSize.height + self.spacing)
-            self.imageEdgeInsets = UIEdgeInsetsMake(-(totalHeight - imageSize.height - self.verticalOffset), 0, 0, -titleSize.width)
-            self.titleEdgeInsets = UIEdgeInsetsMake(self.verticalOffset, -imageSize.width, -(totalHeight - titleSize.height), 0)
+            self.imageEdgeInsets = UIEdgeInsets(top: -(totalHeight - imageSize.height - self.verticalOffset), left: 0, bottom: 0, right: -titleSize.width)
+            self.titleEdgeInsets = UIEdgeInsets(top: self.verticalOffset, left: -imageSize.width, bottom: -(totalHeight - titleSize.height), right: 0)
         }else {
-            self.imageEdgeInsets = UIEdgeInsetsZero
-            self.titleEdgeInsets = UIEdgeInsetsZero
+            self.imageEdgeInsets = UIEdgeInsets.zero
+            self.titleEdgeInsets = UIEdgeInsets.zero
         }
     }
 
-    override open var isSelected: Bool {
+    override var isSelected: Bool {
         get {
             super.isSelected
         }
@@ -388,14 +389,14 @@ class HTabItem : UIButton {
         }
     }
 
-    override open var frame: CGRect {
+    override var frame: CGRect {
         get {
             return super.frame
         }
         set {
             super.frame = newValue
             _frameWithOutTransform = frame
-            if newValue != CGRectZero {
+            if newValue != CGRect.zero {
                 if self.doubleTapView != nil {
                     self.doubleTapView!.frame = self.bounds
                 }
@@ -411,7 +412,7 @@ class HTabItem : UIButton {
             return
         }
         let tmpTitle: NSString = self.title! as NSString
-        let size = tmpTitle.boundingRect(with: CGSizeMake(.greatestFiniteMagnitude, .greatestFiniteMagnitude),
+        let size = tmpTitle.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude),
                                         options: [.usesLineFragmentOrigin, .usesFontLeading],
                                         attributes: [.font : self.titleFont!],
                                         context: nil).size
@@ -421,10 +422,10 @@ class HTabItem : UIButton {
     private func calculateIndicatorFrame() {
         let frame: CGRect = self.frameWithOutTransform
         let insets: UIEdgeInsets = self.indicatorInsets
-        _indicatorFrame = CGRectMake(frame.origin.x + insets.left,
-                                     frame.origin.y + insets.top,
-                                     frame.size.width - insets.left - insets.right,
-                                     frame.size.height - insets.top - insets.bottom)
+        _indicatorFrame = CGRect(x: frame.origin.x + insets.left,
+                                 y: frame.origin.y + insets.top,
+                                 width: frame.size.width - insets.left - insets.right,
+                                 height: frame.size.height - insets.top - insets.bottom)
     }
 
     private func updateBadge() {
@@ -441,7 +442,7 @@ class HTabItem : UIButton {
                 
                 // 计算badgeStr的size
                 let tmpBadgeStr: NSString = badgeStr as NSString
-                let size = tmpBadgeStr.boundingRect(with: CGSizeMake(.greatestFiniteMagnitude, .greatestFiniteMagnitude),
+                let size = tmpBadgeStr.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude),
                                                 options: [.usesLineFragmentOrigin, .usesFontLeading],
                                                 attributes: [.font : self.badgeButton.titleLabel!.font as Any],
                                                 context: nil).size
@@ -453,20 +454,20 @@ class HTabItem : UIButton {
                 width = max(width, height)
                 
                 // 设置badgeButton的frame
-                self.badgeButton.frame = CGRectMake(self.bounds.size.width - width / 2 - self.numberBadgeCenterMarginRight,
-                                                    self.numberBadgeMarginTop,
-                                                    width,
-                                                    height)
+                self.badgeButton.frame = CGRect(x: self.bounds.size.width - width / 2 - self.numberBadgeCenterMarginRight,
+                                                y: self.numberBadgeMarginTop,
+                                                width: width,
+                                                height: height)
                 self.badgeButton.layer.cornerRadius = self.badgeButton.bounds.size.height / 2
                 self.badgeButton.setTitle(badgeStr, for: .normal)
                 self.badgeButton.isHidden = false
             }
         } else if self.badgeStyle == .dot {
             self.badgeButton.setTitle(nil, for: .normal)
-            self.badgeButton.frame = CGRectMake(self.bounds.size.width - self.dotBadgeCenterMarginRight - self.dotBadgeSideLength,
-                                                self.dotBadgeMarginTop,
-                                                self.dotBadgeSideLength,
-                                                self.dotBadgeSideLength)
+            self.badgeButton.frame = CGRect(x: self.bounds.size.width - self.dotBadgeCenterMarginRight - self.dotBadgeSideLength,
+                                            y: self.dotBadgeMarginTop,
+                                            width: self.dotBadgeSideLength,
+                                            height: self.dotBadgeSideLength)
             self.badgeButton.layer.cornerRadius = self.badgeButton.bounds.size.height / 2
             self.badgeButton.isHidden = false
         }

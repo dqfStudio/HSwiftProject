@@ -17,6 +17,7 @@ class HTupleBlankCell : HTupleBaseCell {
         }
         return _view!
     }
+    
     override func relayoutSubviews() {
         HLayoutTupleCell(self.view)
     }
@@ -32,6 +33,7 @@ class HTupleLabelCell : HTupleBaseCell {
         }
         return _label!
     }
+    
     override func relayoutSubviews() {
         HLayoutTupleCell(self.label)
     }
@@ -47,6 +49,7 @@ class HTupleTextCell : HTupleBaseCell {
         }
         return _textView!
     }
+    
     override func relayoutSubviews() {
         HLayoutTupleCell(self.textView)
     }
@@ -61,6 +64,7 @@ class HTupleButtonCell : HTupleBaseCell {
         }
         return _buttonView!
     }
+    
     override func relayoutSubviews() {
         HLayoutTupleCell(self.buttonView)
     }
@@ -75,6 +79,7 @@ class HTupleImageCell : HTupleBaseCell {
         }
         return _imageView!
     }
+    
     override func relayoutSubviews() {
         HLayoutTupleCell(self.imageView)
     }
@@ -90,6 +95,7 @@ class HTupleTextFieldCell : HTupleBaseCell {
         }
         return _textField!
     }
+    
     override func relayoutSubviews() {
         HLayoutTupleCell(self.textField)
     }

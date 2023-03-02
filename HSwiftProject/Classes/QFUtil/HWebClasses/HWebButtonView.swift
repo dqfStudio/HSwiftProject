@@ -25,11 +25,11 @@ class HWebButtonView: UIButton {
     //父类那个tintColor有问题
     var renderColor: UIColor? {
         didSet {
-            self.renderColor = oldValue;
+            self.renderColor = oldValue
             if self.renderColor != nil {
-                _imageView.tintColor = oldValue;
+                _imageView.tintColor = oldValue
                 _imageView.image = _imageView.image?.withRenderingMode(.alwaysTemplate)
-                self.tintColor = oldValue;
+                self.tintColor = oldValue
                 self.setImage(self.image(for:.normal)?.withRenderingMode(.alwaysTemplate), for:.normal)
             }else {
                 _imageView.image = _imageView.image?.withRenderingMode(.alwaysOriginal)
@@ -58,14 +58,14 @@ class HWebButtonView: UIButton {
         self.setup()
     }
 
-    private func setup() -> Void {
+    private func setup() {
         self.addSubview(_imageView)
         //self.backgroundColor = UIColor.colorWithHex(0xe8e8e8)
         self.backgroundColor = UIColor.clear
         self.initialize()
     }
     
-    private func initialize() -> Void {
+    private func initialize() {
         titleLabel?.font = UIFont.systemFont(ofSize: 14)
         self.imageView?.contentMode = .scaleAspectFill
         self.layer.masksToBounds = true
@@ -76,13 +76,13 @@ class HWebButtonView: UIButton {
         self._imageView.kf.cancelDownloadTask()
         if (image != nil) {
             if renderColor != nil {
-                _imageView.tintColor = renderColor;
+                _imageView.tintColor = renderColor
                 _imageView.h_image = image?.withRenderingMode(.alwaysTemplate)
             }else {
-                _imageView.h_image = image;
+                _imageView.h_image = image
             }
         }else {
-            _imageView.h_image = nil;
+            _imageView.h_image = nil
         }
     }
     
@@ -93,9 +93,9 @@ class HWebButtonView: UIButton {
     */
     func setImage(_ image: UIImage?) {
         self._setImage(image)
-        self.lastURL = "";
-        self.placeHoderImage = nil;
-        self.imageView?.alpha = 1;
+        self.lastURL = ""
+        self.placeHoderImage = nil
+        self.imageView?.alpha = 1
         if didGetImage != nil {
             didGetImage!(self, image!)
         }
@@ -107,7 +107,7 @@ class HWebButtonView: UIButton {
     *  @param url 链接
     *
     */
-    func setImageUrl(_ url: URL) -> Void {
+    func setImageUrl(_ url: URL) {
         self.setImageUrl(url, syncLoadCache: false)
     }
 
@@ -118,7 +118,7 @@ class HWebButtonView: UIButton {
     *  @param syncLoadCache 是否同步读缓存
     *
     */
-    func setImageUrl(_ url: URL, syncLoadCache cache: Bool) -> Void {
+    func setImageUrl(_ url: URL, syncLoadCache cache: Bool) {
         self.setImageUrlString(url.absoluteString, syncLoadCache: cache)
     }
 
@@ -128,7 +128,7 @@ class HWebButtonView: UIButton {
     *  @param urlString 链接字符串
     *
     */
-    func setImageUrlString(_ urlString: String) -> Void {
+    func setImageUrlString(_ urlString: String) {
         self.setImageUrlString(urlString, syncLoadCache: false)
     }
     
@@ -139,38 +139,38 @@ class HWebButtonView: UIButton {
     *  @param syncLoadCache 是否同步读缓存
     *
     */
-    func setImageUrlString(_ urlString: String, syncLoadCache cache: Bool) -> Void {
+    func setImageUrlString(_ urlString: String, syncLoadCache cache: Bool) {
         if urlString.lengthOfBytes(using: .utf8) == 0 {
             self._setImage(nil)
             self.lastURL = ""
             if didGetError != nil {
                 didGetError!(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
             }
-            return;
+            return
         }
         
         if urlString.hasPrefix("http") == false {
             let image: UIImage? = UIImage(named: urlString)
             self._setImage(image)
-            self._imageView.alpha = 1;
+            self._imageView.alpha = 1
             if didGetImage != nil {
                 didGetImage!(self, _imageView.image!)
             }
-            return;
+            return
         }
         if self._imageView.image != nil && lastURL.isEqual(urlString) {
-            self._imageView.alpha = 1;
+            self._imageView.alpha = 1
             if didGetImage != nil {
                 didGetImage!(self, _imageView.image!)
             }
-            return;
+            return
         }
         
         if self.placeHoderImage == nil && self._imageView.image == nil {
-            self._imageView.alpha = 0;
+            self._imageView.alpha = 0
         }
         
-        let placeholder: UIImage? = self.placeHoderImage;
+        let placeholder: UIImage? = self.placeHoderImage
         
         self._setImage(nil)
         self.lastURL = ""
@@ -182,8 +182,8 @@ class HWebButtonView: UIButton {
                 case.success(let value):
                     if value.image != nil {
                         self._setImage(value.image)
-                        self._imageView.alpha = 1;
-                        self.lastURL = url.absoluteString;
+                        self._imageView.alpha = 1
+                        self.lastURL = url.absoluteString
                         if self.didGetImage != nil {
                             self.didGetImage!(self, value.image)
                         }
@@ -197,13 +197,13 @@ class HWebButtonView: UIButton {
                 switch result {
                 case .success(let value):
                     self._setImage(value.image)
-                    self.lastURL = url.absoluteString;
+                    self.lastURL = url.absoluteString
                     if value.cacheType == .none {
                         UIView.animate(withDuration: 0.5) {
-                            self._imageView.alpha = 1;
+                            self._imageView.alpha = 1
                         }
                     }else {
-                        self._imageView.alpha = 1;
+                        self._imageView.alpha = 1
                     }
                     if self.didGetImage != nil {
                         self.didGetImage!(self, value.image)
@@ -222,7 +222,7 @@ class HWebButtonView: UIButton {
     *
     *  @param fileName 图片名称
     */
-    func setImageWithFile(_ fileName: String) -> Void {
+    func setImageWithFile(_ fileName: String) {
         if fileName.lengthOfBytes(using: .utf8) > 0 {
             let resourcePath: String = Bundle.main.resourcePath!
             let filePath: String = resourcePath.appendingFormat("/%@", fileName)
@@ -242,14 +242,15 @@ class HWebButtonView: UIButton {
     *
     *  @param fileName 图片名称
     */
-    func setImageWithName(_ fileName: String) -> Void {
+    func setImageWithName(_ fileName: String) {
         if fileName.lengthOfBytes(using: .utf8) > 0 {
             self.setImage(UIImage(named: fileName))
         }
     }
 
     //点击响应事件
-    @objc private func buttonPressed() -> Void {
+    @objc
+    private func buttonPressed() {
         if pressed != nil {
             pressed!(self, nil)
         }
@@ -334,20 +335,20 @@ extension UIButton {
 
     ///图左文字右
     public func imageAndTextWithSpacing(_ spacing: CGFloat) {
-        self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 0, right: spacing)
-        self.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: spacing, bottom: 0, right: 0)
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: spacing)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: 0)
     }
 
     ///图右文字左
     public func textAndImageWithSpacing(_ spacing: CGFloat) {
-        self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: -(self.imageView?.width ?? 0), bottom: 0, right: (self.imageView?.width)!-spacing)
-        self.titleEdgeInsets = UIEdgeInsets.init(top: 0, left: (self.titleLabel?.width ?? 0)-spacing, bottom: 0, right: -(self.titleLabel?.width)!)
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: -(self.imageView?.width ?? 0), bottom: 0, right: (self.imageView?.width)!-spacing)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: (self.titleLabel?.width ?? 0) - spacing, bottom: 0, right: -(self.titleLabel?.width)!)
     }
     
     ///图上文字下
     public func imageUpAndTextDownWithSpacing(_ spacing: CGFloat) {
-        self.imageEdgeInsets = UIEdgeInsets.init(top: 0, left: -(self.imageView?.width ?? 0), bottom: -(self.imageView?.width ?? 0)-spacing/2, right: 0)
-        self.titleEdgeInsets = UIEdgeInsets.init(top: -(self.titleLabel?.intrinsicContentSize.width ?? 0)-spacing/2, left: 0, bottom: 0, right: -(self.titleLabel?.intrinsicContentSize.width ?? 0))
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: -(self.imageView?.width ?? 0), bottom: -(self.imageView?.width ?? 0) - spacing / 2, right: 0)
+        self.titleEdgeInsets = UIEdgeInsets(top: -(self.titleLabel?.intrinsicContentSize.width ?? 0) - spacing / 2, left: 0, bottom: 0, right: -(self.titleLabel?.intrinsicContentSize.width ?? 0))
     }
 
 }

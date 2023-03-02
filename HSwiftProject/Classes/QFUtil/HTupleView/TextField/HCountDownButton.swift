@@ -25,21 +25,22 @@ class HCountDownButton: UIButton {
     private var _touchedCountDownButtonHandler: HTouchedCountDownButtonHandler?
     
     ///倒计时按钮点击回调
-    func countDownButtonHandler(_ touchedCountDownButtonHandler: @escaping HTouchedCountDownButtonHandler) -> Void {
+    func countDownButtonHandler(_ touchedCountDownButtonHandler: @escaping HTouchedCountDownButtonHandler) {
         _touchedCountDownButtonHandler = touchedCountDownButtonHandler
         self.addTarget(self, action: #selector(touched(_:)))
     }
 
-    @objc private func touched(_ sender: HCountDownButton) -> Void {
+    @objc
+    private func touched(_ sender: HCountDownButton) {
         if _touchedCountDownButtonHandler != nil && (_second <= 0 || _second == _totalSecond) {
             DispatchQueue.main.async { [weak self] in
-                self!._touchedCountDownButtonHandler!(sender,sender.tag)
+                self!._touchedCountDownButtonHandler!(sender, sender.tag)
             }
         }
     }
 
     ///开始倒计时
-    func startCountDownWithSecond(_ totalSecond: Int) -> Void {
+    func startCountDownWithSecond(_ totalSecond: Int) {
         _totalSecond = totalSecond
         _second = totalSecond
         
@@ -48,10 +49,11 @@ class HCountDownButton: UIButton {
         _timer!.fireDate = NSDate.distantPast
         RunLoop.current.add(_timer!, forMode: .common)
     }
-    @objc private func timerStart(_ theTimer: Timer) {
+    @objc
+    private func timerStart(_ theTimer: Timer) {
 
         let deltaTime: Double = NSDate().timeIntervalSince(_startDate! as Date)
-         _second = _totalSecond - NSInteger(deltaTime+0.5)
+         _second = _totalSecond - NSInteger(deltaTime + 0.5)
         
         if (_second <= 0) {
             self.stopCountDown()

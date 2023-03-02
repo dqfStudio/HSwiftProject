@@ -20,9 +20,9 @@ import UIKit
 //    func didChangeValue<Value>(for keyPath: __owned KeyPath<NSObject, Value>, withSetMutation mutation: NSKeyValueSetMutationKind, using set: Set<Value>) where Value : Hashable {
 ////        NSObject.method(for: <#T##Selector!#>)
 //
-////        NSMethodSignature *ms =      [[object.target class] instanceMethodSignatureForSelector:object.selector];
+////        NSMethodSignature *ms =     [[object.target class] instanceMethodSignatureForSelector:object.selector]
 //
-////        let clos = {() -> () in self.testMethod(); return; }
+////        let clos = {() -> () in self.testMethod() return }
 //
 ////        let clos = {
 ////            () -> String in self.testMethod()
@@ -49,7 +49,7 @@ import UIKit
 ////        clos("试三下")
 //
 //
-////        let funcref: () -> Void = self.testMethod()
+////        let funcref: () = self.testMethod()
 ////
 ////        funcref()
 //
@@ -74,7 +74,7 @@ import UIKit
 //
 //    }
 //
-//    func testMethod() -> Void {
+//    func testMethod() {
 //
 //    }
 //
@@ -99,28 +99,28 @@ import UIKit
 //    }
 //
 //    + (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
-//        NSString *selectorString = NSStringFromSelector(aSelector);
+//        NSString *selectorString = NSStringFromSelector(aSelector)
 //        if ([self isKindOfClass:NSClassFromString(@"UITextInputController")] || [NSStringFromClass(self.class) hasPrefix:@"UIKeyboard"] || [selectorString isEqualToString:@"dealloc"]) {
-//            return nil;
+//            return nil
 //        }
-//        NSUInteger count = [[selectorString componentsSeparatedByString:@":"] count] - 1;
-//        NSString *string = @":@:";
-//        for (int i=0; i<count; i++) {
-//            string = [string stringByAppendingString:@":"];
+//        NSUInteger count = [[selectorString componentsSeparatedByString:@":"] count] - 1
+//        NSString *string = @":@:"
+//        for (int i=0 i<count i++) {
+//            string = [string stringByAppendingString:@":"]
 //        }
-//        return [NSMethodSignature signatureWithObjCTypes:[string UTF8String]];
+//        return [NSMethodSignature signatureWithObjCTypes:[string UTF8String]]
 //    }
 //    - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
-//        NSString *selectorString = NSStringFromSelector(aSelector);
+//        NSString *selectorString = NSStringFromSelector(aSelector)
 //        if ([self isKindOfClass:NSClassFromString(@"UITextInputController")] || [NSStringFromClass(self.class) hasPrefix:@"UIKeyboard"] || [selectorString isEqualToString:@"dealloc"]) {
-//            return nil;
+//            return nil
 //        }
-//        NSUInteger count = [[selectorString componentsSeparatedByString:@":"] count] - 1;
-//        NSString *string = @":@:";
-//        for (int i=0; i<count; i++) {
-//            string = [string stringByAppendingString:@":"];
+//        NSUInteger count = [[selectorString componentsSeparatedByString:@":"] count] - 1
+//        NSString *string = @":@:"
+//        for (int i=0 i<count i++) {
+//            string = [string stringByAppendingString:@":"]
 //        }
-//        return [NSMethodSignature signatureWithObjCTypes:[string UTF8String]];
+//        return [NSMethodSignature signatureWithObjCTypes:[string UTF8String]]
 //    }
 //    + (void)forwardInvocation:(NSInvocation *)anInvocation {}
 //    - (void)forwardInvocation:(NSInvocation *)anInvocation {}
@@ -196,50 +196,50 @@ extension NSObjectProtocol {
 
     @discardableResult
     func performWithRetainedValue(_ aSelector: Selector!, withPre pre: String!) -> AnyObject? {
-        let selector = NSSelectorFromString(pre+NSStringFromSelector(aSelector))
+        let selector = NSSelectorFromString(pre + NSStringFromSelector(aSelector))
         return self.perform(selector).takeRetainedValue()
     }
     @discardableResult
     func performWithUnretainedValue(_ aSelector: Selector!, withPre pre: String!) -> AnyObject? {
-        let selector = NSSelectorFromString(pre+NSStringFromSelector(aSelector))
+        let selector = NSSelectorFromString(pre + NSStringFromSelector(aSelector))
         return self.perform(selector).takeUnretainedValue()
     }
 
     
     @discardableResult
     func performWithRetainedValue(_ aSelector: Selector!, with object: Any!, withPre pre: String!) -> AnyObject? {
-        let selector = NSSelectorFromString(pre+NSStringFromSelector(aSelector))
+        let selector = NSSelectorFromString(pre + NSStringFromSelector(aSelector))
         return self.perform(selector, with: object).takeRetainedValue()
     }
     @discardableResult
     func performWithUnretainedValue(_ aSelector: Selector!, with object: Any!, withPre pre: String!) -> AnyObject? {
-        let selector = NSSelectorFromString(pre+NSStringFromSelector(aSelector))
+        let selector = NSSelectorFromString(pre + NSStringFromSelector(aSelector))
         return self.perform(selector, with: object).takeUnretainedValue()
     }
 
     
     @discardableResult
     func performWithRetainedValue(_ aSelector: Selector!, with object1: Any!, with object2: Any!, withPre pre: String!) -> AnyObject? {
-        let selector = NSSelectorFromString(pre+NSStringFromSelector(aSelector))
+        let selector = NSSelectorFromString(pre + NSStringFromSelector(aSelector))
         return self.perform(selector, with: object1, with: object2).takeRetainedValue()
     }
     @discardableResult
     func performWithUnretainedValue(_ aSelector: Selector!, with object1: Any!, with object2: Any!, withPre pre: String!) -> AnyObject? {
-        let selector = NSSelectorFromString(pre+NSStringFromSelector(aSelector))
+        let selector = NSSelectorFromString(pre + NSStringFromSelector(aSelector))
         return self.perform(selector, with: object1, with: object2).takeUnretainedValue()
     }
     
     
     func perform(_ aSelector: Selector!, withPre pre: String!) {
-        let selector = NSSelectorFromString(pre+NSStringFromSelector(aSelector))
+        let selector = NSSelectorFromString(pre + NSStringFromSelector(aSelector))
         self.perform(selector)
     }
     func perform(_ aSelector: Selector!, with object: Any!, withPre pre: String!) {
-        let selector = NSSelectorFromString(pre+NSStringFromSelector(aSelector))
+        let selector = NSSelectorFromString(pre + NSStringFromSelector(aSelector))
         self.perform(selector, with: object)
     }
     func perform(_ aSelector: Selector!, with object1: Any!, with object2: Any!, withPre pre: String!) {
-        let selector = NSSelectorFromString(pre+NSStringFromSelector(aSelector))
+        let selector = NSSelectorFromString(pre + NSStringFromSelector(aSelector))
         self.perform(selector, with: object1, with: object2)
     }
 }

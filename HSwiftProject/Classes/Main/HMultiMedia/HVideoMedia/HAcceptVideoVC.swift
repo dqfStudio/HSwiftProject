@@ -15,8 +15,8 @@ enum HAcceptVideo: Int {
     case acceptVideoStatus4 = 3
 }
 
-let KAcceptVideoHeight1: CGFloat = 55.0
-let KAcceptVideoHeight2: CGFloat = 65.0
+var KAcceptVideoHeight1: CGFloat = 55.0
+var KAcceptVideoHeight2: CGFloat = 65.0
 
 ///视频来电
 class HAcceptVideoVC: HViewController, HTupleViewDelegate {
@@ -37,7 +37,7 @@ class HAcceptVideoVC: HViewController, HTupleViewDelegate {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         self.tupleView.delegate = self
-        self.tupleView.backgroundColor = UIColor.init(hex: "#634848")
+        self.tupleView.backgroundColor = UIColor(hex: "#634848")
         self.view.addSubview(self.tupleView)
     }
     
@@ -73,15 +73,17 @@ class HAcceptVideoVC: HViewController, HTupleViewDelegate {
     }
     
     // 录屏
-    @objc private func recordingScreen() {
+    @objc
+    private func recordingScreen() {
         self.dismiss(animated: true)
         UIAlertController.showAlertWithTitle("安全提醒", message: "请不要录屏分享给他人以保障账户安全。", style: .alert, cancelButtonTitle: "我知道了", otherButtonTitles: nil, completion: nil)
     }
 
     // 截屏
-    @objc private func screenshot() {
+    @objc
+    private func screenshot() {
         //UIAlertController.showAlertWithTitle("安全提醒", message: "请不要截屏分享给他人以保障账户安全。", style: .alert, cancelButtonTitle: "我知道了", otherButtonTitles: nil, completion: nil)
-        UIAlertView.init(title: "安全提醒", message: "请不要截屏分享给他人以保障账户安全。", delegate: nil, cancelButtonTitle: "我知道了").show()
+        UIAlertView(title: "安全提醒", message: "请不要截屏分享给他人以保障账户安全。", delegate: nil, cancelButtonTitle: "我知道了").show()
     }
     
     override var prefersNavigationBarHidden: Bool {

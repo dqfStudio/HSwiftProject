@@ -8,10 +8,10 @@
 
 import UIKit
 
-private let KUserDefaultsKey      = "ud_user_defaults_id"
-private let KFirstLaunchKey       = "ud_first_launch"
-private let KUserFirstLaunchKey   = "ud_user_first_launch"
-private let KUserLoginKey         = "ud_user_login"
+private var KUserDefaultsKey     = "ud_user_defaults_id"
+private var KFirstLaunchKey      = "ud_first_launch"
+private var KUserFirstLaunchKey  = "ud_user_first_launch"
+private var KUserLoginKey        = "ud_user_login"
 
 extension UserDefaults {
 
@@ -38,19 +38,19 @@ extension UserDefaults {
         return UserDefaults.standard
     }
     
-    static func saveUserDefaults(block : (_ theUserDefaults: UserDefaults) -> ()) -> Void {
+    static func saveUserDefaults(block : (_ theUserDefaults: UserDefaults) -> Void) {
         if UserDefaults.theUserDefaults != nil {
             block(UserDefaults.theUserDefaults!)
             UserDefaults.theUserDefaults?.synchronize()
         }
     }
 
-    static func saveStandardDefaults(block : (_ theStandardDefaults: UserDefaults) -> ()) -> Void {
+    static func saveStandardDefaults(block : (_ theStandardDefaults: UserDefaults) -> Void) {
         block(UserDefaults.standard)
         UserDefaults.standard.synchronize()
     }
 
-    static func setAPPFirstLaunch() -> Void {
+    static func setAPPFirstLaunch() {
         UserDefaults.saveStandardDefaults { theStandardDefaults in
             theStandardDefaults.set(true, forKey: KFirstLaunchKey)
         }
@@ -60,7 +60,7 @@ extension UserDefaults {
         return UserDefaults.standard.bool(forKey: KFirstLaunchKey)
     }
 
-    static func setUserFirstLaunch() -> Void {
+    static func setUserFirstLaunch() {
         UserDefaults.saveUserDefaults { theUserDefaults in
             theUserDefaults.set(true, forKey: KUserFirstLaunchKey)
         }
@@ -70,13 +70,13 @@ extension UserDefaults {
         return UserDefaults.theUserDefaults?.bool(forKey: KUserFirstLaunchKey) ?? false
     }
 
-    static func setUserLogin() -> Void {
+    static func setUserLogin() {
         UserDefaults.saveUserDefaults { theUserDefaults in
             theUserDefaults.set(true, forKey: KUserLoginKey)
         }
     }
 
-    static func setUserLogout() -> Void {
+    static func setUserLogout() {
         UserDefaults.saveUserDefaults { theUserDefaults in
             theUserDefaults.set(false, forKey: KUserLoginKey)
         }

@@ -17,6 +17,7 @@ class HTableBlankApex : HTableBaseApex {
         }
         return _view!
     }
+    
     override func relayoutSubviews() {
         HLayoutTableApex(self.view)
     }
@@ -32,6 +33,7 @@ class HTableLabelApex : HTableBaseApex {
         }
         return _label!
     }
+    
     override func relayoutSubviews() {
         HLayoutTableApex(self.label)
     }
@@ -47,6 +49,7 @@ class HTableTextApex : HTableBaseApex {
         }
         return _textView!
     }
+    
     override func relayoutSubviews() {
         HLayoutTableApex(self.textView)
     }
@@ -61,6 +64,7 @@ class HTableButtonApex : HTableBaseApex {
         }
         return _buttonView!
     }
+    
     override func relayoutSubviews() {
         HLayoutTableApex(self.buttonView)
     }
@@ -75,6 +79,7 @@ class HTableImageApex : HTableBaseApex {
         }
         return _imageView!
     }
+    
     override func relayoutSubviews() {
         HLayoutTableApex(self.imageView)
     }
@@ -90,6 +95,7 @@ class HTableTextFieldApex : HTableBaseApex {
         }
         return _textField!
     }
+    
     override func relayoutSubviews() {
         HLayoutTableApex(self.textField)
     }

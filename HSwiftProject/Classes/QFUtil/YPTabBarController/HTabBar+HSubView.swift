@@ -11,7 +11,7 @@ import UIKit
 extension HTabBar {
     ///顶部添加分割线
     func addTopLineViewWithColor(_ color: UIColor) {
-        let frame: CGRect = CGRectMake(0, 0, UIScreen.main.bounds.width, 1)
+        let frame: CGRect = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 1)
         let lineView: UIView = UIView(frame: frame)
         lineView.backgroundColor = color
         self.addSubview(lineView)
@@ -19,7 +19,7 @@ extension HTabBar {
     }
     ///底部添加分割线
     func addBottomLineViewWithColor(_ color: UIColor) {
-        let frame: CGRect = CGRectMake(0, self.frame.height-1, UIScreen.main.bounds.width, 1)
+        let frame: CGRect = CGRect(x: 0, y: self.frame.height - 1, width: UIScreen.main.bounds.width, height: 1)
         let lineView: UIView = UIView(frame: frame)
         lineView.backgroundColor = color
         self.addSubview(lineView)

@@ -10,7 +10,7 @@ import Foundation
 
 // universal block define
 
-typealias Min_callback = () -> Void
+typealias MinCallback = () -> Void
 
 typealias Callback = (_ sender: Any?, _ data: Any?) -> Void
 

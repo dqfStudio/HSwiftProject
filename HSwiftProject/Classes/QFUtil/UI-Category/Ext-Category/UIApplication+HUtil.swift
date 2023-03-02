@@ -10,11 +10,11 @@ import UIKit
 
 enum HANetworkStatus: Int {
     case Unknown = -1
-    case Not     = 0
-    case Via2G   = 1
-    case Via3G   = 2
-    case Via4G   = 3
-    case ViaLTE  = 4
+    case Not    = 0
+    case Via2G  = 1
+    case Via3G  = 2
+    case Via4G  = 3
+    case ViaLTE = 4
     case ViaWiFi = 5
 }
 
@@ -137,7 +137,7 @@ extension UIApplication {
     */
     static var appLaunchImage: UIImage? {
 
-        var viewOrientation: String  = "Portrait"
+        var viewOrientation: String = "Portrait"
         if UIApplication.statusBarOrientation()?.isLandscape ?? false {
             viewOrientation = "Landscape"
         }
@@ -198,7 +198,7 @@ extension UIApplication {
     }
 
     static private func fileExistInMainBundle(_ name: String) -> Bool {
-        return FileManager.default.fileExists(atPath: Bundle.main.bundlePath+"/"+name)
+        return FileManager.default.fileExists(atPath: Bundle.main.bundlePath + "/" + name)
     }
     
      /// 判断是否在测试环境下
@@ -210,24 +210,24 @@ extension UIApplication {
         #endif
     }
 
-    static func hideKeyboard() -> Void {
+    static func hideKeyboard() {
         UIApplication.shared.getKeyWindow?.endEditing(true)
     }
 
-    static func call(_ phone: String) -> Void {
+    static func call(_ phone: String) {
         if UIApplication.shared.canOpenURL(URL(string: "tel://\(String(describing: phone))")!) {
             UIApplication.shared.open(URL(string: "tel://\(String(describing: phone))")!)
         }
     }
 
-    static func openURLString(_ urlString: String) -> Void {
+    static func openURLString(_ urlString: String) {
         if UIApplication.shared.canOpenURL(URL(string: urlString)!) {
             UIApplication.shared.open(URL(string: urlString)!)
         }
     }
 
 //    ///根据颜色动态设置状态栏样式
-//    static func setStatusBarStyleWithColor(_ color: UIColor) -> Void {
+//    static func setStatusBarStyleWithColor(_ color: UIColor) {
 //        if color.isLighterColor {
 //            if #available(iOS 13.0, *) {
 //                UIApplication.shared.setStatusBarStyle(UIStatusBarStyle.darkContent, animated: false)

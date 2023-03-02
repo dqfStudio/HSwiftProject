@@ -10,16 +10,20 @@ import UIKit
 
 extension HGameCategoryVC {
 
-    @objc func tupleExa0_numberOfItemsInSection(_ section: Any) -> Any {
+    @objc
+    func tupleExa0_numberOfItemsInSection(_ section: Any) -> Any {
         return 1
     }
-    @objc func tupleExa0_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return CGSizeMake(self.tupleView.width, 65)
+    @objc
+    func tupleExa0_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+        return CGSize(width: self.tupleView.width, height: 65)
     }
-    @objc func tupleExa0_edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return UIEdgeInsetsMake(10, 10, 10, 10)
+    @objc
+    func tupleExa0_edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
-    @objc func tupleExa0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
+    @objc
+    func tupleExa0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
         cell.backgroundColor = UIColor.gray
@@ -35,9 +39,9 @@ extension HGameCategoryVC {
         cell.imageView.setImageWithName("icon_no_server")
         
         var tmpFrame2 = frame
-        tmpFrame2.origin.x += tmpFrame.maxY+10;
-        tmpFrame2.size.width = frame.width-tmpFrame2.minX
-        tmpFrame2.size.height = tmpFrame.height/3
+        tmpFrame2.origin.x += tmpFrame.maxY + 10
+        tmpFrame2.size.width = frame.width - tmpFrame2.minX
+        tmpFrame2.size.height = tmpFrame.height / 3
         cell.label.frame = tmpFrame2
         cell.label.backgroundColor = UIColor.red
         

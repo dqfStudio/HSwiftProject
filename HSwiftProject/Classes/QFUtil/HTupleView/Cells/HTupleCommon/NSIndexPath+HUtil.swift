@@ -10,10 +10,11 @@ import UIKit
 
 extension NSIndexPath {
     var stringValue: NSString {
-        return "\(self.row)"+"\(self.section)" as NSString
+        return "\(self.row)" + "\(self.section)" as NSString
     }
+    
     static func stringValue(_ row: Int, _ section: Int) -> NSString {
-        return "\(row)"+"\(section)" as NSString
+        return "\(row)" + "\(section)" as NSString
     }
     static func instanceValue(_ row: Int, _ section: Int) -> NSIndexPath {
         return NSIndexPath(row: row, section: section)
@@ -22,10 +23,11 @@ extension NSIndexPath {
 
 extension IndexPath {
     var stringValue: String {
-        return "\(self.row)"+"\(self.section)"
+        return "\(self.row)" + "\(self.section)"
     }
+    
     static func stringValue(_ row: Int, _ section: Int) -> String {
-        return "\(row)"+"\(section)"
+        return "\(row)" + "\(section)"
     }
     static func instanceValue(_ row: Int, _ section: Int) -> IndexPath {
         return IndexPath(row: row, section: section)

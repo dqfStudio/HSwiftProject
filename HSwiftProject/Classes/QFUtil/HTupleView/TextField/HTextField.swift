@@ -128,7 +128,7 @@ class HTextField : UITextField, UITextFieldDelegate {
         }
     }
 
-    private var _leftInsets: UIEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 5)
+    private var _leftInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
     var leftInsets: UIEdgeInsets {
         get {
             return _leftInsets
@@ -141,7 +141,7 @@ class HTextField : UITextField, UITextFieldDelegate {
         }
     }
 
-    private var _rightInsets: UIEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0)
+    private var _rightInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
     var rightInsets: UIEdgeInsets {
         get {
             return _rightInsets
@@ -161,7 +161,7 @@ class HTextField : UITextField, UITextFieldDelegate {
         set {
             if newValue!.length > 0 {
                 let placeholderString: NSMutableAttributedString = NSMutableAttributedString(string: newValue!)
-                let range: NSRange = NSMakeRange(0, placeholderString.length)
+                let range: NSRange = NSRange(location: 0, length: placeholderString.length)
                 if self.placeholderFont != nil {//字体
                     placeholderString.addAttribute(.font, value: self.placeholderFont!, range: range)
                 }
@@ -181,7 +181,7 @@ class HTextField : UITextField, UITextFieldDelegate {
         set {
             if newValue != nil && _placeholderFont != newValue && self.attributedPlaceholder != nil {
                 let placeholderString = NSMutableAttributedString(attributedString: self.attributedPlaceholder!)
-                let range: NSRange = NSMakeRange(0, placeholderString.length)
+                let range: NSRange = NSRange(location: 0, length: placeholderString.length)
                 placeholderString.addAttribute(.font, value: newValue!, range: range)
                 self.attributedPlaceholder = placeholderString
             }
@@ -196,7 +196,7 @@ class HTextField : UITextField, UITextFieldDelegate {
         set {
             if newValue != nil && _placeholderColor != newValue && self.attributedPlaceholder != nil {
                 let placeholderString = NSMutableAttributedString(attributedString: self.attributedPlaceholder!)
-                let range: NSRange = NSMakeRange(0, placeholderString.length)
+                let range: NSRange = NSRange(location: 0, length: placeholderString.length)
                 placeholderString.addAttribute(.foregroundColor, value: newValue!, range: range)
                 self.attributedPlaceholder = placeholderString
             }
@@ -238,30 +238,30 @@ class HTextField : UITextField, UITextFieldDelegate {
         self.font = UIFont.systemFont(ofSize: 14)
     }
 
-    private func setLeftViewFrame() -> Void {
+    private func setLeftViewFrame() {
         if super.leftView != nil && _leftWidth > 0 {
             var frame: CGRect = self.bounds
             frame.size.width = _leftWidth
             //调整frame
             frame.origin.x += _leftInsets.left
             frame.origin.y += _leftInsets.top
-            frame.size.width -= _leftInsets.left+_leftInsets.right
-            frame.size.height -= _leftInsets.top+_leftInsets.bottom
+            frame.size.width -= _leftInsets.left + _leftInsets.right
+            frame.size.height -= _leftInsets.top + _leftInsets.bottom
             if frame != super.leftView?.frame {
                 super.leftView?.frame = frame
             }
         }
     }
     
-    private func setRightViewFrame() -> Void {
+    private func setRightViewFrame() {
         if super.rightView != nil && _rightWidth > 0 {
             var frame: CGRect = self.bounds
             frame.size.width = _rightWidth
             //调整frame
             frame.origin.x += _rightInsets.left
             frame.origin.y += _rightInsets.top
-            frame.size.width -= _rightInsets.left+_rightInsets.right
-            frame.size.height -= _rightInsets.top+_rightInsets.bottom
+            frame.size.width -= _rightInsets.left + _rightInsets.right
+            frame.size.height -= _rightInsets.top + _rightInsets.bottom
             if frame != super.rightView?.frame {
                 super.rightView?.frame = frame
             }
@@ -326,9 +326,9 @@ class HTextField : UITextField, UITextFieldDelegate {
 
     //移动光标
     private func cursorLocation(_ textField: UITextField, index: Int) {
-        let range = NSMakeRange(index, 0)
+        let range = NSRange(location: index, length: 0)
         let start: UITextPosition = textField.position(from: textField.beginningOfDocument, offset: range.location)!
-        let end: UITextPosition   = textField.position(from: start, offset: range.length)!
+        let end: UITextPosition = textField.position(from: start, offset: range.length)!
         textField.selectionRects(for: textField.textRange(from: start, to: end)!)
     }
 
@@ -348,9 +348,9 @@ class HTextField : UITextField, UITextFieldDelegate {
 
     /// Rect
     override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
-        //CGRect normalRect = [super leftViewRectForBounds:bounds]; //此方法坐标获取有点儿不准确
+        //CGRect normalRect = [super leftViewRectForBounds:bounds] //此方法坐标获取有点儿不准确
         var normalRect: CGRect = super.leftView!.bounds
-        let space: CGFloat = bounds.height/2-normalRect.height/2
+        let space: CGFloat = bounds.height / 2 - normalRect.height / 2
         if space <= 0 {
             normalRect.height = bounds.height
         }else {
@@ -362,10 +362,10 @@ class HTextField : UITextField, UITextFieldDelegate {
     }
 
     override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
-        //CGRect normalRect = [super rightViewRectForBounds:bounds]; //此方法坐标获取有点儿不准确
+        //CGRect normalRect = [super rightViewRectForBounds:bounds] //此方法坐标获取有点儿不准确
         var normalRect: CGRect = super.rightView!.bounds
-        normalRect.x = bounds.width-normalRect.width
-        let space: CGFloat = bounds.height/2-normalRect.height/2
+        normalRect.x = bounds.width - normalRect.width
+        let space: CGFloat = bounds.height / 2 - normalRect.height / 2
         if space <= 0 {
             normalRect.height = bounds.height
         }else {
@@ -398,7 +398,7 @@ class HTextField : UITextField, UITextFieldDelegate {
         }
         frame.width -= self.rightInsets.left
         frame.width -= self.rightInsets.right
-        if super.rightView  != nil {
+        if super.rightView != nil {
             frame.width -= super.rightView!.width
         }
         //光标距右边输入框默认有10pt的距离

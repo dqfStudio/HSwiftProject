@@ -8,11 +8,11 @@
 
 import UIKit
 
-private func HRGBColor(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat , _ a: CGFloat) -> UIColor {
-    return UIColor(red: r/255.0, green: g/255.0, blue: b/255.0, alpha: a)
+private func HRGBColor(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ a: CGFloat) -> UIColor {
+    return UIColor(red: r / 255.0, green: g / 255.0, blue: b / 255.0, alpha: a)
 }
 private func HRandColor(_ a: CGFloat) -> UIColor {
-    return HRGBColor(CGFloat(arc4random_uniform(255)), CGFloat(arc4random_uniform(255)), CGFloat(arc4random_uniform(255)), a)
+    return HRGBColor(CGFloat.random(in: 1.0 ... 255.0), CGFloat.random(in: 1.0 ... 255.0), CGFloat.random(in: 1.0 ... 255.0), a)
 }
 
 class HVerifyCodeView: UIControl {
@@ -25,7 +25,7 @@ class HVerifyCodeView: UIControl {
     /// 字体大小
     var textSize: CGFloat = 20.0
     
-    private var _charsArray: NSArray = NSArray(objects: "0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z","a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z")
+    private var _charsArray: NSArray = NSArray(objects: "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z")
     ///随机内容, 字符数组如:@[@"a",@"F",@"A",@"1",@"0"]
     /// 随机内容
     var charsArray: NSArray {
@@ -60,7 +60,8 @@ class HVerifyCodeView: UIControl {
         self.loadCode()
     }
     
-    @objc private func verifyCodeAction() {
+    @objc
+    private func verifyCodeAction() {
         self.refreshVerifyCode()
     }
 
@@ -72,7 +73,7 @@ class HVerifyCodeView: UIControl {
     private func loadCode() {
         let mutableString = NSMutableString()
         for _ in 0..<4 {
-            let index = arc4random() % UInt32(_charsArray.count-1)
+            let index = arc4random() % UInt32(_charsArray.count - 1)
             let string = _charsArray.object(at: Int(index))
             mutableString.append(string as! String)
         }
@@ -98,7 +99,7 @@ class HVerifyCodeView: UIControl {
         var pY: CGFloat = 0.0
         
         for i in 0..<text.length {
-            pX = CGFloat(arc4random() % UInt32(width)) + rect.size.width/CGFloat(text.length)*CGFloat(i)
+            pX = CGFloat(arc4random() % UInt32(width)) + rect.size.width / CGFloat(text.length) * CGFloat(i)
             pY = CGFloat(arc4random() % UInt32(height))
             point = CGPoint(x: pX, y: pY)
             let c = text.character(at: i)

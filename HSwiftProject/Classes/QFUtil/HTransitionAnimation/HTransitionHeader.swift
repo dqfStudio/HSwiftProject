@@ -11,7 +11,8 @@ import Foundation
 /*
  * 弹出框的类型
  */
-@objc enum HTransitionStyle: Int {
+@objc
+enum HTransitionStyle: Int {
     case alert = 0 //中间弹出
     case sheet = 1 //底部弹出
 }
@@ -19,7 +20,8 @@ import Foundation
 /*
  * 转场动画类型（push、pop、present、dismiss)
  */
-@objc enum HTransitionType: Int {
+@objc
+enum HTransitionType: Int {
     case push = 0    //push
     case pop = 1     //push
     case present = 2 //present
@@ -29,7 +31,8 @@ import Foundation
 /*
  * push动画类型
  */
-@objc enum HPushAnimationType: Int {
+@objc
+enum HPushAnimationType: Int {
     case ocdoor = 0 //开关门动画
 }
 

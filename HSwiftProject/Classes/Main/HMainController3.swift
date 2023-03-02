@@ -19,7 +19,7 @@ class HMainController3: HViewController, HTupleViewDelegate {
             _tupleView = HTupleView.tupleFrame({ () -> CGRect in
                 return frame
             }, exclusiveSections: { () -> NSArray in
-                return [0,1,2]
+                return [0, 1, 2]
             })
         }
         return _tupleView!
@@ -40,7 +40,8 @@ class HMainController3: HViewController, HTupleViewDelegate {
         self.view.addSubview(self.tupleView)
     }
 
-    @objc func tuple0_numberOfSectionsInTupleView() -> Any {
+    @objc
+    func tuple0_numberOfSectionsInTupleView() -> Any {
         return 3
     }
 

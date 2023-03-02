@@ -28,7 +28,7 @@ class HMainController6: HTableController {
         return 65
     }
     func edgeInsetsForRowAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return UIEdgeInsetsMake(10, 10, 10, 10)
+        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     func tableRow(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTableRow
@@ -38,7 +38,7 @@ class HMainController6: HTableController {
             let cell = itemBlock(nil, HTableViewCellHoriValue4.self, nil, true) as! HTableViewCellHoriValue4
             cell.backgroundColor = UIColor.gray
             cell.isShouldShowSeparator = true
-            cell.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10)
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
             
             cell.imageView.backgroundColor = UIColor.red
             cell.imageView.setImageWithName("icon_no_server")
@@ -68,14 +68,14 @@ class HMainController6: HTableController {
             //接收信
             cell.signalBlock = { (target, signal) in
                 let cell = target as! HTableViewCellHoriValue4
-                NSLog("选中%d",cell.label)
+                NSLog("选中%d", cell.label)
             }
-            break;
+            break
         case 1:
             let cell = itemBlock(nil, HTableViewCellHoriValue4.self, nil, true) as! HTableViewCellHoriValue4
             cell.backgroundColor = UIColor.gray
             cell.isShouldShowSeparator = true
-            cell.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10)
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
             
             cell.imageView.backgroundColor = UIColor.red
             cell.imageView.setImageWithName("icon_no_server")
@@ -87,14 +87,14 @@ class HMainController6: HTableController {
             //接收信号
             cell.signalBlock = { (target, signal) in
                 let cell = target as! HTableViewCellHoriValue4
-                NSLog("选中%d",cell.label)
+                NSLog("选中%d", cell.label)
             }
-            break;
+            break
         case 2:
             let cell = itemBlock(nil, HTableViewCellHoriValue4.self, nil, true) as! HTableViewCellHoriValue4
             cell.backgroundColor = UIColor.gray
             cell.isShouldShowSeparator = true
-            cell.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10)
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
             
 //            cell.showAccessoryArrow = true
 
@@ -107,15 +107,15 @@ class HMainController6: HTableController {
             cell.label.backgroundColor = UIColor.red
 
             cell.detailLabel.backgroundColor = UIColor.yellow
-            break;
+            break
         case 3:
             let cell = itemBlock(nil, HTableViewCellHoriValue3.self, nil, true) as! HTableViewCellHoriValue3
             cell.backgroundColor = UIColor.gray
             cell.isShouldShowSeparator = true
-            cell.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10)
+            cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
             
-            cell.detailWidth  = cell.layoutViewBounds.width/3
-            cell.accessoryWidth = cell.layoutViewBounds.width/3
+            cell.detailWidth = cell.layoutViewBounds.width / 3
+            cell.accessoryWidth = cell.layoutViewBounds.width / 3
             cell.label.backgroundColor = UIColor.green
             cell.label.text = "label"
             cell.label.textAlignment = .center
@@ -127,7 +127,7 @@ class HMainController6: HTableController {
             cell.accessoryLabel.backgroundColor = UIColor.yellow
             cell.accessoryLabel.text = "accessoryLabel"
             cell.accessoryLabel.textAlignment = .center
-            break;
+            break
         case 4:
             let cell = itemBlock(nil, HTableTextFieldCell.self, nil, true) as! HTableTextFieldCell
             cell.backgroundColor = UIColor.gray
@@ -148,7 +148,7 @@ class HMainController6: HTableController {
             cell.textField.rightButton.pressed = { (_ sender: Any?, _ data: Any?) in
                 
             }
-            break;
+            break
         default: break
         }
         

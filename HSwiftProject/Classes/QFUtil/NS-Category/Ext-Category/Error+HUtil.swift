@@ -8,14 +8,14 @@
 
 import Foundation
 
-let kCodeOK: Int = 200;
-let kInnerErrorCode : Int = -1023;
-let kCancelCode : Int = -1022;
-let kDataFormatErrorCode : Int = -1024;
-let kNetWorkErrorCode : Int = -1025;
-let kLogicErrorCode : Int = -1026;
-let kNoDataErrorCode : Int = -1027;
-let kAsyncCanelErrorCode : Int = -1029;
+let kCodeOK: Int = 200
+let kInnerErrorCode : Int = -1023
+let kCancelCode : Int = -1022
+let kDataFormatErrorCode : Int = -1024
+let kNetWorkErrorCode : Int = -1025
+let kLogicErrorCode : Int = -1026
+let kNoDataErrorCode : Int = -1027
+let kAsyncCanelErrorCode : Int = -1029
 
 extension NSError {
     
@@ -31,7 +31,6 @@ extension NSError {
         let dict: NSDictionary = [NSLocalizedDescriptionKey : description!, NSLocalizedFailureReasonErrorKey : reason!]
         return NSError(domain: domain, code: code, userInfo: dict as? [String : Any])
     }
-
     
 }
 

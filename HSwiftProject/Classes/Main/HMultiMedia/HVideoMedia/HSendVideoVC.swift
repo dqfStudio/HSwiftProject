@@ -17,8 +17,8 @@ enum HSendVideoStatus: Int {
     case sendVideoStatus6 = 5
 }
 
-let KSendVideoHeight1: CGFloat = 55.0
-let KSendVideoHeight2: CGFloat = 65.0
+var KSendVideoHeight1: CGFloat = 55.0
+var KSendVideoHeight2: CGFloat = 65.0
 
 class HSendVideoVC: HViewController, HTupleViewDelegate {
     private var _tupleView: HTupleView?
@@ -37,7 +37,7 @@ class HSendVideoVC: HViewController, HTupleViewDelegate {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         self.tupleView.delegate = self
-        self.tupleView.backgroundColor = UIColor.init(hex: "#634848")
+        self.tupleView.backgroundColor = UIColor(hex: "#634848")
         self.view.addSubview(self.tupleView)
         
         self.tupleView.tupleState = 3
@@ -75,15 +75,17 @@ class HSendVideoVC: HViewController, HTupleViewDelegate {
     }
     
     // 录屏
-    @objc private func recordingScreen() {
+    @objc
+    private func recordingScreen() {
         self.dismiss(animated: true)
         UIAlertController.showAlertWithTitle("安全提醒", message: "请不要录屏分享给他人以保障账户安全。", style: .alert, cancelButtonTitle: "我知道了", otherButtonTitles: nil, completion: nil)
     }
 
     // 截屏
-    @objc private func screenshot() {
+    @objc
+    private func screenshot() {
         //UIAlertController.showAlertWithTitle("安全提醒", message: "请不要截屏分享给他人以保障账户安全。", style: .alert, cancelButtonTitle: "我知道了", otherButtonTitles: nil, completion: nil)
-        UIAlertView.init(title: "安全提醒", message: "请不要截屏分享给他人以保障账户安全。", delegate: nil, cancelButtonTitle: "我知道了").show()
+        UIAlertView(title: "安全提醒", message: "请不要截屏分享给他人以保障账户安全。", delegate: nil, cancelButtonTitle: "我知道了").show()
     }
     
     override var prefersNavigationBarHidden: Bool {

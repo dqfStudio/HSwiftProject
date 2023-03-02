@@ -18,7 +18,7 @@ private var startDate: NSDate?
 
 extension NSDate {
 
-    static func startTime() -> Void {
+    static func startTime() {
         if #available(iOS 13.0, *) {
             startDate = NSDate.now as NSDate
         } else {
@@ -27,14 +27,14 @@ extension NSDate {
         }
     }
     
-    static func endTime() -> Void {
+    static func endTime() {
         if startDate != nil {
             NSLog("time: %f", -startDate!.timeIntervalSinceNow)
             self.startTime()
         }
     }
 
-    static func time(Callback: @escaping () -> ()) -> Void {
+    static func time(Callback: @escaping () -> Void) {
         let startDate: NSDate?
         if #available(iOS 13.0, *) {
             startDate = NSDate.now as NSDate
@@ -64,9 +64,9 @@ extension NSDate {
     }
     
     static func weekdayFromDate(_ date: NSDate) -> NSDate {
-        let weekdays: NSArray = NSArray.init(array: ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"])
-        let calendar: NSCalendar = NSCalendar.init(calendarIdentifier: NSCalendar.Identifier.chinese)!
-        let timeZone: NSTimeZone = NSTimeZone.init(name: "Asia/Shanghai")!
+        let weekdays: NSArray = NSArray(array: ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"])
+        let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.chinese)!
+        let timeZone: NSTimeZone = NSTimeZone(name: "Asia/Shanghai")!
         calendar.timeZone = timeZone as TimeZone
         let theComponents: NSDateComponents = calendar.components(in: timeZone as TimeZone, from: date as Date) as NSDateComponents
         return weekdays.object(at: theComponents.weekday) as! NSDate

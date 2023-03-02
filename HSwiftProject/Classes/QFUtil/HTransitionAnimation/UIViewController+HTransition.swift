@@ -12,7 +12,7 @@ extension UIViewController {
     
     //转场动画内容视图的大小
     @objc var containerSize: CGSize {
-        return CGSizeZero
+        return CGSize.zero
     }
     //转场动画的时间
     @objc var animationDuration: CGFloat {

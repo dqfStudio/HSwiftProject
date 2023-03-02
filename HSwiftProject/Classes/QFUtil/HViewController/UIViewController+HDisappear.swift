@@ -9,10 +9,11 @@
 import UIKit
 import SwizzleSwift
 
-@objc enum HVCDisappearType : Int {
-    case other   = 0
-    case push    = 1
-    case pop     = 2
+@objc
+enum HVCDisappearType : Int {
+    case other  = 0
+    case push   = 1
+    case pop    = 2
     case dismiss = 3
 }
 
@@ -24,7 +25,8 @@ extension UIViewController {
 //        }
 //    }
     
-    @objc open func pvc_dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+    @objc
+    open func pvc_dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         self.dismiss(animated: flag, completion: completion)
         if self.navigationController?.viewControllers.count ?? 0 > 0 {
             let viewControllers = (self.navigationController?.viewControllers)!
@@ -37,7 +39,8 @@ extension UIViewController {
         }
     }
     
-    @objc func vcWillDisappear(_ type: HVCDisappearType) -> Void { }
+    @objc
+    func vcWillDisappear(_ type: HVCDisappearType) { }
 
 }
 
@@ -50,7 +53,8 @@ extension UINavigationController {
 //        }
 //    }
     
-    @objc open func disappear_popViewController(animated: Bool) -> UIViewController? {
+    @objc
+    open func disappear_popViewController(animated: Bool) -> UIViewController? {
         let popVC = self.disappear_popViewController(animated: animated)
         if popVC?.isKind(of: UIViewController.self) ?? false {
             popVC?.vcWillDisappear(.pop)
@@ -58,7 +62,8 @@ extension UINavigationController {
         return popVC
     }
     
-    @objc open func disappear_pushViewController(_ viewController: UIViewController, animated: Bool) {
+    @objc
+    open func disappear_pushViewController(_ viewController: UIViewController, animated: Bool) {
         if self.topViewController?.isKind(of: UIViewController.self) ?? false {
             self.topViewController?.vcWillDisappear(.push)
         }

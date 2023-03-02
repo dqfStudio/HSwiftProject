@@ -25,7 +25,7 @@ import SwizzleSwift
 //        set { self.setAssociateWeakValue(newValue, key: &timeIntervalKey) }
 //    }
 //
-//    @objc static func swizzle() -> Void {
+//    @objc static func swizzle() {
 //        Swizzle(UIControl.self) {
 //            #selector(sendAction(_:to:for:)) <-> #selector(safe_sendAction(_:to:for:))
 //        }
@@ -45,7 +45,7 @@ import SwizzleSwift
 //        self.safe_sendAction(action, to: target, for: event)
 //    }
 //
-//    @objc private func resetState() -> Void {
+//    @objc private func resetState() {
 //        self.isIgnoreEvent = false
 //    }
 //

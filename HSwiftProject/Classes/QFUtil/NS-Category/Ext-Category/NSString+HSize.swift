@@ -22,10 +22,10 @@ extension NSString {
             textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         }
         
-        let paragraph = NSMutableParagraphStyle.init()
+        let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
         
-        let textSize = self.boundingRect(with: CGSizeMake(width, CGFloat.greatestFiniteMagnitude),
+        let textSize = self.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
                                          options: .usesLineFragmentOrigin,
                                          attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
                                          context: nil).size
@@ -46,10 +46,10 @@ extension NSString {
             textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         }
         
-        let paragraph = NSMutableParagraphStyle.init()
+        let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
         
-        let textSize = self.boundingRect(with: CGSizeMake(CGFloat.greatestFiniteMagnitude, height),
+        let textSize = self.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: height),
                                          options: .usesLineFragmentOrigin,
                                          attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
                                          context: nil).size
@@ -70,15 +70,15 @@ extension NSString {
             textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         }
         
-        let paragraph = NSMutableParagraphStyle.init()
+        let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
         
-        let textSize = self.boundingRect(with: CGSizeMake(width, CGFloat.greatestFiniteMagnitude),
+        let textSize = self.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
                                          options: .usesLineFragmentOrigin,
                                          attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
                                          context: nil).size
         
-        return CGSizeMake(ceil(textSize.width), ceil(textSize.height))
+        return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
     }
 
     /**
@@ -94,15 +94,15 @@ extension NSString {
             textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         }
         
-        let paragraph = NSMutableParagraphStyle.init()
+        let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
         
-        let textSize = self.boundingRect(with: CGSizeMake(CGFloat.greatestFiniteMagnitude, height),
+        let textSize = self.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: height),
                                          options: .usesLineFragmentOrigin,
                                          attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
                                          context: nil).size
         
-        return CGSizeMake(ceil(textSize.width), ceil(textSize.height))
+        return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
     }
 
 
@@ -115,12 +115,12 @@ extension NSString {
      */
     static func reverseString(_ strSrc: NSString) -> NSString {
 
-        let reverseString = NSMutableString.init()
+        let reverseString = NSMutableString()
         var charIndex = strSrc.length
         
         while (charIndex > 0) {
             charIndex -= 1
-            reverseString.append(strSrc.substring(with: NSMakeRange(charIndex, 1)))
+            reverseString.append(strSrc.substring(with: NSRange(location: charIndex, length: 1)))
         }
         return reverseString
     }

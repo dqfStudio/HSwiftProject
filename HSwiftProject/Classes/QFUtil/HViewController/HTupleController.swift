@@ -13,7 +13,7 @@ class HTupleController : HViewController, HTupleViewDelegate {
     private var _tupleView: HTupleView?
     var tupleView: HTupleView {
         if _tupleView == nil {
-            _tupleView = HTupleView.init(frame: CGRectZero)
+            _tupleView = HTupleView(frame: CGRect.zero)
         }
         return _tupleView!
     }
@@ -30,7 +30,7 @@ class HTupleController : HViewController, HTupleViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         if (UIDevice.isIPhoneX) {
-            extendedInset = UIEdgeInsetsMake(0, 0, UIDevice.bottomBarHeight, 0)
+            extendedInset = UIEdgeInsets(top: 0, left: 0, bottom: UIDevice.bottomBarHeight, right: 0)
         }
         self.view.addSubview(self.tupleView)
     }

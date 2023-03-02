@@ -8,5 +8,5 @@
 
 import Foundation
 
-let KShowKeyboardNotify = "KShowKeyboardNotify"
-let KLiveRoomReleaseTupleKey = "KLiveRoomReleaseTupleKey"
+var KShowKeyboardNotify = "KShowKeyboardNotify"
+var KLiveRoomReleaseTupleKey = "KLiveRoomReleaseTupleKey"

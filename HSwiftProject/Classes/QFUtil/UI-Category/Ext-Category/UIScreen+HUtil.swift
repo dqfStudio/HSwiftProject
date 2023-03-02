@@ -38,7 +38,7 @@ extension UIScreen {
         var iPhoneXSeries: Bool = false
         if (UIDevice.current.userInterfaceIdiom == .phone) {
             if #available(iOS 11.0, *) {
-                let mainWindow = UIWindow.init(frame: UIScreen.main.bounds)
+                let mainWindow = UIWindow(frame: UIScreen.main.bounds)
                 if (mainWindow.safeAreaInsets.bottom > 0.0) {
                     iPhoneXSeries = true
                 }
@@ -63,7 +63,7 @@ extension UIScreen {
     }
     
     static var topBarHeight: CGFloat {
-        return UIScreen.statusBarHeight+UIScreen.naviBarHeight
+        return UIScreen.statusBarHeight + UIScreen.naviBarHeight
     }
     
     static var bottomBarHeight: CGFloat {

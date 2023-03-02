@@ -17,7 +17,7 @@ class HUserDefaults: NSObject {
 
     private static var mapping = [String: Property]()
 
-    public init(placeHolder nan: Bool? = nil){
+    init(placeHolder nan: Bool? = nil) {
         super.init()
         exchangeAccessMethods()
     }
@@ -31,10 +31,10 @@ class HUserDefaults: NSObject {
 /// Exchange access methods
 extension HUserDefaults {
 
-    private func exchangeAccessMethods(){
+    private func exchangeAccessMethods() {
         let properties = HUserDefaults.properties
 
-        for property in properties{
+        for property in properties {
 
             let getterKey = property.name
             let setterKey = objCDefaultSetterName(for: property.name)
@@ -157,7 +157,7 @@ extension HUserDefaults {
 
 
 extension UserDefaults {
-    static var std: HUserDefaults{
+    static var std: HUserDefaults {
         return HUserDefaults.standard
     }
 }

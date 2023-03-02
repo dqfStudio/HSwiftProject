@@ -34,7 +34,7 @@ class HServiceAuthorizationCell : HTupleLabelCell {
     private var buttonView: HWebButtonView? {
         get {
             if _buttonView == nil {
-                _buttonView = HWebButtonView(frame: CGRectMake(0, 0, 20, 20))
+                _buttonView = HWebButtonView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
                 _buttonView!.setImage(UIImage(named: "registet_checkbox_icon"), for: .normal)
                 _buttonView!.setImage(UIImage(named: "registet_checkbox_icon_h"), for: .selected)
                 _buttonView!.isSelected = !_buttonView!.isSelected
@@ -51,7 +51,7 @@ class HServiceAuthorizationCell : HTupleLabelCell {
 //    private var attributedString: NSMutableAttributedString {
 //        get {
 //            if _attributedString == nil {
-////                _buttonView = [[HWebButtonView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)]
+////                _buttonView = [[HWebButtonView alloc] initWithFrame:CGRect(x: 0, y: 0, width: 20, height: 20)]
 ////                [_buttonView setImage:[UIImage imageNamed:@"registet_checkbox_icon"] forState:UIControlStateNormal]
 ////                [_buttonView setImage:[UIImage imageNamed:@"registet_checkbox_icon_h"] forState:UIControlStateSelected]
 ////                [_buttonView setSelected:!_buttonView.isSelected]
@@ -94,7 +94,7 @@ class HServiceAuthorizationCell : HTupleLabelCell {
 //@implementation HServiceAuthorizationCell
 //    - (NSMutableAttributedString *)attributedString {
 //        if (!_attributedString) {
-//            _buttonView = [[HWebButtonView alloc] initWithFrame:CGRectMake(0, 0, 20, 20)]
+//            _buttonView = [[HWebButtonView alloc] initWithFrame:CGRect(x: 0, y: 0, width: 20, height: 20)]
 //            [_buttonView setImage:[UIImage imageNamed:@"registet_checkbox_icon"] forState:UIControlStateNormal]
 //            [_buttonView setImage:[UIImage imageNamed:@"registet_checkbox_icon_h"] forState:UIControlStateSelected]
 //            [_buttonView setSelected:!_buttonView.isSelected]

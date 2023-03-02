@@ -59,7 +59,7 @@ extension NSDictionary {
             mutableString.append(value as! String)
             mutableString.append("&")
         }
-        return mutableString.substring(to: mutableString.length-1) as NSString
+        return mutableString.substring(to: mutableString.length - 1) as NSString
     }
     
     //将字典转化成json字符串
@@ -95,7 +95,7 @@ extension Dictionary {
             mutableString.append(value as! String)
             mutableString.append("&")
         }
-        return mutableString.substring(to: mutableString.length-1)
+        return mutableString.substring(to: mutableString.length - 1)
     }
     
     //将字典转化成json字符串

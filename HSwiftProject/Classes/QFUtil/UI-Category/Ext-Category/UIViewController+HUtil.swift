@@ -20,18 +20,19 @@ extension UIViewController {
     /**
     *  键盘通知
     */
-    func addKeyboardObserver() -> Void {
+    func addKeyboardObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    func removeKeyboardObserver() -> Void {
+    func removeKeyboardObserver() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     
-    @objc func keyboardWillShow(_ notification: NSNotification) -> Void {
+    @objc
+    func keyboardWillShow(_ notification: NSNotification) {
         if self.isViewInBackground() {
             return
         }
@@ -46,7 +47,8 @@ extension UIViewController {
         self.keyboardWillShowWithRect(keyboardRect, animationDuration: CGFloat(animationDuration))
     }
     
-    @objc func keyboardWillHide(_ notification: NSNotification) -> Void {
+    @objc
+    func keyboardWillHide(_ notification: NSNotification) {
         if self.isViewInBackground() {
             return
         }
@@ -67,19 +69,22 @@ extension UIViewController {
     *  @param keyboardRect 键盘rect
     *  @param duration     键盘弹出动画的时间
     */
-    @objc func keyboardWillShowWithRect(_ keyboardRect: CGRect, animationDuration duration: CGFloat) -> Void { }
+    @objc
+    func keyboardWillShowWithRect(_ keyboardRect: CGRect, animationDuration duration: CGFloat) { }
     
-    @objc func keyboardWillHideWithRect(_ keyboardRect: CGRect, animationDuration duration: CGFloat) -> Void { }
+    @objc
+    func keyboardWillHideWithRect(_ keyboardRect: CGRect, animationDuration duration: CGFloat) { }
 
     /**
     *  点击背景self.view的时候，关闭键盘
     */
-    func hideKeyboardWhenTapBackground() -> Void {
-        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer.init(target: self, action: #selector(viewTapped(_:)))
+    func hideKeyboardWhenTapBackground() {
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_:)))
         self.view.addGestureRecognizer(tapGesture)
     }
 
-    @objc private func viewTapped(_ recognizer: UITapGestureRecognizer) -> Void {
+    @objc
+    private func viewTapped(_ recognizer: UITapGestureRecognizer) {
         UIApplication.hideKeyboard()
     }
 

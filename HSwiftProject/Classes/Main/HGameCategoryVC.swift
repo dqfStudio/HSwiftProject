@@ -14,7 +14,7 @@ class HGameCategoryVC : HViewController, HTupleViewDelegate {
     var tupleView: HTupleView {
         if _tupleView == nil {
             var frame: CGRect = UIScreen.bound
-            frame.y += UIDevice.topBarHeight;
+            frame.y += UIDevice.topBarHeight
             frame.height -= UIDevice.topBarHeight
             _tupleView = HTupleView.tupleFrame({ () -> CGRect in
                 return frame
@@ -34,14 +34,15 @@ class HGameCategoryVC : HViewController, HTupleViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.white;
+        self.view.backgroundColor = UIColor.white
         self.leftNaviButton.isHidden = true
         self.title = "分类"
         self.tupleView.delegate = self
         self.view.addSubview(self.tupleView)
     }
     
-    @objc func tuple0_numberOfSectionsInTupleView() -> Any {
+    @objc
+    func tuple0_numberOfSectionsInTupleView() -> Any {
         return 3
     }
 

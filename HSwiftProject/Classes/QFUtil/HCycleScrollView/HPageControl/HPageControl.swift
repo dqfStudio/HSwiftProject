@@ -83,16 +83,16 @@ class HPageControl: UIControl {
     }
 
 
-    private var _dotSize: CGSize = CGSizeZero
+    private var _dotSize: CGSize = CGSize.zero
     /**
      *  Dot size for dot views. Default is 8 by 8.
      */
     var dotSize: CGSize {
         get {
             // Dot size logic depending on the source of the dot view
-            if (self.dotImage != nil && _dotSize == CGSizeZero) {
+            if (self.dotImage != nil && _dotSize == CGSize.zero) {
                 _dotSize = self.dotImage!.size
-            }else if (_dotSize == CGSizeZero) {
+            }else if (_dotSize == CGSize.zero) {
                 _dotSize = kHDefaultDotSize
                 return _dotSize
             }
@@ -210,10 +210,10 @@ class HPageControl: UIControl {
      *  Default setup when initiating control
      */
     private func initialization() {
-        self.spacingBetweenDots     = kHDefaultSpacingBetweenDots
-        self.numberOfPages          = kHDefaultNumberOfPages
-        self.currentPage            = kHDefaultCurrentPage
-        self.hidesForSinglePage     = kHDefaultHideForSinglePage
+        self.spacingBetweenDots    = kHDefaultSpacingBetweenDots
+        self.numberOfPages         = kHDefaultNumberOfPages
+        self.currentPage           = kHDefaultCurrentPage
+        self.hidesForSinglePage    = kHDefaultHideForSinglePage
         self.shouldResizeFromCenter = kHDefaultShouldResizeFromCenter
     }
 
@@ -275,7 +275,7 @@ class HPageControl: UIControl {
         
         // We apply requiredSize only if authorize to and necessary
         if (overrideExistingFrame || ((self.frame.width < requiredSize.width || self.frame.height < requiredSize.height) && !overrideExistingFrame)) {
-            self.frame = CGRectMake(self.frame.minX, self.frame.minY, requiredSize.width, requiredSize.height)
+            self.frame = CGRect(x: self.frame.minX, y: self.frame.minY, width: requiredSize.width, height: requiredSize.height)
             if (self.shouldResizeFromCenter) {
                 self.center = center
             }
@@ -298,7 +298,7 @@ class HPageControl: UIControl {
         let x: CGFloat = xx + jj
         let y: CGFloat = (self.frame.height - self.dotSize.height) / 2
         
-        dot.frame = CGRectMake(x, y, self.dotSize.width, self.dotSize.height)
+        dot.frame = CGRect(x: x, y: y, width: self.dotSize.width, height: self.dotSize.height)
     }
 
 
@@ -316,10 +316,10 @@ class HPageControl: UIControl {
         
         if self.dotImage != nil {
             dotView = UIImageView(image: self.dotImage)
-            dotView!.frame = CGRectMake(0, 0, self.dotSize.width, self.dotSize.height)
+            dotView!.frame = CGRect(x: 0, y: 0, width: self.dotSize.width, height: self.dotSize.height)
         }else {
             dotView = HAnimatedDotView()
-            dotView!.frame = CGRectMake(0, 0, self.dotSize.width, self.dotSize.height)
+            dotView!.frame = CGRect(x: 0, y: 0, width: self.dotSize.width, height: self.dotSize.height)
             if (self.dotColor != nil) {
                 (dotView! as! HAnimatedDotView).dotColor = self.dotColor
             }

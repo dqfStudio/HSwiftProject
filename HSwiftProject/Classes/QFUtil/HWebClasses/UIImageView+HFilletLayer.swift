@@ -47,7 +47,7 @@ extension UIImageView {
         
     }
     
-//    @objc override class func swizzle() -> Void {
+//    @objc override class func swizzle() {
 //            Swizzle(UIImageView.self) {
 //                #selector(setter: image) <-> #selector(pvc_image)
 //            }
@@ -86,46 +86,46 @@ extension UIImageView {
         }
     }
     
-    public func addFilletLayer() -> Void {
+    public func addFilletLayer() {
         if self.image != nil {
             let width: CGFloat = self.frame.width
             let height: CGFloat = self.frame.height
             
             if width == height {
-                self.layer.cornerRadius = width/2;
-                self.layer.masksToBounds = true;
+                self.layer.cornerRadius = width / 2
+                self.layer.masksToBounds = true
             }else {
-                var value: CGFloat = width;
+                var value: CGFloat = width
                 if height < width {
                     value = height
                 }
                 
-                let originX: CGFloat = width/2-value/2
-                let originY: CGFloat = height/2-value/2
+                let originX: CGFloat = width / 2 - value / 2
+                let originY: CGFloat = height / 2 - value / 2
                 if originX > 0 {
                     
                     switch self.filletStyle {
                     case .center:
-                        self.layer.frame = CGRect(x: width/2-value/2, y: height/2-value/2, width: value, height: value)
+                        self.layer.frame = CGRect(x: width / 2 - value / 2, y: height / 2 - value / 2, width: value, height: value)
                     case .leftOrTop:
-                        self.layer.frame = CGRect(x: 0, y: height/2-value/2, width: value, height: value);
+                        self.layer.frame = CGRect(x: 0, y: height / 2 - value / 2, width: value, height: value)
                     case .rightOrBottom:
-                        self.layer.frame = CGRect(x: width-value, y: height/2-value/2, width: value, height: value);
+                        self.layer.frame = CGRect(x: width - value, y: height / 2 - value / 2, width: value, height: value)
                     }
                     
                 }else if (originY > 0) {
                     
                     switch (self.filletStyle) {
                     case .center:
-                        self.layer.frame = CGRect(x: width/2-value/2, y: height/2-value/2, width: value, height: value);
+                        self.layer.frame = CGRect(x: width / 2 - value / 2, y: height / 2 - value / 2, width: value, height: value)
                     case .leftOrTop:
-                        self.layer.frame = CGRect(x: width/2-value/2, y: 0, width: value, height: value);
+                        self.layer.frame = CGRect(x: width / 2 - value / 2, y: 0, width: value, height: value)
                     case .rightOrBottom:
-                        self.layer.frame = CGRect(x: width/2-value/2, y: height-value, width: value, height: value);
+                        self.layer.frame = CGRect(x: width / 2 - value / 2, y: height - value, width: value, height: value)
                     }
                 }
-                self.layer.cornerRadius = value/2;
-                self.layer.masksToBounds = true;
+                self.layer.cornerRadius = value / 2
+                self.layer.masksToBounds = true
             }
         }
     }

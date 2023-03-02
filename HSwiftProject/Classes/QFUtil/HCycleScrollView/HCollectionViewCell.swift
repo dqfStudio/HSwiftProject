@@ -115,7 +115,7 @@ class HCollectionViewCell: UICollectionViewCell {
             let titleLabelH = titleLabelHeight
             let titleLabelX: CGFloat = 0.0
             let titleLabelY = self.hc_height - titleLabelH
-            titleLabel.frame = CGRectMake(titleLabelX, titleLabelY, titleLabelW, titleLabelH)
+            titleLabel.frame = CGRect(x: titleLabelX, y: titleLabelY, width: titleLabelW, height: titleLabelH)
         }
     }
 

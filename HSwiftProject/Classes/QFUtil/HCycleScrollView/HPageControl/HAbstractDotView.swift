@@ -24,7 +24,8 @@ class HAbstractDotView: UIView {
                     userInfo: nil).raise()
     }
     
-    @objc func changeActivityState(_ active: Bool) {
+    @objc
+    func changeActivityState(_ active: Bool) {
         NSException(name: NSExceptionName.internalInconsistencyException,
                     reason: NSString(format: "You must override %@ in %@", NSStringFromSelector(#function), self.className) as String,
                     userInfo: nil).raise()

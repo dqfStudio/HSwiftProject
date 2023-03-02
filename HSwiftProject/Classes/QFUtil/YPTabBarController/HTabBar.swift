@@ -18,22 +18,26 @@ enum HTabBarIndicatorAnimationStyle: Int {
     /**
      *  是否能切换到指定index
      */
-    @objc optional func h_tabBar(_ tabBar: HTabBar, shouldSelectItemAtIndex index: Int) -> Bool
+    @objc
+    optional func h_tabBar(_ tabBar: HTabBar, shouldSelectItemAtIndex index: Int) -> Bool
 
     /**
      *  将要切换到指定index
      */
-    @objc optional func h_tabBar(_ tabBar: HTabBar, willSelectItemAtIndex index: Int)
+    @objc
+    optional func h_tabBar(_ tabBar: HTabBar, willSelectItemAtIndex index: Int)
 
     /**
      *  已经切换到指定index
      */
-    @objc optional func h_tabBar(_ tabBar: HTabBar, didSelectedItemAtIndex index: Int)
+    @objc
+    optional func h_tabBar(_ tabBar: HTabBar, didSelectedItemAtIndex index: Int)
 
     /**
      *  重复点击到指定index
      */
-    @objc optional func h_tabBar(_ tabBar: HTabBar, reSelectedTabAtIndex index: Int)
+    @objc
+    optional func h_tabBar(_ tabBar: HTabBar, reSelectedTabAtIndex index: Int)
 
 }
 
@@ -47,7 +51,7 @@ class HTabBar : UIView {
         case fixedWidth
     }
 
-    private let BADGE_BG_COLOR_DEFAULT = UIColor(red: 252/255.0, green: 15/255.0, blue: 29/255.0, alpha: 1.0)
+    private let BADGE_BG_COLOR_DEFAULT = UIColor(red: 252 / 255.0, green: 15 / 255.0, blue: 29 / 255.0, alpha: 1.0)
 
     private var _scrollViewLastOffsetX: CGFloat = 0.0
 
@@ -60,7 +64,7 @@ class HTabBar : UIView {
     private var specialItemHandler: HSpecialItemHandler?
 
     // 选中背景
-    private var indicatorImageView: UIImageView = UIImageView(frame: CGRectZero)
+    private var indicatorImageView: UIImageView = UIImageView(frame: CGRect.zero)
 
     // 选中背景相对于HTabItem的insets
     private var indicatorInsets: UIEdgeInsets = UIEdgeInsetsZero
@@ -511,7 +515,7 @@ class HTabBar : UIView {
     }
     
     required init() {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         self._setup()
     }
     
@@ -545,7 +549,7 @@ class HTabBar : UIView {
         scrollView.addSubview(indicatorImageView)
     }
 
-    override open var clipsToBounds: Bool {
+    override var clipsToBounds: Bool {
         get {
             return super.clipsToBounds
         }
@@ -555,7 +559,7 @@ class HTabBar : UIView {
         }
     }
     
-    override open var frame: CGRect {
+    override var frame: CGRect {
         get {
             return super.frame
         }
@@ -618,15 +622,15 @@ class HTabBar : UIView {
             // 支持滚动
             var y: CGFloat = self.leadingSpace
             if !self.scrollView.isScrollEnabled {
-                self.itemHeight = CGFloat(ceilf(Float((self.frame.size.height - self.leadingSpace - self.trailingSpace)/CGFloat(self.items!.count))))
+                self.itemHeight = CGFloat(ceilf(Float((self.frame.size.height - self.leadingSpace - self.trailingSpace) / CGFloat(self.items!.count))))
             }
             for index in 0..<self.items!.count {
                 let item = self.items![index] as! HTabItem
-                item.frame = CGRectMake(0, y, self.frame.size.width, self.itemHeight)
+                item.frame = CGRect(x: 0, y: y, width: self.frame.size.width, height: self.itemHeight)
                 item.index = index
                 y += self.itemHeight
             }
-            self.scrollView.h_contentSize = CGSizeMake(self.scrollView.frame.size.width, max(y + self.trailingSpace, self.scrollView.frame.size.height))
+            self.scrollView.h_contentSize = CGSize(width: self.scrollView.frame.size.width, height: max(y + self.trailingSpace, self.scrollView.frame.size.height))
         } else {
             if self.scrollView.isScrollEnabled {
                 // 支持滚动
@@ -642,29 +646,29 @@ class HTabBar : UIView {
                     if self.itemFitTextWidth {
                         width = max(item.titleWidth + self.itemFitTextWidthSpacing, self.itemMinWidth)
                     }
-                    item.frame = CGRectMake(x, 0, width, self.frame.size.height)
+                    item.frame = CGRect(x: x, y: 0, width: width, height: self.frame.size.height)
                     item.index = index
                     x += width
                 }
-                self.scrollView.h_contentSize = CGSizeMake(max(x + self.trailingSpace, self.scrollView.frame.size.width),
-                                                         self.scrollView.frame.size.height)
+                self.scrollView.h_contentSize = CGSize(width: max(x + self.trailingSpace, self.scrollView.frame.size.width),
+                                                       height: self.scrollView.frame.size.height)
             } else {
                 // 不支持滚动
                 
                 var x: CGFloat = self.leadingSpace
                 let allItemsWidth: CGFloat = self.frame.size.width - self.leadingSpace - self.trailingSpace
                 if self.specialItem != nil && self.specialItem!.frame.size.width != 0 {
-                    self.itemWidth = (allItemsWidth-self.specialItem!.frame.size.width)/CGFloat(self.items!.count)
+                    self.itemWidth = (allItemsWidth - self.specialItem!.frame.size.width) / CGFloat(self.items!.count)
                 } else {
-                    self.itemWidth = allItemsWidth/CGFloat(self.items!.count)
+                    self.itemWidth = allItemsWidth / CGFloat(self.items!.count)
                 }
                 
                 // 四舍五入，取整，防止字体模糊
-                self.itemWidth = CGFloat(floorf(Float(self.itemWidth+0.5)))
+                self.itemWidth = CGFloat(floorf(Float(self.itemWidth + 0.5)))
                 
                 for index in 0..<self.items!.count {
                     let item = self.items![index] as! HTabItem
-                    item.frame = CGRectMake(x, 0, self.itemWidth, self.frame.size.height)
+                    item.frame = CGRect(x: x, y: 0, width: self.itemWidth, height: self.frame.size.height)
                     item.index = index
                     
                     x += self.itemWidth
@@ -681,11 +685,11 @@ class HTabBar : UIView {
                         if height == 0 {
                             height = self.frame.size.height
                         }
-                        self.specialItem!.frame = CGRectMake(x, self.frame.size.height - height, width, height)
+                        self.specialItem!.frame = CGRect(x: x, y: self.frame.size.height - height, width: width, height: height)
                         x += width
                     }
                 }
-                self.scrollView.h_contentSize = CGSizeMake(self.bounds.size.width, self.bounds.size.height)
+                self.scrollView.h_contentSize = CGSize(width: self.bounds.size.width, height: self.bounds.size.height)
             }
         }
     }
@@ -695,7 +699,7 @@ class HTabBar : UIView {
      */
     private func updateIndicatorFrameWithIndex(_ index: Int) {
         if self.items?.count == 0 || index == NSNotFound {
-            self.indicatorImageView.frame = CGRectZero
+            self.indicatorImageView.frame = CGRect.zero
             return
         }
         let item = self.items?[index] as! HTabItem
@@ -758,7 +762,7 @@ class HTabBar : UIView {
     func setIndicatorWidthFitTextAndMarginTop(_ top: CGFloat, marginBottom bottom: CGFloat, widthAdditional additional: CGFloat, tapSwitchAnimated animated: Bool) {
         self.indicatorStyle = .fitTitle
         self.indicatorSwitchAnimated = animated
-        self.indicatorInsets = UIEdgeInsetsMake(top, 0, bottom, 0)
+        self.indicatorInsets = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
         self.indicatorWidthFixTitleAdditional = additional
         
         self.updateItemIndicatorInsets()
@@ -776,7 +780,7 @@ class HTabBar : UIView {
     func setIndicatorWidth(_ width: CGFloat, marginTop top: CGFloat, marginBottom bottom: CGFloat, tapSwitchAnimated animated: Bool) {
         self.indicatorStyle = .fixedWidth
         self.indicatorSwitchAnimated = animated
-        self.indicatorInsets = UIEdgeInsetsMake(top, 0, bottom, 0)
+        self.indicatorInsets = UIEdgeInsets(top: top, left: 0, bottom: bottom, right: 0)
         self.indicatorWidth = width
         
         self.updateItemIndicatorInsets()
@@ -893,9 +897,9 @@ class HTabBar : UIView {
     func setItemSeparatorColor(_ itemSeparatorColor: UIColor, leading: CGFloat, trailing: CGFloat) {
         var onePixel: CGFloat = 0.0
         if UIScreen.main.responds(to: #selector(getter: UIScreen.main.nativeScale)) {
-            onePixel = 1.0/UIScreen.main.nativeScale
+            onePixel = 1.0 / UIScreen.main.nativeScale
         }else {
-            onePixel = 1.0/UIScreen.main.scale
+            onePixel = 1.0 / UIScreen.main.scale
         }
         self.setItemSeparatorColor(itemSeparatorColor, thickness: onePixel, leading: leading, trailing: trailing)
     }
@@ -929,8 +933,8 @@ class HTabBar : UIView {
         let offsetX: CGFloat = scrollView.contentOffset.x
         let scrollViewWidth: CGFloat = scrollView.frame.size.width
         
-        let leftIndex: Int = Int(offsetX/scrollViewWidth)
-        let rightIndex: Int = leftIndex+1
+        let leftIndex: Int = Int(offsetX / scrollViewWidth)
+        let rightIndex: Int = leftIndex + 1
         
         let leftItem = self.items![leftIndex] as! HTabItem
         if rightIndex >= self.items!.count { return }
@@ -953,14 +957,14 @@ class HTabBar : UIView {
         }
         
         if self.isItemColorChangeFollowContentScroll {
-            var normalRed: CGFloat   = 0.0
+            var normalRed: CGFloat  = 0.0
             var normalGreen: CGFloat = 0.0
-            var normalBlue: CGFloat  = 0.0
+            var normalBlue: CGFloat = 0.0
             var normalAlpha: CGFloat = 0.0
             
-            var selectedRed: CGFloat   = 0.0
+            var selectedRed: CGFloat  = 0.0
             var selectedGreen: CGFloat = 0.0
-            var selectedBlue: CGFloat  = 0.0
+            var selectedBlue: CGFloat = 0.0
             var selectedAlpha: CGFloat = 0.0
             
             self.itemTitleColor.getRed(&normalRed, green: &normalGreen, blue: &normalBlue, alpha: &normalAlpha)
@@ -996,7 +1000,7 @@ class HTabBar : UIView {
                 
                 self.indicatorImageView.frame = frame
             } else if self.indicatorAnimationStyle == .style1 {
-                let page: Int = Int(offsetX/scrollViewWidth)
+                let page: Int = Int(offsetX / scrollViewWidth)
                 
                 var currentIndex: Int = 0
                 var targetIndex: Int = 0
@@ -1080,16 +1084,18 @@ class HTabBar : UIView {
      */
     private var itemTitleUnselectedFontScale: CGFloat {
         if itemTitleSelectedFont != nil {
-            return self.itemTitleFont.pointSize/itemTitleSelectedFont!.pointSize
+            return self.itemTitleFont.pointSize / itemTitleSelectedFont!.pointSize
         }
         return 1.0
     }
 
-    @objc private func tabItemClicked(_ item: HTabItem) {
+    @objc
+    private func tabItemClicked(_ item: HTabItem) {
         self.selectedItemIndex = item.index
     }
 
-    @objc private func specialItemClicked(_ item: HTabItem) {
+    @objc
+    private func specialItemClicked(_ item: HTabItem) {
         if self.specialItemHandler != nil {
             self.specialItemHandler!(item)
         }
@@ -1105,20 +1111,14 @@ class HTabBar : UIView {
             let item = tmpItem as! HTabItem
             if self.indicatorStyle == .fitTitle {
                 let frame: CGRect = item.frameWithOutTransform
-                let space: CGFloat = (frame.size.width-item.titleWidth-self.indicatorWidthFixTitleAdditional)/2
-                item.indicatorInsets = UIEdgeInsetsMake(self.indicatorInsets.top,
-                                                        space,
-                                                        self.indicatorInsets.bottom,
-                                                        space)
+                let space: CGFloat = (frame.size.width - item.titleWidth - self.indicatorWidthFixTitleAdditional) / 2
+                item.indicatorInsets = UIEdgeInsets(top: self.indicatorInsets.top, left: space, bottom: self.indicatorInsets.bottom, right: space)
             } else if self.indicatorStyle == .fixedWidth {
                 for tmpItem in self.items! {
                     let item = tmpItem as! HTabItem
                     let frame: CGRect = item.frameWithOutTransform
-                    let space:CGFloat = (frame.size.width-self.indicatorWidth)/2
-                    item.indicatorInsets = UIEdgeInsetsMake(self.indicatorInsets.top,
-                                                            space,
-                                                            self.indicatorInsets.bottom,
-                                                            space)
+                    let space:CGFloat = (frame.size.width - self.indicatorWidth) / 2
+                    item.indicatorInsets = UIEdgeInsets(top: self.indicatorInsets.top, left: space, bottom: self.indicatorInsets.bottom, right: space)
                 }
             } else if self.indicatorStyle == .fitItem {
                 for tmpItem in self.items! {
@@ -1164,15 +1164,15 @@ class HTabBar : UIView {
                         let layer: CALayer = CALayer()
                         layer.backgroundColor = self.itemSeparatorColor!.cgColor
                         if self.isVertical {
-                            layer.frame = CGRectMake(self.itemSeparatorLeading,
-                                                     item.frame.origin.y - self.itemSeparatorThickness / 2,
-                                                     self.bounds.size.width - self.itemSeparatorLeading - self.itemSeparatorTrailing,
-                                                     self.itemSeparatorThickness)
+                            layer.frame = CGRect(x: self.itemSeparatorLeading,
+                                                 y: item.frame.origin.y - self.itemSeparatorThickness / 2,
+                                                 width: self.bounds.size.width - self.itemSeparatorLeading - self.itemSeparatorTrailing,
+                                                 height: self.itemSeparatorThickness)
                         } else {
-                            layer.frame = CGRectMake(item.frame.origin.x - self.itemSeparatorThickness / 2,
-                                                     self.itemSeparatorLeading,
-                                                     self.itemSeparatorThickness,
-                                                     self.bounds.size.height - self.itemSeparatorLeading - self.itemSeparatorTrailing)
+                            layer.frame = CGRect(x: item.frame.origin.x - self.itemSeparatorThickness / 2,
+                                                 y: self.itemSeparatorLeading,
+                                                 width: self.itemSeparatorThickness,
+                                                 height: self.bounds.size.height - self.itemSeparatorLeading - self.itemSeparatorTrailing)
                         }
                         self.scrollView.layer.addSublayer(layer)
                         self.separatorLayers!.add(layer)
@@ -1200,7 +1200,7 @@ class HTabBar : UIView {
     }
     
     /// 让specialItem超出父视图的部分能响应事件
-    open override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         var view = super.hitTest(point, with: event)
         if self.specialItem != nil && view == nil {
             let tp: CGPoint = self.specialItem!.convert(point, from: self)

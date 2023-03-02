@@ -53,6 +53,7 @@ class HTableBlankCell : HTableBaseCell {
         }
         return _view!
     }
+    
     override func relayoutSubviews() {
         HLayoutTableCell(self.view)
     }
@@ -68,6 +69,7 @@ class HTableLabelCell : HTableBaseCell {
         }
         return _label!
     }
+    
     override func relayoutSubviews() {
         HLayoutTableCell(self.label)
     }
@@ -83,6 +85,7 @@ class HTableTextCell : HTableBaseCell {
         }
         return _textView!
     }
+    
     override func relayoutSubviews() {
         HLayoutTableCell(self.textView)
     }
@@ -97,6 +100,7 @@ class HTableButtonCell : HTableBaseCell {
         }
         return _buttonView!
     }
+    
     override func relayoutSubviews() {
         HLayoutTableCell(self.buttonView)
     }
@@ -111,6 +115,7 @@ class HTableImageCell : HTableBaseCell {
         }
         return _imageView!
     }
+    
     override func relayoutSubviews() {
         HLayoutTableCell(self.imageView)
     }
@@ -126,6 +131,7 @@ class HTableTextFieldCell : HTableBaseCell {
         }
         return _textField!
     }
+    
     override func relayoutSubviews() {
         HLayoutTableCell(self.textField)
     }

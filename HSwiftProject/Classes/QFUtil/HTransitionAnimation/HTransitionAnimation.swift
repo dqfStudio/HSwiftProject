@@ -14,7 +14,7 @@ class HTransitionAnimation : NSObject, UIViewControllerAnimatedTransitioning {
     private var _transitionType : HTransitionType = .push
     var transitionType : HTransitionType {
         get {
-            return _transitionType;
+            return _transitionType
         }
         set {
             _transitionType = newValue
@@ -45,16 +45,16 @@ class HTransitionAnimation : NSObject, UIViewControllerAnimatedTransitioning {
         switch (_transitionType) {
         case .push:
             self.startPushAnimation(transitionContext)
-            break;
+            break
         case .pop:
             self.startPopAnimation(transitionContext)
-            break;
+            break
         case .present:
             self.startPresentAnimation(transitionContext)
-            break;
+            break
         case .dismiss:
             self.startDismissAnimation(transitionContext)
-            break;
+            break
         }
     }
 
@@ -64,16 +64,16 @@ class HTransitionAnimation : NSObject, UIViewControllerAnimatedTransitioning {
             switch (_transitionType) {
             case .push:
                 self.endPushAnimation()
-                break;
+                break
             case .pop:
                 self.endPopAnimation()
-                break;
+                break
             case .present:
                 self.endPresentAnimation()
-                break;
+                break
             case .dismiss:
                 self.endDismissAnimation()
-                break;
+                break
             }
         }
     }
