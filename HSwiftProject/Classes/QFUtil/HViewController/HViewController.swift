@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SwizzleSwift
+//import SwizzleSwift
 
 var HNavTitleButtonWidth: CGFloat = 70
 var HNavTitleButtonMargin: CGFloat = 10
@@ -68,7 +68,7 @@ class HViewController: UIViewController {
 
     //loadView 从nib载入视图 ，通常这一步不需要去干涉。除非你没有使用xib文件创建视图,即用代码创建的UI
     override func loadView() {
-        super.loadView()
+        //super.loadView()
         self.pvc_initView()
     }
 
@@ -545,7 +545,7 @@ extension UIViewController {
 
 extension HViewController {
     var window: UIWindow? {
-        return UIApplication.shared.delegate?.window ?? nil
+        return UIApplication.shared.delegate?.window as? UIWindow
     }
     var screen: UIScreen {
         return UIScreen.main

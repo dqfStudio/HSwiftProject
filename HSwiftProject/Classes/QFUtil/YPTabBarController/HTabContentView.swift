@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SwizzleSwift
+//import SwizzleSwift
 
 private let kContentOffset = "contentOffset"
 private var h_hasBeenDisplayedKey = "h_hasBeenDisplayedKey"

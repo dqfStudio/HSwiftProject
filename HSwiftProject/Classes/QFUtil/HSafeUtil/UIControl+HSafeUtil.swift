@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SwizzleSwift
+//import SwizzleSwift
 
 //private let KDefaultInterval = 0.5  //默认时间间隔
 //private var isIgnoreEventKey = "isIgnoreEventKey"

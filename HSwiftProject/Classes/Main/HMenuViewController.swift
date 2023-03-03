@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import SwizzleSwift
-import SwiftyLoad
+//import SwizzleSwift
+//import SwiftyLoad
 
 private let kTabBarHeight: CGFloat = 50.0
 

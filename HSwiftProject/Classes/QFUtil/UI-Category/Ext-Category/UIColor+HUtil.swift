@@ -135,7 +135,7 @@ extension UIColor {
     }
 
     static var random: UIColor {
-        return self.init(red:CGFloat((arc4random() % 256) / 256), green:CGFloat((arc4random() % 256) / 256), blue:CGFloat((arc4random() % 256) / 256), alpha:1.0)
+        return self.init(red:CGFloat(Int.random(in: 1...256) / 256), green:CGFloat(Int.random(in: 1...256) / 256), blue:CGFloat(Int.random(in: 1...256) / 256), alpha:1.0)
     }
 
     var isLighterColor: Bool {

@@ -73,7 +73,7 @@ class HVerifyCodeView: UIControl {
     private func loadCode() {
         let mutableString = NSMutableString()
         for _ in 0..<4 {
-            let index = arc4random() % UInt32(_charsArray.count - 1)
+            let index = Int.random(in: 1..._charsArray.count - 1)
             let string = _charsArray.object(at: Int(index))
             mutableString.append(string as! String)
         }
@@ -99,8 +99,8 @@ class HVerifyCodeView: UIControl {
         var pY: CGFloat = 0.0
         
         for i in 0..<text.length {
-            pX = CGFloat(arc4random() % UInt32(width)) + rect.size.width / CGFloat(text.length) * CGFloat(i)
-            pY = CGFloat(arc4random() % UInt32(height))
+            pX = CGFloat.random(in: 1...width) + rect.size.width / CGFloat(text.length) * CGFloat(i)
+            pY = CGFloat.random(in: 1...height)
             point = CGPoint(x: pX, y: pY)
             let c = text.character(at: i)
             let textC = NSString(format: "%C", c)
@@ -116,12 +116,12 @@ class HVerifyCodeView: UIControl {
             context.setStrokeColor(color.cgColor)
             let path = CGMutablePath()
             
-            pX = CGFloat(arc4random() % UInt32(rect.size.width))
-            pY = CGFloat(arc4random() % UInt32(rect.size.height))
+            pX = CGFloat.random(in: 1...rect.size.width)
+            pY = CGFloat.random(in: 1...rect.size.height)
             path.move(to: CGPoint(x: pX, y: pY))
             
-            pX = CGFloat(arc4random() % UInt32(rect.size.width))
-            pY = CGFloat(arc4random() % UInt32(rect.size.height))
+            pX = CGFloat.random(in: 1...rect.size.width)
+            pY = CGFloat.random(in: 1...rect.size.height)
             path.addLine(to: CGPoint(x: pX, y: pY))
             
             context.strokePath()

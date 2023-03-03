@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SwizzleSwift
+//import SwizzleSwift
 
 private var minContentSizeHeightKey = "minContentSizeHeightKey"
 
