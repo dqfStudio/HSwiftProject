@@ -68,7 +68,7 @@ class HViewController: UIViewController {
 
     //loadView 从nib载入视图 ，通常这一步不需要去干涉。除非你没有使用xib文件创建视图,即用代码创建的UI
     override func loadView() {
-        //super.loadView()
+        super.loadView()
         self.pvc_initView()
     }
 
