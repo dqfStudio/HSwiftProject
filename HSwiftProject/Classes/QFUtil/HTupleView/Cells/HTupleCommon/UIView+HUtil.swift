@@ -252,6 +252,7 @@ extension UIView {
         return self.addSubviewWithColor(color, frame: frame)
     }
 
+    @discardableResult
     func addSubviewWithColor(_ color: UIColor, frame: CGRect) -> UIView {
         let line: UIView = UIView()
         line.frame = frame

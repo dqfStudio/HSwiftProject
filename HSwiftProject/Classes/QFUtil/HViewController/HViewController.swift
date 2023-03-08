@@ -178,10 +178,12 @@ class HViewController: UIViewController {
 
     /// 事件处理
     func back() {
-        if self.navigationController?.topViewController != self {
-            self.dismiss(animated: true, completion: nil)
+        let viewcontrollers = self.navigationController?.viewControllers
+        let topViewController = self.navigationController?.topViewController
+        if viewcontrollers?.count ?? 0 > 1 && topViewController == self {
+            self.navigationController?.popViewController(animated: true)//push方式
         }else {
-            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true, completion: nil)//present方式
         }
     }
 
