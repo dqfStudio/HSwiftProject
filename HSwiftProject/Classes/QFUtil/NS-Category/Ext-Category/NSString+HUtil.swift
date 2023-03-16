@@ -48,6 +48,28 @@ extension String {
         }
         return NSRange(location: 0, length: 0)
     }
+    
+    static func leftArrowString() -> String {
+        return "‹"
+    }
+    static func rightArrowString() -> String {
+        return "›"
+    }
+    static func cancelString() -> String {
+        return "✕"
+    }
+    static func checkedString() -> String {
+        return "√"
+    }
+
+    func encode() -> String {
+        let string = self.removingPercentEncoding //先移除已有的相同编码，然后再进行编码
+        return string!.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)!
+    }
+    
+    func decode() -> String {
+        return self.removingPercentEncoding!
+    }
 
     ///去除字符串两端的空白字符
     func trim() -> String {
