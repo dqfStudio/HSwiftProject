@@ -9,14 +9,14 @@
 import UIKit
 
 ///主要用于词条的本地化
-extension String {
-    public func localized() -> String {
+public extension String {
+    func localized() -> String {
         return self
     }
 }
 
 extension UILabel {
-    public var textLocalized: String? {
+    var textLocalized: String? {
         get { return self.text }
         set {
             if newValue != nil, newValue!.isEmpty != false {
@@ -29,7 +29,7 @@ extension UILabel {
 }
 
 extension UIButton {
-    public var textLocalized: String? {
+    var textLocalized: String? {
         get { return self.title(for: .normal) }
         set {
             if newValue != nil, newValue!.isEmpty != false {
@@ -42,7 +42,7 @@ extension UIButton {
 }
 
 extension UITextView {
-    public var textLocalized: String? {
+    var textLocalized: String? {
         get { return self.text }
         set {
             if newValue != nil, newValue!.isEmpty != false {
@@ -55,7 +55,7 @@ extension UITextView {
 }
 
 extension UITextField {
-    public var textLocalized: String? {
+    var textLocalized: String? {
         get { return self.text }
         set {
             if newValue != nil, newValue!.isEmpty != false {
@@ -65,7 +65,7 @@ extension UITextField {
             }
         }
     }
-    public var placeholderLocalized: String? {
+    var placeholderLocalized: String? {
         get { return self.placeholder }
         set {
             if newValue != nil, newValue!.isEmpty != false {

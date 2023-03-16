@@ -206,7 +206,6 @@
 		EB4323E629B988A400EDDB64 /* loading_new_6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323BD29B988A400EDDB64 /* loading_new_6@2x.png */; };
 		EB4323E729B988A400EDDB64 /* loading_new_11@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323BE29B988A400EDDB64 /* loading_new_11@2x.png */; };
 		EB4323EA29B988A400EDDB64 /* HFormCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4323C229B988A400EDDB64 /* HFormCell.m */; };
-		EB4323EE29B988A400EDDB64 /* HFormController.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4323CC29B988A400EDDB64 /* HFormController.m */; };
 		EB4323F029B988C100EDDB64 /* HAlertFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4323EF29B988C100EDDB64 /* HAlertFormatter.swift */; };
 		EB4323F229B98BE300EDDB64 /* UIAlertController+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4323F129B98BE300EDDB64 /* UIAlertController+HUtil.swift */; };
 		EB4323F429B98C9400EDDB64 /* HNaviToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4323F329B98C9400EDDB64 /* HNaviToastView.swift */; };
@@ -217,6 +216,8 @@
 		EB43240D29C1B70400EDDB64 /* UIView+HAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43240C29C1B70400EDDB64 /* UIView+HAlert.swift */; };
 		EB43241229C2EB3F00EDDB64 /* NSObject+HLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43241129C2EB3F00EDDB64 /* NSObject+HLanguage.swift */; };
 		EB43241429C3163900EDDB64 /* HUserRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43241329C3163900EDDB64 /* HUserRegion.swift */; };
+		EB43241629C34BB800EDDB64 /* HFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43241529C34BB800EDDB64 /* HFormCell.swift */; };
+		EB43241829C3569800EDDB64 /* HFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43241729C3569800EDDB64 /* HFormController.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -459,9 +460,7 @@
 		EB4323BD29B988A400EDDB64 /* loading_new_6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading_new_6@2x.png"; sourceTree = "<group>"; };
 		EB4323BE29B988A400EDDB64 /* loading_new_11@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading_new_11@2x.png"; sourceTree = "<group>"; };
 		EB4323C229B988A400EDDB64 /* HFormCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFormCell.m; sourceTree = "<group>"; };
-		EB4323C329B988A400EDDB64 /* HFormController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFormController.h; sourceTree = "<group>"; };
 		EB4323CA29B988A400EDDB64 /* HFormCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFormCell.h; sourceTree = "<group>"; };
-		EB4323CC29B988A400EDDB64 /* HFormController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFormController.m; sourceTree = "<group>"; };
 		EB4323EF29B988C100EDDB64 /* HAlertFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertFormatter.swift; sourceTree = "<group>"; };
 		EB4323F129B98BE300EDDB64 /* UIAlertController+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+HUtil.swift"; sourceTree = "<group>"; };
 		EB4323F329B98C9400EDDB64 /* HNaviToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNaviToastView.swift; sourceTree = "<group>"; };
@@ -472,6 +471,8 @@
 		EB43240C29C1B70400EDDB64 /* UIView+HAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+HAlert.swift"; sourceTree = "<group>"; };
 		EB43241129C2EB3F00EDDB64 /* NSObject+HLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+HLanguage.swift"; sourceTree = "<group>"; };
 		EB43241329C3163900EDDB64 /* HUserRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUserRegion.swift; sourceTree = "<group>"; };
+		EB43241529C34BB800EDDB64 /* HFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFormCell.swift; sourceTree = "<group>"; };
+		EB43241729C3569800EDDB64 /* HFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFormController.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -1070,8 +1071,8 @@
 				EB4323EF29B988C100EDDB64 /* HAlertFormatter.swift */,
 				EB4323CA29B988A400EDDB64 /* HFormCell.h */,
 				EB4323C229B988A400EDDB64 /* HFormCell.m */,
-				EB4323C329B988A400EDDB64 /* HFormController.h */,
-				EB4323CC29B988A400EDDB64 /* HFormController.m */,
+				EB43241529C34BB800EDDB64 /* HFormCell.swift */,
+				EB43241729C3569800EDDB64 /* HFormController.swift */,
 				EB4323F329B98C9400EDDB64 /* HNaviToastView.swift */,
 				EB43240829B9F47600EDDB64 /* HProgressHUD.swift */,
 				EB4323A329B988A300EDDB64 /* HResource */,
@@ -1482,6 +1483,7 @@
 				A2A814B0274C07E300FAB929 /* UIViewController+HTransition.swift in Sources */,
 				A2B4308D23825BBE00795605 /* HWebImageView.swift in Sources */,
 				A2B4308723823F3400795605 /* Error+HUtil.swift in Sources */,
+				EB43241829C3569800EDDB64 /* HFormController.swift in Sources */,
 				A22948A123975F500058B939 /* HTableViewApexVertValue1.swift in Sources */,
 				A28B652323FD26CE00B6B638 /* HNetworkManager.swift in Sources */,
 				EB4323F029B988C100EDDB64 /* HAlertFormatter.swift in Sources */,
@@ -1507,6 +1509,7 @@
 				A2A814BC274D694E00FAB929 /* UIViewController+HAnimation.swift in Sources */,
 				A2294891239756770058B939 /* HTableView.swift in Sources */,
 				EBC8140D29AA528D00A81431 /* HAnchorLiveVC.swift in Sources */,
+				EB43241629C34BB800EDDB64 /* HFormCell.swift in Sources */,
 				EBC8146329AA53D100A81431 /* HAcceptVideoVC.swift in Sources */,
 				A22948C02397992A0058B939 /* HServiceAuthorizationCell.swift in Sources */,
 				EBC8147329AA541800A81431 /* HSendVideoVC+HStatus3.swift in Sources */,
@@ -1628,7 +1631,6 @@
 				A229488F239756770058B939 /* HTableSignal.swift in Sources */,
 				A2B4307A237FF2B100795605 /* HMenuViewController.swift in Sources */,
 				A21887A723900832005C20BF /* HKeychainSwiftAccessOptions.swift in Sources */,
-				EB4323EE29B988A400EDDB64 /* HFormController.m in Sources */,
 				EBC8147E29AC53AE00A81431 /* HNumberFormatter.swift in Sources */,
 				A2A814B8274CCA7200FAB929 /* HPresentAnimation.swift in Sources */,
 				EBC8145D29AA53B500A81431 /* HSendAudioVC+HStatus3.swift in Sources */,
