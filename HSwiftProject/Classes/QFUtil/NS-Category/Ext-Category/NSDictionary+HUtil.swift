@@ -21,7 +21,7 @@ extension NSDictionary {
     }
     
     func objectForKey(_ aKey: String) -> String? {
-        if self .containsObject(aKey) {
+        if self.containsObject(aKey) {
             self.object(forKey: aKey)
         }
         return nil
