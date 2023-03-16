@@ -286,7 +286,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         self.setup()
     }
     
-    private weak var tupleDelegate: HTupleViewDelegate?
+    weak var tupleDelegate: HTupleViewDelegate?
     override weak var delegate: UICollectionViewDelegate? {
         get { return super.delegate }
         set { tupleDelegate = newValue as? HTupleViewDelegate }

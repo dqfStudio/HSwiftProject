@@ -85,6 +85,21 @@ class HTupleImageApex : HTupleBaseApex {
     }
 }
 
+class HTupleAnimatedImageApex : HTupleBaseApex {
+    private var _imageView: HAnimatedImageView?
+    var imageView: HAnimatedImageView {
+        if _imageView == nil {
+            _imageView = HAnimatedImageView()
+            self.layoutView.addSubview(_imageView!)
+        }
+        return _imageView!
+    }
+    
+    override func relayoutSubviews() {
+        HLayoutTupleApex(self.imageView)
+    }
+}
+
 class HTupleTextFieldApex : HTupleBaseApex {
     private var _textField: HTextField?
     var textField: HTextField {

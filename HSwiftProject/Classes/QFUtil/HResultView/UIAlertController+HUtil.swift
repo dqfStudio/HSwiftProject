@@ -1,9 +1,9 @@
 //
-//  UIAlertController+HError.swift
+//  UIAlertController+HUtil.swift
 //  HSwiftProject
 //
-//  Created by wind on 2019/11/21.
-//  Copyright © 2019 wind. All rights reserved.
+//  Created by owner on 2023/3/9.
+//  Copyright © 2023 wind. All rights reserved.
 //
 
 import UIKit
