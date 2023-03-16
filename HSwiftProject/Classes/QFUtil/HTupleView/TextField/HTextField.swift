@@ -298,14 +298,14 @@ class HTextField : UITextField, UITextFieldDelegate {
                     let string = string.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
                     tmpString = textField.text! + string
                     //赋值
-                    textField.text = tmpString?.subString(to: self.maxInput)
+                    textField.text = tmpString?.to(loc: self.maxInput)
                     //异步移动光标
                     DispatchQueue.main.async { [weak self, textField] in
                         self!.cursorLocation(textField, index: textField.text!.length)
                     }
                 }else {//输入字符串
                     tmpString = textField.text! + string
-                    textField.text = tmpString?.subString(to: self.maxInput)
+                    textField.text = tmpString?.to(loc: self.maxInput)
                 }
             }
             return (strLength <= self.maxInput)

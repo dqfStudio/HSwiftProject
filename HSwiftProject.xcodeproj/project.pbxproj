@@ -205,7 +205,6 @@
 		EB4323E529B988A400EDDB64 /* loading_new_8@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323BC29B988A400EDDB64 /* loading_new_8@2x.png */; };
 		EB4323E629B988A400EDDB64 /* loading_new_6@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323BD29B988A400EDDB64 /* loading_new_6@2x.png */; };
 		EB4323E729B988A400EDDB64 /* loading_new_11@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323BE29B988A400EDDB64 /* loading_new_11@2x.png */; };
-		EB4323EA29B988A400EDDB64 /* HFormCell.m in Sources */ = {isa = PBXBuildFile; fileRef = EB4323C229B988A400EDDB64 /* HFormCell.m */; };
 		EB4323F029B988C100EDDB64 /* HAlertFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4323EF29B988C100EDDB64 /* HAlertFormatter.swift */; };
 		EB4323F229B98BE300EDDB64 /* UIAlertController+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4323F129B98BE300EDDB64 /* UIAlertController+HUtil.swift */; };
 		EB4323F429B98C9400EDDB64 /* HNaviToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4323F329B98C9400EDDB64 /* HNaviToastView.swift */; };
@@ -459,8 +458,6 @@
 		EB4323BC29B988A400EDDB64 /* loading_new_8@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading_new_8@2x.png"; sourceTree = "<group>"; };
 		EB4323BD29B988A400EDDB64 /* loading_new_6@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading_new_6@2x.png"; sourceTree = "<group>"; };
 		EB4323BE29B988A400EDDB64 /* loading_new_11@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loading_new_11@2x.png"; sourceTree = "<group>"; };
-		EB4323C229B988A400EDDB64 /* HFormCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HFormCell.m; sourceTree = "<group>"; };
-		EB4323CA29B988A400EDDB64 /* HFormCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HFormCell.h; sourceTree = "<group>"; };
 		EB4323EF29B988C100EDDB64 /* HAlertFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertFormatter.swift; sourceTree = "<group>"; };
 		EB4323F129B98BE300EDDB64 /* UIAlertController+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIAlertController+HUtil.swift"; sourceTree = "<group>"; };
 		EB4323F329B98C9400EDDB64 /* HNaviToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNaviToastView.swift; sourceTree = "<group>"; };
@@ -1069,8 +1066,6 @@
 			isa = PBXGroup;
 			children = (
 				EB4323EF29B988C100EDDB64 /* HAlertFormatter.swift */,
-				EB4323CA29B988A400EDDB64 /* HFormCell.h */,
-				EB4323C229B988A400EDDB64 /* HFormCell.m */,
 				EB43241529C34BB800EDDB64 /* HFormCell.swift */,
 				EB43241729C3569800EDDB64 /* HFormController.swift */,
 				EB4323F329B98C9400EDDB64 /* HNaviToastView.swift */,
@@ -1585,7 +1580,6 @@
 				A2A7A93B23FE36440090EFD3 /* HAnimatedDotView.swift in Sources */,
 				A26D434923879FB900F457AE /* Router.swift in Sources */,
 				EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */,
-				EB4323EA29B988A400EDDB64 /* HFormCell.m in Sources */,
 				A28923C5238CDE8400E4AB75 /* HTupleController.swift in Sources */,
 				A265DA012392A2B3001F39B0 /* UIViewController+HTab.swift in Sources */,
 				A2B43076237FF2B100795605 /* UIWindow+HPrinter.swift in Sources */,
