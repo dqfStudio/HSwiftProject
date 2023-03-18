@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class HAttributeString {
+public class HActionString {
     
     public var attributeText: NSMutableAttributedString
     
@@ -25,7 +25,7 @@ public class HAttributeString {
         return range?.length ?? 0
     }
     
-    public func addAction(_ action:(() -> Void)?) -> HAttributeString {
+    public func addAction(_ action:(() -> Void)?) -> HActionString {
         self.action = action
         return self
     }
@@ -40,8 +40,8 @@ public class HAttributeString {
 public class HTextView: UITextView {
     
     public var selectedBackgroundColor: UIColor?
-    private var storageTexts: [HAttributeString] = []
-    private var selectedAttribute: HAttributeString?
+    private var storageTexts: [HActionString] = []
+    private var selectedAttribute: HActionString?
     private var originalAttributeText: NSAttributedString?
     
     public func removeAllAttribute() -> HTextView {
@@ -50,13 +50,15 @@ public class HTextView: UITextView {
     }
     
     @discardableResult
-    public func appendAttributedText(_ attribute: HAttributeString) -> HTextView {
+    public func appendAttributedText(_ attribute: HActionString) -> HTextView {
         storageTexts.append(attribute)
         
         let location = attributedText?.length ?? 0
         attribute.range = NSRange(location: location, length: attribute.attributeText.length)
         if let at = attributedText, at.length > 0 {
-            attributedText = NSMutableAttributedString(attributedString: at) + attribute.attributeText
+            let atSring = NSMutableAttributedString(attributedString: at)
+            atSring.append(attribute.attributeText)
+            attributedText = atSring
         }else {
             attributedText = attribute.attributeText
         }

@@ -8,12 +8,11 @@
 
 import UIKit
 
-public func + (attr1: NSMutableAttributedString, attr2: NSMutableAttributedString) -> NSMutableAttributedString {
-    attr1.append(attr2)
-    return attr1
-}
-
 public extension NSMutableAttributedString {
+    func appendAttributedText(_ attribute: NSMutableAttributedString) -> NSMutableAttributedString {
+        self.append(attribute)
+        return self
+    }
     func allRange() -> NSRange {
         return NSRange(location: 0, length: self.length)
     }
@@ -100,8 +99,8 @@ public extension NSMutableAttributedString {
         self.addAttribute(.paragraphStyle, value: style, range: self.allRange())
         return self
     }
-    func toAttriString() -> HAttributeString {
-        return HAttributeString(attributeText: self)
+    func toActionString() -> HActionString {
+        return HActionString(attributeText: self)
     }
 }
 
