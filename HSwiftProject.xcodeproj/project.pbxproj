@@ -136,7 +136,6 @@
 		A2A814D22750037C00FAB929 /* HUserDefaults+Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814CF2750037C00FAB929 /* HUserDefaults+Property.swift */; };
 		A2A814D32750037C00FAB929 /* HUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814D02750037C00FAB929 /* HUserDefaults.swift */; };
 		A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814D6275007EB00FAB929 /* NSString+HSize.swift */; };
-		A2AC8D0023B0FCF400FD8DB7 /* HKeyChainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2AC8CFF23B0FCF300FD8DB7 /* HKeyChainStore.swift */; };
 		A2B42FCC237CED5A00795605 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B42FCB237CED5A00795605 /* AppDelegate.swift */; };
 		A2B42FCE237CED5A00795605 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B42FCD237CED5A00795605 /* SceneDelegate.swift */; };
 		A2B42FD0237CED5A00795605 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B42FCF237CED5A00795605 /* ViewController.swift */; };
@@ -221,6 +220,7 @@
 		EB43243829C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43243529C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift */; };
 		EB43243929C588A400EDDB64 /* String+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43243629C588A400EDDB64 /* String+HUtil.swift */; };
 		EB43243A29C588A400EDDB64 /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43243729C588A400EDDB64 /* HTextView.swift */; };
+		EB43243C29C5B04800EDDB64 /* HKeyChainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43243B29C5B04800EDDB64 /* HKeyChainStore.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -390,7 +390,6 @@
 		A2A814CF2750037C00FAB929 /* HUserDefaults+Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HUserDefaults+Property.swift"; sourceTree = "<group>"; };
 		A2A814D02750037C00FAB929 /* HUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserDefaults.swift; sourceTree = "<group>"; };
 		A2A814D6275007EB00FAB929 /* NSString+HSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+HSize.swift"; sourceTree = "<group>"; };
-		A2AC8CFF23B0FCF300FD8DB7 /* HKeyChainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HKeyChainStore.swift; sourceTree = "<group>"; };
 		A2B42FC8237CED5A00795605 /* HSwiftProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HSwiftProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B42FCB237CED5A00795605 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2B42FCD237CED5A00795605 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -478,6 +477,7 @@
 		EB43243529C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+HUtil.swift"; sourceTree = "<group>"; };
 		EB43243629C588A400EDDB64 /* String+HUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+HUtil.swift"; sourceTree = "<group>"; };
 		EB43243729C588A400EDDB64 /* HTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
+		EB43243B29C5B04800EDDB64 /* HKeyChainStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKeyChainStore.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -541,6 +541,7 @@
 				A2A814D02750037C00FAB929 /* HUserDefaults.swift */,
 				A2A814CE2750037C00FAB929 /* HUserDefaults+Extern.swift */,
 				A2A814CF2750037C00FAB929 /* HUserDefaults+Property.swift */,
+				EB43243B29C5B04800EDDB64 /* HKeyChainStore.swift */,
 			);
 			path = HUserDefaults;
 			sourceTree = "<group>";
@@ -708,10 +709,9 @@
 		A289239D238B72F800E4AB75 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A289239E238B72F800E4AB75 /* HTupleView.swift */,
 				A289239F238B72F800E4AB75 /* HCollectionViewFlowLayout.swift */,
 				A28923C6238D21F300E4AB75 /* HObject.swift */,
-				A2AC8CFF23B0FCF300FD8DB7 /* HKeyChainStore.swift */,
+				A289239E238B72F800E4AB75 /* HTupleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1538,7 +1538,6 @@
 				EB43241229C2EB3F00EDDB64 /* NSObject+HLanguage.swift in Sources */,
 				A229488E239756770058B939 /* HTableBaseApex.swift in Sources */,
 				A22948B1239798960058B939 /* HMainController4.swift in Sources */,
-				A2AC8D0023B0FCF400FD8DB7 /* HKeyChainStore.swift in Sources */,
 				A229489D23975CE40058B939 /* HTableViewCellVertValue1.swift in Sources */,
 				A26D431523839C2800F457AE /* UIApplication+HUtil.swift in Sources */,
 				A2A814AE274C05BB00FAB929 /* HAlertController.swift in Sources */,
@@ -1579,6 +1578,7 @@
 				EBC8140429AA48C000A81431 /* HUserLiveCell+HSection2.swift in Sources */,
 				A2B43071237FF2B100795605 /* Swifty.m in Sources */,
 				A22948AB2397986C0058B939 /* HMainController3+HSection0.swift in Sources */,
+				EB43243C29C5B04800EDDB64 /* HKeyChainStore.swift in Sources */,
 				A28A022623EE55EB000556A2 /* HTextLoopView.swift in Sources */,
 				A2B43073237FF2B100795605 /* HCommonDefine.swift in Sources */,
 				A2B42FCC237CED5A00795605 /* AppDelegate.swift in Sources */,
