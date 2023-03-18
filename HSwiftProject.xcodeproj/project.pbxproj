@@ -218,6 +218,9 @@
 		EB43241629C34BB800EDDB64 /* HFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43241529C34BB800EDDB64 /* HFormCell.swift */; };
 		EB43241829C3569800EDDB64 /* HFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43241729C3569800EDDB64 /* HFormController.swift */; };
 		EB43242F29C564D100EDDB64 /* UIImage+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43242E29C564D100EDDB64 /* UIImage+HUtil.swift */; };
+		EB43243829C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43243529C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift */; };
+		EB43243929C588A400EDDB64 /* String+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43243629C588A400EDDB64 /* String+HUtil.swift */; };
+		EB43243A29C588A400EDDB64 /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43243729C588A400EDDB64 /* HTextView.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -472,6 +475,9 @@
 		EB43241529C34BB800EDDB64 /* HFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFormCell.swift; sourceTree = "<group>"; };
 		EB43241729C3569800EDDB64 /* HFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFormController.swift; sourceTree = "<group>"; };
 		EB43242E29C564D100EDDB64 /* UIImage+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+HUtil.swift"; sourceTree = "<group>"; };
+		EB43243529C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+HUtil.swift"; sourceTree = "<group>"; };
+		EB43243629C588A400EDDB64 /* String+HUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+HUtil.swift"; sourceTree = "<group>"; };
+		EB43243729C588A400EDDB64 /* HTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -888,6 +894,7 @@
 		A2B43058237FF2B100795605 /* QFUtil */ = {
 			isa = PBXGroup;
 			children = (
+				EB43243429C588A300EDDB64 /* HAtrribute */,
 				EB43241029C2EB1200EDDB64 /* HLocale */,
 				EB43239E29B988A300EDDB64 /* HResultView */,
 				A2A81493274C059100FAB929 /* HTransitionAnimation */,
@@ -1144,6 +1151,16 @@
 				EB43241129C2EB3F00EDDB64 /* NSObject+HLanguage.swift */,
 			);
 			path = HLocale;
+			sourceTree = "<group>";
+		};
+		EB43243429C588A300EDDB64 /* HAtrribute */ = {
+			isa = PBXGroup;
+			children = (
+				EB43243729C588A400EDDB64 /* HTextView.swift */,
+				EB43243629C588A400EDDB64 /* String+HUtil.swift */,
+				EB43243529C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift */,
+			);
+			path = HAtrribute;
 			sourceTree = "<group>";
 		};
 		EBC813F029AA48C000A81431 /* HUserLive */ = {
@@ -1539,10 +1556,12 @@
 				EBC8147729AA542500A81431 /* HSendVideoVC+HStatus5.swift in Sources */,
 				A22948A72397980A0058B939 /* HMainController2.swift in Sources */,
 				EB43240529B9D8D100EDDB64 /* HAnimatedImageView.swift in Sources */,
+				EB43243829C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift in Sources */,
 				A2CC441323B3691D00DB095F /* HTableRefresh.swift in Sources */,
 				EBC8145929AA539E00A81431 /* HSendAudioVC+HStatus1.swift in Sources */,
 				A28923A3238B72F800E4AB75 /* HTupleBaseCell.swift in Sources */,
 				A22948AF239798870058B939 /* HMainController3+HSection2.swift in Sources */,
+				EB43243A29C588A400EDDB64 /* HTextView.swift in Sources */,
 				A28923C7238D21F300E4AB75 /* HObject.swift in Sources */,
 				EB4323F429B98C9400EDDB64 /* HNaviToastView.swift in Sources */,
 				EBC8146129AA53C600A81431 /* HSendAudioVC+HStatus5.swift in Sources */,
@@ -1619,6 +1638,7 @@
 				A28923A5238B72F800E4AB75 /* HTupleSignal.swift in Sources */,
 				A22948A92397985B0058B939 /* HMainController3.swift in Sources */,
 				A2B43077237FF2B100795605 /* NSObject+HUtil.swift in Sources */,
+				EB43243929C588A400EDDB64 /* String+HUtil.swift in Sources */,
 				EBC8146D29AA540000A81431 /* HSendVideoVC.swift in Sources */,
 				EBC8145529AA537700A81431 /* HSendAudioVC.swift in Sources */,
 				EBC8146529AA53DE00A81431 /* HAcceptVideoVC+HStatus1.swift in Sources */,
