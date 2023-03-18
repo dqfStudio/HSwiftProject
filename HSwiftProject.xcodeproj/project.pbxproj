@@ -217,6 +217,7 @@
 		EB43241429C3163900EDDB64 /* HUserRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43241329C3163900EDDB64 /* HUserRegion.swift */; };
 		EB43241629C34BB800EDDB64 /* HFormCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43241529C34BB800EDDB64 /* HFormCell.swift */; };
 		EB43241829C3569800EDDB64 /* HFormController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43241729C3569800EDDB64 /* HFormController.swift */; };
+		EB43242F29C564D100EDDB64 /* UIImage+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43242E29C564D100EDDB64 /* UIImage+HUtil.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -470,6 +471,7 @@
 		EB43241329C3163900EDDB64 /* HUserRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUserRegion.swift; sourceTree = "<group>"; };
 		EB43241529C34BB800EDDB64 /* HFormCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFormCell.swift; sourceTree = "<group>"; };
 		EB43241729C3569800EDDB64 /* HFormController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFormController.swift; sourceTree = "<group>"; };
+		EB43242E29C564D100EDDB64 /* UIImage+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+HUtil.swift"; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -983,6 +985,7 @@
 				A26D432623853F2900F457AE /* NSObject+HMessy.swift */,
 				A26D43282385665700F457AE /* NSUserDefaults+HUtil.swift */,
 				A26D432A23856F8900F457AE /* NSTimer+HUtil.swift */,
+				EB43242E29C564D100EDDB64 /* UIImage+HUtil.swift */,
 				A26D433E2386CA0900F457AE /* NSObject+HSwizzleUtil.swift */,
 				EB43241329C3163900EDDB64 /* HUserRegion.swift */,
 				EBC8147D29AC53AE00A81431 /* HNumberFormatter.swift */,
@@ -1498,6 +1501,7 @@
 				A2A7A93523FE2CBF0090EFD3 /* HTupleViewMarqueeApex.swift in Sources */,
 				A26D43292385665700F457AE /* NSUserDefaults+HUtil.swift in Sources */,
 				A258395923B4E70F00881941 /* HTableController.swift in Sources */,
+				EB43242F29C564D100EDDB64 /* UIImage+HUtil.swift in Sources */,
 				A286251623EAB8DD00E81781 /* HCountDownButton.swift in Sources */,
 				A28A022D23EE6BA6000556A2 /* HMarquee.swift in Sources */,
 				A265DA032394B24C001F39B0 /* HTabBarController.swift in Sources */,
