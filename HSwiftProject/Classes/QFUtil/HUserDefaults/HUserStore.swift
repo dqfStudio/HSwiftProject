@@ -94,7 +94,7 @@ class HUserStore : NSObject {
                 }
             }
         }
-        if share == nil && share!.responds(to: #selector(initData)) == false {
+        if share == nil || share!.responds(to: #selector(initData)) == false {
             share = HUserStore()
         }
         share!.initData()
