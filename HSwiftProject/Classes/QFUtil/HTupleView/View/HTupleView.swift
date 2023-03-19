@@ -54,12 +54,36 @@ class HTupleAppearance : NSObject {
     static func addTuple(_ anTuple: AnyObject) {
         self.hashTuples.add(anTuple)
     }
-    static func enumerateTuples(_ completion: @escaping () -> Void) {
+    static func refreshTuples(_ completion: @escaping () -> Void) {
         DispatchQueue.main.async {
             //倒序执行
             for item in self.hashTuples.allObjects.reversed() {
                 let tuple = item as! HTupleView
                 tuple.reloadData()
+            }
+            completion()
+        }
+    }
+    static func refreshTuples(key: String, _ completion: @escaping () -> Void) {
+        DispatchQueue.main.async {
+            //倒序执行
+            for item in self.hashTuples.allObjects.reversed() {
+                let tuple = item as! HTupleView
+                if tuple.reloadTupleKey == key {
+                    tuple.reloadData()
+                }
+            }
+            completion()
+        }
+    }
+    static func releaseTuples(key: String, _ completion: @escaping () -> Void) {
+        DispatchQueue.main.async {
+            //倒序执行
+            for item in self.hashTuples.allObjects.reversed() {
+                let tuple = item as! HTupleView
+                if tuple.releaseTupleKey == key {
+                    tuple.releaseTupleBlock()
+                }
             }
             completion()
         }
@@ -426,6 +450,9 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
     }
     
+    ///设置释放的key值
+    var releaseTupleKey: String?
+    /*
     private var _releaseTupleKey: String?
     ///设置释放的key值
     var releaseTupleKey: String? {
@@ -444,7 +471,11 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             }
         }
     }
+     */
 
+    ///设置reload的key值
+    var reloadTupleKey: String?
+    /*
     private var _reloadTupleKey: String?
     ///设置reload的key值
     var reloadTupleKey: String? {
@@ -463,6 +494,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             }
         }
     }
+     */
 
     ///block refresh & loadMore
     func beginRefreshing(_ completion: @escaping () -> Void) {
