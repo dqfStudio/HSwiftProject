@@ -255,6 +255,7 @@
 		EBC8147729AA542500A81431 /* HSendVideoVC+HStatus5.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147629AA542500A81431 /* HSendVideoVC+HStatus5.swift */; };
 		EBC8147929AA543300A81431 /* HSendVideoVC+HStatus6.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147829AA543300A81431 /* HSendVideoVC+HStatus6.swift */; };
 		EBC8147E29AC53AE00A81431 /* HNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147D29AC53AE00A81431 /* HNumberFormatter.swift */; };
+		EBD0FB0629CA011400808EDA /* HVersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB0529CA011400808EDA /* HVersionManager.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -512,6 +513,7 @@
 		EBC8147629AA542500A81431 /* HSendVideoVC+HStatus5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HSendVideoVC+HStatus5.swift"; sourceTree = "<group>"; };
 		EBC8147829AA543300A81431 /* HSendVideoVC+HStatus6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HSendVideoVC+HStatus6.swift"; sourceTree = "<group>"; };
 		EBC8147D29AC53AE00A81431 /* HNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNumberFormatter.swift; sourceTree = "<group>"; };
+		EBD0FB0529CA011400808EDA /* HVersionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HVersionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1078,6 +1080,7 @@
 				EB43241729C3569800EDDB64 /* HFormController.swift */,
 				EB4323F329B98C9400EDDB64 /* HNaviToastView.swift */,
 				EB43240829B9F47600EDDB64 /* HProgressHUD.swift */,
+				EBD0FB0529CA011400808EDA /* HVersionManager.swift */,
 				EB4323A329B988A300EDDB64 /* HResource */,
 				EB43240629B9DF9D00EDDB64 /* HResultView.swift */,
 				EB4323F529B9AF7200EDDB64 /* HWaitingView.swift */,
@@ -1611,6 +1614,7 @@
 				EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */,
 				A28923C5238CDE8400E4AB75 /* HTupleController.swift in Sources */,
 				A265DA012392A2B3001F39B0 /* UIViewController+HTab.swift in Sources */,
+				EBD0FB0629CA011400808EDA /* HVersionManager.swift in Sources */,
 				EB43244129C5B11E00EDDB64 /* HKeyChainStore.swift in Sources */,
 				A2B43076237FF2B100795605 /* UIWindow+HPrinter.swift in Sources */,
 				A26D432523852DB700F457AE /* NSDate+HUtil.swift in Sources */,
