@@ -1,7 +1,7 @@
 
 import Foundation
 
-private var HistoryVersionsKey = "MiguMusicHistoryVersionsKey"
+private var HistoryVersionsKey = "HMusicHistoryVersionsKey"
 
 class HVersionManager: NSObject {
     
