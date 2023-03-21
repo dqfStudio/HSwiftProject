@@ -51,9 +51,7 @@ class HVersionManager: NSObject {
     
     //当前版本号，没有build号，如5.0.3
     var currentVersion: String {
-        get {
-            return Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
-        }
+        return Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
     }
     
     //当前版本号，有build号，比如：5.0.3.008
