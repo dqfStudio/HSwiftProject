@@ -266,6 +266,10 @@
 		EBD0FB2829CC91AF00808EDA /* UIImage+QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB2729CC91AF00808EDA /* UIImage+QRCode.swift */; };
 		EBD0FB2A29CC935D00808EDA /* NSString+HChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB2929CC935D00808EDA /* NSString+HChain.swift */; };
 		EBD0FB2C29CC9AEF00808EDA /* UIColor+HSkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB2B29CC9AEF00808EDA /* UIColor+HSkin.swift */; };
+		EBD0FB3129CCA16400808EDA /* AppDelegate+WindowService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3029CCA16400808EDA /* AppDelegate+WindowService.swift */; };
+		EBD0FB3329CCA2CB00808EDA /* AppDelegate+ConfigerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3229CCA2CB00808EDA /* AppDelegate+ConfigerService.swift */; };
+		EBD0FB3629CCA34800808EDA /* HLocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3529CCA34800808EDA /* HLocalNotification.swift */; };
+		EBD0FB3829CCA8D800808EDA /* HRemoteNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3729CCA8D800808EDA /* HRemoteNotification.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -534,6 +538,10 @@
 		EBD0FB2729CC91AF00808EDA /* UIImage+QRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+QRCode.swift"; sourceTree = "<group>"; };
 		EBD0FB2929CC935D00808EDA /* NSString+HChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+HChain.swift"; sourceTree = "<group>"; };
 		EBD0FB2B29CC9AEF00808EDA /* UIColor+HSkin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HSkin.swift"; sourceTree = "<group>"; };
+		EBD0FB3029CCA16400808EDA /* AppDelegate+WindowService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+WindowService.swift"; sourceTree = "<group>"; };
+		EBD0FB3229CCA2CB00808EDA /* AppDelegate+ConfigerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+ConfigerService.swift"; sourceTree = "<group>"; };
+		EBD0FB3529CCA34800808EDA /* HLocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLocalNotification.swift; sourceTree = "<group>"; };
+		EBD0FB3729CCA8D800808EDA /* HRemoteNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRemoteNotification.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -867,6 +875,8 @@
 				A2B43057237FF2B100795605 /* Classes */,
 				A2B42FE9237CFFAB00795605 /* Resource */,
 				A2B42FCB237CED5A00795605 /* AppDelegate.swift */,
+				EBD0FB3029CCA16400808EDA /* AppDelegate+WindowService.swift */,
+				EBD0FB3229CCA2CB00808EDA /* AppDelegate+ConfigerService.swift */,
 				A2B42FCD237CED5A00795605 /* SceneDelegate.swift */,
 				A2B42FCF237CED5A00795605 /* ViewController.swift */,
 				A2B42FD1237CED5A00795605 /* Main.storyboard */,
@@ -914,6 +924,7 @@
 		A2B43058237FF2B100795605 /* QFUtil */ = {
 			isa = PBXGroup;
 			children = (
+				EBD0FB3429CCA33E00808EDA /* HNotification */,
 				EBD0FB2429CC8CEB00808EDA /* HFPickerView */,
 				EBD0FB2129CC739400808EDA /* HDrawerViewController */,
 				EBD0FB1E29CC51BA00808EDA /* HFileCache */,
@@ -1378,6 +1389,15 @@
 			path = HFPickerView;
 			sourceTree = "<group>";
 		};
+		EBD0FB3429CCA33E00808EDA /* HNotification */ = {
+			isa = PBXGroup;
+			children = (
+				EBD0FB3529CCA34800808EDA /* HLocalNotification.swift */,
+				EBD0FB3729CCA8D800808EDA /* HRemoteNotification.swift */,
+			);
+			path = HNotification;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1587,9 +1607,11 @@
 				A2B4308D23825BBE00795605 /* HWebImageView.swift in Sources */,
 				A2B4308723823F3400795605 /* Error+HUtil.swift in Sources */,
 				EBD0FB2029CC51BF00808EDA /* HFileCache.swift in Sources */,
+				EBD0FB3329CCA2CB00808EDA /* AppDelegate+ConfigerService.swift in Sources */,
 				EB43241829C3569800EDDB64 /* HFormController.swift in Sources */,
 				A22948A123975F500058B939 /* HTableViewApexVertValue1.swift in Sources */,
 				A28B652323FD26CE00B6B638 /* HNetworkManager.swift in Sources */,
+				EBD0FB3829CCA8D800808EDA /* HRemoteNotification.swift in Sources */,
 				EB4323F029B988C100EDDB64 /* HAlertFormatter.swift in Sources */,
 				A26D434323877F0A00F457AE /* UIControl+HSafeUtil.swift in Sources */,
 				A229489523975A900058B939 /* HTableViewApex.swift in Sources */,
@@ -1643,6 +1665,7 @@
 				A22948BE239799190058B939 /* HRegisterController+SJ.swift in Sources */,
 				A28923A4238B72F800E4AB75 /* HGeometry.swift in Sources */,
 				EBC8140629AA48C000A81431 /* HUserLiveVC.swift in Sources */,
+				EBD0FB3129CCA16400808EDA /* AppDelegate+WindowService.swift in Sources */,
 				A2A814BE274D6C3000FAB929 /* HPushAnimation.swift in Sources */,
 				A2A814C0274E030100FAB929 /* HSheetController.swift in Sources */,
 				EBC8140829AA48C000A81431 /* HLRDManager.swift in Sources */,
@@ -1680,6 +1703,7 @@
 				EBC8140929AA48C000A81431 /* HUserLiveCell+HSection1.swift in Sources */,
 				A2B4307C237FF2B100795605 /* HGameCategoryVC.swift in Sources */,
 				EB43241429C3163900EDDB64 /* HUserRegion.swift in Sources */,
+				EBD0FB3629CCA34800808EDA /* HLocalNotification.swift in Sources */,
 				A26D43412386CD9000F457AE /* NSTimer+HSafeUtil.swift in Sources */,
 				A2A814B2274C081B00FAB929 /* HTransitionHeader.swift in Sources */,
 				A28A022823EE62D6000556A2 /* HTupleViewTextLoopCell.swift in Sources */,
