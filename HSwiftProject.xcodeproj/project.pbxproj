@@ -261,6 +261,11 @@
 		EBD0FB1A29CC366D00808EDA /* HAuthorizeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB1929CC366D00808EDA /* HAuthorizeManager.swift */; };
 		EBD0FB1D29CC3E2000808EDA /* NSFileManager+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB1C29CC3E2000808EDA /* NSFileManager+HUtil.swift */; };
 		EBD0FB2029CC51BF00808EDA /* HFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB1F29CC51BF00808EDA /* HFileCache.swift */; };
+		EBD0FB2329CC739A00808EDA /* HDrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB2229CC739A00808EDA /* HDrawerViewController.swift */; };
+		EBD0FB2629CC8CF100808EDA /* HFPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB2529CC8CF100808EDA /* HFPickerView.swift */; };
+		EBD0FB2829CC91AF00808EDA /* UIImage+QRCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB2729CC91AF00808EDA /* UIImage+QRCode.swift */; };
+		EBD0FB2A29CC935D00808EDA /* NSString+HChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB2929CC935D00808EDA /* NSString+HChain.swift */; };
+		EBD0FB2C29CC9AEF00808EDA /* UIColor+HSkin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB2B29CC9AEF00808EDA /* UIColor+HSkin.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -524,6 +529,11 @@
 		EBD0FB1929CC366D00808EDA /* HAuthorizeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAuthorizeManager.swift; sourceTree = "<group>"; };
 		EBD0FB1C29CC3E2000808EDA /* NSFileManager+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFileManager+HUtil.swift"; sourceTree = "<group>"; };
 		EBD0FB1F29CC51BF00808EDA /* HFileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFileCache.swift; sourceTree = "<group>"; };
+		EBD0FB2229CC739A00808EDA /* HDrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDrawerViewController.swift; sourceTree = "<group>"; };
+		EBD0FB2529CC8CF100808EDA /* HFPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFPickerView.swift; sourceTree = "<group>"; };
+		EBD0FB2729CC91AF00808EDA /* UIImage+QRCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+QRCode.swift"; sourceTree = "<group>"; };
+		EBD0FB2929CC935D00808EDA /* NSString+HChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+HChain.swift"; sourceTree = "<group>"; };
+		EBD0FB2B29CC9AEF00808EDA /* UIColor+HSkin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HSkin.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -904,6 +914,8 @@
 		A2B43058237FF2B100795605 /* QFUtil */ = {
 			isa = PBXGroup;
 			children = (
+				EBD0FB2429CC8CEB00808EDA /* HFPickerView */,
+				EBD0FB2129CC739400808EDA /* HDrawerViewController */,
 				EBD0FB1E29CC51BA00808EDA /* HFileCache */,
 				EBD0FB1B29CC3E1C00808EDA /* NSFileManager+HUtil */,
 				EBD0FB1829CC366700808EDA /* HAuthorizeManager */,
@@ -957,7 +969,9 @@
 				A2B4308E2382CC8A00795605 /* UIDevice+HUtil.swift */,
 				A26D431423839C2800F457AE /* UIApplication+HUtil.swift */,
 				A26D43162383DE5800F457AE /* UIColor+HUtil.swift */,
+				EBD0FB2B29CC9AEF00808EDA /* UIColor+HSkin.swift */,
 				EB43244829C5B8E700EDDB64 /* UIImage+HUtil.swift */,
+				EBD0FB2729CC91AF00808EDA /* UIImage+QRCode.swift */,
 				A26D431C2384177900F457AE /* UIScreen+HUtil.swift */,
 				A26D432023842C9400F457AE /* UIGestureRecognizer+HUtil.swift */,
 				A26D4322238526BA00F457AE /* UIViewController+HUtil.swift */,
@@ -1010,6 +1024,7 @@
 				A26D433E2386CA0900F457AE /* NSObject+HSwizzleUtil.swift */,
 				EB43241329C3163900EDDB64 /* HUserRegion.swift */,
 				EBC8147D29AC53AE00A81431 /* HNumberFormatter.swift */,
+				EBD0FB2929CC935D00808EDA /* NSString+HChain.swift */,
 			);
 			path = "Ext-Category";
 			sourceTree = "<group>";
@@ -1347,6 +1362,22 @@
 			path = HFileCache;
 			sourceTree = "<group>";
 		};
+		EBD0FB2129CC739400808EDA /* HDrawerViewController */ = {
+			isa = PBXGroup;
+			children = (
+				EBD0FB2229CC739A00808EDA /* HDrawerViewController.swift */,
+			);
+			path = HDrawerViewController;
+			sourceTree = "<group>";
+		};
+		EBD0FB2429CC8CEB00808EDA /* HFPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				EBD0FB2529CC8CF100808EDA /* HFPickerView.swift */,
+			);
+			path = HFPickerView;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1594,6 +1625,7 @@
 				A22948BA239798FC0058B939 /* HRegisterController.swift in Sources */,
 				A26D432D238682D200F457AE /* HNavigationController.swift in Sources */,
 				A22948B3239798A30058B939 /* HMainController5.swift in Sources */,
+				EBD0FB2629CC8CF100808EDA /* HFPickerView.swift in Sources */,
 				A2A814BA274CCC1800FAB929 /* HPresentationController.swift in Sources */,
 				A2B4308F2382CC8A00795605 /* UIDevice+HUtil.swift in Sources */,
 				EB43241229C2EB3F00EDDB64 /* NSObject+HLanguage.swift in Sources */,
@@ -1626,6 +1658,7 @@
 				A28923C7238D21F300E4AB75 /* HObject.swift in Sources */,
 				EB4323F429B98C9400EDDB64 /* HNaviToastView.swift in Sources */,
 				EBC8146129AA53C600A81431 /* HSendAudioVC+HStatus5.swift in Sources */,
+				EBD0FB2C29CC9AEF00808EDA /* UIColor+HSkin.swift in Sources */,
 				A2188795238FD3CC005C20BF /* HGameCategoryVC+HSection0.swift in Sources */,
 				EBC8146B29AA53F400A81431 /* HAcceptVideoVC+HStatus4.swift in Sources */,
 				A2B43074237FF2B100795605 /* UIView+HPrinter.swift in Sources */,
@@ -1639,6 +1672,7 @@
 				A28923A8238B72F800E4AB75 /* HCollectionViewFlowLayout.swift in Sources */,
 				EBC8140429AA48C000A81431 /* HUserLiveCell+HSection2.swift in Sources */,
 				A2B43071237FF2B100795605 /* Swifty.m in Sources */,
+				EBD0FB2329CC739A00808EDA /* HDrawerViewController.swift in Sources */,
 				A22948AB2397986C0058B939 /* HMainController3+HSection0.swift in Sources */,
 				A28A022623EE55EB000556A2 /* HTextLoopView.swift in Sources */,
 				A2B43073237FF2B100795605 /* HCommonDefine.swift in Sources */,
@@ -1716,6 +1750,7 @@
 				EB43244729C5B2BD00EDDB64 /* HUserDefaults+Extern.swift in Sources */,
 				A2A814B8274CCA7200FAB929 /* HPresentAnimation.swift in Sources */,
 				EBC8145D29AA53B500A81431 /* HSendAudioVC+HStatus3.swift in Sources */,
+				EBD0FB2A29CC935D00808EDA /* NSString+HChain.swift in Sources */,
 				EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */,
 				A22948B5239798AF0058B939 /* HMainController6.swift in Sources */,
 				A2A7A94723FE3B5E0090EFD3 /* HPageControl.swift in Sources */,
@@ -1725,6 +1760,7 @@
 				A2A7A94923FE8A400090EFD3 /* HCycleScrollView.swift in Sources */,
 				EBC8145729AA538B00A81431 /* HAcceptAudioVC.swift in Sources */,
 				EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */,
+				EBD0FB2829CC91AF00808EDA /* UIImage+QRCode.swift in Sources */,
 				EB4323F229B98BE300EDDB64 /* UIAlertController+HUtil.swift in Sources */,
 				A28923A6238B72F800E4AB75 /* NSIndexPath+HUtil.swift in Sources */,
 				A28923AE238B750000E4AB75 /* HTextField.swift in Sources */,
