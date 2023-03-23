@@ -11,8 +11,6 @@ import UIKit
 private var kIdSetKey = "kIdSetKey"
 private var kExclusiveSetKey = "kExclusiveSetKey"
 
-typealias HExclusive = () -> Void
-
 extension NSObject {
     
     private var exclusiveSet: NSMutableSet? {
@@ -29,7 +27,15 @@ extension NSObject {
         }
     }
     
-    func exclusive(exc: String, delay interval: TimeInterval, exclusive: HExclusive) {
+    func exclusive(exc: String, block: () -> Void) {
+        let excString = "\(Unmanaged.passUnretained(self).toOpaque())\(exc)"
+        if !self.exclusiveSet!.contains(excString) {
+            self.exclusiveSet!.add(excString)
+            block()
+        }
+    }
+    
+    func exclusive(exc: String, delay interval: TimeInterval, block: () -> Void) {
         let excString: String = String(format: "%p%@", self, exc)
         if (self.exclusiveSet!.contains(excString) == false) {
             self.exclusiveSet!.add(excString)
@@ -41,7 +47,7 @@ extension NSObject {
                     }
                 }
             }
-            exclusive()
+            block()
         }
     }
     

@@ -514,6 +514,25 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         self.mj_footer?.endRefreshing(completionBlock:completion)
     }
     
+    // header & footer 是否悬停
+    var sectionHeadersPinToVisibleBounds: Bool {
+        get {
+            return ((flowLayout?.sectionHeadersPinToVisibleBounds) != nil)
+        }
+        set {
+            flowLayout?.sectionHeadersPinToVisibleBounds = newValue
+        }
+    }
+    
+    var sectionFootersPinToVisibleBounds: Bool {
+        get {
+            return ((flowLayout?.sectionFootersPinToVisibleBounds) != nil)
+        }
+        set {
+            flowLayout?.sectionFootersPinToVisibleBounds = newValue
+        }
+    }
+    
     ///bounce method
     func horizontalBounceEnabled() {
         self.bounces = true

@@ -256,6 +256,11 @@
 		EBC8147929AA543300A81431 /* HSendVideoVC+HStatus6.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147829AA543300A81431 /* HSendVideoVC+HStatus6.swift */; };
 		EBC8147E29AC53AE00A81431 /* HNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147D29AC53AE00A81431 /* HNumberFormatter.swift */; };
 		EBD0FB0629CA011400808EDA /* HVersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB0529CA011400808EDA /* HVersionManager.swift */; };
+		EBD0FB0929CA90EB00808EDA /* HAssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB0829CA90EA00808EDA /* HAssetManager.swift */; };
+		EBD0FB0B29CA938900808EDA /* HAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB0A29CA938900808EDA /* HAssetModel.swift */; };
+		EBD0FB1A29CC366D00808EDA /* HAuthorizeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB1929CC366D00808EDA /* HAuthorizeManager.swift */; };
+		EBD0FB1D29CC3E2000808EDA /* NSFileManager+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB1C29CC3E2000808EDA /* NSFileManager+HUtil.swift */; };
+		EBD0FB2029CC51BF00808EDA /* HFileCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB1F29CC51BF00808EDA /* HFileCache.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -514,6 +519,11 @@
 		EBC8147829AA543300A81431 /* HSendVideoVC+HStatus6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HSendVideoVC+HStatus6.swift"; sourceTree = "<group>"; };
 		EBC8147D29AC53AE00A81431 /* HNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNumberFormatter.swift; sourceTree = "<group>"; };
 		EBD0FB0529CA011400808EDA /* HVersionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HVersionManager.swift; sourceTree = "<group>"; };
+		EBD0FB0829CA90EA00808EDA /* HAssetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAssetManager.swift; sourceTree = "<group>"; };
+		EBD0FB0A29CA938900808EDA /* HAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAssetModel.swift; sourceTree = "<group>"; };
+		EBD0FB1929CC366D00808EDA /* HAuthorizeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAuthorizeManager.swift; sourceTree = "<group>"; };
+		EBD0FB1C29CC3E2000808EDA /* NSFileManager+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSFileManager+HUtil.swift"; sourceTree = "<group>"; };
+		EBD0FB1F29CC51BF00808EDA /* HFileCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFileCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -894,6 +904,10 @@
 		A2B43058237FF2B100795605 /* QFUtil */ = {
 			isa = PBXGroup;
 			children = (
+				EBD0FB1E29CC51BA00808EDA /* HFileCache */,
+				EBD0FB1B29CC3E1C00808EDA /* NSFileManager+HUtil */,
+				EBD0FB1829CC366700808EDA /* HAuthorizeManager */,
+				EBD0FB0729CA90E200808EDA /* HAssetManager */,
 				EB43243429C588A300EDDB64 /* HAtrribute */,
 				EB43241029C2EB1200EDDB64 /* HLocale */,
 				EB43239E29B988A300EDDB64 /* HResultView */,
@@ -1300,6 +1314,39 @@
 			path = HVideoMedia;
 			sourceTree = "<group>";
 		};
+		EBD0FB0729CA90E200808EDA /* HAssetManager */ = {
+			isa = PBXGroup;
+			children = (
+				EBD0FB0829CA90EA00808EDA /* HAssetManager.swift */,
+				EBD0FB0A29CA938900808EDA /* HAssetModel.swift */,
+			);
+			path = HAssetManager;
+			sourceTree = "<group>";
+		};
+		EBD0FB1829CC366700808EDA /* HAuthorizeManager */ = {
+			isa = PBXGroup;
+			children = (
+				EBD0FB1929CC366D00808EDA /* HAuthorizeManager.swift */,
+			);
+			path = HAuthorizeManager;
+			sourceTree = "<group>";
+		};
+		EBD0FB1B29CC3E1C00808EDA /* NSFileManager+HUtil */ = {
+			isa = PBXGroup;
+			children = (
+				EBD0FB1C29CC3E2000808EDA /* NSFileManager+HUtil.swift */,
+			);
+			path = "NSFileManager+HUtil";
+			sourceTree = "<group>";
+		};
+		EBD0FB1E29CC51BA00808EDA /* HFileCache */ = {
+			isa = PBXGroup;
+			children = (
+				EBD0FB1F29CC51BF00808EDA /* HFileCache.swift */,
+			);
+			path = HFileCache;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1508,6 +1555,7 @@
 				A2A814B0274C07E300FAB929 /* UIViewController+HTransition.swift in Sources */,
 				A2B4308D23825BBE00795605 /* HWebImageView.swift in Sources */,
 				A2B4308723823F3400795605 /* Error+HUtil.swift in Sources */,
+				EBD0FB2029CC51BF00808EDA /* HFileCache.swift in Sources */,
 				EB43241829C3569800EDDB64 /* HFormController.swift in Sources */,
 				A22948A123975F500058B939 /* HTableViewApexVertValue1.swift in Sources */,
 				A28B652323FD26CE00B6B638 /* HNetworkManager.swift in Sources */,
@@ -1516,6 +1564,7 @@
 				A229489523975A900058B939 /* HTableViewApex.swift in Sources */,
 				A28923A7238B72F800E4AB75 /* HTupleView.swift in Sources */,
 				EB43244229C5B11E00EDDB64 /* HUserDefaults+Property.swift in Sources */,
+				EBD0FB0929CA90EB00808EDA /* HAssetManager.swift in Sources */,
 				A2294893239756A10058B939 /* HTableViewCell.swift in Sources */,
 				EB43240729B9DF9D00EDDB64 /* HResultView.swift in Sources */,
 				A26D431F238425BD00F457AE /* CGRect.swift in Sources */,
@@ -1530,6 +1579,7 @@
 				A2A7A93523FE2CBF0090EFD3 /* HTupleViewMarqueeApex.swift in Sources */,
 				A26D43292385665700F457AE /* NSUserDefaults+HUtil.swift in Sources */,
 				A258395923B4E70F00881941 /* HTableController.swift in Sources */,
+				EBD0FB1A29CC366D00808EDA /* HAuthorizeManager.swift in Sources */,
 				A286251623EAB8DD00E81781 /* HCountDownButton.swift in Sources */,
 				A28A022D23EE6BA6000556A2 /* HMarquee.swift in Sources */,
 				A265DA032394B24C001F39B0 /* HTabBarController.swift in Sources */,
@@ -1556,6 +1606,7 @@
 				A2B43078237FF2B100795605 /* NSObject+HExclusive.swift in Sources */,
 				A2B43079237FF2B100795605 /* HCenterViewController.swift in Sources */,
 				A265D9FF239250F6001F39B0 /* HTabContentView.swift in Sources */,
+				EBD0FB1D29CC3E2000808EDA /* NSFileManager+HUtil.swift in Sources */,
 				EBC8147929AA543300A81431 /* HSendVideoVC+HStatus6.swift in Sources */,
 				A22948BE239799190058B939 /* HRegisterController+SJ.swift in Sources */,
 				A28923A4238B72F800E4AB75 /* HGeometry.swift in Sources */,
@@ -1622,6 +1673,7 @@
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,
 				A26D43372386BBD600F457AE /* AppDelegate+HUtil.swift in Sources */,
 				A229489923975BA80058B939 /* HTupleViewApexVertValue1.swift in Sources */,
+				EBD0FB0B29CA938900808EDA /* HAssetModel.swift in Sources */,
 				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue1.swift in Sources */,
 				A265D9FB2390B8EB001F39B0 /* HTabItem.swift in Sources */,
 				A28DF9BA23FF77350065418F /* HCollectionViewCell.swift in Sources */,

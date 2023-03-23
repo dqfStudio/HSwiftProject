@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CommonCrypto
 
 extension String {
     
@@ -74,6 +75,17 @@ extension String {
     ///去除字符串两端的空白字符
     func trim() -> String {
         return self.trimmingCharacters(in: CharacterSet.whitespaces)
+    }
+    
+    func md5() -> String {
+        let concat_str = self.cString(using: String.Encoding.utf8)
+        var result = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
+        CC_MD5(concat_str, CC_LONG(strlen(concat_str!)), &result)
+        var hash = ""
+        for i in 0..<Int(CC_MD5_DIGEST_LENGTH) {
+            hash += String(format: "%02x", result[i])
+        }
+        return hash
     }
 
     static func fromClass(_ cls: AnyClass) -> String {

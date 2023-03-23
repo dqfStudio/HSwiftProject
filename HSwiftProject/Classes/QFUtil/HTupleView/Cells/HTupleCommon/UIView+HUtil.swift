@@ -303,7 +303,10 @@ extension UIView {
     */
     var cornerRadius: CGFloat {
         get { return self.layer.cornerRadius }
-        set { self.layer.cornerRadius = newValue }
+        set {
+            self.layer.cornerRadius = newValue
+            self.layer.masksToBounds = true
+        }
     }
         
 
