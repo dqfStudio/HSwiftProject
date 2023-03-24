@@ -12,7 +12,7 @@ import CommonCrypto
 extension String {
     
     var length: Int {
-        return self.lengthOfBytes(using: .utf8)
+        return self.count
     }
     
     var intValue: Int {
