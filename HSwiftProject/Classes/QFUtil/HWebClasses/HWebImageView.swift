@@ -145,7 +145,7 @@ class HWebImageView: UIImageView {
     *
     */
     func setImageUrlString(_ urlString: String, syncLoadCache cache: Bool) {
-        if urlString.lengthOfBytes(using: .utf8) == 0 {
+        if urlString.count == 0 {
             self._setImage(nil)
             self.lastURL = ""
             if didGetError != nil {
@@ -228,7 +228,7 @@ class HWebImageView: UIImageView {
     *  @param fileName 图片名称
     */
     func setImageWithFile(_ fileName: String) {
-        if fileName.lengthOfBytes(using: .utf8) > 0 {
+        if fileName.count > 0 {
             let resourcePath: String = Bundle.main.resourcePath!
             let filePath: String = resourcePath.appendingFormat("/%@", fileName)
             let image: UIImage = UIImage(contentsOfFile: filePath)!
@@ -248,7 +248,7 @@ class HWebImageView: UIImageView {
     *  @param fileName 图片名称
     */
     func setImageWithName(_ fileName: String) {
-        if fileName.lengthOfBytes(using: .utf8) > 0 {
+        if fileName.count > 0 {
             self.setImage(UIImage(named: fileName))
         }
     }
