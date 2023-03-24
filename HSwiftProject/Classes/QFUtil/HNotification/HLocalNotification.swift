@@ -10,8 +10,19 @@ import UIKit
 import UserNotifications
 
 @objc protocol HLocalNotificationDelegate: NSObjectProtocol {
+    /**
+     app处于前台时收到推送数据
+     
+     @param userInfo 推送数据
+     */
     @objc
     func didReceiveLocalNotificationOnApplicationActive(_ userInfo: [AnyHashable: Any])
+    
+    /**
+     app处于后台时收到推送，点击推送后会调用该代理
+     
+     @param userInfo 推送数据
+     */
     @objc
     func didReceiveLocalNotificationOnApplicationBackground(_ userInfo: [AnyHashable: Any])
 }
@@ -62,7 +73,7 @@ class HLocalNotification: NSObject, UIApplicationDelegate, UNUserNotificationCen
      @param repeatInterval 重复时间间隔，0代表不重复
      @param identifier 通知标志符，可用来更新和删除本地通知
      */
-    func pushLocalNotificationWithBadge(badge: Int, sound: String?, title: String, message: String, params: [AnyHashable: Any], fireDate: Date?, repeatInterval: NSCalendar.Unit, identifier: String) {
+    func pushLocalNotification(withBadge badge: Int, sound: String?, title: String, message: String, params: [AnyHashable: Any], fireDate: Date?, repeatInterval: Int, identifier: String) {
         let notification = UILocalNotification()
         if #available(iOS 8.2, *) {
             notification.alertTitle = title
@@ -79,7 +90,7 @@ class HLocalNotification: NSObject, UIApplicationDelegate, UNUserNotificationCen
         }
         notification.userInfo = dic
         notification.applicationIconBadgeNumber = badge
-        notification.repeatInterval = repeatInterval
+        notification.repeatInterval = NSCalendar.Unit(rawValue: UInt(repeatInterval))
         if let fireDate = fireDate {
             notification.fireDate = fireDate
             UIApplication.shared.scheduleLocalNotification(notification)
@@ -100,7 +111,7 @@ class HLocalNotification: NSObject, UIApplicationDelegate, UNUserNotificationCen
      @param identifier 通知标志符，可用来更新和删除本地通知
      */
     @available(iOS 10.0, *)
-    func pushLocalNotificationWithBadge(badge: Int, sound: String?, title: String, message: String, params: [AnyHashable: Any], trigger: UNNotificationTrigger?, identifier: String) {
+    func pushLocalNotification(withBadge badge: Int, sound: String?, title: String, message: String, params: [AnyHashable: Any], trigger: UNNotificationTrigger?, identifier: String) {
         let center = UNUserNotificationCenter.current()
         let content = UNMutableNotificationContent()
         content.title = title
@@ -130,7 +141,7 @@ class HLocalNotification: NSObject, UIApplicationDelegate, UNUserNotificationCen
      @param repeatInterval 重复时间间隔，0代表不重复
      @param identifier 通知标志符，可用来更新和删除本地通知
      */
-    func updateLocalNotificationWithBadge(badge: Int, sound: String, title: String, message: String, params: [AnyHashable: Any], fireDate: Date?, repeatInterval: NSCalendar.Unit, identifier: String) {
+    func updateLocalNotification(withBadge badge: Int, sound: String, title: String, message: String, params: [AnyHashable: Any], fireDate: Date?, repeatInterval: Int, identifier: String) {
         let localNotifications = UIApplication.shared.scheduledLocalNotifications
         for notification in localNotifications! {
             if let info = notification.userInfo {
@@ -140,7 +151,7 @@ class HLocalNotification: NSObject, UIApplicationDelegate, UNUserNotificationCen
                 }
             }
         }
-        pushLocalNotificationWithBadge(badge: badge, sound: sound, title: title, message: message, params: params, fireDate: fireDate, repeatInterval: repeatInterval, identifier: identifier)
+        pushLocalNotification(withBadge: badge, sound: sound, title: title, message: message, params: params, fireDate: fireDate, repeatInterval: repeatInterval, identifier: identifier)
     }
 
     /**
@@ -155,8 +166,8 @@ class HLocalNotification: NSObject, UIApplicationDelegate, UNUserNotificationCen
      @param identifier 通知标志符，可用来更新和删除本地通知
      */
     @available(iOS 10.0, *)
-    func updateLocalNotificationWithBadge(badge: Int, sound: String, title: String, message: String, params: [AnyHashable: Any], trigger: UNNotificationTrigger?, identifier: String) {
-        pushLocalNotificationWithBadge(badge: badge, sound: sound, title: title, message: message, params: params, trigger: trigger, identifier: identifier)
+    func updateLocalNotification(withBadge badge: Int, sound: String, title: String, message: String, params: [AnyHashable: Any], trigger: UNNotificationTrigger?, identifier: String) {
+        pushLocalNotification(withBadge: badge, sound: sound, title: title, message: message, params: params, trigger: trigger, identifier: identifier)
     }
     
     /**

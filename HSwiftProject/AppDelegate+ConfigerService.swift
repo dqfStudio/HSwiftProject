@@ -8,7 +8,7 @@
 
 import UIKit
 
-let K_NETWORK_CHANGE_NOTIFICATION = "networkChangeNotification"
+var K_NETWORK_CHANGE_NOTIFICATION = "networkChangeNotification"
 
 extension AppDelegate {
 

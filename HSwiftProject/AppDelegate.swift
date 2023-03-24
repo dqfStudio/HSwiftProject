@@ -98,6 +98,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         //UIApplication.setStatusBarStyleWithColor(UIColor.white)
         
+        //添加通知
+        /*
+        HLocalNotification.shareInstance.delegate = self
+        HRemoteNotification.shareInstance.delegate = self
+        HLocalNotification.shareInstance.showNotificationWhenApplicationActice = false
+        HRemoteNotification.shareInstance.showNotificationWhenApplicationActice = false
+        HRemoteNotification.shareInstance.registerRemoteNotification()
+         */
+        
         return true
     }
 

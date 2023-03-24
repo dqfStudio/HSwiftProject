@@ -69,7 +69,6 @@
 		A26D432F23868AFE00F457AE /* UIViewController+HDisappear.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D432E23868AFE00F457AE /* UIViewController+HDisappear.swift */; };
 		A26D43322386914500F457AE /* hvc_back_icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26D43302386914500F457AE /* hvc_back_icon@3x.png */; };
 		A26D43332386914500F457AE /* hvc_back_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A26D43312386914500F457AE /* hvc_back_icon@2x.png */; };
-		A26D43372386BBD600F457AE /* AppDelegate+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D43362386BBD600F457AE /* AppDelegate+HUtil.swift */; };
 		A26D43392386C0A000F457AE /* UINavigationController+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D43382386C0A000F457AE /* UINavigationController+HUtil.swift */; };
 		A26D433D2386C76D00F457AE /* NSObject+HSafeMessy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D433C2386C76D00F457AE /* NSObject+HSafeMessy.swift */; };
 		A26D433F2386CA0A00F457AE /* NSObject+HSwizzleUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D433E2386CA0900F457AE /* NSObject+HSwizzleUtil.swift */; };
@@ -270,6 +269,10 @@
 		EBD0FB3329CCA2CB00808EDA /* AppDelegate+ConfigerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3229CCA2CB00808EDA /* AppDelegate+ConfigerService.swift */; };
 		EBD0FB3629CCA34800808EDA /* HLocalNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3529CCA34800808EDA /* HLocalNotification.swift */; };
 		EBD0FB3829CCA8D800808EDA /* HRemoteNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3729CCA8D800808EDA /* HRemoteNotification.swift */; };
+		EBD0FB3A29CD461E00808EDA /* AppDelegate+NotifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3929CD461E00808EDA /* AppDelegate+NotifyService.swift */; };
+		EBD0FB3C29CD4C2400808EDA /* AppDelegate+SoundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3B29CD4C2400808EDA /* AppDelegate+SoundService.swift */; };
+		EBD0FB3E29CD4DE100808EDA /* AppDelegate+UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3D29CD4DE100808EDA /* AppDelegate+UserService.swift */; };
+		EBD0FB4029CD4E4400808EDA /* AppDelegate+RotateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3F29CD4E4400808EDA /* AppDelegate+RotateService.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -338,7 +341,6 @@
 		A26D432E23868AFE00F457AE /* UIViewController+HDisappear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+HDisappear.swift"; sourceTree = "<group>"; };
 		A26D43302386914500F457AE /* hvc_back_icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hvc_back_icon@3x.png"; sourceTree = "<group>"; };
 		A26D43312386914500F457AE /* hvc_back_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "hvc_back_icon@2x.png"; sourceTree = "<group>"; };
-		A26D43362386BBD600F457AE /* AppDelegate+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+HUtil.swift"; sourceTree = "<group>"; };
 		A26D43382386C0A000F457AE /* UINavigationController+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+HUtil.swift"; sourceTree = "<group>"; };
 		A26D433C2386C76D00F457AE /* NSObject+HSafeMessy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+HSafeMessy.swift"; sourceTree = "<group>"; };
 		A26D433E2386CA0900F457AE /* NSObject+HSwizzleUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+HSwizzleUtil.swift"; sourceTree = "<group>"; };
@@ -542,6 +544,10 @@
 		EBD0FB3229CCA2CB00808EDA /* AppDelegate+ConfigerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+ConfigerService.swift"; sourceTree = "<group>"; };
 		EBD0FB3529CCA34800808EDA /* HLocalNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLocalNotification.swift; sourceTree = "<group>"; };
 		EBD0FB3729CCA8D800808EDA /* HRemoteNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRemoteNotification.swift; sourceTree = "<group>"; };
+		EBD0FB3929CD461E00808EDA /* AppDelegate+NotifyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+NotifyService.swift"; sourceTree = "<group>"; };
+		EBD0FB3B29CD4C2400808EDA /* AppDelegate+SoundService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+SoundService.swift"; sourceTree = "<group>"; };
+		EBD0FB3D29CD4DE100808EDA /* AppDelegate+UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+UserService.swift"; sourceTree = "<group>"; };
+		EBD0FB3F29CD4E4400808EDA /* AppDelegate+RotateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+RotateService.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -877,6 +883,10 @@
 				A2B42FCB237CED5A00795605 /* AppDelegate.swift */,
 				EBD0FB3029CCA16400808EDA /* AppDelegate+WindowService.swift */,
 				EBD0FB3229CCA2CB00808EDA /* AppDelegate+ConfigerService.swift */,
+				EBD0FB3929CD461E00808EDA /* AppDelegate+NotifyService.swift */,
+				EBD0FB3B29CD4C2400808EDA /* AppDelegate+SoundService.swift */,
+				EBD0FB3D29CD4DE100808EDA /* AppDelegate+UserService.swift */,
+				EBD0FB3F29CD4E4400808EDA /* AppDelegate+RotateService.swift */,
 				A2B42FCD237CED5A00795605 /* SceneDelegate.swift */,
 				A2B42FCF237CED5A00795605 /* ViewController.swift */,
 				A2B42FD1237CED5A00795605 /* Main.storyboard */,
@@ -987,7 +997,6 @@
 				A26D432023842C9400F457AE /* UIGestureRecognizer+HUtil.swift */,
 				A26D4322238526BA00F457AE /* UIViewController+HUtil.swift */,
 				A26D43382386C0A000F457AE /* UINavigationController+HUtil.swift */,
-				A26D43362386BBD600F457AE /* AppDelegate+HUtil.swift */,
 			);
 			path = "Ext-Category";
 			sourceTree = "<group>";
@@ -1596,6 +1605,7 @@
 				A2B4308323801C4E00795605 /* HWebButtonView.swift in Sources */,
 				A26D43172383DE5800F457AE /* UIColor+HUtil.swift in Sources */,
 				A2B4308B2382598F00795605 /* UIButton+HFilletLayer.swift in Sources */,
+				EBD0FB3A29CD461E00808EDA /* AppDelegate+NotifyService.swift in Sources */,
 				A28DF9B823FF748A0065418F /* UIView+HExtension.swift in Sources */,
 				EBC8140A29AA48C000A81431 /* HUserLiveCell+HSection0.swift in Sources */,
 				A2B42FD0237CED5A00795605 /* ViewController.swift in Sources */,
@@ -1616,6 +1626,7 @@
 				A26D434323877F0A00F457AE /* UIControl+HSafeUtil.swift in Sources */,
 				A229489523975A900058B939 /* HTableViewApex.swift in Sources */,
 				A28923A7238B72F800E4AB75 /* HTupleView.swift in Sources */,
+				EBD0FB4029CD4E4400808EDA /* AppDelegate+RotateService.swift in Sources */,
 				EB43244229C5B11E00EDDB64 /* HUserDefaults+Property.swift in Sources */,
 				EBD0FB0929CA90EB00808EDA /* HAssetManager.swift in Sources */,
 				A2294893239756A10058B939 /* HTableViewCell.swift in Sources */,
@@ -1683,6 +1694,7 @@
 				EBC8146129AA53C600A81431 /* HSendAudioVC+HStatus5.swift in Sources */,
 				EBD0FB2C29CC9AEF00808EDA /* UIColor+HSkin.swift in Sources */,
 				A2188795238FD3CC005C20BF /* HGameCategoryVC+HSection0.swift in Sources */,
+				EBD0FB3C29CD4C2400808EDA /* AppDelegate+SoundService.swift in Sources */,
 				EBC8146B29AA53F400A81431 /* HAcceptVideoVC+HStatus4.swift in Sources */,
 				A2B43074237FF2B100795605 /* UIView+HPrinter.swift in Sources */,
 				A250DF1223FFC2AB009F5E47 /* HTupleViewBannerApex.swift in Sources */,
@@ -1729,11 +1741,11 @@
 				A26D432523852DB700F457AE /* NSDate+HUtil.swift in Sources */,
 				A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */,
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,
-				A26D43372386BBD600F457AE /* AppDelegate+HUtil.swift in Sources */,
 				A229489923975BA80058B939 /* HTupleViewApexVertValue1.swift in Sources */,
 				EBD0FB0B29CA938900808EDA /* HAssetModel.swift in Sources */,
 				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue1.swift in Sources */,
 				A265D9FB2390B8EB001F39B0 /* HTabItem.swift in Sources */,
+				EBD0FB3E29CD4DE100808EDA /* AppDelegate+UserService.swift in Sources */,
 				A28DF9BA23FF77350065418F /* HCollectionViewCell.swift in Sources */,
 				EB4323F629B9AF7200EDDB64 /* HWaitingView.swift in Sources */,
 				EB43240929B9F47600EDDB64 /* HProgressHUD.swift in Sources */,

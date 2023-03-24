@@ -17,7 +17,7 @@ import UserNotifications
      @param tokenString NSString类型deviceToken
      */
     @objc
-    func didRegisterForRemoteNotificationsWithDeviceToken(_ token: Data, tokenString: String)
+    func didRegisterForRemoteNotifications(withToken token: Data, tokenString: String)
     
     /**
      app处于前台时收到推送数据
@@ -25,7 +25,7 @@ import UserNotifications
      @param userInfo 推送数据
      */
     @objc
-    func didReceiveRemoteNotificationOnApplicationActiveWithUserInfo(_ userInfo: [AnyHashable : Any])
+    func didReceiveRemoteNotificationOnApplicationActive(withUserInfo userInfo: [AnyHashable : Any])
     
     /**
      app处于后台时收到推送，点击推送后会调用该代理
@@ -33,7 +33,7 @@ import UserNotifications
      @param userInfo 推送数据
      */
     @objc
-    func didReceiveRemoteNotificationOnApplicationBackgroundWithUserInfo(_ userInfo: [AnyHashable : Any])
+    func didReceiveRemoteNotificationOnApplicationBackground(withUserInfo userInfo: [AnyHashable : Any])
 }
 
 class HRemoteNotification: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
@@ -97,8 +97,8 @@ class HRemoteNotification: NSObject, UIApplicationDelegate, UNUserNotificationCe
             completionHandler([.badge, .sound, .alert])
         } else {
             let userInfo = notification.request.content.userInfo
-            if let delegate = delegate, delegate.responds(to: #selector(HRemoteNotificationDelegate.didReceiveRemoteNotificationOnApplicationActiveWithUserInfo(_:))) {
-                delegate.didReceiveRemoteNotificationOnApplicationActiveWithUserInfo(userInfo)
+            if let delegate = delegate, delegate.responds(to: #selector(HRemoteNotificationDelegate.didReceiveRemoteNotificationOnApplicationActive(withUserInfo:))) {
+                delegate.didReceiveRemoteNotificationOnApplicationActive(withUserInfo: userInfo)
             }
             completionHandler([])
         }
@@ -108,12 +108,12 @@ class HRemoteNotification: NSObject, UIApplicationDelegate, UNUserNotificationCe
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         if UIApplication.shared.applicationState == .active {
-            if let delegate = delegate, delegate.responds(to: #selector(HRemoteNotificationDelegate.didReceiveRemoteNotificationOnApplicationActiveWithUserInfo(_:))) {
-                delegate.didReceiveRemoteNotificationOnApplicationActiveWithUserInfo(userInfo)
+            if let delegate = delegate, delegate.responds(to: #selector(HRemoteNotificationDelegate.didReceiveRemoteNotificationOnApplicationActive(withUserInfo:))) {
+                delegate.didReceiveRemoteNotificationOnApplicationActive(withUserInfo: userInfo)
             }
         } else {
-            if let delegate = delegate, delegate.responds(to: #selector(HRemoteNotificationDelegate.didReceiveRemoteNotificationOnApplicationBackgroundWithUserInfo(_:))) {
-                delegate.didReceiveRemoteNotificationOnApplicationBackgroundWithUserInfo(userInfo)
+            if let delegate = delegate, delegate.responds(to: #selector(HRemoteNotificationDelegate.didReceiveRemoteNotificationOnApplicationBackground(withUserInfo:))) {
+                delegate.didReceiveRemoteNotificationOnApplicationBackground(withUserInfo: userInfo)
             }
         }
         completionHandler()
@@ -122,12 +122,12 @@ class HRemoteNotification: NSObject, UIApplicationDelegate, UNUserNotificationCe
     // 处理静默推送
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if UIApplication.shared.applicationState == .active {
-            if let delegate = delegate, delegate.responds(to: #selector(HRemoteNotificationDelegate.didReceiveRemoteNotificationOnApplicationActiveWithUserInfo(_:))) {
-                delegate.didReceiveRemoteNotificationOnApplicationActiveWithUserInfo(userInfo)
+            if let delegate = delegate, delegate.responds(to: #selector(HRemoteNotificationDelegate.didReceiveRemoteNotificationOnApplicationActive(withUserInfo:))) {
+                delegate.didReceiveRemoteNotificationOnApplicationActive(withUserInfo: userInfo)
             }
         } else {
-            if let delegate = delegate, delegate.responds(to: #selector(HRemoteNotificationDelegate.didReceiveRemoteNotificationOnApplicationBackgroundWithUserInfo(_:))) {
-                delegate.didReceiveRemoteNotificationOnApplicationBackgroundWithUserInfo(userInfo)
+            if let delegate = delegate, delegate.responds(to: #selector(HRemoteNotificationDelegate.didReceiveRemoteNotificationOnApplicationBackground(withUserInfo:))) {
+                delegate.didReceiveRemoteNotificationOnApplicationBackground(withUserInfo: userInfo)
             }
         }
         completionHandler(.noData)
@@ -136,8 +136,8 @@ class HRemoteNotification: NSObject, UIApplicationDelegate, UNUserNotificationCe
     // 注册推送
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let deviceString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
-        if let delegate = delegate, delegate.responds(to: #selector(HRemoteNotificationDelegate.didRegisterForRemoteNotificationsWithDeviceToken(_:tokenString:))) {
-            delegate.didRegisterForRemoteNotificationsWithDeviceToken(deviceToken, tokenString: deviceString)
+        if let delegate = delegate, delegate.responds(to: #selector(HRemoteNotificationDelegate.didRegisterForRemoteNotifications(withToken:tokenString:))) {
+            delegate.didRegisterForRemoteNotifications(withToken: deviceToken, tokenString: deviceString)
         }
     }
 
