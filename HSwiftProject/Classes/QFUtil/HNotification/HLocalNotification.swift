@@ -210,6 +210,7 @@ class HLocalNotification: NSObject, UIApplicationDelegate, UNUserNotificationCen
     
     // MARK: - UNUserNotificationCenterDelegate
     @available(iOS 10.0, *)
+    // 当应用程序处于活动状态时，显示通知
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         if showNotificationWhenApplicationActice {
             completionHandler([.badge, .sound, .alert])
@@ -221,8 +222,9 @@ class HLocalNotification: NSObject, UIApplicationDelegate, UNUserNotificationCen
             completionHandler([])
         }
     }
-    
+
     @available(iOS 10.0, *)
+    // 当用户点击通知时，处理通知
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         if UIApplication.shared.applicationState == .active {
@@ -236,7 +238,8 @@ class HLocalNotification: NSObject, UIApplicationDelegate, UNUserNotificationCen
         }
         completionHandler()
     }
-    
+
+    // 当应用程序接收到本地通知时，处理通知
     func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
         let userInfo = notification.userInfo
         if UIApplication.shared.applicationState == .active {

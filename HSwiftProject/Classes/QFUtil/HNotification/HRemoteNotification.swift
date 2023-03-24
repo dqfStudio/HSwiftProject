@@ -91,6 +91,7 @@ class HRemoteNotification: NSObject, UIApplicationDelegate, UNUserNotificationCe
         setApplicationIconBadgeNumber(0)
     }
     
+    // 处理前台推送
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         if showNotificationWhenApplicationActice {
             completionHandler([.badge, .sound, .alert])
@@ -103,6 +104,7 @@ class HRemoteNotification: NSObject, UIApplicationDelegate, UNUserNotificationCe
         }
     }
     
+    // 处理后台推送
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
         if UIApplication.shared.applicationState == .active {
@@ -117,6 +119,7 @@ class HRemoteNotification: NSObject, UIApplicationDelegate, UNUserNotificationCe
         completionHandler()
     }
     
+    // 处理静默推送
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if UIApplication.shared.applicationState == .active {
             if let delegate = delegate, delegate.responds(to: #selector(HRemoteNotificationDelegate.didReceiveRemoteNotificationOnApplicationActiveWithUserInfo(_:))) {
@@ -130,6 +133,7 @@ class HRemoteNotification: NSObject, UIApplicationDelegate, UNUserNotificationCe
         completionHandler(.noData)
     }
     
+    // 注册推送
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let deviceString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
         if let delegate = delegate, delegate.responds(to: #selector(HRemoteNotificationDelegate.didRegisterForRemoteNotificationsWithDeviceToken(_:tokenString:))) {
