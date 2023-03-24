@@ -122,7 +122,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
             cell.label.font = UIFont.boldSystemFont(ofSize: 17)
             cell.label.textAlignment = .center
             //cell.label.textVerticalAlignment = HTextVerticalAlignmentBottom
-            cell.label.textColor = HColorHex("#0B0A0C")
+            cell.label.textColor = UIColor(hex: 0x0B0A0C)
             cell.label.text = "公告通知"
             break
         case HCell1:
@@ -132,7 +132,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
             cell.label.textAlignment = .left
             //cell.label.textVerticalAlignment = HTextVerticalAlignmentTop
             cell.label.numberOfLines = 0
-            cell.label.textColor = HColorHex("#070507")
+            cell.label.textColor = UIColor(hex: 0x070507)
             cell.label.text = self.note!
             break
         case HCell2:
@@ -143,7 +143,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             cell.label.font = UIFont.boldSystemFont(ofSize: 17)
             cell.label.textAlignment = .center
-            cell.label.textColor = HColorHex("#3184DD")
+            cell.label.textColor = UIColor(hex: 0x3184DD)
             cell.label.text = "知道了"
             break
         default:

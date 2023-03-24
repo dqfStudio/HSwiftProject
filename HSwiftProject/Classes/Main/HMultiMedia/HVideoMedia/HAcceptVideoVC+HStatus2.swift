@@ -47,7 +47,7 @@ extension HAcceptVideoVC {
 
             let frame1 = CGRect(x: bounds.size.width - 20 - KAcceptVideoHeight1, y: 0, width: KAcceptVideoHeight1, height: KAcceptVideoHeight1 * 1.5)
             cell.buttonView.frame = frame1
-            cell.buttonView.backgroundColor = UIColor(hex: "#2C2C2C")
+            cell.buttonView.backgroundColor = UIColor(hex: 0x2C2C2C)
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
                 
             }

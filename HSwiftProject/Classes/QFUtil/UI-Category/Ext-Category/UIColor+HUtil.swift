@@ -118,20 +118,24 @@ extension UIColor {
         self.init(red:red, green:green, blue:blue, alpha:alpha)
     }
     
-    public convenience init(hex: Int) {
-        let red:   CGFloat = CGFloat((hex & 0xFF000000) >> 24) / 255.0
-        let green: CGFloat = CGFloat((hex & 0x00FF0000) >> 16) / 255.0
-        let blue:  CGFloat = CGFloat((hex & 0x0000FF00) >> 8) / 255.0
-        let alpha: CGFloat = 1.0
-        self.init(red:red, green:green, blue:blue, alpha:alpha)
-    }
     
-    public convenience init(hex: Int, alpha: CGFloat) {
+    convenience init(hex: Int) {
+        self.init(hex: hex, alpha: 1.0)
+    }
+    convenience init(hex: Int, alpha: CGFloat = 1.0) {
         let red:   CGFloat = CGFloat((hex & 0xFF000000) >> 24) / 255.0
         let green: CGFloat = CGFloat((hex & 0x00FF0000) >> 16) / 255.0
         let blue:  CGFloat = CGFloat((hex & 0x0000FF00) >> 8) / 255.0
         let alpha: CGFloat = alpha
         self.init(red:red, green:green, blue:blue, alpha:alpha)
+    }
+    
+    
+    convenience init(r: CGFloat, g: CGFloat, b: CGFloat) {
+        self.init(r: r / 255.0, g: g / 255.0, b: b / 255.0, a: 1.0)
+    }
+    convenience init(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat = 1.0) {
+        self.init(red: r / 255.0, green: g / 255.0, blue: b / 255.0, alpha: a)
     }
 
     static var random: UIColor {
