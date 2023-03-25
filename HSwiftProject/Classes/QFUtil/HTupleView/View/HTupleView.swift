@@ -745,18 +745,22 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         switch self.tupleStyle {
         case .default:
             var sections = 1
-            let prefix = ""
-            let selector = #selector(self.tupleDelegate!.numberOfSectionsInTupleView)
-            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-                sections = self.tupleDelegate!.performWithUnretainedValue(selector, withPre: prefix) as! Int
+            if self.tupleDelegate != nil {
+                let prefix = ""
+                let selector = #selector(self.tupleDelegate!.numberOfSectionsInTupleView)
+                if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                    sections = self.tupleDelegate!.performWithUnretainedValue(selector, withPre: prefix) as! Int
+                }
             }
             return sections
         case .split:
             var sections = 1
-            let prefix = KTupleDesignKey + "\(self.tupleState)" + "_"
-            let selector = #selector(self.tupleDelegate!.numberOfSectionsInTupleView)
-            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-                sections = self.tupleDelegate!.performWithUnretainedValue(selector, withPre: prefix) as! Int
+            if self.tupleDelegate != nil {
+                let prefix = KTupleDesignKey + "\(self.tupleState)" + "_"
+                let selector = #selector(self.tupleDelegate!.numberOfSectionsInTupleView)
+                if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                    sections = self.tupleDelegate!.performWithUnretainedValue(selector, withPre: prefix) as! Int
+                }
             }
             return sections
         }
@@ -764,22 +768,26 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     
     internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var items = 0
-        let prefix = self.prefixWithSection(section)
-        let selector: Selector = #selector(self.tupleDelegate!.numberOfItemsInSection(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            items = self.tupleDelegate!.performWithUnretainedValue(selector, with: section, withPre: prefix) as! Int
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(section)
+            let selector: Selector = #selector(self.tupleDelegate!.numberOfItemsInSection(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                items = self.tupleDelegate!.performWithUnretainedValue(selector, with: section, withPre: prefix) as! Int
+            }
+            let edgeInsets = self.collectionView(self, layout: self.flowLayout!, insetForSectionAt: section)
+            self.allSectionInsets.setObject(NSStringFromUIEdgeInsets(edgeInsets) as AnyObject, forKey: "\(section)" as NSString)
         }
-        let edgeInsets = self.collectionView(self, layout: self.flowLayout!, insetForSectionAt: section)
-        self.allSectionInsets.setObject(NSStringFromUIEdgeInsets(edgeInsets) as AnyObject, forKey: "\(section)" as NSString)
         return items
     }
 
     /// layout == HCollectionViewFlowLayout
     internal func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, colorForSectionAt section: NSInteger) -> UIColor {
-        let prefix = self.prefixWithSection(section)
-        let selector = #selector(self.tupleDelegate!.colorForSection(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIColor
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(section)
+            let selector = #selector(self.tupleDelegate!.colorForSection(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIColor
+            }
         }
         return UIColor.clear
     }
@@ -793,57 +801,67 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        let prefix = self.prefixWithSection(section)
-        let selector = #selector(self.tupleDelegate!.insetForSection(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(section)
+            let selector = #selector(self.tupleDelegate!.insetForSection(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
+            }
         }
         return UIEdgeInsetsZero
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         var size: CGSize = CGSize.zero
-        let prefix = self.prefixWithSection(section)
-        let selector = #selector(self.tupleDelegate!.sizeForHeaderInSection(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            size = self.tupleDelegate!.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(section)
+            let selector = #selector(self.tupleDelegate!.sizeForHeaderInSection(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                size = self.tupleDelegate!.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
+            }
         }
         return UISizeIntegral(size)
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         var size: CGSize = CGSize.zero
-        let prefix = self.prefixWithSection(section)
-        let selector = #selector(self.tupleDelegate!.sizeForFooterInSection(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            size = self.tupleDelegate!.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(section)
+            let selector = #selector(self.tupleDelegate!.sizeForFooterInSection(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                size = self.tupleDelegate!.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
+            }
         }
         return UISizeIntegral(size)
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var size: CGSize = CGSize.zero
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.sizeForItemAtIndexPath(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            size = self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
-        }
-        //不能为CGSize.zero，否则会崩溃
-        if CGSize.zero == size {
-            size = CGSize(width: 1.0, height: 1.0)
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.sizeForItemAtIndexPath(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                size = self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
+            }
+            //不能为CGSize.zero，否则会崩溃
+            if CGSize.zero == size {
+                size = CGSize(width: 1.0, height: 1.0)
+            }
         }
         return UISizeIntegral(size)
     }
     
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         //调用代理方法
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector: Selector = #selector(self.tupleDelegate!.tupleItem(_:atIndexPath:))
-        let itemBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
-            return self.dequeueReusableCellWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
-        }
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector: Selector = #selector(self.tupleDelegate!.tupleItem(_:atIndexPath:))
+            let itemBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
+                return self.dequeueReusableCellWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
+            }
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
+            }
         }
         //调用cell
         let cell = self.allReuseCells.object(forKey: indexPath.stringValue as NSString) as! HTupleBaseCell
@@ -858,25 +876,29 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         var cell: HTupleBaseApex?
         if kind == UICollectionElementKindSectionHeader {
             //调用代理方法
-            let prefix = self.prefixWithSection(indexPath.section)
-            let selector: Selector = #selector(self.tupleDelegate!.tupleHeader(_:inSection:))
-            let headerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
-                return self.dequeueReusableHeaderWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
-            }
-            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-                self.tupleDelegate!.perform(selector, with: headerBlock, with: indexPath.section, withPre: prefix)
+            if self.tupleDelegate != nil {
+                let prefix = self.prefixWithSection(indexPath.section)
+                let selector: Selector = #selector(self.tupleDelegate!.tupleHeader(_:inSection:))
+                let headerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
+                    return self.dequeueReusableHeaderWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
+                }
+                if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                    self.tupleDelegate!.perform(selector, with: headerBlock, with: indexPath.section, withPre: prefix)
+                }
             }
             //调用cell
             cell = self.allReuseHeaders.object(forKey: indexPath.stringValue as NSString) as? HTupleBaseApex
         }else if (kind == UICollectionElementKindSectionFooter) {
             //调用代理方法
-            let prefix = self.prefixWithSection(indexPath.section)
-            let selector: Selector = #selector(self.tupleDelegate!.tupleFooter(_:inSection:))
-            let footerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
-                return self.dequeueReusableFooterWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
-            }
-            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-                self.tupleDelegate!.perform(selector, with: footerBlock, with: indexPath.section, withPre: prefix)
+            if self.tupleDelegate != nil {
+                let prefix = self.prefixWithSection(indexPath.section)
+                let selector: Selector = #selector(self.tupleDelegate!.tupleFooter(_:inSection:))
+                let footerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
+                    return self.dequeueReusableFooterWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
+                }
+                if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                    self.tupleDelegate!.perform(selector, with: footerBlock, with: indexPath.section, withPre: prefix)
+                }
             }
             //调用cell
             cell = self.allReuseFooters.object(forKey: indexPath.stringValue as NSString) as? HTupleBaseApex
@@ -889,10 +911,12 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     internal func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.willDisplayCell(_:atIndexPath:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: cell, with: indexPath, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.willDisplayCell(_:atIndexPath:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: cell, with: indexPath, withPre: prefix)
+            }
         }
     }
 
