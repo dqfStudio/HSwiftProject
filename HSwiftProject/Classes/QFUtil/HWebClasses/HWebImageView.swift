@@ -35,12 +35,16 @@ class HWebImageView: UIImageView {
     }
     var placeHoderImage: UIImage?
     
+    private var _pressed: Callback?
     var pressed: Callback? {
-        didSet {
-            self.pressed = oldValue
-            if self.pressed != nil {
+        get {
+            return _pressed
+        }
+        set {
+            _pressed = newValue
+            if _pressed != nil {
                 self.isUserInteractionEnabled = true
-                if self.tapGesture.view != nil {
+                if self.tapGesture.view == nil {
                     self.addGestureRecognizer(self.tapGesture)
                 }
             }else {
