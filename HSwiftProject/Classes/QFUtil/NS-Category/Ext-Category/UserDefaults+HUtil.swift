@@ -19,15 +19,10 @@ private var KUserLoginKey        = "ud_user_login"
 
 extension UserDefaults {
 
-    // User Defaults Key
-    static var userKey: String {
-        get {
-            return UserDefaults.defaults.object(forKey: KUserDefaultsKey) as! String
-        }
-        set {
-            UserDefaults.saveDefaults { defaults in
-                defaults.set(newValue, forKey: KUserDefaultsKey)
-            }
+    // Set User Key
+    static func setUserKey(_ key: String) {
+        UserDefaults.defaultsSync { defaults in
+            defaults.set(key, forKey: KUserDefaultsKey)
         }
     }
     
@@ -44,54 +39,54 @@ extension UserDefaults {
     
     
     // Save User Defaults
-    static func saveUser(block : (_ user: UserDefaults) -> Void) {
+    static func userSync(block : (_ defaults: UserDefaults) -> Void) {
         block(UserDefaults.user)
         UserDefaults.user.synchronize()
     }
     // Save Standard Defaults
-    static func saveDefaults(block : (_ defaults: UserDefaults) -> Void) {
+    static func defaultsSync(block : (_ defaults: UserDefaults) -> Void) {
         block(UserDefaults.defaults)
         UserDefaults.defaults.synchronize()
     }
 
     
     // Check if APP is First Launch
-    static func isAPPFirstLaunch() -> Bool {
+    static var isAPPFirstLaunch: Bool {
         return UserDefaults.defaults.bool(forKey: KFirstLaunchKey)
     }
     // Set APP First Launch
     static func setAPPFirstLaunch() {
-        UserDefaults.saveDefaults { defaults in
+        UserDefaults.defaultsSync { defaults in
             defaults.set(true, forKey: KFirstLaunchKey)
         }
     }
 
     
     // Check if User is First Launch
-    static func isUserFirstLaunch() -> Bool {
+    static var isUserFirstLaunch: Bool {
         return UserDefaults.user.bool(forKey: KUserFirstLaunchKey)
     }
     // Set User First Launch
     static func setUserFirstLaunch() {
-        UserDefaults.saveUser { user in
+        UserDefaults.userSync { user in
             user.set(true, forKey: KUserFirstLaunchKey)
         }
     }
 
 
     // Check if User is Logged In
-    static func isUserLogin() -> Bool {
+    static var isUserLogin: Bool {
         return UserDefaults.user.bool(forKey: KUserLoginKey)
     }
     // Set User Logged In
     static func setUserLogin() {
-        UserDefaults.saveUser { user in
+        UserDefaults.userSync { user in
             user.set(true, forKey: KUserLoginKey)
         }
     }
     // Set User Logged Out
     static func setUserLogout() {
-        UserDefaults.saveUser { user in
+        UserDefaults.userSync { user in
             user.set(false, forKey: KUserLoginKey)
         }
     }
