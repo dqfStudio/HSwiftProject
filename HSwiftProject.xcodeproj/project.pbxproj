@@ -63,7 +63,6 @@
 		A26D4323238526BA00F457AE /* UIViewController+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D4322238526BA00F457AE /* UIViewController+HUtil.swift */; };
 		A26D432523852DB700F457AE /* NSDate+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D432423852DB700F457AE /* NSDate+HUtil.swift */; };
 		A26D432723853F2900F457AE /* NSObject+HMessy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D432623853F2900F457AE /* NSObject+HMessy.swift */; };
-		A26D43292385665700F457AE /* NSUserDefaults+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D43282385665700F457AE /* NSUserDefaults+HUtil.swift */; };
 		A26D432B23856F8900F457AE /* NSTimer+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D432A23856F8900F457AE /* NSTimer+HUtil.swift */; };
 		A26D432D238682D200F457AE /* HNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D432C238682D200F457AE /* HNavigationController.swift */; };
 		A26D432F23868AFE00F457AE /* UIViewController+HDisappear.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D432E23868AFE00F457AE /* UIViewController+HDisappear.swift */; };
@@ -273,6 +272,7 @@
 		EBD0FB3C29CD4C2400808EDA /* AppDelegate+SoundService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3B29CD4C2400808EDA /* AppDelegate+SoundService.swift */; };
 		EBD0FB3E29CD4DE100808EDA /* AppDelegate+UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3D29CD4DE100808EDA /* AppDelegate+UserService.swift */; };
 		EBD0FB4029CD4E4400808EDA /* AppDelegate+RotateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3F29CD4E4400808EDA /* AppDelegate+RotateService.swift */; };
+		EBD0FB4A29CF515800808EDA /* UserDefaults+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB4929CF515700808EDA /* UserDefaults+HUtil.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -335,7 +335,6 @@
 		A26D4322238526BA00F457AE /* UIViewController+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+HUtil.swift"; sourceTree = "<group>"; };
 		A26D432423852DB700F457AE /* NSDate+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDate+HUtil.swift"; sourceTree = "<group>"; };
 		A26D432623853F2900F457AE /* NSObject+HMessy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+HMessy.swift"; sourceTree = "<group>"; };
-		A26D43282385665700F457AE /* NSUserDefaults+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSUserDefaults+HUtil.swift"; sourceTree = "<group>"; };
 		A26D432A23856F8900F457AE /* NSTimer+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTimer+HUtil.swift"; sourceTree = "<group>"; };
 		A26D432C238682D200F457AE /* HNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationController.swift; sourceTree = "<group>"; };
 		A26D432E23868AFE00F457AE /* UIViewController+HDisappear.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+HDisappear.swift"; sourceTree = "<group>"; };
@@ -548,6 +547,7 @@
 		EBD0FB3B29CD4C2400808EDA /* AppDelegate+SoundService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+SoundService.swift"; sourceTree = "<group>"; };
 		EBD0FB3D29CD4DE100808EDA /* AppDelegate+UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+UserService.swift"; sourceTree = "<group>"; };
 		EBD0FB3F29CD4E4400808EDA /* AppDelegate+RotateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+RotateService.swift"; sourceTree = "<group>"; };
+		EBD0FB4929CF515700808EDA /* UserDefaults+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+HUtil.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1039,7 +1039,7 @@
 				A2A814D6275007EB00FAB929 /* NSString+HSize.swift */,
 				A26D432423852DB700F457AE /* NSDate+HUtil.swift */,
 				A26D432623853F2900F457AE /* NSObject+HMessy.swift */,
-				A26D43282385665700F457AE /* NSUserDefaults+HUtil.swift */,
+				EBD0FB4929CF515700808EDA /* UserDefaults+HUtil.swift */,
 				A26D432A23856F8900F457AE /* NSTimer+HUtil.swift */,
 				A26D433E2386CA0900F457AE /* NSObject+HSwizzleUtil.swift */,
 				EB43241329C3163900EDDB64 /* HUserRegion.swift */,
@@ -1641,7 +1641,6 @@
 				EB43244529C5B2AD00EDDB64 /* HUserDefaults.swift in Sources */,
 				A2188799238FD3E0005C20BF /* HGameCategoryVC+HSection2.swift in Sources */,
 				A2A7A93523FE2CBF0090EFD3 /* HTupleViewMarqueeApex.swift in Sources */,
-				A26D43292385665700F457AE /* NSUserDefaults+HUtil.swift in Sources */,
 				A258395923B4E70F00881941 /* HTableController.swift in Sources */,
 				EBD0FB1A29CC366D00808EDA /* HAuthorizeManager.swift in Sources */,
 				A286251623EAB8DD00E81781 /* HCountDownButton.swift in Sources */,
@@ -1778,6 +1777,7 @@
 				A2A7A93323FE29470090EFD3 /* HTupleViewMarqueeCell.swift in Sources */,
 				A229489723975AE80058B939 /* HTupleViewApex.swift in Sources */,
 				A2B43080237FF57C00795605 /* HViewController.swift in Sources */,
+				EBD0FB4A29CF515800808EDA /* UserDefaults+HUtil.swift in Sources */,
 				A2294890239756770058B939 /* HTableBaseCell.swift in Sources */,
 				A229488F239756770058B939 /* HTableSignal.swift in Sources */,
 				A2B4307A237FF2B100795605 /* HMenuViewController.swift in Sources */,

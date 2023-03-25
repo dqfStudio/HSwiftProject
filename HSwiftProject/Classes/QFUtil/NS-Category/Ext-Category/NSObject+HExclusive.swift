@@ -96,17 +96,17 @@ extension NSObject {
         self.segStatueDict.setObject(anObject, forKey: key)
     }
     
-    func objectForKey(_ aKey: String, segStatue statue: Int) -> AnyObject {
+    func object(forKey aKey: String, segStatue statue: Int) -> AnyObject {
         let key = "\(aKey)+\(KSegStateKey)+\(statue)" as NSCopying
         return self.segStatueDict.object(forKey: key) as AnyObject
     }
     
-    func removeObjectForKey(_ aKey: String, segStatue statue: Int) {
+    func removeObject(forKey aKey: String, segStatue statue: Int) {
         let key = "\(aKey)+\(KSegStateKey)+\(statue)"
         self.segStatueDict.removeObject(forKey: key)
     }
     
-    func removeObjectForSegStatue(_ statue: Int) {
+    func removeObject(forSegStatue statue: Int) {
         let key = "\(KSegStateKey)+\(statue)"
         self.segStatueDict.removeObject(forKey: key)
     }
