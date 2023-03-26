@@ -40,7 +40,7 @@ class HUserDefaults: NSObject {
     }
     // Set User Core Key
     static func setUserCoreKey(_ key: String) {
-        // 再保存新的数据
+        // 保存数据
         HUserDefaults.defaults.isUserLogin = true
         HUserDefaults.defaults.set(key, forKey: KUserDefaultsKey)
         HUserDefaults.defaults.synchronize()
@@ -50,7 +50,7 @@ class HUserDefaults: NSObject {
         HUserDefaults.defaults.isUserLogin = false
         HUserDefaults.defaults.removeObject(forKey: KUserDefaultsKey)
         HUserDefaults.defaults.synchronize()
-        //清除之前用户信息
+        //清除之前用户数据
         HUserDefaults._user = nil
     }
 
