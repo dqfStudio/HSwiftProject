@@ -46,7 +46,7 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
         let _tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
         _tupleView.backgroundColor = UIColor.white
         _tupleView.isPagingEnabled = true
-        _tupleView.tupleDelegate = self
+        _tupleView.delegate = self
         // 设置默认参数
         self.setup()
         self.addSubview(_tupleView)

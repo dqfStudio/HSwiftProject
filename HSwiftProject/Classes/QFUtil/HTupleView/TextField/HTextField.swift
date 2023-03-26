@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias HInputReturnBlock = (HTextField) -> Void
+
 class HTextField : UITextField, UITextFieldDelegate {
     
     private var _leftLabel: UILabel?
@@ -216,6 +218,8 @@ class HTextField : UITextField, UITextFieldDelegate {
     ///是否可编辑，默认为true
     var editEnabled: Bool = true
     
+    ///点击键盘上的return键调用
+    var returnBlock: HInputReturnBlock?
     
 //    required init() {
 //        super.init()
@@ -322,6 +326,13 @@ class HTextField : UITextField, UITextFieldDelegate {
             self.text = self.trimmingAllWhitespaceAndNewline()
         }
         self.text = self.trimmingWhitespaceAndNewline()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if self.returnBlock != nil {
+            self.returnBlock!(textField as! HTextField)
+        }
+        return true
     }
 
     //移动光标

@@ -37,7 +37,7 @@ class HWaitingView: UIView, HTupleViewDelegate {
         let _tupleView = HTupleView(frame: CGRect.zero)
         _tupleView.bounceDisenable()
         _tupleView.isUserInteractionEnabled = false
-        _tupleView.tupleDelegate = self
+        _tupleView.delegate = self
         self.addSubview(_tupleView)
         return _tupleView
     }()

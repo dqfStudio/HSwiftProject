@@ -28,6 +28,7 @@ extension AppDelegate {
         }
     }
     
+    @available(iOS 12.0, *)
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         if AppDelegate.orientationStyle == .vertical {
             return .portrait

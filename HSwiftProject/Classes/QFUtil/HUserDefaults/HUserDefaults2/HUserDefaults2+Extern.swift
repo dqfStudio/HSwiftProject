@@ -1,6 +1,6 @@
 //
 //  Extern.swift
-//  HUserDefaults
+//  HUserDefaults2
 //
 //  Created by wind on 2019/3/24.
 //  Copyright © 2019 wind. All rights reserved.
@@ -10,7 +10,7 @@ import Foundation
 
 // Extensions must not contain stored properties
 
-extension HUserDefaults {
+extension HUserDefaults2 {
 
     @NSManaged var string: String
     @NSManaged var stringOptional: String?

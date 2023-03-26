@@ -310,7 +310,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         self.setup()
     }
     
-    weak var tupleDelegate: HTupleViewDelegate?
+    private weak var tupleDelegate: HTupleViewDelegate?
     override weak var delegate: UICollectionViewDelegate? {
         get { return super.delegate }
         set { tupleDelegate = newValue as? HTupleViewDelegate }
@@ -921,97 +921,119 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
 
     internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = self.allReuseCells.object(forKey: indexPath.stringValue as NSString) as! HTupleBaseCell
-        if cell.didSelectCell != nil {
-            cell.didSelectCell!(cell, indexPath)
-        }else {
-            let prefix = self.prefixWithSection(indexPath.section)
-            let selector = #selector(self.tupleDelegate!.didSelectItemAtIndexPath(_:))
-            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-                self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let cell = self.allReuseCells.object(forKey: indexPath.stringValue as NSString) as! HTupleBaseCell
+            if cell.didSelectCell != nil {
+                cell.didSelectCell!(cell, indexPath)
+            }else {
+                let prefix = self.prefixWithSection(indexPath.section)
+                let selector = #selector(self.tupleDelegate!.didSelectItemAtIndexPath(_:))
+                if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                    self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
+                }
             }
         }
     }
     
     /// UICollectionViewDataSource
     internal func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.canMoveItemAtIndexPath(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.canMoveItemAtIndexPath(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+            }
         }
         return false
     }
     internal func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        let prefix = self.tuplePrefix()
-        let selector = #selector(self.tupleDelegate!.moveItemAtIndexPath(_:toIndexPath:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: sourceIndexPath, with: destinationIndexPath, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tuplePrefix()
+            let selector = #selector(self.tupleDelegate!.moveItemAtIndexPath(_:toIndexPath:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: sourceIndexPath, with: destinationIndexPath, withPre: prefix)
+            }
         }
     }
     
     internal func indexTitles(for collectionView: UICollectionView) -> [String]? {
-        let prefix = self.tuplePrefix()
-        let selector = #selector(self.tupleDelegate!.indexTitlesForCollectionView)
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, withPre: prefix) as? [String]
+        if self.tupleDelegate != nil {
+            let prefix = self.tuplePrefix()
+            let selector = #selector(self.tupleDelegate!.indexTitlesForCollectionView)
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, withPre: prefix) as? [String]
+            }
         }
         return nil
     }
 
     internal func collectionView(_ collectionView: UICollectionView, indexPathForIndexTitle title: String, at index: Int) -> IndexPath {
-        let prefix = self.tuplePrefix()
-        let selector = #selector(self.tupleDelegate!.indexPathForIndexTitle(_:atIndex:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: title, with: index, withPre: prefix) as! IndexPath
+        if self.tupleDelegate != nil {
+            let prefix = self.tuplePrefix()
+            let selector = #selector(self.tupleDelegate!.indexPathForIndexTitle(_:atIndex:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: title, with: index, withPre: prefix) as! IndexPath
+            }
         }
         return IndexPath()
     }
 
     /// UICollectionViewDelegate
     internal func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.shouldHighlightItemAtIndexPath(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.shouldHighlightItemAtIndexPath(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+            }
         }
         return true
     }
     internal func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.didHighlightItemAtIndexPath(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.didHighlightItemAtIndexPath(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
+            }
         }
     }
     internal func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.didUnhighlightItemAtIndexPath(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.didUnhighlightItemAtIndexPath(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
+            }
         }
     }
     internal func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.shouldSelectItemAtIndexPath(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.shouldSelectItemAtIndexPath(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+            }
         }
         return true
     }
     internal func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.shouldDeselectItemAtIndexPath(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.shouldDeselectItemAtIndexPath(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+            }
         }
         return false
     }
     internal func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.didDeselectItemAtIndexPath(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.didDeselectItemAtIndexPath(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
+            }
         }
     }
 
@@ -1023,10 +1045,12 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
 //        }
     }
     internal func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.didEndDisplayingCell(_:forItemAtIndexPath:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: cell, with: indexPath, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.didEndDisplayingCell(_:forItemAtIndexPath:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: cell, with: indexPath, withPre: prefix)
+            }
         }
     }
     internal func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
@@ -1038,10 +1062,12 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
 
     internal func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.shouldShowMenuForItemAtIndexPath(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.shouldShowMenuForItemAtIndexPath(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+            }
         }
         return false
     }
@@ -1062,246 +1088,304 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
 
     internal func collectionView(_ collectionView: UICollectionView, transitionLayoutForOldLayout fromLayout: UICollectionViewLayout, newLayout toLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout {
-        let prefix = self.tuplePrefix()
-        let selector = #selector(self.tupleDelegate!.transitionLayoutForOldLayout(_:newLayout:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: fromLayout, with: toLayout, withPre: prefix) as! UICollectionViewTransitionLayout
+        if self.tupleDelegate != nil {
+            let prefix = self.tuplePrefix()
+            let selector = #selector(self.tupleDelegate!.transitionLayoutForOldLayout(_:newLayout:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: fromLayout, with: toLayout, withPre: prefix) as! UICollectionViewTransitionLayout
+            }
         }
         return UICollectionViewTransitionLayout(coder: NSCoder())!
     }
 
     /// Focus
     internal func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.canFocusItemAtIndexPath(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.canFocusItemAtIndexPath(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+            }
         }
         return false
     }
     internal func collectionView(_ collectionView: UICollectionView, shouldUpdateFocusIn context: UICollectionViewFocusUpdateContext) -> Bool {
-        let prefix = self.tuplePrefix()
-        let selector = #selector(self.tupleDelegate!.shouldUpdateFocusInContext(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: context, withPre: prefix) as! Bool
+        if self.tupleDelegate != nil {
+            let prefix = self.tuplePrefix()
+            let selector = #selector(self.tupleDelegate!.shouldUpdateFocusInContext(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: context, withPre: prefix) as! Bool
+            }
         }
         return false
     }
     internal func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        let prefix = self.tuplePrefix()
-        let selector = #selector(self.tupleDelegate!.didUpdateFocusInContext(_:withAnimationCoordinator:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: context, with: coordinator, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tuplePrefix()
+            let selector = #selector(self.tupleDelegate!.didUpdateFocusInContext(_:withAnimationCoordinator:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: context, with: coordinator, withPre: prefix)
+            }
         }
     }
     internal func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
-        let prefix = self.tuplePrefix()
-        let selector = #selector(self.tupleDelegate!.indexPathForPreferredFocusedViewIn)
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, withPre: prefix) as? IndexPath
+        if self.tupleDelegate != nil {
+            let prefix = self.tuplePrefix()
+            let selector = #selector(self.tupleDelegate!.indexPathForPreferredFocusedViewIn)
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, withPre: prefix) as? IndexPath
+            }
         }
         return nil
     }
 
     internal func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
-        let prefix = self.tuplePrefix()
-        let selector = #selector(self.tupleDelegate!.targetIndexPathForMoveFromItemAtIndexPath(_:toProposedIndexPath:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: originalIndexPath, with: proposedIndexPath, withPre: prefix) as! IndexPath
+        if self.tupleDelegate != nil {
+            let prefix = self.tuplePrefix()
+            let selector = #selector(self.tupleDelegate!.targetIndexPathForMoveFromItemAtIndexPath(_:toProposedIndexPath:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: originalIndexPath, with: proposedIndexPath, withPre: prefix) as! IndexPath
+            }
         }
         return originalIndexPath
     }
 
     internal func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
-        let prefix = self.tuplePrefix()
-        let selector = #selector(self.tupleDelegate!.targetContentOffsetForProposedContentOffset(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: proposedContentOffset, withPre: prefix) as! CGPoint
+        if self.tupleDelegate != nil {
+            let prefix = self.tuplePrefix()
+            let selector = #selector(self.tupleDelegate!.targetContentOffsetForProposedContentOffset(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: proposedContentOffset, withPre: prefix) as! CGPoint
+            }
         }
         return CGPoint(x: 0, y: 0)
     }
 
     internal func collectionView(_ collectionView: UICollectionView, shouldSpringLoadItemAt indexPath: IndexPath, with context: UISpringLoadedInteractionContext) -> Bool {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.shouldSpringLoadItemAtIndexPath(_:withContext:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, with: context, withPre: prefix) as! Bool
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.shouldSpringLoadItemAtIndexPath(_:withContext:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, with: context, withPre: prefix) as! Bool
+            }
         }
         return false
     }
 
     internal func collectionView(_ collectionView: UICollectionView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.shouldBeginMultipleSelectionInteractionAtIndexPath(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.shouldBeginMultipleSelectionInteractionAtIndexPath(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+            }
         }
         return false
     }
 
     internal func collectionView(_ collectionView: UICollectionView, didBeginMultipleSelectionInteractionAt indexPath: IndexPath) {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.didBeginMultipleSelectionInteractionAtIndexPath(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.didBeginMultipleSelectionInteractionAtIndexPath(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: indexPath, withPre: prefix)
+            }
         }
     }
 
     internal func collectionViewDidEndMultipleSelectionInteraction(_ collectionView: UICollectionView) {
-        let prefix = self.tuplePrefix()
-        let selector = #selector(self.tupleDelegate!.collectionViewDidEndMultipleSelectionInteraction)
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tuplePrefix()
+            let selector = #selector(self.tupleDelegate!.collectionViewDidEndMultipleSelectionInteraction)
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, withPre: prefix)
+            }
         }
     }
 
     @available(iOS 13.0, *)
     internal func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tupleDelegate!.contextMenuConfigurationForItemAtIndexPath(_:point:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, with: point, withPre: prefix) as? UIContextMenuConfiguration
+        if self.tupleDelegate != nil {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(self.tupleDelegate!.contextMenuConfigurationForItemAtIndexPath(_:point:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: indexPath, with: point, withPre: prefix) as? UIContextMenuConfiguration
+            }
         }
         return nil
     }
 
     @available(iOS 13.0, *)
     internal func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        let prefix = self.tuplePrefix()
-        let selector = #selector(self.tupleDelegate!.previewForHighlightingContextMenuWithConfiguration(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: configuration, withPre: prefix) as? UITargetedPreview
+        if self.tupleDelegate != nil {
+            let prefix = self.tuplePrefix()
+            let selector = #selector(self.tupleDelegate!.previewForHighlightingContextMenuWithConfiguration(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: configuration, withPre: prefix) as? UITargetedPreview
+            }
         }
         return nil
     }
 
     @available(iOS 13.0, *)
     internal func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        let prefix = self.tuplePrefix()
-        let selector = #selector(self.tupleDelegate!.previewForDismissingContextMenuWithConfiguration(_:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: configuration, withPre: prefix) as? UITargetedPreview
+        if self.tupleDelegate != nil {
+            let prefix = self.tuplePrefix()
+            let selector = #selector(self.tupleDelegate!.previewForDismissingContextMenuWithConfiguration(_:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: configuration, withPre: prefix) as? UITargetedPreview
+            }
         }
         return nil
     }
 
     @available(iOS 13.0, *)
     internal func collectionView(_ collectionView: UICollectionView, willPerformPreviewActionForMenuWith configuration: UIContextMenuConfiguration, animator: UIContextMenuInteractionCommitAnimating) {
-        let prefix = self.tuplePrefix()
-        let selector = #selector(self.tupleDelegate!.willPerformPreviewActionForMenuWithConfiguration(_:animator:))
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: configuration, with: animator, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tuplePrefix()
+            let selector = #selector(self.tupleDelegate!.willPerformPreviewActionForMenuWithConfiguration(_:animator:))
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: configuration, with: animator, withPre: prefix)
+            }
         }
     }
 
     /// UIScrollViewDelegate
     internal func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidScroll:")
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleScrollViewDidScroll:")
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+            }
         }
     }
     internal func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidZoom:")
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleScrollViewDidZoom:")
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+            }
         }
     }
 
     internal func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewWillBeginDragging:")
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleScrollViewWillBeginDragging:")
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+            }
         }
     }
 
     internal func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let prefix = self.tupleScrollSplitPrefix()
-        //let selector = NSSelectorFromString("tupleScrollViewWillEndDragging:withVelocity:targetContentOffset:")
-        let selector = NSSelectorFromString("tupleScrollViewWillEndDragging:targetContentOffset:")
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: velocity, with: targetContentOffset, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tupleScrollSplitPrefix()
+            //let selector = NSSelectorFromString("tupleScrollViewWillEndDragging:withVelocity:targetContentOffset:")
+            let selector = NSSelectorFromString("tupleScrollViewWillEndDragging:targetContentOffset:")
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: velocity, with: targetContentOffset, withPre: prefix)
+            }
         }
     }
 
     internal func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidEndDragging:willDecelerate:")
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: scrollView, with: decelerate, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleScrollViewDidEndDragging:willDecelerate:")
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: scrollView, with: decelerate, withPre: prefix)
+            }
         }
     }
 
     internal func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewWillBeginDecelerating:")
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleScrollViewWillBeginDecelerating:")
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+            }
         }
     }
     internal func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidEndDecelerating:")
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleScrollViewDidEndDecelerating:")
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+            }
         }
     }
 
     internal func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidEndScrollingAnimation:")
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleScrollViewDidEndScrollingAnimation:")
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+            }
         }
     }
 
     internal func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewForZoomingInScrollView:")
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: scrollView, withPre: prefix) as? UIView
+        if self.tupleDelegate != nil {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleViewForZoomingInScrollView:")
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: scrollView, withPre: prefix) as? UIView
+            }
         }
         return nil
     }
     internal func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewWillBeginZooming:withView:")
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: scrollView, with: view, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleScrollViewWillBeginZooming:withView:")
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: scrollView, with: view, withPre: prefix)
+            }
         }
     }
     internal func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidEndZooming:atScale:")
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: view, with: scale, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleScrollViewDidEndZooming:atScale:")
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: view, with: scale, withPre: prefix)
+            }
         }
     }
 
     internal func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewShouldScrollToTop:")
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            return self.tupleDelegate!.performWithUnretainedValue(selector, with: scrollView, withPre: prefix) as! Bool
+        if self.tupleDelegate != nil {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleScrollViewShouldScrollToTop:")
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                return self.tupleDelegate!.performWithUnretainedValue(selector, with: scrollView, withPre: prefix) as! Bool
+            }
         }
         return true
     }
     internal func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidScrollToTop:")
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleScrollViewDidScrollToTop:")
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+            }
         }
     }
 
     internal func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidChangeAdjustedContentInset:")
-        if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
-            self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+        if self.tupleDelegate != nil {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleScrollViewDidChangeAdjustedContentInset:")
+            if self.tupleDelegate!.responds(to: selector, withPre: prefix) {
+                self.tupleDelegate!.perform(selector, with: scrollView, withPre: prefix)
+            }
         }
     }
     
@@ -1434,6 +1518,30 @@ extension HTupleView {
                 }
             }
         }
+    }
+    
+    // 开始闪烁动画
+    func startOpacityForeverAnimation() {
+        self.layer.add(self.opacityForeverAnimationWithDuration(duration: 2.0), forKey: String(describing: type(of: self)))
+    }
+
+    // 停止闪烁动画
+    func stopOpacityForeverAnimation() {
+        self.layer.removeAnimation(forKey: String(describing: type(of: self)))
+    }
+    
+    // 闪烁动画
+    func opacityForeverAnimationWithDuration(duration: TimeInterval) -> CABasicAnimation {
+        let animation = CABasicAnimation(keyPath: "opacity") // 必须写opacity才行。
+        animation.fromValue = NSNumber(value: 1.0)
+        animation.toValue = NSNumber(value: 0.6)
+        animation.autoreverses = true
+        animation.duration = duration
+        animation.repeatCount = .greatestFiniteMagnitude
+        animation.isRemovedOnCompletion = false
+        animation.fillMode = .forwards
+        animation.timingFunction = CAMediaTimingFunction(name: .easeIn) // 没有的话是均匀的动画。
+        return animation
     }
 
     ///根据传入的row和section获取cell或indexPath
