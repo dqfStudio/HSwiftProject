@@ -41,11 +41,13 @@ class HUserDefaults: NSObject {
     // Set User Core Key
     static func setUserCoreKey(_ key: String) {
         // 再保存新的数据
+        HUserDefaults.defaults.isUserLogin = true
         HUserDefaults.defaults.set(key, forKey: KUserDefaultsKey)
         HUserDefaults.defaults.synchronize()
     }
     // Clear User Core Key
     static func clearUserCoreKey() {
+        HUserDefaults.defaults.isUserLogin = false
         HUserDefaults.defaults.removeObject(forKey: KUserDefaultsKey)
         HUserDefaults.defaults.synchronize()
         //清除之前用户信息
