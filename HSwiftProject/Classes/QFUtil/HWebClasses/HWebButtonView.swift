@@ -100,50 +100,26 @@ class HWebButtonView: UIButton {
     }
 
     /**
-    *  设置图片链接
-    *
-    *  @param url 链接
-    *
-    */
-    func setImageUrl(_ url: URL) {
-        self.setImageUrl(url, syncLoadCache: false)
-    }
-
-    /**
     *  设置图片链接,如果有缓存同步读取缓存
     *
-    *  @param url           链接
+    *  @param url                      链接
+    *  @param placeholder        缺省图
     *  @param syncLoadCache 是否同步读缓存
     *
     */
-    func setImageUrl(_ url: URL, syncLoadCache cache: Bool) {
-        self.setImageUrlString(url.absoluteString, placeholder: nil, syncLoadCache: cache)
-    }
-    func setImageUrl(_ url: URL, placeholder: UIImage?, syncLoadCache cache: Bool) {
+    func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = false) {
         self.setImageUrlString(url.absoluteString, placeholder: placeholder, syncLoadCache: cache)
-    }
-
-    /**
-    *  设置图片链接
-    *
-    *  @param urlString 链接字符串
-    *
-    */
-    func setImageUrlString(_ urlString: String) {
-        self.setImageUrlString(urlString, placeholder: nil, syncLoadCache: false)
-    }
-    func setImageUrlString(_ urlString: String, placeholder: UIImage?) {
-        self.setImageUrlString(urlString, placeholder: placeholder, syncLoadCache: false)
     }
     
     /**
     *  设置图片链接,如果有缓存同步读取缓存
     *
-    *  @param urlString           链接字符串
+    *  @param urlString             链接字符串
+    *  @param placeholder        缺省图
     *  @param syncLoadCache 是否同步读缓存
     *
     */
-    func setImageUrlString(_ urlString: String, placeholder: UIImage?, syncLoadCache cache: Bool) {
+    func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = false) {
         if urlString.count == 0 {
             self._setImage(nil)
             self.lastURL = ""
