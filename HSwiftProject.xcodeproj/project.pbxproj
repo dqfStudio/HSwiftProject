@@ -167,8 +167,6 @@
 		A2B4308323801C4E00795605 /* HWebButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B4308223801C4E00795605 /* HWebButtonView.swift */; };
 		A2B4308523823B9000795605 /* HCommonBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B4308423823B9000795605 /* HCommonBlock.swift */; };
 		A2B4308723823F3400795605 /* Error+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B4308623823F3400795605 /* Error+HUtil.swift */; };
-		A2B43089238248EB00795605 /* UIImageView+HFilletLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B43088238248EB00795605 /* UIImageView+HFilletLayer.swift */; };
-		A2B4308B2382598F00795605 /* UIButton+HFilletLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B4308A2382598F00795605 /* UIButton+HFilletLayer.swift */; };
 		A2B4308D23825BBE00795605 /* HWebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B4308C23825BBE00795605 /* HWebImageView.swift */; };
 		A2B4308F2382CC8A00795605 /* UIDevice+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B4308E2382CC8A00795605 /* UIDevice+HUtil.swift */; };
 		A2CC441123B360AE00DB095F /* HTupleRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CC441023B360AE00DB095F /* HTupleRefresh.swift */; };
@@ -445,8 +443,6 @@
 		A2B4308223801C4E00795605 /* HWebButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebButtonView.swift; sourceTree = "<group>"; };
 		A2B4308423823B9000795605 /* HCommonBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCommonBlock.swift; sourceTree = "<group>"; };
 		A2B4308623823F3400795605 /* Error+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+HUtil.swift"; sourceTree = "<group>"; };
-		A2B43088238248EB00795605 /* UIImageView+HFilletLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+HFilletLayer.swift"; sourceTree = "<group>"; };
-		A2B4308A2382598F00795605 /* UIButton+HFilletLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+HFilletLayer.swift"; sourceTree = "<group>"; };
 		A2B4308C23825BBE00795605 /* HWebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebImageView.swift; sourceTree = "<group>"; };
 		A2B4308E2382CC8A00795605 /* UIDevice+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+HUtil.swift"; sourceTree = "<group>"; };
 		A2CC441023B360AE00DB095F /* HTupleRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleRefresh.swift; sourceTree = "<group>"; };
@@ -1113,8 +1109,6 @@
 				EB4323F729B9B41000EDDB64 /* HAnimatedImage */,
 				A2B4308223801C4E00795605 /* HWebButtonView.swift */,
 				A2B4308C23825BBE00795605 /* HWebImageView.swift */,
-				A2B43088238248EB00795605 /* UIImageView+HFilletLayer.swift */,
-				A2B4308A2382598F00795605 /* UIButton+HFilletLayer.swift */,
 			);
 			path = HWebClasses;
 			sourceTree = "<group>";
@@ -1641,7 +1635,6 @@
 				EBD0FB6A29D02B1000808EDA /* HKeyChainStore.swift in Sources */,
 				A2B4308323801C4E00795605 /* HWebButtonView.swift in Sources */,
 				A26D43172383DE5800F457AE /* UIColor+HUtil.swift in Sources */,
-				A2B4308B2382598F00795605 /* UIButton+HFilletLayer.swift in Sources */,
 				EBD0FB3A29CD461E00808EDA /* AppDelegate+NotifyService.swift in Sources */,
 				A28DF9B823FF748A0065418F /* UIView+HExtension.swift in Sources */,
 				EBC8140A29AA48C000A81431 /* HUserLiveCell+HSection0.swift in Sources */,
@@ -1797,7 +1790,6 @@
 				A28923B0238BC2D100E4AB75 /* HTupleViewCellVertValue1.swift in Sources */,
 				A28923B2238BCB5000E4AB75 /* HTupleViewCellHoriValue1.swift in Sources */,
 				EBC8146F29AA540B00A81431 /* HSendVideoVC+HStatus1.swift in Sources */,
-				A2B43089238248EB00795605 /* UIImageView+HFilletLayer.swift in Sources */,
 				EBC8145F29AA53BD00A81431 /* HSendAudioVC+HStatus4.swift in Sources */,
 				EBC8146729AA53E600A81431 /* HAcceptVideoVC+HStatus2.swift in Sources */,
 				A26D432F23868AFE00F457AE /* UIViewController+HDisappear.swift in Sources */,

@@ -153,7 +153,6 @@ class HMainController1: HTupleController {
 
             cell.imageView.backgroundColor = UIColor.red
             cell.imageView.setImageWithName("icon_no_server")
-            cell.imageView.fillet = true
 
             cell.labelHeight = 25
             cell.label.textAlignment = .center
@@ -166,7 +165,6 @@ class HMainController1: HTupleController {
 
             cell.imageView.backgroundColor = UIColor.red
             cell.imageView.setImageWithName("icon_no_server")
-            cell.imageView.fillet = true
 
             cell.labelHeight = 25
             cell.label.textAlignment = .center
@@ -180,7 +178,6 @@ class HMainController1: HTupleController {
 
             cell.imageView.backgroundColor = UIColor.red
             cell.imageView.setImageWithName("icon_no_server")
-            cell.imageView.fillet = true
 
             cell.labelHeight = 25
             cell.label.textAlignment = .center

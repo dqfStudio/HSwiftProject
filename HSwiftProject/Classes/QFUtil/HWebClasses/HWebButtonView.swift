@@ -37,7 +37,6 @@ class HWebButtonView: UIButton {
             }
         }
     }
-    var placeHoderImage: UIImage?
     
     var pressed: Callback?
     var didGetImage: Callback?
@@ -77,12 +76,12 @@ class HWebButtonView: UIButton {
         if (image != nil) {
             if renderColor != nil {
                 _imageView.tintColor = renderColor
-                _imageView.h_image = image?.withRenderingMode(.alwaysTemplate)
+                _imageView.image = image?.withRenderingMode(.alwaysTemplate)
             }else {
-                _imageView.h_image = image
+                _imageView.image = image
             }
         }else {
-            _imageView.h_image = nil
+            _imageView.image = nil
         }
     }
     
@@ -94,7 +93,6 @@ class HWebButtonView: UIButton {
     func setImage(_ image: UIImage?) {
         self._setImage(image)
         self.lastURL = ""
-        self.placeHoderImage = nil
         self.imageView?.alpha = 1
         if didGetImage != nil {
             didGetImage!(self, image!)
@@ -119,7 +117,10 @@ class HWebButtonView: UIButton {
     *
     */
     func setImageUrl(_ url: URL, syncLoadCache cache: Bool) {
-        self.setImageUrlString(url.absoluteString, syncLoadCache: cache)
+        self.setImageUrlString(url.absoluteString, placeholder: nil, syncLoadCache: cache)
+    }
+    func setImageUrl(_ url: URL, placeholder: UIImage?, syncLoadCache cache: Bool) {
+        self.setImageUrlString(url.absoluteString, placeholder: placeholder, syncLoadCache: cache)
     }
 
     /**
@@ -129,7 +130,10 @@ class HWebButtonView: UIButton {
     *
     */
     func setImageUrlString(_ urlString: String) {
-        self.setImageUrlString(urlString, syncLoadCache: false)
+        self.setImageUrlString(urlString, placeholder: nil, syncLoadCache: false)
+    }
+    func setImageUrlString(_ urlString: String, placeholder: UIImage?) {
+        self.setImageUrlString(urlString, placeholder: placeholder, syncLoadCache: false)
     }
     
     /**
@@ -139,7 +143,7 @@ class HWebButtonView: UIButton {
     *  @param syncLoadCache 是否同步读缓存
     *
     */
-    func setImageUrlString(_ urlString: String, syncLoadCache cache: Bool) {
+    func setImageUrlString(_ urlString: String, placeholder: UIImage?, syncLoadCache cache: Bool) {
         if urlString.count == 0 {
             self._setImage(nil)
             self.lastURL = ""
@@ -166,11 +170,9 @@ class HWebButtonView: UIButton {
             return
         }
         
-        if self.placeHoderImage == nil && self._imageView.image == nil {
+        if placeholder == nil && self._imageView.image == nil {
             self._imageView.alpha = 0
         }
-        
-        let placeholder: UIImage? = self.placeHoderImage
         
         self._setImage(nil)
         self.lastURL = ""
@@ -263,26 +265,6 @@ class HWebButtonView: UIButton {
         }
         set(newValue) {
             _imageView.backgroundColor = newValue
-        }
-    }
-    
-    //是否圆角展示图片
-    var fillet: Bool {
-        get {
-            return self._imageView.fillet
-        }
-        set(newValue) {
-            self._imageView!.fillet = newValue
-        }
-    }
-
-    //默认居中显示
-    var filletStyle: UIImageViewFilletStyle {
-        get {
-            return self._imageView.filletStyle
-        }
-        set(newValue) {
-            self._imageView.filletStyle = newValue
         }
     }
     

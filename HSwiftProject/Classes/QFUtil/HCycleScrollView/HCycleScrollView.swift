@@ -699,8 +699,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
 
         if (!self.onlyDisplayText && imagePath!.isKind(of: NSString.self)) {
             if imagePath!.hasPrefix("http") {
-                cell.imageView.placeHoderImage = self.placeholderImage
-                cell.imageView.setImageUrlString(imagePath! as String)
+                cell.imageView.setImageUrlString(imagePath! as String, placeholder: self.placeholderImage)
             } else {
                 var image: UIImage? = UIImage(named: imagePath! as String)
                 if image == nil {

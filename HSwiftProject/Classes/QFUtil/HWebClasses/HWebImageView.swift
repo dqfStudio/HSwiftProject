@@ -27,13 +27,12 @@ class HWebImageView: UIImageView {
             self.renderColor = oldValue
             if self.renderColor != nil {
                 self.tintColor = oldValue
-                super.h_image = self.image?.withRenderingMode(.alwaysTemplate)
+                super.image = self.image?.withRenderingMode(.alwaysTemplate)
             }else {
-                super.h_image = self.image?.withRenderingMode(.alwaysOriginal)
+                super.image = self.image?.withRenderingMode(.alwaysOriginal)
             }
         }
     }
-    var placeHoderImage: UIImage?
     
     private var _pressed: Callback?
     var pressed: Callback? {
@@ -86,12 +85,12 @@ class HWebImageView: UIImageView {
         if (image != nil) {
             if renderColor != nil {
                 self.tintColor = renderColor
-                super.h_image = image?.withRenderingMode(.alwaysTemplate)
+                super.image = image?.withRenderingMode(.alwaysTemplate)
             }else {
-                super.h_image = image
+                super.image = image
             }
         }else {
-            super.h_image = nil
+            super.image = nil
         }
     }
     
@@ -103,7 +102,6 @@ class HWebImageView: UIImageView {
     func setImage(_ image: UIImage?) {
         self._setImage(image)
         self.lastURL = ""
-        self.placeHoderImage = nil
         self.alpha = 1
         if didGetImage != nil {
             didGetImage!(self, image!)
@@ -128,7 +126,10 @@ class HWebImageView: UIImageView {
     *
     */
     func setImageUrl(_ url: URL, syncLoadCache cache: Bool) {
-        self.setImageUrlString(url.absoluteString, syncLoadCache: cache)
+        self.setImageUrlString(url.absoluteString, placeholder: nil, syncLoadCache: cache)
+    }
+    func setImageUrl(_ url: URL, placeholder: UIImage?, syncLoadCache cache: Bool) {
+        self.setImageUrlString(url.absoluteString, placeholder: placeholder, syncLoadCache: cache)
     }
 
     /**
@@ -138,7 +139,10 @@ class HWebImageView: UIImageView {
     *
     */
     func setImageUrlString(_ urlString: String) {
-        self.setImageUrlString(urlString, syncLoadCache: false)
+        self.setImageUrlString(urlString, placeholder: nil, syncLoadCache: false)
+    }
+    func setImageUrlString(_ urlString: String, placeholder: UIImage?) {
+        self.setImageUrlString(urlString, placeholder: placeholder, syncLoadCache: false)
     }
     
     /**
@@ -148,7 +152,7 @@ class HWebImageView: UIImageView {
     *  @param syncLoadCache 是否同步读缓存
     *
     */
-    func setImageUrlString(_ urlString: String, syncLoadCache cache: Bool) {
+    func setImageUrlString(_ urlString: String, placeholder: UIImage?, syncLoadCache cache: Bool) {
         if urlString.count == 0 {
             self._setImage(nil)
             self.lastURL = ""
@@ -175,11 +179,9 @@ class HWebImageView: UIImageView {
             return
         }
         
-        if self.placeHoderImage == nil && self.image == nil {
+        if placeholder == nil && self.image == nil {
             self.alpha = 0
         }
-        
-        let placeholder: UIImage? = self.placeHoderImage
         
         self._setImage(nil)
         self.lastURL = ""
