@@ -228,7 +228,7 @@ class HViewController: UIViewController {
     var titleLabel: UILabel {
         if _titleLabel == nil {
             _titleLabel = UILabel()
-            _titleLabel!.frame = CGRect(x: 54, y: 0, width: self.view.width - 54 * 2, height: UIDevice.naviBarHeight)
+            _titleLabel!.frame = CGRect(x: 54, y: 5, width: self.view.width - 54 * 2, height: UIDevice.naviBarHeight - 5)
             _titleLabel!.textAlignment = .center
             _titleLabel!.textColor = UIColor.black
             _titleLabel!.font = UIFont.systemFont(ofSize: 18)
@@ -242,7 +242,7 @@ class HViewController: UIViewController {
         if _leftNaviButton == nil {
             _leftNaviButton = HWebButtonView()
             _leftNaviButton!.backgroundColor = nil
-            _leftNaviButton!.frame = CGRect(x: 10, y: 0, width: UIDevice.naviBarHeight, height: UIDevice.naviBarHeight)
+            _leftNaviButton!.frame = CGRect(x: 10, y: 5, width: UIDevice.naviBarHeight, height: UIDevice.naviBarHeight - 5)
             _leftNaviButton!.titleLabel?.font = UIFont.systemFont(ofSize: 16)
             _leftNaviButton!.contentHorizontalAlignment = .left
             _leftNaviButton!.pressed = { [weak self] (_ sender: Any?, _ data: Any?) -> Void in
@@ -260,7 +260,7 @@ class HViewController: UIViewController {
             _rightNaviButton = HWebButtonView()
             _rightNaviButton!.backgroundColor = nil
             _rightNaviButton!.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-            _rightNaviButton!.frame = CGRect(x: self.topBar.width - UIDevice.naviBarHeight - 10, y: 0, width: UIDevice.naviBarHeight, height: UIDevice.naviBarHeight)
+            _rightNaviButton!.frame = CGRect(x: self.topBar.width - UIDevice.naviBarHeight - 10, y: 5, width: UIDevice.naviBarHeight, height: UIDevice.naviBarHeight - 5)
             _rightNaviButton!.autoresizingMask = .flexibleLeftMargin
             _rightNaviButton!.contentHorizontalAlignment = .center
             _rightNaviButton!.pressed = { [weak self] (_ sender: Any?, _ data: Any?) -> Void in
