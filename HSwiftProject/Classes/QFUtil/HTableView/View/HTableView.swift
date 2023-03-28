@@ -792,8 +792,8 @@ extension HTableView {
     }
 
     ///根据传入的row和section获取cell或indexPath
-    func cell(_ row: Int, _ section: Int) -> AnyObject {
-        return self.allReuseCells.object(forKey: IndexPath.stringValue(row, section) as NSString)!
+    func cell(_ row: Int, _ section: Int) -> AnyObject? {
+        return self.allReuseCells.object(forKey: IndexPath.stringValue(row, section) as NSString)
     }
     func indexPath(_ row: Int, _ section: Int) -> IndexPath {
         return IndexPath(row: row, section: section)
