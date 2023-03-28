@@ -18,9 +18,6 @@ private enum HTupleStyle: Int {
     case split //分体式设计
 }
 
-///自定义类型
-typealias HTupleState = Int
-
 private var KTupleDefaultTag  = 1213141516
 
 private var KDefaultPageSize  = 20
@@ -58,8 +55,10 @@ class HTupleAppearance : NSObject {
         DispatchQueue.main.async {
             //倒序执行
             for item in self.hashTuples.allObjects.reversed() {
-                let tuple = item as! HTupleView
-                tuple.reloadData()
+                let tuple = item as? HTupleView
+                if tuple != nil {
+                    tuple!.reloadData()
+                }
             }
             completion()
         }
@@ -68,9 +67,9 @@ class HTupleAppearance : NSObject {
         DispatchQueue.main.async {
             //倒序执行
             for item in self.hashTuples.allObjects.reversed() {
-                let tuple = item as! HTupleView
-                if tuple.reloadTupleKey == key {
-                    tuple.reloadData()
+                let tuple = item as? HTupleView
+                if tuple != nil, tuple!.reloadTupleKey == key {
+                    tuple!.reloadData()
                 }
             }
             completion()
@@ -80,9 +79,9 @@ class HTupleAppearance : NSObject {
         DispatchQueue.main.async {
             //倒序执行
             for item in self.hashTuples.allObjects.reversed() {
-                let tuple = item as! HTupleView
-                if tuple.releaseTupleKey == key {
-                    tuple.releaseTupleBlock()
+                let tuple = item as? HTupleView
+                if tuple != nil, tuple!.releaseTupleKey == key {
+                    tuple!.releaseTupleBlock()
                 }
             }
             completion()
@@ -452,49 +451,9 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     
     ///设置释放的key值
     var releaseTupleKey: String?
-    /*
-    private var _releaseTupleKey: String?
-    ///设置释放的key值
-    var releaseTupleKey: String? {
-        get {
-            return _releaseTupleKey
-        }
-        set {
-            if _releaseTupleKey != newValue {
-                if _releaseTupleKey != nil && newValue != nil {
-                    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(_releaseTupleKey!), object: nil)
-                }
-                _releaseTupleKey = newValue
-                if _releaseTupleKey != nil {
-                    NotificationCenter.default.addObserver(self, selector: #selector(releaseTupleBlock), name: NSNotification.Name(_releaseTupleKey!), object: nil)
-                }
-            }
-        }
-    }
-     */
 
     ///设置reload的key值
     var reloadTupleKey: String?
-    /*
-    private var _reloadTupleKey: String?
-    ///设置reload的key值
-    var reloadTupleKey: String? {
-        get {
-            return _reloadTupleKey
-        }
-        set {
-            if _reloadTupleKey != newValue {
-                if _reloadTupleKey != nil && reloadTupleKey != nil {
-                    NotificationCenter.default.removeObserver(self, name: NSNotification.Name(_reloadTupleKey!), object: nil)
-                }
-                _reloadTupleKey = newValue
-                if _reloadTupleKey != nil {
-                    NotificationCenter.default.addObserver(self, selector: #selector(reloadTupleData), name: NSNotification.Name(_reloadTupleKey!), object: nil)
-                }
-            }
-        }
-    }
-     */
 
     ///block refresh & loadMore
     func beginRefreshing(_ completion: @escaping () -> Void) {
@@ -1158,7 +1117,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 return self.tupleDelegate!.performWithUnretainedValue(selector, with: proposedContentOffset, withPre: prefix) as! CGPoint
             }
         }
-        return CGPoint(x: 0, y: 0)
+        return CGPoint.zero
     }
 
     internal func collectionView(_ collectionView: UICollectionView, shouldSpringLoadItemAt indexPath: IndexPath, with context: UISpringLoadedInteractionContext) -> Bool {
@@ -1498,23 +1457,23 @@ extension HTupleView {
             }
             //release all cell
             for object in self.allReuseCells.objectEnumerator()!.allObjects {
-                let cell = object as! HTupleBaseCell
-                if cell.signalBlock != nil {
-                    cell.signalBlock = nil
+                let cell = object as? HTupleBaseCell
+                if cell?.signalBlock != nil {
+                    cell?.signalBlock = nil
                 }
             }
             //release all header
             for object in self.allReuseHeaders.objectEnumerator()!.allObjects {
-                let header = object as! HTupleBaseApex
-                if header.signalBlock != nil {
-                    header.signalBlock = nil
+                let header = object as? HTupleBaseApex
+                if header?.signalBlock != nil {
+                    header?.signalBlock = nil
                 }
             }
             //release all footer
             for object in self.allReuseFooters.objectEnumerator()!.allObjects {
-                let footer = object as! HTupleBaseApex
-                if footer.signalBlock != nil {
-                    footer.signalBlock = nil
+                let footer = object as? HTupleBaseApex
+                if footer?.signalBlock != nil {
+                    footer?.signalBlock = nil
                 }
             }
         }
@@ -1555,9 +1514,9 @@ extension HTupleView {
     ///获取某个section的宽高和大小
     func widthForSection(_ section: Int) -> CGFloat {
         var width: CGFloat = self.width
-        let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as! String
-        if edgeInsetsString.length > 0 {
-            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
+        let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
+        if edgeInsetsString != nil, edgeInsetsString!.length > 0 {
+            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString!)
             width -= edgeInsets.left + edgeInsets.right
         }
         return width
@@ -1565,9 +1524,9 @@ extension HTupleView {
 
     func heighForSection(_ section: Int) -> CGFloat {
         var height: CGFloat = self.height
-        let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as! String
-        if edgeInsetsString.length > 0 {
-            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
+        let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
+        if edgeInsetsString != nil, edgeInsetsString!.length > 0 {
+            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString!)
             height -= edgeInsets.top + edgeInsets.bottom
         }
         return height
@@ -1575,9 +1534,9 @@ extension HTupleView {
     
     func sizeForSection(_ section: Int) -> CGSize {
         var size: CGSize = self.size
-        let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as! String
-        if edgeInsetsString.length > 0 {
-            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
+        let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
+        if edgeInsetsString != nil, edgeInsetsString!.length > 0 {
+            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString!)
             size.width -= edgeInsets.left + edgeInsets.right
             size.height -= edgeInsets.top + edgeInsets.bottom
         }
@@ -1614,13 +1573,14 @@ extension HTupleView {
     }
     
     ///tupleView分体式设计所表示的状态
-    var tupleState: HTupleState {
+    var tupleState: Int {
         get {
-            return self.getAssociatedValueForKey(&tupleStateKey) as? HTupleState ?? 0
+            let value = self.getAssociatedValueForKey(&tupleStateKey) as? NSNumber ?? NSNumber(value: 0)
+            return value.intValue
         }
         set {
             if newValue != self.tupleState {
-                self.setAssociateWeakValue(newValue, key: &tupleStateKey)
+                self.setAssociateValue(NSNumber(value: newValue), key: &tupleStateKey)
                 self.reloadData()
             }
         }
@@ -1631,7 +1591,7 @@ extension HTupleView {
         self.setObject(anObject, forKey: aKey, state: self.tupleState)
     }
     
-    func setObject(_ anObject: Any, forKey aKey: String, state tupleState: HTupleState) {
+    func setObject(_ anObject: Any, forKey aKey: String, state tupleState: Int) {
         let key: NSString = aKey + KTupleStateKey + "\(tupleState)" as NSString
         self.tupleStateSource.setObject(anObject, forKey: key)
     }
@@ -1641,7 +1601,7 @@ extension HTupleView {
         return self.objectForKey(aKey, state: self.tupleState)
     }
     
-    func objectForKey(_ aKey: String, state tupleState: HTupleState) -> Any? {
+    func objectForKey(_ aKey: String, state tupleState: Int) -> Any? {
         let key: NSString = aKey + KTupleStateKey + "\(tupleState)" as NSString
         return self.tupleStateSource.object(forKey: key)
     }
@@ -1651,7 +1611,7 @@ extension HTupleView {
         self.removeObjectForKey(aKey, state: self.tupleState)
     }
     
-    func removeObjectForKey(_ aKey: String, state tupleState: HTupleState) {
+    func removeObjectForKey(_ aKey: String, state tupleState: Int) {
         let key: NSString = aKey + KTupleStateKey + "\(tupleState)" as NSString
         self.tupleStateSource.removeObject(forKey: key)
     }
@@ -1661,7 +1621,7 @@ extension HTupleView {
         self.removeObjectForState(self.tupleState)
     }
     
-    func removeObjectForState(_ tupleState: HTupleState) {
+    func removeObjectForState(_ tupleState: Int) {
         let key = KTupleStateKey + "\(tupleState)"
         for (aKey, _) in self.tupleStateSource.reversed() {
             let aKey = aKey as! String
