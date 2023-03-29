@@ -40,10 +40,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
 
     override var containerSize: CGSize {
         self.note = "测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告end"
-        self.noteSize = self.note?.size({ make in
-            make.font = UIFont.systemFont(ofSize: 12)
-            make.width = 240
-        })
+        self.noteSize = self.note?.sizeWithFont(UIFont.systemFont(ofSize: 12), constrainedToWidth: 240)
         return CGSize(width: 270, height: 86 + self.noteSize!.height)
     }
 

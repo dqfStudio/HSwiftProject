@@ -9,103 +9,103 @@
 import UIKit
 
 extension NSString {
-//    /**
-//     *  @brief 计算文字的高度
-//     *
-//     *  @param font  字体(默认为系统字体)
-//     *  @param width 约束宽度
-//     */
-//    func heightWithFont(_ font: UIFont?, constrainedToWidth width: CGFloat) -> CGFloat {
-//
-//        var textFont: UIFont? = font
-//        if (font == nil) {
-//            textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-//        }
-//
-//        let paragraph = NSMutableParagraphStyle()
-//        paragraph.lineBreakMode = .byWordWrapping
-//
-//        let textSize = self.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
-//                                         options: .usesLineFragmentOrigin,
-//                                         attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
-//                                         context: nil).size
-//
-//        return ceil(textSize.height)
-//    }
-//
-//    /**
-//     *  @brief 计算文字的宽度
-//     *
-//     *  @param font   字体(默认为系统字体)
-//     *  @param height 约束高度
-//     */
-//    func widthWithFont(_ font: UIFont?, constrainedToHeight height: CGFloat) -> CGFloat {
-//
-//        var textFont: UIFont? = font
-//        if (font == nil) {
-//            textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-//        }
-//
-//        let paragraph = NSMutableParagraphStyle()
-//        paragraph.lineBreakMode = .byWordWrapping
-//
-//        let textSize = self.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: height),
-//                                         options: .usesLineFragmentOrigin,
-//                                         attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
-//                                         context: nil).size
-//
-//        return ceil(textSize.width)
-//    }
-//
-//    /**
-//     *  @brief 计算文字的大小
-//     *
-//     *  @param font  字体(默认为系统字体)
-//     *  @param width 约束宽度
-//     */
-//    func sizeWithFont(_ font: UIFont?, constrainedToWidth width: CGFloat) -> CGSize {
-//
-//        var textFont: UIFont? = font
-//        if (font == nil) {
-//            textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-//        }
-//
-//        let paragraph = NSMutableParagraphStyle()
-//        paragraph.lineBreakMode = .byWordWrapping
-//
-//        let textSize = self.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
-//                                         options: .usesLineFragmentOrigin,
-//                                         attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
-//                                         context: nil).size
-//
-//        return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
-//    }
-//
-//    /**
-//     *  @brief 计算文字的大小
-//     *
-//     *  @param font   字体(默认为系统字体)
-//     *  @param height 约束高度
-//     */
-//    func sizeWithFont(_ font: UIFont?, constrainedToHeight height: CGFloat) -> CGSize {
-//
-//        var textFont: UIFont? = font
-//        if (font == nil) {
-//            textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-//        }
-//
-//        let paragraph = NSMutableParagraphStyle()
-//        paragraph.lineBreakMode = .byWordWrapping
-//
-//        let textSize = self.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: height),
-//                                         options: .usesLineFragmentOrigin,
-//                                         attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
-//                                         context: nil).size
-//
-//        return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
-//    }
-//
-//
+    /**
+     *  @brief 计算文字的高度
+     *
+     *  @param font  字体(默认为系统字体)
+     *  @param width 约束宽度
+     */
+    func heightWithFont(_ font: UIFont?, constrainedToWidth width: CGFloat) -> CGFloat {
+
+        var textFont: UIFont? = font
+        if (font == nil) {
+            textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        }
+
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = .byWordWrapping
+
+        let textSize = self.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
+                                         options: .usesLineFragmentOrigin,
+                                         attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
+                                         context: nil).size
+
+        return ceil(textSize.height)
+    }
+
+    /**
+     *  @brief 计算文字的宽度
+     *
+     *  @param font   字体(默认为系统字体)
+     *  @param height 约束高度
+     */
+    func widthWithFont(_ font: UIFont?, constrainedToHeight height: CGFloat) -> CGFloat {
+
+        var textFont: UIFont? = font
+        if (font == nil) {
+            textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        }
+
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = .byWordWrapping
+
+        let textSize = self.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: height),
+                                         options: .usesLineFragmentOrigin,
+                                         attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
+                                         context: nil).size
+
+        return ceil(textSize.width)
+    }
+
+    /**
+     *  @brief 计算文字的大小
+     *
+     *  @param font  字体(默认为系统字体)
+     *  @param width 约束宽度
+     */
+    func sizeWithFont(_ font: UIFont?, constrainedToWidth width: CGFloat) -> CGSize {
+
+        var textFont: UIFont? = font
+        if (font == nil) {
+            textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        }
+
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = .byWordWrapping
+
+        let textSize = self.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
+                                         options: .usesLineFragmentOrigin,
+                                         attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
+                                         context: nil).size
+
+        return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
+    }
+
+    /**
+     *  @brief 计算文字的大小
+     *
+     *  @param font   字体(默认为系统字体)
+     *  @param height 约束高度
+     */
+    func sizeWithFont(_ font: UIFont?, constrainedToHeight height: CGFloat) -> CGSize {
+
+        var textFont: UIFont? = font
+        if (font == nil) {
+            textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        }
+
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = .byWordWrapping
+
+        let textSize = self.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: height),
+                                         options: .usesLineFragmentOrigin,
+                                         attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
+                                         context: nil).size
+
+        return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
+    }
+
+
     func size(_ make: (_ make: HStringAttributes) -> Void) -> CGSize {
 
         let stringAttributes = HStringAttributes()
