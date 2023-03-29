@@ -27,10 +27,10 @@ extension HTabBar {
     }
     ///添加空白适配
     func addBottomBlankViewWithColor(_ color: UIColor) {
-        if UIDevice.isIPhoneX {
+        if UIScreen.isIPhoneX {
             var frame: CGRect = self.bounds
             frame.origin.y = frame.size.height
-            frame.size.height = UIDevice.bottomBarHeight
+            frame.size.height = UIScreen.bottomBarHeight
             let bottomView: UIView = UIView(frame: frame)
             bottomView.backgroundColor = color
             self.addSubview(bottomView)

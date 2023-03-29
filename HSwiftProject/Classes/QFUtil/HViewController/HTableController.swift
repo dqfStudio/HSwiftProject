@@ -29,8 +29,8 @@ class HTableController: HViewController, HTableViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if (UIDevice.isIPhoneX) {
-            extendedInset = UIEdgeInsets(top: 0, left: 0, bottom: UIDevice.bottomBarHeight, right: 0)
+        if (UIScreen.isIPhoneX) {
+            extendedInset = UIEdgeInsets(top: 0, left: 0, bottom: UIScreen.bottomBarHeight, right: 0)
         }
         self.view.addSubview(self.tableView)
     }
@@ -46,8 +46,8 @@ class HTableController: HViewController, HTableViewDelegate {
         if autoLayout {//默认为YES
             var frame: CGRect = self.view.bounds
             if topExtendedLayout {//默认为YES
-                frame.origin.y += UIDevice.topBarHeight
-                frame.size.height -= UIDevice.topBarHeight
+                frame.origin.y += UIScreen.topBarHeight
+                frame.size.height -= UIScreen.topBarHeight
             }
             frame.size.height -= bottomExtendedHeight
             self.tableView.frame = frame

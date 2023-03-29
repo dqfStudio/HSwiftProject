@@ -65,7 +65,7 @@ class HMenuViewController: HTabBarController {
         
         var contentViewY: CGFloat = 0.0
         var tabBarY: CGFloat = screenSize.height - kTabBarHeight
-        tabBarY -= UIDevice.bottomBarHeight
+        tabBarY -= UIScreen.bottomBarHeight
         
         var contentViewHeight: CGFloat = tabBarY
         // 如果parentViewController为UINavigationController及其子类

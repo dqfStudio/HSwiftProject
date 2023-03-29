@@ -20,7 +20,7 @@ class HMainController5: HTabBarController {
         
         let screenSize: CGSize = UIScreen.size
 
-        self.setTabBarFrame(CGRect(x: 0, y: UIDevice.topBarHeight, width: screenSize.width, height: kTabBarHeight),
+        self.setTabBarFrame(CGRect(x: 0, y: UIScreen.topBarHeight, width: screenSize.width, height: kTabBarHeight),
             contentViewFrame: CGRect(x: 0, y: kTabBarHeight, width: screenSize.width, height: screenSize.height - kTabBarHeight))
 
         self.tabBar.itemTitleColor = UIColor.black

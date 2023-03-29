@@ -10,43 +10,6 @@ import UIKit
 
 extension UIDevice {
     
-    /// 判断设备是否为iphoneX系列
-    static var isIPhoneX: Bool = {
-        var iPhoneXSeries: Bool = false
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if #available(iOS 11.0, *) {
-                let mainWindow: UIWindow = UIWindow(frame: UIScreen.main.bounds)
-                if mainWindow.safeAreaInsets.top > 20.0 {
-                    iPhoneXSeries = true
-                }
-                if !iPhoneXSeries && UIApplication.shared.statusBarFrame.size.height >= 44 {
-                    iPhoneXSeries = true
-                }
-            }
-        }
-        return iPhoneXSeries
-    }()
-    
-    static var statusBarHeight: CGFloat {
-        var height: CGFloat = 0.0
-        if UIApplication.statusBarOrientation()?.isPortrait ?? true {
-            height = UIDevice.isIPhoneX ? 44.0 : 20.0
-        }
-        return height
-    }
-
-    static var naviBarHeight: CGFloat {
-        return 44.0
-    }
-        
-    static var topBarHeight: CGFloat {
-        return UIDevice.statusBarHeight + UIDevice.naviBarHeight
-    }
-        
-    static var bottomBarHeight: CGFloat {
-        return UIDevice.isIPhoneX ? 34.0 : 0.0
-    }
-    
     /// 判断设备是否为iPad/iPad mini.
     static var isPad: Bool = {
         var pad: Bool = false
