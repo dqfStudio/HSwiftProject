@@ -105,72 +105,66 @@ extension NSString {
         return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
     }
 
-
+    /**
+     *  @brief 计算文字的大小
+     *
+     *  @param make   设置HStringAttributes属性，font不能为ni
+     */
     func size(_ make: (_ make: HStringAttributes) -> Void) -> CGSize {
 
         let stringAttributes = HStringAttributes()
         make(stringAttributes)
+        
+        if stringAttributes.font != nil {
+            let attributes = self.attributes(withFont: stringAttributes.font!)
 
-        let attributes = self.attributes(withFont: stringAttributes.font, lineSpace: stringAttributes.lineSpace)
+            var textSize = CGSize.zero
+            if stringAttributes.width > 0 {
+                textSize = CGSize(width: stringAttributes.width, height: CGFloat.greatestFiniteMagnitude)
+            }else {
+                textSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: stringAttributes.height)
+            }
 
-        var textSize = CGSize.zero
-        if stringAttributes.width > 0 {
-            textSize = CGSize(width: stringAttributes.width, height: CGFloat.greatestFiniteMagnitude)
-        }else {
-            textSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: stringAttributes.height)
+            textSize = self.boundingRect(with: textSize,
+                                         options: .usesLineFragmentOrigin,
+                                         attributes: attributes,
+                                         context: nil).size
+            return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
         }
-
-        textSize = self.boundingRect(with: textSize,
-                                     options: .usesLineFragmentOrigin,
-                                     attributes: attributes,
-                                     context: nil).size
-        return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
+        return CGSize.zero
     }
     
-    func attributes(withFont font: UIFont, lineSpace: CGFloat = 2.0) -> [NSAttributedString.Key : Any] {
-        
-        if font.fontName.contains("Regular") {
-            
-        }else if font.fontName.contains("Medium") {
-            
-        }
-        
-        // 字间距
-        var fontSpace: CGFloat = 0.0
+    /**
+     *  @brief 根据字体获取符合本项目的相关字体属性
+     *
+     *  @param font   字体
+     */
+    private func attributes(withFont font: UIFont) -> [NSAttributedString.Key : Any] {
 
+        //行间距
+        var lineSpace = 14.0
+        
         switch (font.pointSize) {
-        case 8:
-            fontSpace = 1.5
-            break
-        case 9:
-            fontSpace = 1.5
-            break
-        case 10:
-            fontSpace = 1.5
-            break
-        case 11:
-            fontSpace = 1.5
+        case 9, 10:
+            lineSpace = 14.0
             break
         case 12:
-            fontSpace = 1.5
+            lineSpace = 18.0
             break
         case 13:
-            fontSpace = 1.5
+            lineSpace = 20.0
             break
         case 14:
-            fontSpace = 1.5
-            break
-        case 15:
-            fontSpace = 1.5
+            lineSpace = 22.0
             break
         case 16:
-            fontSpace = 1.5
+            lineSpace = 24.0
             break
         case 17:
-            fontSpace = 1.5
+            lineSpace = 26.0
             break
-        case 18:
-            fontSpace = 1.5
+        case 24:
+            lineSpace = 34.0
             break
         default:
             break
@@ -181,7 +175,6 @@ extension NSString {
         style.lineBreakMode = .byWordWrapping
         
         return [NSAttributedString.Key.font : font,
-                NSAttributedString.Key.kern : fontSpace,
                 NSAttributedString.Key.paragraphStyle : style]
 
     }
@@ -210,9 +203,7 @@ extension NSString {
 
 class HStringAttributes: NSObject {
     //字体
-    var font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-    //行间距
-    var lineSpace: CGFloat = 0
+    var font: UIFont?
     //预设的固定宽度
     var width: CGFloat = 0
     //预设的固定高度
