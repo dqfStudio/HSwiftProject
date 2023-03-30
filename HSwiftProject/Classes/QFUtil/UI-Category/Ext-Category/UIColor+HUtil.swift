@@ -165,4 +165,45 @@ extension UIColor {
         return isLighter
     }
 
+    //渐变色
+//    static func gradientColor(from startColor: UIColor, to endColor: UIColor, size: CGSize) -> UIColor {
+//        let gradientLayer = CAGradientLayer()
+//        gradientLayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+//        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+//        UIGraphicsBeginImageContext(gradientLayer.bounds.size)
+//        if let context = UIGraphicsGetCurrentContext() {
+//            gradientLayer.render(in: context)
+//            let image = UIGraphicsGetImageFromCurrentImageContext()
+//            UIGraphicsEndImageContext()
+//            return UIColor(patternImage: image!)
+//        }
+//        return UIColor.clear
+//    }
+    static func gradientColor(from startColor: UIColor, to endColor: UIColor, size: CGSize) -> UIColor {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        gradientLayer.colors = [startColor.cgColor, endColor.cgColor]
+        gradientLayer.startPoint = CGPoint(x: 0, y: 0)
+        gradientLayer.endPoint = CGPoint(x: 1, y: 0)
+        gradientLayer.locations = [0, 1]
+        gradientLayer.type = .axial
+        gradientLayer.shouldRasterize = true
+        gradientLayer.rasterizationScale = UIScreen.main.scale
+        let animation = CABasicAnimation(keyPath: "locations")
+        animation.fromValue = [-1, -0.5, 0]
+        animation.toValue = [1, 1.5, 2]
+        animation.duration = 2
+        animation.repeatCount = .infinity
+        gradientLayer.add(animation, forKey: "locations")
+        UIGraphicsBeginImageContext(gradientLayer.bounds.size)
+        if let context = UIGraphicsGetCurrentContext() {
+            gradientLayer.render(in: context)
+            let image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return UIColor(patternImage: image!)
+        }
+        return UIColor.clear
+    }
+
+
 }

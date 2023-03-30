@@ -8,6 +8,32 @@
 
 import UIKit
 
+extension UIView {
+    func animate() {
+        let colors: [UIColor] = [.red, .green, .blue, .yellow, .purple, .orange]
+        let duration: TimeInterval = 5
+        let delay: TimeInterval = 0
+        let options: UIView.AnimationOptions = [.curveLinear]
+        let frameCount = colors.count
+        let frameDuration = duration / Double(frameCount)
+        let sizeDelta: CGFloat = 50
+        let sizeDuration: TimeInterval = 2
+        let sizeOptions: UIView.AnimationOptions = [.curveEaseInOut, .autoreverse, .repeat]
+        var currentColorIndex = 0
+        var currentSizeDelta: CGFloat = 0
+        UIView.animate(withDuration: frameDuration, delay: delay, options: options, animations: {
+            self.backgroundColor = colors[currentColorIndex]
+            currentColorIndex = (currentColorIndex + 1) % frameCount
+        }, completion: nil)
+        UIView.animate(withDuration: sizeDuration, delay: delay, options: sizeOptions, animations: {
+            self.frame.size.width += sizeDelta + currentSizeDelta
+            self.frame.size.height += sizeDelta + currentSizeDelta
+            currentSizeDelta = -sizeDelta - currentSizeDelta
+        }, completion: nil)
+    }
+}
+
+
 class HMainController1: HTupleController {
 
     override func viewDidLoad() {
@@ -17,6 +43,9 @@ class HMainController1: HTupleController {
         self.leftNaviButton.isHidden = true
         self.title = "第一页"
         self.tupleView.delegate = self
+        
+        self.tupleView.backgroundColor = UIColor.gradientColor(from: .red, to: .black, size: self.tupleView.size)
+//        self.tupleView.startOpacityForeverAnimation()
     }
 
     func numberOfSectionsInTupleView() -> Any {
@@ -69,6 +98,19 @@ class HMainController1: HTupleController {
     }
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
+        
+        let cell = itemBlock(nil, HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
+        cell.backgroundColor = UIColor.gray
+        cell.isShouldShowSeparator = true
+        cell.separatorInset = UILREdgeInsetsMake(10, 0)
+//
+//        cell.imageView.backgroundColor = UIColor.red
+//        cell.imageView.setImageWithName("icon_no_server")
+
+        cell.labelHeight = 25
+        cell.label.textAlignment = .center
+        cell.label.text = "黑客帝国"
+        return
         
         switch indexPath.row {
         case 0:

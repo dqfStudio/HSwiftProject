@@ -106,32 +106,45 @@ extension NSString {
     }
 
     /**
-     *  @brief 计算文字的大小
+     *  @brief  反转字符串
      *
-     *  @param make   设置HStringAttributes属性，font不能为ni
+     *  @param strSrc 被反转字符串
+     *
+     *  @return 反转后字符串
      */
-    func size(_ make: (_ make: HStringAttributes) -> Void) -> CGSize {
+    static func reverseString(_ strSrc: NSString) -> NSString {
 
-        let stringAttributes = HStringAttributes()
-        make(stringAttributes)
+        let reverseString = NSMutableString()
+        var charIndex = strSrc.length
         
-        if stringAttributes.font != nil {
-            let attributes = self.attributes(withFont: stringAttributes.font!)
-
-            var textSize = CGSize.zero
-            if stringAttributes.width > 0 {
-                textSize = CGSize(width: stringAttributes.width, height: CGFloat.greatestFiniteMagnitude)
-            }else {
-                textSize = CGSize(width: CGFloat.greatestFiniteMagnitude, height: stringAttributes.height)
-            }
-
-            textSize = self.boundingRect(with: textSize,
-                                         options: .usesLineFragmentOrigin,
-                                         attributes: attributes,
-                                         context: nil).size
-            return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
+        while (charIndex > 0) {
+            charIndex -= 1
+            reverseString.append(strSrc.substring(with: NSRange(location: charIndex, length: 1)))
         }
-        return CGSize.zero
+        return reverseString
+    }
+    
+}
+
+extension String {
+    /**
+     *  @brief 计算文字的大小
+     */
+    func size(withFont font: UIFont, width: CGFloat = CGFloat.greatestFiniteMagnitude, height: CGFloat = CGFloat.greatestFiniteMagnitude) -> CGSize {
+        let attributes = self.attributes(withFont: font)
+        var textSize = CGSize(width: width, height: height)
+        textSize = self.boundingRect(with: textSize,
+                                     options: .usesLineFragmentOrigin,
+                                     attributes: attributes,
+                                     context: nil).size
+        return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
+    }
+    
+    func attributedString(withFont font: UIFont) -> NSAttributedString {
+        let attributes = self.attributes(withFont: font)
+        let attribute = NSMutableAttributedString(string: self)
+        attribute.addAttributes(attributes, range: NSRange(location: 0, length: self.count))
+        return attribute
     }
     
     /**
@@ -140,7 +153,56 @@ extension NSString {
      *  @param font   字体
      */
     private func attributes(withFont font: UIFont) -> [NSAttributedString.Key : Any] {
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = NSObject.lineHeight(withFont: font)
+        style.lineBreakMode = .byWordWrapping
+        return [NSAttributedString.Key.font : font,
+                NSAttributedString.Key.paragraphStyle : style]
 
+    }
+}
+
+extension UILabel {
+    //自适应高
+    func sizeToFitHeight() {
+        let text = self.text ?? ""
+        if !text.isEmpty {
+            let textSize = text.size(withFont: self.font, width: self.width)
+            self.frame.size.height = textSize.height
+            self.attributedText = NSAttributedString(string: text)
+        }
+    }
+    //自适应宽
+    func sizeToFitWidth() {
+        let text = self.text ?? ""
+        if !text.isEmpty {
+            let textSize = text.size(withFont: self.font, height: self.height)
+            self.frame.size.width = textSize.width
+            self.attributedText = NSAttributedString(string: text)
+        }
+    }
+    //自适应大小
+    open override func sizeToFit() {
+        let text = self.text ?? ""
+        if !text.isEmpty {
+            self.frame.size = text.size(withFont: self.font, height: self.height)
+            self.attributedText = NSAttributedString(string: text)
+        }
+    }
+}
+
+extension UIFont {
+    class func font(ofSize fontSize: CGFloat, weight: UIFont.Weight) -> UIFont {
+        return UIFont.systemFont(ofSize: fontSize, weight: weight)
+    }
+}
+
+extension NSObject {
+    /**
+     *  获取本项目的行高度
+     */
+    static func lineHeight(withFont font: UIFont) -> CGFloat {
+        
         //行间距
         var lineSpace = 14.0
         
@@ -169,49 +231,6 @@ extension NSString {
         default:
             break
         }
-        
-        let style = NSMutableParagraphStyle()
-        style.lineSpacing = lineSpace
-        style.lineBreakMode = .byWordWrapping
-        
-        return [NSAttributedString.Key.font : font,
-                NSAttributedString.Key.paragraphStyle : style]
-
-    }
-
-
-    /**
-     *  @brief  反转字符串
-     *
-     *  @param strSrc 被反转字符串
-     *
-     *  @return 反转后字符串
-     */
-    static func reverseString(_ strSrc: NSString) -> NSString {
-
-        let reverseString = NSMutableString()
-        var charIndex = strSrc.length
-        
-        while (charIndex > 0) {
-            charIndex -= 1
-            reverseString.append(strSrc.substring(with: NSRange(location: charIndex, length: 1)))
-        }
-        return reverseString
-    }
-    
-}
-
-class HStringAttributes: NSObject {
-    //字体
-    var font: UIFont?
-    //预设的固定宽度
-    var width: CGFloat = 0
-    //预设的固定高度
-    var height: CGFloat = 0
-}
-
-extension UIFont {
-    class func font(ofSize fontSize: CGFloat, weight: UIFont.Weight) -> UIFont {
-        return UIFont.systemFont(ofSize: fontSize, weight: weight)
+        return lineSpace / 6
     }
 }

@@ -30,16 +30,17 @@ extension AppDelegate {
     
     @available(iOS 12.0, *)
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
-        if AppDelegate.orientationStyle == .vertical {
-            return .portrait
-        } else if AppDelegate.orientationStyle == .horizontal {
-            return [.landscapeLeft, .landscapeRight]
-        } else if AppDelegate.orientationStyle == .horizontalLeft {
-            return .landscapeLeft
-        } else if AppDelegate.orientationStyle == .horizontalRight {
-            return .landscapeRight
-        } else {
-            return [.portrait, .landscapeLeft, .landscapeRight]
-        }
+//        if AppDelegate.orientationStyle == .vertical {
+//            return .portrait
+//        } else if AppDelegate.orientationStyle == .horizontal {
+//            return [.landscapeLeft, .landscapeRight]
+//        } else if AppDelegate.orientationStyle == .horizontalLeft {
+//            return .landscapeLeft
+//        } else if AppDelegate.orientationStyle == .horizontalRight {
+//            return .landscapeRight
+//        } else {
+//            return [.portrait, .landscapeLeft, .landscapeRight]
+//        }
+        return .portrait
     }
 }

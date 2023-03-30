@@ -275,6 +275,7 @@
 		EBD0FB7829D02B9600808EDA /* HUserDefaults+Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB7529D02B9600808EDA /* HUserDefaults+Property.swift */; };
 		EBD0FB7929D02B9600808EDA /* HDefaultsCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB7629D02B9600808EDA /* HDefaultsCore.swift */; };
 		EBD0FB7A29D02B9600808EDA /* HUserCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB7729D02B9600808EDA /* HUserCore.swift */; };
+		EBD0FB8A29D5668E00808EDA /* CALayer+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB8929D5668E00808EDA /* CALayer+HUtil.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -552,6 +553,7 @@
 		EBD0FB7529D02B9600808EDA /* HUserDefaults+Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HUserDefaults+Property.swift"; sourceTree = "<group>"; };
 		EBD0FB7629D02B9600808EDA /* HDefaultsCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HDefaultsCore.swift; sourceTree = "<group>"; };
 		EBD0FB7729D02B9600808EDA /* HUserCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserCore.swift; sourceTree = "<group>"; };
+		EBD0FB8929D5668E00808EDA /* CALayer+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+HUtil.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1041,6 +1043,7 @@
 				A2B4308623823F3400795605 /* Error+HUtil.swift */,
 				A26D43182383E23300F457AE /* NSString+HUtil.swift */,
 				A2A814D6275007EB00FAB929 /* NSString+HSize.swift */,
+				EBD0FB8929D5668E00808EDA /* CALayer+HUtil.swift */,
 				A26D432423852DB700F457AE /* NSDate+HUtil.swift */,
 				A26D432623853F2900F457AE /* NSObject+HMessy.swift */,
 				A26D432A23856F8900F457AE /* NSTimer+HUtil.swift */,
@@ -1692,6 +1695,7 @@
 				EBD0FB7929D02B9600808EDA /* HDefaultsCore.swift in Sources */,
 				A2A814BA274CCC1800FAB929 /* HPresentationController.swift in Sources */,
 				A2B4308F2382CC8A00795605 /* UIDevice+HUtil.swift in Sources */,
+				EBD0FB8A29D5668E00808EDA /* CALayer+HUtil.swift in Sources */,
 				EB43241229C2EB3F00EDDB64 /* NSObject+HLanguage.swift in Sources */,
 				A229488E239756770058B939 /* HTableBaseApex.swift in Sources */,
 				A22948B1239798960058B939 /* HMainController4.swift in Sources */,
