@@ -169,7 +169,7 @@ extension UILabel {
         if !text.isEmpty {
             let textSize = text.size(withFont: self.font, width: self.width)
             self.frame.size.height = textSize.height
-            self.attributedText = NSAttributedString(string: text)
+            self.attributedText = text.attributedString(withFont: self.font)
         }
     }
     //自适应宽
@@ -178,7 +178,7 @@ extension UILabel {
         if !text.isEmpty {
             let textSize = text.size(withFont: self.font, height: self.height)
             self.frame.size.width = textSize.width
-            self.attributedText = NSAttributedString(string: text)
+            self.attributedText = text.attributedString(withFont: self.font)
         }
     }
     //自适应大小
@@ -186,7 +186,7 @@ extension UILabel {
         let text = self.text ?? ""
         if !text.isEmpty {
             self.frame.size = text.size(withFont: self.font, height: self.height)
-            self.attributedText = NSAttributedString(string: text)
+            self.attributedText = text.attributedString(withFont: self.font)
         }
     }
 }
