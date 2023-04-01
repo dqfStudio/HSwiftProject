@@ -165,11 +165,28 @@ class HTupleBaseCell : UICollectionViewCell {
         return frame
     }
     
+    private var _activity: UIActivityIndicatorView?
+    var activity: UIActivityIndicatorView {
+        if _activity == nil {
+            if #available(iOS 13.0, *) {
+                _activity = UIActivityIndicatorView(style: .medium)
+            } else {
+                // Fallback on earlier versions
+            }
+            _activity!.x = (self.width - _activity!.width) / 2
+            _activity!.y = (self.height - _activity!.height) / 2
+            self.addSubview(_activity!)
+        }
+        return _activity!
+    }
+    
     func HLayoutTupleCell(_ v: UIView) {
         let frame: CGRect = self.layoutViewBounds
         if v.frame != frame {
             v.frame = frame
         }
+        _activity?.x = (self.width - (_activity?.width ?? 0)) / 2
+        _activity?.y = (self.height - (_activity?.height ?? 0)) / 2
     }
 
     deinit {
