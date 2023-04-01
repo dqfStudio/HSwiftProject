@@ -83,7 +83,9 @@ public extension NSMutableAttributedString {
     }
     // 字体
     func font(_ font: UIFont) -> NSMutableAttributedString {
-        self.addAttributes([.font:font], range: self.allRange())
+        let attributes = NSObject.attributes(withFont: font)
+        self.addAttributes(attributes, range: self.allRange())
+        //self.addAttributes([.font:font], range: self.allRange())
         return self
     }
     // 系统字体大小
@@ -99,14 +101,90 @@ public extension NSMutableAttributedString {
         self.addAttribute(.paragraphStyle, value: style, range: self.allRange())
         return self
     }
+    
+    // 文字省略方式
+    func lineBreakMode(_ lineBreakMode: NSLineBreakMode) -> NSMutableAttributedString {
+        let style = NSMutableParagraphStyle()
+        style.lineBreakMode = lineBreakMode
+        self.addAttribute(.paragraphStyle, value: style, range: self.allRange())
+        return self
+    }
+    
     func toActionString() -> HActionString {
         return HActionString(attributeText: self)
     }
+    
 }
 
+extension String {
+    func attribute() -> NSMutableAttributedString {
+        return NSMutableAttributedString(string: self)
+    }
+    //计算文字的大小
+    func size(withFont font: UIFont, width: CGFloat = CGFloat.greatestFiniteMagnitude, height: CGFloat = CGFloat.greatestFiniteMagnitude) -> CGSize {
+        let attributes = NSObject.attributes(withFont: font)
+        var textSize = CGSize(width: width, height: height)
+        textSize = self.boundingRect(with: textSize,
+                                     options: .usesLineFragmentOrigin,
+                                     attributes: attributes,
+                                     context: nil).size
+        return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
+    }
+}
 
+extension NSObject {
+    /**
+     *  @brief 根据字体获取符合本项目的相关字体属性
+     *
+     *  @param font   字体
+     */
+    static func attributes(withFont font: UIFont) -> [NSAttributedString.Key : Any] {
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = NSObject.lineHeight(withFont: font)
+        style.lineBreakMode = .byWordWrapping
+        return [NSAttributedString.Key.font : font,
+                NSAttributedString.Key.paragraphStyle : style]
 
+    }
+    /**
+     *  获取本项目的行高度
+     */
+    static func lineHeight(withFont font: UIFont) -> CGFloat {
+        
+        //行间距
+        var lineSpace = 14.0
+        
+        switch (font.pointSize) {
+        case 9, 10:
+            lineSpace = 14.0
+            break
+        case 12:
+            lineSpace = 18.0
+            break
+        case 13:
+            lineSpace = 20.0
+            break
+        case 14:
+            lineSpace = 22.0
+            break
+        case 16:
+            lineSpace = 24.0
+            break
+        case 17:
+            lineSpace = 26.0
+            break
+        case 24:
+            lineSpace = 34.0
+            break
+        default:
+            break
+        }
+        return lineSpace / 6
+    }
+}
 
-
-
-
+extension UIFont {
+    class func font(ofSize fontSize: CGFloat, weight: UIFont.Weight) -> UIFont {
+        return UIFont.systemFont(ofSize: fontSize, weight: weight)
+    }
+}
