@@ -23,6 +23,7 @@ extension CALayer {
             let rect = bounds.insetBy(dx: dx, dy: dx)
             shadowPath = UIBezierPath(rect: rect).cgPath
         }
+        masksToBounds = false
         return self
     }
     @discardableResult
