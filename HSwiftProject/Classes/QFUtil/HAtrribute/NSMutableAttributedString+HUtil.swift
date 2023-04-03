@@ -83,9 +83,9 @@ public extension NSMutableAttributedString {
     }
     // 字体
     func font(_ font: UIFont) -> NSMutableAttributedString {
-        let attributes = NSObject.attributes(withFont: font)
-        self.addAttributes(attributes, range: self.allRange())
-        //self.addAttributes([.font:font], range: self.allRange())
+        //let attributes = NSObject.attributes(withFont: font)
+        //self.addAttributes(attributes, range: self.allRange())
+        self.addAttributes([.font:font], range: self.allRange())
         return self
     }
     // 系统字体大小
