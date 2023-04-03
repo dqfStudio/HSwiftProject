@@ -1520,7 +1520,7 @@ extension HTupleView {
     }
 
     ///获取某个section的宽高和大小
-    func widthForSection(_ section: Int) -> CGFloat {
+    func width(forSection section: Int) -> CGFloat {
         var width: CGFloat = self.width
         let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
         if edgeInsetsString != nil, edgeInsetsString!.length > 0 {
@@ -1530,7 +1530,7 @@ extension HTupleView {
         return width
     }
 
-    func heighForSection(_ section: Int) -> CGFloat {
+    func heigh(forSection section: Int) -> CGFloat {
         var height: CGFloat = self.height
         let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
         if edgeInsetsString != nil, edgeInsetsString!.length > 0 {
@@ -1540,7 +1540,7 @@ extension HTupleView {
         return height
     }
     
-    func sizeForSection(_ section: Int) -> CGSize {
+    func size(forSection section: Int) -> CGSize {
         var size: CGSize = self.size
         let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
         if edgeInsetsString != nil, edgeInsetsString!.length > 0 {
@@ -1552,7 +1552,7 @@ extension HTupleView {
     }
 
     ///根据传入的个数和序号计算该item的宽度
-    func fixSlitWith(_ width: CGFloat, colCount: Int, index: Int) -> CGFloat {
+    func fixSlit(withWidth width: CGFloat, colCount: Int, index: Int) -> CGFloat {
         let itemWidth: CGFloat = width / CGFloat(colCount)
         var realItemWidth: CGFloat = CGFloat(floorf(Float(itemWidth)))
         let idxCount: Int = colCount - 1

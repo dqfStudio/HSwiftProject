@@ -34,25 +34,25 @@ class HMainController1: HTupleController {
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         switch indexPath.row {
         case 0:
-            return CGSize(width: self.tupleView.widthForSection(indexPath.section), height: 65)
+            return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: 65)
         case 1:
-            return CGSize(width: self.tupleView.widthForSection(indexPath.section), height: 65)
+            return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: 65)
         case 2:
-            return CGSize(width: self.tupleView.widthForSection(indexPath.section), height: 65)
+            return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: 65)
         case 3:
-            var width: CGFloat = self.tupleView.widthForSection(indexPath.section)
-            width = self.tupleView.fixSlitWith(width, colCount: 3, index: indexPath.row - 3)
+            var width: CGFloat = self.tupleView.width(forSection: indexPath.section)
+            width = self.tupleView.fixSlit(withWidth: width, colCount: 3, index: indexPath.row - 3)
             return CGSize(width: width, height: 120)
         case 4:
-            var width: CGFloat = self.tupleView.widthForSection(indexPath.section)
-            width = self.tupleView.fixSlitWith(width, colCount: 3, index: indexPath.row - 3)
+            var width: CGFloat = self.tupleView.width(forSection: indexPath.section)
+            width = self.tupleView.fixSlit(withWidth: width, colCount: 3, index: indexPath.row - 3)
             return CGSize(width: width, height: 120)
         case 5:
-            var width: CGFloat = self.tupleView.widthForSection(indexPath.section)
-            width = self.tupleView.fixSlitWith(width, colCount: 3, index: indexPath.row - 3)
+            var width: CGFloat = self.tupleView.width(forSection: indexPath.section)
+            width = self.tupleView.fixSlit(withWidth: width, colCount: 3, index: indexPath.row - 3)
             return CGSize(width: width, height: 120)
         default:
-            return CGSize(width: self.tupleView.widthForSection(indexPath.section), height: 65)
+            return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: 65)
         }
     }
     func edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {

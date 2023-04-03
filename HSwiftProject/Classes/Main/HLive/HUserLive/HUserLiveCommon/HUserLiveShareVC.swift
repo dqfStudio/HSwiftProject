@@ -95,7 +95,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
         return CGSize(width: self.tupleView.width, height: height)
     }
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return CGSize(width: self.tupleView.width / 4, height: KItemHeight)
+        return CGSize(width: self.tupleView.width / 4.0, height: KItemHeight)
     }
 
     func edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
