@@ -276,6 +276,10 @@
 		EBD0FB7A29D02B9600808EDA /* HUserCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB7729D02B9600808EDA /* HUserCore.swift */; };
 		EBD0FB8A29D5668E00808EDA /* CALayer+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB8929D5668E00808EDA /* CALayer+HUtil.swift */; };
 		EBD0FB9029DA786C00808EDA /* HInputBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB8F29DA786C00808EDA /* HInputBoxView.swift */; };
+		EBD0FB9229DA97C000808EDA /* HMainController6+UIExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB9129DA97C000808EDA /* HMainController6+UIExt.swift */; };
+		EBD0FB9E29DB00B300808EDA /* HMainController6+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB9D29DB00B300808EDA /* HMainController6+UI.swift */; };
+		EBD0FBA029DB00D100808EDA /* HMainController6+Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB9F29DB00D100808EDA /* HMainController6+Event.swift */; };
+		EBD0FBA229DB00DE00808EDA /* HMainController6+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -554,6 +558,10 @@
 		EBD0FB7729D02B9600808EDA /* HUserCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserCore.swift; sourceTree = "<group>"; };
 		EBD0FB8929D5668E00808EDA /* CALayer+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+HUtil.swift"; sourceTree = "<group>"; };
 		EBD0FB8F29DA786C00808EDA /* HInputBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HInputBoxView.swift; sourceTree = "<group>"; };
+		EBD0FB9129DA97C000808EDA /* HMainController6+UIExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+UIExt.swift"; sourceTree = "<group>"; };
+		EBD0FB9D29DB00B300808EDA /* HMainController6+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+UI.swift"; sourceTree = "<group>"; };
+		EBD0FB9F29DB00D100808EDA /* HMainController6+Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+Event.swift"; sourceTree = "<group>"; };
+		EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+Cell.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1086,6 +1094,10 @@
 				A22948B0239798960058B939 /* HMainController4.swift */,
 				A22948B2239798A30058B939 /* HMainController5.swift */,
 				A22948B4239798AF0058B939 /* HMainController6.swift */,
+				EBD0FB9D29DB00B300808EDA /* HMainController6+UI.swift */,
+				EBD0FB9129DA97C000808EDA /* HMainController6+UIExt.swift */,
+				EBD0FB9F29DB00D100808EDA /* HMainController6+Event.swift */,
+				EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */,
 				EBC8140E29AA52FE00A81431 /* HMultiMedia */,
 				A2418C662744F15E005C8125 /* HLive */,
 			);
@@ -1678,6 +1690,7 @@
 				EBD0FB1A29CC366D00808EDA /* HAuthorizeManager.swift in Sources */,
 				A286251623EAB8DD00E81781 /* HCountDownButton.swift in Sources */,
 				EBD0FB6C29D02B1000808EDA /* HDefaultsCore+Extern.swift in Sources */,
+				EBD0FB9E29DB00B300808EDA /* HMainController6+UI.swift in Sources */,
 				A28A022D23EE6BA6000556A2 /* HMarquee.swift in Sources */,
 				A265DA032394B24C001F39B0 /* HTabBarController.swift in Sources */,
 				A2A814BC274D694E00FAB929 /* UIViewController+HAnimation.swift in Sources */,
@@ -1746,6 +1759,7 @@
 				A2B43071237FF2B100795605 /* Swifty.m in Sources */,
 				EBD0FB2329CC739A00808EDA /* HDrawerViewController.swift in Sources */,
 				A22948AB2397986C0058B939 /* HMainController3+HSection0.swift in Sources */,
+				EBD0FBA229DB00DE00808EDA /* HMainController6+Cell.swift in Sources */,
 				A28A022623EE55EB000556A2 /* HTextLoopView.swift in Sources */,
 				A2B43073237FF2B100795605 /* HCommonDefine.swift in Sources */,
 				A2B42FCC237CED5A00795605 /* AppDelegate.swift in Sources */,
@@ -1755,6 +1769,7 @@
 				EBD0FB6B29D02B1000808EDA /* HUserStore.swift in Sources */,
 				EBD0FB3629CCA34800808EDA /* HLocalNotification.swift in Sources */,
 				A26D43412386CD9000F457AE /* NSTimer+HSafeUtil.swift in Sources */,
+				EBD0FBA029DB00D100808EDA /* HMainController6+Event.swift in Sources */,
 				A2A814B2274C081B00FAB929 /* HTransitionHeader.swift in Sources */,
 				A28A022823EE62D6000556A2 /* HTupleViewTextLoopCell.swift in Sources */,
 				A28B652123FD215500B6B638 /* HNetworkDAO.swift in Sources */,
@@ -1775,6 +1790,7 @@
 				A265DA012392A2B3001F39B0 /* UIViewController+HTab.swift in Sources */,
 				EBD0FB0629CA011400808EDA /* HVersionManager.swift in Sources */,
 				A2B43076237FF2B100795605 /* UIWindow+HPrinter.swift in Sources */,
+				EBD0FB9229DA97C000808EDA /* HMainController6+UIExt.swift in Sources */,
 				A26D432523852DB700F457AE /* NSDate+HUtil.swift in Sources */,
 				A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */,
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,
