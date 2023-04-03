@@ -83,14 +83,21 @@ public extension NSMutableAttributedString {
     }
     // 字体
     func font(_ font: UIFont) -> NSMutableAttributedString {
-        //let attributes = NSObject.attributes(withFont: font)
-        //self.addAttributes(attributes, range: self.allRange())
-        self.addAttributes([.font:font], range: self.allRange())
+        let attributes = NSObject.attributes(withFont: font)
+        self.addAttributes(attributes, range: self.allRange())
+        //self.addAttributes([.font:font], range: self.allRange())
         return self
     }
     // 系统字体大小
     func fontSize(_ size: CGFloat) -> NSMutableAttributedString {
         self.addAttributes([.font:UIFont.systemFont(ofSize: size)], range: self.allRange())
+        return self
+    }
+    // 对齐方式
+    func alignment(_ alignment: NSTextAlignment) -> NSMutableAttributedString {
+        let style = NSMutableParagraphStyle()
+        style.alignment = alignment
+        self.addAttribute(.paragraphStyle, value: style, range: self.allRange())
         return self
     }
     // 行间距
@@ -179,7 +186,10 @@ extension NSObject {
         default:
             break
         }
-        return lineSpace / 6
+        
+        lineSpace -= font.lineHeight - font.pointSize
+        
+        return lineSpace
     }
 }
 
