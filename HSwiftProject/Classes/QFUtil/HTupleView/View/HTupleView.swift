@@ -1364,16 +1364,17 @@ extension HTupleView {
     }
     
     ///给tupleView发送信号
-    func signalToTupleView(_ signal: HTupleSignal?) {
+    func signalToTupleView(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
         if self.signalBlock != nil {
             DispatchQueue.main.async { [weak self] in
                 self!.signalBlock!(self!, signal)
+                completion()
             }
         }
     }
 
     ///给所有item、某个section下的item或单独某个item发送信号
-    func signalToAllItems(_ signal: HTupleSignal?) {
+    func signalToAllItems(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
         DispatchQueue.main.async { [weak self] in
             for object in self!.allReuseCells.objectEnumerator()!.allObjects {
                 let cell = object as? HTupleBaseCell
@@ -1381,10 +1382,11 @@ extension HTupleView {
                     cell!.signalBlock!(cell!, signal)
                 }
             }
+            completion()
         }
     }
 
-    func signal(_ signal: HTupleSignal?, itemSection section: Int) {
+    func signal(_ signal: HTupleSignal?, itemSection section: Int, _ completion: @escaping () -> Void) {
         DispatchQueue.main.async { [weak self] in
             let items = self!.numberOfItems(inSection: section)
             for i in 0..<items {
@@ -1393,58 +1395,64 @@ extension HTupleView {
                     cell!.signalBlock!(cell!, signal)
                 }
             }
+            completion()
         }
     }
 
-    func signal(_ signal: HTupleSignal?, toRow row: Int, inSection section: Int) {
+    func signal(_ signal: HTupleSignal?, toRow row: Int, inSection section: Int, _ completion: @escaping () -> Void) {
         let cell = self.allReuseCells.object(forKey: indexPath(row, section).stringValue as NSString) as? HTupleBaseCell
         if cell != nil, cell!.signalBlock != nil {
             DispatchQueue.main.async { [weak cell] in
                 cell!.signalBlock!(cell!, signal)
+                completion()
             }
         }
     }
 
     ///给所有header或单独某个header发送信号
-    func signalToAllHeader(_ signal: HTupleSignal?) {
+    func signalToAllHeader(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
         DispatchQueue.main.async { [weak self] in
             let sections = self!.numberOfSections
             for i in 0..<sections {
-                let header = self!.allReuseCells.object(forKey: IndexPath.stringValue(0, i) as NSString) as? HTupleBaseApex
+                let header = self!.allReuseHeaders.object(forKey: IndexPath.stringValue(0, i) as NSString) as? HTupleBaseApex
                 if header != nil, header!.signalBlock != nil {
                     header!.signalBlock!(header!, signal)
                 }
             }
+            completion()
         }
     }
 
-    func signal(_ signal: HTupleSignal?, headerSection section: Int) {
-        let header = self.allReuseCells.object(forKey: IndexPath.stringValue(0, section) as NSString) as? HTupleBaseApex
+    func signal(_ signal: HTupleSignal?, headerSection section: Int, _ completion: @escaping () -> Void) {
+        let header = self.allReuseHeaders.object(forKey: IndexPath.stringValue(0, section) as NSString) as? HTupleBaseApex
         if header != nil, header!.signalBlock != nil {
             DispatchQueue.main.async { [weak header] in
                 header!.signalBlock!(header!, signal)
+                completion()
             }
         }
     }
 
     ///给所有footer或单独某个footer发送信号
-    func signalToAllFooter(_ signal: HTupleSignal?) {
+    func signalToAllFooter(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
         DispatchQueue.main.async { [weak self] in
             let sections = self!.numberOfSections
             for i in 0..<sections {
-                let footer = self!.allReuseCells.object(forKey: IndexPath.stringValue(0, i) as NSString) as? HTupleBaseApex
+                let footer = self!.allReuseFooters.object(forKey: IndexPath.stringValue(0, i) as NSString) as? HTupleBaseApex
                 if footer != nil, footer!.signalBlock != nil {
                     footer!.signalBlock!(footer!, signal)
                 }
             }
+            completion()
         }
     }
 
-    func signal(_ signal: HTupleSignal?, footerSection section: Int) {
-        let footer = self.allReuseCells.object(forKey: IndexPath.stringValue(0, section) as NSString) as? HTupleBaseApex
+    func signal(_ signal: HTupleSignal?, footerSection section: Int, _ completion: @escaping () -> Void) {
+        let footer = self.allReuseFooters.object(forKey: IndexPath.stringValue(0, section) as NSString) as? HTupleBaseApex
         if footer != nil, footer!.signalBlock != nil {
             DispatchQueue.main.async { [weak footer] in
                 footer!.signalBlock!(footer!, signal)
+                completion()
             }
         }
     }
