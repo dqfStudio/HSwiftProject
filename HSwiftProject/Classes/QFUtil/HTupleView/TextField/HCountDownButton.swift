@@ -2,7 +2,7 @@
 //  HCountDownButton.swift
 //  HSwiftProject
 //
-//  Created by wind on 2020/2/5.
+//  Created by Wind on 2020/2/5.
 //  Copyright © 2020 wind. All rights reserved.
 //
 

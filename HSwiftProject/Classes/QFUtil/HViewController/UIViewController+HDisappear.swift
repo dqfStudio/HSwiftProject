@@ -2,7 +2,7 @@
 //  UIViewController+HDisappear.swift
 //  HSwiftProject
 //
-//  Created by wind on 2019/11/21.
+//  Created by Wind on 2019/11/21.
 //  Copyright © 2019 wind. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  NSObject+HLanguage.swift
 //  HSwiftProject
 //
-//  Created by owner on 2023/3/16.
+//  Created by Wind on 2023/3/16.
 //  Copyright © 2023 wind. All rights reserved.
 //
 

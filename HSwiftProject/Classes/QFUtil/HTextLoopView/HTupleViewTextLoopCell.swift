@@ -2,7 +2,7 @@
 //  HTupleViewTextLoopCell.swift
 //  HSwiftProject
 //
-//  Created by wind on 2020/2/8.
+//  Created by Wind on 2020/2/8.
 //  Copyright © 2020 wind. All rights reserved.
 //
 

@@ -2,7 +2,7 @@
 //  HTableSignal.swift
 //  HSwiftProject
 //
-//  Created by wind on 2019/12/3.
+//  Created by Wind on 2019/12/3.
 //  Copyright © 2019 wind. All rights reserved.
 //
 

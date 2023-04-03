@@ -2,7 +2,7 @@
 //  UIView+HExtension.swift
 //  HSwiftProject
 //
-//  Created by wind on 2020/2/21.
+//  Created by Wind on 2020/2/21.
 //  Copyright © 2020 wind. All rights reserved.
 //
 

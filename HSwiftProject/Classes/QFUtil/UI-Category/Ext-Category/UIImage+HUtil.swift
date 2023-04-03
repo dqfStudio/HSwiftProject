@@ -2,7 +2,7 @@
 //  UIImage+HUtil.swift
 //  HSwiftProject
 //
-//  Created by owner on 2023/3/18.
+//  Created by Wind on 2023/3/18.
 //  Copyright © 2023 wind. All rights reserved.
 //
 

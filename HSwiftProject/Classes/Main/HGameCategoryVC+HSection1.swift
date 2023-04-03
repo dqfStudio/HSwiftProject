@@ -2,7 +2,7 @@
 //  HGameCategoryVC+HSection1.swift
 //  HSwiftProject
 //
-//  Created by wind on 2019/11/28.
+//  Created by Wind on 2019/11/28.
 //  Copyright © 2019 wind. All rights reserved.
 //
 

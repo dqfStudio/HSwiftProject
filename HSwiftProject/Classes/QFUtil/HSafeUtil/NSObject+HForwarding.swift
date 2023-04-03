@@ -2,7 +2,7 @@
 //  NSObject+HForwarding.swift
 //  HSwiftProject
 //
-//  Created by wind on 2019/11/22.
+//  Created by Wind on 2019/11/22.
 //  Copyright © 2019 wind. All rights reserved.
 //
 

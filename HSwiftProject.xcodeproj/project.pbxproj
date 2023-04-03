@@ -275,6 +275,7 @@
 		EBD0FB7929D02B9600808EDA /* HDefaultsCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB7629D02B9600808EDA /* HDefaultsCore.swift */; };
 		EBD0FB7A29D02B9600808EDA /* HUserCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB7729D02B9600808EDA /* HUserCore.swift */; };
 		EBD0FB8A29D5668E00808EDA /* CALayer+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB8929D5668E00808EDA /* CALayer+HUtil.swift */; };
+		EBD0FB9029DA786C00808EDA /* HInputBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB8F29DA786C00808EDA /* HInputBoxView.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -552,6 +553,7 @@
 		EBD0FB7629D02B9600808EDA /* HDefaultsCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HDefaultsCore.swift; sourceTree = "<group>"; };
 		EBD0FB7729D02B9600808EDA /* HUserCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserCore.swift; sourceTree = "<group>"; };
 		EBD0FB8929D5668E00808EDA /* CALayer+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+HUtil.swift"; sourceTree = "<group>"; };
+		EBD0FB8F29DA786C00808EDA /* HInputBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HInputBoxView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1137,6 +1139,7 @@
 				EB4323F529B9AF7200EDDB64 /* HWaitingView.swift */,
 				EB4323F129B98BE300EDDB64 /* UIAlertController+HUtil.swift */,
 				EB43240C29C1B70400EDDB64 /* UIView+HAlert.swift */,
+				EBD0FB8F29DA786C00808EDA /* HInputBoxView.swift */,
 			);
 			path = HResultView;
 			sourceTree = "<group>";
@@ -1780,6 +1783,7 @@
 				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue1.swift in Sources */,
 				A265D9FB2390B8EB001F39B0 /* HTabItem.swift in Sources */,
 				EBD0FB3E29CD4DE100808EDA /* AppDelegate+UserService.swift in Sources */,
+				EBD0FB9029DA786C00808EDA /* HInputBoxView.swift in Sources */,
 				A28DF9BA23FF77350065418F /* HCollectionViewCell.swift in Sources */,
 				EB4323F629B9AF7200EDDB64 /* HWaitingView.swift in Sources */,
 				EB43240929B9F47600EDDB64 /* HProgressHUD.swift in Sources */,

@@ -2,7 +2,7 @@
 //  HTableRefresh.swift
 //  HSwiftProject
 //
-//  Created by wind on 2019/12/25.
+//  Created by Wind on 2019/12/25.
 //  Copyright © 2019 wind. All rights reserved.
 //
 

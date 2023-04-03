@@ -2,7 +2,7 @@
 //  HMainController6.swift
 //  HSwiftProject
 //
-//  Created by wind on 2019/12/4.
+//  Created by Wind on 2019/12/4.
 //  Copyright © 2019 wind. All rights reserved.
 //
 
