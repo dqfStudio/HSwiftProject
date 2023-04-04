@@ -169,7 +169,7 @@ private extension NSDecimalNumber {
 
 class HNumberFormatter: NSObject {
     //默认roundingMode == roundDown
-    var  roundingMode: HNumberFormatterRoundingMode = .roundDown
+    var roundingMode: HNumberFormatterRoundingMode = .roundDown
     //保留几位小数，默认保留两位小数，即afterPoint == 2
     var afterPoint: NSInteger = 2
     //是否强制保留afterPoint位小数，默认为YES
