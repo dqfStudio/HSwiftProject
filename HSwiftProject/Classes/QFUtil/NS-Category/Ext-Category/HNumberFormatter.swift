@@ -1,12 +1,19 @@
 //
-//  HNumberFormatter.swift
+//  HNumberFormatter1.swift
 //  HSwiftProject
 //
-//  Created by Wind on 2023/2/27.
-//  Copyright © 2023 wind. All rights reserved.
+//  Created by Wind on 2021/11/14.
+//  Copyright © 2019 wind. All rights reserved.
 //
 
 import Foundation
+
+// value           1.2  1.21  1.25  1.35  1.27
+
+// NSRoundPlain    1.2  1.2   1.3   1.4   1.3
+// NSRoundDown     1.2  1.2   1.2   1.3   1.2
+// NSRoundUp       1.2  1.3   1.3   1.4   1.3
+// NSRoundBankers  1.2  1.2   1.2   1.4   1.3
 
 enum HNumberFormatterRoundingMode: Int {
     case roundCeiling = 0
@@ -27,35 +34,26 @@ private enum HOperationMode: Int {
 }
 
 private extension NSDecimalNumber {
-    ////清除某些特定符号，是对数据的一种容错处理
+    //清除某些特定符号，是对数据的一种容错处理
     static func clear(symbol: String, withText text: String) -> String {
-        if !text.isKind(of: NSString.self) {
-            return ""
-        }
         do {
             let regularExpress: NSRegularExpression = try NSRegularExpression(pattern: symbol, options: .caseInsensitive)
-            return regularExpress.stringByReplacingMatches(in: text, options: .reportProgress, range: NSRange(location: 0, length: text.length), withTemplate: "")
+            return regularExpress.stringByReplacingMatches(in: text, options: .reportProgress, range: NSRange(location: 0, length: text.count), withTemplate: "")
         }catch {
-
+            return ""
         }
-        return ""
     }
     //判断是否只有特定符号
     static func isOnlyNumeric(withText text: String) -> Bool {
-        if !text.isKind(of: NSString.self) {
-            return false
-        }
         //let regex = "(?=.*[0-9])([0-9+-.,R$￥₫₹])+$"//可以是0-9、+-.,号以及美国 中国 越南 印度等国货币符号，但必须有一位数字
         //let regex = "(?=.*[0-9])([0-9.,])+$"//可以是0-9以及".,"，但必须有一位数字
         let regex = "(?=.*[0-9])([0-9+-.,KMBT￥R$₫₹])+$"//可以是0-9、+-.,号以及美国 中国 越南 印度等国货币符号，但必须有一位数字
         return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: text)
     }
-    static func unFormatter(_ numberObjc:  Any) -> String {
+    //去格式化
+    static func unFormatter(withText text: String) -> String {
 
-        var stringValue = numberObjc as! String
-        if (numberObjc as AnyObject).isKind(of: NSNumber.self) {
-            stringValue = (numberObjc as AnyObject).stringValue
-        }
+        var stringValue = text
 
         //容错处理
         stringValue = stringValue.replacingOccurrences(of: "。", with: ".")
@@ -69,7 +67,7 @@ private extension NSDecimalNumber {
             //不管地区，小数分隔符全部处理成点号
             /*
              let regionArr = ["VN", "BR"]
-             if regionArr.containsObject([HUserRegion defaultRegion].regionCode) {
+             if regionArr.containsObject(HUserRegion.defaultRegion.regionCode) {
                  stringValue = NSDecimalNumber.clear(symbol: "[.]", withText: stringValue)
                  stringValue = stringValue.replacingOccurrences(of: ",", with: ".")
              }else {
@@ -106,72 +104,66 @@ private extension NSDecimalNumber {
 
             stringValue = stringValue.replacingOccurrences(of: appendString, with: "")
 
-            var selfNumber: NSDecimalNumber = NSDecimalNumber(string: stringValue)
-            let decimalNumber: NSDecimalNumber = NSDecimalNumber(string: multiplyingString)
+            var selfNumber = NSDecimalNumber(string: stringValue)
+            let decimalNumber = NSDecimalNumber(string: multiplyingString)
             selfNumber = selfNumber.multiplying(by: decimalNumber)
 
             stringValue = selfNumber.stringValue
 
             //根据地区显示正确的小数分隔符
             /*
-             stringValue = stringValue.replacingOccurrences(of: ".", with: [HUserRegion defaultRegion].decimalSeparator)
+             stringValue = stringValue.replacingOccurrences(of: ".", with: HUserRegion.defaultRegion.decimalSeparator)
              */
 
             return stringValue
 
         }
 
-        if (numberObjc as AnyObject).isKind(of: NSNumber.self) {
-            stringValue = (numberObjc as AnyObject).stringValue
-        }else {
-            stringValue = numberObjc as! String
-        }
-
         return stringValue
     }
     //主动操作数据调用
-    static func activeDecimalNumberWithObjcValue(_ objcValue: Any, operationMode mode: HOperationMode) -> NSDecimalNumber {
-        return NSDecimalNumber.decimalNumberWithObjcValue(objcValue, active: true, operationMode: mode)
+    static func activeNumber(withText text: String, operationMode mode: HOperationMode) -> NSDecimalNumber {
+        return NSDecimalNumber.decimalNumber(withText: text, active: true, operationMode: mode)
     }
     //被动操作数据调用
-    static func unactiveDecimalNumberWithObjcValue(_ objcValue: Any, operationMode mode: HOperationMode) -> NSDecimalNumber {
-        return NSDecimalNumber.decimalNumberWithObjcValue(objcValue, active: false, operationMode: mode)
+    static func unactiveNumber(withText text: String, operationMode mode: HOperationMode) -> NSDecimalNumber {
+        return NSDecimalNumber.decimalNumber(withText: text, active: false, operationMode: mode)
     }
     //objcValue为NSString或NSNumber类型
-    static func decimalNumberWithObjcValue(_ objcValue: Any, active: Bool, operationMode mode: HOperationMode) -> NSDecimalNumber {
-        let objcStringValue: String = NSDecimalNumber.unFormatter(objcValue)
-        if self.isOnlyNumeric(withText: objcStringValue) {
-            return NSDecimalNumber(string: objcStringValue)
+    static func decimalNumber(withText text: String, active: Bool, operationMode mode: HOperationMode) -> NSDecimalNumber {
+        let objcValue = NSDecimalNumber.unFormatter(withText: text)
+        if self.isOnlyNumeric(withText: objcValue) {
+            return NSDecimalNumber(string: objcValue)
         }
         switch (mode) {
         case .adding:
             if active {
-                return NSDecimalNumber(string: "0")
+                return NSDecimalNumber.zero
             }else {
-                return NSDecimalNumber(string: "0")
+                return NSDecimalNumber.zero
             }
         case .subtracting:
             if active {
-                return NSDecimalNumber(string: "0")
+                return NSDecimalNumber.zero
             }else {
-                return NSDecimalNumber(string: "0")
+                return NSDecimalNumber.zero
             }
         case .multiplying:
             if active {
-                return NSDecimalNumber(string: "1")
+                return NSDecimalNumber.one
             }else {
-                return NSDecimalNumber(string: "1")
+                return NSDecimalNumber.one
             }
         case .dividing:
             if active {
-                return NSDecimalNumber(string: "0")
+                return NSDecimalNumber.zero
             }else {
-                return NSDecimalNumber(string: "1")
+                return NSDecimalNumber.one
             }
         default:
             break
         }
-        return NSDecimalNumber(string: "1")
+        return NSDecimalNumber.one
     }
 
 }
@@ -202,9 +194,9 @@ class HNumberFormatter: NSObject {
                 NumberFormatter.RoundingMode.halfUp]
     }()
 
-    func numberObjc(_ numberObjc: Any, roundingMode mode: NumberFormatter.RoundingMode, afterPoint: Int, pointZero: Bool, grouping: Bool, prefix: Bool, symbol: String?, conversion: Bool) -> String {
+    func object(_ objc: String, roundingMode mode: NumberFormatter.RoundingMode, afterPoint: Int, pointZero: Bool, grouping: Bool, prefix: Bool, symbol: String?, conversion: Bool) -> String {
 
-        var decimalNumber = NSDecimalNumber.activeDecimalNumberWithObjcValue(numberObjc, operationMode: .undefine)
+        var decimalNumber = NSDecimalNumber.activeNumber(withText: objc, operationMode: .undefine)
         let numberFormatter = NumberFormatter()
         numberFormatter.roundingMode = mode
         numberFormatter.maximumFractionDigits = afterPoint
@@ -214,7 +206,7 @@ class HNumberFormatter: NSObject {
         if (grouping) {
             numberFormatter.usesGroupingSeparator = grouping
             /*
-             numberFormatter.groupingSeparator = [HUserRegion defaultRegion].groupingSeparator
+             numberFormatter.groupingSeparator = HUserRegion.defaultRegion.groupingSeparator
              */
 
             numberFormatter.groupingSeparator = ","
@@ -222,7 +214,7 @@ class HNumberFormatter: NSObject {
         }
         //小数分隔符，默认为"."
         /*
-         numberFormatter.decimalSeparator = [HUserRegion defaultRegion].decimalSeparator
+         numberFormatter.decimalSeparator = HUserRegion.defaultRegion.decimalSeparator
          */
 
         numberFormatter.decimalSeparator = "."
@@ -246,21 +238,15 @@ class HNumberFormatter: NSObject {
         //判断是否要金额缩写
         if conversion {
 
-            var tmpString: String
-            if (numberObjc as AnyObject).isKind(of: NSNumber.self) {
-                tmpString = (numberObjc as! NSNumber).stringValue
-            }else {
-                tmpString = numberObjc as! String
-            }
             /*
-             let range = NSString(string: tmpString).range(of: [HUserRegion defaultRegion].decimalSeparator, options: String.CompareOptions.caseInsensitive)
+             let range = NSString(string: objc).range(of: HUserRegion.defaultRegion.decimalSeparator, options: String.CompareOptions.caseInsensitive)
              */
 
-            let range = NSString(string: tmpString).range(of: ".", options: String.CompareOptions.caseInsensitive)
-            
+            let range = NSString(string: objc).range(of: ".", options: String.CompareOptions.caseInsensitive)
+
             var length = range.location
             if range.location == NSNotFound {
-                length = tmpString.length
+                length = objc.length
             }
 
             var appendString = ""
@@ -281,7 +267,7 @@ class HNumberFormatter: NSObject {
                 dividendString = "1000"
             }
             //除以相关位数
-            decimalNumber = decimalNumber.dividingBy(NSDecimalNumber(string: dividendString))
+            decimalNumber = decimalNumber.dividing(by: NSDecimalNumber(string: dividendString))
             //正后缀和负后缀
             numberFormatter.positiveSuffix = appendString
             numberFormatter.negativeSuffix = appendString
@@ -292,41 +278,41 @@ class HNumberFormatter: NSObject {
 
 }
 
-extension NSNumber {
+extension String {
     //加，value为NSString或NSNumber类型
-    func addingBy(_ value: AnyObject) -> NSDecimalNumber {
-        let selfNumber: NSDecimalNumber = NSDecimalNumber.activeDecimalNumberWithObjcValue(self, operationMode: .adding)
-        let decimalNumber: NSDecimalNumber = NSDecimalNumber.unactiveDecimalNumberWithObjcValue(value, operationMode: .adding)
-        return selfNumber.adding(decimalNumber)
+    func addingBy(_ value: String) -> NSDecimalNumber {
+        let activeNumber = NSDecimalNumber.activeNumber(withText: self, operationMode: .adding)
+        let unactiveNumber = NSDecimalNumber.unactiveNumber(withText: value, operationMode: .adding)
+        return activeNumber.adding(unactiveNumber)
     }
     //减，value为NSString或NSNumber类型
-    func subtractingBy(_ value: AnyObject) -> NSDecimalNumber {
-        let selfNumber: NSDecimalNumber = NSDecimalNumber.activeDecimalNumberWithObjcValue(self, operationMode: .subtracting)
-        let decimalNumber: NSDecimalNumber = NSDecimalNumber.unactiveDecimalNumberWithObjcValue(value, operationMode: .subtracting)
-        return selfNumber.subtracting(decimalNumber)
+    func subtractingBy(_ value: String) -> NSDecimalNumber {
+        let activeNumber = NSDecimalNumber.activeNumber(withText: self, operationMode: .subtracting)
+        let unactiveNumber = NSDecimalNumber.unactiveNumber(withText: value, operationMode: .subtracting)
+        return activeNumber.subtracting(unactiveNumber)
     }
     //乘，value为NSString或NSNumber类型
-    func multiplyingBy(_ value: AnyObject) -> NSDecimalNumber {
-        let selfNumber: NSDecimalNumber = NSDecimalNumber.activeDecimalNumberWithObjcValue(self, operationMode: .multiplying)
-        let decimalNumber: NSDecimalNumber = NSDecimalNumber.unactiveDecimalNumberWithObjcValue(value, operationMode: .multiplying)
-        return selfNumber.multiplying(by: decimalNumber)
+    func multiplyingBy(_ value: String) -> NSDecimalNumber {
+        let activeNumber = NSDecimalNumber.activeNumber(withText: self, operationMode: .multiplying)
+        let unactiveNumber = NSDecimalNumber.unactiveNumber(withText: value, operationMode: .multiplying)
+        return activeNumber.multiplying(by: unactiveNumber)
     }
     //除，value为NSString或NSNumber类型
-    func dividingBy(_ value: AnyObject) -> NSDecimalNumber {
-        let selfNumber: NSDecimalNumber = NSDecimalNumber.activeDecimalNumberWithObjcValue(self, operationMode: .dividing)
-        let decimalNumber: NSDecimalNumber = NSDecimalNumber.unactiveDecimalNumberWithObjcValue(value, operationMode: .dividing)
-        return selfNumber.dividing(by: decimalNumber)
+    func dividingBy(_ value: String) -> NSDecimalNumber {
+        let activeNumber = NSDecimalNumber.activeNumber(withText: self, operationMode: .dividing)
+        let unactiveNumber = NSDecimalNumber.unactiveNumber(withText: value, operationMode: .dividing)
+        return activeNumber.dividing(by: unactiveNumber)
     }
     //格式化
     func makeFormatter(_ make: (_ make: HNumberFormatter) -> Void) -> String {
         let formatter = HNumberFormatter()
         make(formatter)
         let modeNumber = formatter.formatterEnum[formatter.roundingMode.rawValue] as! NumberFormatter.RoundingMode
-        return formatter.numberObjc(self, roundingMode: modeNumber, afterPoint: formatter.afterPoint, pointZero: formatter.pointZero, grouping: formatter.grouping, prefix: formatter.prefix, symbol: formatter.symbol, conversion: formatter.conversion)
+        return formatter.object(self, roundingMode: modeNumber, afterPoint: formatter.afterPoint, pointZero: formatter.pointZero, grouping: formatter.grouping, prefix: formatter.prefix, symbol: formatter.symbol, conversion: formatter.conversion)
     }
     //去格式化
     func makeUnFormatter() -> String {
-        return NSDecimalNumber.unFormatter(self)
+        return NSDecimalNumber.unFormatter(withText: self)
     }
     //获取十进制金额数据
     func amountValue() -> String {
@@ -358,68 +344,45 @@ extension NSNumber {
     }
 }
 
-extension String {
+extension NSNumber {
     //加，value为NSString或NSNumber类型
-    func addingBy(_ value: AnyObject) -> NSDecimalNumber {
-        let selfNumber: NSDecimalNumber = NSDecimalNumber.activeDecimalNumberWithObjcValue(self, operationMode: .adding)
-        let decimalNumber: NSDecimalNumber = NSDecimalNumber.unactiveDecimalNumberWithObjcValue(value, operationMode: .adding)
-        return selfNumber.adding(decimalNumber)
+    func addingBy(_ value: NSNumber) -> NSDecimalNumber {
+        return self.stringValue.addingBy(value.stringValue)
     }
     //减，value为NSString或NSNumber类型
-    func subtractingBy(_ value: AnyObject) -> NSDecimalNumber {
-        let selfNumber: NSDecimalNumber = NSDecimalNumber.activeDecimalNumberWithObjcValue(self, operationMode: .subtracting)
-        let decimalNumber: NSDecimalNumber = NSDecimalNumber.unactiveDecimalNumberWithObjcValue(value, operationMode: .subtracting)
-        return selfNumber.subtracting(decimalNumber)
+    func subtractingBy(_ value: NSNumber) -> NSDecimalNumber {
+        return self.stringValue.subtractingBy(value.stringValue)
     }
     //乘，value为NSString或NSNumber类型
-    func multiplyingBy(_ value: AnyObject) -> NSDecimalNumber {
-        let selfNumber: NSDecimalNumber = NSDecimalNumber.activeDecimalNumberWithObjcValue(self, operationMode: .multiplying)
-        let decimalNumber: NSDecimalNumber = NSDecimalNumber.unactiveDecimalNumberWithObjcValue(value, operationMode: .multiplying)
-        return selfNumber.multiplying(by: decimalNumber)
+    func multiplyingBy(_ value: NSNumber) -> NSDecimalNumber {
+        return self.stringValue.multiplyingBy(value.stringValue)
     }
     //除，value为NSString或NSNumber类型
-    func dividingBy(_ value: AnyObject) -> NSDecimalNumber {
-        let selfNumber: NSDecimalNumber = NSDecimalNumber.activeDecimalNumberWithObjcValue(self, operationMode: .dividing)
-        let decimalNumber: NSDecimalNumber = NSDecimalNumber.unactiveDecimalNumberWithObjcValue(value, operationMode: .dividing)
-        return selfNumber.dividing(by: decimalNumber)
+    func dividingBy(_ value: NSNumber) -> NSDecimalNumber {
+        return self.stringValue.dividingBy(value.stringValue)
     }
     //格式化
     func makeFormatter(_ make: (_ make: HNumberFormatter) -> Void) -> String {
-        let formatter = HNumberFormatter()
-        make(formatter)
-        let modeNumber = formatter.formatterEnum[formatter.roundingMode.rawValue] as! NumberFormatter.RoundingMode
-        return formatter.numberObjc(self, roundingMode: modeNumber, afterPoint: formatter.afterPoint, pointZero: formatter.pointZero, grouping: formatter.grouping, prefix: formatter.prefix, symbol: formatter.symbol, conversion: formatter.conversion)
+        return self.stringValue.makeFormatter(make)
     }
     //去格式化
     func makeUnFormatter() -> String {
-        return NSDecimalNumber.unFormatter(self)
+        return self.stringValue.makeUnFormatter()
     }
     //获取十进制金额数据
     func amountValue() -> String {
-        return self.makeUnFormatter()
+        return self.stringValue.amountValue()
     }
     //带正号的金额数据
     func positiveValue() -> String {
-        var stringValue = self.amountValue()
-        if stringValue.length > 0 {
-            stringValue = "+".appending(stringValue)
-        }
-        return stringValue
+        return self.stringValue.positiveValue()
     }
     //带负号的金额数据
     func negativeValue() -> String {
-        var stringValue = self.amountValue()
-        if stringValue.length > 0 {
-            stringValue = "-".appending(stringValue)
-        }
-        return stringValue
+        return self.stringValue.negativeValue()
     }
     //带有货币符号的金额数据
     func currencySymbolValue() -> String {
-        var stringValue = self.amountValue()
-        if stringValue.length > 0 {
-            stringValue = HUserRegion.defaultRegion.currencySymbol.appending(stringValue)
-        }
-        return stringValue
+        return self.stringValue.currencySymbolValue()
     }
 }

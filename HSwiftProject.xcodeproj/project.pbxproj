@@ -244,7 +244,6 @@
 		EBC8147529AA541F00A81431 /* HSendVideoVC+HStatus4.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147429AA541F00A81431 /* HSendVideoVC+HStatus4.swift */; };
 		EBC8147729AA542500A81431 /* HSendVideoVC+HStatus5.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147629AA542500A81431 /* HSendVideoVC+HStatus5.swift */; };
 		EBC8147929AA543300A81431 /* HSendVideoVC+HStatus6.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147829AA543300A81431 /* HSendVideoVC+HStatus6.swift */; };
-		EBC8147E29AC53AE00A81431 /* HNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC8147D29AC53AE00A81431 /* HNumberFormatter.swift */; };
 		EBD0FB0629CA011400808EDA /* HVersionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB0529CA011400808EDA /* HVersionManager.swift */; };
 		EBD0FB0929CA90EB00808EDA /* HAssetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB0829CA90EA00808EDA /* HAssetManager.swift */; };
 		EBD0FB0B29CA938900808EDA /* HAssetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB0A29CA938900808EDA /* HAssetModel.swift */; };
@@ -280,6 +279,7 @@
 		EBD0FB9E29DB00B300808EDA /* HMainController6+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB9D29DB00B300808EDA /* HMainController6+UI.swift */; };
 		EBD0FBA029DB00D100808EDA /* HMainController6+Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB9F29DB00D100808EDA /* HMainController6+Event.swift */; };
 		EBD0FBA229DB00DE00808EDA /* HMainController6+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */; };
+		EBD0FBB229DBEE4800808EDA /* HNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -526,7 +526,6 @@
 		EBC8147429AA541F00A81431 /* HSendVideoVC+HStatus4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HSendVideoVC+HStatus4.swift"; sourceTree = "<group>"; };
 		EBC8147629AA542500A81431 /* HSendVideoVC+HStatus5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HSendVideoVC+HStatus5.swift"; sourceTree = "<group>"; };
 		EBC8147829AA543300A81431 /* HSendVideoVC+HStatus6.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HSendVideoVC+HStatus6.swift"; sourceTree = "<group>"; };
-		EBC8147D29AC53AE00A81431 /* HNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNumberFormatter.swift; sourceTree = "<group>"; };
 		EBD0FB0529CA011400808EDA /* HVersionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HVersionManager.swift; sourceTree = "<group>"; };
 		EBD0FB0829CA90EA00808EDA /* HAssetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAssetManager.swift; sourceTree = "<group>"; };
 		EBD0FB0A29CA938900808EDA /* HAssetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAssetModel.swift; sourceTree = "<group>"; };
@@ -562,6 +561,7 @@
 		EBD0FB9D29DB00B300808EDA /* HMainController6+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+UI.swift"; sourceTree = "<group>"; };
 		EBD0FB9F29DB00D100808EDA /* HMainController6+Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+Event.swift"; sourceTree = "<group>"; };
 		EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+Cell.swift"; sourceTree = "<group>"; };
+		EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNumberFormatter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1057,7 +1057,7 @@
 				A26D432A23856F8900F457AE /* NSTimer+HUtil.swift */,
 				A26D433E2386CA0900F457AE /* NSObject+HSwizzleUtil.swift */,
 				EB43241329C3163900EDDB64 /* HUserRegion.swift */,
-				EBC8147D29AC53AE00A81431 /* HNumberFormatter.swift */,
+				EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */,
 				EBD0FB2929CC935D00808EDA /* NSString+HChain.swift */,
 			);
 			path = "Ext-Category";
@@ -1742,6 +1742,7 @@
 				EB4323F429B98C9400EDDB64 /* HNaviToastView.swift in Sources */,
 				EBC8146129AA53C600A81431 /* HSendAudioVC+HStatus5.swift in Sources */,
 				EBD0FB2C29CC9AEF00808EDA /* UIColor+HSkin.swift in Sources */,
+				EBD0FBB229DBEE4800808EDA /* HNumberFormatter.swift in Sources */,
 				A2188795238FD3CC005C20BF /* HGameCategoryVC+HSection0.swift in Sources */,
 				EBD0FB3C29CD4C2400808EDA /* AppDelegate+SoundService.swift in Sources */,
 				EBC8146B29AA53F400A81431 /* HAcceptVideoVC+HStatus4.swift in Sources */,
@@ -1835,7 +1836,6 @@
 				A2B4307A237FF2B100795605 /* HMenuViewController.swift in Sources */,
 				A21887A723900832005C20BF /* HKeychainSwiftAccessOptions.swift in Sources */,
 				EBD0FB7A29D02B9600808EDA /* HUserCore.swift in Sources */,
-				EBC8147E29AC53AE00A81431 /* HNumberFormatter.swift in Sources */,
 				A2A814B8274CCA7200FAB929 /* HPresentAnimation.swift in Sources */,
 				EBC8145D29AA53B500A81431 /* HSendAudioVC+HStatus3.swift in Sources */,
 				EBD0FB2A29CC935D00808EDA /* NSString+HChain.swift in Sources */,

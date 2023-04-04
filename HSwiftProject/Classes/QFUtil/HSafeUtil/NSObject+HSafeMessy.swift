@@ -51,11 +51,11 @@ extension NSNumber {
     var length: Int {
         return self.stringValue.count
     }
-    var stringValue: String {
-        let string = String(format: "%lf", self.doubleValue)
-        let decimalNumber = NSDecimalNumber(string: string)
-        return decimalNumber.description(withLocale: nil)
-    }
+//    var stringValue: String {
+//        let string = String(format: "%lf", self.doubleValue)
+//        let decimalNumber = NSDecimalNumber(string: string)
+//        return decimalNumber.description(withLocale: nil)
+//    }
     var isEmpty: Bool {
         let string = self.stringValue.trimmingCharacters(in: .whitespacesAndNewlines)
         if string.count == 0 {
