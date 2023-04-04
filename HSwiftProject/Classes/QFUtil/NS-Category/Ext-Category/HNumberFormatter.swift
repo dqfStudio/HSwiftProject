@@ -129,7 +129,6 @@ private extension NSDecimalNumber {
     static func unactiveNumber(withText text: String, operationMode mode: HOperationMode) -> NSDecimalNumber {
         return NSDecimalNumber.decimalNumber(withText: text, active: false, operationMode: mode)
     }
-    //objcValue为NSString或NSNumber类型
     static func decimalNumber(withText text: String, active: Bool, operationMode mode: HOperationMode) -> NSDecimalNumber {
         let objcValue = NSDecimalNumber.unFormatter(withText: text)
         if self.isOnlyNumeric(withText: objcValue) {
@@ -220,14 +219,14 @@ class HNumberFormatter: NSObject {
         numberFormatter.decimalSeparator = "."
         //正前缀和负前缀
         if decimalNumber.doubleValue == 0 {
-            if symbol != nil, symbol!.length > 0 {
+            if symbol != nil, symbol!.count > 0 {
                 numberFormatter.positivePrefix = symbol
                 numberFormatter.negativePrefix = symbol
             }
-        }else if prefix, symbol != nil, symbol!.length > 0 {
+        }else if prefix, symbol != nil, symbol!.count > 0 {
             numberFormatter.positivePrefix = "+".appending(symbol!)
             numberFormatter.negativePrefix = "-".appending(symbol!)
-        }else if symbol != nil, symbol!.length > 0 {
+        }else if symbol != nil, symbol!.count > 0 {
             numberFormatter.positivePrefix = symbol!
             numberFormatter.negativePrefix = symbol!
         }else if prefix {
@@ -246,7 +245,7 @@ class HNumberFormatter: NSObject {
 
             var length = range.location
             if range.location == NSNotFound {
-                length = objc.length
+                length = objc.count
             }
 
             var appendString = ""
@@ -279,25 +278,25 @@ class HNumberFormatter: NSObject {
 }
 
 extension String {
-    //加，value为NSString或NSNumber类型
+    //加，value为NSString类型
     func addingBy(_ value: String) -> String {
         let activeNumber = NSDecimalNumber.activeNumber(withText: self, operationMode: .adding)
         let unactiveNumber = NSDecimalNumber.unactiveNumber(withText: value, operationMode: .adding)
         return activeNumber.adding(unactiveNumber).stringValue
     }
-    //减，value为NSString或NSNumber类型
+    //减，value为NSString类型
     func subtractingBy(_ value: String) -> String {
         let activeNumber = NSDecimalNumber.activeNumber(withText: self, operationMode: .subtracting)
         let unactiveNumber = NSDecimalNumber.unactiveNumber(withText: value, operationMode: .subtracting)
         return activeNumber.subtracting(unactiveNumber).stringValue
     }
-    //乘，value为NSString或NSNumber类型
+    //乘，value为NSString类型
     func multiplyingBy(_ value: String) -> String {
         let activeNumber = NSDecimalNumber.activeNumber(withText: self, operationMode: .multiplying)
         let unactiveNumber = NSDecimalNumber.unactiveNumber(withText: value, operationMode: .multiplying)
         return activeNumber.multiplying(by: unactiveNumber).stringValue
     }
-    //除，value为NSString或NSNumber类型
+    //除，value为NSString类型
     func dividingBy(_ value: String) -> String {
         let activeNumber = NSDecimalNumber.activeNumber(withText: self, operationMode: .dividing)
         let unactiveNumber = NSDecimalNumber.unactiveNumber(withText: value, operationMode: .dividing)
@@ -311,17 +310,17 @@ extension String {
         return formatter.object(self, roundingMode: modeNumber, afterPoint: formatter.afterPoint, pointZero: formatter.pointZero, grouping: formatter.grouping, prefix: formatter.prefix, symbol: formatter.symbol, conversion: formatter.conversion)
     }
     //去格式化
-    func makeUnFormatter() -> String {
+    func unFormatter() -> String {
         return NSDecimalNumber.unFormatter(withText: self)
     }
     //获取十进制金额数据
     func amountValue() -> String {
-        return self.makeUnFormatter()
+        return self.unFormatter()
     }
     //带正号的金额数据
     func positiveValue() -> String {
         var stringValue = self.amountValue()
-        if stringValue.length > 0 {
+        if stringValue.count > 0 {
             stringValue = "+".appending(stringValue)
         }
         return stringValue
@@ -329,7 +328,7 @@ extension String {
     //带负号的金额数据
     func negativeValue() -> String {
         var stringValue = self.amountValue()
-        if stringValue.length > 0 {
+        if stringValue.count > 0 {
             stringValue = "-".appending(stringValue)
         }
         return stringValue
@@ -337,7 +336,7 @@ extension String {
     //带有货币符号的金额数据
     func currencySymbolValue() -> String {
         var stringValue = self.amountValue()
-        if stringValue.length > 0 {
+        if stringValue.count > 0 {
             stringValue = HUserRegion.defaultRegion.currencySymbol.appending(stringValue)
         }
         return stringValue
@@ -345,19 +344,19 @@ extension String {
 }
 
 extension NSNumber {
-    //加，value为NSString或NSNumber类型
+    //加，value为NSNumber类型
     func addingBy(_ value: NSNumber) -> String {
         return self.stringValue.addingBy(value.stringValue)
     }
-    //减，value为NSString或NSNumber类型
+    //减，value为NSNumber类型
     func subtractingBy(_ value: NSNumber) -> String {
         return self.stringValue.subtractingBy(value.stringValue)
     }
-    //乘，value为NSString或NSNumber类型
+    //乘，value为NSNumber类型
     func multiplyingBy(_ value: NSNumber) -> String {
         return self.stringValue.multiplyingBy(value.stringValue)
     }
-    //除，value为NSString或NSNumber类型
+    //除，value为NSNumber类型
     func dividingBy(_ value: NSNumber) -> String {
         return self.stringValue.dividingBy(value.stringValue)
     }
@@ -366,8 +365,8 @@ extension NSNumber {
         return self.stringValue.formatter(make)
     }
     //去格式化
-    func makeUnFormatter() -> String {
-        return self.stringValue.makeUnFormatter()
+    func unFormatter() -> String {
+        return self.stringValue.unFormatter()
     }
     //获取十进制金额数据
     func amountValue() -> String {
