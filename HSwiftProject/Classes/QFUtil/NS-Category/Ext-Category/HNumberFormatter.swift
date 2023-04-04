@@ -280,31 +280,31 @@ class HNumberFormatter: NSObject {
 
 extension String {
     //加，value为NSString或NSNumber类型
-    func addingBy(_ value: String) -> NSDecimalNumber {
+    func addingBy(_ value: String) -> String {
         let activeNumber = NSDecimalNumber.activeNumber(withText: self, operationMode: .adding)
         let unactiveNumber = NSDecimalNumber.unactiveNumber(withText: value, operationMode: .adding)
-        return activeNumber.adding(unactiveNumber)
+        return activeNumber.adding(unactiveNumber).stringValue
     }
     //减，value为NSString或NSNumber类型
-    func subtractingBy(_ value: String) -> NSDecimalNumber {
+    func subtractingBy(_ value: String) -> String {
         let activeNumber = NSDecimalNumber.activeNumber(withText: self, operationMode: .subtracting)
         let unactiveNumber = NSDecimalNumber.unactiveNumber(withText: value, operationMode: .subtracting)
-        return activeNumber.subtracting(unactiveNumber)
+        return activeNumber.subtracting(unactiveNumber).stringValue
     }
     //乘，value为NSString或NSNumber类型
-    func multiplyingBy(_ value: String) -> NSDecimalNumber {
+    func multiplyingBy(_ value: String) -> String {
         let activeNumber = NSDecimalNumber.activeNumber(withText: self, operationMode: .multiplying)
         let unactiveNumber = NSDecimalNumber.unactiveNumber(withText: value, operationMode: .multiplying)
-        return activeNumber.multiplying(by: unactiveNumber)
+        return activeNumber.multiplying(by: unactiveNumber).stringValue
     }
     //除，value为NSString或NSNumber类型
-    func dividingBy(_ value: String) -> NSDecimalNumber {
+    func dividingBy(_ value: String) -> String {
         let activeNumber = NSDecimalNumber.activeNumber(withText: self, operationMode: .dividing)
         let unactiveNumber = NSDecimalNumber.unactiveNumber(withText: value, operationMode: .dividing)
-        return activeNumber.dividing(by: unactiveNumber)
+        return activeNumber.dividing(by: unactiveNumber).stringValue
     }
     //格式化
-    func makeFormatter(_ make: (_ make: HNumberFormatter) -> Void) -> String {
+    func formatter(_ make: (_ make: HNumberFormatter) -> Void) -> String {
         let formatter = HNumberFormatter()
         make(formatter)
         let modeNumber = formatter.formatterEnum[formatter.roundingMode.rawValue] as! NumberFormatter.RoundingMode
@@ -346,24 +346,24 @@ extension String {
 
 extension NSNumber {
     //加，value为NSString或NSNumber类型
-    func addingBy(_ value: NSNumber) -> NSDecimalNumber {
+    func addingBy(_ value: NSNumber) -> String {
         return self.stringValue.addingBy(value.stringValue)
     }
     //减，value为NSString或NSNumber类型
-    func subtractingBy(_ value: NSNumber) -> NSDecimalNumber {
+    func subtractingBy(_ value: NSNumber) -> String {
         return self.stringValue.subtractingBy(value.stringValue)
     }
     //乘，value为NSString或NSNumber类型
-    func multiplyingBy(_ value: NSNumber) -> NSDecimalNumber {
+    func multiplyingBy(_ value: NSNumber) -> String {
         return self.stringValue.multiplyingBy(value.stringValue)
     }
     //除，value为NSString或NSNumber类型
-    func dividingBy(_ value: NSNumber) -> NSDecimalNumber {
+    func dividingBy(_ value: NSNumber) -> String {
         return self.stringValue.dividingBy(value.stringValue)
     }
     //格式化
-    func makeFormatter(_ make: (_ make: HNumberFormatter) -> Void) -> String {
-        return self.stringValue.makeFormatter(make)
+    func formatter(_ make: (_ make: HNumberFormatter) -> Void) -> String {
+        return self.stringValue.formatter(make)
     }
     //去格式化
     func makeUnFormatter() -> String {
