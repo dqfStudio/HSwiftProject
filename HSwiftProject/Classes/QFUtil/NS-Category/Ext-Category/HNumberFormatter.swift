@@ -28,7 +28,7 @@ private enum HOperationMode: Int {
 
 private extension NSDecimalNumber {
     ////清除某些特定符号，是对数据的一种容错处理
-    static func clearSymbol(_ symbol: String, withText text: String) -> String {
+    static func clear(symbol: String, withText text: String) -> String {
         if !text.isKind(of: NSString.self) {
             return ""
         }
@@ -41,7 +41,7 @@ private extension NSDecimalNumber {
         return ""
     }
     //判断是否只有特定符号
-    static func isOnlyNumericWithText(_ text: String) -> Bool {
+    static func isOnlyNumeric(withText text: String) -> Bool {
         if !text.isKind(of: NSString.self) {
             return false
         }
@@ -63,27 +63,27 @@ private extension NSDecimalNumber {
         stringValue = stringValue.replacingOccurrences(of: " ", with: "")
 
         //判断是否是金额数据
-        if self.isOnlyNumericWithText(stringValue) {
+        if self.isOnlyNumeric(withText: stringValue) {
 
             //根据地区，去掉分组分隔符
             //不管地区，小数分隔符全部处理成点号
             /*
              let regionArr = ["VN", "BR"]
              if regionArr.containsObject([HUserRegion defaultRegion].regionCode) {
-                 stringValue = NSDecimalNumber.clearSymbol("[.]", withText: stringValue)
+                 stringValue = NSDecimalNumber.clear(symbol: "[.]", withText: stringValue)
                  stringValue = stringValue.replacingOccurrences(of: ",", with: ".")
              }else {
-                 stringValue = NSDecimalNumber.clearSymbol("[,]", withText: stringValue)
+                 stringValue = NSDecimalNumber.clear(symbol: "[,]", withText: stringValue)
              }
              */
 
 
             //去掉分组分隔符
-            stringValue = NSDecimalNumber.clearSymbol("[,]", withText: stringValue)
+            stringValue = NSDecimalNumber.clear(symbol: "[,]", withText: stringValue)
             //去掉正负号
-            stringValue = NSDecimalNumber.clearSymbol("[+-]", withText: stringValue)
+            stringValue = NSDecimalNumber.clear(symbol: "[+-]", withText: stringValue)
             //去掉一些货币符号
-            stringValue = NSDecimalNumber.clearSymbol("[R$￥₫₹]", withText: stringValue)
+            stringValue = NSDecimalNumber.clear(symbol: "[R$￥₫₹]", withText: stringValue)
 
             //金额简写恢复
             var appendString = ""
@@ -140,7 +140,7 @@ private extension NSDecimalNumber {
     //objcValue为NSString或NSNumber类型
     static func decimalNumberWithObjcValue(_ objcValue: Any, active: Bool, operationMode mode: HOperationMode) -> NSDecimalNumber {
         let objcStringValue: String = NSDecimalNumber.unFormatter(objcValue)
-        if self.isOnlyNumericWithText(objcStringValue) {
+        if self.isOnlyNumeric(withText: objcStringValue) {
             return NSDecimalNumber(string: objcStringValue)
         }
         switch (mode) {
