@@ -69,7 +69,7 @@ class HUserLiveMiddleBarView : UIView, HTupleViewDelegate {
         let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
         //将cell.contentView倒置
         cell.layoutView.transform = CGAffineTransform (scaleX: 1, y: -1)
-        cell.setTopLineWithColor(UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 20)
+        cell.setTopLine(withColor: UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 20)
         cell.label.textColor = UIColor.white
         cell.label.font = UIFont.systemFont(ofSize: 12)
         //此处数据源需要倒着加载

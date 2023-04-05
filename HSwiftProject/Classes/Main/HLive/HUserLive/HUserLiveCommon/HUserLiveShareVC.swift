@@ -111,7 +111,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     func tupleFooter(_ footerBlock: Any, inSection section: Any) {
         let footerBlock = footerBlock as! HTupleFooter
         let cell = footerBlock(nil, HTupleButtonApex.self, nil, true) as! HTupleButtonApex
-        cell.setTopLineWithColor(UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
+        cell.setTopLine(withColor: UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
         cell.buttonView.backgroundColor = UIColor.white
         cell.buttonView.textColor = UIColor.black
         cell.buttonView.text = "取消"

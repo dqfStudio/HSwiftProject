@@ -113,7 +113,7 @@ class HSheetController : HViewController, HTupleViewDelegate {
         switch (indexPath.row) {
         case HCell0:
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-            cell.setBottomLineWithColor(UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
+            cell.setBottomLine(withColor: UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
             cell.label.font = UIFont.boldSystemFont(ofSize: 17)
             cell.label.textAlignment = .center
             cell.label.textColor = HColorHex("#0B0A0C")
@@ -121,7 +121,7 @@ class HSheetController : HViewController, HTupleViewDelegate {
             break
         case HCell1:
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-            cell.setBottomLineWithColor(UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
+            cell.setBottomLine(withColor: UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
             cell.label.font = UIFont.systemFont(ofSize: 12)
             cell.label.textAlignment = .center
             cell.label.numberOfLines = 0
@@ -130,7 +130,7 @@ class HSheetController : HViewController, HTupleViewDelegate {
             break
         case HCell2:
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-            cell.setBottomLineWithColor(UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
+            cell.setBottomLine(withColor: UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
             cell.label.font = UIFont.systemFont(ofSize: 12)
             cell.label.textAlignment = .center
             cell.label.numberOfLines = 0

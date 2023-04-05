@@ -36,10 +36,10 @@ class HUserLiveVC : HTupleController {
             _inputField.rightLabel.textAlignment = .center
             _inputField.rightLabel.font = UIFont.systemFont(ofSize: 17)
             
-            _inputField.rightLabel.addSingleTapGestureWithBlock { sender in
+            _inputField.rightLabel.addSingleTapGesture(withBlock: { sender in
                 let gesture = sender as! UIGestureRecognizer
                 _ = gesture.view?.superview?.resignFirstResponder()
-            }
+            })
         }
         return _inputField!
     }

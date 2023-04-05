@@ -13,7 +13,6 @@ private var TIPS_LABEL_TAG = 10001
 
 private var topLineLayerKey = "topLineLayerKey"
 private var bottomLineLayerKey = "bottomLineLayerKey"
-private var userInfoAddressKey = "userInfoAddressKey"
 
 extension UIView {
     
@@ -107,7 +106,7 @@ extension UIView {
     *  根据传入的height来竖直居中
     */
     func verticalCenterWithHeight(_ height: CGFloat) {
-        self.x = CGFloat(ceilf(Float((height - self.height) / 2)))
+        self.y = CGFloat(ceilf(Float((height - self.height) / 2)))
     }
     
     func horizontalCenterInSuperView() {
@@ -125,11 +124,13 @@ extension UIView {
     /**
     *  添加双击事件
     */
-    func addDoubleTapGestureWithBlock(block: @escaping HGestureBlock) -> UITapGestureRecognizer {
-        self.addTapGestureWithNumberOfTapsRequired(2, block: block)
+    @discardableResult
+    func addDoubleTapGesture(withBlock block: @escaping HGestureBlock) -> UITapGestureRecognizer {
+        self.addTapGesture(withNumberOfTapsRequired: 2, block: block)
     }
 
-    private func addTapGestureWithNumberOfTapsRequired(_ numberOfTapsRequired: Int, block: @escaping HGestureBlock) -> UITapGestureRecognizer {
+    @discardableResult
+    private func addTapGesture(withNumberOfTapsRequired numberOfTapsRequired: Int, block: @escaping HGestureBlock) -> UITapGestureRecognizer {
         self.isUserInteractionEnabled = true
         let recognizer: UITapGestureRecognizer = UITapGestureRecognizer(block: block)
         recognizer.numberOfTapsRequired = numberOfTapsRequired
@@ -141,7 +142,7 @@ extension UIView {
     *  添加单击事件，多次调用只会持有一个UITapGestureRecognizer对象，之前的会被清除
     */
     @discardableResult
-    func addSingleTapGestureWithBlock(block: @escaping HGestureBlock) -> UITapGestureRecognizer {
+    func addSingleTapGesture(withBlock block: @escaping HGestureBlock) -> UITapGestureRecognizer {
         if (self.gestureRecognizers != nil) {
             for item in self.gestureRecognizers! {
                 let gesture: UIGestureRecognizer = item
@@ -150,11 +151,11 @@ extension UIView {
                 }
             }
         }
-        return self.addTapGestureWithNumberOfTapsRequired(1, block: block)
+        return self.addTapGesture(withNumberOfTapsRequired: 1, block: block)
     }
     
     @discardableResult
-    func addSingleTapGestureTarget(target: AnyObject, action: Selector) -> UITapGestureRecognizer {
+    func addSingleTapGesture(withTarget target: AnyObject, action: Selector) -> UITapGestureRecognizer {
         self.isUserInteractionEnabled = true
         if (self.gestureRecognizers != nil) {
             for item in self.gestureRecognizers! {
@@ -185,75 +186,94 @@ extension UIView {
     /**
      *  添加一个SubLayer
      */
-    func addSubLayerWithFrame(_ frame: CGRect, color: UIColor) -> CALayer {
+    @discardableResult
+    func addSubLayer(withFrame frame: CGRect, color: UIColor) -> CALayer {
         let layer: CALayer = CALayer()
         layer.frame = frame
         layer.backgroundColor = color.cgColor
         self.layer.addSublayer(layer)
         return layer
     }
-
-    func setTopFillLineWithColor(_ color: UIColor) {
-        self.setTopLineWithColor(color, paddingLeft: 0, paddingRight: 0)
+    
+    
+    func setTopLine(withColor color: UIColor) {
+        self.setTopLine(withColor: color, paddingLeft: 0, paddingRight: 0)
+    }
+    
+    func setTopLine(withColor color: UIColor, width: CGFloat) {
+        self.setTopLine(withColor: color, width: width, paddingLeft: 0, paddingRight: 0)
+    }
+    
+    func setTopLine(withColor color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) {
+        self.setTopLine(withColor: color, width: self.width, paddingLeft: paddingLeft, paddingRight: paddingRight)
     }
 
-    func setTopLineWithColor(_ color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) {
-        let frame: CGRect = CGRect(x: paddingLeft, y: 0, width: UIScreen.width - paddingLeft - paddingRight, height: UIScreen.onePixel)
+    func setTopLine(withColor color: UIColor, width: CGFloat, paddingLeft: CGFloat, paddingRight: CGFloat) {
+        let frame: CGRect = CGRect(x: paddingLeft, y: 0, width: width - paddingLeft - paddingRight, height: 1)
         if self.topLineLayer == nil {
-            self.topLineLayer = self.addSubLayerWithFrame(frame, color: color)
+            self.topLineLayer = self.addSubLayer(withFrame: frame, color: color)
         }else {
             self.topLineLayer?.frame = frame
             self.topLineLayer?.backgroundColor = color.cgColor
         }
-        
-    }
-
-    func setBottomFillLineWithColor(_ color: UIColor) {
-        self.setBottomLineWithColor(color, paddingLeft: 0, paddingRight: 0)
     }
 
     
-    func setBottomLineWithColor(_ color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) {
-        let frame: CGRect = CGRect(x: paddingLeft, y: self.frame.height - UIScreen.onePixel, width: UIScreen.width - paddingLeft - paddingRight, height: UIScreen.onePixel)
+    
+    func setBottomLine(withColor color: UIColor) {
+        self.setBottomLine(withColor: color, paddingLeft: 0, paddingRight: 0)
+    }
+    
+    func setBottomLine(withColor color: UIColor, size: CGSize) {
+        self.setBottomLine(withColor: color, size: size, paddingLeft: 0, paddingRight: 0)
+    }
+    
+    func setBottomLine(withColor color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) {
+        self.setBottomLine(withColor: color, size: self.size, paddingLeft: paddingLeft, paddingRight: paddingRight)
+    }
+    
+    func setBottomLine(withColor color: UIColor, size: CGSize, paddingLeft: CGFloat, paddingRight: CGFloat) {
+        let frame: CGRect = CGRect(x: paddingLeft, y: size.height - 1, width: size.width - paddingLeft - paddingRight, height: 1)
         if self.bottomLineLayer == nil {
-            self.bottomLineLayer = self.addSubLayerWithFrame(frame, color: color)
+            self.bottomLineLayer = self.addSubLayer(withFrame: frame, color: color)
         }else {
             self.bottomLineLayer?.frame = frame
             self.bottomLineLayer?.backgroundColor = color.cgColor
         }
-        
     }
 
-    func setTopAndBottomLineWithColor(_ color: UIColor) {
-        self.setTopFillLineWithColor(color)
-        self.setBottomFillLineWithColor(color)
+    func setTopAndBottomLine(withColor color: UIColor) {
+        self.setTopLine(withColor: color)
+        self.setBottomLine(withColor: color)
     }
 
     /**
     *  设置UIView的顶部和底部边线，一般用在设置界面，当界面采用AutoLayout时使用
     */
-    func setTopLineViewWithColor(_ color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) -> UIView {
+    @discardableResult
+    func setTopLineView(withColor color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) -> UIView {
         var frame: CGRect = self.frame
         frame.origin = CGPoint(x: 0, y: 0)
         frame.x += paddingLeft
         frame.width -= paddingLeft + paddingRight
-        frame.y = frame.height - UIScreen.onePixel
-        frame.height = UIScreen.onePixel
-        return self.addSubviewWithColor(color, frame: frame)
-    }
-
-    func setBottomLineViewWithColor(_ color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) -> UIView {
-        var frame: CGRect = self.frame
-        frame.origin = CGPoint(x: 0, y: 0)
-        frame.x += paddingLeft
-        frame.width -= paddingLeft + paddingRight
-        frame.y = frame.height - UIScreen.onePixel
-        frame.height = UIScreen.onePixel
-        return self.addSubviewWithColor(color, frame: frame)
+        frame.y = frame.height - 1
+        frame.height = 1
+        return self.addSubview(withColor: color, frame: frame)
     }
 
     @discardableResult
-    func addSubviewWithColor(_ color: UIColor, frame: CGRect) -> UIView {
+    func setBottomLineView(withColor color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) -> UIView {
+        var frame: CGRect = self.frame
+        frame.origin = CGPoint(x: 0, y: 0)
+        frame.x += paddingLeft
+        frame.width -= paddingLeft + paddingRight
+        frame.y = frame.height - 1
+        frame.height = 1
+        return self.addSubview(withColor: color, frame: frame)
+    }
+
+    @discardableResult
+    func addSubview(withColor color: UIColor, frame: CGRect) -> UIView {
         let line: UIView = UIView()
         line.frame = frame
         line.backgroundColor = color
@@ -261,11 +281,6 @@ extension UIView {
         return line
     }
 
-    
-    var userInfo: AnyObject? {
-        get { objc_getAssociatedObject(self, &userInfoAddressKey) as? CALayer }
-        set { objc_setAssociatedObject(self, &userInfoAddressKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
-    }
 
     /**
     *  返回它所在的ViewController
@@ -314,7 +329,7 @@ extension UIView {
     *  主要用于UITableView，UIScrollView，UICollectionView等列表类的View，
     *  在数据为空时，显示一个提示性的图像和文字
     */
-    func setTipsViewWithImageName(_ imageName: String, text: String, textColor: UIColor) {
+    func setTipsView(withImageName imageName: String, text: String, textColor: UIColor) {
         var imageView: UIImageView? = self.viewWithTag(TIPS_IMAGE_VIEW_TAG) as? UIImageView
         if imageView == nil {
             imageView = UIImageView(image: UIImage(named: imageName))
@@ -389,7 +404,7 @@ extension UIView {
         return snap
     }
 
-    func snapshotImageWithFrame(_ frame: CGRect) -> UIImage {
+    func snapshotImage(withFrame frame: CGRect) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(frame.size, self.isOpaque, 0.0)
         let context: CGContext = UIGraphicsGetCurrentContext()!
         context.translateBy(x: -frame.origin.x, y: -frame.origin.y)
