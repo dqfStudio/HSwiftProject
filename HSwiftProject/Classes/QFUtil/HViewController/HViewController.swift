@@ -67,14 +67,14 @@ class HViewController: UIViewController {
     }
 
     //loadView 从nib载入视图 ，通常这一步不需要去干涉。除非你没有使用xib文件创建视图,即用代码创建的UI
-    override func loadView() {
-        super.loadView()
-        self.pvc_initView()
-    }
+//    override func loadView() {
+//        super.loadView()
+//        self.pvc_initView()
+//    }
 
     private func pvc_initView() {
         self.setNeedsNavigationBarAppearanceUpdate()
-        self.setLeftNaviImage(UIImage(named: "hvc_back_icon"))
+//        self.setLeftNaviImage(UIImage(named: "hvc_back_icon"))
     }
     
     deinit {
@@ -100,11 +100,12 @@ class HViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.pvc_initView()
         if self.title?.isEmpty != false {
-            self.titleLabel.text = self.title
+            _naviBar.titleLabel.text = self.title
         }
         self.view.backgroundColor = HVCAppearance.bgColor
-        self.view.addSubview(self.topBar)
+        self.view.addSubview(self.naviBar)
         self.view.isExclusiveTouch = true
         //关闭暗黑模式
         if #available(iOS 13.0, *) {
@@ -116,7 +117,7 @@ class HViewController: UIViewController {
         super.viewWillAppear(animated)
         self.becomeFirstResponder()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.view.bringSubviewToFront(self.topBar)
+        self.view.bringSubviewToFront(_naviBar)
         //要更新statusbar状态的需要调用下这个方法,最好与viewWillDisappear对应
         self.setNeedsStatusBarAppearanceUpdate()
         //根据导航栏的颜色动态设置状态栏样式
@@ -151,7 +152,7 @@ class HViewController: UIViewController {
         //重新设置topbar的frame
         if self.orientation != UIDevice.current.orientation {
             self.orientation = UIDevice.current.orientation
-            self.resetTopbarFrame()
+            self.resetNavibarFrame()
         }
     }
     
@@ -178,12 +179,20 @@ class HViewController: UIViewController {
 
     /// 事件处理
     func back() {
-        let viewcontrollers = self.navigationController?.viewControllers
-        let topViewController = self.navigationController?.topViewController
-        if viewcontrollers?.count ?? 0 > 1 && topViewController == self {
-            self.navigationController?.popViewController(animated: true)//push方式
-        }else {
+//        let viewcontrollers = self.navigationController?.viewControllers
+//        let topViewController = self.navigationController?.topViewController
+//        if viewcontrollers?.count ?? 0 > 1 && topViewController == self {
+//            self.navigationController?.popViewController(animated: true)//push方式
+//        }else {
+//            self.dismiss(animated: true, completion: nil)//present方式
+//        }
+        switch (self.appearType) {
+        case .undefine, .present:
             self.dismiss(animated: true, completion: nil)//present方式
+        case .push:
+            self.navigationController?.popViewController(animated: true)//push方式
+        default:
+            break
         }
     }
 
@@ -194,206 +203,261 @@ class HViewController: UIViewController {
     func rightNaviButtonPressed() {
         
     }
-
-    /// 各个视图
-    private var _topBar: UIView?
-    private var _topBarLine: UIView?
     
-    var topBar: UIView {
-        if _topBar == nil { _topBar = UIView() }
-        //topBar = [[UIButton alloc] init]
-        //[topBar setAdjustsImageWhenHighlighted:NO]
+    private lazy var _naviBar: HNavigationBar = {
+        let bar = HNavigationBar()
+        bar.leftButton.pressed = { [weak self] (_ sender: Any?, _ data: Any?) -> Void in
+            self?.leftNaviButtonPressed()
+        }
+        bar.rightButton.pressed = { [weak self] (_ sender: Any?, _ data: Any?) -> Void in
+            self?.rightNaviButtonPressed()
+        }
+        return bar
+    }()
+    
+    var naviBar: HNavigationBar {
         //没有系统导航栏的时候,status背景色是透明的,用自定义导航栏去伪造一个status背景区域
         if self.prefersNavigationBarHidden {
-            _topBar!.frame = CGRect(x: 0, y: statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight)
+            _naviBar.frame = CGRect(x: 0, y: statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight)
         }else {
-            _topBar!.frame = CGRect(x: 0, y: 0, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
-            _topBar!.bounds = CGRect(x: 0, y: -statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
+            _naviBar.frame = CGRect(x: 0, y: 0, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
+            _naviBar.bounds = CGRect(x: 0, y: -statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
         }
-        _topBar!.autoresizingMask = .flexibleWidth
-        if _topBarLine == nil {
-            _topBarLine = UIView()
-            _topBar!.addSubview(_topBarLine!)
-        }
-        _topBarLine!.frame = CGRect(x: 0, y: UIScreen.naviBarHeight - 1, width: _topBar!.width, height: 1)
-        _topBarLine!.isHidden = self.prefersTopBarLineHidden
-        return _topBar!
+        //重设lineView的frame
+        _naviBar.lineView.frame = CGRect(x: 0, y: UIScreen.naviBarHeight - 1, width: _naviBar.width, height: 1)
+        _naviBar.lineView.isHidden = self.prefersTopBarLineHidden
+        return _naviBar
     }
+
+    /// 各个视图
+//    private var _topBar: UIView?
+//    private var _topBarLine: UIView?
+//
+//    var topBar: UIView {
+//        if _topBar == nil { _topBar = UIView() }
+//        //topBar = [[UIButton alloc] init]
+//        //[topBar setAdjustsImageWhenHighlighted:NO]
+//        //没有系统导航栏的时候,status背景色是透明的,用自定义导航栏去伪造一个status背景区域
+//        if self.prefersNavigationBarHidden {
+//            _topBar!.frame = CGRect(x: 0, y: statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight)
+//        }else {
+//            _topBar!.frame = CGRect(x: 0, y: 0, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
+//            _topBar!.bounds = CGRect(x: 0, y: -statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
+//        }
+//        _topBar!.autoresizingMask = .flexibleWidth
+//        if _topBarLine == nil {
+//            _topBarLine = UIView()
+//            _topBar!.addSubview(_topBarLine!)
+//        }
+//        _topBarLine!.frame = CGRect(x: 0, y: UIScreen.naviBarHeight - 1, width: _topBar!.width, height: 1)
+//        _topBarLine!.isHidden = self.prefersTopBarLineHidden
+//        return _topBar!
+//    }
 
     var topBarHeight: CGFloat {
         return (self.prefersStatusBarHidden ? 0:UIScreen.statusBarHeight) + (self.prefersNavigationBarHidden ? 0:UIScreen.naviBarHeight)
     }
     
-    private var _titleLabel: UILabel?
-    var titleLabel: UILabel {
-        if _titleLabel == nil {
-            _titleLabel = UILabel()
-            _titleLabel!.frame = CGRect(x: 54, y: 5, width: self.view.width - 54 * 2, height: UIScreen.naviBarHeight - 5)
-            _titleLabel!.textAlignment = .center
-            _titleLabel!.textColor = UIColor.black
-            _titleLabel!.font = UIFont.systemFont(ofSize: 18)
-            self.topBar.addSubview(_titleLabel!)
-        }
-        return _titleLabel!
-    }
+//    private var _titleLabel: UILabel?
+//    var titleLabel: UILabel {
+//        if _titleLabel == nil {
+//            _titleLabel = UILabel()
+//            _titleLabel!.frame = CGRect(x: 54, y: 5, width: self.view.width - 54 * 2, height: UIScreen.naviBarHeight - 5)
+//            _titleLabel!.textAlignment = .center
+//            _titleLabel!.textColor = UIColor.black
+//            _titleLabel!.font = UIFont.systemFont(ofSize: 18)
+//            self.topBar.addSubview(_titleLabel!)
+//        }
+//        return _titleLabel!
+//    }
+//
+//    private var _leftNaviButton: HWebButtonView?
+//    var leftNaviButton: HWebButtonView {
+//        if _leftNaviButton == nil {
+//            _leftNaviButton = HWebButtonView()
+//            _leftNaviButton!.backgroundColor = nil
+//            _leftNaviButton!.frame = CGRect(x: 10, y: 5, width: UIScreen.naviBarHeight, height: UIScreen.naviBarHeight - 5)
+//            _leftNaviButton!.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+//            _leftNaviButton!.contentHorizontalAlignment = .left
+//            _leftNaviButton!.pressed = { [weak self] (_ sender: Any?, _ data: Any?) -> Void in
+//                self!.leftNaviButtonPressed()
+//            }
+//            _leftNaviButton!.imageView?.contentMode = .scaleAspectFit
+//            self.topBar.addSubview(_leftNaviButton!)
+//        }
+//        return _leftNaviButton!
+//    }
+//
+//    private var _rightNaviButton: HWebButtonView?
+//    var rightNaviButton: HWebButtonView {
+//        if _rightNaviButton == nil {
+//            _rightNaviButton = HWebButtonView()
+//            _rightNaviButton!.backgroundColor = nil
+//            _rightNaviButton!.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+//            _rightNaviButton!.frame = CGRect(x: self.topBar.width - UIScreen.naviBarHeight - 10, y: 5, width: UIScreen.naviBarHeight, height: UIScreen.naviBarHeight - 5)
+//            _rightNaviButton!.autoresizingMask = .flexibleLeftMargin
+//            _rightNaviButton!.contentHorizontalAlignment = .center
+//            _rightNaviButton!.pressed = { [weak self] (_ sender: Any?, _ data: Any?) -> Void in
+//                self!.rightNaviButtonPressed()
+//            }
+//            self.topBar.addSubview(_rightNaviButton!)
+//        }
+//        return _rightNaviButton!
+//    }
 
-    private var _leftNaviButton: HWebButtonView?
-    var leftNaviButton: HWebButtonView {
-        if _leftNaviButton == nil {
-            _leftNaviButton = HWebButtonView()
-            _leftNaviButton!.backgroundColor = nil
-            _leftNaviButton!.frame = CGRect(x: 10, y: 5, width: UIScreen.naviBarHeight, height: UIScreen.naviBarHeight - 5)
-            _leftNaviButton!.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-            _leftNaviButton!.contentHorizontalAlignment = .left
-            _leftNaviButton!.pressed = { [weak self] (_ sender: Any?, _ data: Any?) -> Void in
-                self!.leftNaviButtonPressed()
-            }
-            _leftNaviButton!.imageView?.contentMode = .scaleAspectFit
-            self.topBar.addSubview(_leftNaviButton!)
-        }
-        return _leftNaviButton!
-    }
-    
-    private var _rightNaviButton: HWebButtonView?
-    var rightNaviButton: HWebButtonView {
-        if _rightNaviButton == nil {
-            _rightNaviButton = HWebButtonView()
-            _rightNaviButton!.backgroundColor = nil
-            _rightNaviButton!.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-            _rightNaviButton!.frame = CGRect(x: self.topBar.width - UIScreen.naviBarHeight - 10, y: 5, width: UIScreen.naviBarHeight, height: UIScreen.naviBarHeight - 5)
-            _rightNaviButton!.autoresizingMask = .flexibleLeftMargin
-            _rightNaviButton!.contentHorizontalAlignment = .center
-            _rightNaviButton!.pressed = { [weak self] (_ sender: Any?, _ data: Any?) -> Void in
-                self!.rightNaviButtonPressed()
-            }
-            self.topBar.addSubview(_rightNaviButton!)
-        }
-        return _rightNaviButton!
-    }
-
-    //重新设置topbar的frame
-    private func resetTopbarFrame() {
+    //重新设置naviBar的frame
+    private func resetNavibarFrame() {
         statusBarPadding = 0
         if self.prefersStatusBarHidden == false && self.prefersNavigationBarHidden == false {
             statusBarPadding = UIScreen.statusBarHeight
         }
-        //reset topBar
+        //reset naviBar
         if(self.prefersNavigationBarHidden) {
-            self.topBar.frame = CGRect(x: 0, y: statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight)
+            _naviBar.frame = CGRect(x: 0, y: statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight)
         }else {
-            self.topBar.frame = CGRect(x: 0, y: 0, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
-            self.topBar.bounds = CGRect(x: 0, y: -statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
+            _naviBar.frame = CGRect(x: 0, y: 0, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
+            _naviBar.bounds = CGRect(x: 0, y: -statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
         }
-        //reset topBar line
-        _topBarLine!.frame = CGRect(x: 0, y: UIScreen.naviBarHeight - 1, width: topBar.width, height: 1)
-        //reset title label
-        if _rightNaviButton != nil {
-            //reset right button
-            _rightNaviButton!.frame = CGRect(x: topBar.width - _rightNaviButton!.width - 10, y: _rightNaviButton!.y, width: _rightNaviButton!.width, height: _rightNaviButton!.height)
-            var minX: CGFloat = 0.0
-            let width: CGFloat = max(_leftNaviButton!.width, _rightNaviButton!.width)
-            if _leftNaviButton!.width == width {
-                minX = _leftNaviButton!.minX
-            }else {
-                minX = self.view.width - _rightNaviButton!.maxX
-            }
-            self.titleLabel.frame = CGRect(x: minX + width, y: 0, width: self.view.width - 2 * (minX + width), height: UIScreen.naviBarHeight)
+        
+        //reset navi line
+        _naviBar.lineView.frame = CGRect(x: 0, y: UIScreen.naviBarHeight - 1, width: _naviBar.width, height: 1)
+        
+        //reset navi right button
+        _naviBar.rightButton.frame = CGRect(x: _naviBar.width - _naviBar.rightButton.width - 10, y: _naviBar.rightButton.y, width: _naviBar.rightButton.width, height: _naviBar.rightButton.height)
+        var minX: CGFloat = 0.0
+        let width: CGFloat = max(_naviBar.leftButton.width, _naviBar.rightButton.width)
+        if _naviBar.leftButton.width == width {
+            minX = _naviBar.leftButton.minX
         }else {
-            let width: CGFloat = _leftNaviButton!.width
-            self.titleLabel.frame = CGRect(x: _leftNaviButton!.minX + width, y: 0, width: self.view.width - 2 * (_leftNaviButton!.minX + width), height: UIScreen.naviBarHeight)
+            minX = self.view.width - _naviBar.rightButton.maxX
         }
+        //reset navi label
+        _naviBar.titleLabel.frame = CGRect(x: minX + width, y: 0, width: self.view.width - 2 * (minX + width), height: UIScreen.naviBarHeight)
     }
+    
+    
+//    private func resetTopbarFrame() {
+//        statusBarPadding = 0
+//        if self.prefersStatusBarHidden == false && self.prefersNavigationBarHidden == false {
+//            statusBarPadding = UIScreen.statusBarHeight
+//        }
+//        //reset topBar
+//        if(self.prefersNavigationBarHidden) {
+//            self.topBar.frame = CGRect(x: 0, y: statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight)
+//        }else {
+//            self.topBar.frame = CGRect(x: 0, y: 0, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
+//            self.topBar.bounds = CGRect(x: 0, y: -statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
+//        }
+//        //reset topBar line
+//        _topBarLine!.frame = CGRect(x: 0, y: UIScreen.naviBarHeight - 1, width: topBar.width, height: 1)
+//        //reset title label
+//        if _rightNaviButton != nil {
+//            //reset right button
+//            _rightNaviButton!.frame = CGRect(x: topBar.width - _rightNaviButton!.width - 10, y: _rightNaviButton!.y, width: _rightNaviButton!.width, height: _rightNaviButton!.height)
+//            var minX: CGFloat = 0.0
+//            let width: CGFloat = max(_leftNaviButton!.width, _rightNaviButton!.width)
+//            if _leftNaviButton!.width == width {
+//                minX = _leftNaviButton!.minX
+//            }else {
+//                minX = self.view.width - _rightNaviButton!.maxX
+//            }
+//            self.titleLabel.frame = CGRect(x: minX + width, y: 0, width: self.view.width - 2 * (minX + width), height: UIScreen.naviBarHeight)
+//        }else {
+//            let width: CGFloat = _leftNaviButton!.width
+//            self.titleLabel.frame = CGRect(x: _leftNaviButton!.minX + width, y: 0, width: self.view.width - 2 * (_leftNaviButton!.minX + width), height: UIScreen.naviBarHeight)
+//        }
+//    }
 
-    /// 设置视图
-    override var title: String? {
-        get {
-            return super.title
-        }
-        set {
-            super.title = newValue
-            if self.isViewLoaded {
-                self.titleLabel.text = newValue
-            }
-        }
-    }
-
-    func setLeftNaviImage(_ image: UIImage?) {
-        self.leftNaviButton.setTitle("", for: .normal)
-        self.leftNaviButton.setTitle("", for: .highlighted)
-        self.leftNaviButton.setImage(image, for: .normal)
-        self.leftNaviButton.setImage(image, for: .highlighted)
-    }
-    func setLeftNaviImageURL(_ imageURL: String) {
-        self.leftNaviButton.setTitle("", for: .normal)
-        self.leftNaviButton.setTitle("", for: .highlighted)
-        self.leftNaviButton.setImage(nil, for: .normal)
-        self.leftNaviButton.setImage(nil, for: .highlighted)
-        self.leftNaviButton.setImageUrlString(imageURL)
-    }
-    func setNaviLeftImage(_ normal: UIImage?, highlight: UIImage?) {
-        self.leftNaviButton.setTitle("", for: .normal)
-        self.leftNaviButton.setTitle("", for: .highlighted)
-        self.leftNaviButton.setImage(normal, for: .normal)
-        self.leftNaviButton.setImage(highlight, for: .highlighted)
-    }
-    func setRightNaviImage(_ image: UIImage?) {
-        self.rightNaviButton.setTitle("", for: .normal)
-        self.rightNaviButton.setTitle("", for: .highlighted)
-        self.rightNaviButton.setImage(image, for: .normal)
-        self.rightNaviButton.setImage(image, for: .highlighted)
-    }
-    func setRightNaviImageURL(_ imageURL: String) {
-        self.rightNaviButton.setTitle("", for: .normal)
-        self.rightNaviButton.setTitle("", for: .highlighted)
-        self.rightNaviButton.setImage(nil, for: .normal)
-        self.rightNaviButton.setImage(nil, for: .highlighted)
-        self.rightNaviButton.setImageUrlString(imageURL)
-    }
-    func setNaviRightImage(_ normal: UIImage?, highlight: UIImage?) {
-        self.rightNaviButton.setTitle("", for: .normal)
-        self.rightNaviButton.setTitle("", for: .highlighted)
-        self.rightNaviButton.setImage(normal, for: .normal)
-        self.rightNaviButton.setImage(highlight, for: .highlighted)
-    }
-    func setLeftNaviTitle(_ title: String) {
-        self.leftNaviButton.setTitle(title, for: .normal)
-        self.leftNaviButton.setTitle(title, for: .highlighted)
-        self.leftNaviButton.setImage(nil, for: .normal)
-        self.leftNaviButton.setImage(nil, for: .highlighted)
-    }
-    func setLeftNaviTitle(_ imageURL: String, titleColor: UIColor, highlightcolor: UIColor) {
-        self.leftNaviButton.setTitle(title, for: .normal)
-        self.leftNaviButton.setTitle(title, for: .highlighted)
-        self.leftNaviButton.setTitleColor(titleColor, for: .normal)
-        self.leftNaviButton.setTitleColor(highlightcolor, for: .highlighted)
-        self.leftNaviButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        self.leftNaviButton.frame = CGRect(x: HNavTitleButtonMargin, y: self.rightNaviButton.y, width: HNavTitleButtonWidth, height: self.rightNaviButton.height)
-        self.leftNaviButton.setImage(nil, for: .normal)
-        self.leftNaviButton.setImage(nil, for: .highlighted)
-    }
-    func setRightNaviTitle(_ title: String) {
-        self.rightNaviButton.setTitle(title, for: .normal)
-        self.rightNaviButton.setTitle(title, for: .highlighted)
-        self.rightNaviButton.setImage(nil, for: .normal)
-        self.rightNaviButton.setImage(nil, for: .highlighted)
-    }
-    func setRightNaviTitle(_ imageURL: String, titleColor: UIColor, highlightcolor: UIColor) {
-        self.rightNaviButton.setTitle(title, for: .normal)
-        self.rightNaviButton.setTitle(title, for: .highlighted)
-        self.rightNaviButton.setTitleColor(titleColor, for: .normal)
-        self.rightNaviButton.setTitleColor(highlightcolor, for: .highlighted)
-        self.rightNaviButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        self.rightNaviButton.frame = CGRect(x: self.topBar.width - HNavTitleButtonWidth - HNavTitleButtonMargin, y: self.rightNaviButton.y, width: HNavTitleButtonWidth, height: self.rightNaviButton.height)
-        self.rightNaviButton.setImage(nil, for: .normal)
-        self.rightNaviButton.setImage(nil, for: .highlighted)
-    }
+//    /// 设置视图
+//    override var title: String? {
+//        get {
+//            return super.title
+//        }
+//        set {
+//            super.title = newValue
+//            if self.isViewLoaded {
+//                self.titleLabel.text = newValue
+//            }
+//        }
+//    }
+//
+//    func setLeftNaviImage(_ image: UIImage?) {
+//        self.leftNaviButton.setTitle("", for: .normal)
+//        self.leftNaviButton.setTitle("", for: .highlighted)
+//        self.leftNaviButton.setImage(image, for: .normal)
+//        self.leftNaviButton.setImage(image, for: .highlighted)
+//    }
+//    func setLeftNaviImageURL(_ imageURL: String) {
+//        self.leftNaviButton.setTitle("", for: .normal)
+//        self.leftNaviButton.setTitle("", for: .highlighted)
+//        self.leftNaviButton.setImage(nil, for: .normal)
+//        self.leftNaviButton.setImage(nil, for: .highlighted)
+//        self.leftNaviButton.setImageUrlString(imageURL)
+//    }
+//    func setNaviLeftImage(_ normal: UIImage?, highlight: UIImage?) {
+//        self.leftNaviButton.setTitle("", for: .normal)
+//        self.leftNaviButton.setTitle("", for: .highlighted)
+//        self.leftNaviButton.setImage(normal, for: .normal)
+//        self.leftNaviButton.setImage(highlight, for: .highlighted)
+//    }
+//    func setRightNaviImage(_ image: UIImage?) {
+//        self.rightNaviButton.setTitle("", for: .normal)
+//        self.rightNaviButton.setTitle("", for: .highlighted)
+//        self.rightNaviButton.setImage(image, for: .normal)
+//        self.rightNaviButton.setImage(image, for: .highlighted)
+//    }
+//    func setRightNaviImageURL(_ imageURL: String) {
+//        self.rightNaviButton.setTitle("", for: .normal)
+//        self.rightNaviButton.setTitle("", for: .highlighted)
+//        self.rightNaviButton.setImage(nil, for: .normal)
+//        self.rightNaviButton.setImage(nil, for: .highlighted)
+//        self.rightNaviButton.setImageUrlString(imageURL)
+//    }
+//    func setNaviRightImage(_ normal: UIImage?, highlight: UIImage?) {
+//        self.rightNaviButton.setTitle("", for: .normal)
+//        self.rightNaviButton.setTitle("", for: .highlighted)
+//        self.rightNaviButton.setImage(normal, for: .normal)
+//        self.rightNaviButton.setImage(highlight, for: .highlighted)
+//    }
+//    func setLeftNaviTitle(_ title: String) {
+//        self.leftNaviButton.setTitle(title, for: .normal)
+//        self.leftNaviButton.setTitle(title, for: .highlighted)
+//        self.leftNaviButton.setImage(nil, for: .normal)
+//        self.leftNaviButton.setImage(nil, for: .highlighted)
+//    }
+//    func setLeftNaviTitle(_ imageURL: String, titleColor: UIColor, highlightcolor: UIColor) {
+//        self.leftNaviButton.setTitle(title, for: .normal)
+//        self.leftNaviButton.setTitle(title, for: .highlighted)
+//        self.leftNaviButton.setTitleColor(titleColor, for: .normal)
+//        self.leftNaviButton.setTitleColor(highlightcolor, for: .highlighted)
+//        self.leftNaviButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+//        self.leftNaviButton.frame = CGRect(x: HNavTitleButtonMargin, y: self.rightNaviButton.y, width: HNavTitleButtonWidth, height: self.rightNaviButton.height)
+//        self.leftNaviButton.setImage(nil, for: .normal)
+//        self.leftNaviButton.setImage(nil, for: .highlighted)
+//    }
+//    func setRightNaviTitle(_ title: String) {
+//        self.rightNaviButton.setTitle(title, for: .normal)
+//        self.rightNaviButton.setTitle(title, for: .highlighted)
+//        self.rightNaviButton.setImage(nil, for: .normal)
+//        self.rightNaviButton.setImage(nil, for: .highlighted)
+//    }
+//    func setRightNaviTitle(_ imageURL: String, titleColor: UIColor, highlightcolor: UIColor) {
+//        self.rightNaviButton.setTitle(title, for: .normal)
+//        self.rightNaviButton.setTitle(title, for: .highlighted)
+//        self.rightNaviButton.setTitleColor(titleColor, for: .normal)
+//        self.rightNaviButton.setTitleColor(highlightcolor, for: .highlighted)
+//        self.rightNaviButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+//        self.rightNaviButton.frame = CGRect(x: self.topBar.width - HNavTitleButtonWidth - HNavTitleButtonMargin, y: self.rightNaviButton.y, width: HNavTitleButtonWidth, height: self.rightNaviButton.height)
+//        self.rightNaviButton.setImage(nil, for: .normal)
+//        self.rightNaviButton.setImage(nil, for: .highlighted)
+//    }
     
     /// 导航栏状态控制
     func setNeedsNavigationBarAppearanceUpdate() {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.topBar.isHidden = self.prefersNavigationBarHidden
-        self.topBar.backgroundColor = self.preferredNaviBarColor
-        _topBarLine!.backgroundColor = self.preferredNaviShadowColor
+        _naviBar.isHidden = self.prefersNavigationBarHidden
+        _naviBar.backgroundColor = self.preferredNaviBarColor
+        _naviBar.lineView.backgroundColor = self.preferredNaviShadowColor
     }
 
     var autoAdjustStatusBarStyle: Bool {
@@ -431,7 +495,7 @@ class HViewController: UIViewController {
             }else {
                 return .default
             }
-        }else if _topBar != nil && _topBar!.backgroundColor?.isLighterColor ?? false {
+        }else if _naviBar.backgroundColor?.isLighterColor ?? false {
             if #available(iOS 13.0, *) {
                 return .darkContent
             }else {

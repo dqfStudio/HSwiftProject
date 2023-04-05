@@ -17,7 +17,7 @@ class HMenuViewController: HTabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.topBar.isHidden = true
+        self.naviBar.isHidden = true
         self.initViewControllers()
         self.addSpecialItem()
         self.setupFrameOfTabBarAndContentView()

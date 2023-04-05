@@ -52,7 +52,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
-        self.topBar.isHidden = true
+        self.naviBar.isHidden = true
         if (self.hideVisualView) {
             self.tupleView.backgroundColor = UIColor.white
             self.view.addSubview(self.tupleView)

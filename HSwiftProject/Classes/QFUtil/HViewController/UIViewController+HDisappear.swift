@@ -7,72 +7,48 @@
 //
 
 import UIKit
-//import SwizzleSwift
+
+@objc
+enum HVCAppearType : Int {
+    case undefine = 0
+    case present  = 1
+    case push     = 2
+}
 
 @objc
 enum HVCDisappearType : Int {
-    case other  = 0
-    case push   = 1
-    case pop    = 2
-    case dismiss = 3
+    case undefine = 0
+    case push     = 1
+    case pop      = 2
+    case dismiss  = 3
 }
 
+private var kHVCAppearTypeKey = "kHVCAppearTypeKey"
+
 extension UIViewController {
-    
-//    @objc static func swizzle() -> Void {
-//        Swizzle(UIViewController.self) {
-//            #selector(dismiss(animated:completion:)) <-> #selector(pvc_dismiss(animated:completion:))
-//        }
-//    }
-    
-    @objc
-    open func pvc_dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        self.dismiss(animated: flag, completion: completion)
-        if self.navigationController?.viewControllers.count ?? 0 > 0 {
-            let viewControllers = (self.navigationController?.viewControllers)!
-            for item in viewControllers {
-                let vc = item as UIViewController
-                vc.vcWillDisappear(.dismiss)
-            }
-        }else {
-            self.vcWillDisappear(.dismiss)
+
+    //VC出现方式
+    var appearType: HVCAppearType {
+        get {
+            let value = self.getAssociatedValueForKey(&kHVCAppearTypeKey) as? NSNumber ?? NSNumber(value: 0)
+            return HVCAppearType(rawValue: value.intValue)!
+        }
+        set {
+            self.setAssociateValue(NSNumber(value: newValue.rawValue), key: &kHVCAppearTypeKey)
         }
     }
-    
+
     @objc
     func vcWillDisappear(_ type: HVCDisappearType) { }
 
 }
 
-extension UINavigationController {
-    
-//    @objc static func swizzle() -> Void {
-//        Swizzle(UIViewController.self) {
-//            #selector(popViewController(animated:)) <-> #selector(disappear_popViewController(animated:))
-//            #selector(pushViewController(_:animated:)) <-> #selector(disappear_pushViewController(_:animated:))
-//        }
-//    }
-    
-    @objc
-    open func disappear_popViewController(animated: Bool) -> UIViewController? {
-        let popVC = self.disappear_popViewController(animated: animated)
-        if popVC?.isKind(of: UIViewController.self) ?? false {
-            popVC?.vcWillDisappear(.pop)
-        }
-        return popVC
-    }
-    
-    @objc
-    open func disappear_pushViewController(_ viewController: UIViewController, animated: Bool) {
-        if self.topViewController?.isKind(of: UIViewController.self) ?? false {
-            self.topViewController?.vcWillDisappear(.push)
-        }
-        self.disappear_pushViewController(viewController, animated: animated)
-    }
-
-}
-
 extension HViewController {
+    
+    open override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+        viewControllerToPresent.appearType = .present
+        super.present(viewControllerToPresent, animated: flag, completion: completion)
+    }
     
     open override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         super.dismiss(animated: flag, completion: completion)
@@ -91,6 +67,7 @@ extension HViewController {
 
 extension HNavigationController {
     
+    @discardableResult
     open override func popViewController(animated: Bool) -> UIViewController? {
         let popVC = super.popViewController(animated: animated)
         if popVC?.isKind(of: UIViewController.self) ?? false {
@@ -103,7 +80,10 @@ extension HNavigationController {
         if self.topViewController?.isKind(of: UIViewController.self) ?? false {
             self.topViewController?.vcWillDisappear(.push)
         }
+        if !viewControllers.isEmpty {
+            viewController.appearType = .push
+        }
         super.pushViewController(viewController, animated: animated)
     }
-
+    
 }

@@ -35,7 +35,7 @@ class HGameCategoryVC : HViewController, HTupleViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.white
-        self.leftNaviButton.isHidden = true
+        self.naviBar.leftButton.isHidden = true
         self.title = "分类"
         self.tupleView.delegate = self
         self.view.addSubview(self.tupleView)

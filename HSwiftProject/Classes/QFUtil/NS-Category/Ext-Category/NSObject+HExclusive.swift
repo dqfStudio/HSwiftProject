@@ -27,11 +27,19 @@ extension NSObject {
         }
     }
     
+    func exclusive(exc: String) {
+        let excString: String = String(format: "%p%@", self, exc)
+        if !self.exclusiveSet!.contains(excString) {
+            self.exclusiveSet!.add(excString)
+        }
+    }
+
     func exclusive(exc: String, block: () -> Void) {
-        let excString = "\(Unmanaged.passUnretained(self).toOpaque())\(exc)"
+        let excString: String = String(format: "%p%@", self, exc)
         if !self.exclusiveSet!.contains(excString) {
             self.exclusiveSet!.add(excString)
             block()
+            self.exclusiveSet!.remove(excString)
         }
     }
     

@@ -13,7 +13,7 @@ class HMainController2: HTupleController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        self.leftNaviButton.isHidden = true
+        self.naviBar.leftButton.isHidden = true
         self.title = "第二页"
         self.tupleView.delegate = self
     }
