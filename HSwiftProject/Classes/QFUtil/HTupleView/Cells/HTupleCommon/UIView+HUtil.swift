@@ -19,7 +19,7 @@ extension UIView {
     /**
     *  根据nib name返回UIView
     */
-    static func viewWithNibName(nibName: String) -> UIView {
+    static func view(withNibName nibName: String) -> UIView {
         return Bundle.main.loadNibNamed(nibName, owner: nil, options: nil)?.first as! UIView
     }
     
@@ -98,26 +98,26 @@ extension UIView {
     /**
     *  根据传入的width来水平居中
     */
-    func horizontalCenterWithWidth(_ width: CGFloat) {
+    func horizontalCenter(withWidth width: CGFloat) {
         self.x = CGFloat(ceilf(Float((width - self.width) / 2)))
     }
 
     /**
     *  根据传入的height来竖直居中
     */
-    func verticalCenterWithHeight(_ height: CGFloat) {
+    func verticalCenter(withHeight height: CGFloat) {
         self.y = CGFloat(ceilf(Float((height - self.height) / 2)))
     }
     
     func horizontalCenterInSuperView() {
         if self.superview != nil {
-            self.horizontalCenterWithWidth(self.superview!.width)
+            self.horizontalCenter(withWidth: self.superview!.width)
         }
     }
     
     func verticalCenterInSuperView() {
         if self.superview != nil {
-            self.verticalCenterWithHeight(self.superview!.height)
+            self.verticalCenter(withHeight: self.superview!.height)
         }
     }
     
