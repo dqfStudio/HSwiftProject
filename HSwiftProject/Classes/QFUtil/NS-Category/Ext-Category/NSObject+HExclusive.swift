@@ -51,7 +51,7 @@ extension NSObject {
         }
     }
     
-    func removeExclusive(_ exc: String) {
+    func removeExclusive(exc: String) {
         let excString: String = String(format: "%p%@", self, exc)
         if (self.exclusiveSet!.contains(excString) == true) {
             self.exclusiveSet!.remove(excString)
