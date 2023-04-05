@@ -26,20 +26,12 @@ extension NSObject {
             objc_setAssociatedObject(self, &kExclusiveSetKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    
-    func exclusive(exc: String) {
-        let excString: String = String(format: "%p%@", self, exc)
-        if !self.exclusiveSet!.contains(excString) {
-            self.exclusiveSet!.add(excString)
-        }
-    }
 
     func exclusive(exc: String, block: () -> Void) {
         let excString: String = String(format: "%p%@", self, exc)
         if !self.exclusiveSet!.contains(excString) {
             self.exclusiveSet!.add(excString)
             block()
-            self.exclusiveSet!.remove(excString)
         }
     }
     

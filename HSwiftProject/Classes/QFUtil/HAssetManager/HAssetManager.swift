@@ -43,7 +43,8 @@ class HAssetManager: NSObject {
                         PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: self.albumsName)
                     }
                 }) { (success, error) in
-                    
+                    self.removeExclusive(KExecutingKey)
+                    self.removeExclusive(KInOperationKey)
                 }
             }
         }
@@ -121,6 +122,8 @@ class HAssetManager: NSObject {
                         PHAssetChangeRequest.creationRequestForAsset(from: image!)
                     }
                 }, completionHandler: { (success, error) in
+                    self.removeExclusive(KExecutingKey)
+                    self.removeExclusive(KInOperationKey)
                     if let completionHandler = completionHandler {
                         completionHandler(success, error)
                     }
@@ -227,6 +230,8 @@ class HAssetManager: NSObject {
                             collectonRequest?.insertAssets([placeHolder!] as NSArray, at: IndexSet(integer: 0))
                         }
                     }, completionHandler: { (success, error) in
+                        self.removeExclusive(KExecutingKey)
+                        self.removeExclusive(KInOperationKey)
                         semaphore?.signal()
                         completionHandler?(success, error)
                     })
@@ -282,6 +287,8 @@ class HAssetManager: NSObject {
                         collectonRequest?.addAssets([placeHolder] as NSFastEnumeration)
                     }
                 }) { (success, error) in
+                    self.removeExclusive(KExecutingKey)
+                    self.removeExclusive(KInOperationKey)
                     completion?(success, error)
                 }
             }
