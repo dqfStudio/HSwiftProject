@@ -12,6 +12,7 @@ typealias HTextViewShouldBeginEditingBlock = (HTextView) -> Void
 typealias HTextViewShouldEndEditingBlock = (HTextView) -> Void
 
 typealias HTextViewDidChangeBlock = (HTextView) -> Void
+typealias HTextViewDidChangeSelectionBlock = (HTextView) -> Void
 typealias HTextViewReturnBlock = (HTextView) -> Void
 
 class HTextView : UITextView, UITextViewDelegate {
@@ -33,6 +34,7 @@ class HTextView : UITextView, UITextViewDelegate {
     
     ///Did Change Block
     var didChangeBlock: HTextViewDidChangeBlock?
+    var didChangeSelectionBlock: HTextViewDidChangeSelectionBlock?
     
     var shouldBeginEditingBlock: HTextViewShouldBeginEditingBlock?
     var shouldEndEditingBlock: HTextViewShouldEndEditingBlock?
@@ -68,15 +70,15 @@ class HTextView : UITextView, UITextViewDelegate {
         return self.text
     }
     
-//    func textViewDidChange(_ textView: UITextView) {
-//        if self.didChangeBlock != nil {
-//            self.didChangeBlock!(textView as! HTextView)
-//        }
-//    }
-    
-    func textViewDidChangeSelection(_ textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         if self.didChangeBlock != nil {
             self.didChangeBlock!(textView as! HTextView)
+        }
+    }
+    
+    func textViewDidChangeSelection(_ textView: UITextView) {
+        if self.didChangeSelectionBlock != nil {
+            self.didChangeSelectionBlock!(textView as! HTextView)
         }
     }
     
@@ -98,7 +100,7 @@ class HTextView : UITextView, UITextViewDelegate {
                     textView.text = tmpString?.to(loc: self.maxInput)
                     //异步移动光标
                     DispatchQueue.main.async { [weak self, textView] in
-                        self!.cursorLocation(textView, index: textView.text!.length)
+                        self?.cursorLocation(textView, index: textView.text!.length)
                     }
                 }else {//输入字符串
                     tmpString = textView.text! + text
