@@ -68,7 +68,13 @@ class HTextView : UITextView, UITextViewDelegate {
         return self.text
     }
     
-    func textViewDidChange(_ textView: UITextView) {
+//    func textViewDidChange(_ textView: UITextView) {
+//        if self.didChangeBlock != nil {
+//            self.didChangeBlock!(textView as! HTextView)
+//        }
+//    }
+    
+    func textViewDidChangeSelection(_ textView: UITextView) {
         if self.didChangeBlock != nil {
             self.didChangeBlock!(textView as! HTextView)
         }
@@ -97,6 +103,15 @@ class HTextView : UITextView, UITextViewDelegate {
                 }else {//输入字符串
                     tmpString = textView.text! + text
                     textView.text = tmpString?.to(loc: self.maxInput)
+                }
+            }else if text.length > 1 {//复制字符串
+                let string = text.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
+                let tmpString = textView.text! + string
+                //赋值
+                textView.text = tmpString.to(loc: self.maxInput)
+                //异步移动光标
+                DispatchQueue.main.async { [weak self, textView] in
+                    self!.cursorLocation(textView, index: textView.text!.length)
                 }
             }
             return (strLength <= self.maxInput)
