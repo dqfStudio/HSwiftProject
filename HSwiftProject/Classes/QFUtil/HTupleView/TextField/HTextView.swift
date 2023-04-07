@@ -23,8 +23,8 @@ class HTextView : UITextView, UITextViewDelegate {
     ///禁止粘贴，默认为false
     var forbidPaste: Bool = false
     
-    ///禁止输入空格和换行符，默认为true
-    var forbidWhitespaceAndNewline: Bool = true
+    ///禁止输入空格和换行符，默认为false
+    var forbidWhitespaceAndNewline: Bool = false
     
     ///是否可编辑，默认为true
     var editEnabled: Bool = true
