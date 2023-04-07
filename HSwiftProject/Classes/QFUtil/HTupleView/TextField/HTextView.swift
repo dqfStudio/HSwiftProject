@@ -104,15 +104,6 @@ class HTextView : UITextView, UITextViewDelegate {
                     tmpString = textView.text! + text
                     textView.text = tmpString?.to(loc: self.maxInput)
                 }
-            }else if text.length > 1 {//复制字符串
-                let string = text.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
-                let tmpString = textView.text! + string
-                //赋值
-                textView.text = tmpString.to(loc: self.maxInput)
-                //异步移动光标
-                DispatchQueue.main.async { [weak self, textView] in
-                    self!.cursorLocation(textView, index: textView.text!.length)
-                }
             }
             return (strLength <= self.maxInput)
         }
@@ -149,10 +140,7 @@ class HTextView : UITextView, UITextViewDelegate {
 
     //移动光标
     private func cursorLocation(_ textView: UITextView, index: Int) {
-        let range = NSRange(location: index, length: 0)
-        let start: UITextPosition = textView.position(from: textView.beginningOfDocument, offset: range.location)!
-        let end: UITextPosition = textView.position(from: start, offset: range.length)!
-        textView.selectionRects(for: textView.textRange(from: start, to: end)!)
+        textView.selectedRange = NSRange(location: index, length: 0)
     }
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
