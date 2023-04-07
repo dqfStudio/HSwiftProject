@@ -8,6 +8,10 @@
 
 import UIKit
 
+typealias HTextViewShouldBeginEditingBlock = (HTextView) -> Void
+typealias HTextViewShouldEndEditingBlock = (HTextView) -> Void
+
+typealias HTextViewDidChangeBlock = (HTextView) -> Void
 typealias HTextViewReturnBlock = (HTextView) -> Void
 
 class HTextView : UITextView, UITextViewDelegate {
@@ -26,6 +30,12 @@ class HTextView : UITextView, UITextViewDelegate {
     
     ///点击键盘上的return键调用
     var returnBlock: HTextViewReturnBlock?
+    
+    ///Did Change Block
+    var didChangeBlock: HTextViewDidChangeBlock?
+    
+    var shouldBeginEditingBlock: HTextViewShouldBeginEditingBlock?
+    var shouldEndEditingBlock: HTextViewShouldEndEditingBlock?
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -57,7 +67,13 @@ class HTextView : UITextView, UITextViewDelegate {
         }
         return self.text
     }
-
+    
+    func textViewDidChange(_ textView: UITextView) {
+        if self.didChangeBlock != nil {
+            self.didChangeBlock!(textView as! HTextView)
+        }
+    }
+    
     /// delegate
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if self.forbidWhitespaceAndNewline && text.length == 1 {//输入字符串
@@ -89,7 +105,17 @@ class HTextView : UITextView, UITextViewDelegate {
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+        if self.shouldBeginEditingBlock != nil {
+            self.shouldBeginEditingBlock!(textView as! HTextView)
+        }
         return self.editEnabled
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        if self.shouldEndEditingBlock != nil {
+            self.shouldEndEditingBlock!(textView as! HTextView)
+        }
+        return true
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
