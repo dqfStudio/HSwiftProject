@@ -40,10 +40,10 @@ class HTupleLabelApex : HTupleBaseApex {
 }
 
 class HTupleTextApex : HTupleBaseApex {
-    private var _textView: UITextView?
-    var textView: UITextView {
+    private var _textView: HTextView?
+    var textView: HTextView {
         if _textView == nil {
-            _textView = UITextView()
+            _textView = HTextView()
             _textView!.font = UIFont.systemFont(ofSize: 14)
             self.layoutView.addSubview(_textView!)
         }
@@ -148,29 +148,29 @@ class HTupleViewApex : HTupleBaseApex {
     }
 
     
-    private var _textView: UITextView?
+    private var _textView: HTextView?
     ///textView
-    var textView: UITextView {
+    var textView: HTextView {
         if _textView == nil {
-            _textView = UITextView()
+            _textView = HTextView()
             _textView!.font = UIFont.systemFont(ofSize: 14)
             self.layoutView.addSubview(_textView!)
         }
         return _textView!
     }
-    private var _detailTextView: UITextView?
-    var detailTextView: UITextView {
+    private var _detailTextView: HTextView?
+    var detailTextView: HTextView {
         if _detailTextView == nil {
-            _detailTextView = UITextView()
+            _detailTextView = HTextView()
             _detailTextView!.font = UIFont.systemFont(ofSize: 14)
             self.layoutView.addSubview(_detailTextView!)
         }
         return _detailTextView!
     }
-    private var _accessoryTextView: UITextView?
-    var accessoryTextView: UITextView {
+    private var _accessoryTextView: HTextView?
+    var accessoryTextView: HTextView {
         if _accessoryTextView == nil {
-            _accessoryTextView = UITextView()
+            _accessoryTextView = HTextView()
             _accessoryTextView!.font = UIFont.systemFont(ofSize: 14)
             self.layoutView.addSubview(_accessoryTextView!)
         }

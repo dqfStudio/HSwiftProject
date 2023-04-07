@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias HInputReturnBlock = (HTextField) -> Void
+typealias HTextFieldReturnBlock = (HTextField) -> Void
 
 class HTextField : UITextField, UITextFieldDelegate {
     
@@ -219,7 +219,7 @@ class HTextField : UITextField, UITextFieldDelegate {
     var editEnabled: Bool = true
     
     ///点击键盘上的return键调用
-    var returnBlock: HInputReturnBlock?
+    var returnBlock: HTextFieldReturnBlock?
     
 //    required init() {
 //        super.init()

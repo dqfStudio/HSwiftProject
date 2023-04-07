@@ -1,5 +1,5 @@
 //
-//  HTextView.swift
+//  HTextViewer.swift
 //  HSwiftProject
 //
 //  Created by Wind on 17/11/2021.
@@ -37,20 +37,20 @@ public class HActionString {
     }
 }
 
-public class HTextView: UITextView {
+public class HTextViewer: UITextView {
     
     public var selectedBackgroundColor: UIColor?
     private var storageTexts: [HActionString] = []
     private var selectedAttribute: HActionString?
     private var originalAttributeText: NSAttributedString?
     
-    public func removeAllAttribute() -> HTextView {
+    public func removeAllAttribute() -> HTextViewer {
         text = ""
         return self
     }
     
     @discardableResult
-    public func appendAttributedText(_ attribute: HActionString) -> HTextView {
+    public func appendAttributedText(_ attribute: HActionString) -> HTextViewer {
         storageTexts.append(attribute)
         
         let location = attributedText?.length ?? 0
