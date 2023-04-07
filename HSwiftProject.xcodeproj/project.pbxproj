@@ -172,6 +172,7 @@
 		A2CC441123B360AE00DB095F /* HTupleRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CC441023B360AE00DB095F /* HTupleRefresh.swift */; };
 		A2CC441323B3691D00DB095F /* HTableRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CC441223B3691D00DB095F /* HTableRefresh.swift */; };
 		EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23D99529DFC6F800C96CAC /* HTextView.swift */; };
+		EB23D9A029E01A3900C96CAC /* HTupleView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23D99F29E01A3900C96CAC /* HTupleView2.swift */; };
 		EB4323CF29B988A400EDDB64 /* icon_no_network@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */; };
 		EB4323D029B988A400EDDB64 /* icon_no_network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */; };
 		EB4323D129B988A400EDDB64 /* icon_no_server@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */; };
@@ -456,6 +457,7 @@
 		A2CC441223B3691D00DB095F /* HTableRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableRefresh.swift; sourceTree = "<group>"; };
 		D6FA5573A6AEBBEE3FA9646A /* Pods-HSwiftProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSwiftProject.debug.xcconfig"; path = "Target Support Files/Pods-HSwiftProject/Pods-HSwiftProject.debug.xcconfig"; sourceTree = "<group>"; };
 		EB23D99529DFC6F800C96CAC /* HTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
+		EB23D99F29E01A3900C96CAC /* HTupleView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleView2.swift; sourceTree = "<group>"; };
 		EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@3x.png"; sourceTree = "<group>"; };
 		EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@2x.png"; sourceTree = "<group>"; };
 		EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_server@3x.png"; sourceTree = "<group>"; };
@@ -764,6 +766,7 @@
 				A289239F238B72F800E4AB75 /* HCollectionViewFlowLayout.swift */,
 				A28923C6238D21F300E4AB75 /* HObject.swift */,
 				A289239E238B72F800E4AB75 /* HTupleView.swift */,
+				EB23D99F29E01A3900C96CAC /* HTupleView2.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1776,6 +1779,7 @@
 				A2B4307C237FF2B100795605 /* HGameCategoryVC.swift in Sources */,
 				EB43241429C3163900EDDB64 /* HUserRegion.swift in Sources */,
 				EBD0FB6B29D02B1000808EDA /* HUserStore.swift in Sources */,
+				EB23D9A029E01A3900C96CAC /* HTupleView2.swift in Sources */,
 				EBD0FB3629CCA34800808EDA /* HLocalNotification.swift in Sources */,
 				A26D43412386CD9000F457AE /* NSTimer+HSafeUtil.swift in Sources */,
 				EBD0FBA029DB00D100808EDA /* HMainController6+Event.swift in Sources */,
