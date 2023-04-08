@@ -17,7 +17,7 @@ class HMainController4: HTabBarController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.white
-        self.naviBar.leftButton.isHidden = true
+        self.leftNaviButton.isHidden = true
         self.title = "第四页"
         
         let screenSize: CGSize = UIScreen.main.bounds.size

@@ -13,7 +13,7 @@ class HLoginController: HTupleController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        self.naviBar.leftButton.isHidden = true
+        self.leftNaviButton.isHidden = true
         self.title = "登录"
         self.tupleView.delegate = self
     }

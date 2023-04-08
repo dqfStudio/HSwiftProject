@@ -281,7 +281,6 @@
 		EBD0FBA029DB00D100808EDA /* HMainController6+Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB9F29DB00D100808EDA /* HMainController6+Event.swift */; };
 		EBD0FBA229DB00DE00808EDA /* HMainController6+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */; };
 		EBD0FBB229DBEE4800808EDA /* HNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */; };
-		EBD0FBB429DD47DD00808EDA /* HNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBB329DD47DD00808EDA /* HNavigationBar.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -565,7 +564,6 @@
 		EBD0FB9F29DB00D100808EDA /* HMainController6+Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+Event.swift"; sourceTree = "<group>"; };
 		EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+Cell.swift"; sourceTree = "<group>"; };
 		EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNumberFormatter.swift; sourceTree = "<group>"; };
-		EBD0FBB329DD47DD00808EDA /* HNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1114,7 +1112,6 @@
 			children = (
 				A26D43312386914500F457AE /* hvc_back_icon@2x.png */,
 				A26D43302386914500F457AE /* hvc_back_icon@3x.png */,
-				EBD0FBB329DD47DD00808EDA /* HNavigationBar.swift */,
 				A2B4307F237FF57C00795605 /* HViewController.swift */,
 				A258395823B4E70F00881941 /* HTableController.swift */,
 				A28923C4238CDE8400E4AB75 /* HTupleController.swift */,
@@ -1748,7 +1745,6 @@
 				EB4323F429B98C9400EDDB64 /* HNaviToastView.swift in Sources */,
 				EBC8146129AA53C600A81431 /* HSendAudioVC+HStatus5.swift in Sources */,
 				EBD0FB2C29CC9AEF00808EDA /* UIColor+HSkin.swift in Sources */,
-				EBD0FBB429DD47DD00808EDA /* HNavigationBar.swift in Sources */,
 				EBD0FBB229DBEE4800808EDA /* HNumberFormatter.swift in Sources */,
 				A2188795238FD3CC005C20BF /* HGameCategoryVC+HSection0.swift in Sources */,
 				EBD0FB3C29CD4C2400808EDA /* AppDelegate+SoundService.swift in Sources */,

@@ -14,7 +14,7 @@ class HMainController6: HTableController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.white
-        self.naviBar.leftButton.isHidden = true
+        self.leftNaviButton.isHidden = true
         self.tableView.delegate = self
     }
 
