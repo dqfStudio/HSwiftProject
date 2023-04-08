@@ -7,13 +7,9 @@
 //
 
 import UIKit
-//import SwizzleSwift
 
 var HNavTitleButtonWidth: CGFloat = 70
 var HNavTitleButtonMargin: CGFloat = 10
-
-private var sourceArrKey = "sourceArrKey"
-private var sourceDictKey = "sourceDictKey"
 
 class HVCAppearance {
     static let barColor: UIColor = .white
@@ -22,26 +18,8 @@ class HVCAppearance {
     static let lightTextColor: UIColor = .lightGray
 }
 
-//extension UIView {
-//
-//    @objc static func swizzle() {
-//        Swizzle(UIView.self) {
-//            #selector(willMove(toSuperview:)) <-> #selector(pvc_willMove(toSuperview:))
-//        }
-//    }
-//
-//    @objc func pvc_willMove(toSuperview newSuperview: UIView?) {
-//        //关闭暗黑模式
-//        if #available(iOS 13.0, *) {
-//            self.overrideUserInterfaceStyle = .light
-//        }
-//        self.pvc_willMove(toSuperview: newSuperview)
-//    }
-//}
-
 class HViewController: UIViewController {
     
-    private var controllableRequests: NSMutableArray = NSMutableArray()
     private var statusBarPadding: CGFloat = 0
     private var orientation: UIDeviceOrientation = UIDevice.current.orientation
         
@@ -79,23 +57,6 @@ class HViewController: UIViewController {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        if controllableRequests.count > 0 {
-            controllableRequests.enumerateObjects { (obj, idx, stop) in
-                //let net = obj as! HNetworkDAO
-                //net.cancel()
-            }
-            controllableRequests.removeAllObjects()
-        }
-        #if DEBUG
-//        NSString *message = [NSStringFromClass(self.class) stringByAppendingString:@"--释放内存"]
-//        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"温馨提示" message:message preferredStyle:UIAlertControllerStyleAlert]
-//        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"我知道了"
-//                                                               style:UIAlertActionStyleCancel
-//                                                             handler:^(UIAlertAction * _Nonnull action) {}]
-//        [alertController addAction:cancelAction]
-//        UIViewController *rootController = [UIApplication sharedApplication].delegate.window.rootViewController
-//        [rootController presentViewController:alertController animated:YES completion:nil]
-        #endif
     }
     
     override func viewDidLoad() {
@@ -560,30 +521,17 @@ extension UIViewController {
             }
         }
     }
-}
-
-extension HViewController {
-    var window: UIWindow? {
-        UIApplication.shared.delegate?.window as? UIWindow
+    
+    func addChildViewController(_ viewController: UIViewController) {
+        addChild(viewController)
+        view.addSubview(viewController.view)
+        viewController.didMove(toParent: self)
     }
-    var screen: UIScreen {
-        UIScreen.main
-    }
-    private var sourceArr: NSMutableArray {
-        if let array = getAssociatedValueForKey(&sourceArrKey) as? NSMutableArray {
-            return array
-        }
-        let array = NSMutableArray()
-        setAssociateValue(array, key: &sourceArrKey)
-        return array
-    }
-    private var sourceDict: NSMutableDictionary {
-        if let dictionary = getAssociatedValueForKey(&sourceDictKey) as? NSMutableDictionary {
-            return dictionary
-        }
-        let dictionary = NSMutableDictionary()
-        setAssociateValue(dictionary, key: &sourceDictKey)
-        return dictionary
+    
+    func removeChildViewController(_ viewController: UIViewController) {
+        viewController.willMove(toParent: nil)
+        viewController.view.removeFromSuperview()
+        viewController.removeFromParent()
     }
 }
 
