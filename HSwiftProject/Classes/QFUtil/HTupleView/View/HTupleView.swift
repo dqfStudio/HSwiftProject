@@ -211,43 +211,43 @@ class HTupleAppearance : NSObject {
 
     /// UIScrollViewDelegate
     @objc
-    optional func tupleScrollViewDidScroll(_ scrollView: UIScrollView)
+    optional func tupleViewDidScroll(_ scrollView: UIScrollView)
     @objc
-    optional func tupleScrollViewDidZoom(_ scrollView: UIScrollView)
+    optional func tupleViewDidZoom(_ scrollView: UIScrollView)
     
     @objc
-    optional func tupleScrollViewWillBeginDragging(_ scrollView: UIScrollView)
+    optional func tupleViewWillBeginDragging(_ scrollView: UIScrollView)
     
-    //@objc optional func tupleScrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: CGPoint)
+    //@objc optional func tupleViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: CGPoint)
     @objc
-    optional func tupleScrollViewWillEndDragging(_ velocity: CGPoint, targetContentOffset: CGPoint)
-    
-    @objc
-    optional func tupleScrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
+    optional func tupleViewWillEndDragging(_ velocity: CGPoint, targetContentOffset: CGPoint)
     
     @objc
-    optional func tupleScrollViewWillBeginDecelerating(_ scrollView: UIScrollView)
-    @objc
-    optional func tupleScrollViewDidEndDecelerating(_ scrollView: UIScrollView)
+    optional func tupleViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
     
     @objc
-    optional func tupleScrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView)
+    optional func tupleViewWillBeginDecelerating(_ scrollView: UIScrollView)
+    @objc
+    optional func tupleViewDidEndDecelerating(_ scrollView: UIScrollView)
+    
+    @objc
+    optional func tupleViewDidEndScrollingAnimation(_ scrollView: UIScrollView)
     
     @objc
     optional func tupleViewForZoomingInScrollView(_ scrollView: UIScrollView) -> UIView?
     @objc
-    optional func tupleScrollViewWillBeginZooming(_ scrollView: UIScrollView, withView view: UIView?)
-    //@objc optional func tupleScrollViewDidEndZooming(_ scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat)
+    optional func tupleViewWillBeginZooming(_ scrollView: UIScrollView, withView view: UIView?)
+    //@objc optional func tupleViewDidEndZooming(_ scrollView: UIScrollView, withView view: UIView?, atScale scale: CGFloat)
     @objc
-    optional func tupleScrollViewDidEndZooming(_ view: UIView?, atScale scale: CGFloat)
+    optional func tupleViewDidEndZooming(_ view: UIView?, atScale scale: CGFloat)
     
     @objc
-    optional func tupleScrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool
+    optional func tupleViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool
     @objc
-    optional func tupleScrollViewDidScrollToTop(_ scrollView: UIScrollView)
+    optional func tupleViewDidScrollToTop(_ scrollView: UIScrollView)
     
     @objc
-    optional func tupleScrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView)
+    optional func tupleViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView)
 }
 
 class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, HCollectionViewDelegateFlowLayout {
@@ -1196,7 +1196,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     internal func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidScroll:")
+        let selector = NSSelectorFromString("tupleViewDidScroll:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
@@ -1204,7 +1204,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     internal func scrollViewDidZoom(_ scrollView: UIScrollView) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidZoom:")
+        let selector = NSSelectorFromString("tupleViewDidZoom:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
@@ -1213,7 +1213,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     internal func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewWillBeginDragging:")
+        let selector = NSSelectorFromString("tupleViewWillBeginDragging:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
@@ -1222,8 +1222,8 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     internal func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleScrollSplitPrefix()
-        //let selector = NSSelectorFromString("tupleScrollViewWillEndDragging:withVelocity:targetContentOffset:")
-        let selector = NSSelectorFromString("tupleScrollViewWillEndDragging:targetContentOffset:")
+        //let selector = NSSelectorFromString("tupleViewWillEndDragging:withVelocity:targetContentOffset:")
+        let selector = NSSelectorFromString("tupleViewWillEndDragging:targetContentOffset:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: velocity, with: targetContentOffset, withPre: prefix)
         }
@@ -1232,7 +1232,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     internal func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidEndDragging:willDecelerate:")
+        let selector = NSSelectorFromString("tupleViewDidEndDragging:willDecelerate:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, with: decelerate, withPre: prefix)
         }
@@ -1241,7 +1241,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     internal func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewWillBeginDecelerating:")
+        let selector = NSSelectorFromString("tupleViewWillBeginDecelerating:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
@@ -1249,7 +1249,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     internal func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidEndDecelerating:")
+        let selector = NSSelectorFromString("tupleViewDidEndDecelerating:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
@@ -1258,7 +1258,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     internal func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidEndScrollingAnimation:")
+        let selector = NSSelectorFromString("tupleViewDidEndScrollingAnimation:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
@@ -1276,7 +1276,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     internal func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewWillBeginZooming:withView:")
+        let selector = NSSelectorFromString("tupleViewWillBeginZooming:withView:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, with: view, withPre: prefix)
         }
@@ -1284,7 +1284,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     internal func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidEndZooming:atScale:")
+        let selector = NSSelectorFromString("tupleViewDidEndZooming:atScale:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: view, with: scale, withPre: prefix)
         }
@@ -1293,7 +1293,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     internal func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         guard let delegate = self.tupleDelegate else { return true }
         let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewShouldScrollToTop:")
+        let selector = NSSelectorFromString("tupleViewShouldScrollToTop:")
         if delegate.responds(to: selector, withPre: prefix) {
             return delegate.performWithUnretainedValue(selector, with: scrollView, withPre: prefix) as! Bool
         }
@@ -1302,7 +1302,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     internal func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidScrollToTop:")
+        let selector = NSSelectorFromString("tupleViewDidScrollToTop:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
@@ -1311,7 +1311,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     internal func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleScrollViewDidChangeAdjustedContentInset:")
+        let selector = NSSelectorFromString("tupleViewDidChangeAdjustedContentInset:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
