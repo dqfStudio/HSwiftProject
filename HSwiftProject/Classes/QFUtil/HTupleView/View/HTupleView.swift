@@ -789,6 +789,9 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         if delegate.responds(to: selector, withPre: prefix) {
             size = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
         }
+        // 防止大小为负数
+        if size.width <= 0 { size.width = 1.0 }
+        if size.height <= 0 { size.height = 1.0 }
         return UISizeIntegral(size)
     }
 
@@ -802,6 +805,9 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         if delegate.responds(to: selector, withPre: prefix) {
             size = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
         }
+        // 防止大小为负数
+        if size.width <= 0 { size.width = 1.0 }
+        if size.height <= 0 { size.height = 1.0 }
         return UISizeIntegral(size)
     }
     
@@ -819,6 +825,9 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         if CGSize.zero == size {
             size = CGSize(width: 1.0, height: 1.0)
         }
+        // 防止大小为负数
+        if size.width <= 0 { size.width = 1.0 }
+        if size.height <= 0 { size.height = 1.0 }
         return UISizeIntegral(size)
     }
     
