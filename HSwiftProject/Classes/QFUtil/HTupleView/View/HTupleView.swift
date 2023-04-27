@@ -726,9 +726,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let delegate = self.tupleDelegate else {
-            return 0
-        }
+        guard let delegate = self.tupleDelegate else { return 0 }
         var items = 0
         let prefix = self.prefixWithSection(section)
         let selector: Selector = #selector(delegate.numberOfItemsInSection(_:))
@@ -742,9 +740,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
 
     /// layout == HCollectionViewFlowLayout
     internal func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, colorForSectionAt section: NSInteger) -> UIColor {
-        guard let delegate = self.tupleDelegate else {
-            return UIColor.clear
-        }
+        guard let delegate = self.tupleDelegate else { return UIColor.clear }
         let prefix = self.prefixWithSection(section)
         let selector = #selector(delegate.colorForSection(_:))
         if delegate.responds(to: selector, withPre: prefix) {
@@ -762,9 +758,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        guard let delegate = self.tupleDelegate else {
-            return UIEdgeInsets.zero
-        }
+        guard let delegate = self.tupleDelegate else { return UIEdgeInsets.zero }
         let prefix = self.prefixWithSection(section)
         let selector = #selector(delegate.insetForSection(_:))
         if delegate.responds(to: selector, withPre: prefix) {
@@ -774,9 +768,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        guard let delegate = self.tupleDelegate else {
-            return CGSize.zero
-        }
+        guard let delegate = self.tupleDelegate else { return CGSize.zero }
         var size: CGSize = CGSize.zero
         let prefix = self.prefixWithSection(section)
         let selector = #selector(delegate.sizeForHeaderInSection(_:))
@@ -790,9 +782,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        guard let delegate = self.tupleDelegate else {
-            return CGSize.zero
-        }
+        guard let delegate = self.tupleDelegate else { return CGSize.zero }
         var size: CGSize = CGSize.zero
         let prefix = self.prefixWithSection(section)
         let selector = #selector(delegate.sizeForFooterInSection(_:))
@@ -806,9 +796,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let delegate = self.tupleDelegate else {
-            return CGSize(width: 1.0, height: 1.0)
-        }
+        guard let delegate = self.tupleDelegate else { return CGSize(width: 1.0, height: 1.0) }
         var size: CGSize = CGSize.zero
         let prefix = self.prefixWithSection(indexPath.section)
         let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
