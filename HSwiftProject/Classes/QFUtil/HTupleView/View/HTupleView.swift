@@ -523,9 +523,9 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             self.releaseAllSignal()
             self.clearTupleState()
 
-            if self.tupleDelegate != nil { self.tupleDelegate = nil }
-            if self.refreshBlock != nil { self.refreshBlock = nil }
-            if self.loadMoreBlock != nil { self.loadMoreBlock = nil }
+            self.tupleDelegate = nil
+            self.refreshBlock = nil
+            self.loadMoreBlock = nil
         }
     }
 
@@ -541,13 +541,13 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     func dequeueReusableHeaderWithClass(_ cls: AnyClass, iblk: AnyObject?, pre: String?, idx: Bool, idxPath: IndexPath) -> AnyObject {
         var cell: HTupleBaseApex
         var identifier = NSStringFromClass(cls)
-        identifier = identifier + self.addressValue
-        identifier = identifier + "HeaderCell"
-        if self.tupleStyle == .split && self.sectionPaths?.contains(idxPath.section) == false {
-            identifier = identifier + "\(self.tupleState)"
+        identifier += self.addressValue
+        identifier += "HeaderCell"
+        if self.tupleStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(idxPath.section) {
+            identifier += "\(self.tupleState)"
         }
-        if (pre != nil) { identifier = identifier + pre! }
-        if idx { identifier = identifier + (idxPath.stringValue as String) }
+        identifier += pre ?? ""
+        if idx { identifier += idxPath.stringValue }
         if self.allReuseIdentifiers.contains(identifier) == false {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier)
@@ -584,13 +584,13 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     func dequeueReusableFooterWithClass(_ cls: AnyClass, iblk: AnyObject?, pre: String?, idx: Bool, idxPath: IndexPath) -> AnyObject {
         var cell: HTupleBaseApex
         var identifier = NSStringFromClass(cls)
-        identifier = identifier + self.addressValue
-        identifier = identifier + "FooterCell"
-        if self.tupleStyle == .split && self.sectionPaths?.contains(idxPath.section) == false {
-            identifier = identifier + "\(self.tupleState)"
+        identifier += self.addressValue
+        identifier += "FooterCell"
+        if self.tupleStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(idxPath.section) {
+            identifier += "\(self.tupleState)"
         }
-        if (pre != nil) { identifier = identifier + pre! }
-        if idx { identifier = identifier + idxPath.stringValue }
+        identifier += pre ?? ""
+        if idx { identifier += idxPath.stringValue }
         if self.allReuseIdentifiers.contains(identifier) == false {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: identifier)
@@ -627,12 +627,12 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     func dequeueReusableCellWithClass(_ cls: AnyClass, iblk: AnyObject?, pre: String?, idx: Bool, idxPath: IndexPath) -> AnyObject {
         var cell: HTupleBaseCell
         var identifier = NSStringFromClass(cls)
-        identifier = identifier + self.addressValue
-        identifier = identifier + "ItemCell"
-        if self.tupleStyle == .split && self.sectionPaths?.contains(idxPath.section) == false {
-            identifier = identifier + "\(self.tupleState)"
+        identifier += self.addressValue
+        identifier += "ItemCell"
+        if self.tupleStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(idxPath.section) {
+            identifier += "\(self.tupleState)"
         }
-        if (pre != nil) { identifier = identifier + pre! }
+        identifier += pre ?? ""
         if idx { identifier = identifier + idxPath.stringValue }
         if self.allReuseIdentifiers.contains(identifier) == false {
             self.allReuseIdentifiers.add(identifier)
@@ -677,7 +677,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     private func tupleScrollSplitPrefix() -> String {
         var prefix = ""
         if self.tupleStyle == .split {
-            if self.sectionPaths?.contains(self.tupleState) ?? false {
+            if let sectionPaths = self.sectionPaths, sectionPaths.contains(self.tupleState) {
                 prefix = KTupleDesignKey + "\(self.tupleState)" + "_"
             }
         }
@@ -686,8 +686,8 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     private func prefixWithSection(_ section: Int) -> String {
         var prefix = ""
         if self.tupleStyle == .split {
-            if self.sectionPaths?.contains(section) ?? false {
-                let idx: Int = self.sectionPaths!.index(of: section)
+            if let sectionPaths = self.sectionPaths, sectionPaths.contains(section) {
+                let idx: Int = sectionPaths.index(of: section)
                 prefix = KTupleExaDesignKey + "\(idx)" + "_"
             }else {
                 prefix = KTupleDesignKey + "\(self.tupleState)" + "_"
