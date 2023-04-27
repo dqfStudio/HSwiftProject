@@ -150,18 +150,12 @@ class HTupleBaseCell : UICollectionViewCell {
 
     ///layoutView的frame和bounds
     var layoutViewFrame: CGRect {
-        var frame: CGRect = self.bounds
-        frame.x += _edgeInsets.left
-        frame.y += _edgeInsets.top
-        frame.width -= _edgeInsets.left + _edgeInsets.right
-        frame.height -= _edgeInsets.top + _edgeInsets.bottom
-        return frame
+        return self.bounds.inset(by: edgeInsets)
     }
 
     var layoutViewBounds: CGRect {
-        var frame: CGRect = self.layoutViewFrame
-        frame.x = 0
-        frame.y = 0
+        var frame = self.layoutViewFrame
+        frame.origin = CGPoint.zero
         return frame
     }
     
