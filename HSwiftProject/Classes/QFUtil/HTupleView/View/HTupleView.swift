@@ -52,39 +52,33 @@ class HTupleAppearance : NSObject {
         self.hashTuples.add(anTuple)
     }
     static func refreshTuples(_ completion: @escaping () -> Void) {
-        DispatchQueue.main.async {
+        DispatchQueue.global(qos: .userInitiated).async {
             //倒序执行
-            for item in self.hashTuples.allObjects.reversed() {
-                let tuple = item as? HTupleView
-                if tuple != nil {
-                    tuple!.reloadData()
-                }
+            let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
+            tuples.forEach { $0.reloadTupleData() }
+            DispatchQueue.main.async {
+                completion()
             }
-            completion()
         }
     }
     static func refreshTuples(key: String, _ completion: @escaping () -> Void) {
-        DispatchQueue.main.async {
+        DispatchQueue.global(qos: .userInitiated).async {
             //倒序执行
-            for item in self.hashTuples.allObjects.reversed() {
-                let tuple = item as? HTupleView
-                if tuple != nil, tuple!.reloadTupleKey == key {
-                    tuple!.reloadData()
-                }
+            let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
+            tuples.filter { $0.reloadTupleKey == key }.forEach { $0.reloadTupleData() }
+            DispatchQueue.main.async {
+                completion()
             }
-            completion()
         }
     }
     static func releaseTuples(key: String, _ completion: @escaping () -> Void) {
-        DispatchQueue.main.async {
+        DispatchQueue.global(qos: .userInitiated).async {
             //倒序执行
-            for item in self.hashTuples.allObjects.reversed() {
-                let tuple = item as? HTupleView
-                if tuple != nil, tuple!.releaseTupleKey == key {
-                    tuple!.releaseTupleBlock()
-                }
+            let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
+            tuples.filter { $0.releaseTupleKey == key }.forEach { $0.releaseTupleBlock() }
+            DispatchQueue.main.async {
+                completion()
             }
-            completion()
         }
     }
 }
@@ -516,7 +510,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
 
     @objc
-    private func reloadTupleData() {
+    func reloadTupleData() {
         DispatchQueue.main.async { [weak self] in
             self?.reloadData()
         }
