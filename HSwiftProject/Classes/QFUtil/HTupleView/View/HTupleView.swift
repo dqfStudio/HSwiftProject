@@ -1322,11 +1322,8 @@ extension HTupleView {
     ///给tupleView发送信号
     func signalToTupleView(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
         guard let signalBlock = self.signalBlock else { return }
-        DispatchQueue.main.async { [weak self] in
-            guard let strongSelf = self else { return }
-            signalBlock(strongSelf, signal)
-            completion()
-        }
+        signalBlock(self, signal)
+        completion()
     }
 
     ///给所有item、某个section下的item或单独某个item发送信号
@@ -1364,14 +1361,11 @@ extension HTupleView {
     }
 
     func signal(_ signal: HTupleSignal?, toRow row: Int, inSection section: Int, _ completion: @escaping () -> Void) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            let cell = self.allReuseCells.object(forKey: IndexPath.stringValue(row, section) as NSString) as? HTupleBaseCell
-            if let cell = cell, let signalBlock = cell.signalBlock {
-                signalBlock(cell, signal)
-                completion()
-            }
+        let cell = self.allReuseCells.object(forKey: IndexPath.stringValue(row, section) as NSString) as? HTupleBaseCell
+        if let cell = cell, let signalBlock = cell.signalBlock {
+            signalBlock(cell, signal)
         }
+        completion()
     }
 
     ///给所有header或单独某个header发送信号
@@ -1398,11 +1392,9 @@ extension HTupleView {
     func signal(_ signal: HTupleSignal?, headerSection section: Int, _ completion: @escaping () -> Void) {
         let header = self.allReuseHeaders.object(forKey: IndexPath.stringValue(0, section) as NSString) as? HTupleBaseApex
         if let header = header, let signalBlock = header.signalBlock {
-            DispatchQueue.main.async {
-                signalBlock(header, signal)
-                completion()
-            }
+            signalBlock(header, signal)
         }
+        completion()
     }
 
     ///给所有footer或单独某个footer发送信号
@@ -1428,11 +1420,9 @@ extension HTupleView {
     func signal(_ signal: HTupleSignal?, footerSection section: Int, _ completion: @escaping () -> Void) {
         let footer = self.allReuseFooters.object(forKey: IndexPath.stringValue(0, section) as NSString) as? HTupleBaseApex
         if let footer = footer, let signalBlock = footer.signalBlock {
-            DispatchQueue.main.async {
-                signalBlock(footer, signal)
-                completion()
-            }
+            signalBlock(footer, signal)
         }
+        completion()
     }
 
     ///释放所有信号block
@@ -1536,12 +1526,13 @@ extension HTupleView {
 
     private var tupleStateSource: NSMutableDictionary {
         get {
-            var dict: NSMutableDictionary? = self.getAssociatedValueForKey(&tupleStateSourceKey) as? NSMutableDictionary
-            if dict == nil {
-                dict = NSMutableDictionary()
+            if let dict = self.getAssociatedValueForKey(&tupleStateSourceKey) as? NSMutableDictionary {
+                return dict
+            } else {
+                let dict = NSMutableDictionary()
                 self.setAssociateValue(dict, key: &tupleStateSourceKey)
+                return dict
             }
-            return dict!
         }
     }
     
@@ -1607,9 +1598,7 @@ extension HTupleView {
 
     ///删除所有状态的值
     func clearTupleState() {
-        if self.tupleStateSource.count > 0 {
-            self.tupleStateSource.removeAllObjects()
-        }
+        self.tupleStateSource.removeAllObjects()
     }
 
 }
