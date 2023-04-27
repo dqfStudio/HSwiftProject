@@ -1321,45 +1321,54 @@ extension HTupleView {
     
     ///给tupleView发送信号
     func signalToTupleView(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
-        if self.signalBlock != nil {
-            DispatchQueue.main.async { [weak self] in
-                self!.signalBlock!(self!, signal)
-                completion()
-            }
+        guard let signalBlock = self.signalBlock else { return }
+        DispatchQueue.main.async { [weak self] in
+            guard let strongSelf = self else { return }
+            signalBlock(strongSelf, signal)
+            completion()
         }
     }
 
     ///给所有item、某个section下的item或单独某个item发送信号
     func signalToAllItems(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
-        DispatchQueue.main.async { [weak self] in
-            for object in self!.allReuseCells.objectEnumerator()!.allObjects {
-                let cell = object as? HTupleBaseCell
-                if cell != nil, cell!.signalBlock != nil {
-                    cell!.signalBlock!(cell!, signal)
+        DispatchQueue.global(qos: .userInitiated).async {
+            let tuples = self.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HTupleBaseCell }
+            tuples?.forEach { cell in
+                DispatchQueue.main.async {
+                    cell.signalBlock?(cell, signal)
                 }
             }
-            completion()
+            DispatchQueue.main.async {
+                completion()
+            }
         }
     }
 
     func signal(_ signal: HTupleSignal?, itemSection section: Int, _ completion: @escaping () -> Void) {
-        DispatchQueue.main.async { [weak self] in
-            let items = self!.numberOfItems(inSection: section)
-            for i in 0..<items {
-                let cell = self!.allReuseCells.object(forKey: IndexPath.stringValue(i, section) as NSString) as? HTupleBaseCell
-                if cell != nil, cell!.signalBlock != nil {
-                    cell!.signalBlock!(cell!, signal)
+        DispatchQueue.global(qos: .userInteractive).async {
+            let items = self.numberOfItems(inSection: section)
+            let group = DispatchGroup()
+            DispatchQueue.concurrentPerform(iterations: items) { i in
+                let cell = self.allReuseCells.object(forKey: IndexPath.stringValue(i, section) as NSString) as? HTupleBaseCell
+                if let cell = cell, let signalBlock = cell.signalBlock {
+                    DispatchQueue.main.async(group: group) {
+                        signalBlock(cell, signal)
+                    }
                 }
             }
-            completion()
+            group.wait()
+            DispatchQueue.main.async {
+                completion()
+            }
         }
     }
 
     func signal(_ signal: HTupleSignal?, toRow row: Int, inSection section: Int, _ completion: @escaping () -> Void) {
-        let cell = self.allReuseCells.object(forKey: indexPath(row, section).stringValue as NSString) as? HTupleBaseCell
-        if cell != nil, cell!.signalBlock != nil {
-            DispatchQueue.main.async { [weak cell] in
-                cell!.signalBlock!(cell!, signal)
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let cell = self.allReuseCells.object(forKey: IndexPath.stringValue(row, section) as NSString) as? HTupleBaseCell
+            if let cell = cell, let signalBlock = cell.signalBlock {
+                signalBlock(cell, signal)
                 completion()
             }
         }
@@ -1367,23 +1376,30 @@ extension HTupleView {
 
     ///给所有header或单独某个header发送信号
     func signalToAllHeader(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
-        DispatchQueue.main.async { [weak self] in
-            let sections = self!.numberOfSections
-            for i in 0..<sections {
-                let header = self!.allReuseHeaders.object(forKey: IndexPath.stringValue(0, i) as NSString) as? HTupleBaseApex
-                if header != nil, header!.signalBlock != nil {
-                    header!.signalBlock!(header!, signal)
+        DispatchQueue.global(qos: .userInteractive).async {
+            let sections = self.numberOfSections
+            let group = DispatchGroup()
+            DispatchQueue.concurrentPerform(iterations: sections) { i in
+                let header = self.allReuseHeaders.object(forKey: IndexPath.stringValue(0, i) as NSString) as? HTupleBaseApex
+                if let header = header, let signalBlock = header.signalBlock {
+                    DispatchQueue.main.async(group: group) {
+                        signalBlock(header, signal)
+                    }
                 }
             }
-            completion()
+            group.wait()
+            DispatchQueue.main.async {
+                completion()
+            }
         }
     }
 
+
     func signal(_ signal: HTupleSignal?, headerSection section: Int, _ completion: @escaping () -> Void) {
         let header = self.allReuseHeaders.object(forKey: IndexPath.stringValue(0, section) as NSString) as? HTupleBaseApex
-        if header != nil, header!.signalBlock != nil {
-            DispatchQueue.main.async { [weak header] in
-                header!.signalBlock!(header!, signal)
+        if let header = header, let signalBlock = header.signalBlock {
+            DispatchQueue.main.async {
+                signalBlock(header, signal)
                 completion()
             }
         }
@@ -1391,23 +1407,29 @@ extension HTupleView {
 
     ///给所有footer或单独某个footer发送信号
     func signalToAllFooter(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
-        DispatchQueue.main.async { [weak self] in
-            let sections = self!.numberOfSections
-            for i in 0..<sections {
-                let footer = self!.allReuseFooters.object(forKey: IndexPath.stringValue(0, i) as NSString) as? HTupleBaseApex
-                if footer != nil, footer!.signalBlock != nil {
-                    footer!.signalBlock!(footer!, signal)
+        DispatchQueue.global(qos: .userInteractive).async {
+            let sections = self.numberOfSections
+            let group = DispatchGroup()
+            DispatchQueue.concurrentPerform(iterations: sections) { i in
+                let footer = self.allReuseFooters.object(forKey: IndexPath.stringValue(0, i) as NSString) as? HTupleBaseApex
+                if let footer = footer, let signalBlock = footer.signalBlock {
+                    DispatchQueue.main.async(group: group) {
+                        signalBlock(footer, signal)
+                    }
                 }
             }
-            completion()
+            group.wait()
+            DispatchQueue.main.async {
+                completion()
+            }
         }
     }
 
     func signal(_ signal: HTupleSignal?, footerSection section: Int, _ completion: @escaping () -> Void) {
         let footer = self.allReuseFooters.object(forKey: IndexPath.stringValue(0, section) as NSString) as? HTupleBaseApex
-        if footer != nil, footer!.signalBlock != nil {
-            DispatchQueue.main.async { [weak footer] in
-                footer!.signalBlock!(footer!, signal)
+        if let footer = footer, let signalBlock = footer.signalBlock {
+            DispatchQueue.main.async {
+                signalBlock(footer, signal)
                 completion()
             }
         }
@@ -1416,30 +1438,13 @@ extension HTupleView {
     ///释放所有信号block
     func releaseAllSignal() {
         DispatchQueue.global().async {
-            if self.signalBlock != nil {
-                self.signalBlock = nil
-            }
+            self.signalBlock = nil
             //release all cell
-            for object in self.allReuseCells.objectEnumerator()!.allObjects {
-                let cell = object as? HTupleBaseCell
-                if cell?.signalBlock != nil {
-                    cell?.signalBlock = nil
-                }
-            }
+            self.allReuseCells.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseCell)?.signalBlock = nil }
             //release all header
-            for object in self.allReuseHeaders.objectEnumerator()!.allObjects {
-                let header = object as? HTupleBaseApex
-                if header?.signalBlock != nil {
-                    header?.signalBlock = nil
-                }
-            }
+            self.allReuseHeaders.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseApex)?.signalBlock = nil }
             //release all footer
-            for object in self.allReuseFooters.objectEnumerator()!.allObjects {
-                let footer = object as? HTupleBaseApex
-                if footer?.signalBlock != nil {
-                    footer?.signalBlock = nil
-                }
-            }
+            self.allReuseFooters.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseApex)?.signalBlock = nil }
         }
     }
     
@@ -1479,9 +1484,10 @@ extension HTupleView {
     func width(forSection section: Int) -> CGFloat {
         var width: CGFloat = self.width
         let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
-        if edgeInsetsString != nil, edgeInsetsString!.length > 0 {
-            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString!)
+        if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
+            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
             width -= edgeInsets.left + edgeInsets.right
+            width = max(width, 0) // 优化：确保宽度不会小于0
         }
         return width
     }
@@ -1489,9 +1495,10 @@ extension HTupleView {
     func heigh(forSection section: Int) -> CGFloat {
         var height: CGFloat = self.height
         let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
-        if edgeInsetsString != nil, edgeInsetsString!.length > 0 {
-            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString!)
+        if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
+            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
             height -= edgeInsets.top + edgeInsets.bottom
+            height = max(height, 0) // 优化：确保宽度不会小于0
         }
         return height
     }
@@ -1499,10 +1506,12 @@ extension HTupleView {
     func size(forSection section: Int) -> CGSize {
         var size: CGSize = self.size
         let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
-        if edgeInsetsString != nil, edgeInsetsString!.length > 0 {
-            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString!)
+        if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
+            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
             size.width -= edgeInsets.left + edgeInsets.right
             size.height -= edgeInsets.top + edgeInsets.bottom
+            size.width = max(size.width, 0) // 优化：确保宽度不会小于0
+            size.height = max(size.height, 0) // 优化：确保宽度不会小于0
         }
         return size
     }
