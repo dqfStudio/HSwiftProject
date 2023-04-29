@@ -12,145 +12,102 @@ typealias HTextFieldReturnBlock = (HTextField) -> Void
 
 class HTextField : UITextField, UITextFieldDelegate {
     
-    private var _leftLabel: UILabel?
-    var leftLabel: UILabel {
-        if _leftLabel == nil {
-            _leftLabel = UILabel()
-            _leftLabel!.font = UIFont.systemFont(ofSize: 14)
-            super.leftViewMode = .always
-            super.leftView = _leftLabel
-            self.setLeftViewFrame()
-        }
-        return _leftLabel!
-    }
+    lazy var leftLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        self.leftViewMode = .always
+        self.leftView = label
+        self.setLeftViewFrame()
+        return label
+    }()
     
-    private var _rightLabel: UILabel?
-    var rightLabel: UILabel {
-        if _rightLabel == nil {
-            _rightLabel = UILabel()
-            _rightLabel!.font = UIFont.systemFont(ofSize: 14)
-            super.rightViewMode = .always
-            super.rightView = _rightLabel
-            self.setRightViewFrame()
-        }
-        return _rightLabel!
-    }
+    lazy var rightLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        self.rightViewMode = .always
+        self.rightView = label
+        self.setRightViewFrame()
+        return label
+    }()
 
-    private var _leftImage: HWebImageView?
-    var leftImage: HWebImageView {
-        if _leftImage == nil {
-            _leftImage = HWebImageView()
-            super.leftViewMode = .always
-            super.leftView = _leftImage!
-            self.setLeftViewFrame()
-        }
-        return _leftImage!
-    }
+    lazy var leftImage: HWebImageView = {
+        let imageView = HWebImageView()
+        self.leftViewMode = .always
+        self.leftView = imageView
+        self.setLeftViewFrame()
+        return imageView
+    }()
     
-    private var _rightImage: HWebImageView?
-    var rightImage: HWebImageView {
-        if _rightImage == nil {
-            _rightImage = HWebImageView()
-            super.rightViewMode = .always
-            super.rightView = _rightImage!
-            self.setRightViewFrame()
-        }
-        return _rightImage!
-    }
+    lazy var rightImage: HWebImageView = {
+        let imageView = HWebImageView()
+        self.rightViewMode = .always
+        self.rightView = imageView
+        self.setRightViewFrame()
+        return imageView
+    }()
 
-    private var _leftButton: HWebButtonView?
-    var leftButton: HWebButtonView {
-        if _leftButton == nil {
-            _leftButton = HWebButtonView()
-            _leftButton!.textFont = UIFont.systemFont(ofSize: 14)
-            super.leftViewMode = .always
-            super.leftView = _leftButton!
-            self.setLeftViewFrame()
-        }
-        return _leftButton!
-    }
+    lazy var leftButton: HWebButtonView = {
+        let button = HWebButtonView()
+        button.textFont = UIFont.systemFont(ofSize: 14)
+        self.leftViewMode = .always
+        self.leftView = button
+        self.setLeftViewFrame()
+        return button
+    }()
     
-    private var _rightButton: HWebButtonView?
-    var rightButton: HWebButtonView {
-        if _rightButton == nil {
-            _rightButton = HWebButtonView()
-            _rightButton!.textFont = UIFont.systemFont(ofSize: 14)
-            super.rightViewMode = .always
-            super.rightView = _rightButton!
-            self.setRightViewFrame()
-        }
-        return _rightButton!
-    }
+    lazy var rightButton: HWebButtonView = {
+        let button = HWebButtonView()
+        button.textFont = UIFont.systemFont(ofSize: 14)
+        self.rightViewMode = .always
+        self.rightView = button
+        self.setRightViewFrame()
+        return button
+    }()
     
-    private var _rightCountDownButton: HCountDownButton?
-    var rightCountDownButton: HCountDownButton {
-        if _rightCountDownButton == nil {
-            _rightCountDownButton = HCountDownButton()
-            _rightCountDownButton!.textFont = UIFont.systemFont(ofSize: 14)
-            super.rightViewMode = .always
-            super.rightView = _rightCountDownButton!
-            self.setRightViewFrame()
-        }
-        return _rightCountDownButton!
-    }
+    lazy var rightCountDownButton: HCountDownButton = {
+        let button = HCountDownButton()
+        button.textFont = UIFont.systemFont(ofSize: 14)
+        self.rightViewMode = .always
+        self.rightView = button
+        self.setRightViewFrame()
+        return button
+    }()
     
-    private var _rightVerifyCodeView: HVerifyCodeView?
-    var rightVerifyCodeView: HVerifyCodeView {
-        if _rightVerifyCodeView == nil {
-            _rightVerifyCodeView = HVerifyCodeView()
-            super.rightViewMode = .always
-            super.rightView = _rightVerifyCodeView!
-            self.setRightViewFrame()
-        }
-        return _rightVerifyCodeView!
-    }
+    lazy var rightVerifyCodeView: HVerifyCodeView = {
+        let view = HVerifyCodeView()
+        self.rightViewMode = .always
+        self.rightView = view
+        self.setRightViewFrame()
+        return view
+    }()
 
-    private var _leftWidth: CGFloat = 0
-    var leftWidth: CGFloat {
-        get {
-            return _leftWidth
-        }
-        set {
-            if _leftWidth != newValue {
-                _leftWidth = newValue
+    var leftWidth: CGFloat = 0.0 {
+        didSet {
+            if leftWidth != oldValue {
                 self.setLeftViewFrame()
             }
         }
     }
-    private var _rightWidth: CGFloat = 0
-    var rightWidth: CGFloat {
-        get {
-            return _rightWidth
-        }
-        set {
-            if _rightWidth != newValue {
-                _rightWidth = newValue
+    
+    var rightWidth: CGFloat = 0.0 {
+        didSet {
+            if rightWidth != oldValue {
                 self.setRightViewFrame()
             }
         }
     }
 
-    private var _leftInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
-    var leftInsets: UIEdgeInsets {
-        get {
-            return _leftInsets
-        }
-        set {
-            if _leftInsets != newValue {
-                _leftInsets = newValue
+    var leftInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5) {
+        didSet {
+            if leftInsets != oldValue {
                 self.setLeftViewFrame()
             }
         }
     }
 
-    private var _rightInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
-    var rightInsets: UIEdgeInsets {
-        get {
-            return _rightInsets
-        }
-        set {
-            if _rightInsets != newValue {
-                _rightInsets = newValue
+    var rightInsets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0) {
+        didSet {
+            if rightInsets != oldValue {
                 self.setRightViewFrame()
             }
         }
@@ -161,48 +118,36 @@ class HTextField : UITextField, UITextFieldDelegate {
             return self.attributedPlaceholder?.string ?? ""
         }
         set {
-            if newValue!.length > 0 {
-                let placeholderString: NSMutableAttributedString = NSMutableAttributedString(string: newValue!)
-                let range: NSRange = NSRange(location: 0, length: placeholderString.length)
-                if self.placeholderFont != nil {//字体
-                    placeholderString.addAttribute(.font, value: self.placeholderFont!, range: range)
-                }
-                if self.placeholderColor != nil {//颜色
-                    placeholderString.addAttribute(.foregroundColor, value: self.placeholderColor!, range: range)
-                }
-                self.attributedPlaceholder = placeholderString
+            guard let newValue = newValue, !newValue.isEmpty else { return }
+            let placeholderString = NSMutableAttributedString(string: newValue)
+            let range = NSRange(location: 0, length: placeholderString.length)
+            if let placeholderFont = self.placeholderFont {//字体
+                placeholderString.addAttribute(.font, value: placeholderFont, range: range)
             }
+            if let placeholderColor = self.placeholderColor {//颜色
+                placeholderString.addAttribute(.foregroundColor, value: placeholderColor, range: range)
+            }
+            self.attributedPlaceholder = placeholderString
         }
     }
 
-    private var _placeholderFont: UIFont?
     var placeholderFont: UIFont? {
-        get {
-            return _placeholderFont
-        }
-        set {
-            if newValue != nil && _placeholderFont != newValue && self.attributedPlaceholder != nil {
-                let placeholderString = NSMutableAttributedString(attributedString: self.attributedPlaceholder!)
-                let range: NSRange = NSRange(location: 0, length: placeholderString.length)
-                placeholderString.addAttribute(.font, value: newValue!, range: range)
-                self.attributedPlaceholder = placeholderString
-            }
-            _placeholderFont = newValue
+        didSet {
+            guard let newValue = placeholderFont, let attributedPlaceholder = attributedPlaceholder else { return }
+            let placeholderString = NSMutableAttributedString(attributedString: attributedPlaceholder)
+            let range: NSRange = NSRange(location: 0, length: placeholderString.length)
+            placeholderString.addAttribute(.font, value: newValue, range: range)
+            self.attributedPlaceholder = placeholderString
         }
     }
-    private var _placeholderColor: UIColor?
+    
     var placeholderColor: UIColor? {
-        get {
-            return _placeholderColor
-        }
-        set {
-            if newValue != nil && _placeholderColor != newValue && self.attributedPlaceholder != nil {
-                let placeholderString = NSMutableAttributedString(attributedString: self.attributedPlaceholder!)
-                let range: NSRange = NSRange(location: 0, length: placeholderString.length)
-                placeholderString.addAttribute(.foregroundColor, value: newValue!, range: range)
-                self.attributedPlaceholder = placeholderString
-            }
-            _placeholderColor = newValue
+        didSet {
+            guard let newValue = placeholderColor, let attributedPlaceholder = attributedPlaceholder else { return }
+            let placeholderString = NSMutableAttributedString(attributedString: attributedPlaceholder)
+            let range: NSRange = NSRange(location: 0, length: placeholderString.length)
+            placeholderString.addAttribute(.foregroundColor, value: newValue, range: range)
+            self.attributedPlaceholder = placeholderString
         }
     }
 
@@ -221,11 +166,6 @@ class HTextField : UITextField, UITextFieldDelegate {
     ///点击键盘上的return键调用
     var returnBlock: HTextFieldReturnBlock?
     
-//    required init() {
-//        super.init()
-//        self.setup()
-//    }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setup()
@@ -243,48 +183,29 @@ class HTextField : UITextField, UITextFieldDelegate {
     }
 
     private func setLeftViewFrame() {
-        if super.leftView != nil && _leftWidth > 0 {
-            var frame: CGRect = self.bounds
-            frame.size.width = _leftWidth
-            //调整frame
-            frame.origin.x += _leftInsets.left
-            frame.origin.y += _leftInsets.top
-            frame.size.width -= _leftInsets.left + _leftInsets.right
-            frame.size.height -= _leftInsets.top + _leftInsets.bottom
-            if frame != super.leftView?.frame {
-                super.leftView?.frame = frame
-            }
+        guard let leftView = super.leftView, leftWidth > 0 else { return }
+        bounds.size.width = leftWidth
+        let frame = bounds.inset(by: leftInsets)
+        if frame != leftView.frame {
+            leftView.frame = frame
         }
     }
     
     private func setRightViewFrame() {
-        if super.rightView != nil && _rightWidth > 0 {
-            var frame: CGRect = self.bounds
-            frame.size.width = _rightWidth
-            //调整frame
-            frame.origin.x += _rightInsets.left
-            frame.origin.y += _rightInsets.top
-            frame.size.width -= _rightInsets.left + _rightInsets.right
-            frame.size.height -= _rightInsets.top + _rightInsets.bottom
-            if frame != super.rightView?.frame {
-                super.rightView?.frame = frame
-            }
+        guard let rightView = super.rightView, rightWidth > 0 else { return }
+        bounds.size.width = rightWidth
+        let frame = bounds.inset(by: rightInsets)
+        if frame != rightView.frame {
+            rightView.frame = frame
         }
     }
     
     private func trimmingWhitespaceAndNewline() -> String? {
-        if self.text != nil {
-            return self.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        }
-        return self.text
+        return self.text?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     private func trimmingAllWhitespaceAndNewline() -> String? {
-        if self.text != nil {
-            let content: String = self.text!.replacingOccurrences(of: " ", with: "")
-            return content.replacingOccurrences(of: "\n", with: "")
-        }
-        return self.text
+        return self.text?.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: "")
     }
 
     /// delegate
@@ -329,9 +250,10 @@ class HTextField : UITextField, UITextFieldDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if self.returnBlock != nil {
-            self.returnBlock!(textField as! HTextField)
+        guard let returnBlock = self.returnBlock else {
+            return true
         }
+        returnBlock(textField as! HTextField)
         return true
     }
 
@@ -360,7 +282,10 @@ class HTextField : UITextField, UITextFieldDelegate {
     /// Rect
     override func leftViewRect(forBounds bounds: CGRect) -> CGRect {
         //CGRect normalRect = [super leftViewRectForBounds:bounds] //此方法坐标获取有点儿不准确
-        var normalRect: CGRect = super.leftView!.bounds
+        guard let leftView = super.leftView else {
+            return .zero
+        }
+        var normalRect: CGRect = leftView.bounds
         let space: CGFloat = bounds.height / 2 - normalRect.height / 2
         if space <= 0 {
             normalRect.height = bounds.height
@@ -374,7 +299,10 @@ class HTextField : UITextField, UITextFieldDelegate {
 
     override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
         //CGRect normalRect = [super rightViewRectForBounds:bounds] //此方法坐标获取有点儿不准确
-        var normalRect: CGRect = super.rightView!.bounds
+        guard let rightView = super.rightView else {
+            return .zero
+        }
+        var normalRect: CGRect = rightView.bounds
         normalRect.x = bounds.width - normalRect.width
         let space: CGFloat = bounds.height / 2 - normalRect.height / 2
         if space <= 0 {
@@ -399,18 +327,19 @@ class HTextField : UITextField, UITextFieldDelegate {
     override func clearButtonRect(forBounds bounds: CGRect) -> CGRect {
         return self.calculateTextRectForBounds(bounds)
     }
+
     private func calculateTextRectForBounds(_ bounds: CGRect) -> CGRect {
         var frame: CGRect = bounds.insetBy(dx: 0, dy: 0)
         frame.x += self.leftInsets.left
         frame.x += self.leftInsets.right
-        if super.leftView != nil {
-            frame.x += super.leftView!.width
+        if let leftView = super.leftView {
+            frame.x += leftView.width
             frame.width -= frame.x
         }
         frame.width -= self.rightInsets.left
         frame.width -= self.rightInsets.right
-        if super.rightView != nil {
-            frame.width -= super.rightView!.width
+        if let rightView = super.rightView {
+            frame.width -= rightView.width
         }
         //光标距右边输入框默认有10pt的距离
         //此处去掉此默认距离，以达到精准控制的目的
