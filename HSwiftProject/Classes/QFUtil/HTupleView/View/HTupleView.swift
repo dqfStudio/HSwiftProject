@@ -359,31 +359,21 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
     }
     
-    private var _pageSize: Int = KDefaultPageSize
     /// page size, default 20
-    var pageSize: Int {
-        get {
-            if _pageSize <= 0 {
-                return KDefaultPageSize
+    var pageSize: Int = KDefaultPageSize {
+        didSet {
+            if pageSize <= 0 {
+                pageSize = KDefaultPageSize
             }
-            return _pageSize
-        }
-        set {
-            _pageSize = newValue
         }
     }
     
-    private var _totalNo: Int = 10000
     /// total number.
-    var totalNo: Int {
-        get {
-            if _totalNo <= 0 {
-                return 10000
+    var totalNo: Int = 10000 {
+        didSet {
+            if totalNo <= 0 {
+                totalNo = 10000
             }
-            return _totalNo
-        }
-        set {
-            _totalNo = newValue
         }
     }
     
@@ -401,14 +391,12 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
         set {
             _refreshBlock = newValue
-            if _refreshBlock != nil {
-                //@www
+            if let refreshBlock = _refreshBlock {
                 self.mj_header = HTupleRefresh.refreshHeaderWithStyle(refreshHeaderStyle) {
-                    //@sss
                     self.pageNo = 1
-                    self._refreshBlock!()
+                    refreshBlock()
                 }
-            }else {
+            } else {
                 self.mj_header = nil
             }
         }
@@ -422,19 +410,18 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
         set {
             _loadMoreBlock = newValue
-            if _loadMoreBlock != nil {
+            if let block = _loadMoreBlock {
                 self.pageNo = 1
-                //@www
-                self.mj_footer = HTupleRefresh.refreshFooterWithStyle(refreshFooterStyle) {
-                    //@sss
+                self.mj_footer = HTupleRefresh.refreshFooterWithStyle(refreshFooterStyle) { [weak self] in
+                    guard let self = self else { return }
                     self.pageNo += 1
                     if self.pageSize * self.pageNo < self.totalNo {
-                        self._loadMoreBlock!()
-                    }else {
-                        self.mj_footer!.endRefreshing()
+                        block()
+                    } else {
+                        self.mj_footer?.endRefreshing()
                     }
                 }
-            }else {
+            } else {
                 self.mj_footer = nil
             }
         }
@@ -448,10 +435,11 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
 
     ///block refresh & loadMore
     func beginRefreshing(_ completion: @escaping () -> Void) {
-        if self.refreshBlock != nil {
-            self.pageNo = 1
-            self.mj_header?.beginRefreshing(completionBlock:completion)
+        guard self.refreshBlock != nil else {
+            return
         }
+        self.pageNo = 1
+        self.mj_header?.beginRefreshing(completionBlock: completion)
     }
 
     ///stop refresh
@@ -466,18 +454,22 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     
     // header & footer 是否悬停
     var sectionHeadersPinToVisibleBounds: Bool {
+        @available(iOS 9.0, *)
         get {
-            return ((flowLayout?.sectionHeadersPinToVisibleBounds) != nil)
+            return flowLayout?.sectionHeadersPinToVisibleBounds ?? false
         }
+        @available(iOS 9.0, *)
         set {
             flowLayout?.sectionHeadersPinToVisibleBounds = newValue
         }
     }
     
     var sectionFootersPinToVisibleBounds: Bool {
+        @available(iOS 9.0, *)
         get {
-            return ((flowLayout?.sectionFootersPinToVisibleBounds) != nil)
+            return flowLayout?.sectionFootersPinToVisibleBounds ?? false
         }
+        @available(iOS 9.0, *)
         set {
             flowLayout?.sectionFootersPinToVisibleBounds = newValue
         }
