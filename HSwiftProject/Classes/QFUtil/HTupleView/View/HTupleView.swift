@@ -776,8 +776,8 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             size = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
         }
         // 防止大小为负数
-        if size.width < 0 { size.width = 0.0 }
-        if size.height < 0 { size.height = 0.0 }
+        size.width = max(size.width, 0.0)
+        size.height = max(size.height, 0.0)
         return UISizeIntegral(size)
     }
 
@@ -790,8 +790,8 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             size = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
         }
         // 防止大小为负数
-        if size.width < 0 { size.width = 0.0 }
-        if size.height < 0 { size.height = 0.0 }
+        size.width = max(size.width, 0.0)
+        size.height = max(size.height, 0.0)
         return UISizeIntegral(size)
     }
     
