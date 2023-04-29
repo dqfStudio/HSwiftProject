@@ -265,13 +265,11 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         super.init(coder: coder)
         self.backgroundColor = UIColor.clear
     }
-    
+
     convenience init(frame: CGRect) {
-        let flowLayout = HCollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
-        self.init(frame: frame, collectionViewLayout: flowLayout)
+        self.init(frame: frame, scrollDirection: .vertical)
     }
-    
+
     convenience init(frame: CGRect, scrollDirection direction: HTupleDirection) {
         let flowLayout = HCollectionViewFlowLayout()
         if direction == .horizontal {
@@ -281,7 +279,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
         self.init(frame: frame, collectionViewLayout: flowLayout)
     }
-    
+
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
         flowLayout = layout as? UICollectionViewFlowLayout
@@ -304,23 +302,22 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     private weak var tupleDelegate: HTupleViewDelegate?
-    override weak var delegate: UICollectionViewDelegate? {
+    weak override var delegate: UICollectionViewDelegate? {
         get { return super.delegate }
         set { tupleDelegate = newValue as? HTupleViewDelegate }
     }
-    override weak var dataSource: UICollectionViewDataSource? {
+    weak override var dataSource: UICollectionViewDataSource? {
         get { return super.dataSource }
-        set { }
+        set { NSLog(newValue) }
     }
     
     override var frame: CGRect {
         get { return super.frame }
         set {
             let frame = UIRectIntegral(newValue)
-            if frame != super.frame {
-                super.frame = frame
-                self.reloadData()
-            }
+            guard frame != super.frame else { return }
+            super.frame = frame
+            self.reloadData()
         }
     }
     
