@@ -150,10 +150,6 @@ class HTupleBaseApex : UICollectionReusableView {
         _activity?.center = CGPoint(x: self.width / 2, y: self.height / 2)
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
     ///cell初始化是调用的方法
     func initUI() { }
     ///用于子类更新子视图布局

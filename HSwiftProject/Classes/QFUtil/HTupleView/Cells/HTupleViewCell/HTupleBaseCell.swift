@@ -158,10 +158,6 @@ class HTupleBaseCell : UICollectionViewCell {
         }
         _activity?.center = CGPoint(x: self.width / 2, y: self.height / 2)
     }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
     
     ///cell初始化是调用的方法
     func initUI() { }
