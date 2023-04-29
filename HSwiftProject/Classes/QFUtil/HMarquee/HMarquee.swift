@@ -24,14 +24,12 @@ private enum HMarqueeTapMode: Int {
 
 class HMarquee: UIView {
     
-    private var _bgBtn: UIButton?
-    private var bgBtn: UIButton {
-        if _bgBtn == nil {
-            _bgBtn = UIButton(frame: self.bounds)
-            _bgBtn!.addTarget(self, action: #selector(bgButtonClick), for: .touchUpInside)
-        }
-        return _bgBtn!
-    }
+    lazy private var bgBtn: UIButton = {
+        let bgBtn = UIButton(frame: self.bounds)
+        bgBtn.addTarget(self, action: #selector(bgButtonClick), for: .touchUpInside)
+        return bgBtn
+    }()
+    
     private var _marqueeLbl: UILabel?
     private var marqueeLbl: UILabel {
         get {
@@ -64,37 +62,28 @@ class HMarquee: UIView {
     
     
     /// 滚动文字 修改源码，防止出来可以在接口调用完成后动态设置显示文案
-    private var _msg: String?
     var msg: String? {
-        get {
-            return _msg
-        }
-        set {
-            _msg = newValue
-            self.marqueeLbl.text = newValue
-            self.doSometingBeginning()
+        didSet {
+            if msg != oldValue {
+                self.marqueeLbl.text = msg
+                self.doSometingBeginning()
+            }
         }
     }
     /// 背景颜色
-    private var _bgColor: UIColor?
     var bgColor: UIColor? {
-        get {
-            return _bgColor
-        }
-        set {
-            _bgColor = newValue
-            self.backgroundColor = newValue
+        didSet {
+            if bgColor != oldValue {
+                self.backgroundColor = bgColor
+            }
         }
     }
     /// 字体颜色
-    private var _txtColor: UIColor?
     var txtColor: UIColor? {
-        get {
-            return _txtColor
-        }
-        set {
-            _txtColor = newValue
-            marqueeLbl.textColor = newValue
+        didSet {
+            if txtColor != oldValue {
+                self.marqueeLbl.textColor = txtColor
+            }
         }
     }
     
@@ -109,17 +98,13 @@ class HMarquee: UIView {
     *
     *  @return self
     */
-    init(frame: CGRect, speed: HMarqueeSpeedLevel?, msg: String?) {
+    init(frame: CGRect, speed: HMarqueeSpeedLevel = .MediumFast, msg: String?) {
         super.init(frame: frame)
         self.layer.cornerRadius = 2
         self.msg = msg
-        if speed != nil {
-            self.speedLevel = speed!
-        }else {
-            self.speedLevel = .MediumFast
-        }
-        self.bgColor = UIColor.white
-        self.txtColor = UIColor.darkGray
+        self.speedLevel = speed
+        self.bgColor = .white
+        self.txtColor = .darkGray
     }
 
     /**
@@ -131,49 +116,27 @@ class HMarquee: UIView {
     *
     *  @return self
     */
-    init(frame: CGRect, speed: HMarqueeSpeedLevel?, msg: String?, bgColor: UIColor?, txtColor: UIColor?) {
+    init(frame: CGRect, speed: HMarqueeSpeedLevel = .MediumFast, msg: String?, bgColor: UIColor = .white, txtColor: UIColor = .darkGray) {
         super.init(frame: frame)
         self.layer.cornerRadius = 2
         self.msg = msg
-        if bgColor != nil {
-            self.bgColor = bgColor!
-        }else {
-            self.bgColor = UIColor.white
-        }
-        
-        if txtColor != nil {
-            self.txtColor = txtColor!
-        }else {
-            self.txtColor = UIColor.darkGray
-        }
-        
-        if speed != nil {
-            self.speedLevel = speed!
-        }else {
-            self.speedLevel = .MediumFast
-        }
+        self.bgColor = bgColor
+        self.txtColor = txtColor
+        self.speedLevel = speed
     }
 
     deinit {
         NotificationCenter.default.removeObserver(self)
     }
 
-    override
-    var frame: CGRect {
-        get {
-            return super.frame
-        }
-        set {
-            if super.frame != newValue {
-                super.frame = newValue
-                middleView?.frame = self.bounds
-                
-                self.bgBtn.frame = self.bounds
-                
-                var tmpFrame: CGRect = marqueeLbl.frame
-                tmpFrame.size.height = self.frame.size.height
-                marqueeLbl.frame = tmpFrame
-            }
+    override var frame: CGRect {
+        didSet {
+            guard super.frame != oldValue else { return }
+            middleView?.frame = bounds
+            bgBtn.frame = bounds
+            var tmpFrame = marqueeLbl.frame
+            tmpFrame.size.height = frame.size.height
+            marqueeLbl.frame = tmpFrame
         }
     }
 
@@ -258,7 +221,6 @@ class HMarquee: UIView {
     *  pause
     */
     func stop() {
-        
         self.pauseLayer(self.marqueeLbl.layer)
     }
 

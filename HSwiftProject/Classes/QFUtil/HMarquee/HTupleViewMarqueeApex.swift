@@ -13,62 +13,42 @@ typealias HTupleViewMarqueeApexBlock = () -> Void
 class HTupleViewMarqueeApex: HTupleBaseApex {
 
     ///显示的文字
-    private var _msg: String?
     var msg: String? {
-        get {
-            return _msg
-        }
-        set {
-            if _msg != newValue {
-                _msg = nil
-                _msg = newValue
-                self.marquee.msg = newValue
+        didSet {
+            if msg != oldValue {
+                self.marquee.msg = msg
                 self.marquee.start()
             }
         }
     }
     ///背景颜色
-    private var _bgColor: UIColor?
     var bgColor: UIColor? {
-        get {
-            return _bgColor
-        }
-        set {
-            if _bgColor != newValue {
-                _bgColor = nil
-                _bgColor = newValue
-                self.marquee.backgroundColor = newValue
+        didSet {
+            if bgColor != oldValue {
+                self.marquee.backgroundColor = bgColor
             }
         }
     }
     ///字体颜色
-    private var _txtColor: UIColor?
     var txtColor: UIColor? {
-        get {
-            return _txtColor
-        }
-        set {
-            if _txtColor != newValue {
-                _txtColor = nil
-                _txtColor = newValue
-                self.marquee.txtColor = newValue
+        didSet {
+            if txtColor != oldValue {
+                self.marquee.txtColor = txtColor
             }
         }
     }
+    
     var selectedBlock: HTupleViewMarqueeApexBlock?
     
-    private var _marquee: HMarquee?
-    private var marquee: HMarquee {
-        if _marquee == nil {
-            _marquee = HMarquee(frame: self.bounds, speed: .MediumSlow, msg: nil)
-            _marquee!.changeTapMarqueeAction {
-                if self.selectedBlock != nil {
-                    self.selectedBlock!()
-                }
+    lazy private var marquee: HMarquee = {
+        let marquee = HMarquee(frame: self.bounds, speed: .MediumSlow, msg: nil)
+        marquee.changeTapMarqueeAction {
+            if self.selectedBlock != nil {
+                self.selectedBlock!()
             }
         }
-        return _marquee!
-    }
+        return marquee
+    }()
 
     override func relayoutSubviews() {
         HLayoutTupleApex(self.marquee)
