@@ -564,7 +564,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
         }
         //保存cell
-        self.allReuseHeaders.setObject(cell, forKey: idxPath.stringValue as NSString)
+        self.allReuseHeaders.setObject(cell, forKey: idxPath.nsStringValue)
         //调用代理方法
         var edgeInsets: UIEdgeInsets = UIEdgeInsetsZero
         let prefix = self.prefixWithSection(idxPath.section)
@@ -607,7 +607,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
         }
         //保存cell
-        self.allReuseFooters.setObject(cell, forKey: idxPath.stringValue as NSString)
+        self.allReuseFooters.setObject(cell, forKey: idxPath.nsStringValue)
         //调用代理方法
         var edgeInsets: UIEdgeInsets = UIEdgeInsetsZero
         let prefix = self.prefixWithSection(idxPath.section)
@@ -649,7 +649,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseCell
         }
         //保存cell
-        self.allReuseCells.setObject(cell, forKey: idxPath.stringValue as NSString)
+        self.allReuseCells.setObject(cell, forKey: idxPath.nsStringValue)
         //调用代理方法
         var edgeInsets: UIEdgeInsets = UIEdgeInsetsZero
         let prefix = self.prefixWithSection(idxPath.section)
@@ -822,7 +822,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             }
         }
         //调用cell
-        let cell = self.allReuseCells.object(forKey: indexPath.stringValue as NSString) as! HTupleBaseCell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as! HTupleBaseCell
         //更新布局
         if cell.responds(to: #selector(cell.relayoutSubviews)) {
             cell.relayoutSubviews()
@@ -845,7 +845,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 }
             }
             //调用cell
-            cell = self.allReuseHeaders.object(forKey: indexPath.stringValue as NSString) as? HTupleBaseApex
+            cell = self.allReuseHeaders.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
         }else if (kind == UICollectionElementKindSectionFooter) {
             //调用代理方法
             if let delegate = self.tupleDelegate {
@@ -859,7 +859,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 }
             }
             //调用cell
-            cell = self.allReuseFooters.object(forKey: indexPath.stringValue as NSString) as? HTupleBaseApex
+            cell = self.allReuseFooters.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
         }
         //更新布局
         if cell!.responds(to: #selector(cell!.relayoutSubviews)) {
@@ -879,7 +879,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
 
     internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
-        let cell = self.allReuseCells.object(forKey: indexPath.stringValue as NSString) as! HTupleBaseCell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as! HTupleBaseCell
         if cell.didSelectCell != nil {
             cell.didSelectCell!(cell, indexPath)
         }else {
@@ -1346,7 +1346,7 @@ extension HTupleView {
             let items = self.numberOfItems(inSection: section)
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: items) { i in
-                let cell = self.allReuseCells.object(forKey: IndexPath.stringValue(i, section) as NSString) as? HTupleBaseCell
+                let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HTupleBaseCell
                 if let cell = cell, let signalBlock = cell.signalBlock {
                     DispatchQueue.main.async(group: group) {
                         signalBlock(cell, signal)
@@ -1361,7 +1361,7 @@ extension HTupleView {
     }
 
     func signal(_ signal: HTupleSignal?, toRow row: Int, inSection section: Int, _ completion: @escaping () -> Void) {
-        let cell = self.allReuseCells.object(forKey: IndexPath.stringValue(row, section) as NSString) as? HTupleBaseCell
+        let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section)) as? HTupleBaseCell
         if let cell = cell, let signalBlock = cell.signalBlock {
             signalBlock(cell, signal)
         }
@@ -1374,7 +1374,7 @@ extension HTupleView {
             let sections = self.numberOfSections
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: sections) { i in
-                let header = self.allReuseHeaders.object(forKey: IndexPath.stringValue(0, i) as NSString) as? HTupleBaseApex
+                let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HTupleBaseApex
                 if let header = header, let signalBlock = header.signalBlock {
                     DispatchQueue.main.async(group: group) {
                         signalBlock(header, signal)
@@ -1390,7 +1390,7 @@ extension HTupleView {
 
 
     func signal(_ signal: HTupleSignal?, headerSection section: Int, _ completion: @escaping () -> Void) {
-        let header = self.allReuseHeaders.object(forKey: IndexPath.stringValue(0, section) as NSString) as? HTupleBaseApex
+        let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section)) as? HTupleBaseApex
         if let header = header, let signalBlock = header.signalBlock {
             signalBlock(header, signal)
         }
@@ -1403,7 +1403,7 @@ extension HTupleView {
             let sections = self.numberOfSections
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: sections) { i in
-                let footer = self.allReuseFooters.object(forKey: IndexPath.stringValue(0, i) as NSString) as? HTupleBaseApex
+                let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HTupleBaseApex
                 if let footer = footer, let signalBlock = footer.signalBlock {
                     DispatchQueue.main.async(group: group) {
                         signalBlock(footer, signal)
@@ -1418,7 +1418,7 @@ extension HTupleView {
     }
 
     func signal(_ signal: HTupleSignal?, footerSection section: Int, _ completion: @escaping () -> Void) {
-        let footer = self.allReuseFooters.object(forKey: IndexPath.stringValue(0, section) as NSString) as? HTupleBaseApex
+        let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section)) as? HTupleBaseApex
         if let footer = footer, let signalBlock = footer.signalBlock {
             signalBlock(footer, signal)
         }
@@ -1464,7 +1464,7 @@ extension HTupleView {
 
     ///根据传入的row和section获取cell或indexPath
     func cell(_ row: Int, _ section: Int) -> AnyObject? {
-        return self.allReuseCells.object(forKey: IndexPath.stringValue(row, section) as NSString)
+        return self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section))
     }
     func indexPath(_ row: Int, _ section: Int) -> IndexPath {
         return IndexPath(row: row, section: section)

@@ -494,7 +494,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             cell = self.dequeueReusableCell(withIdentifier: identifier, for: idxPath) as! HTableBaseCell
         }
         //保存cell
-        self.allReuseCells.setObject(cell, forKey: idxPath.stringValue as NSString)
+        self.allReuseCells.setObject(cell, forKey: idxPath.nsStringValue)
         //调用代理方法
         var edgeInsets: UIEdgeInsets = UIEdgeInsetsZero
         let prefix = self.prefixWithSection(idxPath.section)
@@ -597,7 +597,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             self.tableDelegate!.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
         }
         //调用cell
-        let cell = self.allReuseCells.object(forKey: indexPath.stringValue as NSString) as! HTableBaseCell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as! HTableBaseCell
         //更新布局
         if cell.responds(to: #selector(cell.relayoutSubviews)) {
             cell.relayoutSubviews()
@@ -649,7 +649,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = self.allReuseCells.object(forKey: indexPath.stringValue as NSString) as! HTableBaseCell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as! HTableBaseCell
         if cell.didSelectCell != nil {
             cell.didSelectCell!(cell, indexPath)
         }
@@ -700,7 +700,7 @@ extension HTableView {
         DispatchQueue.main.async { [weak self] in
             let items = self!.numberOfRows(inSection: section)
             for i in 0..<items {
-                let cell = self!.allReuseCells.object(forKey: IndexPath.stringValue(i, section) as NSString) as! HTableBaseCell
+                let cell = self!.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as! HTableBaseCell
                 if cell.signalBlock != nil {
                     cell.signalBlock!(cell, signal)
                 }
@@ -709,7 +709,7 @@ extension HTableView {
     }
 
     func signal(_ signal: HTableSignal?, toRow row: Int, inSection section: Int) {
-        let cell = self.allReuseCells.object(forKey: indexPath(row, section).stringValue as NSString) as! HTableBaseCell
+        let cell = self.allReuseCells.object(forKey: indexPath(row, section).nsStringValue) as! HTableBaseCell
         if cell.signalBlock != nil {
             DispatchQueue.main.async { [weak cell] in
                 cell!.signalBlock!(cell!, signal)
@@ -722,7 +722,7 @@ extension HTableView {
         DispatchQueue.main.async { [weak self] in
             let sections = self!.numberOfSections
             for i in 0..<sections {
-                let header = self!.allReuseCells.object(forKey: IndexPath.stringValue(0, i) as NSString) as! HTableBaseApex
+                let header = self!.allReuseCells.object(forKey: IndexPath.nsStringValue(0, i)) as! HTableBaseApex
                 if header.signalBlock != nil {
                     header.signalBlock!(header, signal)
                 }
@@ -731,7 +731,7 @@ extension HTableView {
     }
 
     func signal(_ signal: HTableSignal?, headerSection section: Int) {
-        let header = self.allReuseCells.object(forKey: IndexPath.stringValue(0, section) as NSString) as! HTableBaseApex
+        let header = self.allReuseCells.object(forKey: IndexPath.nsStringValue(0, section)) as! HTableBaseApex
         if header.signalBlock != nil {
             DispatchQueue.main.async { [weak header] in
                 header!.signalBlock!(header!, signal)
@@ -744,7 +744,7 @@ extension HTableView {
         DispatchQueue.main.async { [weak self] in
             let sections = self!.numberOfSections
             for i in 0..<sections {
-                let footer = self!.allReuseCells.object(forKey: IndexPath.stringValue(0, i) as NSString) as! HTableBaseApex
+                let footer = self!.allReuseCells.object(forKey: IndexPath.nsStringValue(0, i)) as! HTableBaseApex
                 if footer.signalBlock != nil {
                     footer.signalBlock!(footer, signal)
                 }
@@ -753,7 +753,7 @@ extension HTableView {
     }
 
     func signal(_ signal: HTableSignal?, footerSection section: Int) {
-        let footer = self.allReuseCells.object(forKey: IndexPath.stringValue(0, section) as NSString) as! HTableBaseApex
+        let footer = self.allReuseCells.object(forKey: IndexPath.nsStringValue(0, section)) as! HTableBaseApex
         if footer.signalBlock != nil {
             DispatchQueue.main.async { [weak footer] in
                 footer!.signalBlock!(footer!, signal)
@@ -793,7 +793,7 @@ extension HTableView {
 
     ///根据传入的row和section获取cell或indexPath
     func cell(_ row: Int, _ section: Int) -> AnyObject? {
-        return self.allReuseCells.object(forKey: IndexPath.stringValue(row, section) as NSString)
+        return self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section))
     }
     func indexPath(_ row: Int, _ section: Int) -> IndexPath {
         return IndexPath(row: row, section: section)

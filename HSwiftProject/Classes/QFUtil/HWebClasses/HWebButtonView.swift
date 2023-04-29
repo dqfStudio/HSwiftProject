@@ -1,6 +1,6 @@
 //
 //  HWebButtonView.swift
-//  HSwiftProject
+//  FreeChat
 //
 //  Created by Wind on 2019/11/16.
 //  Copyright © 2019 wind. All rights reserved.
@@ -21,6 +21,14 @@ class HWebButtonView: UIButton {
     }()
     
     private var lastURL: String = ""
+    // 点击时间
+    private var pressedInterval: TimeInterval = 0
+
+    override var contentMode: UIView.ContentMode {
+        didSet {
+            _imageView.contentMode = contentMode
+        }
+    }
     
     //父类那个tintColor有问题
     var renderColor: UIColor? {
@@ -38,6 +46,12 @@ class HWebButtonView: UIButton {
         }
     }
     
+    var hasImage: Bool {
+        if _imageView.image == nil {
+            return false
+        }
+        return true
+    }
     var pressed: Callback?
     var didGetImage: Callback?
     var didGetError: Callback?
@@ -107,7 +121,7 @@ class HWebButtonView: UIButton {
     *  @param syncLoadCache 是否同步读缓存
     *
     */
-    func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = false) {
+    func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true) {
         self.setImageUrlString(url.absoluteString, placeholder: placeholder, syncLoadCache: cache)
     }
     
@@ -119,9 +133,9 @@ class HWebButtonView: UIButton {
     *  @param syncLoadCache 是否同步读缓存
     *
     */
-    func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = false) {
+    func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true) {
         if urlString.count == 0 {
-            self._setImage(nil)
+            self._setImage(placeholder)
             self.lastURL = ""
             if didGetError != nil {
                 didGetError!(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
@@ -171,6 +185,7 @@ class HWebButtonView: UIButton {
             }
         }
         if _imageView.image == nil {
+            //_imageView.kf.indicatorType = .activity
             _imageView.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
                 switch result {
                 case .success(let value):
@@ -229,8 +244,13 @@ class HWebButtonView: UIButton {
     //点击响应事件
     @objc
     private func buttonPressed() {
-        if pressed != nil {
-            pressed!(self, nil)
+        guard let pressed = pressed else { return }
+        // 点击时间
+        if Date().timeIntervalSince1970 - pressedInterval > 0.5 {
+            // 记录点击时间
+            pressedInterval = Date().timeIntervalSince1970
+            // 回调
+            pressed(self, nil)
         }
     }
     

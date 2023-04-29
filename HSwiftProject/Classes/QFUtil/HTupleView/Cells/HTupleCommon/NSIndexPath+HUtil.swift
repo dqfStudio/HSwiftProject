@@ -25,10 +25,17 @@ extension IndexPath {
     var stringValue: String {
         return "\(self.row)" + "\(self.section)"
     }
+    var nsStringValue: NSString {
+        return "\(self.row)" + "\(self.section)" as NSString
+    }
     
     static func stringValue(_ row: Int, _ section: Int) -> String {
         return "\(row)" + "\(section)"
     }
+    static func nsStringValue(_ row: Int, _ section: Int) -> NSString {
+        return "\(row)" + "\(section)" as NSString
+    }
+    
     static func instanceValue(_ row: Int, _ section: Int) -> IndexPath {
         return IndexPath(row: row, section: section)
     }

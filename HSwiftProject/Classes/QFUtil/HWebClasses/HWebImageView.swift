@@ -1,6 +1,6 @@
 //
 //  HWebImageView.swift
-//  HSwiftProject
+//  FreeChat
 //
 //  Created by Wind on 2019/11/18.
 //  Copyright © 2019 wind. All rights reserved.
@@ -20,6 +20,8 @@ class HWebImageView: UIImageView {
     }()
     
     private var lastURL: String = ""
+    // 点击时间
+    private var pressedInterval: TimeInterval = 0
     
     //父类那个tintColor有问题
     var renderColor: UIColor? {
@@ -50,6 +52,13 @@ class HWebImageView: UIImageView {
                 self.isUserInteractionEnabled = false
             }
         }
+    }
+    
+    var hasImage: Bool {
+        if super.image == nil {
+            return false
+        }
+        return true
     }
     var didGetImage: Callback?
     var didGetError: Callback?
@@ -116,7 +125,7 @@ class HWebImageView: UIImageView {
     *  @param syncLoadCache 是否同步读缓存
     *
     */
-    func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = false) {
+    func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true) {
         self.setImageUrlString(url.absoluteString, placeholder: placeholder, syncLoadCache: cache)
     }
     
@@ -128,7 +137,7 @@ class HWebImageView: UIImageView {
     *  @param syncLoadCache 是否同步读缓存
     *
     */
-    func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = false) {
+    func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true) {
         if urlString.count == 0 {
             self._setImage(nil)
             self.lastURL = ""
@@ -180,6 +189,7 @@ class HWebImageView: UIImageView {
             }
         }
         if self.image == nil {
+            //self.kf.indicatorType = .activity
             self.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
                 switch result {
                 case .success(let value):
@@ -238,8 +248,13 @@ class HWebImageView: UIImageView {
     //点击响应事件
     @objc
     private func tapGestureAction() {
-        if pressed != nil {
-            pressed!(self, nil)
+        guard let pressed = pressed else { return }
+        // 点击时间
+        if Date().timeIntervalSince1970 - pressedInterval > 0.5 {
+            // 记录点击时间
+            pressedInterval = Date().timeIntervalSince1970
+            // 回调
+            pressed(self, nil)
         }
     }
 
