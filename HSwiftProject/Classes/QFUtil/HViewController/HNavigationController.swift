@@ -8,32 +8,29 @@
 
 import UIKit
 
-//@interface HNavigationController () <UIGestureRecognizerDelegate>
-//@property(nonatomic, strong) NSMutableArray *blackList
-//@end
-
 class HNavigationController : UINavigationController, UIGestureRecognizerDelegate {
 
     /// Lazy load
-    private let blackList = NSMutableArray()
+    private var blackList = [UIViewController]()
 
     /// Public
     func addFullScreenPopBlackListItem(_ viewController: UIViewController) {
-        self.blackList.add(viewController)
+        blackList.append(viewController)
     }
 
     func removeFromFullScreenPopBlackList(_ viewController: UIViewController) {
-        for item in self.blackList {
-            let vc: UIViewController = item as! UIViewController
-            if vc.isKind(of: UIViewController.self) {
-                self.blackList.remove(vc)
-            }
-        }
+        blackList.removeAll(where: { $0 === viewController })
     }
 
     /// Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        //设置相关属性
+        self.pvc_initialize()
+    }
+    
+    //设置相关属性
+    private func pvc_initialize() {
         //  这句很核心
         let target = self.interactivePopGestureRecognizer!.delegate
         //  这句很核心
@@ -61,57 +58,39 @@ class HNavigationController : UINavigationController, UIGestureRecognizerDelegat
     ///  防止导航控制器只有一个rootViewcontroller时触发手势
     private func gestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
         // 根据具体控制器对象决定是否开启全屏右滑返回
-        for item in self.blackList {
-            let vc: UIViewController = item as! UIViewController
-            if vc == self.topViewController {
-                return false
-            }
+        if let topVC = self.topViewController, self.blackList.contains(topVC) {
+            return false
         }
         
         //如果这个push  pop 动画正在执行(私有属性)，不允许手势
-        if self.value(forKeyPath: "_isTransitioning") as! Bool == false {
+        guard let isTransitioning = self.value(forKeyPath: "_isTransitioning") as? Bool, isTransitioning else {
             return false
         }
         
         // 解决右滑和UITableView左滑删除的冲突
         let translation: CGPoint = gestureRecognizer.translation(in: gestureRecognizer.view)
-        if translation.x <= 0 {
+        guard translation.x > 0 else {
             return false
         }
         
         //当前控制器为根控制器，不允许手势
-        return self.children.count == 1 ? false : true
-    }
-
-    /// 旋转支持
-    override var shouldAutorotate: Bool {
-        return self.topViewController!.shouldAutorotate
-    }
-
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return self.topViewController!.supportedInterfaceOrientations
-    }
-    
-    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return self.topViewController!.preferredInterfaceOrientationForPresentation
+        return self.children.count > 1
     }
 
 }
 
-//extension UIViewController {
-//    @available(iOS 5.0, *)
-//    open func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (())? = nil) {
-//
-//    }
-//    - (void)presentViewController:(UIViewController *)viewControllerToPresent param:(NSDictionary *)dict animated:(BOOL)flag completion:(void (^ __nullable)(void))completion {
-//        if (dict) [viewControllerToPresent autoFill:dict map:nil exclusive:NO isDepSearch:YES]
-//        [self presentViewController:viewControllerToPresent animated:flag completion:completion]
-//    }
-//}
-//
-//extension UINavigationController {
-//    - (void)pushViewController:(UIViewController *)viewController param:(NSDictionary *)dict animated:(BOOL)animated {
-//        if (dict) [viewController autoFill:dict map:nil exclusive:NO isDepSearch:YES]
-//        [self pushViewController:viewController animated:animated]
-//    }
-//}
+// MARK: - 横纵屏
+extension HNavigationController {
+    //是否自动旋转,返回YES可以自动旋转
+    override var shouldAutorotate: Bool {
+        return self.topViewController!.shouldAutorotate
+    }
+    //返回支持的方向
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return self.topViewController!.supportedInterfaceOrientations
+    }
+    //这个是返回优先方向
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return self.topViewController!.preferredInterfaceOrientationForPresentation
+    }
+}

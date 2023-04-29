@@ -43,6 +43,7 @@ extension UIViewController {
 
 }
 
+
 extension HViewController {
     
     open override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -52,14 +53,13 @@ extension HViewController {
     
     open override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
         super.dismiss(animated: flag, completion: completion)
-        if self.navigationController?.viewControllers.count ?? 0 > 0 {
-            let viewControllers = (self.navigationController?.viewControllers)!
-            for item in viewControllers {
-                let vc = item as UIViewController
-                vc.vcWillDisappear(.dismiss)
-            }
-        }else {
+        guard let viewControllers = self.navigationController?.viewControllers else {
             self.vcWillDisappear(.dismiss)
+            return
+        }
+        for item in viewControllers {
+            let vc = item as UIViewController
+            vc.vcWillDisappear(.dismiss)
         }
     }
     
@@ -69,16 +69,18 @@ extension HNavigationController {
     
     @discardableResult
     open override func popViewController(animated: Bool) -> UIViewController? {
-        let popVC = super.popViewController(animated: animated)
-        if popVC?.isKind(of: UIViewController.self) ?? false {
-            popVC?.vcWillDisappear(.pop)
+        guard let popVC = super.popViewController(animated: animated) else {
+            return nil
+        }
+        if popVC.isKind(of: UIViewController.self) {
+            popVC.vcWillDisappear(.pop)
         }
         return popVC
     }
     
     open override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        if self.topViewController?.isKind(of: UIViewController.self) ?? false {
-            self.topViewController?.vcWillDisappear(.push)
+        if let topVC = self.topViewController, topVC.isKind(of: UIViewController.self) {
+            topVC.vcWillDisappear(.push)
         }
         if !viewControllers.isEmpty {
             viewController.appearType = .push
