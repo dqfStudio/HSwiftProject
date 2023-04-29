@@ -27,16 +27,11 @@ extension AppDelegate {
         var window = UIApplication.shared.keyWindow
         if window?.windowLevel != UIWindow.Level.normal {
             let windows = UIApplication.shared.windows
-            for tmpWindow in windows {
-                if tmpWindow.windowLevel == UIWindow.Level.normal {
-                    window = tmpWindow
-                    break
-                }
-            }
+            window = windows.first(where: { $0.windowLevel == UIWindow.Level.normal })
         }
         var result = window?.rootViewController
-        while result?.presentedViewController != nil {
-            result = result?.presentedViewController
+        while let presentedViewController = result?.presentedViewController {
+            result = presentedViewController
         }
         if let tabBarController = result as? UITabBarController {
             result = tabBarController.selectedViewController
@@ -49,10 +44,8 @@ extension AppDelegate {
     //获取(检查）指定视图
     static func checkViewController(_ className: AnyClass?) -> UIViewController? {
         guard let className = className else { return nil }
-        for vc in UIApplication.navi!.viewControllers {
-            if vc.isKind(of: className) {
-                return vc
-            }
+        if let vc = UIApplication.navi?.viewControllers.first(where: { $0.isKind(of: className) }) {
+            return vc
         }
         return nil
     }
