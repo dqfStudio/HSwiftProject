@@ -200,40 +200,39 @@ class HTextField : UITextField, UITextFieldDelegate {
         }
     }
     
-    private func trimmingWhitespaceAndNewline() -> String? {
+    private var trimmingWhitespaceAndNewline: String? {
         return self.text?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    private func trimmingAllWhitespaceAndNewline() -> String? {
+    private var trimmingAllWhitespaceAndNewline: String? {
         return self.text?.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: "")
     }
 
     /// delegate
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if self.forbidWhitespaceAndNewline && string.length == 1 {//输入字符串
-            if string.contains(" ") || string.contains("\n") {
-                return false
-            }
+        //输入字符串
+        if self.forbidWhitespaceAndNewline && string.length == 1 && string.contains(where: { $0.isWhitespace || $0.isNewline }) {
+            return false
         }
-        if self.maxInput > 0 && textField.text != nil {
-            let strLength: Int = textField.text!.length - range.length + string.length
+        if self.maxInput > 0, let textFieldText = textField.text {
+            let strLength = textFieldText.count - range.length + string.count
             if strLength > self.maxInput {
-                var tmpString: String?
                 if string.length > 1 {//复制字符串
-                    let string = string.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
-                    tmpString = textField.text! + string
+                    let string = string.trimmingCharacters(in: .whitespacesAndNewlines)
+                    let tmpString = textFieldText + string
                     //赋值
-                    textField.text = tmpString?.to(loc: self.maxInput)
+                    textField.text = tmpString.to(loc: self.maxInput)
                     //异步移动光标
                     DispatchQueue.main.async { [weak self, textField] in
-                        self!.cursorLocation(textField, index: textField.text!.length)
+                        self?.cursorLocation(textField, index: textFieldText.count)
                     }
                 }else {//输入字符串
-                    tmpString = textField.text! + string
-                    textField.text = tmpString?.to(loc: self.maxInput)
+                    let tmpString = textFieldText + string
+                    //赋值
+                    textField.text = tmpString.to(loc: self.maxInput)
                 }
             }
-            return (strLength <= self.maxInput)
+            return strLength <= self.maxInput
         }
         return true
     }
@@ -244,16 +243,13 @@ class HTextField : UITextField, UITextFieldDelegate {
 
     func textFieldDidEndEditing(_ textField: UITextField) {
         if self.forbidWhitespaceAndNewline {
-            self.text = self.trimmingAllWhitespaceAndNewline()
+            self.text = self.trimmingAllWhitespaceAndNewline
         }
-        self.text = self.trimmingWhitespaceAndNewline()
+        self.text = self.trimmingWhitespaceAndNewline
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        guard let returnBlock = self.returnBlock else {
-            return true
-        }
-        returnBlock(textField as! HTextField)
+        self.returnBlock?(textField as! HTextField)
         return true
     }
 
@@ -267,10 +263,10 @@ class HTextField : UITextField, UITextFieldDelegate {
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if self.forbidPaste {
-            OperationQueue.main.addOperation {
+            DispatchQueue.main.async {
                 if #available(iOS 13.0, *) {
                     UIMenuController.shared.hideMenu()
-                }else {
+                } else {
                     UIMenuController.shared.setMenuVisible(false, animated: false)
                 }
             }

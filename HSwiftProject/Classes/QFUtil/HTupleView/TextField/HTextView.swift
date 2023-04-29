@@ -55,88 +55,70 @@ class HTextView : UITextView, UITextViewDelegate {
         self.font = UIFont.systemFont(ofSize: 14)
     }
     
-    private func trimmingWhitespaceAndNewline() -> String? {
-        if self.text != nil {
-            return self.text?.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-        }
-        return self.text
+    private var trimmingWhitespaceAndNewline: String? {
+        return self.text?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    private func trimmingAllWhitespaceAndNewline() -> String? {
-        if self.text != nil {
-            let content: String = self.text!.replacingOccurrences(of: " ", with: "")
-            return content.replacingOccurrences(of: "\n", with: "")
-        }
-        return self.text
+    private var trimmingAllWhitespaceAndNewline: String? {
+        return self.text?.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: "\n", with: "")
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        if self.didChangeBlock != nil {
-            self.didChangeBlock!(textView as! HTextView)
-        }
+        didChangeBlock?(textView as! HTextView)
     }
     
     func textViewDidChangeSelection(_ textView: UITextView) {
-        if self.didChangeSelectionBlock != nil {
-            self.didChangeSelectionBlock!(textView as! HTextView)
-        }
+        self.didChangeSelectionBlock?(textView as! HTextView)
     }
     
     /// delegate
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if self.forbidWhitespaceAndNewline && text.length == 1 {//输入字符串
-            if text.contains(" ") || text.contains("\n") {
-                return false
-            }
+        //输入字符串
+        if self.forbidWhitespaceAndNewline && text.length == 1 && text.contains(where: { $0.isWhitespace || $0.isNewline }) {
+            return false
         }
-        if self.maxInput > 0 && textView.text != nil {
-            let strLength: Int = textView.text!.length - range.length + text.length
+        if self.maxInput > 0, let textViewText = textView.text {
+            let strLength = textViewText.count - range.length + text.count
             if strLength > self.maxInput {
-                var tmpString: String?
                 if text.length > 1 {//复制字符串
-                    let string = text.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines)
-                    tmpString = textView.text! + string
+                    let string = text.trimmingCharacters(in: .whitespacesAndNewlines)
+                    let tmpString = textViewText + string
                     //赋值
-                    textView.text = tmpString?.to(loc: self.maxInput)
+                    textView.text = tmpString.to(loc: self.maxInput)
                     //异步移动光标
                     DispatchQueue.main.async { [weak self, textView] in
-                        self?.cursorLocation(textView, index: textView.text!.length)
+                        self?.cursorLocation(textView, index: textViewText.count)
                     }
                 }else {//输入字符串
-                    tmpString = textView.text! + text
-                    textView.text = tmpString?.to(loc: self.maxInput)
+                    let tmpString = textViewText + text
+                    //赋值
+                    textView.text = tmpString.to(loc: self.maxInput)
                 }
             }
-            return (strLength <= self.maxInput)
+            return strLength <= self.maxInput
         }
         return true
     }
     
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        if self.shouldBeginEditingBlock != nil {
-            self.shouldBeginEditingBlock!(textView as! HTextView)
-        }
+        self.shouldBeginEditingBlock?(textView as! HTextView)
         return self.editEnabled
     }
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
-        if self.shouldEndEditingBlock != nil {
-            self.shouldEndEditingBlock!(textView as! HTextView)
-        }
+        self.shouldEndEditingBlock?(textView as! HTextView)
         return true
     }
 
     func textViewDidEndEditing(_ textView: UITextView) {
         if self.forbidWhitespaceAndNewline {
-            self.text = self.trimmingAllWhitespaceAndNewline()
+            self.text = self.trimmingAllWhitespaceAndNewline
         }
-        self.text = self.trimmingWhitespaceAndNewline()
+        self.text = self.trimmingWhitespaceAndNewline
     }
     
     func textViewShouldReturn(_ textView: UITextView) -> Bool {
-        if self.returnBlock != nil {
-            self.returnBlock!(textView as! HTextView)
-        }
+        self.returnBlock?(textView as! HTextView)
         return true
     }
 
@@ -147,10 +129,10 @@ class HTextView : UITextView, UITextViewDelegate {
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
         if self.forbidPaste {
-            OperationQueue.main.addOperation {
+            DispatchQueue.main.async {
                 if #available(iOS 13.0, *) {
                     UIMenuController.shared.hideMenu()
-                }else {
+                } else {
                     UIMenuController.shared.setMenuVisible(false, animated: false)
                 }
             }
