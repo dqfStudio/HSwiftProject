@@ -137,7 +137,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
             break
         case HCell2:
             let cell = itemBlock(nil, HTupleBlankCell.self, nil, true) as! HTupleBlankCell
-            cell.view.backgroundColor = UIColor(white: 0.1, alpha: 0.2)
+            cell.blank.backgroundColor = UIColor(white: 0.1, alpha: 0.2)
             break
         case HCell3:
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
