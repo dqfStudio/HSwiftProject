@@ -564,12 +564,13 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             }
         }
         //调用cell
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as! HTableBaseCell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTableBaseCell
         //更新布局
-        if cell.responds(to: #selector(cell.relayoutSubviews)) {
+        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
             cell.relayoutSubviews()
         }
-        return cell
+        //防止崩溃
+        return cell ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -585,8 +586,8 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             }
         }
         //更新布局
-        let cell = self.allReuseHeaders.object(forKey: "\(section)" as NSString) as! HTableBaseApex
-        if cell.responds(to: #selector(cell.relayoutSubviews)) {
+        let cell = self.allReuseHeaders.object(forKey: "\(section)" as NSString) as? HTableBaseApex
+        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
             cell.relayoutSubviews()
         }
         return cell
@@ -604,8 +605,8 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             }
         }
         //更新布局
-        let cell = self.allReuseFooters.object(forKey: "\(section)" as NSString) as! HTableBaseApex
-        if cell.responds(to: #selector(cell.relayoutSubviews)) {
+        let cell = self.allReuseFooters.object(forKey: "\(section)" as NSString) as? HTableBaseApex
+        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
             cell.relayoutSubviews()
         }
         return cell
