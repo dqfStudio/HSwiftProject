@@ -9,14 +9,14 @@
 import UIKit
 
 class HTupleBlankCell : HTupleBaseCell {
-    lazy var view: UIView = {
-        let view = UIView()
-        self.layoutView.addSubview(view)
-        return view
+    lazy var blank: UIView = {
+        let blank = UIView()
+        self.layoutView.addSubview(blank)
+        return blank
     }()
     
     override func relayoutSubviews() {
-        HLayoutTupleCell(self.view)
+        HLayoutTupleCell(self.blank)
     }
 }
 
