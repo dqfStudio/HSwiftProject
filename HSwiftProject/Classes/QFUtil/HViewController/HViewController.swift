@@ -355,28 +355,19 @@ class HViewController: UIViewController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         let preferredStatusBarColor: UIColor? = self.preferredStatusBarColor
-        if preferredStatusBarColor !== nil && preferredStatusBarColor?.isLighterColor ?? false {
+        let isLighterColor = preferredStatusBarColor?.isLighterColor ?? false
+        if isLighterColor || (_topBar.backgroundColor?.isLighterColor ?? false) {
             if #available(iOS 13.0, *) {
                 return .darkContent
-            }else {
+            } else {
                 return .default
             }
-        }else if _topBar != nil && _topBar.backgroundColor?.isLighterColor ?? false {
-            if #available(iOS 13.0, *) {
-                return .darkContent
-            }else {
-                return .default
-            }
-        }else {
-            return .default
         }
+        return .default
     }
 
     override var prefersStatusBarHidden: Bool {
-        if UIApplication.statusBarOrientation()?.isLandscape ?? false {
-            return true
-        }
-        return false
+        return UIApplication.statusBarOrientation()?.isLandscape ?? false
     }
 
     // Controls the application's preferred home indicator auto-hiding when this view controller is shown.
