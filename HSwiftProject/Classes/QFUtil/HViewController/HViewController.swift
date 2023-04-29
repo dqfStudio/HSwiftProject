@@ -46,7 +46,6 @@ class HViewController: UIViewController {
 
     //loadView 从nib载入视图 ，通常这一步不需要去干涉。除非你没有使用xib文件创建视图,即用代码创建的UI
     override func loadView() {
-        super.loadView()
         self.pvc_initView()
     }
 
@@ -61,9 +60,7 @@ class HViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if self.title?.isEmpty != false {
-            self.titleLabel.text = self.title
-        }
+        self.titleLabel.text = self.title
         self.view.backgroundColor = HVCAppearance.bgColor
         self.view.addSubview(self.topBar)
         self.view.isExclusiveTouch = true
@@ -87,17 +84,15 @@ class HViewController: UIViewController {
         //    UIApplication.setStatusBarStyleWithColor(self.topBar.backgroundColor ?? UIColor.white)
         //}
         if #available(iOS 11.0, *) {
-            if self.view.isKind(of: UIScrollView.self) {
-                let scrollView: UIScrollView = self.view as! UIScrollView
+            if let scrollView = self.view as? UIScrollView {
                 scrollView.contentInsetAdjustmentBehavior = .never
             }
-            for view in self.view.subviews {
-                if view.isKind(of: UIScrollView.self) {
-                    let scrollView: UIScrollView = view as! UIScrollView
+            self.view.subviews.forEach { view in
+                if let scrollView = view as? UIScrollView {
                     scrollView.contentInsetAdjustmentBehavior = .never
                 }
             }
-        }else {
+        } else {
             self.automaticallyAdjustsScrollViewInsets = false
         }
     }
@@ -119,32 +114,32 @@ class HViewController: UIViewController {
     override func vcWillDisappear(_ type: HVCDisappearType) {
         if (type == .pop || type == .dismiss) {
             //tupleView default tag 1213141516
-            let tupleView = self.view.viewWithTag(1213141516)
-            if tupleView?.isKind(of: NSClassFromString("HTupleView") ?? UIView.self) ?? false {
-                let selector = NSSelectorFromString("releaseTupleBlock")
-                if tupleView?.responds(to: selector) ?? false {
-                    tupleView?.perform(selector)
-                }
+            if let tupleView = self.view.viewWithTag(1213141516) as? HTupleView {
+                tupleView.releaseTupleBlock()
             }
             //tableView default tag 1615141312
-            let tableView = self.view.viewWithTag(1615141312)
-            if tableView?.isKind(of: NSClassFromString("HTableView") ?? UIView.self) ?? false {
-                let selector = NSSelectorFromString("releaseTableBlock")
-                if tableView?.responds(to: selector) ?? false {
-                    tableView?.perform(selector)
-                }
+            if let tableView = self.view.viewWithTag(1615141312) as? HTableView {
+                tableView.releaseTableBlock()
             }
         }
     }
 
     /// 事件处理
     func back() {
-        let viewcontrollers = self.navigationController?.viewControllers
-        let topViewController = self.navigationController?.topViewController
-        if viewcontrollers?.count ?? 0 > 1 && topViewController == self {
-            self.navigationController?.popViewController(animated: true)//push方式
-        }else {
+//        let viewcontrollers = self.navigationController?.viewControllers
+//        let topViewController = self.navigationController?.topViewController
+//        if viewcontrollers?.count ?? 0 > 1 && topViewController == self {
+//            self.navigationController?.popViewController(animated: true)//push方式
+//        }else {
+//            self.dismiss(animated: true, completion: nil)//present方式
+//        }
+        switch (self.appearType) {
+        case .undefine, .present:
             self.dismiss(animated: true, completion: nil)//present方式
+        case .push:
+            self.navigationController?.popViewController(animated: true)//push方式
+        default:
+            break
         }
     }
 
@@ -157,46 +152,40 @@ class HViewController: UIViewController {
     }
 
     /// 各个视图
-    private var _topBar: UIView?
-    private var _topBarLine: UIView?
+    private var _topBar = UIView()
+    private var _topBarLine = UIView()
     
     var topBar: UIView {
-        if _topBar == nil { _topBar = UIView() }
-        //topBar = [[UIButton alloc] init]
-        //[topBar setAdjustsImageWhenHighlighted:NO]
         //没有系统导航栏的时候,status背景色是透明的,用自定义导航栏去伪造一个status背景区域
         if self.prefersNavigationBarHidden {
-            _topBar!.frame = CGRect(x: 0, y: statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight)
+            _topBar.frame = CGRect(x: 0, y: statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight)
         }else {
-            _topBar!.frame = CGRect(x: 0, y: 0, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
-            _topBar!.bounds = CGRect(x: 0, y: -statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
+            _topBar.frame = CGRect(x: 0, y: 0, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
+            _topBar.bounds = CGRect(x: 0, y: -statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
         }
-        _topBar!.autoresizingMask = .flexibleWidth
-        if _topBarLine == nil {
-            _topBarLine = UIView()
-            _topBar!.addSubview(_topBarLine!)
+        _topBar.autoresizingMask = .flexibleWidth
+        if _topBarLine.superview == nil {
+            _topBar.addSubview(_topBarLine)
         }
-        _topBarLine!.frame = CGRect(x: 0, y: UIScreen.naviBarHeight - 1, width: _topBar!.width, height: 1)
-        _topBarLine!.isHidden = self.prefersTopBarLineHidden
-        return _topBar!
+        _topBarLine.frame = CGRect(x: 0, y: UIScreen.naviBarHeight - 1, width: _topBar.width, height: 1)
+        _topBarLine.isHidden = self.prefersTopBarLineHidden
+        return _topBar
     }
+
 
     var topBarHeight: CGFloat {
         return (self.prefersStatusBarHidden ? 0:UIScreen.statusBarHeight) + (self.prefersNavigationBarHidden ? 0:UIScreen.naviBarHeight)
     }
     
-    private var _titleLabel: UILabel?
-    var titleLabel: UILabel {
-        if _titleLabel == nil {
-            _titleLabel = UILabel()
-            _titleLabel!.frame = CGRect(x: 54, y: 0, width: self.view.width - 54 * 2, height: UIScreen.naviBarHeight)
-            _titleLabel!.textAlignment = .center
-            _titleLabel!.textColor = UIColor.black
-            _titleLabel!.font = UIFont.systemFont(ofSize: 16)
-            self.topBar.addSubview(_titleLabel!)
-        }
-        return _titleLabel!
-    }
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.frame = CGRect(x: 54, y: 0, width: self.view.width - 54 * 2, height: UIScreen.naviBarHeight)
+        label.textAlignment = .center
+        label.textColor = .black
+        label.font = .systemFont(ofSize: 16)
+        self.topBar.addSubview(label)
+        return label
+    }()
 
     private var _leftNaviButton: HWebButtonView?
     var leftNaviButton: HWebButtonView {
@@ -249,7 +238,7 @@ class HViewController: UIViewController {
             self.topBar.bounds = CGRect(x: 0, y: -statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
         }
         //reset topBar line
-        _topBarLine!.frame = CGRect(x: 0, y: UIScreen.naviBarHeight - 1, width: topBar.width, height: 1)
+        _topBarLine.frame = CGRect(x: 0, y: UIScreen.naviBarHeight - 1, width: topBar.width, height: 1)
         //reset title label
         if _rightNaviButton != nil {
             //reset right button
@@ -270,86 +259,63 @@ class HViewController: UIViewController {
 
     /// 设置视图
     override var title: String? {
-        get {
-            return super.title
-        }
-        set {
-            super.title = newValue
-            if self.isViewLoaded {
-                self.titleLabel.text = newValue
-            }
+        didSet {
+            guard self.isViewLoaded else { return }
+            self.titleLabel.text = title
         }
     }
 
     func setLeftNaviImage(_ image: UIImage?) {
-        self.leftNaviButton.setTitle("", for: .normal)
-        self.leftNaviButton.setTitle("", for: .highlighted)
-        self.leftNaviButton.setImage(image, for: .normal)
-        self.leftNaviButton.setImage(image, for: .highlighted)
+        self.leftNaviButton.setTitle("", for: [.normal, .highlighted])
+        self.leftNaviButton.setImage(image, for: [.normal, .highlighted])
     }
     func setLeftNaviImageURL(_ imageURL: String) {
-        self.leftNaviButton.setTitle("", for: .normal)
-        self.leftNaviButton.setTitle("", for: .highlighted)
-        self.leftNaviButton.setImage(nil, for: .normal)
-        self.leftNaviButton.setImage(nil, for: .highlighted)
+        self.leftNaviButton.setTitle("", for: [.normal, .highlighted])
+        self.leftNaviButton.setImage(nil, for: [.normal, .highlighted])
         self.leftNaviButton.setImageUrlString(imageURL)
     }
     func setNaviLeftImage(_ normal: UIImage?, highlight: UIImage?) {
-        self.leftNaviButton.setTitle("", for: .normal)
-        self.leftNaviButton.setTitle("", for: .highlighted)
+        self.leftNaviButton.setTitle("", for: [.normal, .highlighted])
         self.leftNaviButton.setImage(normal, for: .normal)
         self.leftNaviButton.setImage(highlight, for: .highlighted)
     }
     func setRightNaviImage(_ image: UIImage?) {
-        self.rightNaviButton.setTitle("", for: .normal)
-        self.rightNaviButton.setTitle("", for: .highlighted)
-        self.rightNaviButton.setImage(image, for: .normal)
-        self.rightNaviButton.setImage(image, for: .highlighted)
+        self.rightNaviButton.setTitle("", for: [.normal, .highlighted])
+        self.rightNaviButton.setImage(image, for: [.normal, .highlighted])
     }
     func setRightNaviImageURL(_ imageURL: String) {
-        self.rightNaviButton.setTitle("", for: .normal)
-        self.rightNaviButton.setTitle("", for: .highlighted)
-        self.rightNaviButton.setImage(nil, for: .normal)
-        self.rightNaviButton.setImage(nil, for: .highlighted)
+        self.rightNaviButton.setTitle("", for: [.normal, .highlighted])
+        self.rightNaviButton.setImage(nil, for: [.normal, .highlighted])
         self.rightNaviButton.setImageUrlString(imageURL)
     }
     func setNaviRightImage(_ normal: UIImage?, highlight: UIImage?) {
-        self.rightNaviButton.setTitle("", for: .normal)
-        self.rightNaviButton.setTitle("", for: .highlighted)
+        self.rightNaviButton.setTitle("", for: [.normal, .highlighted])
         self.rightNaviButton.setImage(normal, for: .normal)
         self.rightNaviButton.setImage(highlight, for: .highlighted)
     }
     func setLeftNaviTitle(_ title: String) {
-        self.leftNaviButton.setTitle(title, for: .normal)
-        self.leftNaviButton.setTitle(title, for: .highlighted)
-        self.leftNaviButton.setImage(nil, for: .normal)
-        self.leftNaviButton.setImage(nil, for: .highlighted)
+        self.leftNaviButton.setTitle(title, for: [.normal, .highlighted])
+        self.leftNaviButton.setImage(nil, for: [.normal, .highlighted])
     }
     func setLeftNaviTitle(_ imageURL: String, titleColor: UIColor, highlightcolor: UIColor) {
-        self.leftNaviButton.setTitle(title, for: .normal)
-        self.leftNaviButton.setTitle(title, for: .highlighted)
+        self.leftNaviButton.setTitle(title, for: [.normal, .highlighted])
         self.leftNaviButton.setTitleColor(titleColor, for: .normal)
         self.leftNaviButton.setTitleColor(highlightcolor, for: .highlighted)
         self.leftNaviButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         self.leftNaviButton.frame = CGRect(x: HNavTitleButtonMargin, y: self.rightNaviButton.y, width: HNavTitleButtonWidth, height: self.rightNaviButton.height)
-        self.leftNaviButton.setImage(nil, for: .normal)
-        self.leftNaviButton.setImage(nil, for: .highlighted)
+        self.leftNaviButton.setImage(nil, for: [.normal, .highlighted])
     }
     func setRightNaviTitle(_ title: String) {
-        self.rightNaviButton.setTitle(title, for: .normal)
-        self.rightNaviButton.setTitle(title, for: .highlighted)
-        self.rightNaviButton.setImage(nil, for: .normal)
-        self.rightNaviButton.setImage(nil, for: .highlighted)
+        self.rightNaviButton.setTitle(title, for: [.normal, .highlighted])
+        self.rightNaviButton.setImage(nil, for: [.normal, .highlighted])
     }
     func setRightNaviTitle(_ imageURL: String, titleColor: UIColor, highlightcolor: UIColor) {
-        self.rightNaviButton.setTitle(title, for: .normal)
-        self.rightNaviButton.setTitle(title, for: .highlighted)
+        self.rightNaviButton.setTitle(title, for: [.normal, .highlighted])
         self.rightNaviButton.setTitleColor(titleColor, for: .normal)
         self.rightNaviButton.setTitleColor(highlightcolor, for: .highlighted)
         self.rightNaviButton.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         self.rightNaviButton.frame = CGRect(x: self.topBar.width - HNavTitleButtonWidth - HNavTitleButtonMargin, y: self.rightNaviButton.y, width: HNavTitleButtonWidth, height: self.rightNaviButton.height)
-        self.rightNaviButton.setImage(nil, for: .normal)
-        self.rightNaviButton.setImage(nil, for: .highlighted)
+        self.rightNaviButton.setImage(nil, for: [.normal, .highlighted])
     }
     
     /// 导航栏状态控制
@@ -357,7 +323,7 @@ class HViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.topBar.isHidden = self.prefersNavigationBarHidden
         self.topBar.backgroundColor = self.preferredNaviBarColor
-        _topBarLine!.backgroundColor = self.preferredNaviShadowColor
+        _topBarLine.backgroundColor = self.preferredNaviShadowColor
     }
 
     var autoAdjustStatusBarStyle: Bool {
@@ -395,7 +361,7 @@ class HViewController: UIViewController {
             }else {
                 return .default
             }
-        }else if _topBar != nil && _topBar!.backgroundColor?.isLighterColor ?? false {
+        }else if _topBar != nil && _topBar.backgroundColor?.isLighterColor ?? false {
             if #available(iOS 13.0, *) {
                 return .darkContent
             }else {
@@ -418,20 +384,6 @@ class HViewController: UIViewController {
         return true
     }
     
-    /// 旋转支持
-    override var shouldAutorotate: Bool {
-        return false
-    }
-
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
-        //return [.portrait, .landscapeLeft, .landscapeRight]
-    }
-    
-    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return .portrait
-    }
-    
 //    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
 //        let orientation = UIScreen.current.orientation
 //        if orientation == .landscapeLeft || orientation == .landscapeRight {
@@ -446,37 +398,24 @@ class HViewController: UIViewController {
 //        }
 //        return UIInterfaceOrientation.landscapeRight
 //    }
-        
-//    func controlRequest(_ request: HNetworkDAO) {
-//        if ([request isKindOfClass:[HNetworkDAO class]]) {
-//            [self.controllableRequests addObject:request]
-//        }
-//    }
 
-    func refresh() {
-        
+}
+
+// MARK: - 横纵屏
+extension HViewController {
+    /// 旋转支持
+    override var shouldAutorotate: Bool {
+        return false
     }
-    ///需要释放内存
-    func needReleaseMemory() {
-        
-    }
-    func popGestureEnabled() -> Bool {
-        return true
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+        //return [.portrait, .landscapeLeft, .landscapeRight]
     }
     
-    lazy var layerView: UIView = {
-        let _layerView = UIView()
-        _layerView.frame = UIScreen.main.bounds
-        let bgLayer = CAGradientLayer()
-        bgLayer.colors = [UIColor(red: 0.82, green: 0.94, blue: 1, alpha: 1).cgColor, UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor]
-        bgLayer.locations = [0.38, 1]
-        bgLayer.frame = _layerView.bounds
-        bgLayer.startPoint = CGPoint(x: 0.07, y: 0.05)
-        bgLayer.endPoint = CGPoint(x: 1.14, y: 1.14)
-        _layerView.layer.addSublayer(bgLayer)
-        return _layerView
-    }()
-
+    override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
+        return .portrait
+    }
 }
 
 extension UIViewController {

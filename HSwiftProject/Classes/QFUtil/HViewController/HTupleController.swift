@@ -10,13 +10,9 @@ import UIKit
 
 class HTupleController : HViewController, HTupleViewDelegate {
     
-    private var _tupleView: HTupleView?
-    var tupleView: HTupleView {
-        if _tupleView == nil {
-            _tupleView = HTupleView(frame: CGRect.zero)
-        }
-        return _tupleView!
-    }
+    lazy var tupleView: HTupleView = {
+        return HTupleView(frame: .zero)
+    }()
     
     ///default YES
     var autoLayout: Bool = true
@@ -25,34 +21,34 @@ class HTupleController : HViewController, HTupleViewDelegate {
     ///default 0.0
     var bottomExtendedHeight: CGFloat = 0.0
     ///default UIEdgeInsetsZero
-    var extendedInset: UIEdgeInsets = UIEdgeInsetsZero
+    var extendedInset: UIEdgeInsets = .zero
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if (UIScreen.isIPhoneX) {
+        if UIScreen.isIPhoneX {
             extendedInset = UIEdgeInsets(top: 0, left: 0, bottom: UIScreen.bottomBarHeight, right: 0)
         }
-        self.view.addSubview(self.tupleView)
+        self.view.addSubview(tupleView)
     }
 
     override func vcWillDisappear(_ type: HVCDisappearType) {
-        if (type == .pop || type == .dismiss) {
-            self.tupleView.releaseTupleBlock()
+        if type == .pop || type == .dismiss {
+            tupleView.releaseTupleBlock()
         }
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         if autoLayout {//默认为YES
-            var frame: CGRect = self.view.bounds
+            var frame = view.bounds
             if topExtendedLayout {//默认为YES
                 frame.origin.y += UIScreen.topBarHeight
                 frame.size.height -= UIScreen.topBarHeight
             }
             frame.size.height -= bottomExtendedHeight
             self.tupleView.frame = frame
-            if UIEdgeInsetsZero != extendedInset {//设置过值
-                if tupleView.contentInset != extendedInset {//设置的值与现有的值不相等
+            if extendedInset != .zero {//设置过值
+                if self.tupleView.contentInset != extendedInset {//设置的值与现有的值不相等
                     self.tupleView.contentInset = extendedInset
                 }
             }
@@ -60,3 +56,4 @@ class HTupleController : HViewController, HTupleViewDelegate {
     }
 
 }
+
