@@ -66,8 +66,7 @@ class HTupleBaseCell : UICollectionViewCell {
     private lazy var separatorView: UIView = {
         let view = UIView()
         view.isHidden = true
-        let color = UIColor(red: 233 / 255.0, green: 233 / 255.0, blue: 233 / 255.0, alpha: 1.0)
-        view.backgroundColor = color
+        view.backgroundColor = UIColor(hex: "#E9E9E9")
         return view
     }()
     
