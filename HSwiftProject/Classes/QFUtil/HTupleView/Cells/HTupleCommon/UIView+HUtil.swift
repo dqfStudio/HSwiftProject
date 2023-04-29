@@ -19,15 +19,15 @@ extension UIView {
     /**
     *  根据nib name返回UIView
     */
-    static func view(withNibName nibName: String) -> UIView {
-        return Bundle.main.loadNibNamed(nibName, owner: nil, options: nil)?.first as! UIView
+    static func view(withNibName nibName: String) -> UIView? {
+        return Bundle.main.loadNibNamed(nibName, owner: nil, options: nil)?.first as? UIView
     }
     
     /**
     *  根据nib创建一个view，nib name为ClassName
     */
-    static func viewFromNib() -> UIView {
-        return Bundle.main.loadNibNamed(NSStringFromClass(self.classForCoder()), owner: nil, options: nil)?.first as! UIView
+    static func viewFromNib() -> UIView? {
+        return Bundle.main.loadNibNamed(NSStringFromClass(self.classForCoder()), owner: nil, options: nil)?.first as? UIView
     }
     
  
@@ -99,26 +99,24 @@ extension UIView {
     *  根据传入的width来水平居中
     */
     func horizontalCenter(withWidth width: CGFloat) {
-        self.x = CGFloat(ceilf(Float((width - self.width) / 2)))
+        self.x = (width - self.width) / 2
     }
 
     /**
     *  根据传入的height来竖直居中
     */
     func verticalCenter(withHeight height: CGFloat) {
-        self.y = CGFloat(ceilf(Float((height - self.height) / 2)))
+        self.y = (height - self.height) / 2
     }
     
     func horizontalCenterInSuperView() {
-        if self.superview != nil {
-            self.horizontalCenter(withWidth: self.superview!.width)
-        }
+        guard let superview = self.superview else { return }
+        self.horizontalCenter(withWidth: superview.width)
     }
     
     func verticalCenterInSuperView() {
-        if self.superview != nil {
-            self.verticalCenter(withHeight: self.superview!.height)
-        }
+        guard let superview = self.superview else { return }
+        self.verticalCenter(withHeight: superview.height)
     }
     
     // 根据UIEdgeInsets调整frame
@@ -136,10 +134,10 @@ extension UIView {
 
     @discardableResult
     private func addTapGesture(withNumberOfTapsRequired numberOfTapsRequired: Int, block: @escaping HGestureBlock) -> UITapGestureRecognizer {
-        self.isUserInteractionEnabled = true
-        let recognizer: UITapGestureRecognizer = UITapGestureRecognizer(block: block)
+        let recognizer = UITapGestureRecognizer(block: block)
         recognizer.numberOfTapsRequired = numberOfTapsRequired
-        self.addGestureRecognizer(recognizer)
+        addGestureRecognizer(recognizer)
+        isUserInteractionEnabled = true
         return recognizer
     }
     
@@ -148,32 +146,27 @@ extension UIView {
     */
     @discardableResult
     func addSingleTapGesture(withBlock block: @escaping HGestureBlock) -> UITapGestureRecognizer {
-        if (self.gestureRecognizers != nil) {
-            for item in self.gestureRecognizers! {
-                let gesture: UIGestureRecognizer = item
-                if gesture.isKind(of: UITapGestureRecognizer.self) {
-                    self.removeGestureRecognizer(gesture)
-                }
+        if let gestureRecognizers = self.gestureRecognizers {
+            for gesture in gestureRecognizers where gesture is UITapGestureRecognizer {
+                self.removeGestureRecognizer(gesture)
             }
         }
-        return self.addTapGesture(withNumberOfTapsRequired: 1, block: block)
+        return addTapGesture(withNumberOfTapsRequired: 1, block: block)
     }
     
     @discardableResult
     func addSingleTapGesture(withTarget target: AnyObject, action: Selector) -> UITapGestureRecognizer {
-        self.isUserInteractionEnabled = true
-        if (self.gestureRecognizers != nil) {
-            for item in self.gestureRecognizers! {
-                let gesture: UIGestureRecognizer = item
-                if gesture.isKind(of: UITapGestureRecognizer.self) {
-                    self.removeGestureRecognizer(gesture)
-                }
+        isUserInteractionEnabled = true
+        if let gestureRecognizers = gestureRecognizers {
+            for gesture in gestureRecognizers where gesture is UITapGestureRecognizer {
+                removeGestureRecognizer(gesture)
             }
         }
-        let recognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: target, action: action)
-        self.addGestureRecognizer(recognizer)
+        let recognizer = UITapGestureRecognizer(target: target, action: action)
+        addGestureRecognizer(recognizer)
         return recognizer
     }
+
 
     /**
     *  设置UIView的顶部和底部边线，一般用在设置界面
