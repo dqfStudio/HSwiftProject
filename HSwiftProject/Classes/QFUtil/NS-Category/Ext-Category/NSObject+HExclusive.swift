@@ -8,18 +8,17 @@
 
 import UIKit
 
-private var kIdSetKey = "kIdSetKey"
 private var kExclusiveSetKey = "kExclusiveSetKey"
 
 extension NSObject {
     
-    private var exclusiveSet: NSMutableSet? {
+    private var exclusiveSet: NSMutableSet {
         get {
-            var set: NSMutableSet? = objc_getAssociatedObject(self, &kExclusiveSetKey) as? NSMutableSet
-            if set == nil {
-                set = NSMutableSet()
-                objc_setAssociatedObject(self, &kExclusiveSetKey, set, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            if let set = objc_getAssociatedObject(self, &kExclusiveSetKey) as? NSMutableSet {
+                return set
             }
+            let set = NSMutableSet()
+            objc_setAssociatedObject(self, &kExclusiveSetKey, set, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return set
         }
         set(newValue) {
@@ -29,21 +28,20 @@ extension NSObject {
 
     func exclusive(exc: String, block: () -> Void) {
         let excString: String = String(format: "%p%@", self, exc)
-        if !self.exclusiveSet!.contains(excString) {
-            self.exclusiveSet!.add(excString)
+        if !self.exclusiveSet.contains(excString) {
+            self.exclusiveSet.add(excString)
             block()
         }
     }
     
     func exclusive(exc: String, delay interval: TimeInterval, block: () -> Void) {
         let excString: String = String(format: "%p%@", self, exc)
-        if (self.exclusiveSet!.contains(excString) == false) {
-            self.exclusiveSet!.add(excString)
+        if !self.exclusiveSet.contains(excString) {
+            self.exclusiveSet.add(excString)
             if interval > 0 {
-                let deadline = DispatchTime.now() + interval
-                DispatchQueue.global().asyncAfter(deadline: deadline) {
-                    if (self.exclusiveSet!.contains(excString) == true) {
-                        self.exclusiveSet!.remove(excString)
+                DispatchQueue.global().asyncAfter(deadline: .now() + interval) {
+                    if self.exclusiveSet.contains(excString) {
+                        self.exclusiveSet.remove(excString)
                     }
                 }
             }
@@ -53,8 +51,8 @@ extension NSObject {
     
     func removeExclusive(exc: String) {
         let excString: String = String(format: "%p%@", self, exc)
-        if (self.exclusiveSet!.contains(excString) == true) {
-            self.exclusiveSet!.remove(excString)
+        if self.exclusiveSet.contains(excString) {
+            self.exclusiveSet.remove(excString)
         }
     }
 
@@ -68,27 +66,26 @@ private var segStatueDictKey = "segStatueDictKey"
 extension NSObject {
     
     var segStatue: Int {
-        get { return self.getAssociatedValueForKey(&segStatueKey) as! Int }
-        set (newValue) { self.setAssociateWeakValue(newValue, key: &segStatueKey) }
+        get { return objc_getAssociatedObject(self, &segStatueKey) as? Int ?? 0 }
+        set { objc_setAssociatedObject(self, &segStatueKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
     var segTotalStatue: Int {
-        get { return self.getAssociatedValueForKey(&segTotalStatueKey) as! Int }
-        set (newValue) { self.setAssociateWeakValue(newValue, key: &segTotalStatueKey) }
+        get { return objc_getAssociatedObject(self, &segTotalStatueKey) as? Int ?? 0 }
+        set { objc_setAssociatedObject(self, &segTotalStatueKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
     private var segStatueDict: NSMutableDictionary {
         get {
-            var set: NSMutableDictionary? = self.getAssociatedValueForKey(&segStatueDictKey) as? NSMutableDictionary
-            if set == nil {
-                set = NSMutableDictionary()
-                self.setAssociateValue(set, key: &segStatueDictKey)
+            if let dict = objc_getAssociatedObject(self, &segStatueDictKey) as? NSMutableDictionary {
+                return dict
+            } else {
+                let dict = NSMutableDictionary()
+                objc_setAssociatedObject(self, &segStatueDictKey, dict, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                return dict
             }
-            return set!
         }
-        set (newValue) {
-            self.setAssociateValue(newValue, key: &segStatueDictKey)
-        }
+        set { objc_setAssociatedObject(self, &segStatueDictKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
     func setObject(_ anObject: AnyObject, forKey aKey: String, segStatue statue: Int) {
@@ -117,42 +114,8 @@ extension NSObject {
             self.segStatueDict.removeAllObjects()
         }
     }
-
 }
 
-extension UIView {
-    
-    private var idSet: NSMutableSet {
-        get {
-            var set: NSMutableSet? = objc_getAssociatedObject(self, &kIdSetKey) as? NSMutableSet
-            if set == nil {
-                set = NSMutableSet()
-                objc_setAssociatedObject(self, &kIdSetKey, set, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            }
-            return set!
-        }
-        set(newValue) {
-            objc_setAssociatedObject(self, &kIdSetKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-
-    func containsId(_ anId: String) -> Bool {
-        return self.idSet.contains(anId)
-    }
-    
-    func addId(_ anId: String) {
-        if self.idSet.contains(anId) == false {
-            self.idSet.add(anId)
-        }
-    }
-    
-    func removeId(_ anId: String) {
-        if self.idSet.contains(anId) == true {
-            self.idSet.remove(anId)
-        }
-    }
-    
-}
 
 extension UIView {
     

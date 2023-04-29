@@ -13,15 +13,15 @@ func HColorHexAlpha(_ hex: String, _ alpha: CGFloat) -> UIColor { return UIColor
 
 extension UIColor {
     var revertColor: UIColor? {
-        if self.cgColor.colorSpace?.model == CGColorSpaceModel.rgb {
-            let red:   CGFloat = self.cgColor.components![0]
-            let green: CGFloat = self.cgColor.components![1]
-            let blue:  CGFloat = self.cgColor.components![2]
-            let alpha:  CGFloat = self.cgColor.components![3]
-            return UIColor(red: 1.0 - red, green: 1.0 - green, blue: 1.0 - blue, alpha: alpha)
-        }else {
+        guard let colorSpaceModel = self.cgColor.colorSpace?.model, colorSpaceModel == .rgb,
+              let components = self.cgColor.components, components.count >= 3 else {
             return nil
         }
+        let red: CGFloat = components[0]
+        let green: CGFloat = components[1]
+        let blue: CGFloat = components[2]
+        let alpha: CGFloat = components.count >= 4 ? components[3] : 1.0
+        return UIColor(red: 1.0 - red, green: 1.0 - green, blue: 1.0 - blue, alpha: alpha)
     }
     
     public convenience init(hex: String) {
