@@ -211,13 +211,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
 
     convenience init(frame: CGRect, scrollDirection direction: HTupleDirection) {
-        let flowLayout = HCollectionViewFlowLayout()
-        if direction == .horizontal {
-            flowLayout.scrollDirection = .horizontal
-        }else {
-            flowLayout.scrollDirection = .vertical
-        }
-        self.init(frame: frame, collectionViewLayout: flowLayout)
+        self.init(frame: frame, collectionViewLayout: HCollectionViewFlowLayout(direction))
     }
 
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
@@ -232,10 +226,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     private convenience init(_ frame: CGRect, exclusiveSections sectionPaths: NSArray) {
-        let flowLayout = HCollectionViewFlowLayout()
-        flowLayout.scrollDirection = .vertical
-        self.init(frame: UIRectIntegral(frame), collectionViewLayout: flowLayout)
-        self.flowLayout = flowLayout
+        self.init(frame: UIRectIntegral(frame), collectionViewLayout: HCollectionViewFlowLayout(.vertical))
         self.tupleStyle = .split
         self.sectionPaths = sectionPaths
         self.setup()
@@ -268,7 +259,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         //设置默认tag
         self.tag = KTupleDefaultTag
         
-        if self.flowLayout!.scrollDirection == .vertical {
+        if self.flowLayout?.scrollDirection == .vertical {
             self.enableVerticalBounce()
         }else {
             self.enableHorizontalBounce()
@@ -389,25 +380,13 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     
     // header & footer 是否悬停
     var sectionHeadersPinToVisibleBounds: Bool {
-        @available(iOS 9.0, *)
-        get {
-            return flowLayout?.sectionHeadersPinToVisibleBounds ?? false
-        }
-        @available(iOS 9.0, *)
-        set {
-            flowLayout?.sectionHeadersPinToVisibleBounds = newValue
-        }
+        get { return flowLayout?.sectionHeadersPinToVisibleBounds ?? false }
+        set { flowLayout?.sectionHeadersPinToVisibleBounds = newValue }
     }
     
     var sectionFootersPinToVisibleBounds: Bool {
-        @available(iOS 9.0, *)
-        get {
-            return flowLayout?.sectionFootersPinToVisibleBounds ?? false
-        }
-        @available(iOS 9.0, *)
-        set {
-            flowLayout?.sectionFootersPinToVisibleBounds = newValue
-        }
+        get { return flowLayout?.sectionFootersPinToVisibleBounds ?? false }
+        set { flowLayout?.sectionFootersPinToVisibleBounds = newValue }
     }
     
     ///bounce method

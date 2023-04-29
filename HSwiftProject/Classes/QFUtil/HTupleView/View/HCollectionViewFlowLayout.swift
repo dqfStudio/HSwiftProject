@@ -31,7 +31,16 @@ private class HCollectionReusableView : UICollectionReusableView {
 
 class HCollectionViewFlowLayout : UICollectionViewFlowLayout {
     
-    private var decorationViewAttrs: NSMutableArray = NSMutableArray()
+    private var decorationViewAttrs: [UICollectionViewLayoutAttributes] = [UICollectionViewLayoutAttributes]()
+    
+    convenience init(_ direction: HTupleDirection) {
+        self.init()
+        if direction == .horizontal {
+            self.scrollDirection = .horizontal
+        }else {
+            self.scrollDirection = .vertical
+        }
+    }
 
     override func prepare() {
         super.prepare()
@@ -44,7 +53,7 @@ class HCollectionViewFlowLayout : UICollectionViewFlowLayout {
 
         //1.初始化
         self.register(HCollectionReusableView.self, forDecorationViewOfKind: HCollectionViewSectionColor)
-        self.decorationViewAttrs.removeAllObjects()
+        self.decorationViewAttrs.removeAll()
 
         for section in 0..<sections {
             let numberOfItems: Int = collectionView.numberOfItems(inSection: section)
@@ -77,22 +86,21 @@ class HCollectionViewFlowLayout : UICollectionViewFlowLayout {
             attr.frame = sectionFrame
             attr.zIndex = -1
             attr.backgroundColor = delegate.collectionView(collectionView, layout: self, colorForSectionAt: section)
-            self.decorationViewAttrs.add(attr)
+            self.decorationViewAttrs.append(attr)
         }
     }
 
     //此类原有方法 并加上 去掉Cell之间的间隔线
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-        guard let tmpAttrs = super.layoutAttributesForElements(in: rect) else {
+        guard var attrs = super.layoutAttributesForElements(in: rect) else {
             return nil
         }
-        let attrs = NSMutableArray(array: tmpAttrs)
         self.decorationViewAttrs.forEach { item in
-            if let attr = item as? UICollectionViewLayoutAttributes, rect == attr.frame {
-                attrs.add(attr)
+            if rect == item.frame {
+                attrs.append(item)
             }
         }
-        return attrs as? [UICollectionViewLayoutAttributes]
+        return attrs
     }
     
 }
