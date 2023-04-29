@@ -40,43 +40,36 @@ class HTupleBaseCell : UICollectionViewCell {
         self.initUI()
     }
     
-    private var _edgeInsets: UIEdgeInsets = UIEdgeInsetsZero
+    private var _edgeInsets: UIEdgeInsets = .zero
     ///cell的边距
     @objc var edgeInsets: UIEdgeInsets {
-        get {
-            return _edgeInsets
-        }
+        get { _edgeInsets }
         set {
+            guard _edgeInsets != newValue else { return }
             _edgeInsets = newValue
             //更新layoutView的frame
-            let frame: CGRect = self.layoutViewFrame
-            if self.layoutView.frame != frame {
-                self.layoutView.frame = frame
+            if layoutView.frame != layoutViewFrame {
+                layoutView.frame = layoutViewFrame
             }
         }
     }
     
-    private var _layoutView: UIView?
     ///用于加载在contentView上的布局视图
-    var layoutView: UIView {
-        if _layoutView == nil {
-            _layoutView = UIView()
-            self.addSubview(_layoutView!)
-        }
-        return _layoutView!
-    }
+    lazy var layoutView: UIView = {
+        let view = UIView()
+        self.addSubview(view)
+        return view
+    }()
 
-    private var _separatorView: UIView?
+
     ///用于加载在contentView上的布局视图
-    private var separatorView: UIView {
-        if _separatorView == nil {
-            _separatorView = UIView()
-            _separatorView!.isHidden = true
-            let color = UIColor(red: 233 / 255.0, green: 233 / 255.0, blue: 233 / 255.0, alpha: 1.0)
-            _separatorView!.backgroundColor = color
-        }
-        return _separatorView!
-    }
+    private lazy var separatorView: UIView = {
+        let view = UIView()
+        view.isHidden = true
+        let color = UIColor(red: 233 / 255.0, green: 233 / 255.0, blue: 233 / 255.0, alpha: 1.0)
+        view.backgroundColor = color
+        return view
+    }()
     
     private var _isShouldShowSeparator: Bool = false
     ///cell是否显示间隔线
@@ -97,55 +90,39 @@ class HTupleBaseCell : UICollectionViewCell {
             }
             //重设frame
             if _isShouldShowSeparator {
-                let frame: CGRect = self.getSeparatorFrame
-                if self.separatorView.frame != frame {
-                   self.separatorView.frame = frame
+                let separatorFrame = self.separatorFrame
+                if self.separatorView.frame != separatorFrame {
+                    self.separatorView.frame = separatorFrame
                 }
             }
         }
     }
 
-    private var _separatorInset: UILREdgeInsets = UILREdgeInsetsZero
-    ///cell间隔线的边距
-    var separatorInset: UILREdgeInsets {
-        get {
-            return _separatorInset
-        }
-        set {
-            if _separatorInset != newValue {
-                _separatorInset = newValue
-                self.separatorView.frame = self.getSeparatorFrame
-            }
+    //cell间隔线的边距
+    var separatorInset: UILREdgeInsets = UILREdgeInsetsZero {
+        didSet {
+            guard separatorInset != oldValue else { return }
+            separatorView.frame = self.separatorFrame
         }
     }
     
-    private var _separatorColor: UIColor?
     ///cell间隔线的颜色
     var separatorColor: UIColor? {
-        get {
-            return _separatorColor
-        }
-        set {
-            if _separatorColor != newValue {
-                _separatorColor = nil
-                _separatorColor = newValue
-                self.separatorView.backgroundColor = _separatorColor
-            }
+        didSet {
+            self.separatorView.backgroundColor = separatorColor
         }
     }
     
-    private var getSeparatorFrame: CGRect {
-        var frame: CGRect = CGRect(x: 0, y: self.height - 1, width: self.width, height: 1)
-        frame.x += self.separatorInset.left
-        frame.width -= self.separatorInset.left + self.separatorInset.right
+    private var separatorFrame: CGRect {
+        let separatorInset = self.separatorInset
+        let frame = CGRect(x: separatorInset.left, y: self.bounds.height - 1, width: self.bounds.width - separatorInset.left - separatorInset.right, height: 1)
         return frame
     }
     
     ///刷新当前cell
     func reloadData() {
-        if self.indexPath != nil {
-            self.tuple?.reloadItems(at: [self.indexPath!])
-        }
+        guard let indexPath = self.indexPath else { return }
+        self.tuple?.reloadItems(at: [indexPath])
     }
 
     ///layoutView的frame和bounds
@@ -161,26 +138,26 @@ class HTupleBaseCell : UICollectionViewCell {
     
     private var _activity: UIActivityIndicatorView?
     var activity: UIActivityIndicatorView {
-        if _activity == nil {
+        if let activity = _activity {
+            return activity
+        } else {
             if #available(iOS 13.0, *) {
                 _activity = UIActivityIndicatorView(style: .medium)
             } else {
-                // Fallback on earlier versions
+                _activity = UIActivityIndicatorView(style: .gray)
             }
-            _activity!.x = (self.width - _activity!.width) / 2
-            _activity!.y = (self.height - _activity!.height) / 2
+            _activity!.center = CGPoint(x: self.bounds.width / 2, y: self.bounds.height / 2)
             self.addSubview(_activity!)
+            return _activity!
         }
-        return _activity!
     }
     
     func HLayoutTupleCell(_ v: UIView) {
-        let frame: CGRect = self.layoutViewBounds
-        if v.frame != frame {
+        let frame = self.layoutViewBounds
+        if !v.frame.equalTo(frame) {
             v.frame = frame
         }
-        _activity?.x = (self.width - (_activity?.width ?? 0)) / 2
-        _activity?.y = (self.height - (_activity?.height ?? 0)) / 2
+        _activity?.center = CGPoint(x: self.width / 2, y: self.height / 2)
     }
 
     deinit {
