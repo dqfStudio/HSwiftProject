@@ -72,23 +72,21 @@ extension UILREdgeInsets : Equatable {
 }
 
 func  UIRectIntegral(_ rect: CGRect) -> CGRect {
-    let x: CGFloat = CGFloat(floorf(Float(rect.x)))
-    let y: CGFloat = CGFloat(floorf(Float(rect.y)))
-    let width: CGFloat = CGFloat(floorf(Float(rect.x + rect.width - x)))
-    let height: CGFloat = CGFloat(floorf(Float(rect.y + rect.height - y)))
+    let x: CGFloat = rect.origin.x.rounded(.down)
+    let y: CGFloat = rect.origin.y.rounded(.down)
+    let width: CGFloat = (rect.origin.x + rect.width - x).rounded(.down)
+    let height: CGFloat = (rect.origin.y + rect.height - y).rounded(.down)
     return CGRect(x: x, y: y, width: width, height: height)
 }
 
 func UISizeIntegral(_ size: CGSize) -> CGSize {
-    return CGSize(width: CGFloat(floorf(Float(size.width))), height: CGFloat(floorf(Float(size.height))))
+    return CGSize(width: floor(size.width), height: floor(size.height))
 }
 
 public var UILimitInsetsZero = UILimitInsets(min: 0.0, max: 0.0)
 public var UITBEdgeInsetsZero = UITBEdgeInsets(top: 0.0, bottom: 0.0)
 public var UILREdgeInsetsZero = UILREdgeInsets(left: 0.0, right: 0.0)
 public var UIEdgeInsetsZero = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
-//public var CGSizeZero = CGSize.zero
-//public var CGRectZero = CGRect.zero
 
 func UILimitInsetsMake(_ min: CGFloat, _ max: CGFloat) -> UILimitInsets { return UILimitInsets(min: min, max: max) }
 func UITBEdgeInsetsMake(_ top: CGFloat, _ bottom: CGFloat) -> UITBEdgeInsets { return UITBEdgeInsets(top: top, bottom: bottom) }
