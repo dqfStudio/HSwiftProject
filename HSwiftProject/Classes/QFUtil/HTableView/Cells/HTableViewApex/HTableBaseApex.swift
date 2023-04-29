@@ -38,43 +38,35 @@ class HTableBaseApex : UITableViewHeaderFooterView {
         self.initUI()
     }
     
-    private var _edgeInsets: UIEdgeInsets = UIEdgeInsetsZero
+    private var _edgeInsets: UIEdgeInsets = .zero
     ///cell的边距
     @objc var edgeInsets: UIEdgeInsets {
-        get {
-            return _edgeInsets
-        }
+        get { _edgeInsets }
         set {
+            guard _edgeInsets != newValue else { return }
             _edgeInsets = newValue
             //更新layoutView的frame
-            let frame: CGRect = self.layoutViewFrame
-            if self.layoutView.frame != frame {
-                self.layoutView.frame = frame
+            if layoutView.frame != layoutViewFrame {
+                layoutView.frame = layoutViewFrame
             }
         }
     }
 
-    private var _layoutView: UIView?
     ///用于加载在contentView上的布局视图
-    var layoutView: UIView {
-        if _layoutView == nil {
-            _layoutView = UIView()
-            self.addSubview(_layoutView!)
-        }
-        return _layoutView!
-    }
+    lazy var layoutView: UIView = {
+        let view = UIView()
+        self.addSubview(view)
+        return view
+    }()
 
-    private var _separatorView: UIView?
+
     ///用于加载在contentView上的布局视图
-    private var separatorView: UIView {
-        if _separatorView == nil {
-            _separatorView = UIView()
-            _separatorView!.isHidden = true
-            let color = UIColor(red: 233 / 255.0, green: 233 / 255.0, blue: 233 / 255.0, alpha: 1.0)
-            _separatorView!.backgroundColor = color
-        }
-        return _separatorView!
-    }
+    private lazy var separatorView: UIView = {
+        let view = UIView()
+        view.isHidden = true
+        view.backgroundColor = UIColor(hex: "#E9E9E9")
+        return view
+    }()
     
     private var _shouldShowSeparator: Bool = false
     ///cell是否显示间隔线
@@ -95,76 +87,51 @@ class HTableBaseApex : UITableViewHeaderFooterView {
             }
             //重设frame
             if _shouldShowSeparator {
-                let frame: CGRect = self.getSeparatorFrame
-                if self.separatorView.frame != frame {
-                   self.separatorView.frame = frame
+                let separatorFrame = self.separatorFrame
+                if self.separatorView.frame != separatorFrame {
+                   self.separatorView.frame = separatorFrame
                 }
             }
         }
     }
 
-    private var _separatorInset: UILREdgeInsets = UILREdgeInsetsZero
-    ///cell间隔线的边距
-    var separatorInset: UILREdgeInsets {
-        get {
-            return _separatorInset
-        }
-        set {
-            if _separatorInset != newValue {
-                _separatorInset = newValue
-                self.separatorView.frame = self.getSeparatorFrame
-            }
+    //cell间隔线的边距
+    var separatorInset: UILREdgeInsets = UILREdgeInsetsZero {
+        didSet {
+            guard separatorInset != oldValue else { return }
+            separatorView.frame = self.separatorFrame
         }
     }
     
-    private var _separatorColor: UIColor?
     ///cell间隔线的颜色
     var separatorColor: UIColor? {
-        get {
-            return _separatorColor
-        }
-        set {
-            if _separatorColor != newValue {
-                _separatorColor = nil
-                _separatorColor = newValue
-                self.separatorView.backgroundColor = _separatorColor
-            }
+        didSet {
+            self.separatorView.backgroundColor = separatorColor
         }
     }
     
-    private var getSeparatorFrame: CGRect {
-        var frame: CGRect = CGRect(x: 0, y: self.height - 1, width: self.width, height: 1)
-        frame.x += self.separatorInset.left
-        frame.width -= self.separatorInset.left + self.separatorInset.right
+    private var separatorFrame: CGRect {
+        let separatorInset = self.separatorInset
+        let frame = CGRect(x: separatorInset.left, y: self.bounds.height - 1, width: self.bounds.width - separatorInset.left - separatorInset.right, height: 1)
         return frame
     }
 
     ///layoutView的frame和bounds
     var layoutViewFrame: CGRect {
-        var frame: CGRect = self.bounds
-        frame.x += _edgeInsets.left
-        frame.y += _edgeInsets.top
-        frame.width -= _edgeInsets.left + _edgeInsets.right
-        frame.height -= _edgeInsets.top + _edgeInsets.bottom
-        return frame
+        return self.bounds.inset(by: edgeInsets)
     }
 
     var layoutViewBounds: CGRect {
-        var frame: CGRect = self.layoutViewFrame
-        frame.x = 0
-        frame.y = 0
+        var frame = self.layoutViewFrame
+        frame.origin = CGPoint.zero
         return frame
     }
 
     func HLayoutTableApex(_ v: UIView) {
         let frame: CGRect = self.layoutViewBounds
-        if v.frame != frame {
+        if !v.frame.equalTo(frame) {
             v.frame = frame
         }
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     ///cell初始化是调用的方法
