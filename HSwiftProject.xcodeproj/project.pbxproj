@@ -96,7 +96,6 @@
 		A28923C2238BCB6200E4AB75 /* icon_tuple_arrow_right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A28923BA238BCB6200E4AB75 /* icon_tuple_arrow_right@2x.png */; };
 		A28923C3238BCB6200E4AB75 /* icon_tuple_arrow_left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A28923BB238BCB6200E4AB75 /* icon_tuple_arrow_left@2x.png */; };
 		A28923C5238CDE8400E4AB75 /* HTupleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28923C4238CDE8400E4AB75 /* HTupleController.swift */; };
-		A28923C7238D21F300E4AB75 /* HObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28923C6238D21F300E4AB75 /* HObject.swift */; };
 		A28A022623EE55EB000556A2 /* HTextLoopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A022523EE55EB000556A2 /* HTextLoopView.swift */; };
 		A28A022823EE62D6000556A2 /* HTupleViewTextLoopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A022723EE62D6000556A2 /* HTupleViewTextLoopCell.swift */; };
 		A28A022A23EE65B7000556A2 /* HTupleViewTextLoopApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28A022923EE65B7000556A2 /* HTupleViewTextLoopApex.swift */; };
@@ -376,7 +375,6 @@
 		A28923BA238BCB6200E4AB75 /* icon_tuple_arrow_right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_tuple_arrow_right@2x.png"; sourceTree = "<group>"; };
 		A28923BB238BCB6200E4AB75 /* icon_tuple_arrow_left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_tuple_arrow_left@2x.png"; sourceTree = "<group>"; };
 		A28923C4238CDE8400E4AB75 /* HTupleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleController.swift; sourceTree = "<group>"; };
-		A28923C6238D21F300E4AB75 /* HObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HObject.swift; sourceTree = "<group>"; };
 		A28A022523EE55EB000556A2 /* HTextLoopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextLoopView.swift; sourceTree = "<group>"; };
 		A28A022723EE62D6000556A2 /* HTupleViewTextLoopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewTextLoopCell.swift; sourceTree = "<group>"; };
 		A28A022923EE65B7000556A2 /* HTupleViewTextLoopApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewTextLoopApex.swift; sourceTree = "<group>"; };
@@ -760,7 +758,6 @@
 			isa = PBXGroup;
 			children = (
 				A289239F238B72F800E4AB75 /* HCollectionViewFlowLayout.swift */,
-				A28923C6238D21F300E4AB75 /* HObject.swift */,
 				A289239E238B72F800E4AB75 /* HTupleView.swift */,
 			);
 			path = View;
@@ -1741,7 +1738,6 @@
 				A28923A3238B72F800E4AB75 /* HTupleBaseCell.swift in Sources */,
 				A22948AF239798870058B939 /* HMainController3+HSection2.swift in Sources */,
 				EB43243A29C588A400EDDB64 /* HTextViewer.swift in Sources */,
-				A28923C7238D21F300E4AB75 /* HObject.swift in Sources */,
 				EB4323F429B98C9400EDDB64 /* HNaviToastView.swift in Sources */,
 				EBC8146129AA53C600A81431 /* HSendAudioVC+HStatus5.swift in Sources */,
 				EBD0FB2C29CC9AEF00808EDA /* UIColor+HSkin.swift in Sources */,
