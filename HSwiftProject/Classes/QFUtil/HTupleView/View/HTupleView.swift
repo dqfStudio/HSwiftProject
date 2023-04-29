@@ -1424,30 +1424,6 @@ extension HTupleView {
             self.allReuseFooters.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseApex)?.signalBlock = nil }
         }
     }
-    
-    // 开始闪烁动画
-    func startOpacityForeverAnimation() {
-        self.layer.add(self.opacityForeverAnimationWithDuration(duration: 2.0), forKey: String(describing: type(of: self)))
-    }
-
-    // 停止闪烁动画
-    func stopOpacityForeverAnimation() {
-        self.layer.removeAnimation(forKey: String(describing: type(of: self)))
-    }
-    
-    // 闪烁动画
-    func opacityForeverAnimationWithDuration(duration: TimeInterval) -> CABasicAnimation {
-        let animation = CABasicAnimation(keyPath: "opacity") // 必须写opacity才行。
-        animation.fromValue = NSNumber(value: 1.0)
-        animation.toValue = NSNumber(value: 0.6)
-        animation.autoreverses = true
-        animation.duration = duration
-        animation.repeatCount = .greatestFiniteMagnitude
-        animation.isRemovedOnCompletion = false
-        animation.fillMode = .forwards
-        animation.timingFunction = CAMediaTimingFunction(name: .easeIn) // 没有的话是均匀的动画。
-        return animation
-    }
 
     ///根据传入的row和section获取cell或indexPath
     func cell(_ row: Int, _ section: Int) -> AnyObject? {
@@ -1496,10 +1472,9 @@ extension HTupleView {
     ///根据传入的个数和序号计算该item的宽度
     func fixSlit(withWidth width: CGFloat, colCount: Int, index: Int) -> CGFloat {
         let itemWidth: CGFloat = width / CGFloat(colCount)
-        var realItemWidth: CGFloat = CGFloat(floorf(Float(itemWidth)))
-        let idxCount: Int = colCount - 1
-        if index == idxCount {
-            realItemWidth = width - CGFloat(Int(realItemWidth) * idxCount)
+        let realItemWidth: CGFloat = itemWidth.rounded(.down)
+        if index == colCount - 1 {
+            return width - realItemWidth * CGFloat(index)
         }
         return realItemWidth
     }
