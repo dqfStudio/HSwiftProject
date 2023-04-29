@@ -32,11 +32,10 @@ class HCountDownButton: UIButton {
 
     @objc
     private func touched(_ sender: HCountDownButton) {
-        if _touchedCountDownButtonHandler != nil && (_second <= 0 || _second == _totalSecond) {
-            DispatchQueue.main.async { [weak self] in
-                self!._touchedCountDownButtonHandler!(sender, sender.tag)
-            }
+        guard let touchedCountDownButtonHandler = _touchedCountDownButtonHandler, (_second <= 0 || _second == _totalSecond) else {
+            return
         }
+        touchedCountDownButtonHandler(sender, sender.tag)
     }
 
     ///开始倒计时
@@ -49,51 +48,39 @@ class HCountDownButton: UIButton {
         _timer!.fireDate = NSDate.distantPast
         RunLoop.current.add(_timer!, forMode: .common)
     }
+    
     @objc
     private func timerStart(_ theTimer: Timer) {
 
-        let deltaTime: Double = NSDate().timeIntervalSince(_startDate! as Date)
-         _second = _totalSecond - NSInteger(deltaTime + 0.5)
+        guard let startDate = _startDate else {
+            return
+        }
+        
+        let deltaTime: Double = NSDate().timeIntervalSince(startDate as Date)
+        _second = _totalSecond - NSInteger(deltaTime + 0.5)
         
         if (_second <= 0) {
             self.stopCountDown()
-        }else {
-            if _countDownChanging != nil {
-                DispatchQueue.main.async { [weak self] in
-                    let title: String = self!._countDownChanging!(self!, self!._second) as String
-                    self!.setTitle(title, for: .normal)
-                    self!.setTitle(title, for: .disabled)
-                }
-            }else {
-                DispatchQueue.main.async { [weak self] in
-                    let title = NSString(format: "%zd秒", self!._second) as String
-                    self!.setTitle(title, for: .normal)
-                    self!.setTitle(title, for: .disabled)
-                }
+        } else {
+            let title: String
+            if let countDownChanging = self._countDownChanging {
+                title = countDownChanging(self, self._second) as String
+            } else {
+                title = String(format: "%zd秒", self._second)
             }
+            self.setTitle(title, for: [.normal, .disabled])
         }
     }
     
     ///停止倒计时
     func stopCountDown() {
-        if _timer != nil {
-            if _timer!.isValid {
-                _timer!.invalidate()
-                _second = _totalSecond
-                if _countDownFinished != nil {
-                    DispatchQueue.main.async { [weak self] in
-                        let title = self!._countDownFinished!(self!, self!._totalSecond) as String
-                        self!.setTitle(title, for: .normal)
-                        self!.setTitle(title, for: .disabled)
-                    }
-                }else {
-                    DispatchQueue.main.async { [weak self] in
-                        self!.setTitle("重新获取", for: .normal)
-                        self!.setTitle("重新获取", for: .disabled)
-                    }
-                }
-            }
+        guard let timer = _timer, timer.isValid else {
+            return
         }
+        timer.invalidate()
+        _second = _totalSecond
+        let title = _countDownFinished?(self, _totalSecond) ?? "重新获取"
+        self.setTitle(title as String, for: [.normal, .disabled])
     }
 
     ///倒计时时间改变回调
