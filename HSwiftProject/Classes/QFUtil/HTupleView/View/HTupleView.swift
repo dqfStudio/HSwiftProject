@@ -725,12 +725,13 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             }
         }
         //调用cell
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as! HTupleBaseCell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
         //更新布局
-        if cell.responds(to: #selector(cell.relayoutSubviews)) {
+        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
             cell.relayoutSubviews()
         }
-        return cell
+        //防止崩溃
+        return cell ?? UICollectionViewCell()
     }
     
     internal func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -765,10 +766,11 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             cell = self.allReuseFooters.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
         }
         //更新布局
-        if cell!.responds(to: #selector(cell!.relayoutSubviews)) {
-            cell!.relayoutSubviews()
+        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
+            cell.relayoutSubviews()
         }
-        return cell!
+        //防止崩溃
+        return cell ?? UICollectionReusableView()
     }
     
     internal func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
