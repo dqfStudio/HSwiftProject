@@ -784,8 +784,8 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
 
     internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as! HTupleBaseCell
-        if cell.didSelectCell != nil {
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
+        if let cell = cell, cell.didSelectCell != nil {
             cell.didSelectCell!(cell, indexPath)
         }else {
             let prefix = self.prefixWithSection(indexPath.section)
