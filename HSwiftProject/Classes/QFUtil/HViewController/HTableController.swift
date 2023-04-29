@@ -10,13 +10,9 @@ import UIKit
 
 class HTableController: HViewController, HTableViewDelegate {
     
-    private var _tableView: HTableView?
-    var tableView: HTableView {
-        if _tableView == nil {
-            _tableView = HTableView(frame: CGRect.zero)
-        }
-        return _tableView!
-    }
+    lazy var tableView: HTableView = {
+        return HTableView(frame: .zero)
+    }()
     
     ///default YES
     var autoLayout: Bool = true
@@ -24,35 +20,35 @@ class HTableController: HViewController, HTableViewDelegate {
     var topExtendedLayout: Bool = true
     ///default 0.0
     var bottomExtendedHeight: CGFloat = 0.0
-    ///default UIEdgeInsetsZero
-    var extendedInset: UIEdgeInsets = UIEdgeInsetsZero
+    ///default UIEdgeInsets.zero
+    var extendedInset: UIEdgeInsets = .zero
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if (UIScreen.isIPhoneX) {
+        if UIScreen.isIPhoneX {
             extendedInset = UIEdgeInsets(top: 0, left: 0, bottom: UIScreen.bottomBarHeight, right: 0)
         }
-        self.view.addSubview(self.tableView)
+        view.addSubview(tableView)
     }
 
     override func vcWillDisappear(_ type: HVCDisappearType) {
-        if (type == .pop || type == .dismiss) {
-            self.tableView.releaseTableBlock()
+        if type == .pop || type == .dismiss {
+            tableView.releaseTableBlock()
         }
     }
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         if autoLayout {//默认为YES
-            var frame: CGRect = self.view.bounds
+            var frame = view.bounds
             if topExtendedLayout {//默认为YES
                 frame.origin.y += UIScreen.topBarHeight
                 frame.size.height -= UIScreen.topBarHeight
             }
             frame.size.height -= bottomExtendedHeight
             self.tableView.frame = frame
-            if UIEdgeInsetsZero != extendedInset {//设置过值
-                if tableView.contentInset != extendedInset {//设置的值与现有的值不相等
+            if extendedInset != .zero {//设置过值
+                if self.tableView.contentInset != extendedInset {//设置的值与现有的值不相等
                     self.tableView.contentInset = extendedInset
                 }
             }
