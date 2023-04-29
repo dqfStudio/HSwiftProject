@@ -18,10 +18,13 @@ private enum HTupleStyle: Int {
     case split //分体式设计
 }
 
-private var KTupleDefaultTag  = 1213141516
+private var KTupleDefaultTag = 1213141516
 
-private var KDefaultPageSize  = 20
-private var KTupleDesignKey   = "tuple"
+private var KDefaultPageNo = 1
+private var KDefaultPageSize = 20
+private var KDefaultTotalPageNo = 10000
+
+private var KTupleDesignKey = "tuple"
 private var KTupleExaDesignKey = "tupleExa"
 
 private var tupleStateKey = "tupleStateKey"
@@ -345,17 +348,12 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         super.dataSource = self
     }
 
-    private var _pageNo: Int = 1
     /// page number, default 1
-    var pageNo: Int {
-        get {
-            if _pageNo <= 0 {
-                return 1
+    var pageNo: Int = KDefaultPageNo {
+        didSet {
+            if pageNo <= 0 {
+                pageNo = KDefaultPageNo
             }
-            return _pageNo
-        }
-        set {
-            _pageNo = newValue
         }
     }
     
@@ -369,10 +367,10 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     /// total number.
-    var totalNo: Int = 10000 {
+    var totalNo: Int = KDefaultTotalPageNo {
         didSet {
             if totalNo <= 0 {
-                totalNo = 10000
+                totalNo = KDefaultTotalPageNo
             }
         }
     }
