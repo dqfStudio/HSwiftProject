@@ -45,30 +45,24 @@ class HTableCellSubtitle : HTableBaseCell {
 }
 
 class HTableBlankCell : HTableBaseCell {
-    private var _view: UIView?
-    var view: UIView {
-        if _view == nil {
-            _view = UIView()
-            self.layoutView.addSubview(_view!)
-        }
-        return _view!
-    }
+    lazy var blank: UIView = {
+        let blank = UIView()
+        self.layoutView.addSubview(blank)
+        return blank
+    }()
     
     override func relayoutSubviews() {
-        HLayoutTableCell(self.view)
+        HLayoutTableCell(self.blank)
     }
 }
 
 class HTableLabelCell : HTableBaseCell {
-    private var _label: UILabel?
-    var label: UILabel {
-        if _label == nil {
-            _label = UILabel()
-            _label!.font = UIFont.systemFont(ofSize: 14)
-            self.layoutView.addSubview(_label!)
-        }
-        return _label!
-    }
+    lazy var label: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        self.layoutView.addSubview(label)
+        return label
+    }()
     
     override func relayoutSubviews() {
         HLayoutTableCell(self.label)
@@ -76,15 +70,12 @@ class HTableLabelCell : HTableBaseCell {
 }
 
 class HTableTextCell : HTableBaseCell {
-    private var _textView: UITextView?
-    var textView: UITextView {
-        if _textView == nil {
-            _textView = UITextView()
-            _textView!.font = UIFont.systemFont(ofSize: 14)
-            self.layoutView.addSubview(_textView!)
-        }
-        return _textView!
-    }
+    lazy var textView: UITextView = {
+        let textView = UITextView()
+        textView.font = UIFont.systemFont(ofSize: 14)
+        self.layoutView.addSubview(textView)
+        return textView
+    }()
     
     override func relayoutSubviews() {
         HLayoutTableCell(self.textView)
@@ -92,14 +83,11 @@ class HTableTextCell : HTableBaseCell {
 }
 
 class HTableButtonCell : HTableBaseCell {
-    private var _buttonView: HWebButtonView?
-    var buttonView: HWebButtonView {
-        if _buttonView == nil {
-            _buttonView = HWebButtonView()
-            self.layoutView.addSubview(_buttonView!)
-        }
-        return _buttonView!
-    }
+    lazy var buttonView: HWebButtonView = {
+        let buttonView = HWebButtonView()
+        self.layoutView.addSubview(buttonView)
+        return buttonView
+    }()
     
     override func relayoutSubviews() {
         HLayoutTableCell(self.buttonView)
@@ -122,15 +110,12 @@ class HTableImageCell : HTableBaseCell {
 }
 
 class HTableTextFieldCell : HTableBaseCell {
-    private var _textField: HTextField?
-    var textField: HTextField {
-        if _textField == nil {
-            _textField = HTextField()
-            HLayoutTableCell(_textField!)
-            self.layoutView.addSubview(_textField!)
-        }
-        return _textField!
-    }
+    lazy var textField: HTextField = {
+        let textField = HTextField()
+        HLayoutTableCell(textField)
+        self.layoutView.addSubview(textField)
+        return textField
+    }()
     
     override func relayoutSubviews() {
         HLayoutTableCell(self.textField)
@@ -138,6 +123,7 @@ class HTableTextFieldCell : HTableBaseCell {
 }
 
 class HTableViewCell : HTableBaseCell {
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
     }
@@ -147,96 +133,69 @@ class HTableViewCell : HTableBaseCell {
     override func initUI() {
         self.selectionStyle = .none
     }
-
-    private var _label: UILabel?
+    
     ///label
-    var label: UILabel {
-        if _label == nil {
-            _label = UILabel()
-            _label!.font = UIFont.systemFont(ofSize: 14)
-            self.layoutView.addSubview(_label!)
-        }
-        return _label!
-    }
-    private var _detailLabel: UILabel?
-    var detailLabel: UILabel {
-        if _detailLabel == nil {
-            _detailLabel = UILabel()
-            _detailLabel!.font = UIFont.systemFont(ofSize: 14)
-            self.layoutView.addSubview(_detailLabel!)
-        }
-        return _detailLabel!
-    }
-    private var _accessoryLabel: UILabel?
-    var accessoryLabel: UILabel {
-        if _accessoryLabel == nil {
-            _accessoryLabel = UILabel()
-            _accessoryLabel!.font = UIFont.systemFont(ofSize: 14)
-            self.layoutView.addSubview(_accessoryLabel!)
-        }
-        return _accessoryLabel!
-    }
+    lazy var label: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        self.layoutView.addSubview(label)
+        return label
+    }()
+    lazy var detailLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        self.layoutView.addSubview(label)
+        return label
+    }()
+    lazy var accessoryLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        self.layoutView.addSubview(label)
+        return label
+    }()
 
     
-    private var _textView: UITextView?
     ///textView
-    var textView: UITextView {
-        if _textView == nil {
-            _textView = UITextView()
-            _textView!.font = UIFont.systemFont(ofSize: 14)
-            self.layoutView.addSubview(_textView!)
-        }
-        return _textView!
-    }
-    private var _detailTextView: UITextView?
-    var detailTextView: UITextView {
-        if _detailTextView == nil {
-            _detailTextView = UITextView()
-            _detailTextView!.font = UIFont.systemFont(ofSize: 14)
-            self.layoutView.addSubview(_detailTextView!)
-        }
-        return _detailTextView!
-    }
-    private var _accessoryTextView: UITextView?
-    var accessoryTextView: UITextView {
-        if _accessoryTextView == nil {
-            _accessoryTextView = UITextView()
-            _accessoryTextView!.font = UIFont.systemFont(ofSize: 14)
-            self.layoutView.addSubview(_accessoryTextView!)
-        }
-        return _accessoryTextView!
-    }
+    lazy var textView: HTextView = {
+        let textView = HTextView()
+        textView.font = UIFont.systemFont(ofSize: 14)
+        self.layoutView.addSubview(textView)
+        return textView
+    }()
+    lazy var detailTextView: HTextView = {
+        let detailTextView = HTextView()
+        detailTextView.font = UIFont.systemFont(ofSize: 14)
+        self.layoutView.addSubview(detailTextView)
+        return detailTextView
+    }()
+    lazy var accessoryTextView: HTextView = {
+        let accessoryTextView = HTextView()
+        accessoryTextView.font = UIFont.systemFont(ofSize: 14)
+        self.layoutView.addSubview(accessoryTextView)
+        return accessoryTextView
+    }()
 
     
-    private var _buttonView: HWebButtonView?
     ///button
-    var buttonView: HWebButtonView {
-        if _buttonView == nil {
-            _buttonView = HWebButtonView()
-            self.layoutView.addSubview(_buttonView!)
-        }
-        return _buttonView!
-    }
-    private var _detailButtonView: HWebButtonView?
-    var detailButtonView: HWebButtonView {
-        if _detailButtonView == nil {
-            _detailButtonView = HWebButtonView()
-            self.layoutView.addSubview(_detailButtonView!)
-        }
-        return _detailButtonView!
-    }
-    private var _accessoryButtonView: HWebButtonView?
-    var accessoryButtonView: HWebButtonView {
-        if _accessoryButtonView == nil {
-            _accessoryButtonView = HWebButtonView()
-            self.layoutView.addSubview(_accessoryButtonView!)
-        }
-        return _accessoryButtonView!
-    }
+    lazy var buttonView: HWebButtonView = {
+        let buttonView = HWebButtonView()
+        self.layoutView.addSubview(buttonView)
+        return buttonView
+    }()
+    lazy var detailButtonView: HWebButtonView = {
+        let detailButtonView = HWebButtonView()
+        self.layoutView.addSubview(detailButtonView)
+        return detailButtonView
+    }()
+    lazy var accessoryButtonView: HWebButtonView = {
+        let accessoryButtonView = HWebButtonView()
+        self.layoutView.addSubview(accessoryButtonView)
+        return accessoryButtonView
+    }()
 
     
-    private var _imageView: HWebImageView?
     ///imageView
+    private var _imageView: HWebImageView?
     override var imageView: HWebImageView {
         if _imageView == nil {
             _imageView = HWebImageView()
@@ -244,52 +203,36 @@ class HTableViewCell : HTableBaseCell {
         }
         return _imageView!
     }
-    private var _detailImageView: HWebImageView?
-    var detailImageView: HWebImageView {
-        if _detailImageView == nil {
-            _detailImageView = HWebImageView()
-            self.layoutView.addSubview(_detailImageView!)
-        }
-        return _detailImageView!
-    }
-    private var _accessoryImageView: HWebImageView?
-    var accessoryImageView: HWebImageView {
-        if _accessoryImageView == nil {
-            _accessoryImageView = HWebImageView()
-            self.layoutView.addSubview(_accessoryImageView!)
-        }
-        return _accessoryImageView!
-    }
+    lazy var detailImageView: HWebImageView = {
+        let detailImageView = HWebImageView()
+        self.layoutView.addSubview(detailImageView)
+        return detailImageView
+    }()
+    lazy var accessoryImageView: HWebImageView = {
+        let accessoryImageView = HWebImageView()
+        self.layoutView.addSubview(accessoryImageView)
+        return accessoryImageView
+    }()
 
     
-    private var _textField: HTextField?
     ///textField
-    var textField: HTextField {
-        if _textField == nil {
-            _textField = HTextField()
-            HLayoutTableCell(_textField!)
-            self.layoutView.addSubview(_textField!)
-        }
-        return _textField!
-    }
-    private var _detailTextField: HTextField?
-    var detailTextField: HTextField {
-        if _detailTextField == nil {
-            _detailTextField = HTextField()
-            HLayoutTableCell(_detailTextField!)
-            self.layoutView.addSubview(_detailTextField!)
-        }
-        return _detailTextField!
-    }
-    private var _accessoryTextField: HTextField?
-    var accessoryTextField: HTextField {
-        if _accessoryTextField == nil {
-            _accessoryTextField = HTextField()
-            HLayoutTableCell(_accessoryTextField!)
-            self.layoutView.addSubview(_accessoryTextField!)
-        }
-        return _accessoryTextField!
-    }
+    lazy var textField: HTextField = {
+        let textField = HTextField()
+        HLayoutTableCell(textField)
+        self.layoutView.addSubview(textField)
+        return textField
+    }()
+    lazy var detailTextField: HTextField = {
+        let detailTextField = HTextField()
+        HLayoutTableCell(detailTextField)
+        self.layoutView.addSubview(detailTextField)
+        return detailTextField
+    }()
+    lazy var accessoryTextField: HTextField = {
+        let accessoryTextField = HTextField()
+        HLayoutTableCell(accessoryTextField)
+        self.layoutView.addSubview(accessoryTextField)
+        return accessoryTextField
+    }()
 
 }
-
