@@ -34,7 +34,7 @@ class HInputBoxView: UIView, HTupleViewDelegate {
     lazy var tupleView: HTupleView = {
         let _tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
         _tupleView.backgroundColor = UIColor.clear
-        _tupleView.bounceDisenable()
+        _tupleView.disableBounce()
         return _tupleView
     }()
     

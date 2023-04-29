@@ -332,9 +332,9 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         self.tag = KTupleDefaultTag
         
         if self.flowLayout!.scrollDirection == .vertical {
-            self.verticalBounceEnabled()
+            self.enableVerticalBounce()
         }else {
-            self.horizontalBounceEnabled()
+            self.enableHorizontalBounce()
         }
         self.backgroundColor = UIColor.clear
         self.keyboardDismissMode = .onDrag
@@ -474,25 +474,25 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     ///bounce method
-    func horizontalBounceEnabled() {
+    func enableHorizontalBounce() {
         self.bounces = true
         self.alwaysBounceHorizontal = true
         self.alwaysBounceVertical = false
     }
 
-    func verticalBounceEnabled() {
+    func enableVerticalBounce() {
         self.bounces = true
         self.alwaysBounceHorizontal = false
         self.alwaysBounceVertical = true
     }
 
-    func bounceEnabled() {
+    func enableBounce() {
         self.bounces = true
         self.alwaysBounceHorizontal = true
         self.alwaysBounceVertical = true
     }
 
-    func bounceDisenable() {
+    func disableBounce() {
         self.bounces = false
     }
 

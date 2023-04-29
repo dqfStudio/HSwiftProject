@@ -18,7 +18,7 @@ class HUserLiveMiddleBarView : UIView, HTupleViewDelegate {
         if (_tupleView == nil) {
             _tupleView = HTupleView(frame: self.bounds)
             _tupleView!.backgroundColor = UIColor.clear
-            _tupleView!.verticalBounceEnabled()
+            _tupleView!.enableVerticalBounce()
             //将tupleView倒置
             _tupleView!.transform = CGAffineTransform (scaleX: 1, y: -1)
         }

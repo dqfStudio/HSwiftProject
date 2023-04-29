@@ -25,7 +25,7 @@ class HFormController: NSObject, HTupleViewDelegate {
     lazy private var tupleView: HTupleView = {
         let frame = UIScreen.main.bounds
         let _tupleView = HTupleView(frame: frame)
-        _tupleView.bounceDisenable()
+        _tupleView.disableBounce()
         _tupleView.delegate = self
         return _tupleView
     }()

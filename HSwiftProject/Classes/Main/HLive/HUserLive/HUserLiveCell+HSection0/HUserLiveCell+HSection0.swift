@@ -27,7 +27,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
         if (_tupleView == nil) {
             _tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
             _tupleView!.backgroundColor = UIColor.clear
-            _tupleView!.bounceDisenable()
+            _tupleView!.disableBounce()
         }
         return _tupleView!
     }
@@ -228,7 +228,7 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
         if (_tupleView == nil) {
             _tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
             _tupleView!.backgroundColor = UIColor.clear
-            _tupleView!.bounceDisenable()
+            _tupleView!.disableBounce()
         }
         return _tupleView!
     }

@@ -39,7 +39,7 @@ class HAlertController : HViewController, HTupleViewDelegate {
             _tupleView = HTupleView(frame: frame)
             _tupleView!.backgroundColor = UIColor.clear
             _tupleView!.layer.cornerRadius = 10 //默认系统弹框圆角为10.f
-            _tupleView!.bounceDisenable()
+            _tupleView!.disableBounce()
         }
         return _tupleView!
     }
