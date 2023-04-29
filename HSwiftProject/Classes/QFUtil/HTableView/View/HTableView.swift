@@ -530,12 +530,11 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         var height: CGFloat = 0.0
         if let delegate = self.tableDelegate {
-            
-        }
-        let prefix = self.prefixWithSection(section)
-        let selector = #selector(self.tableDelegate!.heightForFooterInSection(_:))
-        if self.tableDelegate!.responds(to: selector, withPre: prefix) {
-            height = self.tableDelegate!.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
+            let prefix = self.prefixWithSection(section)
+            let selector = #selector(delegate.heightForFooterInSection(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                height = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
+            }
         }
         return height
     }
@@ -543,12 +542,11 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height: CGFloat = 0.0
         if let delegate = self.tableDelegate {
-            
-        }
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(self.tableDelegate!.heightForRowAtIndexPath(_:))
-        if self.tableDelegate!.responds(to: selector, withPre: prefix) {
-            height = self.tableDelegate!.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGFloat
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(delegate.heightForRowAtIndexPath(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                height = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGFloat
+            }
         }
         return height
     }
