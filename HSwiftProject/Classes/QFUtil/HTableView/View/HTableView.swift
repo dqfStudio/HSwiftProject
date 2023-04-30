@@ -508,6 +508,8 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             if delegate.responds(to: selector, withPre: prefix) {
                 height = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
             }
+            // 防止大小为负数
+            height = max(height, 0.0)
         }
         return height
     }
@@ -520,6 +522,8 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             if delegate.responds(to: selector, withPre: prefix) {
                 height = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
             }
+            // 防止大小为负数
+            height = max(height, 0.0)
         }
         return height
     }
@@ -532,6 +536,8 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             if delegate.responds(to: selector, withPre: prefix) {
                 height = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGFloat
             }
+            // 防止大小为负数
+            if height <= 0 { height = 1.0 }
         }
         return height
     }
