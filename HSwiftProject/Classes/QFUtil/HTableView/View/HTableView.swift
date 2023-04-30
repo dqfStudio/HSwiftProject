@@ -250,9 +250,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
 
     ///block refresh & loadMore
     func beginRefreshing(_ completion: @escaping () -> Void) {
-        guard self.refreshBlock != nil else {
-            return
-        }
+        guard self.refreshBlock != nil else { return }
         self.pageNo = 1
         self.mj_header?.beginRefreshing(completionBlock: completion)
     }
