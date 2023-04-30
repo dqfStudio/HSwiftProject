@@ -204,7 +204,6 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.backgroundColor = UIColor.clear
     }
 
     convenience init(frame: CGRect) {
