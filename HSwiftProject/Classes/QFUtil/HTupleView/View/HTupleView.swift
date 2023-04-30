@@ -629,25 +629,27 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let delegate = self.tupleDelegate else { return 0 }
         var items = 0
-        let prefix = self.prefixWithSection(section)
-        let selector: Selector = #selector(delegate.numberOfItemsInSection(_:))
-        if delegate.responds(to: selector, withPre: prefix) {
-            items = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! Int
+        if let delegate = self.tupleDelegate {
+            let prefix = self.prefixWithSection(section)
+            let selector: Selector = #selector(delegate.numberOfItemsInSection(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                items = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! Int
+            }
+            let edgeInsets = self.collectionView(self, layout: self.flowLayout!, insetForSectionAt: section)
+            self.allSectionInsets.setObject(NSStringFromUIEdgeInsets(edgeInsets) as AnyObject, forKey: "\(section)" as NSString)
         }
-        let edgeInsets = self.collectionView(self, layout: self.flowLayout!, insetForSectionAt: section)
-        self.allSectionInsets.setObject(NSStringFromUIEdgeInsets(edgeInsets) as AnyObject, forKey: "\(section)" as NSString)
         return items
     }
 
     /// layout == HCollectionViewFlowLayout
     internal func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, colorForSectionAt section: NSInteger) -> UIColor {
-        guard let delegate = self.tupleDelegate else { return UIColor.clear }
-        let prefix = self.prefixWithSection(section)
-        let selector = #selector(delegate.colorForSection(_:))
-        if delegate.responds(to: selector, withPre: prefix) {
-            return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIColor
+        if let delegate = self.tupleDelegate {
+            let prefix = self.prefixWithSection(section)
+            let selector = #selector(delegate.colorForSection(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIColor
+            }
         }
         return UIColor.clear
     }
@@ -661,50 +663,54 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        guard let delegate = self.tupleDelegate else { return UIEdgeInsets.zero }
-        let prefix = self.prefixWithSection(section)
-        let selector = #selector(delegate.insetForSection(_:))
-        if delegate.responds(to: selector, withPre: prefix) {
-            return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
+        if let delegate = self.tupleDelegate {
+            let prefix = self.prefixWithSection(section)
+            let selector = #selector(delegate.insetForSection(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
+            }
         }
         return UIEdgeInsets.zero
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        guard let delegate = self.tupleDelegate else { return CGSize.zero }
         var size: CGSize = CGSize.zero
-        let prefix = self.prefixWithSection(section)
-        let selector = #selector(delegate.sizeForHeaderInSection(_:))
-        if delegate.responds(to: selector, withPre: prefix) {
-            size = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
+        if let delegate = self.tupleDelegate {
+            let prefix = self.prefixWithSection(section)
+            let selector = #selector(delegate.sizeForHeaderInSection(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                size = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
+            }
+            // 防止大小为负数
+            size.width = max(size.width, 0.0)
+            size.height = max(size.height, 0.0)
         }
-        // 防止大小为负数
-        size.width = max(size.width, 0.0)
-        size.height = max(size.height, 0.0)
         return UISizeIntegral(size)
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        guard let delegate = self.tupleDelegate else { return CGSize.zero }
         var size: CGSize = CGSize.zero
-        let prefix = self.prefixWithSection(section)
-        let selector = #selector(delegate.sizeForFooterInSection(_:))
-        if delegate.responds(to: selector, withPre: prefix) {
-            size = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
+        if let delegate = self.tupleDelegate {
+            let prefix = self.prefixWithSection(section)
+            let selector = #selector(delegate.sizeForFooterInSection(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                size = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
+            }
+            // 防止大小为负数
+            size.width = max(size.width, 0.0)
+            size.height = max(size.height, 0.0)
         }
-        // 防止大小为负数
-        size.width = max(size.width, 0.0)
-        size.height = max(size.height, 0.0)
         return UISizeIntegral(size)
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let delegate = self.tupleDelegate else { return CGSize(width: 1.0, height: 1.0) }
         var size: CGSize = CGSize.zero
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
-        if delegate.responds(to: selector, withPre: prefix) {
-            size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
+        if let delegate = self.tupleDelegate {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
+            }
         }
         // 防止大小为负数
         if size.width <= 0 { size.width = 1.0 }
@@ -798,11 +804,12 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
 
     /// UICollectionViewDelegate
     internal func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        guard let delegate = self.tupleDelegate else { return true }
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(delegate.shouldHighlightItemAtIndexPath(_:))
-        if delegate.responds(to: selector, withPre: prefix) {
-            return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+        if let delegate = self.tupleDelegate {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(delegate.shouldHighlightItemAtIndexPath(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+            }
         }
         return true
     }
@@ -823,20 +830,22 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
     }
     internal func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        guard let delegate = self.tupleDelegate else { return true }
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(delegate.shouldSelectItemAtIndexPath(_:))
-        if delegate.responds(to: selector, withPre: prefix) {
-            return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+        if let delegate = self.tupleDelegate {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(delegate.shouldSelectItemAtIndexPath(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+            }
         }
         return true
     }
     internal func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
-        guard let delegate = self.tupleDelegate else { return false }
-        let prefix = self.prefixWithSection(indexPath.section)
-        let selector = #selector(delegate.shouldDeselectItemAtIndexPath(_:))
-        if delegate.responds(to: selector, withPre: prefix) {
-            return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+        if let delegate = self.tupleDelegate {
+            let prefix = self.prefixWithSection(indexPath.section)
+            let selector = #selector(delegate.shouldDeselectItemAtIndexPath(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
+            }
         }
         return false
     }
