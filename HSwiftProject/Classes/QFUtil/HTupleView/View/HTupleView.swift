@@ -309,15 +309,10 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     ///load more footer style
     var refreshFooterStyle: HTupleRefreshFooterStyle = .style1
     
-    private var _refreshBlock: HTupleRefreshBlock?
     /// block to refresh data
     var refreshBlock: HTupleRefreshBlock? {
-        get {
-            return _refreshBlock
-        }
-        set {
-            _refreshBlock = newValue
-            if let refreshBlock = _refreshBlock {
+        didSet {
+            if let refreshBlock = refreshBlock {
                 self.mj_header = HTupleRefresh.refreshHeaderWithStyle(refreshHeaderStyle) {
                     self.pageNo = 1
                     refreshBlock()
@@ -327,22 +322,17 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             }
         }
     }
-        
-    private var _loadMoreBlock: HTupleLoadMoreBlock?
+
     /// block to load more data
     var loadMoreBlock: HTupleLoadMoreBlock? {
-        get {
-            return _loadMoreBlock
-        }
-        set {
-            _loadMoreBlock = newValue
-            if let block = _loadMoreBlock {
+        didSet {
+            if let loadMoreBlock = loadMoreBlock {
                 self.pageNo = 1
                 self.mj_footer = HTupleRefresh.refreshFooterWithStyle(refreshFooterStyle) { [weak self] in
                     guard let self = self else { return }
                     self.pageNo += 1
                     if self.pageSize * self.pageNo < self.totalNo {
-                        block()
+                        loadMoreBlock()
                     } else {
                         self.mj_footer?.endRefreshing()
                     }

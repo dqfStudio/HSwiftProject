@@ -208,45 +208,35 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     ///load more footer style
     var refreshFooterStyle: HTableRefreshFooterStyle = .style1
 
-    private var _refreshBlock: HTableRefreshBlock?
     /// block to refresh data
     var refreshBlock: HTableRefreshBlock? {
-        get {
-            return _refreshBlock
-        }
-        set {
-            _refreshBlock = newValue
-            if let refreshBlock = _refreshBlock {
+        didSet {
+            if let refreshBlock = refreshBlock {
                 self.mj_header = HTableRefresh.refreshHeaderWithStyle(refreshHeaderStyle) {
                     self.pageNo = 1
                     refreshBlock()
                 }
-            }else {
+            } else {
                 self.mj_header = nil
             }
         }
     }
-            
-    private var _loadMoreBlock: HTableLoadMoreBlock?
+
     /// block to load more data
     var loadMoreBlock: HTableLoadMoreBlock? {
-        get {
-            return _loadMoreBlock
-        }
-        set {
-            _loadMoreBlock = newValue
-            if let block = _loadMoreBlock {
+        didSet {
+            if let loadMoreBlock = loadMoreBlock {
                 self.pageNo = 1
                 self.mj_footer = HTableRefresh.refreshFooterWithStyle(refreshFooterStyle) { [weak self] in
                     guard let self = self else { return }
                     self.pageNo += 1
                     if self.pageSize * self.pageNo < self.totalNo {
-                        block()
-                    }else {
+                        loadMoreBlock()
+                    } else {
                         self.mj_footer?.endRefreshing()
                     }
                 }
-            }else {
+            } else {
                 self.mj_footer = nil
             }
         }
