@@ -193,7 +193,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    /// total number.
+    /// total number. default 10000
     var totalNo: Int = KDefaultTotalPageNo {
         didSet {
             if totalNo <= 0 {

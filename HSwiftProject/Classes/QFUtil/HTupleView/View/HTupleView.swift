@@ -294,7 +294,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
     }
     
-    /// total number.
+    /// total number. default 10000
     var totalNo: Int = KDefaultTotalPageNo {
         didSet {
             if totalNo <= 0 {
