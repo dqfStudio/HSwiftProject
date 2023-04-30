@@ -102,6 +102,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
 
      private var sectionPaths: NSArray?
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.backgroundColor = UIColor.clear

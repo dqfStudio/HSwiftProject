@@ -201,6 +201,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     ///默认layout为HCollectionViewFlowLayout
     ///默认为垂直滚动方向
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.backgroundColor = UIColor.clear
