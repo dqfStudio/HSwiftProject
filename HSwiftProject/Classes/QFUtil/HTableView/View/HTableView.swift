@@ -492,7 +492,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var items = 1 //items不能为0，否则会崩溃
+        var items = 0
         if let delegate = self.tableDelegate {
             let prefix = self.prefixWithSection(section)
             let selector: Selector = #selector(delegate.numberOfRowsInSection(_:))
@@ -500,7 +500,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
                 items = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! Int
             }
             // 防止大小为负数
-            items = max(items, 1)
+            items = max(items, 0)
         }
         return items
     }

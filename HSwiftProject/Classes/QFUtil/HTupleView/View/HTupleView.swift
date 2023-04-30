@@ -618,7 +618,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var items = 1 //items不能为0，否则会崩溃
+        var items = 0
         if let delegate = self.tupleDelegate {
             let prefix = self.prefixWithSection(section)
             let selector: Selector = #selector(delegate.numberOfItemsInSection(_:))
@@ -627,8 +627,8 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             }
             let edgeInsets = self.collectionView(self, layout: self.flowLayout!, insetForSectionAt: section)
             self.allSectionInsets.setObject(NSStringFromUIEdgeInsets(edgeInsets) as AnyObject, forKey: "\(section)" as NSString)
-            // 防止数量小于1
-            items = max(items, 1)
+            // 防止数量小于0
+            items = max(items, 0)
         }
         return items
     }
