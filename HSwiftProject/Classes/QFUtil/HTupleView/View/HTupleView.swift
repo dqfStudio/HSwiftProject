@@ -674,7 +674,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        var size: CGSize = CGSize.zero
+        var size = CGSize.zero
         if let delegate = self.tupleDelegate {
             let prefix = self.prefixWithSection(section)
             let selector = #selector(delegate.sizeForHeaderInSection(_:))
@@ -689,7 +689,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        var size: CGSize = CGSize.zero
+        var size = CGSize.zero
         if let delegate = self.tupleDelegate {
             let prefix = self.prefixWithSection(section)
             let selector = #selector(delegate.sizeForFooterInSection(_:))
@@ -704,17 +704,17 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var size: CGSize = CGSize.zero
+        var size = CGSize(width: 1.0, height: 1.0)
         if let delegate = self.tupleDelegate {
             let prefix = self.prefixWithSection(indexPath.section)
             let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
             }
+            // 防止大小为负数
+            if size.width <= 0 { size.width = 1.0 }
+            if size.height <= 0 { size.height = 1.0 }
         }
-        // 防止大小为负数
-        if size.width <= 0 { size.width = 1.0 }
-        if size.height <= 0 { size.height = 1.0 }
         return UISizeIntegral(size)
     }
     
@@ -956,11 +956,12 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
 
     internal func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        guard let delegate = self.tupleDelegate else { return nil }
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewForZoomingInScrollView:")
-        if delegate.responds(to: selector, withPre: prefix) {
-            return delegate.performWithUnretainedValue(selector, with: scrollView, withPre: prefix) as? UIView
+        if let delegate = self.tupleDelegate {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleViewForZoomingInScrollView:")
+            if delegate.responds(to: selector, withPre: prefix) {
+                return delegate.performWithUnretainedValue(selector, with: scrollView, withPre: prefix) as? UIView
+            }
         }
         return nil
     }
@@ -982,11 +983,12 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
 
     internal func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        guard let delegate = self.tupleDelegate else { return true }
-        let prefix = self.tupleScrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewShouldScrollToTop:")
-        if delegate.responds(to: selector, withPre: prefix) {
-            return delegate.performWithUnretainedValue(selector, with: scrollView, withPre: prefix) as! Bool
+        if let delegate = self.tupleDelegate {
+            let prefix = self.tupleScrollSplitPrefix()
+            let selector = NSSelectorFromString("tupleViewShouldScrollToTop:")
+            if delegate.responds(to: selector, withPre: prefix) {
+                return delegate.performWithUnretainedValue(selector, with: scrollView, withPre: prefix) as! Bool
+            }
         }
         return true
     }
