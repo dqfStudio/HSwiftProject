@@ -591,23 +591,27 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
         switch self.tupleStyle {
         case .default:
-            var sections = 1
+            var sections = 0
             if let delegate = self.tupleDelegate {
                 let prefix = ""
                 let selector = #selector(delegate.numberOfSectionsInTupleView)
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
+                // 防止数量小于0
+                sections = max(sections, 0)
             }
             return sections
         case .split:
-            var sections = 1
+            var sections = 0
             if let delegate = self.tupleDelegate {
                 let prefix = KTupleDesignKey + "\(self.tupleState)" + "_"
                 let selector = #selector(delegate.numberOfSectionsInTupleView)
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
+                // 防止数量小于0
+                sections = max(sections, 0)
             }
             return sections
         }
@@ -623,6 +627,8 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             }
             let edgeInsets = self.collectionView(self, layout: self.flowLayout!, insetForSectionAt: section)
             self.allSectionInsets.setObject(NSStringFromUIEdgeInsets(edgeInsets) as AnyObject, forKey: "\(section)" as NSString)
+            // 防止数量小于1
+            items = max(items, 1)
         }
         return items
     }

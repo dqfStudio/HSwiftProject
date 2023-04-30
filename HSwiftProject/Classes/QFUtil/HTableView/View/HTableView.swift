@@ -472,6 +472,8 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
+                // 防止大小为负数
+                sections = max(sections, 0)
             }
             return sections
         case .split:
@@ -482,6 +484,8 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
+                // 防止大小为负数
+                sections = max(sections, 0)
             }
             return sections
         }
@@ -495,6 +499,8 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             if delegate.responds(to: selector, withPre: prefix) {
                 items = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! Int
             }
+            // 防止大小为负数
+            items = max(items, 1)
         }
         return items
     }
