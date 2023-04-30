@@ -488,7 +488,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var items = 0
+        var items = 1 //items不能为0，否则会崩溃
         if let delegate = self.tableDelegate {
             let prefix = self.prefixWithSection(section)
             let selector: Selector = #selector(delegate.numberOfRowsInSection(_:))
@@ -525,7 +525,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        var height: CGFloat = 0.0
+        var height: CGFloat = 1.0 //row高度不能为0，否则会崩溃
         if let delegate = self.tableDelegate {
             let prefix = self.prefixWithSection(indexPath.section)
             let selector = #selector(delegate.heightForRowAtIndexPath(_:))

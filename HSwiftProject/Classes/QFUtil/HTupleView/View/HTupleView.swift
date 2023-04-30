@@ -614,7 +614,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        var items = 0
+        var items = 1 //items不能为0，否则会崩溃
         if let delegate = self.tupleDelegate {
             let prefix = self.prefixWithSection(section)
             let selector: Selector = #selector(delegate.numberOfItemsInSection(_:))
@@ -689,7 +689,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var size = CGSize(width: 1.0, height: 1.0)
+        var size = CGSize(width: 1.0, height: 1.0) //item大小不能为zero，否则会崩溃
         if let delegate = self.tupleDelegate {
             let prefix = self.prefixWithSection(indexPath.section)
             let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
