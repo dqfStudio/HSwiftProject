@@ -16,8 +16,7 @@ class HAlertController : HViewController, HTupleViewDelegate {
 
     lazy var visualView: UIVisualEffectView = {
         let blur = UIBlurEffect(style: .light)
-        let view = UIVisualEffectView(effect: blur)
-        return view
+        return UIVisualEffectView(effect: blur)
     }()
 
     lazy var tupleView: HTupleView = {
