@@ -336,8 +336,8 @@ extension String {
     //带有货币符号的金额数据
     func currencySymbolValue() -> String {
         var stringValue = self.amountValue()
-        if stringValue.count > 0 {
-            stringValue = HUserRegion.defaultRegion.currencySymbol.appending(stringValue)
+        if let currencySymbol = HUserRegion.defaultRegion.currencySymbol, stringValue.count > 0 {
+            stringValue = currencySymbol.appending(stringValue)
         }
         return stringValue
     }
