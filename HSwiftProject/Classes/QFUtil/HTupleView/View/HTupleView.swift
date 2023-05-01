@@ -34,16 +34,16 @@ private var tupleStateSourceKey = "tupleStateSourceKey"
 private var UICollectionElementKindSectionHeader = "UICollectionElementKindSectionHeader"
 private var UICollectionElementKindSectionFooter = "UICollectionElementKindSectionFooter"
 
-/// refresh & loadMore block
+/// Refresh & LoadMore block
 typealias HTupleRefreshBlock = () -> Void
 typealias HTupleLoadMoreBlock = () -> Void
 
-/// tuple header & footer & item block
+/// Tuple header & Footer & Item block
 typealias HTupleHeader = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
 typealias HTupleFooter = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
 typealias HTupleItem = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
 
-/// split design exclusive sections block
+/// Split design exclusive sections block
 typealias HTupleSectionExclusiveBlock = () -> NSArray
 
 /// This class is used for refreshing tupleView throughout the project.
@@ -276,7 +276,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         super.dataSource = self
     }
 
-    /// page number, default 1
+    /// Page number, Default 1
     var pageNo: Int = KDefaultPageNo {
         didSet {
             if pageNo <= 0 {
@@ -285,7 +285,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
     }
     
-    /// page size, default 20
+    /// Page size, Default 20
     var pageSize: Int = KDefaultPageSize {
         didSet {
             if pageSize <= 0 {
@@ -294,7 +294,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
     }
     
-    /// total number. default 10000
+    /// Total number. Default 10000
     var totalNo: Int = KDefaultTotalPageNo {
         didSet {
             if totalNo <= 0 {
@@ -303,13 +303,13 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
     }
     
-    /// refresh header style
+    /// Refresh header style
     var refreshHeaderStyle: HTupleRefreshHeaderStyle = .gray
     
-    /// load more footer style
+    /// Load more footer style
     var refreshFooterStyle: HTupleRefreshFooterStyle = .style1
     
-    /// block to refresh data
+    /// Block to refresh data
     var refreshBlock: HTupleRefreshBlock? {
         didSet {
             if let refreshBlock = refreshBlock {
@@ -323,7 +323,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
     }
 
-    /// block to load more data
+    /// Block to load more data
     var loadMoreBlock: HTupleLoadMoreBlock? {
         didSet {
             if let loadMoreBlock = loadMoreBlock {
@@ -349,14 +349,14 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     /// Set the key value for reload
     var reloadTupleKey: String?
 
-    /// block refresh & loadMore
+    /// Block refresh & loadMore
     func beginRefreshing(_ completion: @escaping () -> Void) {
         guard self.refreshBlock != nil else { return }
         self.pageNo = 1
         self.mj_header?.beginRefreshing(completionBlock: completion)
     }
 
-    /// stop refresh
+    /// Stop refresh
     func endRefreshing(_ completion: @escaping () -> Void) {
         self.mj_header?.endRefreshing(completionBlock:completion)
 
@@ -377,7 +377,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         set { flowLayout?.sectionFootersPinToVisibleBounds = newValue }
     }
     
-    /// bounce method
+    /// Bounce method
     func enableHorizontalBounce() {
         self.bounces = true
         self.alwaysBounceHorizontal = true
@@ -407,7 +407,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
     }
 
-    /// release method
+    /// Release method
     @objc
     func releaseTupleBlock() {
         DispatchQueue.global().async {
@@ -428,7 +428,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         NotificationCenter.default.removeObserver(self)
     }
 
-    /// register class
+    /// Register class
     func dequeueReusableHeaderWithClass(_ cls: AnyClass, iblk: AnyObject?, pre: String?, idx: Bool, idxPath: IndexPath) -> AnyObject {
         var cell: HTupleBaseApex
         // Unique identifier
