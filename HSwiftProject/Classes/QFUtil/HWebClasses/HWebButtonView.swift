@@ -21,7 +21,7 @@ class HWebButtonView: UIButton {
     }()
     
     private var lastURL: String = ""
-    // 点击时间
+    // Click time
     private var pressedInterval: TimeInterval = 0
 
     override var contentMode: UIView.ContentMode {
@@ -30,7 +30,7 @@ class HWebButtonView: UIButton {
         }
     }
     
-    //父类那个tintColor有问题
+    // The tintColor in the parent class is problematic
     var renderColor: UIColor? {
         didSet {
             self.renderColor = oldValue
@@ -73,7 +73,6 @@ class HWebButtonView: UIButton {
 
     private func setup() {
         self.addSubview(_imageView)
-        //self.backgroundColor = UIColor.colorWithHex(0xe8e8e8)
         self.backgroundColor = UIColor.clear
         self.initialize()
     }
@@ -100,9 +99,9 @@ class HWebButtonView: UIButton {
     }
     
     /**
-    *  直接设置图片
+    *  Set image directly
     *
-    *  @param image 图片
+    *  @param image image
     */
     func setImage(_ image: UIImage?) {
         self._setImage(image)
@@ -114,11 +113,11 @@ class HWebButtonView: UIButton {
     }
 
     /**
-    *  设置图片链接,如果有缓存同步读取缓存
+    *  Set image link, read cache synchronously if available
     *
-    *  @param url                      链接
-    *  @param placeholder        缺省图
-    *  @param syncLoadCache 是否同步读缓存
+    *  @param url                      Link
+    *  @param placeholder        Placeholder image
+    *  @param syncLoadCache Synchronously read cache
     *
     */
     func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true) {
@@ -126,11 +125,11 @@ class HWebButtonView: UIButton {
     }
     
     /**
-    *  设置图片链接,如果有缓存同步读取缓存
+    *  Set image link, read from cache if available
     *
-    *  @param urlString             链接字符串
-    *  @param placeholder        缺省图
-    *  @param syncLoadCache 是否同步读缓存
+    *  @param urlString             link string
+    *  @param placeholder        default image
+    *  @param syncLoadCache whether to read cache synchronously
     *
     */
     func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true) {
@@ -211,9 +210,9 @@ class HWebButtonView: UIButton {
     }
 
     /**
-    *  设置图片名称，通过文件的方式加载
+    *  Set the image name and load it through the file
     *
-    *  @param fileName 图片名称
+    *  @param fileName image name
     */
     func setImageWithFile(_ fileName: String) {
         if fileName.count > 0 {
@@ -231,9 +230,9 @@ class HWebButtonView: UIButton {
     }
 
     /**
-    *  设置图片名称，通过imageName的方式加载
+    *  Set the image name and load it using imageName
     *
-    *  @param fileName 图片名称
+    *  @param fileName The name of the image
     */
     func setImageWithName(_ fileName: String) {
         if fileName.count > 0 {
@@ -241,20 +240,20 @@ class HWebButtonView: UIButton {
         }
     }
 
-    //点击响应事件
+    // Click response event
     @objc
     private func buttonPressed() {
         guard let pressed = pressed else { return }
-        // 点击时间
+        // Click time
         if Date().timeIntervalSince1970 - pressedInterval > 0.5 {
-            // 记录点击时间
+            // Record click time
             pressedInterval = Date().timeIntervalSince1970
-            // 回调
+            // Callback
             pressed(self, nil)
         }
     }
-    
-    //设置背景颜色
+
+    // Set background color
     override internal var backgroundColor: UIColor? {
         get {
             return _imageView.backgroundColor
@@ -311,19 +310,19 @@ extension UIButton {
         return bounds.contains(point)
     }
 
-    ///图左文字右
+    /// Image on the left and text on the right
     public func imageAndTextWithSpacing(_ spacing: CGFloat) {
         self.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: spacing)
         self.titleEdgeInsets = UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: 0)
     }
 
-    ///图右文字左
+    /// Text on the left and image on the right
     public func textAndImageWithSpacing(_ spacing: CGFloat) {
         self.imageEdgeInsets = UIEdgeInsets(top: 0, left: -(self.imageView?.width ?? 0), bottom: 0, right: (self.imageView?.width)!-spacing)
         self.titleEdgeInsets = UIEdgeInsets(top: 0, left: (self.titleLabel?.width ?? 0) - spacing, bottom: 0, right: -(self.titleLabel?.width)!)
     }
-    
-    ///图上文字下
+
+    /// Image on the top and text on the bottom
     public func imageUpAndTextDownWithSpacing(_ spacing: CGFloat) {
         self.imageEdgeInsets = UIEdgeInsets(top: 0, left: -(self.imageView?.width ?? 0), bottom: -(self.imageView?.width ?? 0) - spacing / 2, right: 0)
         self.titleEdgeInsets = UIEdgeInsets(top: -(self.titleLabel?.intrinsicContentSize.width ?? 0) - spacing / 2, left: 0, bottom: 0, right: -(self.titleLabel?.intrinsicContentSize.width ?? 0))

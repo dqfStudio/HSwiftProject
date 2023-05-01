@@ -20,10 +20,10 @@ class HWebImageView: UIImageView {
     }()
     
     private var lastURL: String = ""
-    // 点击时间
+    // Click time
     private var pressedInterval: TimeInterval = 0
     
-    //父类那个tintColor有问题
+    // The tintColor in the parent class is problematic
     var renderColor: UIColor? {
         didSet {
             self.renderColor = oldValue
@@ -104,9 +104,9 @@ class HWebImageView: UIImageView {
     }
     
     /**
-    *  直接设置图片
+    *  Set image directly
     *
-    *  @param image 图片
+    *  @param image image
     */
     func setImage(_ image: UIImage?) {
         self._setImage(image)
@@ -118,11 +118,11 @@ class HWebImageView: UIImageView {
     }
 
     /**
-    *  设置图片链接,如果有缓存同步读取缓存
+    *  Set image link, read cache synchronously if available
     *
-    *  @param url                      链接
-    *  @param placeholder        缺省图
-    *  @param syncLoadCache 是否同步读缓存
+    *  @param url                      Link
+    *  @param placeholder        Placeholder image
+    *  @param syncLoadCache Synchronously read cache
     *
     */
     func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true) {
@@ -130,11 +130,11 @@ class HWebImageView: UIImageView {
     }
     
     /**
-    *  设置图片链接,如果有缓存同步读取缓存
+    *  Set image link, read from cache if available
     *
-    *  @param urlString             链接字符串
-    *  @param placeholder        缺省图
-    *  @param syncLoadCache 是否同步读缓存
+    *  @param urlString             link string
+    *  @param placeholder        default image
+    *  @param syncLoadCache whether to read cache synchronously
     *
     */
     func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true) {
@@ -215,9 +215,9 @@ class HWebImageView: UIImageView {
     }
 
     /**
-    *  设置图片名称，通过文件的方式加载
+    *  Set the image name and load it through the file
     *
-    *  @param fileName 图片名称
+    *  @param fileName image name
     */
     func setImageWithFile(_ fileName: String) {
         if fileName.count > 0 {
@@ -235,9 +235,9 @@ class HWebImageView: UIImageView {
     }
 
     /**
-    *  设置图片名称，通过imageName的方式加载
+    *  Set the image name and load it using imageName
     *
-    *  @param fileName 图片名称
+    *  @param fileName The name of the image
     */
     func setImageWithName(_ fileName: String) {
         if fileName.count > 0 {
@@ -245,15 +245,15 @@ class HWebImageView: UIImageView {
         }
     }
 
-    //点击响应事件
+    // Click response event
     @objc
     private func tapGestureAction() {
         guard let pressed = pressed else { return }
-        // 点击时间
+        // Click time
         if Date().timeIntervalSince1970 - pressedInterval > 0.5 {
-            // 记录点击时间
+            // Record click time
             pressedInterval = Date().timeIntervalSince1970
-            // 回调
+            // Callback
             pressed(self, nil)
         }
     }
