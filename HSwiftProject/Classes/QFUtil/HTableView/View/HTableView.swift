@@ -15,16 +15,16 @@ private enum HTableStyle: Int {
 
 private var KTableDefaultTag = 1615141312
 
-private var KDefaultPageNo = 1
-private var KDefaultPageSize = 20
-private var KDefaultTotalPageNo = 10000
+private var KTablePageNo = 1
+private var KTablePageSize = 20
+private var KTableTotalPageNo = 10000
 
 private var KTableDesignKey = "table"
 private var KTableExaDesignKey = "tableExa"
 
-private var tableStateKey = "tableStateKey"
-private var signalBlockKey = "signalBlockKey"
-private var tableStateSourceKey = "tableStateSourceKey"
+private var KTableStateKey = "tableStateKey"
+private var KTableSignalKey = "tableSignalKey"
+private var KTableStateSourceKey = "tableStateSourceKey"
 
 /// Refresh & LoadMore block
 typealias HTableRefreshBlock = () -> Void
@@ -176,28 +176,28 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// Page number, Default 1
-    var pageNo: Int = KDefaultPageNo {
+    var pageNo: Int = KTablePageNo {
         didSet {
             if pageNo <= 0 {
-                pageNo = KDefaultPageNo
+                pageNo = KTablePageNo
             }
         }
     }
     
     /// Page size, Default 20
-    var pageSize: Int = KDefaultPageSize {
+    var pageSize: Int = KTablePageSize {
         didSet {
             if pageSize <= 0 {
-                pageSize = KDefaultPageSize
+                pageSize = KTablePageSize
             }
         }
     }
     
     /// Total number. Default 10000
-    var totalNo: Int = KDefaultTotalPageNo {
+    var totalNo: Int = KTableTotalPageNo {
         didSet {
             if totalNo <= 0 {
-                totalNo = KDefaultTotalPageNo
+                totalNo = KTableTotalPageNo
             }
         }
     }
@@ -640,10 +640,10 @@ extension HTableView {
     /// Signal block held by tableView
     var signalBlock: HTableCellSignalBlock? {
         get {
-            return self.getAssociatedValueForKey(&signalBlockKey) as? HTableCellSignalBlock
+            return self.getAssociatedValueForKey(&KTableSignalKey) as? HTableCellSignalBlock
         }
         set {
-            self.setAssociateCopyValue(newValue, key: &signalBlockKey)
+            self.setAssociateCopyValue(newValue, key: &KTableSignalKey)
         }
     }
     
@@ -775,18 +775,18 @@ extension HTableView {
 
 }
 
-private var KTableStateKey = "_table_"
+private var Table_State_Key = "_table_"
 
 /// Design data storage category for split
 extension HTableView {
 
     private var tableStateSource: NSMutableDictionary {
         get {
-            if let dict = self.getAssociatedValueForKey(&tableStateSourceKey) as? NSMutableDictionary {
+            if let dict = self.getAssociatedValueForKey(&KTableStateSourceKey) as? NSMutableDictionary {
                 return dict
             } else {
                 let dict = NSMutableDictionary()
-                self.setAssociateValue(dict, key: &tableStateSourceKey)
+                self.setAssociateValue(dict, key: &KTableStateSourceKey)
                 return dict
             }
         }
@@ -795,12 +795,12 @@ extension HTableView {
     /// The state represented by tableView split design
     var tableState: Int {
         get {
-            let value = self.getAssociatedValueForKey(&tableStateKey) as? NSNumber ?? NSNumber(value: 0)
+            let value = self.getAssociatedValueForKey(&KTableStateKey) as? NSNumber ?? NSNumber(value: 0)
             return value.intValue
         }
         set {
             if newValue != self.tableState {
-                self.setAssociateValue(NSNumber(value: newValue), key: &tableStateKey)
+                self.setAssociateValue(NSNumber(value: newValue), key: &KTableStateKey)
                 self.reloadData()
             }
         }
@@ -812,7 +812,7 @@ extension HTableView {
     }
     
     func setObject(_ anObject: Any, forKey aKey: String, state tableState: Int) {
-        let key: NSString = aKey + KTableStateKey + "\(tableState)" as NSString
+        let key: NSString = aKey + Table_State_Key + "\(tableState)" as NSString
         self.tableStateSource.setObject(anObject, forKey: key)
     }
 
@@ -822,7 +822,7 @@ extension HTableView {
     }
     
     func objectForKey(_ aKey: String, state tableState: Int) -> Any? {
-        let key: NSString = aKey + KTableStateKey + "\(tableState)" as NSString
+        let key: NSString = aKey + Table_State_Key + "\(tableState)" as NSString
         return self.tableStateSource.object(forKey: key)
     }
 
@@ -832,7 +832,7 @@ extension HTableView {
     }
     
     func removeObjectForKey(_ aKey: String, state tableState: Int) {
-        let key: NSString = aKey + KTableStateKey + "\(tableState)" as NSString
+        let key: NSString = aKey + Table_State_Key + "\(tableState)" as NSString
         self.tableStateSource.removeObject(forKey: key)
     }
 
@@ -842,7 +842,7 @@ extension HTableView {
     }
     
     func removeObjectForState(_ tableState: Int) {
-        let key = KTableStateKey + "\(tableState)"
+        let key = Table_State_Key + "\(tableState)"
         for (aKey, _) in self.tableStateSource.reversed() {
             let aKey = aKey as! String
             if key == aKey {

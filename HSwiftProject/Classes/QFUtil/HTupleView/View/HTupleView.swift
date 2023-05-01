@@ -20,16 +20,16 @@ private enum HTupleStyle: Int {
 
 private var KTupleDefaultTag = 1213141516
 
-private var KDefaultPageNo = 1
-private var KDefaultPageSize = 20
-private var KDefaultTotalPageNo = 10000
+private var KTuplePageNo = 1
+private var KTuplePageSize = 20
+private var KTupleTotalPageNo = 10000
 
 private var KTupleDesignKey = "tuple"
 private var KTupleExaDesignKey = "tupleExa"
 
-private var tupleStateKey = "tupleStateKey"
-private var signalBlockKey = "signalBlockKey"
-private var tupleStateSourceKey = "tupleStateSourceKey"
+private var KTupleStateKey = "tupleStateKey"
+private var KTupleSignalKey = "tupleSignalKey"
+private var KTupleStateSourceKey = "tupleStateSourceKey"
 
 private var UICollectionElementKindSectionHeader = "UICollectionElementKindSectionHeader"
 private var UICollectionElementKindSectionFooter = "UICollectionElementKindSectionFooter"
@@ -277,28 +277,28 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
 
     /// Page number, Default 1
-    var pageNo: Int = KDefaultPageNo {
+    var pageNo: Int = KTuplePageNo {
         didSet {
             if pageNo <= 0 {
-                pageNo = KDefaultPageNo
+                pageNo = KTuplePageNo
             }
         }
     }
     
     /// Page size, Default 20
-    var pageSize: Int = KDefaultPageSize {
+    var pageSize: Int = KTuplePageSize {
         didSet {
             if pageSize <= 0 {
-                pageSize = KDefaultPageSize
+                pageSize = KTuplePageSize
             }
         }
     }
     
     /// Total number. Default 10000
-    var totalNo: Int = KDefaultTotalPageNo {
+    var totalNo: Int = KTupleTotalPageNo {
         didSet {
             if totalNo <= 0 {
-                totalNo = KDefaultTotalPageNo
+                totalNo = KTupleTotalPageNo
             }
         }
     }
@@ -1009,10 +1009,10 @@ extension HTupleView {
     /// The signal block held by tupleView
     var signalBlock: HTupleCellSignalBlock? {
         get {
-            return self.getAssociatedValueForKey(&signalBlockKey) as? HTupleCellSignalBlock
+            return self.getAssociatedValueForKey(&KTupleSignalKey) as? HTupleCellSignalBlock
         }
         set {
-            self.setAssociateCopyValue(newValue, key: &signalBlockKey)
+            self.setAssociateCopyValue(newValue, key: &KTupleSignalKey)
         }
     }
     
@@ -1191,18 +1191,18 @@ extension HTupleView {
 
 }
 
-private var KTupleStateKey = "_tuple_"
+private var Tuple_State_Key = "_tuple_"
 
 /// Design data storage category for split
 extension HTupleView {
 
     private var tupleStateSource: NSMutableDictionary {
         get {
-            if let dict = self.getAssociatedValueForKey(&tupleStateSourceKey) as? NSMutableDictionary {
+            if let dict = self.getAssociatedValueForKey(&KTupleStateSourceKey) as? NSMutableDictionary {
                 return dict
             } else {
                 let dict = NSMutableDictionary()
-                self.setAssociateValue(dict, key: &tupleStateSourceKey)
+                self.setAssociateValue(dict, key: &KTupleStateSourceKey)
                 return dict
             }
         }
@@ -1211,12 +1211,12 @@ extension HTupleView {
     /// The state represented by the tupleView split design
     var tupleState: Int {
         get {
-            let value = self.getAssociatedValueForKey(&tupleStateKey) as? NSNumber ?? NSNumber(value: 0)
+            let value = self.getAssociatedValueForKey(&KTupleStateKey) as? NSNumber ?? NSNumber(value: 0)
             return value.intValue
         }
         set {
             if newValue != self.tupleState {
-                self.setAssociateValue(NSNumber(value: newValue), key: &tupleStateKey)
+                self.setAssociateValue(NSNumber(value: newValue), key: &KTupleStateKey)
                 self.reloadData()
             }
         }
@@ -1228,7 +1228,7 @@ extension HTupleView {
     }
     
     func setObject(_ anObject: Any, forKey aKey: String, state tupleState: Int) {
-        let key: NSString = aKey + KTupleStateKey + "\(tupleState)" as NSString
+        let key: NSString = aKey + Tuple_State_Key + "\(tupleState)" as NSString
         self.tupleStateSource.setObject(anObject, forKey: key)
     }
 
@@ -1238,7 +1238,7 @@ extension HTupleView {
     }
     
     func objectForKey(_ aKey: String, state tupleState: Int) -> Any? {
-        let key: NSString = aKey + KTupleStateKey + "\(tupleState)" as NSString
+        let key: NSString = aKey + Tuple_State_Key + "\(tupleState)" as NSString
         return self.tupleStateSource.object(forKey: key)
     }
 
@@ -1248,7 +1248,7 @@ extension HTupleView {
     }
     
     func removeObjectForKey(_ aKey: String, state tupleState: Int) {
-        let key: NSString = aKey + KTupleStateKey + "\(tupleState)" as NSString
+        let key: NSString = aKey + Tuple_State_Key + "\(tupleState)" as NSString
         self.tupleStateSource.removeObject(forKey: key)
     }
 
@@ -1258,7 +1258,7 @@ extension HTupleView {
     }
     
     func removeObjectForState(_ tupleState: Int) {
-        let key = KTupleStateKey + "\(tupleState)"
+        let key = Tuple_State_Key + "\(tupleState)"
         for (aKey, _) in self.tupleStateSource.reversed() {
             let aKey = aKey as! String
             if key == aKey {
