@@ -14,64 +14,56 @@ class HAlertController : HViewController, HTupleViewDelegate {
         return CGSize(width: 270, height: 121)
     }
 
-    private var _visualView: UIVisualEffectView?
-    var visualView: UIVisualEffectView? {
-        get {
-            if (_visualView == nil) {
-                let blur = UIBlurEffect(style: UIBlurEffect.Style.light)
-                _visualView = UIVisualEffectView(effect: blur)
-                var frame = CGRect.zero
-                frame.size = self.containerSize
-                _visualView!.frame = frame
-            }
-            return _visualView!
-        }
-        set {
-            _visualView = newValue
-        }
-    }
+    lazy var visualView: UIVisualEffectView = {
+        let blur = UIBlurEffect(style: .light)
+        let view = UIVisualEffectView(effect: blur)
+        return view
+    }()
 
-    private var _tupleView: HTupleView?
-    var tupleView: HTupleView {
-        if (_tupleView == nil) {
-            var frame = CGRect.zero
-            frame.size = self.containerSize
-            _tupleView = HTupleView(frame: frame)
-            _tupleView!.backgroundColor = UIColor.clear
-            _tupleView!.layer.cornerRadius = 10 //默认系统弹框圆角为10.f
-            _tupleView!.disableBounce()
-        }
-        return _tupleView!
-    }
+    lazy var tupleView: HTupleView = {
+        let tupleView = HTupleView(frame: .zero)
+        tupleView.backgroundColor = UIColor.clear
+        tupleView.layer.cornerRadius = 10 //默认系统弹框圆角为10.f
+        tupleView.disableBounce()
+        return tupleView
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
         self.topBar.isHidden = true
-        if (self.hideVisualView) {
+        
+        //是否隐藏视觉展示效果，如毛玻璃效果
+        if self.hideVisualView {
             self.tupleView.backgroundColor = UIColor.white
             self.view.addSubview(self.tupleView)
-        }else {
-            self.visualView!.contentView.addSubview(self.tupleView)
-            self.view.addSubview(self.visualView!)
+        } else {
+            self.visualView.contentView.addSubview(self.tupleView)
+            self.view.addSubview(self.visualView)
         }
+        
+        // 设置frame
+        self.visualView.frame.size = self.containerSize
+        self.tupleView.frame.size = self.containerSize
+        
+        // 设置代理
         self.tupleView.delegate = self
+        
     }
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if (!self.hideVisualView) {
-            for subview in self.visualView!.subviews {
+        if !self.hideVisualView {
+            for subview in self.visualView.subviews {
                 subview.layer.cornerRadius = self.tupleView.layer.cornerRadius
             }
         }
     }
 
     override func vcWillDisappear(_ type: HVCDisappearType) {
-        if (type == .pop || type == .dismiss) {
+        if type == .pop || type == .dismiss {
             self.tupleView.releaseTupleBlock()
-            self.visualView = nil
         }
     }
 
@@ -150,7 +142,7 @@ class HAlertController : HViewController, HTupleViewDelegate {
         
     }
     func didSelectItemAtIndexPath(_ indexPath: IndexPath) {
-        if (indexPath.row == HCell3) {
+        if indexPath.row == HCell3 {
             self.back()
         }
     }
