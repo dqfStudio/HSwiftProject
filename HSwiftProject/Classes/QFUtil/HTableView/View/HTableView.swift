@@ -9,8 +9,8 @@
 import UIKit
 
 private enum HTableStyle: Int {
-    case `default`  //单体式设计
-    case split //分体式设计
+    case `default`  //Singleton design
+    case split //Split design
 }
 
 private var KTableDefaultTag = 1615141312

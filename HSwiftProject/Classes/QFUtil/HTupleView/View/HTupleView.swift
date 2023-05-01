@@ -34,19 +34,19 @@ private var tupleStateSourceKey = "tupleStateSourceKey"
 private var UICollectionElementKindSectionHeader = "UICollectionElementKindSectionHeader"
 private var UICollectionElementKindSectionFooter = "UICollectionElementKindSectionFooter"
 
-///refresh & loadMore block
+/// refresh & loadMore block
 typealias HTupleRefreshBlock = () -> Void
 typealias HTupleLoadMoreBlock = () -> Void
 
-///tuple header & footer & item block
+/// tuple header & footer & item block
 typealias HTupleHeader = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
 typealias HTupleFooter = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
 typealias HTupleItem = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
 
-///split design exclusive sections block
+/// split design exclusive sections block
 typealias HTupleSectionExclusiveBlock = () -> NSArray
 
-///This class is used for refreshing tupleView throughout the project.
+/// This class is used for refreshing tupleView throughout the project.
 class HTupleAppearance : NSObject {
     
     private static var hashTuples = NSHashTable<AnyObject>.weakObjects()
@@ -91,7 +91,7 @@ class HTupleAppearance : NSObject {
     optional func numberOfSectionsInTupleView() -> Any
     @objc
     optional func numberOfItemsInSection(_ section: Any) -> Any
-    ///layout == HCollectionViewFlowLayout
+    /// layout == HCollectionViewFlowLayout
     @objc
     optional func colorForSection(_ section: Any) -> UIColor
 
@@ -198,8 +198,8 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
 
     private var sectionPaths: NSArray?
     
-    ///Default layout is HCollectionViewFlowLayout
-    ///Default scrolling direction is vertical
+    /// Default layout is HCollectionViewFlowLayout
+    /// Default scrolling direction is vertical
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
@@ -303,10 +303,10 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
     }
     
-    ///refresh header style
+    /// refresh header style
     var refreshHeaderStyle: HTupleRefreshHeaderStyle = .gray
     
-    ///load more footer style
+    /// load more footer style
     var refreshFooterStyle: HTupleRefreshFooterStyle = .style1
     
     /// block to refresh data
