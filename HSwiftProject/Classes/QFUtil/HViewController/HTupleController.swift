@@ -14,13 +14,13 @@ class HTupleController : HViewController, HTupleViewDelegate {
         return HTupleView(frame: .zero)
     }()
     
-    ///default YES
+    /// Whether to use auto layout. Default is YES.
     var autoLayout: Bool = true
-    ///default YES
+    /// Whether to extend the top layout. Default is YES.
     var topExtendedLayout: Bool = true
-    ///default 0.0
+    /// The height of the extended bottom layout. Default is 0.0.
     var bottomExtendedHeight: CGFloat = 0.0
-    ///default UIEdgeInsetsZero
+    /// The extended insets. Default is UIEdgeInsetsZero.
     var extendedInset: UIEdgeInsets = .zero
     
     override func viewDidLoad() {
@@ -39,16 +39,16 @@ class HTupleController : HViewController, HTupleViewDelegate {
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        if autoLayout {//默认为YES
+        if autoLayout {//Default is YES
             var frame = view.bounds
-            if topExtendedLayout {//默认为YES
+            if topExtendedLayout {//Default is YES
                 frame.origin.y += UIScreen.topBarHeight
                 frame.size.height -= UIScreen.topBarHeight
             }
             frame.size.height -= bottomExtendedHeight
             self.tupleView.frame = frame
-            if extendedInset != .zero {//设置过值
-                if self.tupleView.contentInset != extendedInset {//设置的值与现有的值不相等
+            if extendedInset != .zero {//If the value has been set
+                if self.tupleView.contentInset != extendedInset {//If the set value is not equal to the current value
                     self.tupleView.contentInset = extendedInset
                 }
             }
@@ -56,4 +56,3 @@ class HTupleController : HViewController, HTupleViewDelegate {
     }
 
 }
-

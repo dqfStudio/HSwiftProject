@@ -25,72 +25,72 @@ class HNavigationController : UINavigationController, UIGestureRecognizerDelegat
     /// Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        //设置相关属性
+        // Set related properties
         self.pvc_initialize()
     }
     
-    //设置相关属性
+    // Set related properties
     private func pvc_initialize() {
-        //  这句很核心
-        let target = self.interactivePopGestureRecognizer!.delegate
-        //  这句很核心
+        //  This line is very core
+        guard let target = self.interactivePopGestureRecognizer?.delegate else { return }
+        //  This line is very core
         let handler = NSSelectorFromString("handleNavigationTransition:")
-        //  获取添加系统边缘触发手势的View
-        let targetView: UIView = self.interactivePopGestureRecognizer!.view!
+        //  Get the view that adds the system edge trigger gesture
+        guard let targetView = self.interactivePopGestureRecognizer?.view else { return }
         
-        //  创建pan手势 作用范围是全屏
+        //  Create a pan gesture with full screen effect
         let fullScreenGes = UIPanGestureRecognizer(target: target, action: handler)
         fullScreenGes.delegate = self
         targetView.addGestureRecognizer(fullScreenGes)
         
-        // 关闭边缘触发手势 防止和原有边缘手势冲突
+        // Turn off the edge trigger gesture to prevent conflicts with the original edge gesture
         self.interactivePopGestureRecognizer?.isEnabled = false
         
-        //modalPresentationStyle 设置默认样式为 UIModalPresentationFullScreen
+        // Set the default style to UIModalPresentationFullScreen
         self.modalPresentationStyle = .fullScreen
-        //关闭暗黑模式
+        // Turn off dark mode
         if #available(iOS 13.0, *) {
             self.overrideUserInterfaceStyle = .light
         }
     }
 
     /// UIGestureRecognizerDelegate
-    ///  防止导航控制器只有一个rootViewcontroller时触发手势
+    /// Prevent gesture triggering when the navigation controller has only one root view controller
     private func gestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
-        // 根据具体控制器对象决定是否开启全屏右滑返回
+        // Decide whether to enable full-screen right slide back based on the specific controller object
         if let topVC = self.topViewController, self.blackList.contains(topVC) {
             return false
         }
         
-        //如果这个push  pop 动画正在执行(私有属性)，不允许手势
+        // If this push pop animation is being executed (private property), gestures are not allowed
         guard let isTransitioning = self.value(forKeyPath: "_isTransitioning") as? Bool, isTransitioning else {
             return false
         }
         
-        // 解决右滑和UITableView左滑删除的冲突
+        // Solve the conflict between right slide and UITableView left slide deletion
         let translation: CGPoint = gestureRecognizer.translation(in: gestureRecognizer.view)
         guard translation.x > 0 else {
             return false
         }
         
-        //当前控制器为根控制器，不允许手势
+        // Gestures are not allowed when the current controller is the root controller
         return self.children.count > 1
     }
 
 }
 
-// MARK: - 横纵屏
+// MARK: - Landscape and portrait
 extension HNavigationController {
-    //是否自动旋转,返回YES可以自动旋转
+    // Whether to rotate automatically, returning YES can rotate automatically
     override var shouldAutorotate: Bool {
-        return self.topViewController!.shouldAutorotate
+        return self.topViewController?.shouldAutorotate ?? false
     }
-    //返回支持的方向
+    // Return the supported direction
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return self.topViewController!.supportedInterfaceOrientations
+        return self.topViewController?.supportedInterfaceOrientations ?? .portrait
     }
-    //这个是返回优先方向
+    // This is the preferred direction
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return self.topViewController!.preferredInterfaceOrientationForPresentation
+        return self.topViewController?.preferredInterfaceOrientationForPresentation ?? .portrait
     }
 }
