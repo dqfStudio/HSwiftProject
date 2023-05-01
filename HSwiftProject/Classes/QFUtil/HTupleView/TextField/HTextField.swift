@@ -349,12 +349,12 @@ extension HTextField {
 
     /// 须是字母与数字的组合，长度6-11位
     var isValidatedUserName: Bool {
-        let regex: String = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,11}$"
+        let regex = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,11}$"
         return self.isValidateWithRegex(regex)
     }
     /// 字母、数字或其组合，长度6-12位
     var isValidatedPassword: Bool {
-        let regex: String = "[a-zA-Z0-9]{6,12}$"
+        let regex = "[a-zA-Z0-9]{6,12}$"
         return self.isValidateWithRegex(regex)
     }
 
@@ -365,22 +365,22 @@ extension HTextField {
     }
     ///纯字母
     var isOnlyAlpha: Bool {
-        let regex: String = "[a-zA-Z]+$"
+        let regex = "[a-zA-Z]+$"
         return self.isValidateWithRegex(regex)
     }
     ///纯数字
     var isOnlyNumeric: Bool {
-        let regex: String = "[0-9]+$"
+        let regex = "[0-9]+$"
         return self.isValidateWithRegex(regex)
     }
     ///须是字母与数字的组合，默认验证2-10000位
     var isAlphaNumeric: Bool {
-        let regex: String = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{2,}$"
+        let regex = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{2,}$"
         return self.isValidateWithRegex(regex)
     }
     ///字母、数字或两者的组合
     var isAlphaOrNumeric: Bool {
-        let regex: String = "^[a-zA-Z0-9]+$"
+        let regex = "^[a-zA-Z0-9]+$"
         return self.isValidateWithRegex(regex)
     }
 
@@ -388,12 +388,12 @@ extension HTextField {
 
     ///是否有效的邮箱
     var isValidatedEmial: Bool {
-        let regex: String = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
+        let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"
         return self.isValidateWithRegex(regex)
     }
     ///是否有效的验证码
     var isValidatedVCode: Bool {
-        let regex: String = "[0-9]{4,6}$"
+        let regex = "[0-9]{4,6}$"
         return self.isValidateWithRegex(regex)
     }
     ///是否有效的手机号
@@ -405,13 +405,13 @@ extension HTextField {
          * 联通号段: 130,131,132,155,156,185,186,145,175,176,1709,166
          * 电信号段: 133,153,180,181,189,177,1700,199
          */
-        let MOBILE: String = "^1(3[0-9]|4[57]|5[0-35-9]|6[6]|7[05-8]|8[0-9]|9[89])\\d{8}$"
+        let MOBILE = "^1(3[0-9]|4[57]|5[0-35-9]|6[6]|7[05-8]|8[0-9]|9[89])\\d{8}$"
         
-        let CM: String = "(^1(3[4-9]|4[7]|5[0-27-9]|7[8]|8[2-478]|9[8])\\d{8}$)|(^1705\\d{7}$)"
+        let CM = "(^1(3[4-9]|4[7]|5[0-27-9]|7[8]|8[2-478]|9[8])\\d{8}$)|(^1705\\d{7}$)"
         
-        let CU: String = "(^1(3[0-2]|4[5]|5[56]|66|7[56]|8[56])\\d{8}$)|(^1709\\d{7}$)"
+        let CU = "(^1(3[0-2]|4[5]|5[56]|66|7[56]|8[56])\\d{8}$)|(^1709\\d{7}$)"
         
-        let CT: String = "(^1(33|53|77|8[019]|99)\\d{8}$)|(^1700\\d{7}$)"
+        let CT = "(^1(33|53|77|8[019]|99)\\d{8}$)|(^1700\\d{7}$)"
         
         if self.isValidateWithRegex(MOBILE) || self.isValidateWithRegex(CM) || self.isValidateWithRegex(CU) || self.isValidateWithRegex(CT) {
             return true
@@ -421,7 +421,7 @@ extension HTextField {
     }
     ///是否有效的身份证号
     var isValidatedIDCard: Bool {
-        let regex: String = "^(\\d{14}|\\d{17})(\\d|[xX])$"
+        let regex = "^(\\d{14}|\\d{17})(\\d|[xX])$"
         return self.isValidateWithRegex(regex)
     }
 
@@ -429,12 +429,12 @@ extension HTextField {
 
     ///是否有效的车牌号
     var isValidatedCarNo: Bool {
-        let regex: String = "^[\\u4e00-\\u9fa5]{1}[a-zA-Z]{1}[a-zA-Z_0-9]{4}[a-zA-Z_0-9_\\u4e00-\\u9fa5]$"
+        let regex = "^[\\u4e00-\\u9fa5]{1}[a-zA-Z]{1}[a-zA-Z_0-9]{4}[a-zA-Z_0-9_\\u4e00-\\u9fa5]$"
         return self.isValidateWithRegex(regex)
     }
     ///是否有效的车型
     var isValidatedCarType: Bool {
-        let regex: String = "^[\\u4E00-\\u9FFF]+$"
+        let regex = "^[\\u4E00-\\u9FFF]+$"
         return self.isValidateWithRegex(regex)
     }
 
@@ -442,25 +442,25 @@ extension HTextField {
 
     ///纯中文
     var isOnlyChinese: Bool {
-        let regex: String = "[\\u4e00-\\u9fa5]+$"
+        let regex = "[\\u4e00-\\u9fa5]+$"
         return self.isValidateWithRegex(regex)
     }
     /// 微信号校验 可以使用6—20个字母、数字、下划线和减号，必须以字母开头
     ///是否有效的微信号
     var isValidatedWechat: Bool {
-        let regex: String = "^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$"
+        let regex = "^[a-zA-Z]([-_a-zA-Z0-9]{5,19})+$"
         return self.isValidateWithRegex(regex)
     }
     ///是否有效的银行卡账号
     var isValidatedBankCard: Bool {
-        let regex: String = "[1-9]([0-9]{13,19})"
+        let regex = "[1-9]([0-9]{13,19})"
         return self.isValidateWithRegex(regex)
     }
     
     
     ///是否包含特殊字符
     var isContainIllegalCharacters: Bool {
-        let regex: String = "^[A-Za-z0-9\\u4e00-\\u9fa5]+$"
+        let regex = "^[A-Za-z0-9\\u4e00-\\u9fa5]+$"
         //此处结果取反
         return !self.isValidateWithRegex(regex)
     }
@@ -469,16 +469,14 @@ extension HTextField {
 
     ///判断内容长度是否等于某个值
     func isEqualto(_ length: Int) -> Bool {
-        if self.text == nil { return false }
-        if self.text!.length == length {
+        if let text = text, text.count == length {
             return true
         }
         return false
     }
     ///判断内容长度是否在某两个值之间
     func isBetween(_ start: Int, _ end: Int) -> Bool {
-        if self.text == nil { return false }
-        if self.text!.length >= start && self.text!.length <= end {
+        if let text = text, text.count >= start, text.count <= end {
             return true
         }
         return false
