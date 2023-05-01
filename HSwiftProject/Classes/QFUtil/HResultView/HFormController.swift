@@ -24,10 +24,10 @@ class HFormController: NSObject, HTupleViewDelegate {
     
     lazy private var tupleView: HTupleView = {
         let frame = UIScreen.main.bounds
-        let _tupleView = HTupleView(frame: frame)
-        _tupleView.disableBounce()
-        _tupleView.delegate = self
-        return _tupleView
+        let tupleView = HTupleView(frame: frame)
+        tupleView.disableBounce()
+        tupleView.delegate = self
+        return tupleView
     }()
     
     private var numberOfRows: Int = 0

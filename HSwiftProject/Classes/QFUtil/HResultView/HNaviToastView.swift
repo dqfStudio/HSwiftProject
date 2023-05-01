@@ -13,18 +13,18 @@ class HNaviToastView: UIView {
     private var removeFromSuperViewOnHide: Bool = false
     
     lazy var titleLabel: UILabel = {
-        let _titleLabel = UILabel()
-        _titleLabel.numberOfLines = 1
-        _titleLabel.textAlignment = .left
-        _titleLabel.font = UIFont.systemFont(ofSize: 16)
-        _titleLabel.textColor = UIColor(hex: 0x5e5e5e)
-        return _titleLabel
+        let titleLabel = UILabel()
+        titleLabel.numberOfLines = 1
+        titleLabel.textAlignment = .left
+        titleLabel.font = UIFont.systemFont(ofSize: 16)
+        titleLabel.textColor = UIColor(hex: 0x5e5e5e)
+        return titleLabel
     }()
     
     lazy private var iconImageView: UIImageView = {
-        let _iconImageView = UIImageView()
-        _iconImageView.contentMode = .scaleAspectFit
-        return _iconImageView
+        let iconImageView = UIImageView()
+        iconImageView.contentMode = .scaleAspectFit
+        return iconImageView
     }()
     
     var iconImage: UIImage? {
@@ -179,7 +179,7 @@ class HNaviToastView: UIView {
     static func showCustomToast(_ string: String, afterDelay delay: TimeInterval, icon: UIImage) -> HNaviToastView {
         let window = UIApplication.shared.keyWindow
         HNaviToastView.hideAllToastForView(window!, animated: false)
-        let  toastView = HNaviToastView.customToastAddedTo(window!, animated: true)
+        let toastView = HNaviToastView.customToastAddedTo(window!, animated: true)
         toastView.titleLabel.text = string
         toastView.iconImage = icon
         toastView.hide(true, afterDelay: delay)
@@ -198,7 +198,7 @@ class HNaviToastView: UIView {
     static func showErrorToast(_ string: String, afterDelay delay: TimeInterval, icon: UIImage) -> HNaviToastView {
         let window = UIApplication.shared.keyWindow
         HNaviToastView.hideAllToastForView(window!, animated: false)
-        let  toastView = HNaviToastView.errorToastAddedTo(window!, animated: true)
+        let toastView = HNaviToastView.errorToastAddedTo(window!, animated: true)
         toastView.titleLabel.text = string
         toastView.iconImage = icon
         toastView.hide(true, afterDelay: delay)

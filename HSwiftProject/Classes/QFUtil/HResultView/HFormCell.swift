@@ -24,15 +24,9 @@ class HFormModel: NSObject {
 
 class HFormCell: HTupleBaseCell, HTupleViewDelegate {
     
-    private var _modelArr: [HFormModel]?
     var modelArr: [HFormModel]? {
-        get {
-            return _modelArr
-        }
-        set {
-            if _modelArr != newValue {
-                _modelArr = nil
-                _modelArr = newValue
+        didSet {
+            if modelArr != oldValue {
                 self.tupleView.reloadData()
             }
         }
@@ -43,14 +37,14 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
     var formCellBlock: HFormCellBlock?
     
     lazy private var tupleView: HTupleView = {
-        let _tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
-        _tupleView.backgroundColor = UIColor.white
-        _tupleView.isPagingEnabled = true
-        _tupleView.delegate = self
+        let tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
+        tupleView.backgroundColor = UIColor.white
+        tupleView.isPagingEnabled = true
+        tupleView.delegate = self
         // 设置默认参数
         self.setup()
-        self.addSubview(_tupleView)
-        return _tupleView
+        self.addSubview(tupleView)
+        return tupleView
     }()
     
     override func relayoutSubviews() {
@@ -64,15 +58,15 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
     
     func numberOfSectionsInTupleView() -> Any {
         var pages = 1
-        if self.modelArr != nil {
+        if let modelArr = self.modelArr {
             
-            let items = self.modelArr!.count
+            let items = modelArr.count
             var tmpItems = self.rows * self.rowItems
             
             pages = items / tmpItems
             tmpItems = pages * tmpItems
             
-            if (tmpItems != items) {
+            if tmpItems != items {
                 pages += 1
             }
         }
