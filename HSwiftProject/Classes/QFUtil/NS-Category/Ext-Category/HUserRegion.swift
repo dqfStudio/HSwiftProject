@@ -26,38 +26,56 @@ class HUserRegion: NSObject {
     private var _regionCode: String?
     var regionCode: String {
         get {
-            if _regionCode == nil {
-                _regionCode = UserDefaults.standard.object(forKey: KRegionCodeKey) as? String
-                if _regionCode == nil {
-                    //如果用户没有设置区域，读取“设置-通用-地区”中默认的区域
-                    _regionCode = NSLocale.autoupdatingCurrent.currencyCode
-                    if let supportedRegions = self.supportedRegions, !(supportedRegions.allKeys as NSArray).contains(_regionCode!) {
-                        //如果用户没有设置区域，读取区域json文件中最后一项
-                        _regionCode = supportedRegions.allKeys.last as? String
-                    }
-                    UserDefaults.standard.set(_regionCode, forKey: KRegionCodeKey)
-                    UserDefaults.standard.synchronize()
-                }
+            // 1、如果有值直接返回
+            if let regionCode = _regionCode {
+                return regionCode
             }
+
+            // 2、如果数据库里有值直接返回
+            _regionCode = UserDefaults.standard.object(forKey: KRegionCodeKey) as? String
+            if let regionCode = _regionCode {
+                return regionCode
+            }
+
+            // 3、如果用户没有设置区域，读取“设置-通用-地区”中默认的区域
+            _regionCode = NSLocale.autoupdatingCurrent.currencyCode
+
+            // 4、如果用户没有设置区域，读取区域json文件中最后一项
+            if let regionCode = _regionCode, let supportedRegions = self.supportedRegions, !(supportedRegions.allKeys as NSArray).contains(regionCode) {
+                _regionCode = supportedRegions.allKeys.last as? String
+            }
+
+            // 5、保存新的值
+            UserDefaults.standard.set(_regionCode, forKey: KRegionCodeKey)
+            UserDefaults.standard.synchronize()
+
             return _regionCode!
         }
+        
         set {
-            if _regionCode != newValue {
-                _regionCode = newValue
-                
-                if _regionCode == nil {
-                    //如果用户没有设置区域，读取“设置-通用-地区”中默认的区域
-                    _regionCode = NSLocale.autoupdatingCurrent.currencyCode
-                }
-                
-                if let supportedRegions = self.supportedRegions, !(supportedRegions.allKeys as NSArray).contains(_regionCode!) {
-                    //如果用户没有设置区域，读取区域json文件中最后一项
-                    _regionCode = supportedRegions.allKeys.last as? String
-                }
-                
-                UserDefaults.standard.set(_regionCode, forKey: KRegionCodeKey)
-                UserDefaults.standard.synchronize()
+            // 1、如果没有新的直接返回
+            guard _regionCode != newValue else {
+                return
             }
+
+            // 2、赋予新的值
+            _regionCode = newValue
+
+            // 3、如果有值直接返回
+            if _regionCode == nil {
+                // 4、如果用户没有设置区域，读取“设置-通用-地区”中默认的区域
+                _regionCode = NSLocale.autoupdatingCurrent.currencyCode
+            }
+
+            // 5、如果用户没有设置区域，读取区域json文件中最后一项
+            if let regionCode = _regionCode, let supportedRegions = self.supportedRegions, !(supportedRegions.allKeys as NSArray).contains(regionCode) {
+                _regionCode = supportedRegions.allKeys.last as? String
+            }
+
+            // 6、保存新的值
+            UserDefaults.standard.set(_regionCode, forKey: KRegionCodeKey)
+            UserDefaults.standard.synchronize()
+
         }
     }
     
@@ -91,42 +109,60 @@ class HUserRegion: NSObject {
     }
     
     
-    //语言代码
+    //语言代码    
     private var _languageCode: String?
     var languageCode: String {
         get {
-            if _languageCode == nil {
-                _languageCode = UserDefaults.standard.object(forKey: KLanguageCodeKey) as? String
-                if _languageCode == nil {
-                    //如果用户没有设置语言，读取“设置-通用-语言”中默认的语言
-                    _languageCode = NSLocale.preferredLanguages.first
-                    if let supportedLanguages = self.supportedLanguages, !(supportedLanguages.allKeys as NSArray).contains(_languageCode!) {
-                        //如果用户没有设置语言，读取语言json文件中最后一项
-                        _languageCode = supportedLanguages.allKeys.last as? String
-                    }
-                }
-                UserDefaults.standard.set(_languageCode!, forKey: KLanguageCodeKey)
-                UserDefaults.standard.synchronize()
+            // 1、如果有值直接返回
+            if let languageCode = _languageCode {
+                return languageCode
             }
+
+            // 2、如果数据库里有值直接返回
+            _languageCode = UserDefaults.standard.object(forKey: KLanguageCodeKey) as? String
+            if let languageCode = _languageCode {
+                return languageCode
+            }
+
+            // 3、如果用户没有设置语言，读取“设置-通用-语言”中默认的语言
+            _languageCode = NSLocale.preferredLanguages.first
+
+            // 4、如果用户没有设置语言，读取语言json文件中最后一项
+            if let languageCode = _languageCode, let supportedLanguages = self.supportedLanguages, !(supportedLanguages.allKeys as NSArray).contains(languageCode) {
+                _languageCode = supportedLanguages.allKeys.last as? String
+            }
+
+            // 5、保存新的值
+            UserDefaults.standard.set(_languageCode, forKey: KLanguageCodeKey)
+            UserDefaults.standard.synchronize()
+
             return _languageCode!
         }
+        
         set {
-            if _languageCode != newValue {
-                _languageCode = languageCode
-
-                if _languageCode == nil {
-                    //如果用户没有设置语言，读取“设置-通用-语言”中默认的语言
-                    _languageCode = NSLocale.preferredLanguages.first
-                }
-                
-                if let supportedLanguages = self.supportedLanguages, !(supportedLanguages.allKeys as NSArray).contains(_languageCode!) {
-                    //如果用户没有设置语言，读取语言json文件中最后一项
-                    _languageCode = supportedLanguages.allKeys.last as? String
-                }
-                
-                UserDefaults.standard.set(_languageCode, forKey: KLanguageCodeKey)
-                UserDefaults.standard.synchronize()
+            // 1、如果没有新的直接返回
+            guard _languageCode != newValue else {
+                return
             }
+
+            // 2、赋予新的值
+            _languageCode = newValue
+
+            // 3、如果有值直接返回
+            if _languageCode == nil {
+                // 3、如果用户没有设置语言，读取“设置-通用-语言”中默认的语言
+                _languageCode = NSLocale.preferredLanguages.first
+            }
+
+            // 5、如果用户没有设置语言，读取语言json文件中最后一项
+            if let languageCode = _languageCode, let supportedLanguages = self.supportedLanguages, !(supportedLanguages.allKeys as NSArray).contains(languageCode) {
+                _languageCode = supportedLanguages.allKeys.last as? String
+            }
+
+            // 6、保存新的值
+            UserDefaults.standard.set(_languageCode, forKey: KLanguageCodeKey)
+            UserDefaults.standard.synchronize()
+
         }
     }
 
