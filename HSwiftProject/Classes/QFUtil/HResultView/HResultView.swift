@@ -20,61 +20,53 @@ private var KResultDetlTextSize = CGSize(width: 200, height: 20)
 
 class HResultView: UIView, HTupleViewDelegate {
     
-    private var _make: HResultTransition?
     var make: HResultTransition? {
-        get {
-            return _make
-        }
-        set {
-            if _make != newValue {
-                _make = nil
-                _make = newValue
+        didSet {
+            if make != oldValue {
                 self.wakeup()
             }
         }
     }
     
     lazy private var tupleView: HTupleView = {
-        let _tupleView = HTupleView(frame: CGRect.zero)
-        _tupleView.disableBounce()
-        _tupleView.delegate = self
-        self.addSubview(_tupleView)
-        return _tupleView
+        let tupleView = HTupleView(frame: .zero)
+        tupleView.disableBounce()
+        return tupleView
     }()
     
     private func wakeup() {
         //添加view
         var height = KResultTextSize.height
-        guard _make != nil, _make!.hideImage else {
+        guard let make = make, make.hideImage else {
             height += KResultImageSize.height
             return
         }
-        guard _make != nil, _make!.detlDesc != nil, _make!.detlDesc!.length > 0 else {
+        guard let detlDesc = make.detlDesc, detlDesc.count > 0 else {
             height += KResultDetlTextSize.height
             return
         }
         
-        let frame = CGRect(x: 0, y: 0, width: KResultImageSize.width, height: height)
-        self.tupleView.frame = frame
-        self.tupleView.center = CGPoint(x: self.center.x, y: self.center.y - (_make?.marginTop ?? 0))
+        self.tupleView.frame = CGRect(x: 0, y: 0, width: KResultImageSize.width, height: height)
+        self.tupleView.center = CGPoint(x: self.center.x, y: self.center.y - make.marginTop)
         
-        self.tupleView.reloadData()
+        self.tupleView.delegate = self
+        self.addSubview(self.tupleView)
     }
     
     func numberOfSectionsInTupleView() -> Any {
 //        if (![AFNetworkReachabilityManager sharedManager].isReachable) {
-//            _make.style = HResultType.noNetwork
+//            make.style = .noNetwork
 //        }
         return 1
     }
     func numberOfItemsInSection(_ section: Any) -> Any {
-        if _make != nil, _make!.detlDesc != nil, _make!.detlDesc!.length > 0 {
+        guard let make = make, let detlDesc = make.detlDesc, detlDesc.count > 0 else {
             return 2
         }
         return 1
     }
     func sizeForHeaderInSection(_ section: Any) -> Any {
-        if _make != nil, _make!.hideImage == false {
+        guard let make = make, !make.hideImage else {
             return KResultImageSize
         }
         return CGSize.zero
@@ -92,25 +84,25 @@ class HResultView: UIView, HTupleViewDelegate {
         let headerBlock = headerBlock as! HTupleHeader
         let cell = headerBlock(nil, HTupleImageApex.self, nil, true) as! HTupleImageApex
         cell.imageView.backgroundColor = UIColor.white
-        if _make != nil, _make!.bgColor != nil {
-            cell.imageView.backgroundColor = _make!.bgColor!
-        }
-        switch _make?.style {
-        case .noData:
-            cell.imageView.image = UIImage(named: "icon_load_nothing")
-            break
-        case .loadError:
-            cell.imageView.image = UIImage(named: "loading_gif_white")
-            break
-        case .noNetwork:
-            cell.imageView.image = UIImage(named: "loading_gif_lightGray")
-            break
-        default:
-            break
+        if let make = make {
+            if let bgColor = make.bgColor {
+                cell.imageView.backgroundColor = bgColor
+            }
+            switch make.style {
+            case .noData:
+                cell.imageView.image = UIImage(named: "icon_load_nothing")
+                break
+            case .loadError:
+                cell.imageView.image = UIImage(named: "loading_gif_white")
+                break
+            case .noNetwork:
+                cell.imageView.image = UIImage(named: "loading_gif_lightGray")
+                break
+            }
         }
         cell.imageView.pressed = { (_ sender: Any?, _ data: Any?) in
-            if self._make != nil, self._make!.clickedBlock != nil {
-                self._make!.clickedBlock!()
+            if let make = self.make, let clickedBlock = make.clickedBlock {
+                clickedBlock()
             }
         }
     }
@@ -127,31 +119,33 @@ class HResultView: UIView, HTupleViewDelegate {
             cell.label.textColor = UIColor.black
             cell.label.font = UIFont.systemFont(ofSize: 14)
             cell.label.textAlignment  = .center
-            if _make != nil, _make!.bgColor != nil {
-                cell.label.backgroundColor = _make!.bgColor!
-            }
-            if _make != nil, _make!.descFont != nil {
-                cell.label.font = _make!.descFont!
-            }
-            if _make != nil, _make!.descColor != nil {
-                cell.label.textColor = _make!.descColor!
-            }
-            if _make != nil, _make!.desc != nil, _make!.desc!.length > 0 {
-                cell.label.text = _make!.desc!
-            }else {
-                switch (_make?.style) {
-                case .noData:
-                    cell.label.text = "这里好像什么都没有呢⋯"
-                    break
-                case .loadError:
-                    cell.label.text = "服务器开小差了，请稍后再试~"
-                    break
-                case .noNetwork:
-                    cell.label.text = "网络已断开"
-                    break
-                default:
-                    break
+            
+            if let make = make {
+                if let bgColor = make.bgColor {
+                    cell.label.backgroundColor = bgColor
                 }
+                if let descFont = make.descFont {
+                    cell.label.font = descFont
+                }
+                if let descColor = make.descColor {
+                    cell.label.textColor = descColor
+                }
+                if let desc = make.desc, desc.count > 0 {
+                    cell.label.text = desc
+                }else {
+                    switch (make.style) {
+                    case .noData:
+                        cell.label.text = "这里好像什么都没有呢⋯"
+                        break
+                    case .loadError:
+                        cell.label.text = "服务器开小差了，请稍后再试~"
+                        break
+                    case .noNetwork:
+                        cell.label.text = "网络已断开"
+                        break
+                    }
+                }
+                
             }
             break
         case 1:
@@ -161,17 +155,20 @@ class HResultView: UIView, HTupleViewDelegate {
             cell.label.textColor = UIColor.black
             cell.label.font = UIFont.systemFont(ofSize: 14)
             cell.label.textAlignment  = .center
-            if _make != nil, _make!.bgColor != nil {
-                cell.label.backgroundColor = _make!.bgColor!
-            }
-            if _make != nil, _make!.detlDescFont != nil {
-                cell.label.font = _make!.detlDescFont!
-            }
-            if _make != nil, _make!.detlDescColor != nil {
-                cell.label.textColor = _make!.detlDescColor!
-            }
-            if _make != nil, _make!.detlDesc != nil, _make!.detlDesc!.length > 0 {
-                cell.label.text = _make!.detlDesc!
+            
+            if let make = make {
+                if let bgColor = make.bgColor {
+                    cell.label.backgroundColor = bgColor
+                }
+                if let detlDescFont = make.detlDescFont {
+                    cell.label.font = detlDescFont
+                }
+                if let detlDescColor = make.detlDescColor {
+                    cell.label.textColor = detlDescColor
+                }
+                if let detlDesc = make.detlDesc, detlDesc.count > 0 {
+                    cell.label.text = detlDesc
+                }
             }
             break
             
@@ -181,8 +178,8 @@ class HResultView: UIView, HTupleViewDelegate {
     }
     
     func didSelectItemAtIndexPath(_ indexPath: IndexPath) {
-        if _make != nil, _make!.clickedBlock != nil {
-            _make!.clickedBlock!()
+        if let make = make, let clickedBlock = make.clickedBlock {
+            clickedBlock()
         }
     }
 }

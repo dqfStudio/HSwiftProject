@@ -19,41 +19,33 @@ var KWaitingTextSize = CGSize(width: 130, height: 24)
 
 class HWaitingView: UIView, HTupleViewDelegate {
     
-    private var _make: HWaitingTransition?
     var make: HWaitingTransition? {
-        get {
-            return _make
-        }
-        set {
-            if _make != newValue {
-                _make = nil
-                _make = newValue
+        didSet {
+            if make != oldValue {
                 self.wakeup()
             }
         }
     }
     
     lazy private var tupleView: HTupleView = {
-        let _tupleView = HTupleView(frame: CGRect.zero)
-        _tupleView.disableBounce()
-        _tupleView.isUserInteractionEnabled = false
-        _tupleView.delegate = self
-        self.addSubview(_tupleView)
-        return _tupleView
+        let tupleView = HTupleView(frame: .zero)
+        tupleView.isUserInteractionEnabled = false
+        tupleView.disableBounce()
+        return tupleView
     }()
     
     private func wakeup() {
         //添加view
         var height = KWaitingImageSize.height
-        if _make != nil, _make!.desc != nil, _make!.desc!.length > 0 {
+        if let make = make, let desc = make.desc, desc.count > 0 {
             height += KWaitingTextSize.height
         }
         
-        let frame = CGRect(x: 0, y: 0, width: KWaitingImageSize.width, height: height)
-        self.tupleView.frame = frame
-        self.tupleView.center = CGPoint(x: self.center.x, y: self.center.y - _make!.marginTop)
+        self.tupleView.frame = CGRect(x: 0, y: 0, width: KWaitingImageSize.width, height: height)
+        self.tupleView.center = CGPoint(x: self.center.x, y: self.center.y - (make?.marginTop ?? 0))
         
-        self.tupleView.reloadData()
+        self.tupleView.delegate = self
+        self.addSubview(self.tupleView)
     }
     
     func numberOfSectionsInTupleView() -> Any {
@@ -72,43 +64,50 @@ class HWaitingView: UIView, HTupleViewDelegate {
     func tupleHeader(_ headerBlock: Any, inSection section: Any) {
         let headerBlock = headerBlock as! HTupleHeader
         let cell = headerBlock(nil, HTupleAnimatedImageApex.self, nil, true) as! HTupleAnimatedImageApex
-        if _make!.bgColor != nil {
-            cell.imageView.backgroundColor = _make!.bgColor
-        }
-        switch _make!.style {
-        case .black:
-            cell.imageView.startGifWithImageName(name: "loading_gif_black")
-            break
-        case .white:
-            cell.imageView.startGifWithImageName(name: "loading_gif_white")
-            break
-        case .gray:
-            cell.imageView.startGifWithImageName(name: "loading_gif_lightGray")
-            break
+        
+        if let make = make {
+            if let bgColor = make.bgColor {
+                cell.imageView.backgroundColor = bgColor
+            }
+            switch make.style {
+            case .black:
+                cell.imageView.startGifWithImageName(name: "loading_gif_black")
+                break
+            case .white:
+                cell.imageView.startGifWithImageName(name: "loading_gif_white")
+                break
+            case .gray:
+                cell.imageView.startGifWithImageName(name: "loading_gif_lightGray")
+                break
+            }
         }
     }
     
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        
         let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
         
         cell.label.backgroundColor = UIColor.white
         cell.label.textColor = UIColor.black
         cell.label.font = UIFont.systemFont(ofSize: 14)
         cell.label.textAlignment  = .center
-        if _make!.bgColor != nil {
-            cell.label.backgroundColor = _make!.bgColor
+        
+        if let make = make {
+            if let bgColor = make.bgColor {
+                cell.label.backgroundColor = bgColor
+            }
+            if let descFont = make.descFont {
+                cell.label.font = descFont
+            }
+            if let descColor = make.descColor {
+                cell.label.textColor = descColor
+            }
+            if let desc = make.desc, desc.count > 0 {
+                cell.label.text = desc
+            }
+            
         }
-        if _make!.descFont != nil {
-            cell.label.font = _make!.descFont
-        }
-        if _make!.descColor != nil {
-            cell.label.textColor = _make!.descColor
-        }
-        if _make!.desc != nil, _make!.desc!.length > 0 {
-            cell.label.text = _make!.desc
-        }
+        
     }
     
 }
