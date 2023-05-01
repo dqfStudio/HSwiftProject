@@ -39,7 +39,7 @@ class HViewController: UIViewController {
         //modalPresentationStyle 设置默认样式为 UIModalPresentationFullScreen
         self.modalPresentationStyle = .fullScreen
         //只有statusBar没有系统导航栏的情况下,statusBar背景色是透明的需要自定义的导航栏多增加一点高度来伪造statusBar的背景
-        if self.prefersStatusBarHidden == false && self.prefersNavigationBarHidden == false {
+        if !self.prefersStatusBarHidden && !self.prefersNavigationBarHidden {
             statusBarPadding = UIScreen.statusBarHeight
         }
     }
@@ -227,33 +227,33 @@ class HViewController: UIViewController {
     //重新设置topbar的frame
     private func resetTopbarFrame() {
         statusBarPadding = 0
-        if self.prefersStatusBarHidden == false && self.prefersNavigationBarHidden == false {
+        if !self.prefersStatusBarHidden && !self.prefersNavigationBarHidden {
             statusBarPadding = UIScreen.statusBarHeight
         }
         //reset topBar
-        if(self.prefersNavigationBarHidden) {
+        if (self.prefersNavigationBarHidden) {
             self.topBar.frame = CGRect(x: 0, y: statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight)
-        }else {
+        } else {
             self.topBar.frame = CGRect(x: 0, y: 0, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
             self.topBar.bounds = CGRect(x: 0, y: -statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight + statusBarPadding)
         }
         //reset topBar line
         _topBarLine.frame = CGRect(x: 0, y: UIScreen.naviBarHeight - 1, width: topBar.width, height: 1)
         //reset title label
-        if _rightNaviButton != nil {
+        if let rightNaviButton = _rightNaviButton, let leftNaviButton = _leftNaviButton {
             //reset right button
-            _rightNaviButton!.frame = CGRect(x: topBar.width - _rightNaviButton!.width - 10, y: _rightNaviButton!.y, width: _rightNaviButton!.width, height: _rightNaviButton!.height)
+            rightNaviButton.frame = CGRect(x: topBar.width - rightNaviButton.width - 10, y: rightNaviButton.y, width: rightNaviButton.width, height: rightNaviButton.height)
             var minX: CGFloat = 0.0
-            let width: CGFloat = max(_leftNaviButton!.width, _rightNaviButton!.width)
-            if _leftNaviButton!.width == width {
-                minX = _leftNaviButton!.minX
-            }else {
-                minX = self.view.width - _rightNaviButton!.maxX
+            let width: CGFloat = max(leftNaviButton.width, rightNaviButton.width)
+            if leftNaviButton.width == width {
+                minX = leftNaviButton.minX
+            } else {
+                minX = self.view.width - rightNaviButton.maxX
             }
             self.titleLabel.frame = CGRect(x: minX + width, y: 0, width: self.view.width - 2 * (minX + width), height: UIScreen.naviBarHeight)
-        }else {
-            let width: CGFloat = _leftNaviButton!.width
-            self.titleLabel.frame = CGRect(x: _leftNaviButton!.minX + width, y: 0, width: self.view.width - 2 * (_leftNaviButton!.minX + width), height: UIScreen.naviBarHeight)
+        } else if let leftNaviButton = _leftNaviButton {
+            let width: CGFloat = leftNaviButton.width
+            self.titleLabel.frame = CGRect(x: leftNaviButton.minX + width, y: 0, width: self.view.width - 2 * (leftNaviButton.minX + width), height: UIScreen.naviBarHeight)
         }
     }
 
