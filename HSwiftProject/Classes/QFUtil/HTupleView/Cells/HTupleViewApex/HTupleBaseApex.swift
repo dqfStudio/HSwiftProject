@@ -12,16 +12,16 @@ typealias HTupleApexBlock = (_ idxPath: IndexPath) -> Void
 
 class HTupleBaseApex : UICollectionReusableView {
     
-    ///cell所在的tuple view
+    /// Tuple view where the cell is located
     weak var tuple: UICollectionView?
-    ///cell是否为section header
+    /// Whether the cell is a section header
     var isHeader: Bool = false
-    ///cell所在的indexPath
+    /// The indexPath where the cell is located
     var indexPath: IndexPath?
-    
-    ///cell点击block，用户用户点击事件
+
+    /// Block for cell click, used for user click events
     var cellBlock: HTupleApexBlock?
-    ///信号block
+    /// Signal block
     var signalBlock: HTupleCellSignalBlock?
     
     
@@ -38,20 +38,20 @@ class HTupleBaseApex : UICollectionReusableView {
     }
     
     private var _edgeInsets: UIEdgeInsets = .zero
-    ///cell的边距
+    /// The edge insets of the cell.
     @objc var edgeInsets: UIEdgeInsets {
         get { _edgeInsets }
         set {
             guard _edgeInsets != newValue else { return }
             _edgeInsets = newValue
-            //更新layoutView的frame
+            // Update the frame of the layout view.
             if layoutView.frame != layoutViewFrame {
                 layoutView.frame = layoutViewFrame
             }
         }
     }
-    
-    ///用于加载在contentView上的布局视图
+
+    /// The layout view loaded on the content view.
     lazy var layoutView: UIView = {
         let view = UIView()
         self.addSubview(view)
@@ -59,7 +59,7 @@ class HTupleBaseApex : UICollectionReusableView {
     }()
 
 
-    ///用于加载在contentView上的布局视图
+    /// The separator view loaded on the content view.
     private lazy var separatorView: UIView = {
         let view = UIView()
         view.isHidden = true
@@ -68,14 +68,14 @@ class HTupleBaseApex : UICollectionReusableView {
     }()
     
     private var _isShouldShowSeparator: Bool = false
-    ///cell是否显示间隔线
+    /// Whether the cell should display a separator line
     var isShouldShowSeparator: Bool {
         get {
             return _isShouldShowSeparator
         }
         set {
             if _isShouldShowSeparator != newValue {
-               _isShouldShowSeparator = newValue
+                _isShouldShowSeparator = newValue
                 if _isShouldShowSeparator {
                     if self.separatorView.superview == nil {
                         self.addSubview(self.separatorView)
@@ -84,7 +84,7 @@ class HTupleBaseApex : UICollectionReusableView {
                 }
                 self.separatorView.isHidden = !_isShouldShowSeparator
             }
-            //重设frame
+            // Reset frame
             if _isShouldShowSeparator {
                 let separatorFrame = self.separatorFrame
                 if self.separatorView.frame != separatorFrame {
@@ -94,15 +94,15 @@ class HTupleBaseApex : UICollectionReusableView {
         }
     }
 
-    //cell间隔线的边距
+    /// The margin of the cell separator line
     var separatorInset: UILREdgeInsets = UILREdgeInsetsZero {
         didSet {
             guard separatorInset != oldValue else { return }
             separatorView.frame = self.separatorFrame
         }
     }
-    
-    ///cell间隔线的颜色
+
+    /// The color of the cell separator line
     var separatorColor: UIColor? {
         didSet {
             self.separatorView.backgroundColor = separatorColor
@@ -115,7 +115,7 @@ class HTupleBaseApex : UICollectionReusableView {
         return frame
     }
 
-    ///layoutView的frame和bounds
+    /// The frame and bounds of the layout view
     var layoutViewFrame: CGRect {
         return self.bounds.inset(by: edgeInsets)
     }
@@ -125,7 +125,7 @@ class HTupleBaseApex : UICollectionReusableView {
         frame.origin = CGPoint.zero
         return frame
     }
-    
+
     private var _activity: UIActivityIndicatorView?
     var activity: UIActivityIndicatorView {
         if let activity = _activity {
@@ -141,7 +141,7 @@ class HTupleBaseApex : UICollectionReusableView {
             return _activity!
         }
     }
-    
+
     func HLayoutTupleApex(_ v: UIView) {
         let frame = self.layoutViewBounds
         if !v.frame.equalTo(frame) {
@@ -149,10 +149,11 @@ class HTupleBaseApex : UICollectionReusableView {
         }
         _activity?.center = CGPoint(x: self.width / 2, y: self.height / 2)
     }
-    
-    ///cell初始化是调用的方法
+
+    /// Method called during cell initialization
     func initUI() { }
-    ///用于子类更新子视图布局
+    
+    /// Used by subclasses to update subview layout
     @objc
     func relayoutSubviews() { }
 
