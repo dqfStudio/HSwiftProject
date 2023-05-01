@@ -23,28 +23,28 @@ class HViewController: UIViewController {
     private var statusBarPadding: CGFloat = 0
     private var orientation: UIDeviceOrientation = UIDevice.current.orientation
         
-    //一般情况下调用 init 方法或者调用 initWithNibName 方法实例化 UIViewController, 不管调用哪个方法都为调用 initWithNibName
+    // Generally, call the init method or the initWithNibName method to instantiate a UIViewController, regardless of which method is called, it is calling initWithNibName
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.pvc_initialize()
     }
 
-    //使用storeBoard初始化的
+    // Initialized using storeBoard
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.pvc_initialize()
     }
 
     private func pvc_initialize() {
-        //modalPresentationStyle 设置默认样式为 UIModalPresentationFullScreen
+        // modalPresentationStyle sets the default style to UIModalPresentationFullScreen
         self.modalPresentationStyle = .fullScreen
-        //只有statusBar没有系统导航栏的情况下,statusBar背景色是透明的需要自定义的导航栏多增加一点高度来伪造statusBar的背景
+        // If there is only a statusBar and no system navigation bar, the statusBar background color is transparent and you need to add a little more height to the custom navigation bar to fake the statusBar background
         if !self.prefersStatusBarHidden && !self.prefersNavigationBarHidden {
             statusBarPadding = UIScreen.statusBarHeight
         }
     }
 
-    //loadView 从nib载入视图 ，通常这一步不需要去干涉。除非你没有使用xib文件创建视图,即用代码创建的UI
+    // loadView loads the view from the nib, usually this step does not need to be interfered with. Unless you are not using a xib file to create the view, that is, you are using code to create the UI
     override func loadView() {
         self.pvc_initView()
     }
@@ -64,7 +64,7 @@ class HViewController: UIViewController {
         self.view.backgroundColor = HVCAppearance.bgColor
         self.view.addSubview(self.topBar)
         self.view.isExclusiveTouch = true
-        //关闭暗黑模式
+        //Disable dark mode
         if #available(iOS 13.0, *) {
             self.overrideUserInterfaceStyle = .light
         }
@@ -75,9 +75,9 @@ class HViewController: UIViewController {
         self.becomeFirstResponder()
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.view.bringSubviewToFront(self.topBar)
-        //要更新statusbar状态的需要调用下这个方法,最好与viewWillDisappear对应
+        // Call this method to update the status bar status. It is best to correspond with viewWillDisappear
         self.setNeedsStatusBarAppearanceUpdate()
-        //根据导航栏的颜色动态设置状态栏样式
+        // Dynamically set the status bar style based on the color of the navigation bar
         //if self.preferredStatusBarColor != nil {
         //    UIApplication.setStatusBarStyleWithColor(self.preferredStatusBarColor ?? UIColor.white)
         //}else if self.autoAdjustStatusBarStyle && self.topBar.isHidden == false {
@@ -104,7 +104,7 @@ class HViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        //重新设置topbar的frame
+        //Reset the frame of the top bar
         if self.orientation != UIDevice.current.orientation {
             self.orientation = UIDevice.current.orientation
             self.resetTopbarFrame()
@@ -124,20 +124,24 @@ class HViewController: UIViewController {
         }
     }
 
-    /// 事件处理
+    /// Return event processing
     func back() {
 //        let viewcontrollers = self.navigationController?.viewControllers
 //        let topViewController = self.navigationController?.topViewController
 //        if viewcontrollers?.count ?? 0 > 1 && topViewController == self {
-//            self.navigationController?.popViewController(animated: true)//push方式
+//            // dismiss with present animation
+//            self.navigationController?.popViewController(animated: true)
 //        }else {
-//            self.dismiss(animated: true, completion: nil)//present方式
+//            // pop view controller with push animation
+//            self.dismiss(animated: true, completion: nil)
 //        }
         switch (self.appearType) {
         case .undefine, .present:
-            self.dismiss(animated: true, completion: nil)//present方式
+            // dismiss with present animation
+            self.dismiss(animated: true, completion: nil)
         case .push:
-            self.navigationController?.popViewController(animated: true)//push方式
+            // pop view controller with push animation
+            self.navigationController?.popViewController(animated: true)
         default:
             break
         }
@@ -151,12 +155,11 @@ class HViewController: UIViewController {
         
     }
 
-    /// 各个视图
     private var _topBar = UIView()
     private var _topBarLine = UIView()
     
     var topBar: UIView {
-        //没有系统导航栏的时候,status背景色是透明的,用自定义导航栏去伪造一个status背景区域
+        // When there is no system navigation bar, the status background color is transparent. Use a custom navigation bar to create a fake status background area.
         if self.prefersNavigationBarHidden {
             _topBar.frame = CGRect(x: 0, y: statusBarPadding, width: self.view.width, height: UIScreen.naviBarHeight)
         }else {
@@ -221,7 +224,7 @@ class HViewController: UIViewController {
         return _rightNaviButton!
     }
 
-    //重新设置topbar的frame
+    //Reset the frame of the top bar
     private func resetTopbarFrame() {
         statusBarPadding = 0
         if !self.prefersStatusBarHidden && !self.prefersNavigationBarHidden {
@@ -254,7 +257,6 @@ class HViewController: UIViewController {
         }
     }
 
-    /// 设置视图
     override var title: String? {
         didSet {
             guard self.isViewLoaded else { return }
@@ -315,7 +317,7 @@ class HViewController: UIViewController {
         self.rightNaviButton.setImage(nil, for: [.normal, .highlighted])
     }
     
-    /// 导航栏状态控制
+    /// Navigation bar status control
     func setNeedsNavigationBarAppearanceUpdate() {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.topBar.isHidden = self.prefersNavigationBarHidden
@@ -389,9 +391,9 @@ class HViewController: UIViewController {
 
 }
 
-// MARK: - 横纵屏
+/// Landscape and portrait
 extension HViewController {
-    /// 旋转支持
+    /// Rotation support
     override var shouldAutorotate: Bool {
         return false
     }
