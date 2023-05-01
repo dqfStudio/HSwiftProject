@@ -9,7 +9,7 @@
 import UIKit
 
 class HAnimatedImageView: UIImageView {
-    // 工程內gif
+    // gif in project
     func startGifWithImageName(name:String) {
         guard let path = Bundle.main.path(forResource: name, ofType: "gif") else {
             print ("SwiftGif: Source for the image does not exist")
@@ -17,36 +17,36 @@ class HAnimatedImageView: UIImageView {
         }
         self.startGifwithFilePath(filePath: path)
     }
-    // 实现动图效果
+    // implement gif effect
     func startGifwithFilePath(filePath: String) {
-        //1.加载GIF图片，并转化为data类型
+        //1. Load GIF image and convert to data type
         guard let data = NSData(contentsOfFile: filePath) else { return }
-        //2.从data中读取数据，转换为CGImageSource
+        //2. Read data from data and convert to CGImageSource
         guard let imageSource = CGImageSourceCreateWithData(data, nil) else { return }
         let imageCount = CGImageSourceGetCount(imageSource)
-        //3.遍历所有图片
+        //3. Traverse all images
         var images = [UIImage]()
         var totalDuration : TimeInterval = 0
         for i in 0...imageCount {
 
-            //3.1取出图片
+            //3.1 Take out the image
             guard let cgImage = CGImageSourceCreateImageAtIndex(imageSource, i, nil) else { continue }
             let image = UIImage(cgImage: cgImage)
             images.append(image)
 
-            //3.2取出持续时间
+            //3.2 Take out the duration
             guard let properties = CGImageSourceCopyPropertiesAtIndex(imageSource, i, nil) as? NSDictionary else { continue }
             guard let gifDict = properties[kCGImagePropertyGIFDictionary] as? NSDictionary else { continue }
             guard let frameDuration = gifDict[kCGImagePropertyGIFDelayTime] as? NSNumber else { continue }
             totalDuration += frameDuration.doubleValue
         }
 
-        //4.设置imageview的属性
+        //4. Set the properties of the imageview
         self.animationImages = images
         self.animationDuration = totalDuration
         self.animationRepeatCount = 0
 
-        //5.开始播放
+        //5. Start playing
         self.startAnimating ()
     }
     func imageStopAnimating() {
