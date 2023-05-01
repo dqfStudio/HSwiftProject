@@ -1,7 +1,14 @@
+//
+//  HVersionManager.swift
+//  HSwiftProject
+//
+//  Created by Wind on 2023/3/9.
+//  Copyright © 2023 wind. All rights reserved.
+//
 
 import Foundation
 
-private var HistoryVersionsKey = "HMusicHistoryVersionsKey"
+private var KHistoryVersionsKey = "HistoryVersionsKey"
 
 class HVersionManager: NSObject {
     
@@ -10,8 +17,8 @@ class HVersionManager: NSObject {
         return HVersionManager()
     }()
     
-    private var versionFirstLaunchKey: String?
-    private var versionLaunchTimesKey: String?
+    private var versionFirstLaunchKey = ""
+    private var versionLaunchTimesKey = ""
     
     private override init() {
         super.init()
@@ -21,81 +28,78 @@ class HVersionManager: NSObject {
     
     //保存当前版本号，不会重复保存
     func saveVersion() {
-        var historys = self.historyVersion()
-        if historys == nil {
-            historys = [String]()
+        guard var historys = self.historyVersion else {
+            UserDefaults.standard.set([self.currentVersion], forKey: KHistoryVersionsKey)
+            UserDefaults.standard.synchronize()
+            return
         }
-        if !historys!.contains(self.currentVersion) {
-            historys!.append(self.currentVersion)
-            UserDefaults.standard.set(historys, forKey: HistoryVersionsKey)
+        if !historys.contains(self.currentVersion) {
+            historys.append(self.currentVersion)
+            UserDefaults.standard.set(historys, forKey: KHistoryVersionsKey)
             UserDefaults.standard.synchronize()
         }
     }
     
     //用户升级之前的版本号，新用户则返回nil
-    func lastVersion() -> String? {
-        let versionArray = self.historyVersion()
-        var version: String?
-        if let versionArray = versionArray, versionArray.count > 0 {
-            if versionArray.contains(self.currentVersion) {
-                if versionArray.count > 1 {
-                    let index = versionArray.count - 2
-                    version = versionArray[index]
-                }
-            } else {
-                version = versionArray.last
-            }
+    var lastVersion: String? {
+        guard let versionArray = self.historyVersion, !versionArray.isEmpty else {
+            return nil
         }
-        return version
+        if versionArray.contains(self.currentVersion), versionArray.count > 1 {
+            let index = versionArray.count - 2
+            return versionArray[index]
+        } else {
+            return versionArray.last
+        }
     }
     
     //当前版本号，没有build号，如5.0.3
     var currentVersion: String {
-        return Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+        guard let infoDictionary = Bundle.main.infoDictionary,
+              let version = infoDictionary["CFBundleShortVersionString"] as? String else {
+            return ""
+        }
+        return version
     }
     
     //当前版本号，有build号，比如：5.0.3.008
     var detailVersion: String {
-        return "\(self.currentVersion).\(Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String)"
+        guard let bundleVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String else {
+            return ""
+        }
+        return "\(self.currentVersion).\(bundleVersion)"
     }
     
     //判断当前版本是否是第一次启动，主要用于播放引导页
-    func isNewVersionFirstLaunch() -> Bool {
-        let obj = UserDefaults.standard.object(forKey: self.versionFirstLaunchKey!)
-        if obj == nil {
-            return true
-        }
-        return false
+    var isNewVersionFirstLaunch: Bool {
+        return UserDefaults.standard.object(forKey: self.versionFirstLaunchKey) == nil
     }
     
     //是否是新用户，YES表示新用户，NO表示升级用户
-    func isNewUser() -> Bool {
-        return (self.lastVersion() == nil)
+    var isNewUser: Bool {
+        return self.lastVersion == nil
     }
     
     //增加当前版本的启动次数
     func increaseLaunchTimes() {
-        var launchTimes = UserDefaults.standard.integer(forKey: self.versionLaunchTimesKey!)
+        var launchTimes = UserDefaults.standard.integer(forKey: self.versionLaunchTimesKey)
         launchTimes += 1
-        UserDefaults.standard.set(launchTimes, forKey: self.versionLaunchTimesKey!)
+        UserDefaults.standard.set(launchTimes, forKey: self.versionLaunchTimesKey)
         UserDefaults.standard.synchronize()
     }
     
     //第一次启动之后，调用这个方法，会更改记录，如果没调用这个方法，那么下次还会认为当前版本是第一次启动
     func afterVersionFirstLaunch() {
-        let date = Date()
-        UserDefaults.standard.set(date, forKey: self.versionFirstLaunchKey!)
+        UserDefaults.standard.set(Date(), forKey: self.versionFirstLaunchKey)
         UserDefaults.standard.synchronize()
     }
     
     private func arrayForVersion(_ version: String) -> [String] {
-        let array = version.components(separatedBy: ".")
-        return array
+        return version.components(separatedBy: ".")
     }
     
-    private func historyVersion() -> [String]? {
-        let historys = UserDefaults.standard.object(forKey: HistoryVersionsKey) as? [String]
-        return historys
+    private var historyVersion: [String]? {
+        return UserDefaults.standard.object(forKey: KHistoryVersionsKey) as? [String]
     }
     
 }
@@ -146,10 +150,8 @@ extension HVersionManager {
     }
     
     //第一次启动时，进行版本比较，根据比较结果展示不同的引导图
-    func firstLaunchVersionCompareResult() -> HVersionCompareResult {
-        let lastVersion = self.lastVersion()
-        let result = self.versionCompareResult(lastVersion)
-        return result
+    var firstLaunchVersionCompareResult: HVersionCompareResult {
+        return self.versionCompareResult(self.lastVersion)
     }
     
     private func versionCompareResult(_ version: String?) -> HVersionCompareResult {
