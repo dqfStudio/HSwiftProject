@@ -258,7 +258,7 @@ class HWebButtonView: UIButton {
         get {
             return _imageView.backgroundColor
         }
-        set(newValue) {
+        set {
             _imageView.backgroundColor = newValue
         }
     }

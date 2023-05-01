@@ -187,23 +187,20 @@ class HViewController: UIViewController {
         return label
     }()
 
-    private var _leftNaviButton: HWebButtonView?
-    var leftNaviButton: HWebButtonView {
-        if _leftNaviButton == nil {
-            _leftNaviButton = HWebButtonView()
-            _leftNaviButton!.backgroundColor = nil
-            _leftNaviButton!.frame = CGRect(x: 15, y: 0, width: UIScreen.naviBarHeight, height: UIScreen.naviBarHeight)
-            _leftNaviButton!.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-            _leftNaviButton!.contentHorizontalAlignment = .left
-            _leftNaviButton!.pressed = { [weak self] (_ sender: Any?, _ data: Any?) -> Void in
-                guard let self = self else { return }
-                self.leftNaviButtonPressed()
-            }
-            _leftNaviButton!.imageView?.contentMode = .scaleAspectFit
-            self.topBar.addSubview(_leftNaviButton!)
+    lazy var leftNaviButton: HWebButtonView = {
+        let button = HWebButtonView()
+        button.frame = CGRect(x: 15, y: 0, width: UIScreen.naviBarHeight, height: UIScreen.naviBarHeight)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.contentHorizontalAlignment = .left
+        button.backgroundColor = UIColor.clear
+        button.pressed = { [weak self] (_ sender: Any?, _ data: Any?) -> Void in
+            guard let self = self else { return }
+            self.leftNaviButtonPressed()
         }
-        return _leftNaviButton!
-    }
+        button.imageView?.contentMode = .scaleAspectFit
+        self.topBar.addSubview(button)
+        return button
+    }()
     
     private var _rightNaviButton: HWebButtonView?
     var rightNaviButton: HWebButtonView {
@@ -240,20 +237,20 @@ class HViewController: UIViewController {
         //reset topBar line
         _topBarLine.frame = CGRect(x: 0, y: UIScreen.naviBarHeight - 1, width: topBar.width, height: 1)
         //reset title label
-        if let rightNaviButton = _rightNaviButton, let leftNaviButton = _leftNaviButton {
+        if let rightNaviButton = _rightNaviButton {
             //reset right button
             rightNaviButton.frame = CGRect(x: topBar.width - rightNaviButton.width - 10, y: rightNaviButton.y, width: rightNaviButton.width, height: rightNaviButton.height)
             var minX: CGFloat = 0.0
-            let width: CGFloat = max(leftNaviButton.width, rightNaviButton.width)
-            if leftNaviButton.width == width {
-                minX = leftNaviButton.minX
+            let width: CGFloat = max(self.leftNaviButton.width, rightNaviButton.width)
+            if self.leftNaviButton.width == width {
+                minX = self.leftNaviButton.minX
             } else {
                 minX = self.view.width - rightNaviButton.maxX
             }
             self.titleLabel.frame = CGRect(x: minX + width, y: 0, width: self.view.width - 2 * (minX + width), height: UIScreen.naviBarHeight)
-        } else if let leftNaviButton = _leftNaviButton {
-            let width: CGFloat = leftNaviButton.width
-            self.titleLabel.frame = CGRect(x: leftNaviButton.minX + width, y: 0, width: self.view.width - 2 * (leftNaviButton.minX + width), height: UIScreen.naviBarHeight)
+        } else {
+            let width: CGFloat = self.leftNaviButton.width
+            self.titleLabel.frame = CGRect(x: self.leftNaviButton.minX + width, y: 0, width: self.view.width - 2 * (self.leftNaviButton.minX + width), height: UIScreen.naviBarHeight)
         }
     }
 
