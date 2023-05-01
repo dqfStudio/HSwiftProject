@@ -11,26 +11,10 @@ import UIKit
 class HTransitionAnimation : NSObject, UIViewControllerAnimatedTransitioning {
 
     //转场动画类型
-    private var _transitionType : HTransitionType = .push
-    var transitionType : HTransitionType {
-        get {
-            return _transitionType
-        }
-        set {
-            _transitionType = newValue
-        }
-    }
+    var transitionType : HTransitionType = .push
 
     //动画时间, 默认0.25秒
-    private var _transitionDuration: TimeInterval = 0.25
-    var transitionDuration: TimeInterval {
-        get {
-            return _transitionDuration
-        }
-        set {
-            _transitionDuration = newValue
-        }
-    }
+    var transitionDuration: TimeInterval = 0.25
 
     //转场动画结束回调
     var transitionCompletion: HTransitionCompletion?
@@ -42,7 +26,7 @@ class HTransitionAnimation : NSObject, UIViewControllerAnimatedTransitioning {
 
     //所有的过渡动画事务都在这个方法里面完成
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        switch (_transitionType) {
+        switch (transitionType) {
         case .push:
             self.startPushAnimation(transitionContext)
             break
@@ -61,7 +45,7 @@ class HTransitionAnimation : NSObject, UIViewControllerAnimatedTransitioning {
     //动画结束
     func animationEnded(_ transitionCompleted: Bool) {
         if (transitionCompleted) {
-            switch (_transitionType) {
+            switch (transitionType) {
             case .push:
                 self.endPushAnimation()
                 break

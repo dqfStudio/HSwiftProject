@@ -53,7 +53,7 @@ extension UIViewController {
      viewController 要显示的控制器
      completion     动画结束后的回调
     */
-    func presentController(_ viewController:UIViewController, completion: HTransitionCompletion?) {
+    func presentController(_ viewController: UIViewController, completion: HTransitionCompletion?) {
         let animation = HPresentAnimation()
         animation.presetType = viewController.presetType
         animation.contentSize = viewController.containerSize

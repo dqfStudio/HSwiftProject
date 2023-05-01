@@ -12,31 +12,22 @@ typealias HTupleViewBannerCellBlock = (_ index: Int) -> Void
 
 class HTupleViewBannerCell : HTupleBaseCell, HCycleScrollViewDelegate {
     
-    private var _cycleScrollView: HCycleScrollView?
-    private var cycleScrollView: HCycleScrollView {
-        if _cycleScrollView == nil {
-            _cycleScrollView = HCycleScrollView.cycleScrollViewWithFrame(self.bounds, delegate: self, placeholderImage: UIImage(named: "HCyclePlaceholder")!)
-            _cycleScrollView!.pageControlAliment = .Center
-            _cycleScrollView!.currentPageDotColor = UIColor.white
-        }
-        return _cycleScrollView!
-    }
+    private lazy var cycleScrollView: HCycleScrollView = {
+        let scrollView = HCycleScrollView.cycleScrollViewWithFrame(self.bounds, delegate: self, placeholderImage: UIImage(named: "HCyclePlaceholder")!)
+        scrollView.pageControlAliment = .Center
+        scrollView.currentPageDotColor = UIColor.white
+        return scrollView
+    }()
     
-    private var _imageUrlArr: NSArray?
     var imageUrlArr: NSArray? {
-        get {
-            return _imageUrlArr
-        }
-        set {
-            if (_imageUrlArr != newValue) {
-                _imageUrlArr = nil
-                _imageUrlArr = newValue
-                self.cycleScrollView.imageURLStringsGroup = newValue
+        didSet {
+            if imageUrlArr != oldValue {
+                self.cycleScrollView.imageURLStringsGroup = imageUrlArr
             }
         }
     }
+    
     var selectedBannerBlock: HTupleViewBannerCellBlock?
-
 
     override func relayoutSubviews() {
         HLayoutTupleCell(self.cycleScrollView)
@@ -47,11 +38,9 @@ class HTupleViewBannerCell : HTupleBaseCell, HCycleScrollViewDelegate {
     }
 
     /// HCycleScrollViewDelegate
-    
     func cycleScrollView(_ cycleScrollView: HCycleScrollView, didSelectItemAtIndex index: Int) {
-        if (self.selectedBannerBlock != nil) {
-            self.selectedBannerBlock!(index)
-        }
+        guard let selectedBannerBlock = self.selectedBannerBlock else { return }
+        selectedBannerBlock(index)
     }
 
 }

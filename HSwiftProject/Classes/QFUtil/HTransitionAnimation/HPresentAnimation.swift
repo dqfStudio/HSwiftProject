@@ -11,62 +11,19 @@ import UIKit
 class HPresentAnimation : HTransitionAnimation, UIViewControllerTransitioningDelegate {
 
     //转场视图尺寸大小
-    private var _contentSize: CGSize = CGSize.zero
-    @objc var contentSize: CGSize {
-        get {
-            return _contentSize
-        }
-        set {
-            _contentSize = newValue
-        }
-    }
+    @objc var contentSize: CGSize = CGSize.zero
 
     //转场动画类型(默认Alert)
-    private var _presetType: HTransitionStyle = .alert
-    var presetType: HTransitionStyle {
-        get {
-            return _presetType
-        }
-        set {
-            _presetType = newValue
-        }
-    }
+    var presetType: HTransitionStyle = .alert
 
     //转场视图点击背景是否dismiss (消失）默认NO
-    private var _isShadowDismiss: Bool = false
-    @objc var isShadowDismiss: Bool {
-        get {
-            return _isShadowDismiss
-        }
-        set {
-            return _isShadowDismiss = newValue
-        }
-    }
+    @objc var isShadowDismiss: Bool = false
 
-    //转场视图背景颜色 (默认 [UIColor colorWithWhite:0.1 alpha:0.2]）
-    private var _shadowColor: UIColor?
-    @objc var shadowColor: UIColor? {
-        get {
-            if (_shadowColor == nil) {
-                _shadowColor = UIColor(white: 0.1, alpha: 0.2)
-            }
-            return _shadowColor
-        }
-        set {
-            _shadowColor = newValue
-        }
-    }
+    //转场视图背景颜色
+    @objc var shadowColor: UIColor = UIColor(white: 0.1, alpha: 0.2)
 
     //管理要显示视图的VC
-    private var _presentationVC: HPresentationController?
-    @objc private var presentationVC: HPresentationController? {
-        get {
-            return _presentationVC
-        }
-        set {
-            _presentationVC = newValue
-        }
-    }
+    @objc private var presentationVC: HPresentationController?
 
     // UIViewControllerTransitioningDelegate
     // 返回的对象控制Presented时的动画 (开始动画的具体细节负责类)
@@ -89,13 +46,13 @@ class HPresentAnimation : HTransitionAnimation, UIViewControllerTransitioningDel
     }
 
     override func endPresentAnimation() {
-        if (self.transitionCompletion != nil) {
-            self.transitionCompletion!(.present)
+        if let completion = self.transitionCompletion {
+            completion(.present)
         }
     }
     override func endDismissAnimation() {
-        if (self.transitionCompletion != nil) {
-            self.transitionCompletion!(.dismiss)
+        if let completion = self.transitionCompletion {
+            completion(.dismiss)
         }
     }
 
@@ -103,10 +60,9 @@ class HPresentAnimation : HTransitionAnimation, UIViewControllerTransitioningDel
     //弹出动画
     private func animationForPresentedView(_ transitionContext: UIViewControllerContextTransitioning) {
         //获得要显示的view
-        let presentedView: UIView? = transitionContext.view(forKey: UITransitionContextViewKey.to)
-        if (presentedView != nil) {
-            transitionContext.containerView.addSubview(presentedView!)
-        }
+        guard let presentedView = transitionContext.view(forKey: UITransitionContextViewKey.to) else { return }
+        transitionContext.containerView.addSubview(presentedView)
+        
         //蒙层颜色
         self.presentationVC?.shadowColor = self.shadowColor
         //设置阴影
@@ -118,26 +74,26 @@ class HPresentAnimation : HTransitionAnimation, UIViewControllerTransitioningDel
         //动画时间
         let duration = self.transitionDuration(using: transitionContext)
         
-        if (self.presetType == .alert) {
-            presentedView?.alpha = 0.0
-            presentedView?.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
+        if self.presetType == .alert {
+            presentedView.alpha = 0.0
+            presentedView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
             UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 50, options: .curveEaseInOut) {
-                presentedView?.alpha = 1.0
-                presentedView?.transform = .identity
+                presentedView.alpha = 1.0
+                presentedView.transform = .identity
             } completion: { finished in
-                if (finished) {
+                if finished {
                     transitionContext.completeTransition(true)
                 }
             }
-        } else if (self.presetType == .sheet) {
-            presentedView?.alpha = 0.0
+        } else if self.presetType == .sheet {
+            presentedView.alpha = 0.0
             let screenHeight = UIScreen.main.bounds.height
-            presentedView?.frame = CGRect(x: 0, y: screenHeight, width: self.contentSize.width, height: self.contentSize.height)
+            presentedView.frame = CGRect(x: 0, y: screenHeight, width: self.contentSize.width, height: self.contentSize.height)
             UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut) {
-                presentedView?.alpha = 1.0
-                presentedView?.frame = CGRect(x: 0, y: screenHeight - self.contentSize.height, width: self.contentSize.width, height: self.contentSize.height)
+                presentedView.alpha = 1.0
+                presentedView.frame = CGRect(x: 0, y: screenHeight - self.contentSize.height, width: self.contentSize.width, height: self.contentSize.height)
             } completion: { finished in
-                if (finished) {
+                if finished {
                     transitionContext.completeTransition(true)
                 }
             }
@@ -145,23 +101,23 @@ class HPresentAnimation : HTransitionAnimation, UIViewControllerTransitioningDel
     }
     // 弹框消失
     private func animationForDismissedView(_ transitionContext: UIViewControllerContextTransitioning) {
-        let presentedView = transitionContext.view(forKey: UITransitionContextViewKey.from)
+        guard let presentedView = transitionContext.view(forKey: UITransitionContextViewKey.from) else { return }
         //动画时间
         let duration = self.transitionDuration(using: transitionContext)
         
-        if (self.presetType == .alert) {
+        if self.presetType == .alert {
             UIView.animate(withDuration: duration, delay: 0, options: .curveEaseIn) {
-                presentedView?.removeFromSuperview()
+                presentedView.removeFromSuperview()
                 transitionContext.completeTransition(true)
             } completion: { finished in
                 
             }
-        }else if (self.presetType == .sheet) {
+        }else if self.presetType == .sheet {
             UIView.animate(withDuration: duration) {
-                presentedView?.transform = CGAffineTransform(translationX: 0, y: self.contentSize.height)
+                presentedView.transform = CGAffineTransform(translationX: 0, y: self.contentSize.height)
             } completion: { finished in
-                if (finished) {
-                    presentedView?.removeFromSuperview()
+                if finished {
+                    presentedView.removeFromSuperview()
                     transitionContext.completeTransition(true)
                 }
             }

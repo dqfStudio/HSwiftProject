@@ -10,59 +10,27 @@ import UIKit
 
 class HPresentationController : UIPresentationController {
     //蒙层
-    private var _contentCoverView: UIView?
-    var contentCoverView: UIView {
-        if (_contentCoverView == nil) {
-            _contentCoverView = UIView(frame: self.containerView?.bounds ?? CGRect.zero)
-            let tap = UITapGestureRecognizer(target: self, action: #selector(dismissAction))
-            _contentCoverView!.addGestureRecognizer(tap)
-        }
-        return _contentCoverView!
-    }
+    lazy var contentCoverView: UIView = {
+        let contentCoverView = UIView(frame: self.containerView?.bounds ?? CGRect.zero)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissAction))
+        contentCoverView.addGestureRecognizer(tap)
+        return contentCoverView
+    }()
+    
     //蒙层颜色
-    private var _shadowColor: UIColor?
-    var shadowColor: UIColor? {
-        get {
-            return _shadowColor!
-        }
-        set {
-            _shadowColor = newValue
-            if (_shadowColor == nil) {
-                _shadowColor = UIColor(white: 0.1, alpha: 0.2)
-            }
-            _contentCoverView?.backgroundColor = _shadowColor
+    var shadowColor: UIColor = UIColor(white: 0.1, alpha: 0.2) {
+        didSet {
+            self.contentCoverView.backgroundColor = shadowColor
         }
     }
     //弹出框类型
-    private var _presentType: HTransitionStyle = .alert
-    var presentType: HTransitionStyle {
-        get {
-            return _presentType
-        }
-        set {
-            _presentType = newValue
-        }
-    }
+    var presentType: HTransitionStyle = .alert
+    
     //内容层大小
-    private var _contentSize: CGSize = CGSize.zero
-    @objc var contentSize: CGSize {
-        get {
-            return _contentSize
-        }
-        set {
-            _contentSize = newValue
-        }
-    }
+    @objc var contentSize: CGSize = CGSize.zero
+    
     ///点击阴影是否关闭页面
-    private var _isShadowDismiss: Bool = false
-    @objc var isShadowDismiss: Bool {
-        get {
-            return _isShadowDismiss
-        }
-        set {
-            _isShadowDismiss = newValue
-        }
-    }
+    @objc var isShadowDismiss: Bool = false
 
     // 重写UIPresentationController的方法
     //重写构造方法
@@ -98,11 +66,10 @@ class HPresentationController : UIPresentationController {
 
     // 消失过渡完成之后调用，此时应该将视图移除
     override func dismissalTransitionDidEnd(_ completed: Bool) {
-        if (completed) {
+        if completed {
             self.presentedView?.removeFromSuperview()
             //去掉蒙版
             self.contentCoverView.removeFromSuperview()
-            self._contentCoverView = nil
         }
     }
 
@@ -115,23 +82,25 @@ class HPresentationController : UIPresentationController {
 
     override var frameOfPresentedViewInContainerView: CGRect {
         var makeRect = CGRect.zero
-        if (self.presentType == HTransitionStyle.alert) {
-            makeRect = CGRect(x: self.containerView!.center.x - self.contentSize.width * 0.5,
-                              y: self.containerView!.center.y - self.contentSize.height * 0.5,
-                              width: self.contentSize.width,
-                              height: self.contentSize.height)
-            
-        }else if (self.presentType == HTransitionStyle.sheet) {
-            if (self.contentSize.equalTo(CGSize.zero)) {
-                self.contentSize = self.containerView!.size
+        if let containerView = self.containerView {
+            if self.presentType == HTransitionStyle.alert {
+                makeRect = CGRect(x: containerView.center.x - self.contentSize.width * 0.5,
+                                    y: containerView.center.y - self.contentSize.height * 0.5,
+                                    width: self.contentSize.width,
+                                    height: self.contentSize.height)
+                
+            }else if self.presentType == HTransitionStyle.sheet {
+                if self.contentSize.equalTo(CGSize.zero) {
+                    self.contentSize = containerView.size
+                }
+                if self.contentSize.width == 0, self.contentSize.height > 0 {
+                    self.contentSize = CGSize(width: containerView.bounds.width, height: self.contentSize.height)
+                }
+                makeRect = CGRect(x: containerView.bounds.size.width - self.contentSize.width,
+                                        y: containerView.bounds.size.height - self.contentSize.height,
+                                        width: self.contentSize.width,
+                                        height: self.contentSize.height)
             }
-            if (self.contentSize.width == 0 && self.contentSize.height > 0) {
-                self.contentSize = CGSize(width: self.containerView!.bounds.width, height: self.contentSize.height)
-            }
-            makeRect = CGRect(x: self.containerView!.bounds.size.width - self.contentSize.width,
-                                  y: self.containerView!.bounds.size.height - self.contentSize.height,
-                                  width: self.contentSize.width,
-                                  height: self.contentSize.height)
         }
         return makeRect
     }
@@ -146,7 +115,7 @@ class HPresentationController : UIPresentationController {
 
     @objc
     private func dismissAction() {
-        if (self.isShadowDismiss) {
+        if self.isShadowDismiss {
             self.presentedViewController.dismiss(animated: true, completion: nil)
         }
     }

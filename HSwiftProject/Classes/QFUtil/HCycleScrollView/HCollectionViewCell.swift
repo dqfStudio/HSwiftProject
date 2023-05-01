@@ -14,15 +14,10 @@ class HCollectionViewCell: UICollectionViewCell {
 
     var imageView: HWebImageView!
     
-    private var _title: String?
     var title: String? {
-        get {
-            return _title
-        }
-        set {
-            _title = newValue
-            if newValue != nil {
-                titleLabel.text = String(format: "   %@", newValue!)
+        didSet {
+            if title != oldValue {
+                titleLabel.text = String(format: "   %@", title!)
                 if titleLabel.isHidden {
                     titleLabel.isHidden = false
                 }
@@ -30,49 +25,29 @@ class HCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    private var _titleLabelTextColor: UIColor?
     var titleLabelTextColor: UIColor? {
-        get {
-            return _titleLabelTextColor
-        }
-        set {
-            _titleLabelTextColor = newValue
-            titleLabel.textColor = newValue
+        didSet {
+            titleLabel.textColor = titleLabelTextColor
         }
     }
     
-    private var _titleLabelTextFont: UIFont?
     var titleLabelTextFont: UIFont? {
-        get {
-            return _titleLabelTextFont
-        }
-        set {
-            _titleLabelTextFont = newValue
-            titleLabel.font = newValue
+        didSet {
+            titleLabel.font = titleLabelTextFont
         }
     }
     
-    private var _titleLabelBackgroundColor: UIColor?
     var titleLabelBackgroundColor: UIColor? {
-        get {
-            return _titleLabelBackgroundColor
-        }
-        set {
-            _titleLabelBackgroundColor = newValue
-            titleLabel.backgroundColor = newValue
+        didSet {
+            titleLabel.backgroundColor = titleLabelBackgroundColor
         }
     }
     
     var titleLabelHeight: CGFloat = 0.0
     
-    private var _titleLabelTextAlignment: NSTextAlignment = .center
-    var titleLabelTextAlignment: NSTextAlignment {
-        get {
-            return _titleLabelTextAlignment
-        }
-        set {
-            _titleLabelTextAlignment = newValue
-            titleLabel.textAlignment = newValue
+    var titleLabelTextAlignment: NSTextAlignment = .center {
+        didSet {
+            titleLabel.textAlignment = titleLabelTextAlignment
         }
     }
 
@@ -111,10 +86,10 @@ class HCollectionViewCell: UICollectionViewCell {
             titleLabel.frame = self.bounds
         }else {
             imageView.frame = self.bounds
-            let titleLabelW = self.hc_width
+            let titleLabelW = self.width
             let titleLabelH = titleLabelHeight
-            let titleLabelX: CGFloat = 0.0
-            let titleLabelY = self.hc_height - titleLabelH
+            let titleLabelX = 0.0
+            let titleLabelY = self.height - titleLabelH
             titleLabel.frame = CGRect(x: titleLabelX, y: titleLabelY, width: titleLabelW, height: titleLabelH)
         }
     }

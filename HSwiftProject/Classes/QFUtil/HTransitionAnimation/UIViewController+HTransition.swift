@@ -19,8 +19,8 @@ extension UIViewController {
         return 0.25
     }
     //转场动画内容视图阴影部分颜色
-    @objc var shadowColor: UIColor? {
-        return nil
+    @objc var shadowColor: UIColor {
+        return UIColor(white: 0.1, alpha: 0.2)
     }
     //转场动画内容视图点击是否整体消失
     @objc var isShadowDismiss: Bool {
