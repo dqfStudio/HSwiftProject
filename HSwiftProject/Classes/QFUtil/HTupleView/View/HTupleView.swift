@@ -1224,19 +1224,19 @@ extension HTupleView {
 
     /// Add a value to a certain state
     func setObject(_ anObject: Any, forKey aKey: String, state: Int) {
-        let key: NSString = aKey + Tuple_State_Key + "\(state)" as NSString
-        self.tupleStateSource.setObject(anObject, forKey: key)
+        let key = aKey + Tuple_State_Key + "\(state)"
+        self.tupleStateSource.setObject(anObject, forKey: key as NSCopying)
     }
 
     /// Get a value of a certain state
     func object(forKey aKey: String, state: Int) -> Any? {
-        let key: NSString = aKey + Tuple_State_Key + "\(state)" as NSString
+        let key = aKey + Tuple_State_Key + "\(state)"
         return self.tupleStateSource.object(forKey: key)
     }
 
     /// Remove a value in a certain state
     func removeObject(forKey aKey: String, state: Int) {
-        let key: NSString = aKey + Tuple_State_Key + "\(state)" as NSString
+        let key = aKey + Tuple_State_Key + "\(state)"
         self.tupleStateSource.removeObject(forKey: key)
     }
 

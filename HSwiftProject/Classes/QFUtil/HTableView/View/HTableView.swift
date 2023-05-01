@@ -808,19 +808,19 @@ extension HTableView {
 
     /// Add a value to a certain state
     func setObject(_ anObject: Any, forKey aKey: String, state: Int) {
-        let key: NSString = aKey + Table_State_Key + "\(state)" as NSString
-        self.tableStateSource.setObject(anObject, forKey: key)
+        let key = aKey + Table_State_Key + "\(state)"
+        self.tableStateSource.setObject(anObject, forKey: key as NSCopying)
     }
 
     /// Get a value of a certain state
     func object(forKey aKey: String, state: Int) -> Any? {
-        let key: NSString = aKey + Table_State_Key + "\(state)" as NSString
+        let key = aKey + Table_State_Key + "\(state)"
         return self.tableStateSource.object(forKey: key)
     }
 
     /// Remove a value in a certain state
     func removeObject(forKey aKey: String, state: Int) {
-        let key: NSString = aKey + Table_State_Key + "\(state)" as NSString
+        let key = aKey + Table_State_Key + "\(state)"
         self.tableStateSource.removeObject(forKey: key)
     }
 
@@ -838,9 +838,7 @@ extension HTableView {
 
     /// Remove all values ​​of the state
     func clearTableState() {
-        if self.tableStateSource.count > 0 {
-            self.tableStateSource.removeAllObjects()
-        }
+        self.tableStateSource.removeAllObjects()
     }
 
 }
