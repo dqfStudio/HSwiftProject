@@ -14,8 +14,8 @@ enum HTupleDirection: Int {
 }
 
 private enum HTupleStyle: Int {
-    case `default`  //单体式设计
-    case split //分体式设计
+    case `default`  //Singleton design
+    case split //Split design
 }
 
 private var KTupleDefaultTag = 1213141516
@@ -46,7 +46,7 @@ typealias HTupleItem = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ i
 ///split design exclusive sections block
 typealias HTupleSectionExclusiveBlock = () -> NSArray
 
-///此类用于全工程刷新tupleView
+///This class is used for refreshing tupleView throughout the project.
 class HTupleAppearance : NSObject {
     
     private static var hashTuples = NSHashTable<AnyObject>.weakObjects()
@@ -56,7 +56,7 @@ class HTupleAppearance : NSObject {
     }
     static func refreshTuples(_ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
-            //倒序执行
+            // Execute in reverse order
             let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
             tuples.forEach { $0.reloadTupleData() }
             DispatchQueue.main.async {
@@ -66,7 +66,7 @@ class HTupleAppearance : NSObject {
     }
     static func refreshTuples(key: String, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
-            //倒序执行
+            // Execute in reverse order
             let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
             tuples.filter { $0.reloadTupleKey == key }.forEach { $0.reloadTupleData() }
             DispatchQueue.main.async {
@@ -76,7 +76,7 @@ class HTupleAppearance : NSObject {
     }
     static func releaseTuples(key: String, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
-            //倒序执行
+            // Execute in reverse order
             let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
             tuples.filter { $0.releaseTupleKey == key }.forEach { $0.releaseTupleBlock() }
             DispatchQueue.main.async {
@@ -198,8 +198,8 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
 
     private var sectionPaths: NSArray?
     
-    ///默认layout为HCollectionViewFlowLayout
-    ///默认为垂直滚动方向
+    ///Default layout is HCollectionViewFlowLayout
+    ///Default scrolling direction is vertical
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
@@ -220,7 +220,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         self.setup()
     }
     
-    ///split设计初始化方法
+    /// Initialization method for split
     static func tupleFrame(_ frame: () -> CGRect, exclusiveSections sections: HTupleSectionExclusiveBlock) -> HTupleView {
         return HTupleView(frame(), exclusiveSections: sections())
     }
@@ -253,10 +253,10 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     private func setup() {
-        //保存tupleView用于全局刷新
+        // Save tupleView for global refresh
         HTupleAppearance.addTuple(self)
         
-        //设置默认tag
+        // Set default tag
         self.tag = KTupleDefaultTag
         
         if self.flowLayout?.scrollDirection == .vertical {
@@ -343,20 +343,20 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
     }
     
-    ///设置释放的key值
+    /// Set the key value for release
     var releaseTupleKey: String?
 
-    ///设置reload的key值
+    /// Set the key value for reload
     var reloadTupleKey: String?
 
-    ///block refresh & loadMore
+    /// block refresh & loadMore
     func beginRefreshing(_ completion: @escaping () -> Void) {
         guard self.refreshBlock != nil else { return }
         self.pageNo = 1
         self.mj_header?.beginRefreshing(completionBlock: completion)
     }
 
-    ///stop refresh
+    /// stop refresh
     func endRefreshing(_ completion: @escaping () -> Void) {
         self.mj_header?.endRefreshing(completionBlock:completion)
 
@@ -366,7 +366,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         self.mj_footer?.endRefreshing(completionBlock:completion)
     }
     
-    // header & footer 是否悬停
+    /// Whether the header and footer are sticky
     var sectionHeadersPinToVisibleBounds: Bool {
         get { return flowLayout?.sectionHeadersPinToVisibleBounds ?? false }
         set { flowLayout?.sectionHeadersPinToVisibleBounds = newValue }
@@ -377,7 +377,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         set { flowLayout?.sectionFootersPinToVisibleBounds = newValue }
     }
     
-    ///bounce method
+    /// bounce method
     func enableHorizontalBounce() {
         self.bounces = true
         self.alwaysBounceHorizontal = true
@@ -431,15 +431,15 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     /// register class
     func dequeueReusableHeaderWithClass(_ cls: AnyClass, iblk: AnyObject?, pre: String?, idx: Bool, idxPath: IndexPath) -> AnyObject {
         var cell: HTupleBaseApex
-        // 唯一标识符
+        // Unique identifier
         var identifier = (pre ?? "") + "HeaderCell" + NSStringFromClass(cls) + self.addressValue
-        // 判断是否包含index
+        // Determine whether it contains an index
         identifier += idx ? idxPath.stringValue : ""
-        // 判断是否有tuple状态值
+        // Determine if there is a tuple state value
         if self.tupleStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(idxPath.section) {
             identifier += "\(self.tupleState)"
         }
-        // 判断是否已经加载过
+        // Determine whether it has been loaded
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier)
@@ -454,15 +454,15 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }else {
             cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
         }
-        //保存cell
+        // Save cell
         self.allReuseHeaders.setObject(cell, forKey: idxPath.nsStringValue)
-        //调用代理方法
+        // Call delegate method
         if let delegate = self.tupleDelegate {
             let prefix = self.prefixWithSection(idxPath.section)
             let selector: Selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 let edgeInsets = delegate.performWithUnretainedValue(selector, with: idxPath.section, withPre: prefix) as! UIEdgeInsets
-                //设置属性
+                // Set properties
                 if edgeInsets != .zero, cell.responds(to: #selector(setter: cell.edgeInsets)) {
                     cell.edgeInsets = edgeInsets
                 }
@@ -473,15 +473,15 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     
     func dequeueReusableFooterWithClass(_ cls: AnyClass, iblk: AnyObject?, pre: String?, idx: Bool, idxPath: IndexPath) -> AnyObject {
         var cell: HTupleBaseApex
-        // 唯一标识符
+        // Unique identifier
         var identifier = (pre ?? "") + "FooterCell" + NSStringFromClass(cls) + self.addressValue
-        // 判断是否包含index
+        // Determine whether it contains an index
         identifier += idx ? idxPath.stringValue : ""
-        // 判断是否有tuple状态值
+        // Determine if there is a tuple state value
         if self.tupleStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(idxPath.section) {
             identifier += "\(self.tupleState)"
         }
-        // 判断是否已经加载过
+        // Determine whether it has been loaded
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: identifier)
@@ -496,15 +496,15 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }else {
             cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
         }
-        //保存cell
+        // Save cell
         self.allReuseFooters.setObject(cell, forKey: idxPath.nsStringValue)
-        //调用代理方法
+        // Call delegate method
         if let delegate = self.tupleDelegate {
             let prefix = self.prefixWithSection(idxPath.section)
             let selector = #selector(delegate.edgeInsetsForFooterInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 let edgeInsets = delegate.performWithUnretainedValue(selector, with: idxPath.section, withPre: prefix) as! UIEdgeInsets
-                //设置属性
+                // Set properties
                 if edgeInsets != .zero, cell.responds(to: #selector(setter: cell.edgeInsets)) {
                     cell.edgeInsets = edgeInsets
                 }
@@ -515,15 +515,15 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
 
     func dequeueReusableCellWithClass(_ cls: AnyClass, iblk: AnyObject?, pre: String?, idx: Bool, idxPath: IndexPath) -> AnyObject {
         var cell: HTupleBaseCell
-        // 唯一标识符
+        // Unique identifier
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
-        // 判断是否包含index
+        // Determine whether it contains an index
         identifier += idx ? idxPath.stringValue : ""
-        // 判断是否有tuple状态值
+        // Determine if there is a tuple state value
         if self.tupleStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(idxPath.section) {
             identifier += "\(self.tupleState)"
         }
-        // 判断是否已经加载过
+        // Determine whether it has been loaded
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forCellWithReuseIdentifier: identifier)
@@ -537,15 +537,15 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }else {
             cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseCell
         }
-        //保存cell
+        // Save cell
         self.allReuseCells.setObject(cell, forKey: idxPath.nsStringValue)
-        //调用代理方法
+        // Call delegate method
         if let delegate = self.tupleDelegate {
             let prefix = self.prefixWithSection(idxPath.section)
             let selector = #selector(delegate.edgeInsetsForItemAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 let edgeInsets = delegate.performWithUnretainedValue(selector, with: idxPath, withPre: prefix) as! UIEdgeInsets
-                //设置属性
+                // Set properties
                 if edgeInsets != .zero, cell.responds(to: #selector(setter: cell.edgeInsets)) {
                     cell.edgeInsets = edgeInsets
                 }
@@ -584,7 +584,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         return prefix
     }
     
-    /// 以下为UICollectionView的代理方法
+    /// The following are UICollectionView delegate methods
     internal func numberOfSections(in collectionView: UICollectionView) -> Int {
         if self.allSectionInsets.count > 0 {
             self.allSectionInsets.removeAllObjects()
@@ -598,7 +598,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
-                // 防止数量小于0
+                // Prevents quantity from being less than 0
                 sections = max(sections, 0)
             }
             return sections
@@ -610,7 +610,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
-                // 防止数量小于0
+                // Prevents quantity from being less than 0
                 sections = max(sections, 0)
             }
             return sections
@@ -627,7 +627,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             }
             let edgeInsets = self.collectionView(self, layout: self.flowLayout!, insetForSectionAt: section)
             self.allSectionInsets.setObject(NSStringFromUIEdgeInsets(edgeInsets) as AnyObject, forKey: "\(section)" as NSString)
-            // 防止数量小于0
+            // Prevents quantity from being less than 0
             items = max(items, 0)
         }
         return items
@@ -672,7 +672,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             if delegate.responds(to: selector, withPre: prefix) {
                 size = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
             }
-            // 防止大小为负数
+            // Prevent negative size
             size.width = max(size.width, 0.0)
             size.height = max(size.height, 0.0)
         }
@@ -687,7 +687,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             if delegate.responds(to: selector, withPre: prefix) {
                 size = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
             }
-            // 防止大小为负数
+            // Prevent negative size
             size.width = max(size.width, 0.0)
             size.height = max(size.height, 0.0)
         }
@@ -702,7 +702,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             if delegate.responds(to: selector, withPre: prefix) {
                 size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
             }
-            // 防止大小为负数
+            // Prevent negative size
             if size.width <= 0 { size.width = 1.0 }
             if size.height <= 0 { size.height = 1.0 }
         }
@@ -710,7 +710,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        //调用代理方法
+        // Call delegate method
         if let delegate = self.tupleDelegate {
             let prefix = self.prefixWithSection(indexPath.section)
             let selector: Selector = #selector(delegate.tupleItem(_:atIndexPath:))
@@ -721,20 +721,20 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 delegate.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
             }
         }
-        //调用cell
+        // Call cell
         let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
-        //更新布局
+        // Update layout
         if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
             cell.relayoutSubviews()
         }
-        //防止崩溃
+        // Prevent crashes
         return cell ?? UICollectionViewCell()
     }
     
     internal func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         var cell: HTupleBaseApex?
         if kind == UICollectionElementKindSectionHeader {
-            //调用代理方法
+            // Call delegate method
             if let delegate = self.tupleDelegate {
                 let prefix = self.prefixWithSection(indexPath.section)
                 let selector: Selector = #selector(delegate.tupleHeader(_:inSection:))
@@ -745,10 +745,10 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                     delegate.perform(selector, with: headerBlock, with: indexPath.section, withPre: prefix)
                 }
             }
-            //调用cell
+            // Call cell
             cell = self.allReuseHeaders.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
         }else if (kind == UICollectionElementKindSectionFooter) {
-            //调用代理方法
+            // Call delegate method
             if let delegate = self.tupleDelegate {
                 let prefix = self.prefixWithSection(indexPath.section)
                 let selector: Selector = #selector(delegate.tupleFooter(_:inSection:))
@@ -759,14 +759,14 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                     delegate.perform(selector, with: footerBlock, with: indexPath.section, withPre: prefix)
                 }
             }
-            //调用cell
+            // Call cell
             cell = self.allReuseFooters.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
         }
-        //更新布局
+        // Update layout
         if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
             cell.relayoutSubviews()
         }
-        //防止崩溃
+        // Prevent crashes
         return cell ?? UICollectionReusableView()
     }
     
@@ -1003,10 +1003,10 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     
 }
 
-/// 信号机制分类
+/// Signal mechanism classification
 extension HTupleView {
 
-    ///tupleView持有的信号block
+    /// The signal block held by tupleView
     var signalBlock: HTupleCellSignalBlock? {
         get {
             return self.getAssociatedValueForKey(&signalBlockKey) as? HTupleCellSignalBlock
@@ -1016,14 +1016,14 @@ extension HTupleView {
         }
     }
     
-    ///给tupleView发送信号
+    /// Send signal to tupleView
     func signalToTupleView(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
         guard let signalBlock = self.signalBlock else { return }
         signalBlock(self, signal)
         completion()
     }
 
-    ///给所有item、某个section下的item或单独某个item发送信号
+    /// Send signals to all items, items under a certain section, or a single item individually
     func signalToAllItems(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             let tuples = self.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HTupleBaseCell }
@@ -1065,7 +1065,7 @@ extension HTupleView {
         completion()
     }
 
-    ///给所有header或单独某个header发送信号
+    /// Send signals to all headers or a single header individually
     func signalToAllHeader(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             let sections = self.numberOfSections
@@ -1094,7 +1094,7 @@ extension HTupleView {
         completion()
     }
 
-    ///给所有footer或单独某个footer发送信号
+    /// Send signals to all footers or a single footer individually
     func signalToAllFooter(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             let sections = self.numberOfSections
@@ -1122,7 +1122,7 @@ extension HTupleView {
         completion()
     }
 
-    ///释放所有信号block
+    /// Release all signal blocks
     func releaseAllSignal() {
         DispatchQueue.global().async {
             self.signalBlock = nil
@@ -1135,7 +1135,7 @@ extension HTupleView {
         }
     }
 
-    ///根据传入的row和section获取cell或indexPath
+    /// Get cell or indexPath based on the given row and section
     func cell(_ row: Int, _ section: Int) -> AnyObject? {
         return self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section))
     }
@@ -1143,14 +1143,14 @@ extension HTupleView {
         return IndexPath(row: row, section: section)
     }
 
-    ///获取某个section的宽高和大小
+    /// Get the width, height, and size of a certain section
     func width(forSection section: Int) -> CGFloat {
         var width: CGFloat = self.width
         let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
         if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
             let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
             width -= edgeInsets.left + edgeInsets.right
-            width = max(width, 0) // 优化：确保宽度不会小于0
+            width = max(width, 0) // Ensure width is not less than 0
         }
         return width
     }
@@ -1161,7 +1161,7 @@ extension HTupleView {
         if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
             let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
             height -= edgeInsets.top + edgeInsets.bottom
-            height = max(height, 0) // 优化：确保宽度不会小于0
+            height = max(height, 0) // Ensure width is not less than 0
         }
         return height
     }
@@ -1173,13 +1173,13 @@ extension HTupleView {
             let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
             size.width -= edgeInsets.left + edgeInsets.right
             size.height -= edgeInsets.top + edgeInsets.bottom
-            size.width = max(size.width, 0) // 优化：确保宽度不会小于0
-            size.height = max(size.height, 0) // 优化：确保宽度不会小于0
+            size.width = max(size.width, 0) // Ensure that the width is not less than 0
+            size.height = max(size.height, 0) // Ensure that the height is not less than 0
         }
         return size
     }
 
-    ///根据传入的个数和序号计算该item的宽度
+    /// Calculate the width of the item based on the number and index passed in
     func fixSlit(withWidth width: CGFloat, colCount: Int, index: Int) -> CGFloat {
         let itemWidth: CGFloat = width / CGFloat(colCount)
         let realItemWidth: CGFloat = itemWidth.rounded(.down)
@@ -1193,7 +1193,7 @@ extension HTupleView {
 
 private var KTupleStateKey = "_tuple_"
 
-/// split设计数据存储分类
+/// Design data storage category for split
 extension HTupleView {
 
     private var tupleStateSource: NSMutableDictionary {
@@ -1208,7 +1208,7 @@ extension HTupleView {
         }
     }
     
-    ///tupleView分体式设计所表示的状态
+    /// The state represented by the tupleView split design
     var tupleState: Int {
         get {
             let value = self.getAssociatedValueForKey(&tupleStateKey) as? NSNumber ?? NSNumber(value: 0)
@@ -1222,7 +1222,7 @@ extension HTupleView {
         }
     }
 
-    ///向某个状态或当前状态添加一个值
+    /// Add a value to a certain state or the current state
     func setObject(_ anObject: Any, forKey aKey: String) {
         self.setObject(anObject, forKey: aKey, state: self.tupleState)
     }
@@ -1232,7 +1232,7 @@ extension HTupleView {
         self.tupleStateSource.setObject(anObject, forKey: key)
     }
 
-    ///获取某个状态或当前状态的一个值
+    /// Get a value of a certain state or the current state
     func objectForKey(_ aKey: String) -> Any? {
         return self.objectForKey(aKey, state: self.tupleState)
     }
@@ -1242,7 +1242,7 @@ extension HTupleView {
         return self.tupleStateSource.object(forKey: key)
     }
 
-    ///删除某个状态或当前状态下的一个值
+    /// Remove a value in a certain state or the current state
     func removeObjectForKey(_ aKey: String) {
         self.removeObjectForKey(aKey, state: self.tupleState)
     }
@@ -1252,7 +1252,7 @@ extension HTupleView {
         self.tupleStateSource.removeObject(forKey: key)
     }
 
-    ///删除某个状态或当前状态的值
+    /// Delete the value of a certain state or the current state
     func removeStateObject() {
         self.removeObjectForState(self.tupleState)
     }
@@ -1268,7 +1268,7 @@ extension HTupleView {
         
     }
 
-    ///删除所有状态的值
+    /// Remove all values ​​of the state
     func clearTupleState() {
         self.tupleStateSource.removeAllObjects()
     }
