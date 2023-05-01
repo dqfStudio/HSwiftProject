@@ -1222,43 +1222,27 @@ extension HTupleView {
         }
     }
 
-    /// Add a value to a certain state or the current state
-    func setObject(_ anObject: Any, forKey aKey: String) {
-        self.setObject(anObject, forKey: aKey, state: self.tupleState)
-    }
-    
-    func setObject(_ anObject: Any, forKey aKey: String, state tupleState: Int) {
-        let key: NSString = aKey + Tuple_State_Key + "\(tupleState)" as NSString
+    /// Add a value to a certain state
+    func setObject(_ anObject: Any, forKey aKey: String, state: Int) {
+        let key: NSString = aKey + Tuple_State_Key + "\(state)" as NSString
         self.tupleStateSource.setObject(anObject, forKey: key)
     }
 
-    /// Get a value of a certain state or the current state
-    func objectForKey(_ aKey: String) -> Any? {
-        return self.objectForKey(aKey, state: self.tupleState)
-    }
-    
-    func objectForKey(_ aKey: String, state tupleState: Int) -> Any? {
-        let key: NSString = aKey + Tuple_State_Key + "\(tupleState)" as NSString
+    /// Get a value of a certain state
+    func object(forKey aKey: String, state: Int) -> Any? {
+        let key: NSString = aKey + Tuple_State_Key + "\(state)" as NSString
         return self.tupleStateSource.object(forKey: key)
     }
 
-    /// Remove a value in a certain state or the current state
-    func removeObjectForKey(_ aKey: String) {
-        self.removeObjectForKey(aKey, state: self.tupleState)
-    }
-    
-    func removeObjectForKey(_ aKey: String, state tupleState: Int) {
-        let key: NSString = aKey + Tuple_State_Key + "\(tupleState)" as NSString
+    /// Remove a value in a certain state
+    func removeObject(forKey aKey: String, state: Int) {
+        let key: NSString = aKey + Tuple_State_Key + "\(state)" as NSString
         self.tupleStateSource.removeObject(forKey: key)
     }
 
-    /// Delete the value of a certain state or the current state
-    func removeStateObject() {
-        self.removeObjectForState(self.tupleState)
-    }
-    
-    func removeObjectForState(_ tupleState: Int) {
-        let key = Tuple_State_Key + "\(tupleState)"
+    /// Delete the value of a certain state
+    func removeObject(forState state: Int) {
+        let key = Tuple_State_Key + "\(state)"
         for (aKey, _) in self.tupleStateSource.reversed() {
             let aKey = aKey as! String
             if key == aKey {

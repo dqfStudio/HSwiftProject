@@ -806,43 +806,27 @@ extension HTableView {
         }
     }
 
-    /// Add a value to a certain state or the current state
-    func setObject(_ anObject: Any, forKey aKey: String) {
-        self.setObject(anObject, forKey: aKey, state: self.tableState)
-    }
-    
-    func setObject(_ anObject: Any, forKey aKey: String, state tableState: Int) {
-        let key: NSString = aKey + Table_State_Key + "\(tableState)" as NSString
+    /// Add a value to a certain state
+    func setObject(_ anObject: Any, forKey aKey: String, state: Int) {
+        let key: NSString = aKey + Table_State_Key + "\(state)" as NSString
         self.tableStateSource.setObject(anObject, forKey: key)
     }
 
-    /// Get a value of a certain state or the current state
-    func objectForKey(_ aKey: String) -> Any? {
-        return self.objectForKey(aKey, state: self.tableState)
-    }
-    
-    func objectForKey(_ aKey: String, state tableState: Int) -> Any? {
-        let key: NSString = aKey + Table_State_Key + "\(tableState)" as NSString
+    /// Get a value of a certain state
+    func object(forKey aKey: String, state: Int) -> Any? {
+        let key: NSString = aKey + Table_State_Key + "\(state)" as NSString
         return self.tableStateSource.object(forKey: key)
     }
 
-    /// Remove a value in a certain state or the current state
-    func removeObjectForKey(_ aKey: String) {
-        self.removeObjectForKey(aKey, state: self.tableState)
-    }
-    
-    func removeObjectForKey(_ aKey: String, state tableState: Int) {
-        let key: NSString = aKey + Table_State_Key + "\(tableState)" as NSString
+    /// Remove a value in a certain state
+    func removeObject(forKey aKey: String, state: Int) {
+        let key: NSString = aKey + Table_State_Key + "\(state)" as NSString
         self.tableStateSource.removeObject(forKey: key)
     }
 
-    /// Remove the value of a certain state or the current state
-    func removeStateObject() {
-        self.removeObjectForState(self.tableState)
-    }
-    
-    func removeObjectForState(_ tableState: Int) {
-        let key = Table_State_Key + "\(tableState)"
+    /// Remove the value of a certain state
+    func removeObject(forState state: Int) {
+        let key = Table_State_Key + "\(state)"
         for (aKey, _) in self.tableStateSource.reversed() {
             let aKey = aKey as! String
             if key == aKey {

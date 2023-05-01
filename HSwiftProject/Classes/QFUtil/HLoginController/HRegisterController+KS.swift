@@ -88,7 +88,7 @@ extension HRegisterController {
 
         cell.textField.textColor = UIColor(hex: "#BABABF")
         cell.textField.font = UIFont.systemFont(ofSize: 14)
-        cell.textField.text = self.tupleView.objectForKey("state", state: 0) as? String
+        cell.textField.text = self.tupleView.object(forKey: "state", state: 0) as? String
 
         cell.signalBlock = { (target, signal) in
             let cell = target as! HTupleTextFieldCell
