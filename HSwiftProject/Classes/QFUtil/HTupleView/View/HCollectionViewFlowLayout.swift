@@ -11,7 +11,7 @@ import UIKit
 private var HCollectionViewSectionColor = "com.dqf.HCollectionElementKindSectionColor"
 
 private class HCollectionViewLayoutAttributes : UICollectionViewLayoutAttributes {
-    var backgroundColor: UIColor? //背景色
+    var backgroundColor: UIColor?
 }
 
 private class HCollectionReusableView : UICollectionReusableView {
@@ -24,7 +24,7 @@ private class HCollectionReusableView : UICollectionReusableView {
     }
 }
 
-/// 扩展section的背景色
+/// Extend the background color of the section
 @objc protocol HCollectionViewDelegateFlowLayout : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, colorForSectionAt section: NSInteger) -> UIColor
 }
@@ -51,7 +51,7 @@ class HCollectionViewFlowLayout : UICollectionViewFlowLayout {
         let selector = #selector(delegate.collectionView(_:layout:colorForSectionAt:))
         guard delegate.responds(to: selector) else { return }
 
-        //1.初始化
+        // 1. Initialization
         self.register(HCollectionReusableView.self, forDecorationViewOfKind: HCollectionViewSectionColor)
         self.decorationViewAttrs.removeAll()
 
@@ -81,7 +81,7 @@ class HCollectionViewFlowLayout : UICollectionViewFlowLayout {
                 sectionFrame.size.height += sectionInset.top + sectionInset.bottom
             }
 
-            //2. 定义
+            // 2. Definition
             let attr: HCollectionViewLayoutAttributes = HCollectionViewLayoutAttributes(forDecorationViewOfKind: HCollectionViewSectionColor, with: IndexPath(row: 0, section: section))
             attr.frame = sectionFrame
             attr.zIndex = -1
@@ -90,7 +90,7 @@ class HCollectionViewFlowLayout : UICollectionViewFlowLayout {
         }
     }
 
-    //此类原有方法 并加上 去掉Cell之间的间隔线
+    // The original method with the addition of removing the spacing line between cells
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         guard let attrs = super.layoutAttributesForElements(in: rect) else { return nil }
         let decorationViewAttrsInRect = decorationViewAttrs.filter { $0.frame == rect }
