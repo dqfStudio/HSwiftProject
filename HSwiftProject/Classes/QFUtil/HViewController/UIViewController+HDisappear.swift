@@ -27,7 +27,7 @@ private var kHVCAppearTypeKey = "kHVCAppearTypeKey"
 
 extension UIViewController {
 
-    //VC出现方式
+    // VC presentation style
     var appearType: HVCAppearType {
         get {
             let value = self.getAssociatedValueForKey(&kHVCAppearTypeKey) as? NSNumber ?? NSNumber(value: 0)
