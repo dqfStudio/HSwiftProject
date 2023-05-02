@@ -15,13 +15,12 @@ class HMainController5: HTabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.white
         self.title = "table展示"
         
         let screenSize: CGSize = UIScreen.size
 
         self.setTabBarFrame(CGRect(x: 0, y: UIScreen.topBarHeight, width: screenSize.width, height: kTabBarHeight),
-            contentViewFrame: CGRect(x: 0, y: kTabBarHeight, width: screenSize.width, height: screenSize.height - kTabBarHeight))
+            contentViewFrame: CGRect(x: 0, y: UIScreen.topBarHeight + kTabBarHeight, width: screenSize.width, height: screenSize.height - UIScreen.topBarHeight - kTabBarHeight))
 
         self.tabBar.itemTitleColor = UIColor.black
         self.tabBar.itemTitleSelectedColor = UIColor.red
@@ -38,7 +37,7 @@ class HMainController5: HTabBarController {
 
         self.tabBar.addBottomLineViewWithColor(UIColor.black)
 
-        self.tabContentView.backgroundColor = UIColor.gray
+        self.tabContentView.backgroundColor = UIColor.clear
         self.tabContentView.setContentScrollEnabled(true, tapSwitchAnimated:false)
         self.tabContentView.loadViewOfChildContollerWhileAppear = true
 

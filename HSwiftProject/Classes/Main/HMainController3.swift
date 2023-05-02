@@ -33,9 +33,8 @@ class HMainController3: HViewController, HTupleViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
-        self.leftNaviButton.isHidden = true
         self.title = "第三页"
+        self.navigationBar.leftItem.isHidden = true
         self.tupleView.delegate = self
         self.view.addSubview(self.tupleView)
     }

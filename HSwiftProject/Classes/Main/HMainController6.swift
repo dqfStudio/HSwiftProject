@@ -13,9 +13,9 @@ class HMainController6: HTableController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.white
-        self.leftNaviButton.isHidden = true
+        self.navigationBar.isHidden = true
         self.tableView.delegate = self
+        self.topExtendedLayout = false
     }
 
 }

@@ -36,7 +36,8 @@ class HSheetController : HViewController, HTupleViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
-        self.topBar.isHidden = true
+//        self.topBar.isHidden = true
+        self.navigationBar.isHidden = true
         
         //是否隐藏视觉展示效果，如毛玻璃效果
         if self.hideVisualView {

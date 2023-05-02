@@ -34,7 +34,8 @@ class HRegisterController: HViewController, HTupleViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
-        self.leftNaviButton.isHidden = true
+//        self.leftNaviButton.isHidden = true
+        self.navigationBar.leftItem.isHidden = true
         self.title = "注册"
         self.tupleView.delegate = self
         self.view.addSubview(self.tupleView)
