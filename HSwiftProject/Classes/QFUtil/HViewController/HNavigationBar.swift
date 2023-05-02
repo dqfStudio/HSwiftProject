@@ -43,6 +43,7 @@ class HNavigationBar: UIView, HTupleViewDelegate {
         buttonView.addTarget(self, action: #selector(leftItemPressed))
         return buttonView
     }()
+    
     // Middle title of the navigation bar
     lazy var titleItem: UILabel = {
         let labelView = UILabel(frame: .zero)
@@ -51,6 +52,7 @@ class HNavigationBar: UIView, HTupleViewDelegate {
         labelView.textAlignment = .center
         return labelView
     }()
+    
     // Right button of the navigation bar
     lazy var rightItem: UIButton = {
         let buttonView = UIButton(frame: .zero)
@@ -63,27 +65,7 @@ class HNavigationBar: UIView, HTupleViewDelegate {
         buttonView.addTarget(self, action: #selector(rightItemPressed))
         return buttonView
     }()
-
-
-    // Whether the left button of the navigation bar is editable, if true, the frame can be reset
-    var isLeftItemEditable: Bool = false {
-        didSet {
-            if isLeftItemEditable != oldValue {
-                self.tupleView.reloadTupleData()
-            }
-        }
-    }
-
-
-    // Whether the right button of the navigation bar is editable, if true, the frame can be reset
-    var isRightItemEditable: Bool = false {
-        didSet {
-            if isRightItemEditable != oldValue {
-                self.tupleView.reloadTupleData()
-            }
-        }
-    }
-
+    
 
     // Color of the spacing line of the navigation bar
     var lineBarColor: UIColor = UIColor(hex: 0xe5e5e5) {
@@ -212,12 +194,10 @@ extension HNavigationBar {
                 if self.leftItem.superview == nil {
                     cell.addSubview(self.leftItem)
                 }
-                // Is it possible to customize the frame?
-                if !isLeftItemEditable {
-                    var frame = cell.layoutViewBounds
-                    frame.width = leftItemWidth
-                    self.leftItem.frame = frame
-                }
+                // Reset frame
+                var frame = cell.layoutViewBounds
+                frame.width = leftItemWidth
+                self.leftItem.frame = frame
                 break
             case 2:
                 let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
@@ -226,10 +206,11 @@ extension HNavigationBar {
             case 3:
                 let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
                 cell.backgroundColor = UIColor.clear
-                self.titleItem.frame = cell.layoutViewBounds
                 if self.titleItem.superview == nil {
                     cell.addSubview(self.titleItem)
                 }
+                // Reset frame
+                self.titleItem.frame = cell.layoutViewBounds
                 break
             case 4:
                 let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
@@ -241,13 +222,11 @@ extension HNavigationBar {
                 if self.rightItem.superview == nil {
                     cell.addSubview(self.rightItem)
                 }
-                // Is it possible to customize the frame?
-                if !isRightItemEditable {
-                    var frame = cell.layoutViewBounds
-                    frame.x = frame.width - rightItemWidth
-                    frame.width = rightItemWidth
-                    self.rightItem.frame = frame
-                }
+                // Reset frame
+                var frame = cell.layoutViewBounds
+                frame.x = frame.width - rightItemWidth
+                frame.width = rightItemWidth
+                self.rightItem.frame = frame
                 break
             case 6:
                 let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
