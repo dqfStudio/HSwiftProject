@@ -34,6 +34,16 @@ extension NSObject {
         }
     }
     
+    func exclusive(exc: String, block: () -> Void, elseBlock: () -> Void) {
+        let excString: String = String(format: "%p%@", self, exc)
+        if !self.exclusiveSet.contains(excString) {
+            self.exclusiveSet.add(excString)
+            block()
+        }else {
+            elseBlock()
+        }
+    }
+    
     func exclusive(exc: String, delay interval: TimeInterval, block: () -> Void) {
         let excString: String = String(format: "%p%@", self, exc)
         if !self.exclusiveSet.contains(excString) {
