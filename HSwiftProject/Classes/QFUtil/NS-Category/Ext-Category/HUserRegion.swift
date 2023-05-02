@@ -109,7 +109,7 @@ class HUserRegion: NSObject {
     }
     
     
-    //语言代码    
+    //语言代码
     private var _languageCode: String?
     var languageCode: String {
         get {

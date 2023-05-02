@@ -226,7 +226,7 @@ extension UIApplication {
         }
     }
 
-//    ///根据颜色动态设置状态栏样式
+    /// 根据颜色动态设置状态栏样式
 //    static func setStatusBarStyleWithColor(_ color: UIColor) {
 //        if color.isLighterColor {
 //            if #available(iOS 13.0, *) {

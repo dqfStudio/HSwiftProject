@@ -353,16 +353,17 @@ class HViewController: UIViewController {
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        let preferredStatusBarColor: UIColor? = self.preferredStatusBarColor
-        let isLighterColor = preferredStatusBarColor?.isLighterColor ?? false
-        if isLighterColor || (_topBar.backgroundColor?.isLighterColor ?? false) {
+        // Dynamically set the status bar style based on the color of the navigation bar
+        let statusBarColor = self.preferredStatusBarColor?.isLighterColor ?? false
+        let topColor = _topBar.backgroundColor?.isLighterColor ?? false
+        if statusBarColor || topColor {
             if #available(iOS 13.0, *) {
                 return .darkContent
             } else {
                 return .default
             }
         }
-        return .default
+        return .lightContent
     }
 
     override var prefersStatusBarHidden: Bool {
