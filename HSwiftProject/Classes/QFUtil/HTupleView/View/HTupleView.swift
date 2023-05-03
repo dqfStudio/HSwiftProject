@@ -695,7 +695,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        var size = CGSize(width: 1.0, height: 1.0) //item大小不能为zero，否则会崩溃
+        var size = CGSize(width: 1.0, height: 1.0) //item size cannot be zero, otherwise it will crash
         if let delegate = self.tupleDelegate {
             let prefix = self.prefixWithSection(indexPath.section)
             let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
