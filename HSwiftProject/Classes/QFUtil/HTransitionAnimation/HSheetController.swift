@@ -94,7 +94,7 @@ class HSheetController : HViewController, HTupleViewDelegate {
         return CGSize.zero
     }
     func edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return UIEdgeInsetsZero
+        return UIEdgeInsets.zero
     }
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
@@ -138,7 +138,7 @@ class HSheetController : HViewController, HTupleViewDelegate {
         
     }
     func didSelectItemAtIndexPath(_ indexPath: IndexPath) {
-        if (indexPath.row == HCell3) {
+        if indexPath.row == HCell3 {
             self.back()
         }
     }
