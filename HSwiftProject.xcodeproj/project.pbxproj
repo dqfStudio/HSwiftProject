@@ -174,7 +174,6 @@
 		EB23DAC32A00A4EC00C96CAC /* HNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC22A00A4EB00C96CAC /* HNavigationBar.swift */; };
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
 		EB23DAC72A02187700C96CAC /* HAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC62A02187600C96CAC /* HAlertAction.swift */; };
-		EB23DAC92A021D5200C96CAC /* HAlertController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC82A021D5200C96CAC /* HAlertController2.swift */; };
 		EB23DACD2A027D6C00C96CAC /* HSheetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */; };
 		EB4323CF29B988A400EDDB64 /* icon_no_network@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */; };
 		EB4323D029B988A400EDDB64 /* icon_no_network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */; };
@@ -461,7 +460,6 @@
 		EB23DAC22A00A4EB00C96CAC /* HNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar.swift; sourceTree = "<group>"; };
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
 		EB23DAC62A02187600C96CAC /* HAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertAction.swift; sourceTree = "<group>"; };
-		EB23DAC82A021D5200C96CAC /* HAlertController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertController2.swift; sourceTree = "<group>"; };
 		EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSheetAction.swift; sourceTree = "<group>"; };
 		EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@3x.png"; sourceTree = "<group>"; };
 		EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@2x.png"; sourceTree = "<group>"; };
@@ -869,7 +867,6 @@
 			isa = PBXGroup;
 			children = (
 				A2A814AD274C05BB00FAB929 /* HAlertController.swift */,
-				EB23DAC82A021D5200C96CAC /* HAlertController2.swift */,
 				EB23DAC62A02187600C96CAC /* HAlertAction.swift */,
 				EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */,
 				A2A814B7274CCA7200FAB929 /* HPresentAnimation.swift */,
@@ -1860,7 +1857,6 @@
 				EBD0FB2A29CC935D00808EDA /* NSString+HChain.swift in Sources */,
 				EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */,
 				A22948B5239798AF0058B939 /* HMainController6.swift in Sources */,
-				EB23DAC92A021D5200C96CAC /* HAlertController2.swift in Sources */,
 				A2A7A94723FE3B5E0090EFD3 /* HPageControl.swift in Sources */,
 				A2A7A93D23FE3A790090EFD3 /* HDotView.swift in Sources */,
 				A2B43075237FF2B100795605 /* HPrinterManager.swift in Sources */,

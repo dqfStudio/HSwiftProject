@@ -31,9 +31,9 @@ class HAlertController : HViewController, HTupleViewDelegate {
         _title = title
         _message = message
         // 测量文字高度
-        _messageHeight = _message?.heightWithFont(UIFont.systemFont(ofSize: 12), constrainedToWidth: UIScreen.width - 30) ?? 0
-        // 高度不小于35
-        _messageHeight = max(_messageHeight, 35)
+        _messageHeight = _message?.heightWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToWidth: UIScreen.width - 48) ?? 0
+        // 高度不小于24
+        _messageHeight = max(_messageHeight, 24)
         // alert类型
         alertStyle = preferredStyle
         // 父类初始化方法
@@ -46,7 +46,9 @@ class HAlertController : HViewController, HTupleViewDelegate {
     }
     
     override var containerSize: CGSize {
-        return CGSize(width: 270, height: 42.5 + _messageHeight + 1 + 42.5)
+        let titleHeight = 24 + 24 + 12
+        let messageHeight = 12 + _messageHeight + 24
+        return CGSize(width: 291, height: titleHeight + Int(messageHeight) + 1 + 48)
     }
     
     override var presetType: HTransitionStyle {
@@ -120,19 +122,19 @@ class HAlertController : HViewController, HTupleViewDelegate {
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         switch indexPath.row {
         case HCell0:
-            return CGSize(width: self.tupleView.width, height: 42.5)
+            return CGSize(width: self.tupleView.width, height: 60)
         case HCell1:
             return CGSize(width: self.tupleView.width, height: _messageHeight)
         case HCell2:
             return CGSize(width: self.tupleView.width, height: 1)
         case HCell3:
             if actions.count == 1 {
-                return CGSize(width: self.tupleView.width, height: 42.5)
+                return CGSize(width: self.tupleView.width, height: 48)
             } else if actions.count == 2 {
-                return CGSize(width: self.tupleView.width / 2, height: 42.5)
+                return CGSize(width: self.tupleView.width / 2, height: 48)
             }
         case HCell4:
-            return CGSize(width: self.tupleView.width / 2, height: 42.5)
+            return CGSize(width: self.tupleView.width / 2, height: 48)
         default:
             break
         }
@@ -141,9 +143,9 @@ class HAlertController : HViewController, HTupleViewDelegate {
     func edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         switch (indexPath.row) {
         case HCell0:
-            return UIEdgeInsets(top: 0, left: 15, bottom: 2.5, right: 15)
+            return UIEdgeInsets(top: 24, left: 24, bottom: 12, right: 24)
         case HCell1:
-            return UIEdgeInsets(top: 2.5, left: 15, bottom: 0, right: 15)
+            return UIEdgeInsets(top: 12, left: 24, bottom: 24, right: 24)
         case HCell2, HCell3, HCell4:
             return UIEdgeInsets.zero
         default:
@@ -167,36 +169,36 @@ class HAlertController : HViewController, HTupleViewDelegate {
         switch row {
         case HCell0:
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-            cell.label.font = UIFont.boldSystemFont(ofSize: 17)
+            cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
             cell.label.textAlignment = .center
-            cell.label.textColor = HColorHex("#0B0A0C")
+            cell.label.textColor = HColorHex("#17191E")
             cell.label.text = _title
         case HCell1:
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-            cell.label.font = UIFont.systemFont(ofSize: 12)
+            cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
             cell.label.textAlignment = .center
             cell.label.numberOfLines = 0
-            cell.label.textColor = HColorHex("#070507")
+            cell.label.textColor = HColorHex("#17191E")
             cell.label.text = _message
         case HCell2:
             let cell = itemBlock(nil, HTupleBlankCell.self, nil, true) as! HTupleBlankCell
-            cell.blank.backgroundColor = UIColor(white: 0.1, alpha: 0.2)
+            cell.blank.backgroundColor = HColorHex("#F7F8FA")
         case HCell3:
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-            cell.label.font = UIFont.boldSystemFont(ofSize: 17)
+            cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
             cell.label.textAlignment = .center
             var bounds = cell.layoutViewBounds
             bounds = CGRect(x: bounds.width - 1, y: 0, width: 1, height: bounds.height)
-            cell.label.addSubLayer(withFrame: bounds, color: UIColor(white: 0.1, alpha: 0.2))
-            cell.label.textColor = HColorHex("#3184DD")
+            cell.label.addSubLayer(withFrame: bounds, color: HColorHex("#F7F8FA"))
+            cell.label.textColor = HColorHex("#17191E")
             if let cancelAction = actions.first(where: { $0.style == .cancel }) {
                 cell.label.text = cancelAction.title
             }
         case HCell4:
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-            cell.label.font = UIFont.boldSystemFont(ofSize: 17)
+            cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
             cell.label.textAlignment = .center
-            cell.label.textColor = HColorHex("#3184DD")
+            cell.label.textColor = HColorHex("#3879FC")
             if let confirmAction = actions.first(where: { $0.style == .confirm }) {
                 cell.label.text = confirmAction.title
             }
