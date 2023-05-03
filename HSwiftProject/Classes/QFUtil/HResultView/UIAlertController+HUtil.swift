@@ -102,6 +102,28 @@ extension UIAlertController {
 //
 //}
 
+extension HAlertController {
+    @discardableResult
+    static func showAlert(model: HAlertModel, preferredStyle: HAlertControllerStyle, completion: ((_ actionStyle: Int) -> Void)?) -> HAlertController? {
+        let alertController = HAlertController(model: model, preferredStyle: preferredStyle)
+        // 取消回调
+        alertController.cancelBlock = {
+            completion?(0)
+        }
+        // 确认回调
+        alertController.confirmBlock = {
+            completion?(1)
+        }
+        // 显示alert
+        DispatchQueue.main.async {
+            guard let rootController = UIApplication.shared.keyWindow?.rootViewController,
+                    rootController.isKind(of: UIViewController.self) else { return }
+            rootController.presentController(alertController, completion: nil)
+        }
+        return alertController
+    }
+}
+
 
 extension HSheetController {
     

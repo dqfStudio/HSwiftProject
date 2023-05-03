@@ -15,6 +15,8 @@ enum HAlertControllerStyle: Int {
     case style3 = 3 // 标题、内容、两个操作按钮
 }
 
+typealias HAlertActionBlock = () -> Void
+
 class HAlertController : HViewController, HTupleViewDelegate {
     
     // container高度
@@ -30,6 +32,10 @@ class HAlertController : HViewController, HTupleViewDelegate {
     }
     // 动作类型
     var alertModel: HAlertModel
+    // 取消回调
+    var cancelBlock: HAlertActionBlock?
+    // 确认回调
+    var confirmBlock: HAlertActionBlock?
     
     init(model: HAlertModel, preferredStyle: HAlertControllerStyle) {
         alertModel = model

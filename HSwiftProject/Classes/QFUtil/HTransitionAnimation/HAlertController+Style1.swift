@@ -82,9 +82,9 @@ extension HAlertController {
     @objc
     func tuple1_didSelectItemAtIndexPath(_ indexPath: IndexPath) {
         if indexPath.row == HCell2 {
-            self.back()
+            cancelBlock?()
         }else if indexPath.row == HCell3 {
-            self.back()
+            confirmBlock?()
         }
     }
 }
