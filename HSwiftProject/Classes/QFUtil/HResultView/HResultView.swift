@@ -116,9 +116,9 @@ class HResultView: UIView, HTupleViewDelegate {
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             
             cell.label.backgroundColor = UIColor.white
-            cell.label.textColor = UIColor.black
             cell.label.font = UIFont.systemFont(ofSize: 14)
-            cell.label.textAlignment  = .center
+            cell.label.textColor = UIColor.black
+            cell.label.textAlignment = .center
             
             if let make = make {
                 if let bgColor = make.bgColor {
@@ -152,9 +152,9 @@ class HResultView: UIView, HTupleViewDelegate {
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             
             cell.label.backgroundColor = UIColor.white
-            cell.label.textColor = UIColor.black
             cell.label.font = UIFont.systemFont(ofSize: 14)
-            cell.label.textAlignment  = .center
+            cell.label.textColor = UIColor.black
+            cell.label.textAlignment = .center
             
             if let make = make {
                 if let bgColor = make.bgColor {

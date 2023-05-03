@@ -22,20 +22,21 @@ class HInputBoxView: UIView, HTupleViewDelegate {
     var inputBoxChangeBlock: HInputBoxChangeBlock?
     
     lazy var textField: UITextField = {
-        let _textField = UITextField(frame: self.bounds)
-        _textField.backgroundColor = UIColor.clear
-        _textField.textColor = UIColor.clear
-        _textField.keyboardType = .numberPad
-        _textField.tintColor = .clear
-        _textField.delegate = self
-        return _textField
+        let textField = UITextField(frame: self.bounds)
+        textField.backgroundColor = UIColor.clear
+        textField.textColor = UIColor.clear
+        textField.keyboardType = .numberPad
+        textField.tintColor = .clear
+        textField.delegate = self
+        return textField
     }()
     
     lazy var tupleView: HTupleView = {
-        let _tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
-        _tupleView.backgroundColor = UIColor.clear
-        _tupleView.disableBounce()
-        return _tupleView
+        let tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
+        tupleView.backgroundColor = UIColor.clear
+        tupleView.isScrollEnabled = false
+        tupleView.disableBounce()
+        return tupleView
     }()
     
     required override init(frame: CGRect) {

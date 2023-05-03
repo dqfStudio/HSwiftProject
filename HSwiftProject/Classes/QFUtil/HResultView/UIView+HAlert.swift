@@ -56,6 +56,7 @@ extension UIView {
             let waitingMake = HWaitingTransition()
             make(waitingMake)
             self.hWaitingView.make = waitingMake
+            self.addSubview(self.hWaitingView)
         }
         self.bringSubviewToFront(self.hWaitingView)
     }
@@ -67,6 +68,7 @@ extension UIView {
             let resultMake = HResultTransition()
             make(resultMake)
             self.hResultView.make = resultMake
+            self.addSubview(self.hResultView)
         }
         self.bringSubviewToFront(self.hResultView)
     }
