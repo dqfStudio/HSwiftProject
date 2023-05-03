@@ -23,6 +23,7 @@ class HPresentationController : UIPresentationController {
             self.contentCoverView.backgroundColor = shadowColor
         }
     }
+    
     //弹出框类型
     var presentType: HTransitionStyle = .alert
     

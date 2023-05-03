@@ -15,30 +15,22 @@ extension UIViewController {
 
     //动画管理类(Present、Dismiss)
     var presentAnimation: HPresentAnimation? {
-        get {
-            return objc_getAssociatedObject(self, &presentAnimationKey) as? HPresentAnimation
-        }
-        set {
-            objc_setAssociatedObject(self, &presentAnimationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
+        get { return objc_getAssociatedObject(self, &presentAnimationKey) as? HPresentAnimation }
+        set { objc_setAssociatedObject(self, &presentAnimationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
     //动画管理类(Push、Pop)
     var pushAnimation: HPushAnimation? {
-        get {
-            return objc_getAssociatedObject(self, &pushAnimationKey) as? HPushAnimation
-        }
-        set {
-            objc_setAssociatedObject(self, &pushAnimationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
+        get { return objc_getAssociatedObject(self, &pushAnimationKey) as? HPushAnimation }
+        set { objc_setAssociatedObject(self, &pushAnimationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
 
     // UINavigationControllerDelegate
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if (operation == .push) {
+        if operation == .push {
             self.pushAnimation?.transitionType = .push
             return self.pushAnimation
-        }else if (operation == .pop) {
+        }else if operation == .pop {
             self.pushAnimation?.transitionType = .pop
             return self.pushAnimation
         }
