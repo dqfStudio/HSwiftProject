@@ -9,36 +9,36 @@
 import UIKit
 
 enum HAlertControllerStyle: Int {
-    case alert = 0
-    case actionSheet = 1
+    case style0 = 0 // 内容、一个操作按钮
+    case style1 = 1 // 内容、两个操作按钮
+    case style2 = 2 // 标题、内容、一个操作按钮
+    case style3 = 3 // 标题、内容、两个操作按钮
 }
 
 class HAlertController : HViewController, HTupleViewDelegate {
     
-    // 标题
-    private var _title: String?
-    // 消息
-    private var _message: String?
-    // 消息高度
-    private var _messageHeight: CGFloat = 0.0
+    // container高度
+    private var containerHeight: CGFloat = 0.0
     // alert类型
-    private var alertStyle: HAlertControllerStyle = .alert
+    private var alertStyle: HAlertControllerStyle = .style0 {
+        didSet {
+            switch alertStyle {
+            case .style0, .style1, .style2, .style3:
+                containerHeight = 150
+            }
+        }
+    }
     // 动作类型
-    private var actions: [HAlertAction] = [HAlertAction]()
+    var alertModel: HAlertModel
     
-
-    init(title: String?, message: String?, preferredStyle: HAlertControllerStyle) {
-        _title = title
-        _message = message
-        // 测量文字高度
-        _messageHeight = _message?.heightWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToWidth: UIScreen.width - 48) ?? 0
-        // 高度不小于24
-        _messageHeight = max(_messageHeight, 24)
+    init(model: HAlertModel, preferredStyle: HAlertControllerStyle) {
+        alertModel = model
         // alert类型
         alertStyle = preferredStyle
         // 父类初始化方法
         super.init(nibName: nil, bundle: nil)
     }
+    
     
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
@@ -46,9 +46,7 @@ class HAlertController : HViewController, HTupleViewDelegate {
     }
     
     override var containerSize: CGSize {
-        let titleHeight = 24 + 24 + 12
-        let messageHeight = 12 + _messageHeight + 24
-        return CGSize(width: 291, height: titleHeight + Int(messageHeight) + 1 + 48)
+        return CGSize(width: 291, height: containerHeight)
     }
     
     override var presetType: HTransitionStyle {
@@ -60,19 +58,18 @@ class HAlertController : HViewController, HTupleViewDelegate {
         return UIVisualEffectView(effect: blur)
     }()
 
-    private lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView(frame: .zero)
+    lazy var tupleView: HTupleView = {
+        let tupleView = HTupleView.tupleFrame({ () -> CGRect in
+            return .zero
+        }, exclusiveSections: { () -> NSArray in
+            return []
+        })
         tupleView.backgroundColor = UIColor.clear
         tupleView.layer.cornerRadius = 10 //默认系统弹框圆角为10.f
         tupleView.isScrollEnabled = false
         tupleView.disableBounce()
         return tupleView
     }()
-    
-    // 添加动作类型
-    func addAction(_ action: HAlertAction) {
-        actions.append(action)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,119 +107,6 @@ class HAlertController : HViewController, HTupleViewDelegate {
     override func vcWillDisappear(_ type: HVCDisappearType) {
         if type == .pop || type == .dismiss {
             self.tupleView.releaseTupleBlock()
-        }
-    }
-
-    func numberOfSectionsInTupleView() -> Any {
-        return 3
-    }
-    func numberOfItemsInSection(_ section: Any) -> Any {
-        return actions.count == 2 ? 5 : 4
-    }
-    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        switch indexPath.row {
-        case HCell0:
-            return CGSize(width: self.tupleView.width, height: 60)
-        case HCell1:
-            return CGSize(width: self.tupleView.width, height: _messageHeight)
-        case HCell2:
-            return CGSize(width: self.tupleView.width, height: 1)
-        case HCell3:
-            if actions.count == 1 {
-                return CGSize(width: self.tupleView.width, height: 48)
-            } else if actions.count == 2 {
-                return CGSize(width: self.tupleView.width / 2, height: 48)
-            }
-        case HCell4:
-            return CGSize(width: self.tupleView.width / 2, height: 48)
-        default:
-            break
-        }
-        return CGSize.zero
-    }
-    func edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        switch (indexPath.row) {
-        case HCell0:
-            return UIEdgeInsets(top: 24, left: 24, bottom: 12, right: 24)
-        case HCell1:
-            return UIEdgeInsets(top: 12, left: 24, bottom: 24, right: 24)
-        case HCell2, HCell3, HCell4:
-            return UIEdgeInsets.zero
-        default:
-            break
-        }
-        return UIEdgeInsets.zero
-    }
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        
-        // 判断执行Cell顺序
-        var row = indexPath.row
-        if row == HCell3, actions.count == 1, let action = actions.first {
-            if action.style == .cancel {
-                row = HCell3
-            } else if action.style == .confirm {
-                row = HCell4
-            }
-        }
-        
-        switch row {
-        case HCell0:
-            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-            cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
-            cell.label.textAlignment = .center
-            cell.label.textColor = HColorHex("#17191E")
-            cell.label.text = _title
-        case HCell1:
-            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-            cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
-            cell.label.textAlignment = .center
-            cell.label.numberOfLines = 0
-            cell.label.textColor = HColorHex("#17191E")
-            cell.label.text = _message
-        case HCell2:
-            let cell = itemBlock(nil, HTupleBlankCell.self, nil, true) as! HTupleBlankCell
-            cell.blank.backgroundColor = HColorHex("#F7F8FA")
-        case HCell3:
-            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-            cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
-            cell.label.textAlignment = .center
-            var bounds = cell.layoutViewBounds
-            bounds = CGRect(x: bounds.width - 1, y: 0, width: 1, height: bounds.height)
-            cell.label.addSubLayer(withFrame: bounds, color: HColorHex("#F7F8FA"))
-            cell.label.textColor = HColorHex("#17191E")
-            if let cancelAction = actions.first(where: { $0.style == .cancel }) {
-                cell.label.text = cancelAction.title
-            }
-        case HCell4:
-            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-            cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
-            cell.label.textAlignment = .center
-            cell.label.textColor = HColorHex("#3879FC")
-            if let confirmAction = actions.first(where: { $0.style == .confirm }) {
-                cell.label.text = confirmAction.title
-            }
-        default:
-            break
-        }
-    }
-    func didSelectItemAtIndexPath(_ indexPath: IndexPath) {
-        
-        // 判断执行Cell顺序
-        var row = indexPath.row
-        if row == HCell3, actions.count == 1, let action = actions.first {
-            if action.style == .cancel {
-                row = HCell3
-            } else if action.style == .confirm {
-                row = HCell4
-            }
-        }
-        
-        // 调用相关方法
-        if row == HCell3, let cancelAction = actions.first(where: { $0.style == .cancel }) {
-            cancelAction.handler?(.cancel)
-        } else if row == HCell4, let confirmAction = actions.first(where: { $0.style == .confirm }) {
-            confirmAction.handler?(.confirm)
         }
     }
 

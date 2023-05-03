@@ -68,39 +68,39 @@ extension UIAlertController {
 }
 
 
-extension HAlertController {
-    
-    @discardableResult
-    static func showAlert(withTitle title: String?, message: String?, cancelTitle: String?, confirmTitle: String?, completion: ((_ actionStyle: HAlertActionStyle) -> Void)?) -> HAlertController? {
-        let alertController = HAlertController(title: title, message: message, preferredStyle: .alert)
-        // 取消按钮
-        if let cancelTitle = cancelTitle {
-            let cancelAction = HAlertAction(title: cancelTitle, style: .cancel) { actionStyle in
-                if let completion = completion {
-                    completion(actionStyle)
-                }
-            }
-            alertController.addAction(cancelAction)
-        }
-        // 确认按钮
-        if let confirmTitle = confirmTitle {
-            let confirmAction = HAlertAction(title: confirmTitle, style: .confirm) { actionStyle in
-                if let completion = completion {
-                    completion(actionStyle)
-                }
-            }
-            alertController.addAction(confirmAction)
-        }
-        // 显示alert
-        DispatchQueue.main.async {
-            guard let rootController = UIApplication.shared.keyWindow?.rootViewController,
-                    rootController.isKind(of: UIViewController.self) else { return }
-            rootController.presentController(alertController, completion: nil)
-        }
-        return alertController
-    }
-    
-}
+//extension HAlertController {
+//
+//    @discardableResult
+//    static func showAlert(withTitle title: String?, message: String?, cancelTitle: String?, confirmTitle: String?, completion: ((_ actionStyle: HAlertActionStyle) -> Void)?) -> HAlertController? {
+//        let alertController = HAlertController(title: title, message: message, preferredStyle: .alert)
+//        // 取消按钮
+//        if let cancelTitle = cancelTitle {
+//            let cancelAction = HAlertAction(title: cancelTitle, style: .cancel) { actionStyle in
+//                if let completion = completion {
+//                    completion(actionStyle)
+//                }
+//            }
+//            alertController.addAction(cancelAction)
+//        }
+//        // 确认按钮
+//        if let confirmTitle = confirmTitle {
+//            let confirmAction = HAlertAction(title: confirmTitle, style: .confirm) { actionStyle in
+//                if let completion = completion {
+//                    completion(actionStyle)
+//                }
+//            }
+//            alertController.addAction(confirmAction)
+//        }
+//        // 显示alert
+//        DispatchQueue.main.async {
+//            guard let rootController = UIApplication.shared.keyWindow?.rootViewController,
+//                    rootController.isKind(of: UIViewController.self) else { return }
+//            rootController.presentController(alertController, completion: nil)
+//        }
+//        return alertController
+//    }
+//
+//}
 
 
 extension HSheetController {

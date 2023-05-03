@@ -175,6 +175,12 @@
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
 		EB23DAC72A02187700C96CAC /* HAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC62A02187600C96CAC /* HAlertAction.swift */; };
 		EB23DACD2A027D6C00C96CAC /* HSheetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */; };
+		EB23DACF2A029E0900C96CAC /* HAlertController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DACE2A029E0900C96CAC /* HAlertController2.swift */; };
+		EB23DAD12A029F0300C96CAC /* HAlertController+Style0.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAD02A029F0300C96CAC /* HAlertController+Style0.swift */; };
+		EB23DAD32A02A01E00C96CAC /* HAlertController+Style1.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAD22A02A01E00C96CAC /* HAlertController+Style1.swift */; };
+		EB23DAD52A02A02600C96CAC /* HAlertController+Style2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAD42A02A02600C96CAC /* HAlertController+Style2.swift */; };
+		EB23DAD72A02A02F00C96CAC /* HAlertController+Style3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAD62A02A02F00C96CAC /* HAlertController+Style3.swift */; };
+		EB23DAD92A02AA7A00C96CAC /* HAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAD82A02AA7A00C96CAC /* HAlertModel.swift */; };
 		EB4323CF29B988A400EDDB64 /* icon_no_network@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */; };
 		EB4323D029B988A400EDDB64 /* icon_no_network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */; };
 		EB4323D129B988A400EDDB64 /* icon_no_server@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */; };
@@ -461,6 +467,12 @@
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
 		EB23DAC62A02187600C96CAC /* HAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertAction.swift; sourceTree = "<group>"; };
 		EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSheetAction.swift; sourceTree = "<group>"; };
+		EB23DACE2A029E0900C96CAC /* HAlertController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertController2.swift; sourceTree = "<group>"; };
+		EB23DAD02A029F0300C96CAC /* HAlertController+Style0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HAlertController+Style0.swift"; sourceTree = "<group>"; };
+		EB23DAD22A02A01E00C96CAC /* HAlertController+Style1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HAlertController+Style1.swift"; sourceTree = "<group>"; };
+		EB23DAD42A02A02600C96CAC /* HAlertController+Style2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HAlertController+Style2.swift"; sourceTree = "<group>"; };
+		EB23DAD62A02A02F00C96CAC /* HAlertController+Style3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HAlertController+Style3.swift"; sourceTree = "<group>"; };
+		EB23DAD82A02AA7A00C96CAC /* HAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertModel.swift; sourceTree = "<group>"; };
 		EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@3x.png"; sourceTree = "<group>"; };
 		EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@2x.png"; sourceTree = "<group>"; };
 		EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_server@3x.png"; sourceTree = "<group>"; };
@@ -867,7 +879,13 @@
 			isa = PBXGroup;
 			children = (
 				A2A814AD274C05BB00FAB929 /* HAlertController.swift */,
+				EB23DAD02A029F0300C96CAC /* HAlertController+Style0.swift */,
+				EB23DAD22A02A01E00C96CAC /* HAlertController+Style1.swift */,
+				EB23DAD42A02A02600C96CAC /* HAlertController+Style2.swift */,
+				EB23DAD62A02A02F00C96CAC /* HAlertController+Style3.swift */,
+				EB23DACE2A029E0900C96CAC /* HAlertController2.swift */,
 				EB23DAC62A02187600C96CAC /* HAlertAction.swift */,
+				EB23DAD82A02AA7A00C96CAC /* HAlertModel.swift */,
 				EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */,
 				A2A814B7274CCA7200FAB929 /* HPresentAnimation.swift */,
 				A2A814B9274CCC1800FAB929 /* HPresentationController.swift */,
@@ -1662,6 +1680,7 @@
 				EBD0FB6A29D02B1000808EDA /* HKeyChainStore.swift in Sources */,
 				A2B4308323801C4E00795605 /* HWebButtonView.swift in Sources */,
 				A26D43172383DE5800F457AE /* UIColor+HUtil.swift in Sources */,
+				EB23DAD92A02AA7A00C96CAC /* HAlertModel.swift in Sources */,
 				EBD0FB3A29CD461E00808EDA /* AppDelegate+NotifyService.swift in Sources */,
 				A28DF9B823FF748A0065418F /* UIView+HExtension.swift in Sources */,
 				EBC8140A29AA48C000A81431 /* HUserLiveCell+HSection0.swift in Sources */,
@@ -1703,6 +1722,7 @@
 				EBD0FB1A29CC366D00808EDA /* HAuthorizeManager.swift in Sources */,
 				A286251623EAB8DD00E81781 /* HCountDownButton.swift in Sources */,
 				EBD0FB6C29D02B1000808EDA /* HDefaultsCore+Extern.swift in Sources */,
+				EB23DACF2A029E0900C96CAC /* HAlertController2.swift in Sources */,
 				EBD0FB9E29DB00B300808EDA /* HMainController6+UI.swift in Sources */,
 				A28A022D23EE6BA6000556A2 /* HMarquee.swift in Sources */,
 				A265DA032394B24C001F39B0 /* HTabBarController.swift in Sources */,
@@ -1761,8 +1781,10 @@
 				A2188795238FD3CC005C20BF /* HGameCategoryVC+HSection0.swift in Sources */,
 				EBD0FB3C29CD4C2400808EDA /* AppDelegate+SoundService.swift in Sources */,
 				EBC8146B29AA53F400A81431 /* HAcceptVideoVC+HStatus4.swift in Sources */,
+				EB23DAD72A02A02F00C96CAC /* HAlertController+Style3.swift in Sources */,
 				A2B43074237FF2B100795605 /* UIView+HPrinter.swift in Sources */,
 				A250DF1223FFC2AB009F5E47 /* HTupleViewBannerApex.swift in Sources */,
+				EB23DAD32A02A01E00C96CAC /* HAlertController+Style1.swift in Sources */,
 				A2A814B6274CC23C00FAB929 /* HTransitionAnimation.swift in Sources */,
 				A2A7A93923FE2E150090EFD3 /* HAbstractDotView.swift in Sources */,
 				A26D43392386C0A000F457AE /* UINavigationController+HUtil.swift in Sources */,
@@ -1785,6 +1807,7 @@
 				EB43241429C3163900EDDB64 /* HUserRegion.swift in Sources */,
 				EBD0FB6B29D02B1000808EDA /* HUserStore.swift in Sources */,
 				EBD0FB3629CCA34800808EDA /* HLocalNotification.swift in Sources */,
+				EB23DAD52A02A02600C96CAC /* HAlertController+Style2.swift in Sources */,
 				A26D43412386CD9000F457AE /* NSTimer+HSafeUtil.swift in Sources */,
 				EBD0FBA029DB00D100808EDA /* HMainController6+Event.swift in Sources */,
 				A2A814B2274C081B00FAB929 /* HTransitionHeader.swift in Sources */,
@@ -1864,6 +1887,7 @@
 				A2A7A94923FE8A400090EFD3 /* HCycleScrollView.swift in Sources */,
 				EBC8145729AA538B00A81431 /* HAcceptAudioVC.swift in Sources */,
 				EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */,
+				EB23DAD12A029F0300C96CAC /* HAlertController+Style0.swift in Sources */,
 				EBD0FB2829CC91AF00808EDA /* UIImage+QRCode.swift in Sources */,
 				EB4323F229B98BE300EDDB64 /* UIAlertController+HUtil.swift in Sources */,
 				A28923A6238B72F800E4AB75 /* NSIndexPath+HUtil.swift in Sources */,
