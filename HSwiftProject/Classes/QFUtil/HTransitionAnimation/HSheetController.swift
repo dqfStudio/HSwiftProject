@@ -284,7 +284,7 @@ extension HSheetController {
     func tupleExa2_didSelectItemAtIndexPath(_ indexPath: IndexPath) {
         // 回调
         if indexPath.row == HCell1 {
-            cancelAction.handler?(0)
+            cancelAction.handler?(-1)
         }
     }
 
