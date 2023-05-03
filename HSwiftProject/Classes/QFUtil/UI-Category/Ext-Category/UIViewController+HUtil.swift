@@ -36,11 +36,12 @@ extension UIViewController {
         if self.isViewInBackground() {
             return
         }
-        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-        let aValue: NSValue = userInfo.object(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
-        let keyboardRect: CGRect = aValue.cgRectValue
-        
-        let animationDurationValue: NSValue = userInfo.object(forKey: UIResponder.keyboardAnimationDurationUserInfoKey) as! NSValue
+        guard let userInfo = notification.userInfo as? [String: Any],
+              let aValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+              let animationDurationValue = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSValue else {
+            return
+        }
+        let keyboardRect = aValue.cgRectValue
         var animationDuration: TimeInterval = 0
         animationDurationValue.getValue(&animationDuration)
         
@@ -52,11 +53,12 @@ extension UIViewController {
         if self.isViewInBackground() {
             return
         }
-        let userInfo: NSDictionary = notification.userInfo! as NSDictionary
-        let aValue: NSValue = userInfo.object(forKey: UIResponder.keyboardFrameEndUserInfoKey) as! NSValue
+        guard let userInfo = notification.userInfo,
+              let aValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
+              let animationDurationValue = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSValue else {
+            return
+        }
         let keyboardRect: CGRect = aValue.cgRectValue
-        
-        let animationDurationValue: NSValue = userInfo.object(forKey: UIResponder.keyboardAnimationDurationUserInfoKey) as! NSValue
         var animationDuration: TimeInterval = 0
         animationDurationValue.getValue(&animationDuration)
         

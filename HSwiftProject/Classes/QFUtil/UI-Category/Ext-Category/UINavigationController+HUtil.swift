@@ -11,24 +11,20 @@ import UIKit
 extension UINavigationController {
 
     func popToViewControllerOfClass(_ klass: AnyClass, animated: Bool) -> Bool {
-        var success = false
-        for vc in self.viewControllers {
-            if vc.isKind(of: klass) {
-                success = true
-                self.popToViewController(vc, animated: animated)
-                break
-            }
+        if let vc = self.viewControllers.first(where: { $0.isKind(of: klass) }) {
+            self.popToViewController(vc, animated: animated)
+            return true
         }
-        return success
+        return false
     }
     
     func replaceTopViewController(_ vc: UIViewController, animated: Bool) {
-        let vcs = NSMutableArray(array: self.viewControllers)
-        if vcs.count > 0 {
-            vcs.removeLastObject()
-            vcs.add(vc)
+        var vcs = self.viewControllers
+        if !vcs.isEmpty {
+            vcs.removeLast()
+            vcs.append(vc)
+            self.setViewControllers(vcs, animated: animated)
         }
-        self.setViewControllers(vcs as! [UIViewController], animated: animated)
     }
 
 }
