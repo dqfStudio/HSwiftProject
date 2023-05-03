@@ -107,17 +107,17 @@ extension HSheetController {
     
     @discardableResult
     static func showAlert(withTitle title: String?, completion: @escaping (_ actionStyle: Int) -> Void) -> HSheetController? {
-        let cancelAction = HSheetAction(title: "取消", image: "") { index in
+        let cancelAction = HSheetAction(title: "取消", image: nil) { index in
             completion(index)
         }
         let alertController = HSheetController(title: title, cancelAction: cancelAction)
         // 视频按钮
-        let videoAction = HSheetAction(title: "视频", image: "") { index in
+        let videoAction = HSheetAction(title: "视频", image: nil) { index in
             completion(index)
         }
         alertController.addAction(videoAction)
         // 音频按钮
-        let audioAction = HSheetAction(title: "音频", image: "") { index in
+        let audioAction = HSheetAction(title: "音频", image: nil) { index in
             completion(index)
         }
         alertController.addAction(audioAction)
