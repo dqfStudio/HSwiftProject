@@ -101,3 +101,34 @@ extension HAlertController {
     }
     
 }
+
+
+extension HSheetController {
+    
+    @discardableResult
+    static func showAlert(withTitle title: String?, completion: @escaping (_ actionStyle: Int) -> Void) -> HSheetController? {
+        let cancelAction = HSheetAction(title: "取消", image: "") { index in
+            completion(index)
+        }
+        let alertController = HSheetController(title: title, cancelAction: cancelAction)
+        // 视频按钮
+        let videoAction = HSheetAction(title: "视频", image: "") { index in
+            completion(index)
+        }
+        alertController.addAction(videoAction)
+        // 音频按钮
+        let audioAction = HSheetAction(title: "音频", image: "") { index in
+            completion(index)
+        }
+        alertController.addAction(audioAction)
+        // 显示alert
+        DispatchQueue.main.async {
+            guard let rootController = UIApplication.shared.keyWindow?.rootViewController,
+                    rootController.isKind(of: UIViewController.self) else { return }
+            rootController.presentController(alertController, completion: nil)
+        }
+        return alertController
+    }
+
+    
+}
