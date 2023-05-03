@@ -14,14 +14,14 @@ private var KPrinterManagerKey = "KPrinterManagerKey"
 
 class HPrinterManager: NSObject {
     
-    var printerDict: NSMutableDictionary? {
+    var printerDict: NSMutableDictionary {
         get {
             var dict: NSMutableDictionary? = objc_getAssociatedObject(self, &KPrinterManagerKey) as? NSMutableDictionary
             if dict == nil {
                 dict = NSMutableDictionary()
                 objc_setAssociatedObject(self, &KPrinterManagerKey, dict, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
-            return dict
+            return dict!
         }
         set(newValue) {
             objc_setAssociatedObject(self, &KPrinterManagerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -29,16 +29,15 @@ class HPrinterManager: NSObject {
     }
     
     static let share: HPrinterManager = {
-        let instance = HPrinterManager()
-        return instance
+        return HPrinterManager()
     }()
     
     func setObject(_ anObject: Any, forKey aKey: NSCopying) {
-        self.printerDict!.setObject(anObject, forKey: aKey)
+        self.printerDict.setObject(anObject, forKey: aKey)
     }
     
     func containsObject(_ anObject: String) -> Bool {
-        self.printerDict!.allKeys.contains(where: { (object) -> Bool in
+        self.printerDict.allKeys.contains(where: { (object) -> Bool in
             let objectStr: String = object as! String
             if anObject == objectStr {
                 return true
@@ -48,8 +47,8 @@ class HPrinterManager: NSObject {
     }
     
     func objectForKey(_ aKey: String) -> String? {
-        if self .containsObject(aKey) {
-            self.printerDict!.object(forKey: aKey)
+        if self.containsObject(aKey) {
+            self.printerDict.object(forKey: aKey)
         }
         return nil
     }
