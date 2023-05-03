@@ -21,8 +21,8 @@ enum HANetworkStatus: Int {
 extension UIApplication {
 
     ///AppDelegate
-    static var appDel: AppDelegate {
-        return UIApplication.shared.delegate as! AppDelegate
+    static var appDel: AppDelegate? {
+        return UIApplication.shared.delegate as? AppDelegate
     }
         
     ///get Window 0
@@ -87,49 +87,40 @@ extension UIApplication {
             return UIApplication.shared.statusBarOrientation
         }
     }
-//    static var statusBarOrientation2: UIInterfaceOrientation? {
-//        get {
-//            if #available(iOS 13.0, *) {
-//                return UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
-//            } else {
-//                return UIApplication.shared.statusBarOrientation
-//            }
-//        }
-//    }
 
     /**
     *  Bundle Name
     */
-    static var appBundleName: String {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as! String
+    static var appBundleName: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String
     }
 
     /**
     *  Bundle Display Name
     */
-    static var appBundleDisplayName: String {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as! String
+    static var appBundleDisplayName: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String
     }
 
     /**
     *  Bundle ID
     */
-    static var appBundleID: String {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as! String
+    static var appBundleID: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleIdentifier") as? String
     }
     
     /**
     *  版本名称，例如：1.2.0
     */
-    static var appVersionName: String {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as! String
+    static var appVersionName: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
     }
 
     /**
     *  版本号，例如：123
     */
-    static var appShortVersionString: String {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
+    static var appShortVersionString: String? {
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     }
 
     /**
@@ -138,22 +129,24 @@ extension UIApplication {
     static var appLaunchImage: UIImage? {
 
         var viewOrientation: String = "Portrait"
-        if UIApplication.statusBarOrientation()?.isLandscape ?? false {
+        if let statusBarOrientation = UIApplication.statusBarOrientation(), statusBarOrientation.isLandscape {
             viewOrientation = "Landscape"
         }
 
         var launchImageName: String = ""
-        let imagesDict: Array = Bundle.main.value(forKey: "UILaunchImages") as! Array<Any>
-        let viewSize: CGSize = UIScreen.main.bounds.size
-        
-        for item in imagesDict {
-            let dict: NSDictionary = item as! NSDictionary
-            let imageSize: CGSize = NSCoder.cgSize(for: dict["UILaunchImageSize"] as! String)
-            if imageSize.equalTo(viewSize) && viewOrientation == dict["UILaunchImageOrientation"] as! String {
-                launchImageName = dict["UILaunchImageName"] as! String
+        if let imagesDict = Bundle.main.value(forKey: "UILaunchImages") as? Array<Any> {
+            for item in imagesDict {
+                if let dict = item as? NSDictionary,
+                   let imageSizeString = dict["UILaunchImageSize"] as? String {
+                    let viewSize = UIScreen.main.bounds.size
+                    let imageSize = NSCoder.cgSize(for: imageSizeString)
+                    if imageSize.equalTo(viewSize), viewOrientation == dict["UILaunchImageOrientation"] as? String {
+                        launchImageName = dict["UILaunchImageName"] as? String ?? ""
+                    }
+                }
             }
         }
-        
+
         return UIImage(named: launchImageName)
     }
 
@@ -169,13 +162,14 @@ extension UIApplication {
     */
     static var networkStatusFromStateBar: HANetworkStatus {
         let objc = UIApplication.shared.value(forKey: "statusBar") as AnyObject
-        let arr: Array<UIView> = objc.value(forKeyPath: "foregroundView") as! Array
+        let arr: Array<UIView> = objc.value(forKeyPath: "foregroundView") as? Array ?? []
         for item in arr {
             let view: UIView = item
             if view.isKind(of:NSClassFromString("UIStatusBarDataNetworkItemView")!.self) {
-                let value: String = view.value(forKeyPath: "dataNetworkType") as! String
-                let status: HANetworkStatus = HANetworkStatus(rawValue: Int(value)!)!
-                return status
+                let value: String? = view.value(forKeyPath: "dataNetworkType") as? String
+                if let value = value, let intValue = Int(value), let status = HANetworkStatus(rawValue: intValue) {
+                    return status
+                }
             }
         }
         return .Unknown
@@ -214,15 +208,21 @@ extension UIApplication {
         UIApplication.shared.getKeyWindow?.endEditing(true)
     }
 
-    static func call(_ phone: String) {
-        if UIApplication.shared.canOpenURL(URL(string: "tel://\(String(describing: phone))")!) {
-            UIApplication.shared.open(URL(string: "tel://\(String(describing: phone))")!)
+    static func call(_ phone: String?) {
+        guard let phone = phone, let url = URL(string: "tel://\(phone)") else {
+            return
+        }
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
         }
     }
 
     static func openURLString(_ urlString: String) {
-        if UIApplication.shared.canOpenURL(URL(string: urlString)!) {
-            UIApplication.shared.open(URL(string: urlString)!)
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        if UIApplication.shared.canOpenURL(url) {
+            UIApplication.shared.open(url)
         }
     }
 
