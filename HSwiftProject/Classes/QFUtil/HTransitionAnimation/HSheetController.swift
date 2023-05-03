@@ -36,7 +36,6 @@ class HSheetController : HViewController, HTupleViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
-//        self.topBar.isHidden = true
         self.navigationBar.isHidden = true
         
         //是否隐藏视觉展示效果，如毛玻璃效果
@@ -60,8 +59,8 @@ class HSheetController : HViewController, HTupleViewDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if !self.hideVisualView {
-            for subview in self.visualView.subviews {
-                subview.layer.cornerRadius = self.tupleView.layer.cornerRadius
+            self.visualView.subviews.forEach {
+                $0.layer.cornerRadius = self.tupleView.layer.cornerRadius
             }
         }
     }
