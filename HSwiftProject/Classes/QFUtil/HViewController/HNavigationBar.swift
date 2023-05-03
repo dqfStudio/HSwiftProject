@@ -75,6 +75,7 @@ class HNavigationBar: UIView, HTupleViewDelegate {
             }
         }
     }
+    
     // Whether the spacing line of the navigation bar is hidden
     var isLineBarHidden: Bool = true {
         didSet {
