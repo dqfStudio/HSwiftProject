@@ -94,32 +94,28 @@ class HAlertController : HViewController, HTupleViewDelegate {
         case HCell1:
             return UIEdgeInsets(top: 2.5, left: 15, bottom: 0, right: 15)
         case HCell2:
-            return UIEdgeInsetsZero
+            return UIEdgeInsets.zero
         case HCell3:
-            return UIEdgeInsetsZero
+            return UIEdgeInsets.zero
         default:
             break
         }
-        return UIEdgeInsetsZero
+        return UIEdgeInsets.zero
     }
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         switch (indexPath.row) {
         case HCell0:
-            //HTupleNoteCell *cell = itemBlock(nil, HTupleNoteCell.class, nil, YES)
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             cell.label.font = UIFont.boldSystemFont(ofSize: 17)
             cell.label.textAlignment = .center
-            //cell.label.textVerticalAlignment = HTextVerticalAlignmentBottom
             cell.label.textColor = HColorHex("#0B0A0C")
             cell.label.text = "过期提醒"
             break
         case HCell1:
-            //HTupleNoteCell *cell = itemBlock(nil, HTupleNoteCell.class, nil, YES)
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             cell.label.font = UIFont.systemFont(ofSize: 12)
             cell.label.textAlignment = .center
-            //cell.label.textVerticalAlignment = HTextVerticalAlignmentTop
             cell.label.numberOfLines = 0
             cell.label.textColor = HColorHex("#070507")
             cell.label.text = "您的会员资格已不足3天，请及时充值!"
