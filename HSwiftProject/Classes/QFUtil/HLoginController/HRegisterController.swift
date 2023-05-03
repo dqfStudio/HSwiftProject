@@ -10,20 +10,17 @@ import UIKit
 
 class HRegisterController: HViewController, HTupleViewDelegate {
 
-    private var _tupleView: HTupleView?
-    var tupleView: HTupleView {
-        if _tupleView == nil {
-            var frame = UIScreen.bound
-            frame.origin.y += UIScreen.topBarHeight
-            frame.size.height -= UIScreen.topBarHeight
-            _tupleView = HTupleView.tupleFrame({ () -> CGRect in
-                return frame
-            }, exclusiveSections: { () -> NSArray in
-                return [0]
-            })
-        }
-        return _tupleView!
-    }
+    lazy var tupleView: HTupleView = {
+        var frame = UIScreen.bound
+        frame.origin.y += UIScreen.topBarHeight
+        frame.size.height -= UIScreen.topBarHeight
+        let tupleView = HTupleView.tupleFrame({ () -> CGRect in
+            return frame
+        }, exclusiveSections: { () -> NSArray in
+            return [0]
+        })
+        return tupleView
+    }()
 
     override func vcWillDisappear(_ type: HVCDisappearType) {
         if type == HVCDisappearType.pop || type == HVCDisappearType.dismiss {
@@ -33,10 +30,9 @@ class HRegisterController: HViewController, HTupleViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
-//        self.leftNaviButton.isHidden = true
-        self.navigationBar.leftItem.isHidden = true
         self.title = "注册"
+        self.navigationBar.leftItem.isHidden = true
+        
         self.tupleView.delegate = self
         self.view.addSubview(self.tupleView)
         

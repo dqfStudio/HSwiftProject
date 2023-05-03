@@ -12,8 +12,6 @@ class HLoginController: HTupleController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
-//        self.leftNaviButton.isHidden = true
         self.navigationBar.leftItem.isHidden = true
         self.title = "登录"
         self.tupleView.delegate = self
@@ -123,9 +121,7 @@ class HLoginController: HTupleController {
                 NSLog("选中%d", cell)
             }
         case 5:
-
             let cell = itemBlock(nil, HServiceAuthorizationCell.self, nil, true) as! HServiceAuthorizationCell
-
             cell.serviceAgreementBlock = {
 
             }

@@ -49,11 +49,11 @@ extension HRegisterController {
 
     @objc
     func tuple0_edgeInsetsForHeaderInSection(_ section: Any) -> Any {
-        return UIEdgeInsetsZero
+        return UIEdgeInsets.zero
     }
     @objc
     func tuple0_edgeInsetsForFooterInSection(_ section: Any) -> Any {
-        return UIEdgeInsetsZero
+        return UIEdgeInsets.zero
     }
     @objc
     func tuple0_edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
@@ -65,16 +65,18 @@ extension HRegisterController {
 
     @objc
     func tuple0_insetForSection(_ section: Any) -> Any {
-        return UIEdgeInsetsZero
+        return UIEdgeInsets.zero
     }
 
     @objc
     func tuple0_tupleHeader(_ headerBlock: Any, inSection section: Any) {
-        _ = (headerBlock as! HTupleHeader)(nil, HTupleBaseApex.self, nil, false)
+        let headerBlock = headerBlock as! HTupleHeader
+        _ = headerBlock(nil, HTupleBaseApex.self, nil, false) as! HTupleHeader
     }
     @objc
     func tuple0_tupleFooter(_ footerBlock: Any, inSection section: Any) {
-        _ = (footerBlock as! HTupleFooter)(nil, HTupleBaseApex.self, nil, false)
+        let footerBlock = footerBlock as! HTupleFooter
+        _ = footerBlock(nil, HTupleBaseApex.self, nil, false) as! HTupleFooter
     }
     @objc
     func tuple0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
