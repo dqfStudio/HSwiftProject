@@ -8,10 +8,10 @@
 
 //import UIKit
 //
-//enum HAlertActionStyle: Int {
-//    case cancel = 0
-//    case confirm = 1
-//}
+enum HAlertActionStyle: Int {
+    case cancel = 0
+    case confirm = 1
+}
 //
 //typealias HAlertActionBlock = (_ action: HAlertActionStyle ) -> Void
 //

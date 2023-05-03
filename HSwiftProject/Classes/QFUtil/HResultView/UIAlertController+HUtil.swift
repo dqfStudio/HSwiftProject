@@ -104,15 +104,15 @@ extension UIAlertController {
 
 extension HAlertController {
     @discardableResult
-    static func showAlert(model: HAlertModel, preferredStyle: HAlertControllerStyle, completion: ((_ actionStyle: Int) -> Void)?) -> HAlertController? {
+    static func showAlert(model: HAlertModel, preferredStyle: HAlertControllerStyle, completion: ((_ actionStyle: HAlertActionStyle) -> Void)?) -> HAlertController? {
         let alertController = HAlertController(model: model, preferredStyle: preferredStyle)
         // 取消回调
         alertController.cancelBlock = {
-            completion?(0)
+            completion?(.cancel)
         }
         // 确认回调
         alertController.confirmBlock = {
-            completion?(1)
+            completion?(.confirm)
         }
         // 显示alert
         DispatchQueue.main.async {
