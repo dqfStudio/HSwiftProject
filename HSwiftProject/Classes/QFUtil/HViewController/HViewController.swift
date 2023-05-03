@@ -120,19 +120,19 @@ class HViewController: UIViewController, HNavigationBarProtocol {
     
     // Callback for the left button in the navigation bar
     func navigationBarLeftItemPressed(_ leftItem: UIButton?) {
-        self.leftNaviButtonPressed()
+        self.leftNaviItemPressed()
     }
     
     // Callback for the right button in the navigation bar
     func navigationBarRightItemPressed(_ rightItem: UIButton?) {
-        self.rightNaviButtonPressed()
+        self.rightNaviItemPressed()
     }
 
-    func leftNaviButtonPressed() {
+    func leftNaviItemPressed() {
         self.back()
     }
 
-    func rightNaviButtonPressed() {
+    func rightNaviItemPressed() {
         
     }
     
