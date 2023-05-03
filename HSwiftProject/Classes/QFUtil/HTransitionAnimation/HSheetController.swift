@@ -28,6 +28,7 @@ class HSheetController : HViewController, HTupleViewDelegate {
         let tupleView = HTupleView(frame: .zero)
         tupleView.backgroundColor = UIColor.clear
         tupleView.layer.cornerRadius = 3.0//默认为3.f
+        tupleView.isScrollEnabled = false
         tupleView.disableBounce()
         return tupleView
     }()
