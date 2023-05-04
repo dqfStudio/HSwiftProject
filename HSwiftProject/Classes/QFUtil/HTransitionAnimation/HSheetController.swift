@@ -53,7 +53,7 @@ class HSheetController : HViewController, HTupleViewDelegate {
             return [0, 1, 2]
         })
         tupleView.backgroundColor = UIColor.clear
-        tupleView.layer.cornerRadius = 10 //默认系统弹框圆角为10.f
+        tupleView.setCornerRadiiOnTop(16)
         tupleView.isScrollEnabled = false
         tupleView.disableBounce()
         return tupleView
