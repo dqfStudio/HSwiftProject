@@ -135,7 +135,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     override weak var dataSource: UITableViewDataSource? {
         get { return super.dataSource }
-        set { NSLog("") }
+        set { _ = newValue }
     }
     
     override var frame: CGRect {
