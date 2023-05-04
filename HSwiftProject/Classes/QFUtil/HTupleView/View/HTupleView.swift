@@ -239,7 +239,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     weak override var dataSource: UICollectionViewDataSource? {
         get { return super.dataSource }
-        set { NSLog(newValue) }
+        set { NSLog("") }
     }
     
     override var frame: CGRect {
