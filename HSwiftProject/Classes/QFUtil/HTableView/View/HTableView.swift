@@ -669,8 +669,8 @@ extension HTableView {
     }
 
     func signal(_ signal: HTableSignal?, itemSection section: Int, _ completion: @escaping () -> Void) {
+        let items = self.numberOfRows(inSection: section)
         DispatchQueue.global(qos: .userInteractive).async {
-            let items = self.numberOfRows(inSection: section)
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: items) { i in
                 let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HTableBaseCell
@@ -697,8 +697,8 @@ extension HTableView {
 
     /// Send signals to all headers or a single header individually
     func signalToAllHeader(_ signal: HTableSignal?, _ completion: @escaping () -> Void) {
+        let sections = self.numberOfSections
         DispatchQueue.global(qos: .userInteractive).async {
-            let sections = self.numberOfSections
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: sections) { i in
                 let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HTableBaseApex
@@ -725,8 +725,8 @@ extension HTableView {
 
     /// Send signals to all footers or a single footer separately
     func signalToAllFooter(_ signal: HTableSignal?, _ completion: @escaping () -> Void) {
+        let sections = self.numberOfSections
         DispatchQueue.global(qos: .userInteractive).async {
-            let sections = self.numberOfSections
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: sections) { i in
                 let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HTableBaseApex

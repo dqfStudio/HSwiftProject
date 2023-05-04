@@ -1038,8 +1038,8 @@ extension HTupleView {
     }
 
     func signal(_ signal: HTupleSignal?, itemSection section: Int, _ completion: @escaping () -> Void) {
+        let items = self.numberOfItems(inSection: section)
         DispatchQueue.global(qos: .userInteractive).async {
-            let items = self.numberOfItems(inSection: section)
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: items) { i in
                 let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HTupleBaseCell
@@ -1066,8 +1066,8 @@ extension HTupleView {
 
     /// Send signals to all headers or a single header individually
     func signalToAllHeader(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
+        let sections = self.numberOfSections
         DispatchQueue.global(qos: .userInteractive).async {
-            let sections = self.numberOfSections
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: sections) { i in
                 let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HTupleBaseApex
@@ -1095,8 +1095,8 @@ extension HTupleView {
 
     /// Send signals to all footers or a single footer individually
     func signalToAllFooter(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
+        let sections = self.numberOfSections
         DispatchQueue.global(qos: .userInteractive).async {
-            let sections = self.numberOfSections
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: sections) { i in
                 let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HTupleBaseApex
