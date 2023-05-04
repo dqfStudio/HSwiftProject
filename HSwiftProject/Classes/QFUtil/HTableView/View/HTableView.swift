@@ -465,27 +465,27 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         switch self.tableStyle {
         case .default:
-            var sections = 0
+            var sections = 1
             if let delegate = self.tableDelegate {
                 let prefix = ""
                 let selector = #selector(delegate.numberOfSectionsInTableView)
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
-                // Prevent negative size
-                sections = max(sections, 0)
+                // Prevents quantity from being less than 1
+                sections = max(sections, 1)
             }
             return sections
         case .split:
-            var sections = 0
+            var sections = 1
             if let delegate = self.tableDelegate {
                 let prefix = KTableDesignKey + "\(self.tableState)" + "_"
                 let selector = #selector(delegate.numberOfSectionsInTableView)
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
-                // Prevent negative size
-                sections = max(sections, 0)
+                // Prevents quantity from being less than 1
+                sections = max(sections, 1)
             }
             return sections
         }

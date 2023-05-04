@@ -591,27 +591,27 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
         switch self.tupleStyle {
         case .default:
-            var sections = 0
+            var sections = 1
             if let delegate = self.tupleDelegate {
                 let prefix = ""
                 let selector = #selector(delegate.numberOfSectionsInTupleView)
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
-                // Prevents quantity from being less than 0
-                sections = max(sections, 0)
+                // Prevents quantity from being less than 1
+                sections = max(sections, 1)
             }
             return sections
         case .split:
-            var sections = 0
+            var sections = 1
             if let delegate = self.tupleDelegate {
                 let prefix = KTupleDesignKey + "\(self.tupleState)" + "_"
                 let selector = #selector(delegate.numberOfSectionsInTupleView)
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
-                // Prevents quantity from being less than 0
-                sections = max(sections, 0)
+                // Prevents quantity from being less than 1
+                sections = max(sections, 1)
             }
             return sections
         }
