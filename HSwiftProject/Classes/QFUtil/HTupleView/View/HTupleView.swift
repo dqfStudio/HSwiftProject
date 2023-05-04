@@ -1008,12 +1008,8 @@ extension HTupleView {
 
     /// The signal block held by tupleView
     var signalBlock: HTupleCellSignalBlock? {
-        get {
-            return self.getAssociatedValueForKey(&KTupleSignalKey) as? HTupleCellSignalBlock
-        }
-        set {
-            self.setAssociateCopyValue(newValue, key: &KTupleSignalKey)
-        }
+        get { return self.getAssociatedValueForKey(&KTupleSignalKey) as? HTupleCellSignalBlock }
+        set { self.setAssociateCopyValue(newValue, key: &KTupleSignalKey) }
     }
     
     /// Send signal to tupleView

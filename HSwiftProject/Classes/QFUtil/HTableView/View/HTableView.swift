@@ -639,12 +639,8 @@ extension HTableView {
 
     /// Signal block held by tableView
     var signalBlock: HTableCellSignalBlock? {
-        get {
-            return self.getAssociatedValueForKey(&KTableSignalKey) as? HTableCellSignalBlock
-        }
-        set {
-            self.setAssociateCopyValue(newValue, key: &KTableSignalKey)
-        }
+        get { return self.getAssociatedValueForKey(&KTableSignalKey) as? HTableCellSignalBlock }
+        set { self.setAssociateCopyValue(newValue, key: &KTableSignalKey) }
     }
     
     /// Send a signal to the tableView
