@@ -68,7 +68,7 @@ extension HAcceptVideoVC {
             cell.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             break
         case 3:
-            _ = itemBlock(nil, HTupleBlankCell.self, nil, true)
+            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
             break
         case 4:
             let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
@@ -104,7 +104,7 @@ extension HAcceptVideoVC {
             cell.detailLabel.textAlignment = .center
             break
         case 5:
-            _ = itemBlock(nil, HTupleBlankCell.self, nil, true)
+            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
             break
         case 6:
             let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
@@ -140,7 +140,7 @@ extension HAcceptVideoVC {
             cell.detailLabel.textAlignment = .center
             break
         case 7:
-            _ = itemBlock(nil, HTupleBlankCell.self, nil, true)
+            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
             break
 
         default:

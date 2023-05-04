@@ -189,7 +189,7 @@ extension HSheetController {
         let row = indexPath.row % 2
         switch row {
         case 0:
-            let cell = itemBlock(nil, HTupleBlankCell.self, nil, true) as! HTupleBlankCell
+            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             var button = cell.viewWithTag(12345) as? UIButton
             if button == nil {
                 button = UIButton(frame: cell.layoutViewBounds)

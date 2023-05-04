@@ -128,7 +128,7 @@ class HInputBoxView: UIView, HTupleViewDelegate {
     
     func tupleFooter(_ footerBlock: Any, inSection section: Any) {
         let footerBlock = footerBlock as! HTupleFooter
-        let cell = footerBlock(nil, HTupleBlankApex.self, nil, true) as! HTupleBlankApex
+        let cell = footerBlock(nil, HTupleBaseApex.self, nil, true) as! HTupleBaseApex
         cell.backgroundColor = .clear
     }
 

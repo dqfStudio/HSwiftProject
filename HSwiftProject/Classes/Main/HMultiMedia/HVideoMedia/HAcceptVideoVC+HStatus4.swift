@@ -71,7 +71,7 @@ extension HAcceptVideoVC {
             cell.label.textAlignment = .center
             break
         case 3:
-            _ = itemBlock(nil, HTupleBlankCell.self, nil, true)
+            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
             break
         case 4:
             let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
@@ -107,7 +107,7 @@ extension HAcceptVideoVC {
             cell.detailLabel.textAlignment = .center
             break
         case 5:
-            _ = itemBlock(nil, HTupleBlankCell.self, nil, true)
+            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
             break
         case 6:
             let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
@@ -157,7 +157,7 @@ extension HAcceptVideoVC {
             cell.accessoryLabel.textAlignment = .center
             break
         case 7:
-            _ = itemBlock(nil, HTupleBlankCell.self, nil, true)
+            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
             break
 
         default:

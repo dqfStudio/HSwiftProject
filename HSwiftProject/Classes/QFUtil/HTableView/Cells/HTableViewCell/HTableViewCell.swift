@@ -44,18 +44,6 @@ class HTableCellSubtitle : HTableBaseCell {
     }
 }
 
-class HTableBlankCell : HTableBaseCell {
-    lazy var blank: UIView = {
-        let blank = UIView()
-        self.layoutView.addSubview(blank)
-        return blank
-    }()
-    
-    override func relayoutSubviews() {
-        HLayoutTableCell(self.blank)
-    }
-}
-
 class HTableLabelCell : HTableBaseCell {
     lazy var label: UILabel = {
         let label = UILabel()

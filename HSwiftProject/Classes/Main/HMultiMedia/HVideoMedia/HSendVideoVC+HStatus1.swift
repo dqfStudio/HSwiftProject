@@ -42,7 +42,7 @@ extension HSendVideoVC {
             }
             break
         case 1:
-            _ = itemBlock(nil, HTupleBlankCell.self, nil, true)
+            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
             break
         case 2:
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
@@ -53,7 +53,7 @@ extension HSendVideoVC {
             cell.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             break
         case 3:
-            _ = itemBlock(nil, HTupleBlankCell.self, nil, true)
+            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
             break
         case 4:
             let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
@@ -89,7 +89,7 @@ extension HSendVideoVC {
             cell.detailLabel.textAlignment = .center
             break
         case 5:
-            _ = itemBlock(nil, HTupleBlankCell.self, nil, true)
+            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
             break
         case 6:
             let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
@@ -110,7 +110,7 @@ extension HSendVideoVC {
             cell.label.textAlignment = .center
             break
         case 7:
-            _ = itemBlock(nil, HTupleBlankCell.self, nil, true)
+            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
             break
 
         default:

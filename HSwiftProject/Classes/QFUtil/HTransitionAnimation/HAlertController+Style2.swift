@@ -65,8 +65,8 @@ extension HAlertController {
             cell.label.textColor = HColorHex("#17191E")
             cell.label.text = alertModel.message
         case HCell2:
-            let cell = itemBlock(nil, HTupleBlankCell.self, nil, true) as! HTupleBlankCell
-            cell.blank.backgroundColor = HColorHex("#F7F8FA")
+            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            cell.backgroundColor = HColorHex("#F7F8FA")
         case HCell3:
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             cell.label.font = UIFont.font(ofSize: 16, weight: .medium)

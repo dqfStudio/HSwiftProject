@@ -8,18 +8,6 @@
 
 import UIKit
 
-class HTupleBlankCell : HTupleBaseCell {
-    lazy var blank: UIView = {
-        let blank = UIView()
-        self.layoutView.addSubview(blank)
-        return blank
-    }()
-    
-    override func relayoutSubviews() {
-        HLayoutTupleCell(self.blank)
-    }
-}
-
 class HTupleLabelCell : HTupleBaseCell {
     lazy var label: UILabel = {
         let label = UILabel()

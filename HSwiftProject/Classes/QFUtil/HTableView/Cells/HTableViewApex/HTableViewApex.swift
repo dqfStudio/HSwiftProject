@@ -8,18 +8,6 @@
 
 import UIKit
 
-class HTableBlankApex : HTableBaseApex {
-    lazy var blank: UIView = {
-        let blank = UIView()
-        self.layoutView.addSubview(blank)
-        return blank
-    }()
-    
-    override func relayoutSubviews() {
-        HLayoutTableApex(self.blank)
-    }
-}
-
 class HTableLabelApex : HTableBaseApex {
     lazy var label: UILabel = {
         let label = UILabel()

@@ -87,7 +87,7 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
             }
             break
         case 1:
-            _ = itemBlock(nil, HTupleBlankCell.self, nil, true)
+            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
             break
         case 2:
             let cell = itemBlock(nil, HTupleButtonCell.self, nil, true) as! HTupleButtonCell
