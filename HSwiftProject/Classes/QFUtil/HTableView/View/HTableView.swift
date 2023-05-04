@@ -350,16 +350,17 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         // Save cell
         self.allReuseHeaders.setObject(cell, forKey: "\(section)" as NSString)
         // Call delegate method
+        var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tableDelegate {
             let prefix = self.prefixWithSection(section)
             let selector: Selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
-                let edgeInsets = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
-                // Set properties
-                if edgeInsets != .zero, cell.responds(to: #selector(setter: cell.edgeInsets)) {
-                    cell.edgeInsets = edgeInsets
-                }
+                edgeInsets = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
             }
+        }
+        // Set properties
+        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
+            cell.edgeInsets = edgeInsets
         }
         return cell
     }
@@ -392,16 +393,17 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         // Save cell
         self.allReuseFooters.setObject(cell, forKey: "\(section)" as NSString)
         // Call delegate method
+        var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tableDelegate {
             let prefix = self.prefixWithSection(section)
             let selector = #selector(delegate.edgeInsetsForFooterInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
-                let edgeInsets = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
-                // Set properties
-                if edgeInsets != .zero, cell.responds(to: #selector(setter: cell.edgeInsets)) {
-                    cell.edgeInsets = edgeInsets
-                }
+                edgeInsets = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
             }
+        }
+        // Set properties
+        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
+            cell.edgeInsets = edgeInsets
         }
         return cell
     }
@@ -433,16 +435,17 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         // Save cell
         self.allReuseCells.setObject(cell, forKey: idxPath.nsStringValue)
         // Call delegate method
+        var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tableDelegate {
             let prefix = self.prefixWithSection(idxPath.section)
             let selector = #selector(delegate.edgeInsetsForRowAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
-                let edgeInsets = delegate.performWithUnretainedValue(selector, with: idxPath, withPre: prefix) as! UIEdgeInsets
-                // Set properties
-                if edgeInsets != .zero, cell.responds(to: #selector(setter: cell.edgeInsets)) {
-                    cell.edgeInsets = edgeInsets
-                }
+                edgeInsets = delegate.performWithUnretainedValue(selector, with: idxPath, withPre: prefix) as! UIEdgeInsets
             }
+        }
+        // Set properties
+        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
+            cell.edgeInsets = edgeInsets
         }
         return cell
     }
