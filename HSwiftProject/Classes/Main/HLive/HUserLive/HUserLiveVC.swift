@@ -122,14 +122,14 @@ class HUserLiveVC : HTupleController {
     @objc
     private func recordingScreen() {
         self.dismiss(animated: true, completion: nil)
-        UIAlertController.showAlertWithTitle("安全提醒", message: "请不要录屏分享给他人以保障账户安全。", style: .alert, cancelButtonTitle: "我知道了", otherButtonTitles: nil, completion: nil)
+        UIAlertController.showAlert(withTitle: "安全提醒", message: "请不要录屏分享给他人以保障账户安全。", style: .alert, cancelButtonTitle: "我知道了", otherButtonTitles: nil, completion: nil)
         //UIAlertView(title: "安全提醒", message: "请不要录屏分享给他人以保障账户安全。", delegate: nil, cancelButtonTitle: "我知道了").show()
     }
 
     // 截屏
     @objc
     private func screenshot() {
-        //UIAlertController.showAlertWithTitle("安全提醒", message: "请不要截屏分享给他人以保障账户安全。", style: .alert, cancelButtonTitle: "我知道了", otherButtonTitles: nil, completion: nil)
+        //UIAlertController.showAlert(withTitle: "安全提醒", message: "请不要截屏分享给他人以保障账户安全。", style: .alert, cancelButtonTitle: "我知道了", otherButtonTitles: nil, completion: nil)
         UIAlertView(title: "安全提醒", message: "请不要截屏分享给他人以保障账户安全。", delegate: nil, cancelButtonTitle: "我知道了").show()
     }
 

@@ -41,14 +41,24 @@ class HSheetController : HViewController, HTupleViewDelegate {
         return .sheet
     }
 
+    override var isShadowDismiss: Bool {
+        return true
+    }
+
     private lazy var visualView: UIVisualEffectView = {
         let blur = UIBlurEffect(style: .light)
-        return UIVisualEffectView(effect: blur)
+        let visualView = UIVisualEffectView(effect: blur)
+        var frame = CGRect.zero
+        frame.size = self.containerSize
+        visualView.frame = frame
+        return visualView
     }()
 
     private lazy var tupleView: HTupleView = {
         let tupleView = HTupleView.tupleFrame({ () -> CGRect in
-            return .zero
+            var frame = CGRect.zero
+            frame.size = self.containerSize
+            return frame
         }, exclusiveSections: { () -> NSArray in
             return [0, 1, 2]
         })
@@ -78,11 +88,7 @@ class HSheetController : HViewController, HTupleViewDelegate {
             self.visualView.contentView.addSubview(self.tupleView)
             self.view.addSubview(self.visualView)
         }
-        
-        // 设置frame
-        self.visualView.frame.size = self.containerSize
-        self.tupleView.frame.size = self.containerSize
-        
+
         // 设置代理
         self.tupleView.delegate = self
         

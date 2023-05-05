@@ -13,55 +13,31 @@ private var alert_action_key = "alert_action_key"
 extension UIAlertController {
     
     @discardableResult
-    static func showAlertWithTitle(_ title: String?, message: String?, style: UIAlertController.Style, cancelButtonTitle: String?, otherButtonTitles: Array<String>?, completion: ((_ buttonIndex: Int) -> Void)?) -> UIAlertController? {
-
-        if (UIDevice.current.systemVersion.floatValue >= 8.0) {
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
-
-            if (cancelButtonTitle != nil) {
-                let cancelAction = UIAlertAction(title: cancelButtonTitle, style: UIAlertAction.Style.cancel) { action in
-                    if (completion != nil) {
-                        completion!(0)
-                    }
-                }
-                alertController.addAction(cancelAction)
+    static func showAlert(withTitle title: String?, message: String?, style: UIAlertController.Style, cancelButtonTitle: String?, otherButtonTitles: Array<String>?, completion: ((_ buttonIndex: Int) -> Void)?) -> UIAlertController? {
+        guard #available(iOS 8.0, *) else { return nil }
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
+        
+        if let cancelTitle = cancelButtonTitle {
+            let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel) { _ in
+                completion?(-1)
             }
-            
-            if (otherButtonTitles != nil && otherButtonTitles!.count > 0) {
-                for i in 0..<otherButtonTitles!.count {
-                    let action = UIAlertAction(title: otherButtonTitles![i], style: UIAlertAction.Style.default) { action in
-                        if (completion != nil) {
-                            let index = objc_getAssociatedObject(action, &alert_action_key) as! NSNumber
-                            completion!(index.intValue)
-                        }
-                    }
-                    objc_setAssociatedObject(action, &alert_action_key, NSNumber(value: i + 1), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-                    alertController.addAction(action)
-                }
-            }
-            
-            let rootController = UIApplication.shared.keyWindow?.rootViewController
-            DispatchQueue.main.async {
-                if ((rootController?.isKind(of: UIViewController.self)) != nil) {
-                    rootController?.present(alertController, animated: true, completion: nil)
-                }
-            }
-            return alertController
+            alertController.addAction(cancelAction)
         }
         
-        return nil
-    }
-
-    @discardableResult
-    static func showAlertWithMessage(_ message: String, cancel: (() -> Void)?) -> UIAlertController? {
-        let alertController = UIAlertController(title: "温馨提醒", message: message, preferredStyle: .alert)
-        let cancel = UIAlertAction(title: "取消", style: .cancel) { action in
-            if (cancel != nil) {
-                cancel!()
+        if let otherTitles = otherButtonTitles, !otherTitles.isEmpty {
+            for (index, title) in otherTitles.enumerated() {
+                let action = UIAlertAction(title: title, style: .default) { _ in
+                    completion?(index)
+                }
+                alertController.addAction(action)
             }
         }
-        alertController.addAction(cancel)
-        UIApplication.shared.getKeyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
+        
+        if let rootController = UIApplication.shared.getKeyWindow?.rootViewController,
+           rootController.isKind(of: UIViewController.self) {
+            rootController.present(alertController, animated: true, completion: nil)
+        }
         
         return alertController
     }

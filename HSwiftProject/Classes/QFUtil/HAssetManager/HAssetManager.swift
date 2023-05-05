@@ -32,7 +32,7 @@ class HAssetManager: NSObject {
     var albumsName: String = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String ?? ""
     
     private static func showDeniedAlert() {
-        UIAlertController.showAlertWithTitle("未获得照片使用权限", message: "请在iOS 设置-隐私-照片 中打开", style: .alert, cancelButtonTitle: "好的", otherButtonTitles: nil, completion: nil)
+        UIAlertController.showAlert(withTitle: "未获得照片使用权限", message: "请在iOS 设置-隐私-照片 中打开", style: .alert, cancelButtonTitle: "好的", otherButtonTitles: nil, completion: nil)
     }
     
     private func createAlbums() {
