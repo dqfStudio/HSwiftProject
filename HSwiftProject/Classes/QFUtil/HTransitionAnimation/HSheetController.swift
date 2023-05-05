@@ -120,7 +120,7 @@ extension HSheetController {
 
     @objc
     func tupleExa0_numberOfItemsInSection(_ section: Any) -> Any {
-        if _title != nil {
+        if let title = _title, !title.isEmpty {
             return 2
         } else {
             return 1
@@ -128,7 +128,7 @@ extension HSheetController {
     }
     @objc
     func tupleExa0_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        if _title != nil {
+        if let title = _title, !title.isEmpty {
             switch (indexPath.row) {
             case HCell0:
                 return CGSize(width: self.tupleView.width, height: 35)
@@ -145,14 +145,14 @@ extension HSheetController {
     @objc
     func tupleExa0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        if _title != nil {
+        if let title = _title, !title.isEmpty {
             switch (indexPath.row) {
             case HCell0:
                 let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
                 cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
                 cell.label.textColor = UIColor.black
                 cell.label.textAlignment = .center
-                cell.label.text = _title
+                cell.label.text = title
                 break
             case HCell1:
                 let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
@@ -178,7 +178,7 @@ extension HSheetController {
     }
     @objc
     func tupleExa1_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        let row = indexPath.row % 2
+        let row = indexPath.row.isMultiple(of: 2)
         switch row {
         case 0:
             return CGSize(width: self.tupleView.width, height: 56)
@@ -192,7 +192,7 @@ extension HSheetController {
     @objc
     func tupleExa1_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let row = indexPath.row % 2
+        let row = indexPath.row.isMultiple(of: 2)
         switch row {
         case 0:
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
@@ -225,7 +225,7 @@ extension HSheetController {
     }
     @objc
     func tupleExa1_didSelectItemAtIndexPath(_ indexPath: IndexPath) {
-        let row = indexPath.row % 2
+        let row = indexPath.row.isMultiple(of: 2)
         switch row {
         case 0:
             // 获取数据
