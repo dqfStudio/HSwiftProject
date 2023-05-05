@@ -58,15 +58,21 @@ class HAlertController : HViewController, HTupleViewDelegate {
     override var presetType: HTransitionStyle {
         return .alert
     }
-
+    
     private lazy var visualView: UIVisualEffectView = {
         let blur = UIBlurEffect(style: .light)
-        return UIVisualEffectView(effect: blur)
+        let visualView = UIVisualEffectView(effect: blur)
+        var frame = CGRect.zero
+        frame.size = self.containerSize
+        visualView.frame = frame
+        return visualView
     }()
 
     lazy var tupleView: HTupleView = {
         let tupleView = HTupleView.tupleFrame({ () -> CGRect in
-            return .zero
+            var frame = CGRect.zero
+            frame.size = self.containerSize
+            return frame
         }, exclusiveSections: { () -> NSArray in
             return []
         })
@@ -91,10 +97,6 @@ class HAlertController : HViewController, HTupleViewDelegate {
             self.visualView.contentView.addSubview(self.tupleView)
             self.view.addSubview(self.visualView)
         }
-        
-        // 设置frame
-        self.visualView.frame.size = self.containerSize
-        self.tupleView.frame.size = self.containerSize
         
         // 设置代理
         self.tupleView.delegate = self
