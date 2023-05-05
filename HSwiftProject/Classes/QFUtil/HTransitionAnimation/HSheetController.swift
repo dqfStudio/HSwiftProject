@@ -34,7 +34,7 @@ class HSheetController : HViewController, HTupleViewDelegate {
         var height = 0.0
         height += Double(actions.count * 56 + (actions.count - 1) * 1)
         height += 8 + 56 + (1 + UIScreen.bottomBarHeight)
-        return CGSize(width: 270, height: height)
+        return CGSize(width: UIScreen.width, height: height)
     }
     
     override var presetType: HTransitionStyle {
