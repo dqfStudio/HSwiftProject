@@ -178,7 +178,7 @@ extension HSheetController {
     }
     @objc
     func tupleExa1_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        let row = indexPath.row.isMultiple(of: 2)
+        let row = indexPath.row % 2
         switch row {
         case 0:
             return CGSize(width: self.tupleView.width, height: 56)
@@ -192,7 +192,7 @@ extension HSheetController {
     @objc
     func tupleExa1_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let row = indexPath.row.isMultiple(of: 2)
+        let row = indexPath.row % 2
         switch row {
         case 0:
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
@@ -225,7 +225,7 @@ extension HSheetController {
     }
     @objc
     func tupleExa1_didSelectItemAtIndexPath(_ indexPath: IndexPath) {
-        let row = indexPath.row.isMultiple(of: 2)
+        let row = indexPath.row % 2
         switch row {
         case 0:
             // 获取数据
@@ -233,6 +233,7 @@ extension HSheetController {
             let action: HSheetAction = actions[index]
             // 回调
             action.handler?(index)
+            self.back()
         case 1:
             break
         default:
@@ -291,6 +292,7 @@ extension HSheetController {
         // 回调
         if indexPath.row == HCell1 {
             cancelAction.handler?(-1)
+            self.back()
         }
     }
 
