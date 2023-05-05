@@ -30,7 +30,7 @@ class HSheetAction: NSObject {
         return _handler
     }
     
-    required init(title: String, image: String?, handler: @escaping (Int) -> Void) {
+    required init(title: String, image: String? = nil, handler: @escaping (Int) -> Void) {
         super.init()
         _title = title
         _image = image
