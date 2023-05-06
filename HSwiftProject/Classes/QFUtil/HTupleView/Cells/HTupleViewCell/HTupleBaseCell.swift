@@ -8,24 +8,32 @@
 
 import UIKit
 
-typealias HTupleCellBlock = (_ idxPath: IndexPath) -> Void
-typealias HTupleDidSelectCell = (_ target: HTupleBaseCell, _ indexPath: IndexPath) -> Void
+typealias HTupleCellSizeBlock = () -> CGSize
+typealias HTupleCellEdgeInsetsBlock = () -> UIEdgeInsets
+typealias HTupleCellBlock = () -> Void
+typealias HTupleCellDidSelectBlock = () -> Void
 
 class HTupleBaseCell : UICollectionViewCell {
     
     /// Tuple view where the cell is located
     weak var tuple: UICollectionView?
 
-    /// Block for selecting an item
-    var didSelectCell: HTupleDidSelectCell?
-
     /// IndexPath where the cell is located
     var indexPath: IndexPath?
 
-    /// Block for cell click, used for user click events
+    /// Callback for getting size.
+    var sizeBlock: HTupleCellSizeBlock?
+    
+    /// Callback for obtaining edgeInsets
+    var edgeInsetsBlock: HTupleCellEdgeInsetsBlock?
+    
+    /// Callback for getting a cell
     var cellBlock: HTupleCellBlock?
+    
+    /// Callback when a cell is clicked
+    var didSelectCell: HTupleCellDidSelectBlock?
 
-    /// Signal block
+    /// Signal callback
     var signalBlock: HTupleCellSignalBlock?
     
     
@@ -58,6 +66,7 @@ class HTupleBaseCell : UICollectionViewCell {
     /// The layout view loaded on the content view
     lazy var layoutView: UIView = {
         let view = UIView()
+        view.frame = layoutViewFrame
         self.addSubview(view)
         return view
     }()

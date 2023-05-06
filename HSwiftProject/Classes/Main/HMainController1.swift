@@ -181,8 +181,7 @@ class HMainController1: HTupleController {
             cell.label.textAlignment = .center
             cell.label.text = "黑客帝国"
         
-            cell.didSelectCell = { (target, indexPath) in
-                let cell = target as! HTupleViewCellVertValue1
+            cell.didSelectCell = {
                 NSLog("选中黑客帝国%d", cell.labelHeight)
                 let navi = HNavigationController(rootViewController: HUserLiveVC())
                 UIApplication.navi?.present(navi, animated: true, completion: nil)
