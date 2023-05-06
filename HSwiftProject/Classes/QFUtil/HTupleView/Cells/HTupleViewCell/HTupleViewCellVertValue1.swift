@@ -10,13 +10,13 @@ import UIKit
 
 class HTupleViewCellVertBase1 : HTupleBaseCell {
     ///imageView的上下边距
-    var imageViewInsets: UITBEdgeInsets = UITBEdgeInsetsZero
+    var imageViewInsets: UITBEdgeInsets = UITBEdgeInsets.zero
     ///label的上下边距
-    var labelInsets: UITBEdgeInsets = UITBEdgeInsetsZero
+    var labelInsets: UITBEdgeInsets = UITBEdgeInsets.zero
     ///detailLabel的上下边距
-    var detailLabelInsets: UITBEdgeInsets = UITBEdgeInsetsZero
+    var detailLabelInsets: UITBEdgeInsets = UITBEdgeInsets.zero
     ///accessoryLabel的上下边距
-    var accessoryLabelInsets: UITBEdgeInsets = UITBEdgeInsetsZero
+    var accessoryLabelInsets: UITBEdgeInsets = UITBEdgeInsets.zero
 }
 
 class HTupleViewCellVertValue1 : HTupleViewCellVertBase1 {

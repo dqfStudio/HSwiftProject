@@ -28,7 +28,7 @@ extension HGameCategoryVC {
         let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
         cell.backgroundColor = UIColor.gray
         cell.isShouldShowSeparator = true
-        cell.separatorInset = UILREdgeInsetsMake(10, 10)
+        cell.separatorInset = UILREdgeInsets(left: 10, right: 10)
         
         let frame = cell.layoutViewBounds
         

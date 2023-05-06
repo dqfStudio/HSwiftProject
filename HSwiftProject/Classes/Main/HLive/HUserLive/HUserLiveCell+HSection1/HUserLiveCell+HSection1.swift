@@ -118,11 +118,11 @@ extension HUserLiveCell {
         case 1:
             return UIEdgeInsets(top: 5, left: 0, bottom: 10, right: 0)
         case 2:
-            return UIEdgeInsetsZero
+            return UIEdgeInsets.zero
         default:
             break
         }
-        return UIEdgeInsetsZero
+        return UIEdgeInsets.zero
     }
     @objc
     func tupleExa1_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {

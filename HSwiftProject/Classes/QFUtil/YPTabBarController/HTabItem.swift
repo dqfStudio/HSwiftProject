@@ -125,7 +125,7 @@ class HTabItem : UIButton {
         return _titleWidth
     }
 
-    private var _indicatorInsets: UIEdgeInsets = UIEdgeInsetsZero
+    private var _indicatorInsets: UIEdgeInsets = UIEdgeInsets.zero
     /// indicator
     var indicatorInsets: UIEdgeInsets {
         get {

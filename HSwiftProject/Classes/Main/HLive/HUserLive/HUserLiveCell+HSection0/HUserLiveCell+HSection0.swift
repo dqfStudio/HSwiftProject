@@ -44,7 +44,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
         case 0:
             return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         case 1:
-            return UIEdgeInsetsZero
+            return UIEdgeInsets.zero
         case 2:
             return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         case 3:
@@ -57,7 +57,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
         default:
             break
         }
-        return UIEdgeInsetsZero
+        return UIEdgeInsets.zero
     }
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         switch (indexPath.row) {
@@ -272,7 +272,7 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
             cell.detailLabel.font = UIFont.systemFont(ofSize: 18)
             cell.detailLabel.textAlignment = .right
             cell.detailLabel.textColor = UIColor.white
-            cell.detailLabelInsets = UILREdgeInsetsMake(0, 5)
+            cell.detailLabelInsets = UILREdgeInsets(left: 0, right: 5)
 //                cell.detailLabel setTextVerticalAlignment:HTextVerticalAlignmentBottom]
             cell.detailLabel.text = "›"
             break
@@ -290,7 +290,7 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
             cell.detailLabel.font = UIFont.systemFont(ofSize: 18)
             cell.detailLabel.textAlignment = .right
             cell.detailLabel.textColor = UIColor.white
-            cell.detailLabelInsets = UILREdgeInsetsMake(0, 5)
+            cell.detailLabelInsets = UILREdgeInsets(left: 0, right: 5)
 //                [cell.detailLabel setTextVerticalAlignment:HTextVerticalAlignmentBottom]
             cell.detailLabel.text = "›"
             break
@@ -340,7 +340,7 @@ extension HUserLiveCell {
         }else if (indexPath.row == 3) {
             return UIEdgeInsets(top: 5, left: 10, bottom: 5, right: self.liveRightView.width - 130)
         }
-        return UIEdgeInsetsZero
+        return UIEdgeInsets.zero
     }
     @objc
     func tupleExa0_tupleHeader(_ headerBlock: Any, inSection section: Any) {

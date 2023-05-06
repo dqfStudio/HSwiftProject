@@ -12,43 +12,43 @@ private var KArrowSpace: CGFloat = 10
 
 class HTableViewApexHoriBase1 : HTableBaseApex {
     ///imageView的上下左右边距
-    var imageViewInsets: UIEdgeInsets = UIEdgeInsetsZero
+    var imageViewInsets: UIEdgeInsets = UIEdgeInsets.zero
     ///两个label的间距
     var labelInterval: CGFloat = 5
     ///中间label的左右边距
-    var centralInsets: UILREdgeInsets = UILREdgeInsetsMake(10, 10)
+    var centralInsets: UILREdgeInsets = UILREdgeInsets(left: 10, right: 10)
     ///detailView的上下左右边距
-    var detailViewInsets: UIEdgeInsets = UIEdgeInsetsZero
+    var detailViewInsets: UIEdgeInsets = UIEdgeInsets.zero
 }
 
 class HTableViewApexHoriBase2 : HTableBaseApex {
     ///imageView的上下左右边距
-    var imageViewInsets: UIEdgeInsets = UIEdgeInsetsZero
+    var imageViewInsets: UIEdgeInsets = UIEdgeInsets.zero
     ///label的左右边距
-    var labelInsets: UILREdgeInsets = UILREdgeInsetsZero
+    var labelInsets: UILREdgeInsets = UILREdgeInsets.zero
     ///detailLabel的左右边距
-    var detailLabelInsets: UILREdgeInsets = UILREdgeInsetsZero
+    var detailLabelInsets: UILREdgeInsets = UILREdgeInsets.zero
     ///accessoryLabel的左右边距
-    var accessoryLabelInsets: UILREdgeInsets = UILREdgeInsetsZero
+    var accessoryLabelInsets: UILREdgeInsets = UILREdgeInsets.zero
     ///中间label的左右边距
-    var centralInsets: UILREdgeInsets = UILREdgeInsetsMake(10, 10)
+    var centralInsets: UILREdgeInsets = UILREdgeInsets(left: 10, right: 10)
     ///detailView的上下左右边距
-    var detailViewInsets: UIEdgeInsets = UIEdgeInsetsZero
+    var detailViewInsets: UIEdgeInsets = UIEdgeInsets.zero
 }
 
 class HTableViewApexHoriBase3 : HTableBaseApex {
     ///imageView的上下左右边距
-    var imageViewInsets: UIEdgeInsets = UIEdgeInsetsZero
+    var imageViewInsets: UIEdgeInsets = UIEdgeInsets.zero
     ///label的上下边距
-    var labelInsets: UITBEdgeInsets = UITBEdgeInsetsZero
+    var labelInsets: UITBEdgeInsets = UITBEdgeInsets.zero
     ///detailLabel的上下边距
-    var detailLabelInsets: UITBEdgeInsets = UITBEdgeInsetsZero
+    var detailLabelInsets: UITBEdgeInsets = UITBEdgeInsets.zero
     ///accessoryLabel的上下边距
-    var accessoryLabelInsets: UITBEdgeInsets = UITBEdgeInsetsZero
+    var accessoryLabelInsets: UITBEdgeInsets = UITBEdgeInsets.zero
     ///中间label的左右边距
-    var centralInsets: UILREdgeInsets = UILREdgeInsetsMake(10, 10)
+    var centralInsets: UILREdgeInsets = UILREdgeInsets(left: 10, right: 10)
     ///detailView的上下左右边距
-    var detailViewInsets: UIEdgeInsets = UIEdgeInsetsZero
+    var detailViewInsets: UIEdgeInsets = UIEdgeInsets.zero
 }
 
 ///两个label左右相距排列

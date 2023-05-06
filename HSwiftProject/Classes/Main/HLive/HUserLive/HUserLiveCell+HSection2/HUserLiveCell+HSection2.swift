@@ -43,7 +43,7 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
         case 0:
             return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         case 1:
-            return UIEdgeInsetsZero
+            return UIEdgeInsets.zero
         case 2:
             return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         case 3:
@@ -53,7 +53,7 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
         default:
             break
         }
-        return UIEdgeInsetsZero
+        return UIEdgeInsets.zero
     }
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         switch (indexPath.row) {

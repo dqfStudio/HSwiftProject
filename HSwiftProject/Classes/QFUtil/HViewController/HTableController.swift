@@ -20,7 +20,7 @@ class HTableController: HViewController, HTableViewDelegate {
     var topExtendedLayout: Bool = true
     /// The height of the extended bottom layout. Default is 0.0.
     var bottomExtendedHeight: CGFloat = 0.0
-    /// The extended insets. Default is UIEdgeInsetsZero.
+    /// The extended insets. Default is UIEdgeInsets.zero.
     var extendedInset: UIEdgeInsets = .zero
     
     override func viewDidLoad() {

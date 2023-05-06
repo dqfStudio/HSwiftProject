@@ -59,7 +59,7 @@ extension HRegisterController {
     func tuple0_edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         switch (indexPath.section) {
         case 2: return UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 60)
-        default: return UIEdgeInsetsZero
+        default: return UIEdgeInsets.zero
         }
     }
 

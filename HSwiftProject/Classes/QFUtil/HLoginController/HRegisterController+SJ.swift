@@ -57,23 +57,23 @@ extension HRegisterController {
 
     @objc
     func tuple1_edgeInsetsForHeaderInSection(_ section: Any) -> Any {
-        return UIEdgeInsetsZero
+        return UIEdgeInsets.zero
     }
     @objc
     func tuple1_edgeInsetsForFooterInSection(_ section: Any) -> Any {
-        return UIEdgeInsetsZero
+        return UIEdgeInsets.zero
     }
     @objc
     func tuple1_edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         switch (indexPath.section) {
         case 2: return UIEdgeInsets(top: 0, left: 30, bottom: 0, right: 30)
-        default: return UIEdgeInsetsZero
+        default: return UIEdgeInsets.zero
         }
     }
 
     @objc
     func tuple1_insetForSection(_ section: Any) -> Any {
-        return UIEdgeInsetsZero
+        return UIEdgeInsets.zero
     }
 
     @objc

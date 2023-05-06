@@ -104,14 +104,14 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
         case HCell1:
             return UIEdgeInsets(top: 2.5, left: 15, bottom: 0, right: 15)
         case HCell2:
-            return UIEdgeInsetsZero
+            return UIEdgeInsets.zero
         case HCell3:
-            return UIEdgeInsetsZero
+            return UIEdgeInsets.zero
 
         default:
             break
         }
-        return UIEdgeInsetsZero
+        return UIEdgeInsets.zero
     }
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem

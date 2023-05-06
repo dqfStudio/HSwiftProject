@@ -96,7 +96,7 @@ class HTableBaseApex : UITableViewHeaderFooterView {
     }
 
     //cell间隔线的边距
-    var separatorInset: UILREdgeInsets = UILREdgeInsetsZero {
+    var separatorInset: UILREdgeInsets = UILREdgeInsets.zero {
         didSet {
             guard separatorInset != oldValue else { return }
             separatorView.frame = self.separatorFrame

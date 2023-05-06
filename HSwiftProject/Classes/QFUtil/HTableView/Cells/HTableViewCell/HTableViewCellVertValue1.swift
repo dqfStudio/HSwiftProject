@@ -10,13 +10,13 @@ import UIKit
 
 class HTableViewCellVertBase1 : HTableBaseCell {
     ///imageView的上下边距
-    var imageViewInsets: UITBEdgeInsets = UITBEdgeInsetsZero
+    var imageViewInsets: UITBEdgeInsets = UITBEdgeInsets.zero
     ///label的上下边距
-    var labelInsets: UITBEdgeInsets = UITBEdgeInsetsZero
+    var labelInsets: UITBEdgeInsets = UITBEdgeInsets.zero
     ///detailLabel的上下边距
-    var detailLabelInsets: UITBEdgeInsets = UITBEdgeInsetsZero
+    var detailLabelInsets: UITBEdgeInsets = UITBEdgeInsets.zero
     ///accessoryLabel的上下边距
-    var accessoryLabelInsets: UITBEdgeInsets = UITBEdgeInsetsZero
+    var accessoryLabelInsets: UITBEdgeInsets = UITBEdgeInsets.zero
 }
 
 class HTableViewCellVertValue1 : HTableViewCellVertBase1 {

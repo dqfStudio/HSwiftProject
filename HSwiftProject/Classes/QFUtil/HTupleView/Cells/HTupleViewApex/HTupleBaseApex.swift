@@ -105,7 +105,7 @@ class HTupleBaseApex : UICollectionReusableView {
     }
 
     /// The margin of the cell separator line
-    var separatorInset: UILREdgeInsets = UILREdgeInsetsZero {
+    var separatorInset: UILREdgeInsets = UILREdgeInsets.zero {
         didSet {
             guard separatorInset != oldValue else { return }
             separatorView.frame = self.separatorFrame

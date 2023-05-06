@@ -42,7 +42,7 @@ class HLoginController: HTupleController {
         case 3:return UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         case 4:return UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         case 5:return UIEdgeInsets(top: 5, left: 15, bottom: 0, right: 0)
-        default:return UIEdgeInsetsZero
+        default:return UIEdgeInsets.zero
         }
     }
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {

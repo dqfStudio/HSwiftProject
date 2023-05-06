@@ -45,7 +45,7 @@ class HMainController1: HTupleController {
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.gray
                 cell.isShouldShowSeparator = true
-                cell.separatorInset = UILREdgeInsetsMake(10, 10)
+                cell.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
                 cell.imageView.backgroundColor = UIColor.red
                 cell.imageView.setImageWithName("icon_no_server")
@@ -90,7 +90,7 @@ class HMainController1: HTupleController {
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.gray
                 cell.isShouldShowSeparator = true
-                cell.separatorInset = UILREdgeInsetsMake(10, 10)
+                cell.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
                 cell.imageView.backgroundColor = UIColor.red
                 cell.imageView.setImageWithName("icon_no_server")
@@ -116,7 +116,7 @@ class HMainController1: HTupleController {
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.gray
                 cell.isShouldShowSeparator = true
-                cell.separatorInset = UILREdgeInsetsMake(10, 10)
+                cell.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
     //            cell.showAccessoryArrow = true
 
@@ -144,7 +144,7 @@ class HMainController1: HTupleController {
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.gray
                 cell.isShouldShowSeparator = true
-                cell.separatorInset = UILREdgeInsetsMake(10, 0)
+                cell.separatorInset = UILREdgeInsets(left: 10, right: 0)
 
                 cell.imageView.backgroundColor = UIColor.red
                 cell.imageView.setImageWithName("icon_no_server")
@@ -189,7 +189,7 @@ class HMainController1: HTupleController {
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.gray
                 cell.isShouldShowSeparator = true
-                cell.separatorInset = UILREdgeInsetsMake(0, 10)
+                cell.separatorInset = UILREdgeInsets(left: 0, right: 10)
 
                 cell.imageView.backgroundColor = UIColor.red
                 cell.imageView.setImageWithName("icon_no_server")
@@ -215,7 +215,7 @@ class HMainController1: HTupleController {
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.gray
                 cell.isShouldShowSeparator = true
-                cell.separatorInset = UILREdgeInsetsMake(10, 10)
+                cell.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
                 cell.detailWidth = cell.layoutViewBounds.width / 3
                 cell.accessoryWidth = cell.layoutViewBounds.width / 3
