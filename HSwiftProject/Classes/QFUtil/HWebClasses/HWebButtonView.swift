@@ -33,24 +33,20 @@ class HWebButtonView: UIButton {
     // The tintColor in the parent class is problematic
     var renderColor: UIColor? {
         didSet {
-            self.renderColor = oldValue
-            if self.renderColor != nil {
-                _imageView.tintColor = oldValue
-                _imageView.image = _imageView.image?.withRenderingMode(.alwaysTemplate)
-                self.tintColor = oldValue
-                self.setImage(self.image(for:.normal)?.withRenderingMode(.alwaysTemplate), for:.normal)
-            }else {
+            guard let color = renderColor else {
                 _imageView.image = _imageView.image?.withRenderingMode(.alwaysOriginal)
                 self.setImage(self.image(for:.normal)?.withRenderingMode(.alwaysOriginal), for:.normal)
+                return
             }
+            _imageView.tintColor = color
+            _imageView.image = _imageView.image?.withRenderingMode(.alwaysTemplate)
+            self.tintColor = color
+            self.setImage(self.image(for:.normal)?.withRenderingMode(.alwaysTemplate), for:.normal)
         }
     }
     
     var hasImage: Bool {
-        if _imageView.image == nil {
-            return false
-        }
-        return true
+        return _imageView.image != nil
     }
     var pressed: Callback?
     var didGetImage: Callback?
@@ -86,15 +82,15 @@ class HWebButtonView: UIButton {
 
     private func _setImage(_ image: UIImage?) {
         self._imageView.kf.cancelDownloadTask()
-        if (image != nil) {
-            if renderColor != nil {
-                _imageView.tintColor = renderColor
-                _imageView.image = image?.withRenderingMode(.alwaysTemplate)
-            }else {
-                _imageView.image = image
-            }
-        }else {
+        guard let image = image else {
             _imageView.image = nil
+            return
+        }
+        if let renderColor = renderColor {
+            _imageView.tintColor = renderColor
+            _imageView.image = image.withRenderingMode(.alwaysTemplate)
+        } else {
+            _imageView.image = image
         }
     }
     
@@ -107,9 +103,7 @@ class HWebButtonView: UIButton {
         self._setImage(image)
         self.lastURL = ""
         self.imageView?.alpha = 1
-        if didGetImage != nil {
-            didGetImage!(self, image!)
-        }
+        didGetImage?(self, image)
     }
 
     /**
@@ -136,9 +130,7 @@ class HWebButtonView: UIButton {
         if urlString.count == 0 {
             self._setImage(placeholder)
             self.lastURL = ""
-            if didGetError != nil {
-                didGetError!(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
-            }
+            didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
             return
         }
         
@@ -146,16 +138,12 @@ class HWebButtonView: UIButton {
             let image: UIImage? = UIImage(named: urlString)
             self._setImage(image)
             self._imageView.alpha = 1
-            if didGetImage != nil {
-                didGetImage!(self, _imageView.image!)
-            }
+            didGetImage?(self, _imageView.image!)
             return
         }
         if self._imageView.image != nil && lastURL.isEqual(urlString) {
             self._imageView.alpha = 1
-            if didGetImage != nil {
-                didGetImage!(self, _imageView.image!)
-            }
+            didGetImage?(self, _imageView.image!)
             return
         }
         
@@ -175,9 +163,7 @@ class HWebButtonView: UIButton {
                         self._setImage(value.image)
                         self._imageView.alpha = 1
                         self.lastURL = url.absoluteString
-                        if self.didGetImage != nil {
-                            self.didGetImage!(self, value.image)
-                        }
+                        self.didGetImage?(self, value.image)
                     }
                 case .failure(_): break
                 }
@@ -197,13 +183,9 @@ class HWebButtonView: UIButton {
                     }else {
                         self._imageView.alpha = 1
                     }
-                    if self.didGetImage != nil {
-                        self.didGetImage!(self, value.image)
-                    }
+                    self.didGetImage?(self, value.image)
                 case .failure(let value):
-                    if self.didGetError != nil {
-                        self.didGetError!(self, value as AnyObject)
-                    }
+                    self.didGetError?(self, value as AnyObject)
                 }
             }
         }

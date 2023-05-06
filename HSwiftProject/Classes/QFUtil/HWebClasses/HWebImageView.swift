@@ -26,39 +26,30 @@ class HWebImageView: UIImageView {
     // The tintColor in the parent class is problematic
     var renderColor: UIColor? {
         didSet {
-            self.renderColor = oldValue
-            if self.renderColor != nil {
-                self.tintColor = oldValue
-                super.image = self.image?.withRenderingMode(.alwaysTemplate)
-            }else {
+            guard let color = renderColor else {
                 super.image = self.image?.withRenderingMode(.alwaysOriginal)
+                return
             }
+            self.tintColor = color
+            super.image = self.image?.withRenderingMode(.alwaysTemplate)
         }
     }
     
-    private var _pressed: Callback?
     var pressed: Callback? {
-        get {
-            return _pressed
-        }
-        set {
-            _pressed = newValue
-            if _pressed != nil {
-                self.isUserInteractionEnabled = true
-                if self.tapGesture.view == nil {
-                    self.addGestureRecognizer(self.tapGesture)
+        didSet {
+            if pressed != nil {
+                isUserInteractionEnabled = true
+                if tapGesture.view == nil {
+                    addGestureRecognizer(tapGesture)
                 }
-            }else {
-                self.isUserInteractionEnabled = false
+            } else {
+                isUserInteractionEnabled = false
             }
         }
     }
     
     var hasImage: Bool {
-        if super.image == nil {
-            return false
-        }
-        return true
+        return super.image != nil
     }
     var didGetImage: Callback?
     var didGetError: Callback?
@@ -90,16 +81,17 @@ class HWebImageView: UIImageView {
     }
     
     private func _setImage(_ image: UIImage?) {
-        self.kf.cancelDownloadTask()
-        if (image != nil) {
-            if renderColor != nil {
-                self.tintColor = renderColor
-                super.image = image?.withRenderingMode(.alwaysTemplate)
-            }else {
-                super.image = image
-            }
-        }else {
+        kf.cancelDownloadTask()
+        guard let image = image else {
             super.image = nil
+            return
+        }
+        
+        if let renderColor = renderColor {
+            tintColor = renderColor
+            super.image = image.withRenderingMode(.alwaysTemplate)
+        } else {
+            super.image = image
         }
     }
     
@@ -112,9 +104,7 @@ class HWebImageView: UIImageView {
         self._setImage(image)
         self.lastURL = ""
         self.alpha = 1
-        if didGetImage != nil {
-            didGetImage!(self, image!)
-        }
+        didGetImage?(self, image!)
     }
 
     /**
