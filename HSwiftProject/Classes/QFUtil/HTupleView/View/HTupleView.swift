@@ -9,8 +9,8 @@
 import UIKit
 
 enum HTupleDirection: Int {
-    case vertical = 0
-    case horizontal = 1
+    case vertical = 0 // Vertical design
+    case horizontal = 1 // Horizontal design
 }
 
 private enum HTupleStyle: Int {
