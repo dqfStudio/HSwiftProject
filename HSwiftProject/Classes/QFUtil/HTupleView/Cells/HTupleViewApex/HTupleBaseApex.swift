@@ -8,7 +8,9 @@
 
 import UIKit
 
-typealias HTupleApexBlock = (_ idxPath: IndexPath) -> Void
+typealias HTupleApexSizeBlock = () -> CGSize
+typealias HTupleApexEdgeInsetsBlock = () -> UIEdgeInsets
+typealias HTupleApexBlock = () -> Void
 
 class HTupleBaseApex : UICollectionReusableView {
     
@@ -18,9 +20,16 @@ class HTupleBaseApex : UICollectionReusableView {
     var isHeader: Bool = false
     /// The indexPath where the cell is located
     var indexPath: IndexPath?
-
-    /// Block for cell click, used for user click events
+    
+    /// Callback for getting size.
+    var sizeBlock: HTupleApexSizeBlock?
+    
+    /// Callback for obtaining edgeInsets
+    var edgeInsetsBlock: HTupleApexEdgeInsetsBlock?
+    
+    /// Callback for getting a apex
     var cellBlock: HTupleApexBlock?
+
     /// Signal block
     var signalBlock: HTupleCellSignalBlock?
     
@@ -54,6 +63,7 @@ class HTupleBaseApex : UICollectionReusableView {
     /// The layout view loaded on the content view.
     lazy var layoutView: UIView = {
         let view = UIView()
+        view.frame = layoutViewFrame
         self.addSubview(view)
         return view
     }()

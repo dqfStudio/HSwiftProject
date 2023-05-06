@@ -71,12 +71,12 @@ extension HRegisterController {
     @objc
     func tuple0_tupleHeader(_ headerBlock: Any, inSection section: Any) {
         let headerBlock = headerBlock as! HTupleHeader
-        _ = headerBlock(nil, HTupleBaseApex.self, nil, false) as! HTupleHeader
+        _ = headerBlock(nil, HTupleBaseApex.self, nil, false) as! HTupleBaseApex
     }
     @objc
     func tuple0_tupleFooter(_ footerBlock: Any, inSection section: Any) {
         let footerBlock = footerBlock as! HTupleFooter
-        _ = footerBlock(nil, HTupleBaseApex.self, nil, false) as! HTupleFooter
+        _ = footerBlock(nil, HTupleBaseApex.self, nil, false) as! HTupleBaseApex
     }
     @objc
     func tuple0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
