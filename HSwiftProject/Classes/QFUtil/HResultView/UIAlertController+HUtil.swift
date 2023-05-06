@@ -104,29 +104,41 @@ extension HAlertController {
 extension HSheetController {
     
     @discardableResult
-    static func showAlert(withTitle title: String?, completion: @escaping (_ actionStyle: Int) -> Void) -> HSheetController? {
-        let cancelAction = HSheetAction(title: "取消", image: nil) { index in
+    static func showWalletAlert(completion: @escaping (_ actionStyle: Int) -> Void) -> HSheetController {
+        let cancelAction = HSheetAction(title: "取消".localized()) { index in
             completion(index)
         }
-        let alertController = HSheetController(title: title, cancelAction: cancelAction)
-        // 视频按钮
-        let videoAction = HSheetAction(title: "视频", image: nil) { index in
+        let alertController = HSheetController(title: nil, cancelAction: cancelAction)
+        // 转给Freechat钱包
+        let videoAction = HSheetAction(title: "转给Freechat钱包".localized()) { index in
             completion(index)
         }
         alertController.addAction(videoAction)
-        // 音频按钮
-        let audioAction = HSheetAction(title: "音频", image: nil) { index in
+        // 转给Web 3钱包
+        let audioAction = HSheetAction(title: "转给Web 3钱包".localized()) { index in
             completion(index)
         }
         alertController.addAction(audioAction)
-        // 显示alert
-        DispatchQueue.main.async {
-            guard let rootController = UIApplication.shared.keyWindow?.rootViewController,
-                    rootController.isKind(of: UIViewController.self) else { return }
-            rootController.presentController(alertController, completion: nil)
-        }
         return alertController
     }
-
+    
+    @discardableResult
+    static func showVideoAlert(completion: @escaping (_ actionStyle: Int) -> Void) -> HSheetController {
+        let cancelAction = HSheetAction(title: "取消".localized()) { index in
+            completion(index)
+        }
+        let alertController = HSheetController(title: nil, cancelAction: cancelAction)
+        // 视频通话
+        let videoAction = HSheetAction(title: "视频通话".localized(), image: "Icon-video-phone") { index in
+            completion(index)
+        }
+        alertController.addAction(videoAction)
+        // 语音通话
+        let audioAction = HSheetAction(title: "语音通话".localized(), image: "Icon-audio-phone") { index in
+            completion(index)
+        }
+        alertController.addAction(audioAction)
+        return alertController
+    }
     
 }
