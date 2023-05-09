@@ -52,7 +52,6 @@ class HTupleBaseCell : UICollectionViewCell {
     /// The edge insets of the cell.
     @objc var edgeInsets: UIEdgeInsets = .zero {
          didSet {
-              guard layoutView.frame != layoutViewFrame else { return }
               layoutView.frame = layoutViewFrame
          }
     }
@@ -104,8 +103,9 @@ class HTupleBaseCell : UICollectionViewCell {
     }
     
     private var separatorFrame: CGRect {
-        let frame = CGRect(x: separatorInset.left, y: self.bounds.height - 1, width: self.bounds.width - separatorInset.left - separatorInset.right, height: 1)
-        return frame
+        let width = bounds.width - separatorInset.left - separatorInset.right
+        let origin = CGPoint(x: separatorInset.left, y: bounds.height - 1)
+        return CGRect(origin: origin, size: CGSize(width: width, height: 1))
     }
     
     /// Refresh the current cell
