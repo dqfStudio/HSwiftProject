@@ -516,15 +516,40 @@ class HTupleViewCellHoriValue3 : HTupleViewCellHoriBase2 {
 ///三个label纵向显示
 class HTupleViewCellHoriValue4 : HTupleViewCellHoriBase3 {
     
-    private var _accessoryView: HWebImageView?
-    private var accessoryView: HWebImageView {
-        if _accessoryView == nil {
-            _accessoryView = HWebImageView()
-            _accessoryView!.setImageWithName("icon_tuple_arrow_right")
-            self.layoutView.addSubview(_accessoryView!)
-        }
-        return _accessoryView!
-    }
+    lazy var layoutStackView: UIStackView = {
+        let stackView = UIStackView(frame: self.bounds)
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.spacing = 10
+        self.contentView.addSubview(stackView)
+        return stackView
+    }()
+    
+    lazy var textStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fillEqually
+        stackView.alignment = .fill
+        layoutStackView.addArrangedSubview(stackView)
+        return stackView
+    }()
+    
+    lazy var arrowStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        layoutStackView.addArrangedSubview(stackView)
+        return stackView
+    }()
+    
+    lazy private var accessoryView: HWebImageView = {
+        let accessoryView = HWebImageView()
+        accessoryView.setImageWithName("icon_tuple_arrow_right")
+        self.layoutView.addSubview(accessoryView)
+        return accessoryView
+    }()
     
     private var _imageView: HWebImageView?
     ///左边显示图片
@@ -583,91 +608,42 @@ class HTupleViewCellHoriValue4 : HTupleViewCellHoriBase3 {
     var isShowAccessoryArrow: Bool = false
     
     override func relayoutSubviews() {
-        self.updateSubViews()
-    }
-
-    private func updateSubViews() {
-        let frame = self.layoutViewBounds
-        var tmpFrame1 = frame
-        var tmpFrame2 = CGRect.zero
-        var tmpFrame3 = frame
-        var tmpFrame4 = frame
         
-        //计算imageView的坐标
+        let frame = self.bounds.inset(by: self.edgeInsets)
+        
+        // 重设frame
+        layoutStackView.frame = frame
+
+        // imageView
         if let imageView = _imageView {
-            tmpFrame1.width = tmpFrame1.height //默认宽高相等
-            tmpFrame1.x += self.imageViewInsets.left
-            tmpFrame1.y += self.imageViewInsets.top
-            tmpFrame1.width -= self.imageViewInsets.left + self.imageViewInsets.right
-            tmpFrame1.height -= self.imageViewInsets.top + self.imageViewInsets.bottom
-            imageView.frame = tmpFrame1
-            //计算tmpFrame4的x坐标
-            tmpFrame4.x = imageView.maxX + self.centralInsets.left
+            imageView.widthAnchor.constraint(equalToConstant: frame.height).isActive = true
+            layoutStackView.addArrangedSubview(imageView)
         }
         
-        //计算accessoryView的坐标
-        if self.isShowAccessoryArrow { tmpFrame2 = CGRect(x: 0, y: 0, width: 7, height: 13) }
-        tmpFrame2.x = frame.width - tmpFrame2.width
-        tmpFrame2.y = frame.height / 2 - tmpFrame2.height / 2
-        if self.isShowAccessoryArrow { self.accessoryView.frame = tmpFrame2 }
-        
-        //计算detailView的坐标
-        if let detailView = _detailView {
-            tmpFrame3.width = tmpFrame3.height //默认宽高相等
-            tmpFrame3.x = tmpFrame2.minX - tmpFrame3.width
-            if self.isShowAccessoryArrow { tmpFrame3.x -= KArrowSpace }
-
-            tmpFrame3.x += self.detailViewInsets.left
-            tmpFrame3.y += self.detailViewInsets.top
-            tmpFrame3.width -= self.detailViewInsets.left + self.detailViewInsets.right
-            tmpFrame3.height -= self.detailViewInsets.top + self.detailViewInsets.bottom
-            detailView.frame = tmpFrame3
+        // label
+        if let label = _label {
+            textStackView.addArrangedSubview(label)
         }
-        
-        //计算label的宽度
-        if let detailView = _detailView {
-            tmpFrame4.width = detailView.minX - tmpFrame4.x - self.centralInsets.right
-        }else if let accessoryView = _accessoryView {
-            tmpFrame4.width = accessoryView.minX - tmpFrame4.x - KArrowSpace
-        }else {
-            tmpFrame4.width = frame.width - tmpFrame4.x
-        }
-        
-        //计算label的高度
-        if _detailLabel != nil && _accessoryLabel != nil {
-            tmpFrame4.height = frame.height / 3
-        }else if _detailLabel != nil || _accessoryLabel != nil {
-            tmpFrame4.height = frame.height / 2
-        }else {
-            tmpFrame4.height = frame.height
-        }
-        
-        //保存tmpFrame4的值
-        let tmpFrame5: CGRect = tmpFrame4
-        
-        //计算label的坐标
-        tmpFrame4.y += self.labelInsets.top
-        tmpFrame4.height -= self.labelInsets.top + self.labelInsets.bottom
-        self.label.frame = tmpFrame4
-        
-        //计算detailLabel的坐标
         if let detailLabel = _detailLabel {
-            var tmpFrame6: CGRect = tmpFrame5
-            tmpFrame6.y += tmpFrame5.height
-            tmpFrame6.y += self.detailLabelInsets.top
-            tmpFrame6.height -= self.detailLabelInsets.top + self.detailLabelInsets.bottom
-            detailLabel.frame = tmpFrame6
+            textStackView.addArrangedSubview(detailLabel)
+        }
+        if let accessoryLabel = _accessoryLabel {
+            textStackView.addArrangedSubview(accessoryLabel)
         }
         
-        //计算accessoryLabel的坐标
-        if let accessoryLabel = _accessoryLabel {
-            var tmpFrame7: CGRect = tmpFrame5
-            tmpFrame7.y += tmpFrame5.height
-            if _detailLabel != nil { tmpFrame7.y += tmpFrame7.height }
-            
-            tmpFrame7.y += self.accessoryLabelInsets.top
-            tmpFrame7.height -= self.accessoryLabelInsets.top + self.accessoryLabelInsets.bottom
-            accessoryLabel.frame = tmpFrame7
+        // detailView
+        if let detailView = _detailView {
+            detailView.widthAnchor.constraint(equalToConstant: frame.height).isActive = true
+            layoutStackView.addArrangedSubview(detailView)
         }
+
+        // accessoryView
+        if isShowAccessoryArrow {
+            accessoryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
+            accessoryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
+            arrowStackView.addArrangedSubview(accessoryView)
+        }
+
     }
+
 }

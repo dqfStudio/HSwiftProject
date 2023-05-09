@@ -71,6 +71,7 @@ class HMainController1: HTupleController {
     //            cell.detailLabel.text:"qqqqqqqqqqqqqqqqqqqqqqqq"
 
     //            cell.accessoryLabel.backgroundColor = UIColor.green
+//                cell.accessoryLabel.isHidden = true
 
             }
             //接收信号
