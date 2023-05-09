@@ -587,22 +587,22 @@ class HTupleViewCellHoriValue4 : HTupleViewCellHoriBase3 {
     }
 
     private func updateSubViews() {
-        let frame: CGRect = self.layoutViewBounds
-        var tmpFrame1: CGRect = frame
-        var tmpFrame2: CGRect = CGRect.zero
-        var tmpFrame3: CGRect = frame
-        var tmpFrame4: CGRect = frame
+        let frame = self.layoutViewBounds
+        var tmpFrame1 = frame
+        var tmpFrame2 = CGRect.zero
+        var tmpFrame3 = frame
+        var tmpFrame4 = frame
         
         //计算imageView的坐标
-        if _imageView != nil {
+        if let imageView = _imageView {
             tmpFrame1.width = tmpFrame1.height //默认宽高相等
             tmpFrame1.x += self.imageViewInsets.left
             tmpFrame1.y += self.imageViewInsets.top
             tmpFrame1.width -= self.imageViewInsets.left + self.imageViewInsets.right
             tmpFrame1.height -= self.imageViewInsets.top + self.imageViewInsets.bottom
-            _imageView!.frame = tmpFrame1
+            imageView.frame = tmpFrame1
             //计算tmpFrame4的x坐标
-            tmpFrame4.x = _imageView!.maxX + self.centralInsets.left
+            tmpFrame4.x = imageView.maxX + self.centralInsets.left
         }
         
         //计算accessoryView的坐标
@@ -612,7 +612,7 @@ class HTupleViewCellHoriValue4 : HTupleViewCellHoriBase3 {
         if self.isShowAccessoryArrow { self.accessoryView.frame = tmpFrame2 }
         
         //计算detailView的坐标
-        if _detailView != nil {
+        if let detailView = _detailView {
             tmpFrame3.width = tmpFrame3.height //默认宽高相等
             tmpFrame3.x = tmpFrame2.minX - tmpFrame3.width
             if self.isShowAccessoryArrow { tmpFrame3.x -= KArrowSpace }
@@ -621,14 +621,14 @@ class HTupleViewCellHoriValue4 : HTupleViewCellHoriBase3 {
             tmpFrame3.y += self.detailViewInsets.top
             tmpFrame3.width -= self.detailViewInsets.left + self.detailViewInsets.right
             tmpFrame3.height -= self.detailViewInsets.top + self.detailViewInsets.bottom
-            _detailView!.frame = tmpFrame3
+            detailView.frame = tmpFrame3
         }
         
         //计算label的宽度
-        if _detailView != nil {
-            tmpFrame4.width = _detailView!.minX - tmpFrame4.x - self.centralInsets.right
-        }else if _accessoryView != nil {
-            tmpFrame4.width = _accessoryView!.minX - tmpFrame4.x - KArrowSpace
+        if let detailView = _detailView {
+            tmpFrame4.width = detailView.minX - tmpFrame4.x - self.centralInsets.right
+        }else if let accessoryView = _accessoryView {
+            tmpFrame4.width = accessoryView.minX - tmpFrame4.x - KArrowSpace
         }else {
             tmpFrame4.width = frame.width - tmpFrame4.x
         }
@@ -651,23 +651,23 @@ class HTupleViewCellHoriValue4 : HTupleViewCellHoriBase3 {
         self.label.frame = tmpFrame4
         
         //计算detailLabel的坐标
-        if _detailLabel != nil {
+        if let detailLabel = _detailLabel {
             var tmpFrame6: CGRect = tmpFrame5
             tmpFrame6.y += tmpFrame5.height
             tmpFrame6.y += self.detailLabelInsets.top
             tmpFrame6.height -= self.detailLabelInsets.top + self.detailLabelInsets.bottom
-            _detailLabel!.frame = tmpFrame6
+            detailLabel.frame = tmpFrame6
         }
         
         //计算accessoryLabel的坐标
-        if _accessoryLabel != nil {
+        if let accessoryLabel = _accessoryLabel {
             var tmpFrame7: CGRect = tmpFrame5
             tmpFrame7.y += tmpFrame5.height
             if _detailLabel != nil { tmpFrame7.y += tmpFrame7.height }
             
             tmpFrame7.y += self.accessoryLabelInsets.top
             tmpFrame7.height -= self.accessoryLabelInsets.top + self.accessoryLabelInsets.bottom
-            _accessoryLabel!.frame = tmpFrame7
+            accessoryLabel.frame = tmpFrame7
         }
     }
 }
