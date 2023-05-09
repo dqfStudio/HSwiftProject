@@ -8,6 +8,8 @@
 
 import UIKit
 
+private var kRectEdgeInsetsKey = "kViewEdgeInsetsKey"
+
 extension CGRect {
     
     var x: CGFloat {
@@ -31,8 +33,17 @@ extension CGRect {
     }
     
     // 根据UIEdgeInsets调整frame
-    mutating func insetByEdgeInsets(_ edgeInsets: UIEdgeInsets) {
-        self = self.inset(by: edgeInsets)
+    var edgeInsets: UIEdgeInsets {
+        get {
+            let edgeInsetsString = objc_getAssociatedObject(self, kRectEdgeInsetsKey) as? String ?? NSCoder.string(for: UIEdgeInsets.zero)
+            return NSCoder.uiEdgeInsets(for: edgeInsetsString)
+        }
+        set {
+            if edgeInsets != newValue {
+                self = self.inset(by: newValue)
+                objc_setAssociatedObject(self, NSCoder.string(for: newValue), kRectEdgeInsetsKey, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
+        }
     }
     
 }

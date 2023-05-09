@@ -13,6 +13,7 @@ private var TIPS_LABEL_TAG = 10001
 
 private var topLineLayerKey = "topLineLayerKey"
 private var bottomLineLayerKey = "bottomLineLayerKey"
+private var kViewEdgeInsetsKey = "kViewEdgeInsetsKey"
 
 extension UIView {
     
@@ -120,8 +121,17 @@ extension UIView {
     }
     
     // 根据UIEdgeInsets调整frame
-    func insetByEdgeInsets(_ edgeInsets: UIEdgeInsets) {
-        self.frame = self.frame.inset(by: edgeInsets)
+    @objc var edgeInsets: UIEdgeInsets {
+        get {
+            let edgeInsetsString = self.getAssociatedValueForKey(&kViewEdgeInsetsKey) as? String ?? NSCoder.string(for: UIEdgeInsets.zero)
+            return NSCoder.uiEdgeInsets(for: edgeInsetsString)
+        }
+        set {
+            if edgeInsets != newValue {
+                self.frame = self.frame.inset(by: newValue)
+                self.setAssociateValue(NSCoder.string(for: newValue), key: &kViewEdgeInsetsKey)
+            }
+        }
     }
     
     /**

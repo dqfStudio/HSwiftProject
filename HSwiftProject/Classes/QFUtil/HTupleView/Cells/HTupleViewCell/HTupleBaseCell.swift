@@ -50,7 +50,7 @@ class HTupleBaseCell : UICollectionViewCell {
     }
     
     /// The edge insets of the cell.
-    @objc var edgeInsets: UIEdgeInsets = .zero {
+    @objc override var edgeInsets: UIEdgeInsets {
          didSet {
               layoutView.frame = layoutViewFrame
          }

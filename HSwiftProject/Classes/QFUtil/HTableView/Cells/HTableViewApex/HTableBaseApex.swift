@@ -40,7 +40,7 @@ class HTableBaseApex : UITableViewHeaderFooterView {
     
     private var _edgeInsets: UIEdgeInsets = .zero
     ///cell的边距
-    @objc var edgeInsets: UIEdgeInsets {
+    @objc override var edgeInsets: UIEdgeInsets {
         get { _edgeInsets }
         set {
             guard _edgeInsets != newValue else { return }
