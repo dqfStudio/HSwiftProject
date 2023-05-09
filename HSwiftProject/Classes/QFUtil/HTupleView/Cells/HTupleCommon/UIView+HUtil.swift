@@ -13,7 +13,7 @@ private var TIPS_LABEL_TAG = 10001
 
 private var topLineLayerKey = "topLineLayerKey"
 private var bottomLineLayerKey = "bottomLineLayerKey"
-private var kViewEdgeInsetsKey = "kViewEdgeInsetsKey"
+var kViewEdgeInsetsKey = "kViewEdgeInsetsKey"
 
 extension UIView {
     

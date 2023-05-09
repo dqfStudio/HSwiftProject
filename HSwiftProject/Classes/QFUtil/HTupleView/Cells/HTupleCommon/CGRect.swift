@@ -8,7 +8,7 @@
 
 import UIKit
 
-private var kRectEdgeInsetsKey = "kViewEdgeInsetsKey"
+private var kRectEdgeInsetsKey = "kRectEdgeInsetsKey"
 
 extension CGRect {
     

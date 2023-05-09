@@ -48,15 +48,22 @@ class HTupleBaseApex : UICollectionReusableView {
     
     /// The edge insets of the cell.
     @objc override var edgeInsets: UIEdgeInsets {
-         didSet {
-              layoutView.frame = layoutViewFrame
-         }
+        get {
+            let edgeInsetsString = self.getAssociatedValueForKey(&kViewEdgeInsetsKey) as? String ?? NSCoder.string(for: UIEdgeInsets.zero)
+            return NSCoder.uiEdgeInsets(for: edgeInsetsString)
+        }
+        set {
+            if edgeInsets != newValue {
+                layoutView.frame = self.bounds.inset(by: newValue)
+                self.setAssociateValue(NSCoder.string(for: newValue), key: &kViewEdgeInsetsKey)
+            }
+        }
     }
 
     /// The layout view loaded on the content view.
     lazy var layoutView: UIView = {
         let view = UIView()
-        view.frame = layoutViewFrame
+        view.frame = self.frame
         self.addSubview(view)
         return view
     }()
@@ -107,13 +114,11 @@ class HTupleBaseApex : UICollectionReusableView {
 
     /// The frame and bounds of the layout view
     var layoutViewFrame: CGRect {
-        return self.bounds.inset(by: edgeInsets)
+        return self.layoutView.frame
     }
 
     var layoutViewBounds: CGRect {
-        var frame = self.layoutViewFrame
-        frame.origin = CGPoint.zero
-        return frame
+        return self.layoutView.bounds
     }
 
     private var _activity: UIActivityIndicatorView?
