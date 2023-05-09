@@ -44,7 +44,7 @@ class HMainController1: HTupleController {
             }
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.gray
-//                cell.isShowSeparator = true
+
                 cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
                 cell.imageView.backgroundColor = UIColor.red
@@ -89,7 +89,7 @@ class HMainController1: HTupleController {
             }
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.gray
-//                cell.isShowSeparator = true
+
                 cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
                 cell.imageView.backgroundColor = UIColor.red
@@ -115,7 +115,7 @@ class HMainController1: HTupleController {
             }
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.gray
-//                cell.isShowSeparator = true
+
                 cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
     //            cell.isShowAccessoryArrow = true
@@ -138,12 +138,12 @@ class HMainController1: HTupleController {
                 width = self.tupleView.fixSlit(withWidth: width, colCount: 3, index: indexPath.row - 3)
                 return CGSize(width: width, height: 120)
             }
-//            cell.edgeInsetsBlock = {
-//                return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 5)
-//            }
+            cell.edgeInsetsBlock = {
+                return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 5)
+            }
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.gray
-//                cell.isShowSeparator = true
+
                 cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 0)
 
                 cell.imageView.backgroundColor = UIColor.red
@@ -161,12 +161,12 @@ class HMainController1: HTupleController {
                 width = self.tupleView.fixSlit(withWidth: width, colCount: 3, index: indexPath.row - 3)
                 return CGSize(width: width, height: 120)
             }
-//            cell.edgeInsetsBlock = {
-//                return UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
-//            }
+            cell.edgeInsetsBlock = {
+                return UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5)
+            }
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.gray
-//                cell.isShowSeparator = true
+
                 cell.separatorView.separatorInset = UILREdgeInsets(left: 0, right: 10)
 
                 cell.imageView.backgroundColor = UIColor.red
@@ -184,12 +184,12 @@ class HMainController1: HTupleController {
                 width = self.tupleView.fixSlit(withWidth: width, colCount: 3, index: indexPath.row - 3)
                 return CGSize(width: width, height: 120)
             }
-//            cell.edgeInsetsBlock = {
-//                return UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 10)
-//            }
+            cell.edgeInsetsBlock = {
+                return UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 10)
+            }
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.gray
-//                cell.isShowSeparator = true
+
                 cell.separatorView.separatorInset = UILREdgeInsets(left: 0, right: 10)
 
                 cell.imageView.backgroundColor = UIColor.red
@@ -215,7 +215,7 @@ class HMainController1: HTupleController {
             }
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.gray
-//                cell.isShowSeparator = true
+
                 cell.separatorView.separatorInset = UILREdgeInsets(left: 0, right: 10)
 
                 cell.detailWidth = cell.layoutViewBounds.width / 3
