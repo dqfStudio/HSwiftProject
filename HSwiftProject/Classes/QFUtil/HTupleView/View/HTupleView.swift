@@ -1341,11 +1341,20 @@ extension HTupleView {
         DispatchQueue.global().async {
             self.signalBlock = nil
             //release all cell
+            self.allReuseCells.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseCell)?.sizeBlock = nil }
+            self.allReuseCells.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseCell)?.cellBlock = nil }
             self.allReuseCells.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseCell)?.signalBlock = nil }
+            self.allReuseCells.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseCell)?.edgeInsetsBlock = nil }
             //release all header
+            self.allReuseHeaders.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseApex)?.sizeBlock = nil }
+            self.allReuseHeaders.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseApex)?.cellBlock = nil }
             self.allReuseHeaders.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseApex)?.signalBlock = nil }
+            self.allReuseHeaders.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseApex)?.edgeInsetsBlock = nil }
             //release all footer
+            self.allReuseFooters.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseApex)?.sizeBlock = nil }
+            self.allReuseFooters.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseApex)?.cellBlock = nil }
             self.allReuseFooters.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseApex)?.signalBlock = nil }
+            self.allReuseFooters.objectEnumerator()?.allObjects.forEach { ($0 as? HTupleBaseApex)?.edgeInsetsBlock = nil }
         }
     }
 
