@@ -60,7 +60,7 @@ class HTupleBaseApex : UICollectionReusableView {
         }
     }
 
-    /// The layout view loaded on the content view.
+    /// The layout view loaded on the content view
     lazy var layoutView: UIView = {
         let view = UIView()
         view.frame = self.frame
@@ -69,48 +69,13 @@ class HTupleBaseApex : UICollectionReusableView {
     }()
 
 
-    /// The separator view loaded on the content view.
-    private lazy var separatorView: UIView = {
-        let view = UIView()
-        view.isHidden = true
-        view.backgroundColor = UIColor(hex: "#E9E9E9")
+    /// The separator view loaded on the content view
+    lazy var separatorView: HCellApexSeparator = {
+        let view = HCellApexSeparator()
+        view.frame = self.frame
+        self.addSubview(view)
         return view
     }()
-    
-    /// Whether the cell should display a separator line
-    var isShowSeparator: Bool = false {
-        didSet {
-            separatorView.isHidden = !isShowSeparator
-            if isShowSeparator {
-                if separatorView.superview == nil {
-                    addSubview(separatorView)
-                }
-                separatorView.frame = separatorFrame
-                bringSubviewToFront(separatorView)
-            }
-        }
-    }
-
-    /// The margin of the cell separator line
-    var separatorInset: UILREdgeInsets = UILREdgeInsets.zero {
-        didSet {
-            guard separatorInset != oldValue else { return }
-            separatorView.frame = self.separatorFrame
-        }
-    }
-
-    /// The color of the cell separator line
-    var separatorColor: UIColor? {
-        didSet {
-            self.separatorView.backgroundColor = separatorColor
-        }
-    }
-    
-    private var separatorFrame: CGRect {
-        let width = bounds.width - separatorInset.left - separatorInset.right
-        let origin = CGPoint(x: separatorInset.left, y: bounds.height - 1)
-        return CGRect(origin: origin, size: CGSize(width: width, height: 1))
-    }
 
     /// The frame and bounds of the layout view
     var layoutViewFrame: CGRect {
