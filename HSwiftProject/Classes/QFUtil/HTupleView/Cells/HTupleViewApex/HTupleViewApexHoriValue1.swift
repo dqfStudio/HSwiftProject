@@ -54,13 +54,13 @@ class HTupleViewApexHoriBase3 : HTupleBaseApex {
 ///两个label左右相距排列
 class HTupleViewApexHoriValue1 : HTupleViewApexHoriBase1 {
     
-    private var _textCentralView: UIView?
-    private var textCentralView: UIView {
-        if _textCentralView == nil {
-            _textCentralView = UIView()
-            self.layoutView.addSubview(_textCentralView!)
+    private var _textLayoutView: UIView?
+    private var textLayoutView: UIView {
+        if _textLayoutView == nil {
+            _textLayoutView = UIView()
+            self.layoutView.addSubview(_textLayoutView!)
         }
-        return _textCentralView!
+        return _textLayoutView!
     }
     
     private var _accessoryView: HWebImageView?
@@ -89,7 +89,7 @@ class HTupleViewApexHoriValue1 : HTupleViewApexHoriBase1 {
         if _label == nil {
             _label = UILabel()
             _label!.font = UIFont.systemFont(ofSize: 14)
-            self.textCentralView.addSubview(_label!)
+            self.textLayoutView.addSubview(_label!)
         }
         return _label!
     }
@@ -100,7 +100,7 @@ class HTupleViewApexHoriValue1 : HTupleViewApexHoriBase1 {
         if _detailLabel == nil {
             _detailLabel = UILabel()
             _detailLabel!.font = UIFont.systemFont(ofSize: 14)
-            self.textCentralView.addSubview(_detailLabel!)
+            self.textLayoutView.addSubview(_detailLabel!)
         }
         return _detailLabel!
     }
@@ -160,7 +160,7 @@ class HTupleViewApexHoriValue1 : HTupleViewApexHoriBase1 {
             _detailView!.frame = tmpFrame3
         }
         
-        //计算textCentralView的宽度
+        //计算textLayoutView的宽度
         if _detailView != nil {
             tmpFrame4.width = _detailView!.minX - tmpFrame4.x - self.centralInsets.right
         }else if _accessoryView != nil {
@@ -169,8 +169,8 @@ class HTupleViewApexHoriValue1 : HTupleViewApexHoriBase1 {
             tmpFrame4.width = frame.width - tmpFrame4.x
         }
         
-        //计算textCentralView的坐标
-        self.textCentralView.frame = tmpFrame4
+        //计算textLayoutView的坐标
+        self.textLayoutView.frame = tmpFrame4
         
         //计算label和detailLabel的坐标
         if self.label.text != nil && self.detailLabel.text != nil {
@@ -200,13 +200,13 @@ class HTupleViewApexHoriValue1 : HTupleViewApexHoriBase1 {
 ///两个label左右对立排列
 class HTupleViewApexHoriValue2 : HTupleViewApexHoriBase1 {
 
-    private var _textCentralView: UIView?
-    private var textCentralView: UIView {
-        if _textCentralView == nil {
-            _textCentralView = UIView()
-            self.layoutView.addSubview(_textCentralView!)
+    private var _textLayoutView: UIView?
+    private var textLayoutView: UIView {
+        if _textLayoutView == nil {
+            _textLayoutView = UIView()
+            self.layoutView.addSubview(_textLayoutView!)
         }
-        return _textCentralView!
+        return _textLayoutView!
     }
 
     private var _accessoryView: HWebImageView?
@@ -235,7 +235,7 @@ class HTupleViewApexHoriValue2 : HTupleViewApexHoriBase1 {
         if _label == nil {
             _label = UILabel()
             _label!.font = UIFont.systemFont(ofSize: 14)
-            self.textCentralView.addSubview(_label!)
+            self.textLayoutView.addSubview(_label!)
         }
         return _label!
     }
@@ -246,7 +246,7 @@ class HTupleViewApexHoriValue2 : HTupleViewApexHoriBase1 {
         if _detailLabel == nil {
             _detailLabel = UILabel()
             _detailLabel!.font = UIFont.systemFont(ofSize: 14)
-            self.textCentralView.addSubview(_detailLabel!)
+            self.textLayoutView.addSubview(_detailLabel!)
         }
         return _detailLabel!
     }
@@ -306,7 +306,7 @@ class HTupleViewApexHoriValue2 : HTupleViewApexHoriBase1 {
             _detailView!.frame = tmpFrame3
         }
         
-        //计算textCentralView的宽度
+        //计算textLayoutView的宽度
         if _detailView != nil {
             tmpFrame4.width = _detailView!.minX - tmpFrame4.x - self.centralInsets.right
         }else if _accessoryView != nil {
@@ -315,8 +315,8 @@ class HTupleViewApexHoriValue2 : HTupleViewApexHoriBase1 {
             tmpFrame4.width = frame.width - tmpFrame4.x
         }
         
-        //计算textCentralView的坐标
-        self.textCentralView.frame = tmpFrame4
+        //计算textLayoutView的坐标
+        self.textLayoutView.frame = tmpFrame4
         
         //计算label和detailLabel的坐标
         if self.label.text != nil && self.detailLabel.text != nil {
@@ -349,13 +349,13 @@ class HTupleViewApexHoriValue2 : HTupleViewApexHoriBase1 {
 ///三个label横向显示
 class HTupleViewApexHoriValue3 : HTupleViewApexHoriBase2 {
     
-    private var _textCentralView: UIView?
-    private var textCentralView: UIView {
-        if _textCentralView == nil {
-            _textCentralView = UIView()
-            self.layoutView.addSubview(_textCentralView!)
+    private var _textLayoutView: UIView?
+    private var textLayoutView: UIView {
+        if _textLayoutView == nil {
+            _textLayoutView = UIView()
+            self.layoutView.addSubview(_textLayoutView!)
         }
-        return _textCentralView!
+        return _textLayoutView!
     }
     
     private var _accessoryView: HWebImageView?
@@ -389,7 +389,7 @@ class HTupleViewApexHoriValue3 : HTupleViewApexHoriBase2 {
         if _label == nil {
             _label = UILabel()
             _label!.font = UIFont.systemFont(ofSize: 14)
-            self.textCentralView.addSubview(_label!)
+            self.textLayoutView.addSubview(_label!)
         }
         return _label!
     }
@@ -400,7 +400,7 @@ class HTupleViewApexHoriValue3 : HTupleViewApexHoriBase2 {
         if _detailLabel == nil {
             _detailLabel = UILabel()
             _detailLabel!.font = UIFont.systemFont(ofSize: 14)
-            self.textCentralView.addSubview(_detailLabel!)
+            self.textLayoutView.addSubview(_detailLabel!)
         }
         return _detailLabel!
     }
@@ -411,7 +411,7 @@ class HTupleViewApexHoriValue3 : HTupleViewApexHoriBase2 {
         if _accessoryLabel == nil {
             _accessoryLabel = UILabel()
             _accessoryLabel!.font = UIFont.systemFont(ofSize: 14)
-            self.textCentralView.addSubview(_accessoryLabel!)
+            self.textLayoutView.addSubview(_accessoryLabel!)
         }
         return _accessoryLabel!
     }
@@ -470,7 +470,7 @@ class HTupleViewApexHoriValue3 : HTupleViewApexHoriBase2 {
             _detailView!.frame = tmpFrame3
         }
         
-        //计算textCentralView的宽度
+        //计算textLayoutView的宽度
         if _detailView != nil {
             tmpFrame4.width = _detailView!.minX - tmpFrame4.x - self.centralInsets.right
         }else if _accessoryView != nil {
@@ -479,11 +479,11 @@ class HTupleViewApexHoriValue3 : HTupleViewApexHoriBase2 {
             tmpFrame4.width = frame.width - tmpFrame4.x
         }
         
-        //计算textCentralView的坐标
-        self.textCentralView.frame = tmpFrame4
+        //计算textLayoutView的坐标
+        self.textLayoutView.frame = tmpFrame4
         
-        //保存textCentralView的值
-        let tmpFrame5: CGRect = self.textCentralView.bounds
+        //保存textLayoutView的值
+        let tmpFrame5: CGRect = self.textLayoutView.bounds
         
         //计算accessoryLabel的坐标
         if self.accessoryWidth > 0 {
