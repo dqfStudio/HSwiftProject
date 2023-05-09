@@ -28,8 +28,8 @@ extension HMainController6 {
         case 0:
             let cell = itemBlock(nil, HTableViewCellHoriValue4.self, nil, true) as! HTableViewCellHoriValue4
             cell.backgroundColor = UIColor.gray
-            cell.isShowSeparator = true
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+            
+            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
             cell.imageView.backgroundColor = UIColor.red
             cell.imageView.setImageWithName("icon_no_server")
@@ -65,8 +65,8 @@ extension HMainController6 {
         case 1:
             let cell = itemBlock(nil, HTableViewCellHoriValue4.self, nil, true) as! HTableViewCellHoriValue4
             cell.backgroundColor = UIColor.gray
-            cell.isShowSeparator = true
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+            
+            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
             cell.imageView.backgroundColor = UIColor.red
             cell.imageView.setImageWithName("icon_no_server")
@@ -84,8 +84,8 @@ extension HMainController6 {
         case 2:
             let cell = itemBlock(nil, HTableViewCellHoriValue4.self, nil, true) as! HTableViewCellHoriValue4
             cell.backgroundColor = UIColor.gray
-            cell.isShowSeparator = true
-            cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+            
+            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
 //            cell.isShowAccessoryArrow = true
 

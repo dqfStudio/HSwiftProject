@@ -43,16 +43,16 @@ class HTableBaseCell : UITableViewCell {
         self.initUI()
     }
     
-    private var _edgeInsets: UIEdgeInsets = .zero
-    ///cell的边距
+    /// The edge insets of the cell.
     @objc override var edgeInsets: UIEdgeInsets {
-        get { _edgeInsets }
+        get {
+            let edgeInsetsString = self.getAssociatedValueForKey(&kViewEdgeInsetsKey) as? String ?? NSCoder.string(for: UIEdgeInsets.zero)
+            return NSCoder.uiEdgeInsets(for: edgeInsetsString)
+        }
         set {
-            guard _edgeInsets != newValue else { return }
-            _edgeInsets = newValue
-            //更新layoutView的frame
-            if layoutView.frame != layoutViewFrame {
-                layoutView.frame = layoutViewFrame
+            if edgeInsets != newValue {
+                layoutView.frame = self.bounds.inset(by: newValue)
+                self.setAssociateValue(NSCoder.string(for: newValue), key: &kViewEdgeInsetsKey)
             }
         }
     }
@@ -82,88 +82,35 @@ class HTableBaseCell : UITableViewCell {
         }
     }
     
-    ///用于加载在contentView上的布局视图
+    /// The layout view loaded on the content view
     lazy var layoutView: UIView = {
         let view = UIView()
+        view.frame = self.frame
         self.addSubview(view)
         return view
     }()
 
-
-    ///用于加载在contentView上的布局视图
-    private lazy var separatorView: UIView = {
-        let view = UIView()
-        view.isHidden = true
-        view.backgroundColor = UIColor(hex: "#E9E9E9")
+    /// The separator view loaded on the content view
+    lazy var separatorView: HCellApexSeparator = {
+        let view = HCellApexSeparator()
+        view.frame = self.frame
+        self.contentView.addSubview(view)
         return view
     }()
-    
-    private var _isShowSeparator: Bool = false
-    ///cell是否显示间隔线
-    var isShowSeparator: Bool {
-        get {
-            return _isShowSeparator
-        }
-        set {
-            if _isShowSeparator != newValue {
-               _isShowSeparator = newValue
-                if _isShowSeparator {
-                    if self.separatorView.superview == nil {
-                        self.addSubview(self.separatorView)
-                    }
-                    self.bringSubviewToFront(self.separatorView)
-                }
-                self.separatorView.isHidden = !_isShowSeparator
-            }
-            //重设frame
-            if _isShowSeparator {
-                let separatorFrame = self.separatorFrame
-                if self.separatorView.frame != separatorFrame {
-                   self.separatorView.frame = separatorFrame
-                }
-            }
-        }
-    }
-
-    ///cell间隔线的边距
-    override var separatorInset: UIEdgeInsets {
-        didSet {
-            guard separatorInset != oldValue else { return }
-            separatorView.frame = self.separatorFrame
-        }
-    }
-    
-    ///cell间隔线的颜色
-    private var separatorColor: UIColor? {
-        didSet {
-            guard let color = separatorColor, !color.isKind(of: NSClassFromString("UIDynamicSystemColor")!) else {
-                return
-            }
-            separatorView.backgroundColor = color
-        }
-    }
-    
-    private var separatorFrame: CGRect {
-        let separatorInset = self.separatorInset
-        let frame = CGRect(x: separatorInset.left, y: self.bounds.height - 1, width: self.bounds.width - separatorInset.left - separatorInset.right, height: 1)
-        return frame
-    }
     
     ///刷新当前cell
     func reloadData() {
         guard let indexPath = self.indexPath else { return }
         self.table?.reloadRows(at: [indexPath], with: .fade)
     }
-
-    ///layoutView的frame和bounds
+    
+    /// The frame and bounds of the layout view
     var layoutViewFrame: CGRect {
-        return self.bounds.inset(by: edgeInsets)
+        return self.layoutView.frame
     }
 
     var layoutViewBounds: CGRect {
-        var frame = self.layoutViewFrame
-        frame.origin = CGPoint.zero
-        return frame
+        return self.layoutView.bounds
     }
     
     func HLayoutTableCell(_ v: UIView) {
@@ -175,6 +122,7 @@ class HTableBaseCell : UITableViewCell {
     
     ///cell初始化是调用的方法
     func initUI() { }
+    
     ///用于子类更新子视图布局
     @objc
     func relayoutSubviews() { }
