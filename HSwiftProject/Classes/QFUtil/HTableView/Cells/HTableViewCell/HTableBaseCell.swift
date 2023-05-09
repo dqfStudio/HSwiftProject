@@ -9,21 +9,22 @@
 import UIKit
 
 typealias HTableCellBlock = (_ idxPath: IndexPath) -> Void
-typealias HTableDidSelectCell = (_ target: HTableBaseCell, _ indexPath: IndexPath) -> Void
+typealias HTableCellSelectBlock = (_ target: HTableBaseCell, _ indexPath: IndexPath) -> Void
 
 class HTableBaseCell : UITableViewCell {
     
     ///cell所在的table view
     weak var table: UITableView?
     
-    ///选中item的block
-    var didSelectCell: HTableDidSelectCell?
-    
     ///cell所在的indexPath
     var indexPath: IndexPath?
     
     ///cell点击block，用户用户点击事件
     var cellBlock: HTableCellBlock?
+    
+    ///选中item的block
+    var selectBlock: HTableCellSelectBlock?
+    
     ///信号block
     var signalBlock: HTableCellSignalBlock?
     

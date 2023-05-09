@@ -11,7 +11,7 @@ import UIKit
 typealias HTupleCellSizeBlock = () -> CGSize
 typealias HTupleCellEdgeInsetsBlock = () -> UIEdgeInsets
 typealias HTupleCellBlock = () -> Void
-typealias HTupleCellDidSelectBlock = () -> Void
+typealias HTupleCellSelectBlock = () -> Void
 
 class HTupleBaseCell : UICollectionViewCell {
     
@@ -31,7 +31,7 @@ class HTupleBaseCell : UICollectionViewCell {
     var cellBlock: HTupleCellBlock?
     
     /// Callback when a cell is clicked
-    var didSelectCell: HTupleCellDidSelectBlock?
+    var selectBlock: HTupleCellSelectBlock?
 
     /// Signal callback
     var signalBlock: HTupleCellSignalBlock?
