@@ -120,8 +120,11 @@ extension UIView {
     }
     
     // 根据UIEdgeInsets调整frame
-    func insetByEdgeInsets(_ edgeInsets: UIEdgeInsets) {
-        self.frame = self.frame.inset(by: edgeInsets)
+    public var edgeInsets: UIEdgeInsets {
+        didSet {
+            guard edgeInsets != oldValue else { return }
+            self.frame = self.frame.inset(by: edgeInsets)
+        }
     }
     
     /**

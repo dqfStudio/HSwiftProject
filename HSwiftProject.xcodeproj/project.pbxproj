@@ -57,7 +57,6 @@
 		A26D43172383DE5800F457AE /* UIColor+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D43162383DE5800F457AE /* UIColor+HUtil.swift */; };
 		A26D43192383E23300F457AE /* NSString+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D43182383E23300F457AE /* NSString+HUtil.swift */; };
 		A26D431D2384177900F457AE /* UIScreen+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D431C2384177900F457AE /* UIScreen+HUtil.swift */; };
-		A26D431F238425BD00F457AE /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D431E238425BD00F457AE /* CGRect.swift */; };
 		A26D432123842C9400F457AE /* UIGestureRecognizer+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D432023842C9400F457AE /* UIGestureRecognizer+HUtil.swift */; };
 		A26D4323238526BA00F457AE /* UIViewController+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D4322238526BA00F457AE /* UIViewController+HUtil.swift */; };
 		A26D432523852DB700F457AE /* NSDate+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26D432423852DB700F457AE /* NSDate+HUtil.swift */; };
@@ -170,6 +169,7 @@
 		A2B4308F2382CC8A00795605 /* UIDevice+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B4308E2382CC8A00795605 /* UIDevice+HUtil.swift */; };
 		A2CC441123B360AE00DB095F /* HTupleRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CC441023B360AE00DB095F /* HTupleRefresh.swift */; };
 		A2CC441323B3691D00DB095F /* HTableRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CC441223B3691D00DB095F /* HTableRefresh.swift */; };
+		EB05976B2A09F02B0016ACD8 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05976A2A09F02B0016ACD8 /* CGRect.swift */; };
 		EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23D99529DFC6F800C96CAC /* HTextView.swift */; };
 		EB23DAC32A00A4EC00C96CAC /* HNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC22A00A4EB00C96CAC /* HNavigationBar.swift */; };
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
@@ -346,7 +346,6 @@
 		A26D43162383DE5800F457AE /* UIColor+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HUtil.swift"; sourceTree = "<group>"; };
 		A26D43182383E23300F457AE /* NSString+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+HUtil.swift"; sourceTree = "<group>"; };
 		A26D431C2384177900F457AE /* UIScreen+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+HUtil.swift"; sourceTree = "<group>"; };
-		A26D431E238425BD00F457AE /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		A26D432023842C9400F457AE /* UIGestureRecognizer+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+HUtil.swift"; sourceTree = "<group>"; };
 		A26D4322238526BA00F457AE /* UIViewController+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+HUtil.swift"; sourceTree = "<group>"; };
 		A26D432423852DB700F457AE /* NSDate+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDate+HUtil.swift"; sourceTree = "<group>"; };
@@ -462,6 +461,7 @@
 		A2CC441023B360AE00DB095F /* HTupleRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleRefresh.swift; sourceTree = "<group>"; };
 		A2CC441223B3691D00DB095F /* HTableRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableRefresh.swift; sourceTree = "<group>"; };
 		D6FA5573A6AEBBEE3FA9646A /* Pods-HSwiftProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSwiftProject.debug.xcconfig"; path = "Target Support Files/Pods-HSwiftProject/Pods-HSwiftProject.debug.xcconfig"; sourceTree = "<group>"; };
+		EB05976A2A09F02B0016ACD8 /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		EB23D99529DFC6F800C96CAC /* HTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
 		EB23DAC22A00A4EB00C96CAC /* HNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar.swift; sourceTree = "<group>"; };
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
@@ -764,6 +764,7 @@
 		A2892399238B72F800E4AB75 /* HTupleCommon */ = {
 			isa = PBXGroup;
 			children = (
+				EB05976A2A09F02B0016ACD8 /* CGRect.swift */,
 				A289239A238B72F800E4AB75 /* HGeometry.swift */,
 				A2A814B3274C0E2000FAB929 /* HTupleHeader.swift */,
 				A289239B238B72F800E4AB75 /* HTupleSignal.swift */,
@@ -1028,7 +1029,6 @@
 		A2B4305C237FF2B100795605 /* Ext-Category */ = {
 			isa = PBXGroup;
 			children = (
-				A26D431E238425BD00F457AE /* CGRect.swift */,
 				A2B4308E2382CC8A00795605 /* UIDevice+HUtil.swift */,
 				A26D431423839C2800F457AE /* UIApplication+HUtil.swift */,
 				A26D43162383DE5800F457AE /* UIColor+HUtil.swift */,
@@ -1707,7 +1707,6 @@
 				EBD0FB6929D02B1000808EDA /* HUserDefaults2.swift in Sources */,
 				A2294893239756A10058B939 /* HTableViewCell.swift in Sources */,
 				EB43240729B9DF9D00EDDB64 /* HResultView.swift in Sources */,
-				A26D431F238425BD00F457AE /* CGRect.swift in Sources */,
 				EBC8140729AA48C000A81431 /* HUserLiveCell.swift in Sources */,
 				EB43244929C5B8E700EDDB64 /* UIImage+HUtil.swift in Sources */,
 				A28923A2238B72F800E4AB75 /* HTupleBaseApex.swift in Sources */,
@@ -1744,6 +1743,7 @@
 				A2B4308F2382CC8A00795605 /* UIDevice+HUtil.swift in Sources */,
 				EBD0FB8A29D5668E00808EDA /* CALayer+HUtil.swift in Sources */,
 				EB23DACD2A027D6C00C96CAC /* HSheetAction.swift in Sources */,
+				EB05976B2A09F02B0016ACD8 /* CGRect.swift in Sources */,
 				EB43241229C2EB3F00EDDB64 /* NSObject+HLanguage.swift in Sources */,
 				A229488E239756770058B939 /* HTableBaseApex.swift in Sources */,
 				EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */,
