@@ -27,7 +27,7 @@ extension HMainController3 {
         let itemBlock = itemBlock as! HTupleItem
         let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
         cell.backgroundColor = UIColor.gray
-        cell.isShouldShowSeparator = true
+        cell.isShowSeparator = true
         cell.separatorInset = UILREdgeInsets(left: 10, right: 10)
         
         let frame: CGRect = cell.layoutViewBounds

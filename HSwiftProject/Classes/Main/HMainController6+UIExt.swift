@@ -16,7 +16,7 @@ extension HMainController6 {
         case 3:
             let cell = itemBlock(nil, HTableViewCellHoriValue3.self, nil, true) as! HTableViewCellHoriValue3
             cell.backgroundColor = UIColor.gray
-            cell.isShouldShowSeparator = true
+            cell.isShowSeparator = true
             cell.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
             
             cell.detailWidth = cell.layoutViewBounds.width / 3

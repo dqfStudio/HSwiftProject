@@ -81,10 +81,10 @@ class HTupleBaseCell : UICollectionViewCell {
     }()
     
     /// Whether the cell should display a separator line
-    var isShouldShowSeparator: Bool = false {
+    var isShowSeparator: Bool = false {
         didSet {
-            separatorView.isHidden = !isShouldShowSeparator
-            if isShouldShowSeparator {
+            separatorView.isHidden = !isShowSeparator
+            if isShowSeparator {
                 if separatorView.superview == nil {
                     addSubview(separatorView)
                 }

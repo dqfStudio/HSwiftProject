@@ -116,7 +116,7 @@ class HTableViewApexHoriValue1 : HTableViewApexHoriBase1 {
     }
     
     ///是否显示右边箭头
-    var showAccessoryArrow: Bool = false
+    var isShowAccessoryArrow: Bool = false
     
     override func relayoutSubviews() {
         self.updateSubViews()
@@ -142,16 +142,16 @@ class HTableViewApexHoriValue1 : HTableViewApexHoriBase1 {
         }
         
         //计算accessoryView的坐标
-        if self.showAccessoryArrow { tmpFrame2 = CGRect(x: 0, y: 0, width: 7, height: 13) }
+        if self.isShowAccessoryArrow { tmpFrame2 = CGRect(x: 0, y: 0, width: 7, height: 13) }
         tmpFrame2.x = frame.width - tmpFrame2.width
         tmpFrame2.y = frame.height / 2 - tmpFrame2.height / 2
-        if self.showAccessoryArrow { self.accessoryView.frame = tmpFrame2 }
+        if self.isShowAccessoryArrow { self.accessoryView.frame = tmpFrame2 }
         
         //计算detailView的坐标
         if _detailView != nil {
             tmpFrame3.width = tmpFrame3.height //默认宽高相等
             tmpFrame3.x = tmpFrame2.minX - tmpFrame3.width
-            if self.showAccessoryArrow { tmpFrame3.x -= KArrowSpace }
+            if self.isShowAccessoryArrow { tmpFrame3.x -= KArrowSpace }
             
             tmpFrame2.x += self.detailViewInsets.left
             tmpFrame2.y += self.detailViewInsets.top
@@ -262,7 +262,7 @@ class HTableViewApexHoriValue2 : HTableViewApexHoriBase1 {
     }
     
     ///是否显示右边箭头
-    var showAccessoryArrow: Bool = false
+    var isShowAccessoryArrow: Bool = false
         
     override func relayoutSubviews() {
         self.updateSubViews()
@@ -288,16 +288,16 @@ class HTableViewApexHoriValue2 : HTableViewApexHoriBase1 {
         }
         
         //计算accessoryView的坐标
-        if self.showAccessoryArrow { tmpFrame2 = CGRect(x: 0, y: 0, width: 7, height: 13) }
+        if self.isShowAccessoryArrow { tmpFrame2 = CGRect(x: 0, y: 0, width: 7, height: 13) }
         tmpFrame2.x = frame.width - tmpFrame2.width
         tmpFrame2.y = frame.height / 2 - tmpFrame2.height / 2
-        if self.showAccessoryArrow { self.accessoryView.frame = tmpFrame2 }
+        if self.isShowAccessoryArrow { self.accessoryView.frame = tmpFrame2 }
         
         //计算detailView的坐标
         if _detailView != nil {
             tmpFrame3.width = tmpFrame3.height //默认宽高相等
             tmpFrame3.x = tmpFrame2.minX - tmpFrame3.width
-            if self.showAccessoryArrow { tmpFrame3.x -= KArrowSpace }
+            if self.isShowAccessoryArrow { tmpFrame3.x -= KArrowSpace }
             
             tmpFrame2.x += self.detailViewInsets.left
             tmpFrame2.y += self.detailViewInsets.top
@@ -426,7 +426,7 @@ class HTableViewApexHoriValue3 : HTableViewApexHoriBase2 {
         return _detailView!
     }
     ///是否显示右边箭头
-    var showAccessoryArrow: Bool = false
+    var isShowAccessoryArrow: Bool = false
     
     override func relayoutSubviews() {
         self.updateSubViews()
@@ -452,16 +452,16 @@ class HTableViewApexHoriValue3 : HTableViewApexHoriBase2 {
         }
         
         //计算accessoryView的坐标
-        if self.showAccessoryArrow { tmpFrame2 = CGRect(x: 0, y: 0, width: 7, height: 13) }
+        if self.isShowAccessoryArrow { tmpFrame2 = CGRect(x: 0, y: 0, width: 7, height: 13) }
         tmpFrame2.x = frame.width - tmpFrame2.width
         tmpFrame2.y = frame.height / 2 - tmpFrame2.height / 2
-        if self.showAccessoryArrow { self.accessoryView.frame = tmpFrame2 }
+        if self.isShowAccessoryArrow { self.accessoryView.frame = tmpFrame2 }
         
         //计算detailView的坐标
         if _detailView != nil {
             tmpFrame3.width = tmpFrame3.height //默认宽高相等
             tmpFrame3.x = tmpFrame2.minX - tmpFrame3.width
-            if self.showAccessoryArrow { tmpFrame3.x -= KArrowSpace }
+            if self.isShowAccessoryArrow { tmpFrame3.x -= KArrowSpace }
             
             tmpFrame2.x += self.detailViewInsets.left
             tmpFrame2.y += self.detailViewInsets.top
@@ -581,7 +581,7 @@ class HTableViewApexHoriValue4 : HTableViewApexHoriBase3 {
     }
     
     ///是否显示右边箭头
-    var showAccessoryArrow: Bool = false
+    var isShowAccessoryArrow: Bool = false
     
     override func relayoutSubviews() {
         self.updateSubViews()
@@ -607,16 +607,16 @@ class HTableViewApexHoriValue4 : HTableViewApexHoriBase3 {
         }
         
         //计算accessoryView的坐标
-        if self.showAccessoryArrow { tmpFrame2 = CGRect(x: 0, y: 0, width: 7, height: 13) }
+        if self.isShowAccessoryArrow { tmpFrame2 = CGRect(x: 0, y: 0, width: 7, height: 13) }
         tmpFrame2.x = frame.width - tmpFrame2.width
         tmpFrame2.y = frame.height / 2 - tmpFrame2.height / 2
-        if self.showAccessoryArrow { self.accessoryView.frame = tmpFrame2 }
+        if self.isShowAccessoryArrow { self.accessoryView.frame = tmpFrame2 }
         
         //计算detailView的坐标
         if _detailView != nil {
             tmpFrame3.width = tmpFrame3.height //默认宽高相等
             tmpFrame3.x = tmpFrame2.minX - tmpFrame3.width
-            if self.showAccessoryArrow { tmpFrame3.x -= KArrowSpace }
+            if self.isShowAccessoryArrow { tmpFrame3.x -= KArrowSpace }
 
             tmpFrame3.x += self.detailViewInsets.left
             tmpFrame3.y += self.detailViewInsets.top

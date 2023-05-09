@@ -97,25 +97,25 @@ class HTableBaseCell : UITableViewCell {
         return view
     }()
     
-    private var _isShouldShowSeparator: Bool = false
+    private var _isShowSeparator: Bool = false
     ///cell是否显示间隔线
-    var isShouldShowSeparator: Bool {
+    var isShowSeparator: Bool {
         get {
-            return _isShouldShowSeparator
+            return _isShowSeparator
         }
         set {
-            if _isShouldShowSeparator != newValue {
-               _isShouldShowSeparator = newValue
-                if _isShouldShowSeparator {
+            if _isShowSeparator != newValue {
+               _isShowSeparator = newValue
+                if _isShowSeparator {
                     if self.separatorView.superview == nil {
                         self.addSubview(self.separatorView)
                     }
                     self.bringSubviewToFront(self.separatorView)
                 }
-                self.separatorView.isHidden = !_isShouldShowSeparator
+                self.separatorView.isHidden = !_isShowSeparator
             }
             //重设frame
-            if _isShouldShowSeparator {
+            if _isShowSeparator {
                 let separatorFrame = self.separatorFrame
                 if self.separatorView.frame != separatorFrame {
                    self.separatorView.frame = separatorFrame
