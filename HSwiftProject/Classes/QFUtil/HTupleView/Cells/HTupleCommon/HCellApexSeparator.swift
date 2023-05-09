@@ -25,6 +25,7 @@ class HCellApexSeparator: UIView {
     }
     
     required override init(frame: CGRect) {
+        let frame = CGRect(x: 0, y: frame.height - 1, width: frame.width, height: 1)
         super.init(frame: frame)
         self.backgroundColor = UIColor(hex: "#E9E9E9")
     }

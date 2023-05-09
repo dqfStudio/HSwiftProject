@@ -74,8 +74,7 @@ class HTupleBaseCell : UICollectionViewCell {
 
     /// The separator view loaded on the content view
     lazy var separatorView: HCellApexSeparator = {
-        let view = HCellApexSeparator()
-        view.frame = self.frame
+        let view = HCellApexSeparator(frame: self.frame)
         self.contentView.addSubview(view)
         return view
     }()
