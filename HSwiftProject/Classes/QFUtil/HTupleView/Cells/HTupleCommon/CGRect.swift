@@ -31,16 +31,8 @@ extension CGRect {
     }
     
     // 根据UIEdgeInsets调整frame
-    public var edgeInsets: UIEdgeInsets {
-        didSet {
-            guard edgeInsets != oldValue else { return }
-            self = self.inset(by: edgeInsets)
-        }
+    mutating func insetByEdgeInsets(_ edgeInsets: UIEdgeInsets) {
+        self = self.inset(by: edgeInsets)
     }
-    
-//    // 根据UIEdgeInsets调整frame
-//    func insetByEdgeInsets(_ edgeInsets: UIEdgeInsets) {
-//        self = self.inset(by: edgeInsets)
-//    }
     
 }
