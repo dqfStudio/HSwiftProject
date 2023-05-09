@@ -46,18 +46,12 @@ class HTupleBaseApex : UICollectionReusableView {
         self.initUI()
     }
     
-    private var _edgeInsets: UIEdgeInsets = .zero
     /// The edge insets of the cell.
-    @objc var edgeInsets: UIEdgeInsets {
-        get { _edgeInsets }
-        set {
-            guard _edgeInsets != newValue else { return }
-            _edgeInsets = newValue
-            // Update the frame of the layout view.
-            if layoutView.frame != layoutViewFrame {
-                layoutView.frame = layoutViewFrame
-            }
-        }
+    @objc var edgeInsets: UIEdgeInsets = .zero {
+         didSet {
+              guard layoutView.frame != layoutViewFrame else { return }
+              layoutView.frame = layoutViewFrame
+         }
     }
 
     /// The layout view loaded on the content view.
@@ -77,29 +71,16 @@ class HTupleBaseApex : UICollectionReusableView {
         return view
     }()
     
-    private var _isShouldShowSeparator: Bool = false
     /// Whether the cell should display a separator line
-    var isShouldShowSeparator: Bool {
-        get {
-            return _isShouldShowSeparator
-        }
-        set {
-            if _isShouldShowSeparator != newValue {
-                _isShouldShowSeparator = newValue
-                if _isShouldShowSeparator {
-                    if self.separatorView.superview == nil {
-                        self.addSubview(self.separatorView)
-                    }
-                    self.bringSubviewToFront(self.separatorView)
+    var isShouldShowSeparator: Bool = false {
+        didSet {
+            separatorView.isHidden = !isShouldShowSeparator
+            if isShouldShowSeparator {
+                if separatorView.superview == nil {
+                    addSubview(separatorView)
                 }
-                self.separatorView.isHidden = !_isShouldShowSeparator
-            }
-            // Reset frame
-            if _isShouldShowSeparator {
-                let separatorFrame = self.separatorFrame
-                if self.separatorView.frame != separatorFrame {
-                    self.separatorView.frame = separatorFrame
-                }
+                separatorView.frame = separatorFrame
+                bringSubviewToFront(separatorView)
             }
         }
     }
@@ -120,7 +101,6 @@ class HTupleBaseApex : UICollectionReusableView {
     }
     
     private var separatorFrame: CGRect {
-        let separatorInset = self.separatorInset
         let frame = CGRect(x: separatorInset.left, y: self.bounds.height - 1, width: self.bounds.width - separatorInset.left - separatorInset.right, height: 1)
         return frame
     }
