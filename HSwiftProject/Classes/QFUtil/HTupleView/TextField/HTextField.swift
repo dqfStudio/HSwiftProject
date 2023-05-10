@@ -46,7 +46,7 @@ class HTextField : UITextField, UITextFieldDelegate {
         return imageView
     }()
 
-    lazy var leftButton: HWebButtonView = {
+    lazy var leftItem: HWebButtonView = {
         let button = HWebButtonView()
         button.textFont = UIFont.systemFont(ofSize: 14)
         self.leftViewMode = .always

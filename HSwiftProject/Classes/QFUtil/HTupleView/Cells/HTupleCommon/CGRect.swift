@@ -32,6 +32,10 @@ extension CGRect {
         set { self.size.height = newValue }
     }
     
+    static public var one: CGRect {
+        return CGRect(x: 0, y: 0, width: 1.0, height: 1.0)
+    }
+    
     // 根据UIEdgeInsets调整frame
     var edgeInsets: UIEdgeInsets {
         get {

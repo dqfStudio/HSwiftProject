@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HViewController: UIViewController, HNavigationBarProtocol {
+class HViewController: UIViewController {
     
     private var orientation: UIDeviceOrientation = .unknown
         
@@ -38,7 +38,6 @@ class HViewController: UIViewController, HNavigationBarProtocol {
         self.view.backgroundColor = .white
         self.setNeedsNavigationBarAppearanceUpdate()
         // Add custom navigation bar
-        self.navigationBar.delegate = self
         self.view.addSubview(self.navigationBar)
         self.view.isExclusiveTouch = true
         //Disable dark mode
@@ -115,24 +114,21 @@ class HViewController: UIViewController, HNavigationBarProtocol {
     lazy var navigationBar: HNavigationBar = {
         let height = UIScreen.naviBarHeight + UIScreen.statusBarHeight
         let frame = CGRect(x: 0, y: 0, width: self.view.width, height: height)
-        return HNavigationBar(frame: frame)
+        let naviBar = HNavigationBar(frame: frame)
+        naviBar.leftItem.pressedBlock = {
+            self.leftItemPressed()
+        }
+        naviBar.rightItem.pressedBlock = {
+            self.rightItemPressed()
+        }
+        return naviBar
     }()
-    
-    // Callback for the left button in the navigation bar
-    func navigationBarLeftItemPressed(_ leftItem: UIButton?) {
-        self.leftNaviItemPressed()
-    }
-    
-    // Callback for the right button in the navigation bar
-    func navigationBarRightItemPressed(_ rightItem: UIButton?) {
-        self.rightNaviItemPressed()
-    }
 
-    func leftNaviItemPressed() {
+    func leftItemPressed() {
         self.back()
     }
 
-    func rightNaviItemPressed() {
+    func rightItemPressed() {
         
     }
     
@@ -167,7 +163,7 @@ class HViewController: UIViewController, HNavigationBarProtocol {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationBar.isHidden = self.prefersNavigationBarHidden
         self.navigationBar.backgroundColor = self.preferredNavigationBarColor
-        self.navigationBar.lineBarColor = self.preferredNavigationLineBarColor
+        self.navigationBar.lineBar.backgroundColor = self.preferredNavigationLineBarColor
         self.navigationBar.leftItem.image = UIImage(named: "hvc_back_icon")
     }
 

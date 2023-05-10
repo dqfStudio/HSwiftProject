@@ -171,6 +171,7 @@
 		A2CC441323B3691D00DB095F /* HTableRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CC441223B3691D00DB095F /* HTableRefresh.swift */; };
 		EB05976B2A09F02B0016ACD8 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05976A2A09F02B0016ACD8 /* CGRect.swift */; };
 		EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */; };
+		EB0597712A0B6B990016ACD8 /* HNavigationBar2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0597702A0B6B990016ACD8 /* HNavigationBar2.swift */; };
 		EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23D99529DFC6F800C96CAC /* HTextView.swift */; };
 		EB23DAC32A00A4EC00C96CAC /* HNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC22A00A4EB00C96CAC /* HNavigationBar.swift */; };
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
@@ -464,6 +465,7 @@
 		D6FA5573A6AEBBEE3FA9646A /* Pods-HSwiftProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSwiftProject.debug.xcconfig"; path = "Target Support Files/Pods-HSwiftProject/Pods-HSwiftProject.debug.xcconfig"; sourceTree = "<group>"; };
 		EB05976A2A09F02B0016ACD8 /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCellApexSeparator.swift; sourceTree = "<group>"; };
+		EB0597702A0B6B990016ACD8 /* HNavigationBar2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar2.swift; sourceTree = "<group>"; };
 		EB23D99529DFC6F800C96CAC /* HTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
 		EB23DAC22A00A4EB00C96CAC /* HNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar.swift; sourceTree = "<group>"; };
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
@@ -1141,6 +1143,7 @@
 				A26D43312386914500F457AE /* hvc_back_icon@2x.png */,
 				A26D43302386914500F457AE /* hvc_back_icon@3x.png */,
 				EB23DAC22A00A4EB00C96CAC /* HNavigationBar.swift */,
+				EB0597702A0B6B990016ACD8 /* HNavigationBar2.swift */,
 				A2B4307F237FF57C00795605 /* HViewController.swift */,
 				EB23DAC42A00D69300C96CAC /* HViewController2.swift */,
 				A258395823B4E70F00881941 /* HTableController.swift */,
@@ -1838,6 +1841,7 @@
 				EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */,
 				A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */,
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,
+				EB0597712A0B6B990016ACD8 /* HNavigationBar2.swift in Sources */,
 				A229489923975BA80058B939 /* HTupleViewApexVertValue.swift in Sources */,
 				EBD0FB0B29CA938900808EDA /* HAssetModel.swift in Sources */,
 				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue.swift in Sources */,
