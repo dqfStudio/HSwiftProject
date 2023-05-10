@@ -83,18 +83,20 @@ class HTableBaseCell : UITableViewCell {
     }
     
     /// The layout view loaded on the content view
-    lazy var layoutView: UIView = {
-        let view = UIView()
-        view.frame = self.frame
-        self.addSubview(view)
-        return view
+    lazy var layoutView: UIStackView = {
+        let stackView = UIStackView(frame: self.frame)
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        self.contentView.addSubview(stackView)
+        return stackView
     }()
 
     /// The separator view loaded on the content view
     lazy var separatorView: HCellApexSeparator = {
-        let view = HCellApexSeparator(frame: self.frame)
-        self.contentView.addSubview(view)
-        return view
+        let separator = HCellApexSeparator(frame: self.frame)
+        self.contentView.addSubview(separator)
+        return separator
     }()
     
     ///刷新当前cell

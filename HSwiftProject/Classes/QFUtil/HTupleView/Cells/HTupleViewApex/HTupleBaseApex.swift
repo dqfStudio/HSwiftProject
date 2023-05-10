@@ -73,9 +73,9 @@ class HTupleBaseApex : UICollectionReusableView {
 
     /// The separator view loaded on the content view
     lazy var separatorView: HCellApexSeparator = {
-        let view = HCellApexSeparator(frame: self.frame)
-        self.addSubview(view)
-        return view
+        let separator = HCellApexSeparator(frame: self.frame)
+        self.addSubview(separator)
+        return separator
     }()
 
     /// The frame and bounds of the layout view
