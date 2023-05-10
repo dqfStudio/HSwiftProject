@@ -231,11 +231,31 @@ class HNavigationBar: UIStackView {
     
 }
 
+
+// This is a custom UIButton class that is used as a navigation item
+// It has two blocks that can be set to be executed when the button is pressed or hidden
+// It also has a disableColor property that can be set to change the background color when the button is disabled
+
 typealias HNavigationItemBlock = () -> Void
 
+// This is a custom UIButton class that is used as a navigation item
 class HNavigationItem: UIButton {
+    // It has two blocks that can be set to be executed when the button is pressed or hidden
     var hiddenBlock: HNavigationItemBlock?
     var pressedBlock: HNavigationItemBlock?
+
+    // It also has a disableColor property that can be set to change the background color when the button is disabled
+    var disableColor: UIColor?
+    
+    // If the button is disabled, change the background color to the disableColor property
+    override var isEnabled: Bool {
+        didSet {
+            backgroundColor = isEnabled ? backgroundColor : disableColor ?? backgroundColor
+            isUserInteractionEnabled = isEnabled
+        }
+    }
+
+    // If the button is hidden, execute the hiddenBlock
     override var isHidden: Bool {
         didSet {
             if isHidden != oldValue {
@@ -244,3 +264,5 @@ class HNavigationItem: UIButton {
         }
     }
 }
+
+
