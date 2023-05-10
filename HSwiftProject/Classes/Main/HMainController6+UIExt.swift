@@ -14,7 +14,7 @@ extension HMainController6 {
         let itemBlock = itemBlock as! HTableRow
         switch (indexPath.row) {
         case 3:
-            let cell = itemBlock(nil, HTableViewCellHoriValue3.self, nil, true) as! HTableViewCellHoriValue3
+            let cell = itemBlock(nil, HTableViewCellHoriValue1.self, nil, true) as! HTableViewCellHoriValue1
             cell.backgroundColor = UIColor.gray
             cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             

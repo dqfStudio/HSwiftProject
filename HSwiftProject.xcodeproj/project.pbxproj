@@ -20,12 +20,12 @@
 		A2294893239756A10058B939 /* HTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2294892239756A10058B939 /* HTableViewCell.swift */; };
 		A229489523975A900058B939 /* HTableViewApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489423975A900058B939 /* HTableViewApex.swift */; };
 		A229489723975AE80058B939 /* HTupleViewApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489623975AE80058B939 /* HTupleViewApex.swift */; };
-		A229489923975BA80058B939 /* HTupleViewApexVertValue1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489823975BA80058B939 /* HTupleViewApexVertValue1.swift */; };
+		A229489923975BA80058B939 /* HTupleViewApexVertValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489823975BA80058B939 /* HTupleViewApexVertValue.swift */; };
 		A229489B23975C2E0058B939 /* HTupleViewApexHoriValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489A23975C2E0058B939 /* HTupleViewApexHoriValue.swift */; };
 		A229489D23975CE40058B939 /* HTableViewCellVertValue1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489C23975CE40058B939 /* HTableViewCellVertValue1.swift */; };
-		A229489F23975D850058B939 /* HTableViewCellHoriValue1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489E23975D850058B939 /* HTableViewCellHoriValue1.swift */; };
+		A229489F23975D850058B939 /* HTableViewCellHoriValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489E23975D850058B939 /* HTableViewCellHoriValue.swift */; };
 		A22948A123975F500058B939 /* HTableViewApexVertValue1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948A023975F500058B939 /* HTableViewApexVertValue1.swift */; };
-		A22948A323975FB10058B939 /* HTableViewApexHoriValue1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948A223975FB10058B939 /* HTableViewApexHoriValue1.swift */; };
+		A22948A323975FB10058B939 /* HTableViewApexHoriValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948A223975FB10058B939 /* HTableViewApexHoriValue.swift */; };
 		A22948A5239798000058B939 /* HMainController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948A4239798000058B939 /* HMainController1.swift */; };
 		A22948A72397980A0058B939 /* HMainController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948A62397980A0058B939 /* HMainController2.swift */; };
 		A22948A92397985B0058B939 /* HMainController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948A82397985B0058B939 /* HMainController3.swift */; };
@@ -310,12 +310,12 @@
 		A2294892239756A10058B939 /* HTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableViewCell.swift; sourceTree = "<group>"; };
 		A229489423975A900058B939 /* HTableViewApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableViewApex.swift; sourceTree = "<group>"; };
 		A229489623975AE80058B939 /* HTupleViewApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewApex.swift; sourceTree = "<group>"; };
-		A229489823975BA80058B939 /* HTupleViewApexVertValue1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewApexVertValue1.swift; sourceTree = "<group>"; };
+		A229489823975BA80058B939 /* HTupleViewApexVertValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewApexVertValue.swift; sourceTree = "<group>"; };
 		A229489A23975C2E0058B939 /* HTupleViewApexHoriValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewApexHoriValue.swift; sourceTree = "<group>"; };
 		A229489C23975CE40058B939 /* HTableViewCellVertValue1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableViewCellVertValue1.swift; sourceTree = "<group>"; };
-		A229489E23975D850058B939 /* HTableViewCellHoriValue1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableViewCellHoriValue1.swift; sourceTree = "<group>"; };
+		A229489E23975D850058B939 /* HTableViewCellHoriValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableViewCellHoriValue.swift; sourceTree = "<group>"; };
 		A22948A023975F500058B939 /* HTableViewApexVertValue1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableViewApexVertValue1.swift; sourceTree = "<group>"; };
-		A22948A223975FB10058B939 /* HTableViewApexHoriValue1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableViewApexHoriValue1.swift; sourceTree = "<group>"; };
+		A22948A223975FB10058B939 /* HTableViewApexHoriValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableViewApexHoriValue.swift; sourceTree = "<group>"; };
 		A22948A4239798000058B939 /* HMainController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMainController1.swift; sourceTree = "<group>"; };
 		A22948A62397980A0058B939 /* HMainController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMainController2.swift; sourceTree = "<group>"; };
 		A22948A82397985B0058B939 /* HMainController3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMainController3.swift; sourceTree = "<group>"; };
@@ -651,7 +651,7 @@
 				A2294887239756770058B939 /* HTableBaseApex.swift */,
 				A229489423975A900058B939 /* HTableViewApex.swift */,
 				A22948A023975F500058B939 /* HTableViewApexVertValue1.swift */,
-				A22948A223975FB10058B939 /* HTableViewApexHoriValue1.swift */,
+				A22948A223975FB10058B939 /* HTableViewApexHoriValue.swift */,
 			);
 			path = HTableViewApex;
 			sourceTree = "<group>";
@@ -671,7 +671,7 @@
 				A229488B239756770058B939 /* HTableBaseCell.swift */,
 				A2294892239756A10058B939 /* HTableViewCell.swift */,
 				A229489C23975CE40058B939 /* HTableViewCellVertValue1.swift */,
-				A229489E23975D850058B939 /* HTableViewCellHoriValue1.swift */,
+				A229489E23975D850058B939 /* HTableViewCellHoriValue.swift */,
 			);
 			path = HTableViewCell;
 			sourceTree = "<group>";
@@ -745,7 +745,7 @@
 			children = (
 				A2892396238B72F800E4AB75 /* HTupleBaseApex.swift */,
 				A229489623975AE80058B939 /* HTupleViewApex.swift */,
-				A229489823975BA80058B939 /* HTupleViewApexVertValue1.swift */,
+				A229489823975BA80058B939 /* HTupleViewApexVertValue.swift */,
 				A229489A23975C2E0058B939 /* HTupleViewApexHoriValue.swift */,
 			);
 			path = HTupleViewApex;
@@ -1821,7 +1821,7 @@
 				A2B42FCE237CED5A00795605 /* SceneDelegate.swift in Sources */,
 				A26D43452387827A00F457AE /* NSObject+HForwarding.swift in Sources */,
 				A26D432723853F2900F457AE /* NSObject+HMessy.swift in Sources */,
-				A229489F23975D850058B939 /* HTableViewCellHoriValue1.swift in Sources */,
+				A229489F23975D850058B939 /* HTableViewCellHoriValue.swift in Sources */,
 				A2A814B4274C0E2000FAB929 /* HTupleHeader.swift in Sources */,
 				A26D43192383E23300F457AE /* NSString+HUtil.swift in Sources */,
 				A22948A5239798000058B939 /* HMainController1.swift in Sources */,
@@ -1838,7 +1838,7 @@
 				EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */,
 				A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */,
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,
-				A229489923975BA80058B939 /* HTupleViewApexVertValue1.swift in Sources */,
+				A229489923975BA80058B939 /* HTupleViewApexVertValue.swift in Sources */,
 				EBD0FB0B29CA938900808EDA /* HAssetModel.swift in Sources */,
 				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue.swift in Sources */,
 				A265D9FB2390B8EB001F39B0 /* HTabItem.swift in Sources */,
@@ -1887,7 +1887,7 @@
 				A2A7A94723FE3B5E0090EFD3 /* HPageControl.swift in Sources */,
 				A2A7A93D23FE3A790090EFD3 /* HDotView.swift in Sources */,
 				A2B43075237FF2B100795605 /* HPrinterManager.swift in Sources */,
-				A22948A323975FB10058B939 /* HTableViewApexHoriValue1.swift in Sources */,
+				A22948A323975FB10058B939 /* HTableViewApexHoriValue.swift in Sources */,
 				A2A7A94923FE8A400090EFD3 /* HCycleScrollView.swift in Sources */,
 				EBC8145729AA538B00A81431 /* HAcceptAudioVC.swift in Sources */,
 				EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */,

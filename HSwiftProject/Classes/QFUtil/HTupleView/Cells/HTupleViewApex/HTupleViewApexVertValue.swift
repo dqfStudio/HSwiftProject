@@ -30,9 +30,7 @@ class HTupleViewApexVertValue1 : HTupleBaseApex {
 
     ///显示图片
     lazy var imageView: HWebImageView = {
-        let imageView = HWebImageView()
-        self.layoutView.addSubview(imageView)
-        return imageView
+        return HWebImageView()
     }()
 
     private var _label: UILabel?
@@ -41,7 +39,6 @@ class HTupleViewApexVertValue1 : HTupleBaseApex {
         if _label == nil {
             _label = UILabel()
             _label!.font = UIFont.systemFont(ofSize: 14)
-            self.layoutView.addSubview(_label!)
         }
         return _label!
     }
@@ -52,7 +49,6 @@ class HTupleViewApexVertValue1 : HTupleBaseApex {
         if _detailLabel == nil {
             _detailLabel = UILabel()
             _detailLabel!.font = UIFont.systemFont(ofSize: 14)
-            self.layoutView.addSubview(_detailLabel!)
         }
         return _detailLabel!
     }
@@ -63,7 +59,6 @@ class HTupleViewApexVertValue1 : HTupleBaseApex {
         if _accessoryLabel == nil {
             _accessoryLabel = UILabel()
             _accessoryLabel!.font = UIFont.systemFont(ofSize: 14)
-            self.layoutView.addSubview(_accessoryLabel!)
         }
         return _accessoryLabel!
     }
@@ -213,9 +208,7 @@ class HTupleViewApexVertValue2 : HTupleBaseApex {
 
     ///显示图片
     lazy var imageView: HWebImageView = {
-        let imageView = HWebImageView()
-        self.layoutView.addSubview(imageView)
-        return imageView
+        return HWebImageView()
     }()
 
     private var _label: UILabel?
@@ -224,7 +217,6 @@ class HTupleViewApexVertValue2 : HTupleBaseApex {
         if _label == nil {
             _label = UILabel()
             _label!.font = UIFont.systemFont(ofSize: 14)
-            self.layoutView.addSubview(_label!)
         }
         return _label!
     }
@@ -235,7 +227,6 @@ class HTupleViewApexVertValue2 : HTupleBaseApex {
         if _detailLabel == nil {
             _detailLabel = UILabel()
             _detailLabel!.font = UIFont.systemFont(ofSize: 14)
-            self.layoutView.addSubview(_detailLabel!)
         }
         return _detailLabel!
     }
@@ -246,7 +237,6 @@ class HTupleViewApexVertValue2 : HTupleBaseApex {
         if _accessoryLabel == nil {
             _accessoryLabel = UILabel()
             _accessoryLabel!.font = UIFont.systemFont(ofSize: 14)
-            self.layoutView.addSubview(_accessoryLabel!)
         }
         return _accessoryLabel!
     }
