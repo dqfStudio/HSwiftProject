@@ -21,8 +21,53 @@ class HNavigationBar: UIStackView {
     var leftItemWidth: CGFloat = 60.0
     // Width of the right button of the navigation bar
     var rightItemWidth: CGFloat = 60.0
-
-
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
+    
+    @available(*, unavailable)
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // 状态栏
+    lazy var statusBar: UIView = {
+        let view = UIView()
+        view.heightAnchor.constraint(equalToConstant: UIScreen.statusBarHeight).isActive = true
+        return view
+    }()
+    
+    // 导航栏
+    private lazy var navigationBar: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        return stackView
+    }()
+    
+    // 间隔线
+    lazy var lineBar: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(hex: 0xe5e5e5)
+        view.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        view.isHidden = true
+        return view
+    }()
+    
+    // 左边间隔
+    private lazy var leftEdge: UIView = {
+        return UIView()
+    }()
+    
+    // 右边间隔
+    private lazy var rightEdge: UIView = {
+        return UIView()
+    }()
+    
     // Left button of the navigation bar
     lazy var leftItem: HNavigationItem = {
         let buttonView = HNavigationItem(frame: .zero)
@@ -73,53 +118,6 @@ class HNavigationBar: UIStackView {
     func rightItemPressed() {
         rightItem.pressedBlock?()
     }
-    
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-    
-    @available(*, unavailable)
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // 状态栏
-    lazy var statusBar: UIView = {
-        let view = UIView()
-        view.heightAnchor.constraint(equalToConstant: UIScreen.statusBarHeight).isActive = true
-        return view
-    }()
-    
-    // 导航栏
-    private lazy var navigationBar: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.alignment = .fill
-        return stackView
-    }()
-    
-    // 间隔线
-    lazy var lineBar: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor(hex: 0xe5e5e5)
-        view.heightAnchor.constraint(equalToConstant: 1).isActive = true
-        view.isHidden = true
-        return view
-    }()
-    
-    // 左边间隔
-    private lazy var leftEdge: UIView = {
-        return UIView()
-    }()
-    
-    // 右边间隔
-    private lazy var rightEdge: UIView = {
-        return UIView()
-    }()
-    
     
     private func setup() {
         
