@@ -20,7 +20,7 @@ class HCellApexSeparator: UIView {
     
     private var separatorFrame: CGRect {
         let width = self.width - separatorInset.left - separatorInset.right
-        let origin = CGPoint(x: separatorInset.left, y: self.height - 1)
+        let origin = CGPoint(x: separatorInset.left, y: self.y)
         return CGRect(origin: origin, size: CGSize(width: width, height: 1))
     }
     
