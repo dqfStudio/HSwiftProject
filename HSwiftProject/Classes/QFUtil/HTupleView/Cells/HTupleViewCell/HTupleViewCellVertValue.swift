@@ -11,16 +11,6 @@ import UIKit
 /// 三个label在imageView后依次排列
 class HTupleViewCellVertValue1 : HTupleBaseCell {
 
-    // 用于Cell布局
-    lazy var layoutStackView: UIStackView = {
-        let stackView = UIStackView(frame: self.bounds)
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.alignment = .fill
-        self.contentView.addSubview(stackView)
-        return stackView
-    }()
-
     ///labelLabel的高度
     var labelHeight: CGFloat = 0
     ///detailLabel的高度
@@ -111,43 +101,44 @@ class HTupleViewCellVertValue1 : HTupleBaseCell {
     ///imageView底部的高度
     var bottomHeight: CGFloat = 0
     
-    // 设置layoutStackView通用间隔
+    // 设置layoutView通用间隔
     func setLayoutSpacing(_ spacing: CGFloat) {
-        layoutStackView.spacing = spacing
+        layoutView.spacing = spacing
     }
     
     // 在imageView后面添加自定义间隔
     func setLayoutFirstSpacing(_ spacing: CGFloat) {
-        layoutStackView.setCustomSpacing(spacing, after: imageView)
+        layoutView.setCustomSpacing(spacing, after: imageView)
     }
     
     // 在label后面添加自定义间隔
     func setLayoutSecondSpacing(_ spacing: CGFloat) {
         if let label = _label {
-            layoutStackView.setCustomSpacing(spacing, after: label)
+            layoutView.setCustomSpacing(spacing, after: label)
         }
     }
     
     // 在detailLabel后面添加自定义间隔
     func setLayoutThirdSpacing(_ spacing: CGFloat) {
         if let detailLabel = _detailLabel {
-            layoutStackView.setCustomSpacing(spacing, after: detailLabel)
+            layoutView.setCustomSpacing(spacing, after: detailLabel)
         }
     }
     
-    override func relayoutSubviews() {
-        self.updateSubViews()
+    /// Method called during cell initialization
+    override func initUI() {
+        layoutView.axis = .vertical
     }
-
-    private func updateSubViews() {
+    
+    override func relayoutSubviews() {
 
         let frame = self.bounds.inset(by: self.edgeInsets)
 
         // 重设frame
-        layoutStackView.frame = frame
+        layoutView.frame = frame
 
         // imageView
-        layoutStackView.addArrangedSubview(imageView)
+        layoutView.addArrangedSubview(imageView)
         
         //计算topLabel的坐标
         if self.topHeight > 0 {
@@ -171,15 +162,15 @@ class HTupleViewCellVertValue1 : HTupleBaseCell {
         // label
         if let label = _label, labelHeight > 0 {
             label.widthAnchor.constraint(equalToConstant: labelHeight).isActive = true
-            layoutStackView.addArrangedSubview(label)
+            layoutView.addArrangedSubview(label)
         }
         if let detailLabel = _detailLabel, detailHeight > 0 {
             detailLabel.widthAnchor.constraint(equalToConstant: detailHeight).isActive = true
-            layoutStackView.addArrangedSubview(detailLabel)
+            layoutView.addArrangedSubview(detailLabel)
         }
         if let accessoryLabel = _accessoryLabel, accessoryHeight > 0 {
             accessoryLabel.widthAnchor.constraint(equalToConstant: accessoryHeight).isActive = true
-            layoutStackView.addArrangedSubview(accessoryLabel)
+            layoutView.addArrangedSubview(accessoryLabel)
         }
         
     }
@@ -189,16 +180,6 @@ class HTupleViewCellVertValue1 : HTupleBaseCell {
 /// 两个label在imageView后依次排列，一个在imageView之上
 class HTupleViewCellVertValue2 : HTupleBaseCell {
 
-    // 用于Cell布局
-    lazy var layoutStackView: UIStackView = {
-        let stackView = UIStackView(frame: self.bounds)
-        stackView.axis = .vertical
-        stackView.distribution = .fill
-        stackView.alignment = .fill
-        self.contentView.addSubview(stackView)
-        return stackView
-    }()
-
     ///labelLabel的高度
     var labelHeight: CGFloat = 0
     ///detailLabel的高度
@@ -289,48 +270,49 @@ class HTupleViewCellVertValue2 : HTupleBaseCell {
     ///imageView底部的高度
     var bottomHeight: CGFloat = 0
     
-    // 设置layoutStackView通用间隔
+    // 设置layoutView通用间隔
     func setLayoutSpacing(_ spacing: CGFloat) {
-        layoutStackView.spacing = spacing
+        layoutView.spacing = spacing
     }
     
     // 在accessoryLabel后面添加自定义间隔
     func setLayoutFirstSpacing(_ spacing: CGFloat) {
         if let accessoryLabel = _accessoryLabel {
-            layoutStackView.setCustomSpacing(spacing, after: accessoryLabel)
+            layoutView.setCustomSpacing(spacing, after: accessoryLabel)
         }
     }
     
     // 在imageView后面添加自定义间隔
     func setLayoutSecondSpacing(_ spacing: CGFloat) {
-        layoutStackView.setCustomSpacing(spacing, after: imageView)
+        layoutView.setCustomSpacing(spacing, after: imageView)
     }
     
     // 在label后面添加自定义间隔
     func setLayoutThirdSpacing(_ spacing: CGFloat) {
         if let label = _label {
-            layoutStackView.setCustomSpacing(spacing, after: label)
+            layoutView.setCustomSpacing(spacing, after: label)
         }
     }
     
-    override func relayoutSubviews() {
-        self.updateSubViews()
+    /// Method called during cell initialization
+    override func initUI() {
+        layoutView.axis = .vertical
     }
-
-    private func updateSubViews() {
+    
+    override func relayoutSubviews() {
 
         let frame = self.bounds.inset(by: self.edgeInsets)
 
         // 重设frame
-        layoutStackView.frame = frame
+        layoutView.frame = frame
         
         if let accessoryLabel = _accessoryLabel, accessoryHeight > 0 {
             accessoryLabel.widthAnchor.constraint(equalToConstant: accessoryHeight).isActive = true
-            layoutStackView.addArrangedSubview(accessoryLabel)
+            layoutView.addArrangedSubview(accessoryLabel)
         }
 
         // imageView
-        layoutStackView.addArrangedSubview(imageView)
+        layoutView.addArrangedSubview(imageView)
         
         //计算topLabel的坐标
         if self.topHeight > 0 {
@@ -354,11 +336,11 @@ class HTupleViewCellVertValue2 : HTupleBaseCell {
         // label
         if let label = _label, labelHeight > 0 {
             label.widthAnchor.constraint(equalToConstant: labelHeight).isActive = true
-            layoutStackView.addArrangedSubview(label)
+            layoutView.addArrangedSubview(label)
         }
         if let detailLabel = _detailLabel, detailHeight > 0 {
             detailLabel.widthAnchor.constraint(equalToConstant: detailHeight).isActive = true
-            layoutStackView.addArrangedSubview(detailLabel)
+            layoutView.addArrangedSubview(detailLabel)
         }
         
     }
