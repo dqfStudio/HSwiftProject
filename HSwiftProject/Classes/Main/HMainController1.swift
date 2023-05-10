@@ -35,7 +35,7 @@ class HMainController1: HTupleController {
         let itemBlock = itemBlock as! HTupleItem
         switch indexPath.row {
         case 0:
-            let cell = itemBlock(nil, HTupleViewCellHoriValue4.self, nil, true) as! HTupleViewCellHoriValue4
+            let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 65)
             }
@@ -76,12 +76,12 @@ class HMainController1: HTupleController {
             }
             //接收信号
             cell.signalBlock = { (target, signal) in
-                let cell = target as! HTupleViewCellHoriValue4
+                let cell = target as! HTupleViewCellHoriValue2
                 NSLog("选中%d", cell.label)
             }
             break
         case 1:
-            let cell = itemBlock(nil, HTupleViewCellHoriValue4.self, nil, true) as! HTupleViewCellHoriValue4
+            let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 65)
             }
@@ -102,12 +102,12 @@ class HMainController1: HTupleController {
             }
             //接收信号
             cell.signalBlock = { (target, signal) in
-                let cell = target as! HTupleViewCellHoriValue4
+                let cell = target as! HTupleViewCellHoriValue2
                 NSLog("选中%d", cell.label)
             }
             break
         case 2:
-            let cell = itemBlock(nil, HTupleViewCellHoriValue4.self, nil, true) as! HTupleViewCellHoriValue4
+            let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 65)
             }
@@ -207,7 +207,7 @@ class HMainController1: HTupleController {
             }
             break
         case 6:
-            let cell = itemBlock(nil, HTupleViewCellHoriValue3.self, nil, true) as! HTupleViewCellHoriValue3
+            let cell = itemBlock(nil, HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 65)
             }

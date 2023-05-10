@@ -85,7 +85,7 @@
 		A28923AB238B733500E4AB75 /* HTupleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28923AA238B733500E4AB75 /* HTupleViewCell.swift */; };
 		A28923AE238B750000E4AB75 /* HTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28923AD238B750000E4AB75 /* HTextField.swift */; };
 		A28923B0238BC2D100E4AB75 /* HTupleViewCellVertValue1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28923AF238BC2D100E4AB75 /* HTupleViewCellVertValue1.swift */; };
-		A28923B2238BCB5000E4AB75 /* HTupleViewCellHoriValue1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28923B1238BCB5000E4AB75 /* HTupleViewCellHoriValue1.swift */; };
+		A28923B2238BCB5000E4AB75 /* HTupleViewCellHoriValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28923B1238BCB5000E4AB75 /* HTupleViewCellHoriValue.swift */; };
 		A28923BC238BCB6200E4AB75 /* icon_tuple_xx_white@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = A28923B4238BCB6200E4AB75 /* icon_tuple_xx_white@3x.png */; };
 		A28923BD238BCB6200E4AB75 /* icon_tuple_arrow_up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A28923B5238BCB6200E4AB75 /* icon_tuple_arrow_up@2x.png */; };
 		A28923BE238BCB6200E4AB75 /* icon_tuple_xx_white@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A28923B6238BCB6200E4AB75 /* icon_tuple_xx_white@2x.png */; };
@@ -375,7 +375,7 @@
 		A28923AA238B733500E4AB75 /* HTupleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewCell.swift; sourceTree = "<group>"; };
 		A28923AD238B750000E4AB75 /* HTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextField.swift; sourceTree = "<group>"; };
 		A28923AF238BC2D100E4AB75 /* HTupleViewCellVertValue1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewCellVertValue1.swift; sourceTree = "<group>"; };
-		A28923B1238BCB5000E4AB75 /* HTupleViewCellHoriValue1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewCellHoriValue1.swift; sourceTree = "<group>"; };
+		A28923B1238BCB5000E4AB75 /* HTupleViewCellHoriValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewCellHoriValue.swift; sourceTree = "<group>"; };
 		A28923B4238BCB6200E4AB75 /* icon_tuple_xx_white@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_tuple_xx_white@3x.png"; sourceTree = "<group>"; };
 		A28923B5238BCB6200E4AB75 /* icon_tuple_arrow_up@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_tuple_arrow_up@2x.png"; sourceTree = "<group>"; };
 		A28923B6238BCB6200E4AB75 /* icon_tuple_xx_white@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_tuple_xx_white@2x.png"; sourceTree = "<group>"; };
@@ -757,7 +757,7 @@
 				A2892398238B72F800E4AB75 /* HTupleBaseCell.swift */,
 				A28923AA238B733500E4AB75 /* HTupleViewCell.swift */,
 				A28923AF238BC2D100E4AB75 /* HTupleViewCellVertValue1.swift */,
-				A28923B1238BCB5000E4AB75 /* HTupleViewCellHoriValue1.swift */,
+				A28923B1238BCB5000E4AB75 /* HTupleViewCellHoriValue.swift */,
 				A28923B3238BCB6200E4AB75 /* tuple_arrow_icons */,
 			);
 			path = HTupleViewCell;
@@ -1853,7 +1853,7 @@
 				EB43240D29C1B70400EDDB64 /* UIView+HAlert.swift in Sources */,
 				A26D433D2386C76D00F457AE /* NSObject+HSafeMessy.swift in Sources */,
 				A28923B0238BC2D100E4AB75 /* HTupleViewCellVertValue1.swift in Sources */,
-				A28923B2238BCB5000E4AB75 /* HTupleViewCellHoriValue1.swift in Sources */,
+				A28923B2238BCB5000E4AB75 /* HTupleViewCellHoriValue.swift in Sources */,
 				EBC8146F29AA540B00A81431 /* HSendVideoVC+HStatus1.swift in Sources */,
 				EBC8145F29AA53BD00A81431 /* HSendAudioVC+HStatus4.swift in Sources */,
 				EBC8146729AA53E600A81431 /* HAcceptVideoVC+HStatus2.swift in Sources */,

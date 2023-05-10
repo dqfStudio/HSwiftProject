@@ -259,7 +259,7 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
         let itemBlock = itemBlock as! HTupleItem
         switch (indexPath.row) {
         case 0:
-            let cell = itemBlock(nil, HTupleViewCellHoriValue3.self, nil, true) as! HTupleViewCellHoriValue3
+            let cell = itemBlock(nil, HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
             cell.layoutView.backgroundColor = UIColor.black
             cell.layoutView.cornerRadius = cell.layoutView.height / 2
             
@@ -272,12 +272,13 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
             cell.detailLabel.font = UIFont.systemFont(ofSize: 18)
             cell.detailLabel.textAlignment = .right
             cell.detailLabel.textColor = UIColor.white
-            cell.detailLabelInsets = UILREdgeInsets(left: 0, right: 5)
-//                cell.detailLabel setTextVerticalAlignment:HTextVerticalAlignmentBottom]
+            cell.setFirstTextSpacing(0)
+            cell.setSecondTextSpacing(5)
+//            cell.detailLabel setTextVerticalAlignment:HTextVerticalAlignmentBottom]
             cell.detailLabel.text = "›"
             break
         case 1:
-            let cell = itemBlock(nil, HTupleViewCellHoriValue3.self, nil, true) as! HTupleViewCellHoriValue3
+            let cell = itemBlock(nil, HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
             cell.layoutView.backgroundColor = UIColor.black
             cell.layoutView.cornerRadius = cell.layoutView.height / 2
             
@@ -290,8 +291,9 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
             cell.detailLabel.font = UIFont.systemFont(ofSize: 18)
             cell.detailLabel.textAlignment = .right
             cell.detailLabel.textColor = UIColor.white
-            cell.detailLabelInsets = UILREdgeInsets(left: 0, right: 5)
-//                [cell.detailLabel setTextVerticalAlignment:HTextVerticalAlignmentBottom]
+            cell.setFirstTextSpacing(0)
+            cell.setSecondTextSpacing(5)
+//            [cell.detailLabel setTextVerticalAlignment:HTextVerticalAlignmentBottom]
             cell.detailLabel.text = "›"
             break
         case 2:
