@@ -33,14 +33,14 @@ class HNavigationBar: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // 状态栏
+    // Status bar
     lazy var statusBar: UIView = {
         let view = UIView()
         view.heightAnchor.constraint(equalToConstant: UIScreen.statusBarHeight).isActive = true
         return view
     }()
     
-    // 导航栏
+    // Navigation bar
     private lazy var navigationBar: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
@@ -49,7 +49,7 @@ class HNavigationBar: UIStackView {
         return stackView
     }()
     
-    // 间隔线
+    // Separator line
     lazy var lineBar: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(hex: 0xe5e5e5)
@@ -58,12 +58,12 @@ class HNavigationBar: UIStackView {
         return view
     }()
     
-    // 左边间隔
+    // Left edge
     private lazy var leftEdge: UIView = {
         return UIView()
     }()
     
-    // 右边间隔
+    // Right edge
     private lazy var rightEdge: UIView = {
         return UIView()
     }()
@@ -125,104 +125,104 @@ class HNavigationBar: UIStackView {
         self.distribution = .fill
         self.alignment = .fill
         
-        // 根据导航栏项的可见性和宽度调整其间距和宽度
+        // Adjust the spacing and width of navigation bar items based on the visibility and width of navigation bar items.
         if !leftItem.isHidden, !rightItem.isHidden {
             
-            // 添加最左边间隔
+            // Add the leftmost spacing
             navigationBar.addArrangedSubview(leftEdge)
             leftEdge.widthAnchor.constraint(equalToConstant: edgeSpace).isActive = true
             
             let itemWidth = leftItemWidth - rightItemWidth
-            if itemWidth > 0 {// 如果左侧项比右侧项宽
+            if itemWidth > 0 {// If the left item is wider than the right item
                 
-                // 添加左边按钮
+                // Add the left button
                 navigationBar.addArrangedSubview(leftItem)
-                leftItem.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // 设置左侧项宽度
-                navigationBar.setCustomSpacing(titleSpace, after: leftItem) // 在左侧项后添加间距
+                leftItem.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // Set the width of the left item
+                navigationBar.setCustomSpacing(titleSpace, after: leftItem) // Add spacing after the left item
                 
-                // 添加中间标题
+                // Add the middle title
                 navigationBar.addArrangedSubview(titleItem)
-                navigationBar.setCustomSpacing(abs(itemWidth) + titleSpace, after: titleItem) // 在标题项后添加间距
+                navigationBar.setCustomSpacing(abs(itemWidth) + titleSpace, after: titleItem) // Add spacing after the title item
                 
-                // 添加右边按钮
+                // Add the right button
                 navigationBar.addArrangedSubview(rightItem)
-                rightItem.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // 设置右侧项宽度
+                rightItem.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // Set the width of the right item
                 
-            } else {// 如果右侧项比左侧项宽
+            } else {// If the right item is wider than the left item
                 
-                // 添加左边按钮
+                // Add the left button
                 navigationBar.addArrangedSubview(leftItem)
-                leftItem.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // 设置左侧项宽度
-                navigationBar.setCustomSpacing(abs(itemWidth) + titleSpace, after: leftItem) // 在左侧项后添加间距
+                leftItem.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // Set the width of the left item
+                navigationBar.setCustomSpacing(abs(itemWidth) + titleSpace, after: leftItem) // Add spacing after the left item
                 
-                // 添加中间标题
+                // Add the middle title
                 navigationBar.addArrangedSubview(titleItem)
-                navigationBar.setCustomSpacing(titleSpace, after: titleItem) // 在标题项后添加间距
+                navigationBar.setCustomSpacing(titleSpace, after: titleItem) // Add spacing after the title item
                 
-                // 添加右边按钮
+                // Add the right button
                 navigationBar.addArrangedSubview(rightItem)
-                rightItem.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // 设置右侧项宽度
+                rightItem.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // Set the width of the right item
             }
             
-            // 添加最右边间隔
+            // Add the rightmost spacing
             rightEdge.widthAnchor.constraint(equalToConstant: edgeSpace).isActive = true
             navigationBar.addArrangedSubview(rightEdge)
             
-        } else if !leftItem.isHidden {// 如果只有左侧项可见
+        } else if !leftItem.isHidden {// If only the left item is visible
             
-            // 添加最左边间隔
+            // Add the leftmost spacing
             navigationBar.addArrangedSubview(leftEdge)
             leftEdge.widthAnchor.constraint(equalToConstant: edgeSpace).isActive = true
             
-            // 添加左边按钮
+            // Add the left button
             navigationBar.addArrangedSubview(leftItem)
-            leftItem.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // 设置左侧项宽度
-            navigationBar.setCustomSpacing(titleSpace, after: leftItem) // 在左侧项后添加间距
+            leftItem.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // Set the width of the left item
+            navigationBar.setCustomSpacing(titleSpace, after: leftItem) // Add spacing after the left item
             
-            // 添加中间标题
+            // Add the middle title
             navigationBar.addArrangedSubview(titleItem)
             
-            // 添加最右边间隔
+            // Add the rightmost spacing
             navigationBar.addArrangedSubview(rightEdge)
             rightEdge.widthAnchor.constraint(equalToConstant: leftItemWidth + titleSpace + edgeSpace).isActive = true
             
-        } else if !rightItem.isHidden {// 如果只有右侧项可见
+        } else if !rightItem.isHidden {// If only the right item is visible
             
-            // 添加最左边间隔
+            // Add the leftmost spacing
             navigationBar.addArrangedSubview(leftEdge)
             leftEdge.widthAnchor.constraint(equalToConstant: rightItemWidth + titleSpace + edgeSpace).isActive = true
             
-            // 添加中间标题
+            // Add the middle title
             navigationBar.addArrangedSubview(titleItem)
-            navigationBar.setCustomSpacing(titleSpace, after: titleItem) // 在标题项后添加间距
+            navigationBar.setCustomSpacing(titleSpace, after: titleItem) // Add spacing after the title item
             
-            // 添加右边按钮
+            // Add the right button
             navigationBar.addArrangedSubview(rightItem)
-            rightItem.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // 设置右侧项宽度
+            rightItem.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // Set the width of the right item
             
-            // 添加最右边间隔
+            // Add the rightmost spacing
             navigationBar.addArrangedSubview(rightEdge)
             rightEdge.widthAnchor.constraint(equalToConstant: edgeSpace).isActive = true
             
         } else {
             
-            // 添加最左边间隔
+            // Add the leftmost spacing
             navigationBar.addArrangedSubview(leftEdge)
             leftEdge.widthAnchor.constraint(equalToConstant: edgeSpace).isActive = true
             
-            // 添加中间标题
+            // Add the middle title
             navigationBar.addArrangedSubview(titleItem)
             
-            // 添加最右边间隔
+            // Add the rightmost spacing
             navigationBar.addArrangedSubview(rightEdge)
             rightEdge.widthAnchor.constraint(equalToConstant: edgeSpace).isActive = true
         }
         
-        // 添加状态栏
+        // Add the status bar
         self.addArrangedSubview(statusBar)
-        // 添加导航栏
+        // Add the navigation bar
         self.addArrangedSubview(navigationBar)
-        // 添加间隔线
+        // Add the spacing line
         self.addArrangedSubview(lineBar)
         
     }
