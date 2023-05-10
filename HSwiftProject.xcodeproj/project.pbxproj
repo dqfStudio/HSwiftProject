@@ -21,7 +21,7 @@
 		A229489523975A900058B939 /* HTableViewApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489423975A900058B939 /* HTableViewApex.swift */; };
 		A229489723975AE80058B939 /* HTupleViewApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489623975AE80058B939 /* HTupleViewApex.swift */; };
 		A229489923975BA80058B939 /* HTupleViewApexVertValue1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489823975BA80058B939 /* HTupleViewApexVertValue1.swift */; };
-		A229489B23975C2E0058B939 /* HTupleViewApexHoriValue1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489A23975C2E0058B939 /* HTupleViewApexHoriValue1.swift */; };
+		A229489B23975C2E0058B939 /* HTupleViewApexHoriValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489A23975C2E0058B939 /* HTupleViewApexHoriValue.swift */; };
 		A229489D23975CE40058B939 /* HTableViewCellVertValue1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489C23975CE40058B939 /* HTableViewCellVertValue1.swift */; };
 		A229489F23975D850058B939 /* HTableViewCellHoriValue1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489E23975D850058B939 /* HTableViewCellHoriValue1.swift */; };
 		A22948A123975F500058B939 /* HTableViewApexVertValue1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948A023975F500058B939 /* HTableViewApexVertValue1.swift */; };
@@ -311,7 +311,7 @@
 		A229489423975A900058B939 /* HTableViewApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableViewApex.swift; sourceTree = "<group>"; };
 		A229489623975AE80058B939 /* HTupleViewApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewApex.swift; sourceTree = "<group>"; };
 		A229489823975BA80058B939 /* HTupleViewApexVertValue1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewApexVertValue1.swift; sourceTree = "<group>"; };
-		A229489A23975C2E0058B939 /* HTupleViewApexHoriValue1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewApexHoriValue1.swift; sourceTree = "<group>"; };
+		A229489A23975C2E0058B939 /* HTupleViewApexHoriValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewApexHoriValue.swift; sourceTree = "<group>"; };
 		A229489C23975CE40058B939 /* HTableViewCellVertValue1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableViewCellVertValue1.swift; sourceTree = "<group>"; };
 		A229489E23975D850058B939 /* HTableViewCellHoriValue1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableViewCellHoriValue1.swift; sourceTree = "<group>"; };
 		A22948A023975F500058B939 /* HTableViewApexVertValue1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableViewApexVertValue1.swift; sourceTree = "<group>"; };
@@ -746,7 +746,7 @@
 				A2892396238B72F800E4AB75 /* HTupleBaseApex.swift */,
 				A229489623975AE80058B939 /* HTupleViewApex.swift */,
 				A229489823975BA80058B939 /* HTupleViewApexVertValue1.swift */,
-				A229489A23975C2E0058B939 /* HTupleViewApexHoriValue1.swift */,
+				A229489A23975C2E0058B939 /* HTupleViewApexHoriValue.swift */,
 			);
 			path = HTupleViewApex;
 			sourceTree = "<group>";
@@ -1840,7 +1840,7 @@
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,
 				A229489923975BA80058B939 /* HTupleViewApexVertValue1.swift in Sources */,
 				EBD0FB0B29CA938900808EDA /* HAssetModel.swift in Sources */,
-				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue1.swift in Sources */,
+				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue.swift in Sources */,
 				A265D9FB2390B8EB001F39B0 /* HTabItem.swift in Sources */,
 				EBD0FB3E29CD4DE100808EDA /* AppDelegate+UserService.swift in Sources */,
 				EBD0FB9029DA786C00808EDA /* HInputBoxView.swift in Sources */,
