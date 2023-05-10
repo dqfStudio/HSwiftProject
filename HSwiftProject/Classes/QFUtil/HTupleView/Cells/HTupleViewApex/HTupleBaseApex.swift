@@ -80,11 +80,11 @@ class HTupleBaseApex : UICollectionReusableView {
 
     /// The frame and bounds of the layout view
     var layoutViewFrame: CGRect {
-        return self.layoutView.frame
+        return layoutView.frame
     }
 
     var layoutViewBounds: CGRect {
-        return self.layoutView.bounds
+        return layoutView.bounds
     }
 
     private var _activity: UIActivityIndicatorView?

@@ -88,11 +88,11 @@ class HTupleBaseCell : UICollectionViewCell {
 
     /// The frame and bounds of layoutView
     var layoutViewFrame: CGRect {
-        return self.layoutView.frame
+        return layoutView.frame
     }
 
     var layoutViewBounds: CGRect {
-        return self.layoutView.bounds
+        return layoutView.bounds
     }
     
     private var _activity: UIActivityIndicatorView?
