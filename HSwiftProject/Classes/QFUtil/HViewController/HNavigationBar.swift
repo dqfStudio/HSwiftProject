@@ -18,9 +18,9 @@ class HNavigationBar: UIStackView {
 
 
     // Width of the left button of the navigation bar
-    var leftItemWidth: CGFloat = 70.0
+    var leftItemWidth: CGFloat = 60.0
     // Width of the right button of the navigation bar
-    var rightItemWidth: CGFloat = 70.0
+    var rightItemWidth: CGFloat = 60.0
 
 
     // Left button of the navigation bar
