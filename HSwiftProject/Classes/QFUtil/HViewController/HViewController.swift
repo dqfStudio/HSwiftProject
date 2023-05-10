@@ -78,8 +78,9 @@ class HViewController: UIViewController {
         if self.orientation != UIDevice.current.orientation {
             self.orientation = UIDevice.current.orientation
             // Refresh the navigation bar
-            let height = UIScreen.naviBarHeight + UIScreen.statusBarHeight
-            let frame = CGRect(x: 0, y: 0, width: self.view.width, height: height)
+            let width = self.view.width
+            let height = UIScreen.topBarHeight
+            let frame = CGRect(x: 0, y: 0, width: width, height: height)
             self.navigationBar.frame = frame
         }
     }
@@ -112,8 +113,9 @@ class HViewController: UIViewController {
     
     // Navigation bar
     lazy var navigationBar: HNavigationBar = {
-        let height = UIScreen.naviBarHeight + UIScreen.statusBarHeight
-        let frame = CGRect(x: 0, y: 0, width: self.view.width, height: height)
+        let width = self.view.width
+        let height = UIScreen.topBarHeight
+        let frame = CGRect(x: 0, y: 0, width: width, height: height)
         let naviBar = HNavigationBar(frame: frame)
         naviBar.leftItem.pressedBlock = {
             self.leftItemPressed()
