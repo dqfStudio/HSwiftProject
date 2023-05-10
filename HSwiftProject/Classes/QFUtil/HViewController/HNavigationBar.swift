@@ -84,7 +84,7 @@ class HNavigationBar: UIStackView {
     }()
     
     @objc
-    func leftItemPressed() {
+    private func leftItemPressed() {
         leftItem.pressedBlock?()
     }
 
@@ -115,7 +115,7 @@ class HNavigationBar: UIStackView {
     }()
     
     @objc
-    func rightItemPressed() {
+    private func rightItemPressed() {
         rightItem.pressedBlock?()
     }
     
