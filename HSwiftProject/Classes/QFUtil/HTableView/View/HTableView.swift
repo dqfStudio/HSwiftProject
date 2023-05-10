@@ -13,7 +13,7 @@ private enum HTableStyle: Int {
     case split //Split design
 }
 
-private var KTableDefaultTag = 1615141312
+var KTableDefaultTag = 1615141312
 
 private var KTablePageNo = 1
 private var KTablePageSize = 20

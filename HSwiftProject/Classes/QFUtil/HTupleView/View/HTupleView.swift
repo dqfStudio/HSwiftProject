@@ -23,7 +23,7 @@ enum HTupleStatus: Int {
     case block = 1  // Block design
 }
 
-private var KTupleDefaultTag = 1213141516
+var KTupleDefaultTag = 1213141516
 
 private var KTuplePageNo = 1
 private var KTuplePageSize = 20
