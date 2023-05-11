@@ -65,9 +65,10 @@ extension UIApplication {
 
     ///get root tabbar vc
     static var tabbarVC: UITabBarController? {
-        if let tabVC = UIApplication.getKeyWindowRootController as? UITabBarController {
-            return tabVC
-        } else if let navi = UIApplication.getKeyWindowRootController as? UINavigationController, let topVC = navi.topViewController as? UITabBarController {
+        let tabVC: UIViewController? = UIApplication.getKeyWindowRootController
+        if let tabBarController = tabVC as? UITabBarController {
+            return tabBarController
+        } else if let navi = tabVC as? UINavigationController, let topVC = navi.viewControllers.first as? UITabBarController {
             return topVC
         }
         return nil
