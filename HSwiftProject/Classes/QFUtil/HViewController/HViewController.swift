@@ -126,10 +126,12 @@ class HViewController: UIViewController {
         return naviBar
     }()
 
+    // This function is called when the left item is pressed
     func leftItemPressed() {
         self.back()
     }
 
+    // This function is called when the right item is pressed
     func rightItemPressed() {
         
     }
@@ -169,22 +171,27 @@ class HViewController: UIViewController {
         self.navigationBar.leftItem.image = UIImage(named: "hvc_back_icon")
     }
 
+    // Auto adjust status bar style
     var autoAdjustStatusBarStyle: Bool {
         return true
     }
-    
+
+    // Hide navigation line bar
     var prefersNavigationLineBarHidden: Bool {
         return true
     }
 
+    // Show navigation bar
     var prefersNavigationBarHidden: Bool {
         return false
     }
 
+    // Set navigation bar color to white
     var preferredNavigationBarColor: UIColor {
         return UIColor.white
     }
 
+    // Set navigation line bar color to light gray
     var preferredNavigationLineBarColor: UIColor {
         return UIColor(hex: 0xe5e5e5)
     }
@@ -202,6 +209,7 @@ class HViewController: UIViewController {
         return .lightContent
     }
 
+    // This function overrides the default behavior of the status bar to hide it when the device is in landscape mode
     override var prefersStatusBarHidden: Bool {
         return UIApplication.statusBarOrientation()?.isLandscape ?? false
     }
