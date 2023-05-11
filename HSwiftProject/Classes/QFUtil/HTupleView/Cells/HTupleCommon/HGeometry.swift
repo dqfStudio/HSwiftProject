@@ -23,8 +23,8 @@ public struct UITBEdgeInsets {
 }
 
 public struct UILREdgeInsets {
-    public var left: CGFloat
-    public var right: CGFloat
+    public var left: CGFloat = 0.0
+    public var right: CGFloat = 0.0
     
     // Use default initializer in combination with default values
     public init(left: CGFloat = 0.0, right: CGFloat = 0.0) {
@@ -36,9 +36,32 @@ public struct UILREdgeInsets {
     static let zero = UILREdgeInsets(left: 0.0, right: 0.0)
 }
 
+public struct HEdgeInsets {
+    public var top: CGFloat = 0.0
+    public var left: CGFloat = 0.0
+    public var bottom: CGFloat = 0.0
+    public var right: CGFloat = 0.0
+    
+    // Use default initializer in combination with default values
+    public init(top: CGFloat = 0.0, left: CGFloat = 0.0, bottom: CGFloat = 0.0, right: CGFloat = 0.0) {
+        self.top = top
+        self.left = left
+        self.bottom = bottom
+        self.right = right
+    }
+
+    // UIEdgeInsets value
+    var edge: UIEdgeInsets {
+        return UIEdgeInsets(top: top, left: left, bottom: bottom, right: right)
+    }
+    
+    // Define zero as an instance of the struct
+    static let zero = HEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
+}
+
 public struct UILimitInsets {
-    public var min: CGFloat
-    public var max: CGFloat
+    public var min: CGFloat = 0.0
+    public var max: CGFloat = 0.0
     
     // Use default initializer in combination with default values
     public init(min: CGFloat = 0.0, max: CGFloat = 0.0) {
@@ -60,6 +83,12 @@ extension UITBEdgeInsets : Equatable {
 extension UILREdgeInsets : Equatable {
     public static func == (lhs: UILREdgeInsets, rhs: UILREdgeInsets) -> Bool {
         return (lhs.left == rhs.left && lhs.right == rhs.right)
+    }
+}
+
+extension HEdgeInsets : Equatable {
+    public static func == (lhs: HEdgeInsets, rhs: HEdgeInsets) -> Bool {
+        return (lhs.top == rhs.top && lhs.left == rhs.left && lhs.bottom == rhs.bottom && lhs.right == rhs.right)
     }
 }
 
