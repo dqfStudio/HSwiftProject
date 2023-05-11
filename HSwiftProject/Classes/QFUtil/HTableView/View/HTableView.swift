@@ -352,7 +352,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         // Call delegate method
         var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tableDelegate {
-            let prefix = self.prefixWithSection(section)
+            let prefix = self.tableSplitPrefix(withSection: section)
             let selector: Selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 edgeInsets = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
@@ -395,7 +395,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         // Call delegate method
         var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tableDelegate {
-            let prefix = self.prefixWithSection(section)
+            let prefix = self.tableSplitPrefix(withSection: section)
             let selector = #selector(delegate.edgeInsetsForFooterInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 edgeInsets = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
@@ -437,7 +437,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         // Call delegate method
         var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tableDelegate {
-            let prefix = self.prefixWithSection(idxPath.section)
+            let prefix = self.tableSplitPrefix(withSection: idxPath.section)
             let selector = #selector(delegate.edgeInsetsForRowAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 edgeInsets = delegate.performWithUnretainedValue(selector, with: idxPath, withPre: prefix) as! UIEdgeInsets
@@ -451,7 +451,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// UITableViewDatasource  & delegate
-    private func prefixWithSection(_ section: Int) -> String {
+    private func tableSplitPrefix(withSection section: Int) -> String {
         var prefix = ""
         if self.tableStyle == .split {
             if let sectionPaths = self.sectionPaths, sectionPaths.contains(section) {
@@ -497,7 +497,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var items = 0
         if let delegate = self.tableDelegate {
-            let prefix = self.prefixWithSection(section)
+            let prefix = self.tableSplitPrefix(withSection: section)
             let selector: Selector = #selector(delegate.numberOfRowsInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 items = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! Int
@@ -512,7 +512,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         var height: CGFloat = 0.0
         if let delegate = self.tableDelegate {
-            let prefix = self.prefixWithSection(section)
+            let prefix = self.tableSplitPrefix(withSection: section)
             let selector = #selector(delegate.heightForHeaderInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 height = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -526,7 +526,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         var height: CGFloat = 0.0
         if let delegate = self.tableDelegate {
-            let prefix = self.prefixWithSection(section)
+            let prefix = self.tableSplitPrefix(withSection: section)
             let selector = #selector(delegate.heightForFooterInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 height = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -540,7 +540,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         var height: CGFloat = 1.0 // The row height cannot be 0, otherwise it will crash.
         if let delegate = self.tableDelegate {
-            let prefix = self.prefixWithSection(indexPath.section)
+            let prefix = self.tableSplitPrefix(withSection: indexPath.section)
             let selector = #selector(delegate.heightForRowAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 height = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGFloat
@@ -554,7 +554,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Call delegate method
         if let delegate = self.tableDelegate {
-            let prefix = self.prefixWithSection(indexPath.section)
+            let prefix = self.tableSplitPrefix(withSection: indexPath.section)
             let selector: Selector = #selector(delegate.tableRow(_:atIndexPath:))
             let itemBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
                 return self.dequeueReusableCellWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
@@ -576,7 +576,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         // Call delegate method
         if let delegate = self.tableDelegate {
-            let prefix = self.prefixWithSection(section)
+            let prefix = self.tableSplitPrefix(withSection: section)
             let selector: Selector = #selector(delegate.tableHeader(_:inSection:))
             let headerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
                 return self.dequeueReusableHeaderWithClass(cls, iblk: iblk, pre: pre, idx: idx, section: section)
@@ -595,7 +595,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         // Call delegate method
         if let delegate = self.tableDelegate {
-            let prefix = self.prefixWithSection(section)
+            let prefix = self.tableSplitPrefix(withSection: section)
             let selector: Selector = #selector(delegate.tableFooter(_:inSection:))
             let footerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
                 return self.dequeueReusableFooterWithClass(cls, iblk: iblk, pre: pre, idx: idx, section: section)
@@ -614,7 +614,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let delegate = self.tableDelegate else { return }
-        let prefix = self.prefixWithSection(indexPath.section)
+        let prefix = self.tableSplitPrefix(withSection: indexPath.section)
         let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
@@ -627,7 +627,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         if let cell = cell, cell.selectBlock != nil {
             cell.selectBlock!(cell, indexPath)
         }else {
-            let prefix = self.prefixWithSection(indexPath.section)
+            let prefix = self.tableSplitPrefix(withSection: indexPath.section)
             let selector = #selector(delegate.didSelectRowAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 delegate.perform(selector, with: indexPath, withPre: prefix)
