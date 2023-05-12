@@ -108,7 +108,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     convenience init(frame: CGRect) {
-        self.init(frame: frame, style: UITableView.Style.plain)
+        self.init(frame: frame, style: .plain)
     }
     
     override init(frame: CGRect, style: UITableView.Style) {
