@@ -263,11 +263,7 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             }
         }
         // Call cell
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTableBaseCell
-        // Update layout
-        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-            cell.relayoutSubviews()
-        }
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? UITableViewCell
         // Prevent crashes
         return cell ?? UITableViewCell()
     }
@@ -284,10 +280,7 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             }
         }
         // Update layout
-        let cell = self.allReuseHeaders.object(forKey: "\(section)" as NSString) as? HTableBaseApex
-        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-            cell.relayoutSubviews()
-        }
+        let cell = self.allReuseHeaders.object(forKey: "\(section)" as NSString) as? UITableViewHeaderFooterView
         return cell
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -302,10 +295,7 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             }
         }
         // Update layout
-        let cell = self.allReuseFooters.object(forKey: "\(section)" as NSString) as? HTableBaseApex
-        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-            cell.relayoutSubviews()
-        }
+        let cell = self.allReuseFooters.object(forKey: "\(section)" as NSString) as? UITableViewHeaderFooterView
         return cell
     }
 
