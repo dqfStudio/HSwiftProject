@@ -9,8 +9,6 @@
 import UIKit
 
 /// Table header & Footer & Item block
-typealias HChatTableHeader = (_ cls: AnyClass, _ idx: Bool) -> AnyObject
-typealias HChatTableFooter = (_ cls: AnyClass, _ idx: Bool) -> AnyObject
 typealias HChatTableRow = (_ cls: AnyClass, _ idx: Bool) -> AnyObject
 
 @objc protocol HChatTableViewDelegate : UITableViewDelegate {
@@ -20,19 +18,7 @@ typealias HChatTableRow = (_ cls: AnyClass, _ idx: Bool) -> AnyObject
     optional func numberOfRowsInSection(_ section: Any) -> Any
 
     @objc
-    optional func heightForHeaderInSection(_ section: Any) -> Any
-    @objc
-    optional func heightForFooterInSection(_ section: Any) -> Any
-    @objc
-    optional func heightForRowAtIndexPath(_ indexPath: IndexPath) -> Any
-
-    @objc
-    optional func tableHeader(_ headerBlock: Any, inSection section: Any)
-    @objc
-    optional func tableFooter(_ footerBlock: Any, inSection section: Any)
-    @objc
     optional func tableRow(_ itemBlock: Any, atIndexPath indexPath: IndexPath)
-
     @objc
     optional func willDisplayCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
     @objc
@@ -41,10 +27,9 @@ typealias HChatTableRow = (_ cls: AnyClass, _ idx: Bool) -> AnyObject
 
 class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
 
-     private var allReuseIdentifiers: NSMutableSet = NSMutableSet()
-     private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-     private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-     private var allReuseFooters = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    private var allReuseIdentifiers: NSMutableSet = NSMutableSet()
+    private var allReuseCells = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    private var allCellHeightTable = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
@@ -96,7 +81,6 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             self.sectionHeaderTopPadding = 0
         }
         
-        self.estimatedRowHeight = 0
         self.estimatedSectionHeaderHeight = 0
         self.estimatedSectionFooterHeight = 0
         
@@ -133,45 +117,6 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
-    }
-    
-    /// Register class
-    func dequeueReusableHeaderWithClass(_ cls: AnyClass, _ idx: Bool, section: Int) -> AnyObject? {
-        var cell: UITableViewHeaderFooterView?
-        // Unique identifier
-        var identifier = "HeaderCell" + NSStringFromClass(cls) + self.addressValue
-        // Determine whether it contains an index
-        identifier += idx ? "\(section)" : ""
-        // Determine whether it has been loaded
-        if !self.allReuseIdentifiers.contains(identifier) {
-            self.allReuseIdentifiers.add(identifier)
-            self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
-            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
-            // Save cell
-            self.allReuseHeaders.setObject(cell, forKey: "\(section)" as NSString)
-        }else {
-            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
-        }
-        return cell
-    }
-    
-    func dequeueReusableFooterWithClass(_ cls: AnyClass, _ idx: Bool, section: Int) -> AnyObject? {
-        var cell: UITableViewHeaderFooterView?
-        // Unique identifier
-        var identifier = "FooterCell" + NSStringFromClass(cls) + self.addressValue
-        // Determine whether it contains an index
-        identifier += idx ? "\(section)" : ""
-        // Determine whether it has been loaded
-        if !self.allReuseIdentifiers.contains(identifier) {
-            self.allReuseIdentifiers.add(identifier)
-            self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
-            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
-            // Save cell
-            self.allReuseFooters.setObject(cell, forKey: "\(section)" as NSString)
-        }else {
-            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
-        }
-        return cell
     }
 
     func dequeueReusableCellWithClass(_ cls: AnyClass, _ idx: Bool, idxPath: IndexPath) -> AnyObject {
@@ -219,47 +164,20 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         }
         return items
     }
-
     
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        var height: CGFloat = 0.0
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.heightForHeaderInSection(_:))
-            if delegate.responds(to: selector) {
-                height = delegate.performWithUnretainedValue(selector, with: section) as! CGFloat
-            }
-            // Prevent negative size
-            height = max(height, 0.0)
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        let height = self.allCellHeightTable.object(forKey: indexPath.nsStringValue) as? NSNumber
+        if let height = height {
+            return height.doubleValue
+        } else {
+            return 50.0
         }
-        return height
-    }
-
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        var height: CGFloat = 0.0
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.heightForFooterInSection(_:))
-            if delegate.responds(to: selector) {
-                height = delegate.performWithUnretainedValue(selector, with: section) as! CGFloat
-            }
-            // Prevent negative size
-            height = max(height, 0.0)
-        }
-        return height
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        var height: CGFloat = 1.0 // The row height cannot be 0, otherwise it will crash.
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.heightForRowAtIndexPath(_:))
-            if delegate.responds(to: selector) {
-                height = delegate.performWithUnretainedValue(selector, with: indexPath) as! CGFloat
-            }
-            // Prevent negative size
-            if height <= 0 { height = 1.0 }
-        }
-        return height
+        return UITableView.automaticDimension
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Call delegate method
         if let delegate = self.tableDelegate {
@@ -277,39 +195,12 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         return cell ?? UITableViewCell()
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        // Call delegate method
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.tableHeader(_:inSection:))
-            let headerBlock = { (_ cls: AnyClass, _ idx: Bool) -> AnyObject? in
-                return self.dequeueReusableHeaderWithClass(cls, idx, section: section)
-            }
-            if delegate.responds(to: selector) {
-                delegate.perform(selector, with: headerBlock, with: section)
-            }
-        }
-        // Update layout
-        let cell = self.allReuseHeaders.object(forKey: "\(section)" as NSString) as? UITableViewHeaderFooterView
-        return cell
-    }
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        // Call delegate method
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.tableFooter(_:inSection:))
-            let footerBlock = { (_ cls: AnyClass, _ idx: Bool) -> AnyObject? in
-                return self.dequeueReusableFooterWithClass(cls, idx, section: section)
-            }
-            if delegate.responds(to: selector) {
-                delegate.perform(selector, with: footerBlock, with: section)
-            }
-        }
-        // Update layout
-        let cell = self.allReuseFooters.object(forKey: "\(section)" as NSString) as? UITableViewHeaderFooterView
-        return cell
-    }
-
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let delegate = self.tableDelegate else { return }
+        // Save cell height
+        let height = NSNumber(value: cell.frame.size.height)
+        self.allCellHeightTable.setObject(height, forKey: indexPath.nsStringValue)
+        // Call delegate method
         let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
         if delegate.responds(to: selector) {
             delegate.perform(selector, with: cell, with: indexPath)
