@@ -106,8 +106,8 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     /// Release method
     @objc
     func releaseTableBlock() {
-        DispatchQueue.global().async {
-            self.tableDelegate = nil
+        DispatchQueue.global().async { [weak self] in
+            self?.tableDelegate = nil
         }
     }
 
