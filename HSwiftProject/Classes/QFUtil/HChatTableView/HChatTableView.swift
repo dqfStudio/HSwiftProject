@@ -29,7 +29,7 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
 
     private var allReuseIdentifiers: NSMutableSet = NSMutableSet()
     private var allReuseCells = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-    private var allCellHeightTable = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    private var allCellHeightTable = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
