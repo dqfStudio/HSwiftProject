@@ -45,7 +45,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
     private var startTouchPointInMainVC: CGPoint = .zero
     
     // 是否正在移动
-    private var moving: Bool = false
+    private var isMoving: Bool = false
     
     // 黑色遮罩视图
     private lazy var blackMaskView: UIView = {
@@ -166,21 +166,19 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
      - Parameter x: x坐标
      */
     private func moveViewWithX(_ x: CGFloat) {
-        if let menuViewController = menuViewController,
-           let mainViewController = mainViewController {
-            var x = x
-            x = min(x, visibleMenuWidth)
-            x = max(x, 0)
-            var frame = mainViewController.view.frame
-            frame.origin.x = x
-            mainViewController.view.frame = frame
-            let alpha = (1.0 - x / visibleMenuWidth) / 2.0
-            blackMaskView.alpha = alpha
-            let aa = abs(kScreenshotImageOriginalLeft) / visibleMenuWidth
-            let y = x * aa
-            let rect = menuViewController.view.frame
-            menuViewController.view.frame = CGRect(x: kScreenshotImageOriginalLeft + y, y: 0, width: rect.width, height: rect.height)
-        }
+        guard let menuViewController = menuViewController, let mainViewController = mainViewController else { return }
+        var x = x
+        x = min(x, visibleMenuWidth)
+        x = max(x, 0)
+        var frame = mainViewController.view.frame
+        frame.origin.x = x
+        mainViewController.view.frame = frame
+        let alpha = (1.0 - x / visibleMenuWidth) / 2.0
+        blackMaskView.alpha = alpha
+        let aa = abs(kScreenshotImageOriginalLeft) / visibleMenuWidth
+        let y = x * aa
+        let rect = menuViewController.view.frame
+        menuViewController.view.frame = CGRect(x: kScreenshotImageOriginalLeft + y, y: 0, width: rect.width, height: rect.height)
     }
     
     /// 显示菜单页面
@@ -207,9 +205,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
      - Parameter delegate: 代理
      */
     func bind(_ delegate: HDrawerViewControllerDelegate?) {
-        if delegate == nil {
-            return
-        }
+        guard let delegate = delegate else { return }
         if !delegates.contains(delegate) {
             delegates.add(delegate)
         }
@@ -221,9 +217,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
      - Parameter delegate: 代理
      */
     func unbind(_ delegate: HDrawerViewControllerDelegate?) {
-        if delegate == nil {
-            return
-        }
+        guard let delegate = delegate else { return }
         if delegates.contains(delegate) {
             delegates.remove(delegate)
         }
@@ -233,16 +227,10 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
      发送菜单出现通知
      */
     private func sendMenuDidAppearNotification() {
-        for delegate in delegates.allObjects {
-            if let delegate = delegate as? HDrawerViewControllerDelegate {
-                delegate.menuDidAppear()
-            }
-        }
-        if let mainViewController = mainViewController {
-            if !mainViewController.view.subviews.contains(rightBlackMaskView) {
-                mainViewController.view.addSubview(rightBlackMaskView)
-                mainViewController.view.bringSubviewToFront(rightBlackMaskView)
-            }
+        delegates.allObjects.compactMap { $0 as? HDrawerViewControllerDelegate }.forEach { $0.menuDidAppear() }
+        if let mainViewController = mainViewController, !mainViewController.view.subviews.contains(rightBlackMaskView) {
+            mainViewController.view.addSubview(rightBlackMaskView)
+            mainViewController.view.bringSubviewToFront(rightBlackMaskView)
         }
     }
     
@@ -250,16 +238,8 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
      发送菜单消失通知
      */
     private func sendMenuDidDisappearNotification() {
-        for delegate in delegates.allObjects {
-            if let delegate = delegate as? HDrawerViewControllerDelegate {
-                delegate.menuDidDisappear()
-            }
-        }
-        if let mainViewController = mainViewController {
-            if mainViewController.view.subviews.contains(rightBlackMaskView) {
-                rightBlackMaskView.removeFromSuperview()
-            }
-        }
+        delegates.allObjects.compactMap { $0 as? HDrawerViewControllerDelegate }.forEach { $0.menuDidDisappear() }
+        mainViewController?.view.subviews.filter { $0 == rightBlackMaskView }.forEach { $0.removeFromSuperview() }
     }
     
     // MARK: - Gesture Recognizer Methods
@@ -278,14 +258,14 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
     
     private func _panGestureRecognizerBegan(_ sender: UIPanGestureRecognizer) {
         if let mainViewController = mainViewController {
-            moving = true
+            isMoving = true
             startTouchPointInMainVC = sender.location(in: mainViewController.view)
         }
     }
     
     private func _panGestureRecognizerChanged(_ sender: UIPanGestureRecognizer) {
         let touchPointInWindow = sender.location(in: KEY_WINDOW)
-        if moving {
+        if isMoving {
             moveViewWithX(touchPointInWindow.x - startTouchPointInMainVC.x)
         }
     }
@@ -296,14 +276,14 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
             UIView.animate(withDuration: 0.2, animations: {
                 self.moveViewWithX(self.visibleMenuWidth)
             }, completion: { finished in
-                self.moving = false
+                self.isMoving = false
                 self.sendMenuDidAppearNotification()
             })
         } else {
             UIView.animate(withDuration: 0.2, animations: {
                 self.moveViewWithX(0)
             }, completion: { finished in
-                self.moving = false
+                self.isMoving = false
                 self.sendMenuDidDisappearNotification()
             })
         }
@@ -313,7 +293,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
         UIView.animate(withDuration: 0.2, animations: {
             self.moveViewWithX(0)
         }, completion: { finished in
-            self.moving = false
+            self.isMoving = false
             self.sendMenuDidDisappearNotification()
         })
     }
