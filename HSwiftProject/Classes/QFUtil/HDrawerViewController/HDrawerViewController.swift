@@ -8,85 +8,91 @@
 
 import UIKit
 
+// 添加注释
+// 获取当前应用程序的关键窗口
 private var KEY_WINDOW = UIApplication.shared.keyWindow
 
+// 参考宽度
 private let kRefereWidth: CGFloat = 375.0
 
+// 适配宽度
 private func AdaptW(_ floatValue: CGFloat) -> CGFloat {
     return floatValue * UIScreen.main.bounds.size.width / kRefereWidth
 }
 
+// 截图原始左边距
 let kScreenshotImageOriginalLeft: CGFloat = -150.0
+
+// 默认可见菜单宽度
 let kDefaultVisibleMenuWidth: CGFloat = 300.0
 
+// 代理协议
 protocol HDrawerViewControllerDelegate: AnyObject {
     func menuDidAppear()
     func menuDidDisappear()
 }
 
+// 抽屉控制器
 class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
     
-    private lazy var pan: UIPanGestureRecognizer = {
-        let _pan = UIPanGestureRecognizer(target: self, action: #selector(paningGestureReceive(_:)))
-        _pan.delegate = self
-        return _pan
+    // 拖拽手势
+    private lazy var panGesture: UIPanGestureRecognizer = {
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(paningGestureReceive(_:)))
+        pan.delegate = self
+        return pan
     }()
     
-    private var startTouchPointInMainVC: CGPoint!
-    private var moving: Bool!
+    // 主视图控制器中的起始触摸点
+    private var startTouchPointInMainVC: CGPoint = .zero
     
+    // 是否正在移动
+    private var moving: Bool = false
+    
+    // 黑色遮罩视图
     private lazy var blackMaskView: UIView = {
-        let _blackMaskView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
-        _blackMaskView.backgroundColor = .black
-        return _blackMaskView
+        let blackMaskView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
+        blackMaskView.backgroundColor = .black
+        return blackMaskView
     }()
     
-    private lazy var rightblackMaskView: UIControl = {
-        let _rightblackMaskView = UIControl(frame: CGRect(x: 0, y: 0, width: mainViewController.view.bounds.width, height: mainViewController.view.bounds.height))
-        _rightblackMaskView.backgroundColor = .clear
-        _rightblackMaskView.addTarget(self, action: #selector(rightblackMaskViewAction), for: .touchUpInside)
-        return _rightblackMaskView
+    // 右侧黑色遮罩视图
+    private lazy var rightBlackMaskView: UIControl = {
+        let rightBlackMaskView = UIControl(frame: CGRect(x: 0, y: 0, width: mainViewController?.view.bounds.width ?? 0, height: mainViewController?.view.bounds.height ?? 0))
+        rightBlackMaskView.backgroundColor = .clear
+        rightBlackMaskView.addTarget(self, action: #selector(rightBlackMaskViewAction), for: .touchUpInside)
+        return rightBlackMaskView
     }()
     
+    // 代理对象
     private lazy var delegates: NSHashTable<AnyObject> = {
         return NSHashTable.weakObjects()
     }()
     
-    private var _mainViewController: UIViewController?
-    var mainViewController: UIViewController {
-        get {
-            return _mainViewController!
-        }
-        set {
-            if let oldMainViewController = _mainViewController {
+    // 主视图控制器
+    var mainViewController: UIViewController? {
+        didSet {
+            if let oldMainViewController = oldValue {
                 oldMainViewController.removeFromParent()
                 oldMainViewController.view.removeFromSuperview()
             }
-            _mainViewController = newValue
-            
-            if let newMainViewController = _mainViewController {
+            if let newMainViewController = mainViewController {
                 self.addChild(newMainViewController)
                 newMainViewController.view.frame = self.view.bounds
                 self.view.insertSubview(newMainViewController.view, aboveSubview: blackMaskView)
-                // Add or remove gesture.
-                canDragMenu = _canDragMenu
+                // 添加或删除手势
+                canDragMenu = true
             }
         }
     }
     
-    private var _menuViewController: UIViewController?
-    var menuViewController: UIViewController {
-        get {
-            return _menuViewController!
-        }
-        set {
-            if let oldMenuViewController = _menuViewController {
+    // 菜单视图控制器
+    var menuViewController: UIViewController? {
+        didSet {
+            if let oldMenuViewController = oldValue {
                 oldMenuViewController.removeFromParent()
                 oldMenuViewController.view.removeFromSuperview()
             }
-            _menuViewController = newValue
-            
-            if let newMenuViewController = _menuViewController {
+            if let newMenuViewController = menuViewController {
                 self.addChild(newMenuViewController)
                 newMenuViewController.view.frame = self.view.bounds
                 self.view.insertSubview(newMenuViewController.view, belowSubview: blackMaskView)
@@ -94,19 +100,16 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    var visibleMenuWidth: CGFloat!
-    ///< Default is YES.
-    private var _canDragMenu: Bool = true
-    var canDragMenu: Bool {
-        get {
-            return _canDragMenu
-        }
-        set {
-            _canDragMenu = newValue
-            if _canDragMenu {
-                mainViewController.view.addGestureRecognizer(pan)
+    // 可见菜单宽度
+    var visibleMenuWidth: CGFloat = 0.0
+    
+    /// 默认为 YES。
+    var canDragMenu: Bool = true {
+        didSet {
+            if canDragMenu {
+                mainViewController?.view.addGestureRecognizer(panGesture)
             } else {
-                mainViewController.view.removeGestureRecognizer(pan)
+                mainViewController?.view.removeGestureRecognizer(panGesture)
             }
         }
     }
@@ -116,7 +119,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
         self.mainViewController = mainViewController
         self.menuViewController = menuViewController
         self.visibleMenuWidth = AdaptW(kDefaultVisibleMenuWidth)
-        self.mainViewController.view.addGestureRecognizer(self.pan)
+        self.mainViewController?.view.addGestureRecognizer(self.panGesture)
     }
     
     @available(*, unavailable)
@@ -133,40 +136,55 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
         return true
     }
     
+    // 配置UI
     private func configUI() {
-        addChild(menuViewController)
-        addChild(mainViewController)
-        menuViewController.view.frame = view.bounds
-        mainViewController.view.frame = view.bounds
-        view.addSubview(menuViewController.view)
-        view.addSubview(mainViewController.view)
-        view.insertSubview(blackMaskView, belowSubview: mainViewController.view)
-        blackMaskView.frame = view.bounds
+        if let menuViewController = menuViewController,
+           let mainViewController = mainViewController {
+            addChild(menuViewController)
+            addChild(mainViewController)
+            menuViewController.view.frame = view.bounds
+            mainViewController.view.frame = view.bounds
+            view.addSubview(menuViewController.view)
+            view.addSubview(mainViewController.view)
+            view.insertSubview(blackMaskView, belowSubview: mainViewController.view)
+            blackMaskView.frame = view.bounds
+        }
     }
     
     deinit {
-        mainViewController.removeFromParent()
-        menuViewController.removeFromParent()
-        mainViewController.view.removeFromSuperview()
-        menuViewController.view.removeFromSuperview()
+        if let menuViewController = menuViewController,
+           let mainViewController = mainViewController {
+            mainViewController.removeFromParent()
+            menuViewController.removeFromParent()
+            mainViewController.view.removeFromSuperview()
+            menuViewController.view.removeFromSuperview()
+        }
     }
     
+    /**
+     移动视图
+     
+     - Parameter x: x坐标
+     */
     private func moveViewWithX(_ x: CGFloat) {
-        var x = x
-        x = min(x, visibleMenuWidth)
-        x = max(x, 0)
-        var frame = mainViewController.view.frame
-        frame.origin.x = x
-        mainViewController.view.frame = frame
-        let alpha = (1.0 - x / visibleMenuWidth) / 2.0
-        blackMaskView.alpha = alpha
-        let aa = abs(kScreenshotImageOriginalLeft) / visibleMenuWidth
-        let y = x * aa
-        let rect = menuViewController.view.frame
-        menuViewController.view.frame = CGRect(x: kScreenshotImageOriginalLeft + y, y: 0, width: rect.width, height: rect.height)
+        if let menuViewController = menuViewController,
+           let mainViewController = mainViewController {
+            var x = x
+            x = min(x, visibleMenuWidth)
+            x = max(x, 0)
+            var frame = mainViewController.view.frame
+            frame.origin.x = x
+            mainViewController.view.frame = frame
+            let alpha = (1.0 - x / visibleMenuWidth) / 2.0
+            blackMaskView.alpha = alpha
+            let aa = abs(kScreenshotImageOriginalLeft) / visibleMenuWidth
+            let y = x * aa
+            let rect = menuViewController.view.frame
+            menuViewController.view.frame = CGRect(x: kScreenshotImageOriginalLeft + y, y: 0, width: rect.width, height: rect.height)
+        }
     }
     
-    ///< Show menu page.
+    /// 显示菜单页面
     func presentMenuViewController() {
         UIView.animate(withDuration: 0.2, animations: {
             self.moveViewWithX(self.visibleMenuWidth)
@@ -175,7 +193,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    ///< Hide menu page.
+    /// 隐藏菜单页面
     func dismissMenuViewController() {
         UIView.animate(withDuration: 0.2, animations: {
             self.moveViewWithX(0)
@@ -184,6 +202,11 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    /**
+     绑定代理
+     
+     - Parameter delegate: 代理
+     */
     func bind(_ delegate: HDrawerViewControllerDelegate?) {
         if delegate == nil {
             return
@@ -192,8 +215,12 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
             delegates.add(delegate)
         }
     }
-
     
+    /**
+     解绑代理
+     
+     - Parameter delegate: 代理
+     */
     func unbind(_ delegate: HDrawerViewControllerDelegate?) {
         if delegate == nil {
             return
@@ -203,26 +230,36 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
         }
     }
     
+    /**
+     发送菜单出现通知
+     */
     private func sendMenuDidAppearNotification() {
         for delegate in delegates.allObjects {
             if let delegate = delegate as? HDrawerViewControllerDelegate {
                 delegate.menuDidAppear()
             }
         }
-        if !mainViewController.view.subviews.contains(rightblackMaskView) {
-            mainViewController.view.addSubview(rightblackMaskView)
-            mainViewController.view.bringSubviewToFront(rightblackMaskView)
+        if let mainViewController = mainViewController {
+            if !mainViewController.view.subviews.contains(rightBlackMaskView) {
+                mainViewController.view.addSubview(rightBlackMaskView)
+                mainViewController.view.bringSubviewToFront(rightBlackMaskView)
+            }
         }
     }
     
+    /**
+     发送菜单消失通知
+     */
     private func sendMenuDidDisappearNotification() {
         for delegate in delegates.allObjects {
             if let delegate = delegate as? HDrawerViewControllerDelegate {
                 delegate.menuDidDisappear()
             }
         }
-        if mainViewController.view.subviews.contains(rightblackMaskView) {
-            rightblackMaskView.removeFromSuperview()
+        if let mainViewController = mainViewController {
+            if mainViewController.view.subviews.contains(rightBlackMaskView) {
+                rightBlackMaskView.removeFromSuperview()
+            }
         }
     }
     
@@ -239,19 +276,21 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
             _panGestureRecognizerCancelled(sender)
         }
     }
-
+    
     private func _panGestureRecognizerBegan(_ sender: UIPanGestureRecognizer) {
-        moving = true
-        startTouchPointInMainVC = sender.location(in: mainViewController.view)
+        if let mainViewController = mainViewController {
+            moving = true
+            startTouchPointInMainVC = sender.location(in: mainViewController.view)
+        }
     }
-
+    
     private func _panGestureRecognizerChanged(_ sender: UIPanGestureRecognizer) {
         let touchPointInWindow = sender.location(in: KEY_WINDOW)
         if moving {
             moveViewWithX(touchPointInWindow.x - startTouchPointInMainVC.x)
         }
     }
-
+    
     private func _panGestureRecognizerEnded(_ sender: UIPanGestureRecognizer) {
         let touchPointInWindow = sender.location(in: KEY_WINDOW)
         if touchPointInWindow.x - startTouchPointInMainVC.x > visibleMenuWidth / 2.0 {
@@ -270,7 +309,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
             })
         }
     }
-
+    
     private func _panGestureRecognizerCancelled(_ sender: UIPanGestureRecognizer) {
         UIView.animate(withDuration: 0.2, animations: {
             self.moveViewWithX(0)
@@ -279,16 +318,15 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
             self.sendMenuDidDisappearNotification()
         })
     }
-
+    
     @objc
     func tapGestureReceive(_ sender: UITapGestureRecognizer) {
         dismissMenuViewController()
     }
     
     @objc
-    func rightblackMaskViewAction() {
+    func rightBlackMaskViewAction() {
         self.dismissMenuViewController()
     }
     
 }
-
