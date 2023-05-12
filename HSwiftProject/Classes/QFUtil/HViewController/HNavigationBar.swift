@@ -53,7 +53,7 @@ class HNavigationBar: UIStackView {
     lazy var lineBar: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(hex: 0xe5e5e5)
-        view.heightAnchor.constraint(equalToConstant: 1).isActive = true
+        view.heightAnchor.constraint(equalToConstant: UIScreen.onePixel).isActive = true
         view.isHidden = true
         return view
     }()

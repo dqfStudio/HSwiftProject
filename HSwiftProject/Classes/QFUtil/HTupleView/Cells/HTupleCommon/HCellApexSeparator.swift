@@ -21,11 +21,11 @@ class HCellApexSeparator: UIView {
     private var separatorFrame: CGRect {
         let width = self.width - separatorInset.left - separatorInset.right
         let origin = CGPoint(x: separatorInset.left, y: self.y)
-        return CGRect(origin: origin, size: CGSize(width: width, height: 1))
+        return CGRect(origin: origin, size: CGSize(width: width, height: UIScreen.onePixel))
     }
     
     required override init(frame: CGRect) {
-        let frame = CGRect(x: 0, y: frame.height - 1, width: frame.width, height: 1)
+        let frame = CGRect(x: 0, y: frame.height - UIScreen.onePixel, width: frame.width, height: UIScreen.onePixel)
         super.init(frame: frame)
         self.backgroundColor = UIColor(hex: "#E9E9E9")
     }
