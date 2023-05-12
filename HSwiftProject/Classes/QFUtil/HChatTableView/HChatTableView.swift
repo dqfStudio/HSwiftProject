@@ -27,13 +27,6 @@ typealias HChatTableRow = (_ cls: AnyClass) -> AnyObject
     optional func heightForRowAtIndexPath(_ indexPath: IndexPath) -> Any
 
     @objc
-    optional func edgeInsetsForHeaderInSection(_ section: Any) -> Any
-    @objc
-    optional func edgeInsetsForFooterInSection(_ section: Any) -> Any
-    @objc
-    optional func edgeInsetsForRowAtIndexPath(_ indexPath: IndexPath) -> Any
-
-    @objc
     optional func tableHeader(_ headerBlock: Any, inSection section: Any)
     @objc
     optional func tableFooter(_ footerBlock: Any, inSection section: Any)
@@ -149,22 +142,10 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
             cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
+            // Save cell
+            self.allReuseHeaders.setObject(cell, forKey: "\(section)" as NSString)
         }else {
             cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
-        }
-        // Save cell
-        self.allReuseHeaders.setObject(cell, forKey: "\(section)" as NSString)
-        // Call delegate method
-        var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
-            if delegate.responds(to: selector) {
-                edgeInsets = delegate.performWithUnretainedValue(selector, with: section) as! UIEdgeInsets
-            }
-        }
-        // Set properties
-        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-            cell.edgeInsets = edgeInsets
         }
         return cell
     }
@@ -178,22 +159,10 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
             cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
+            // Save cell
+            self.allReuseFooters.setObject(cell, forKey: "\(section)" as NSString)
         }else {
             cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
-        }
-        // Save cell
-        self.allReuseFooters.setObject(cell, forKey: "\(section)" as NSString)
-        // Call delegate method
-        var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.edgeInsetsForFooterInSection(_:))
-            if delegate.responds(to: selector) {
-                edgeInsets = delegate.performWithUnretainedValue(selector, with: section) as! UIEdgeInsets
-            }
-        }
-        // Set properties
-        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-            cell.edgeInsets = edgeInsets
         }
         return cell
     }
@@ -207,22 +176,10 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forCellReuseIdentifier: identifier)
             cell = self.dequeueReusableCell(withIdentifier: identifier, for: idxPath) as! HTableBaseCell
+            // Save cell
+            self.allReuseCells.setObject(cell, forKey: idxPath.nsStringValue)
         }else {
             cell = self.dequeueReusableCell(withIdentifier: identifier, for: idxPath) as! HTableBaseCell
-        }
-        // Save cell
-        self.allReuseCells.setObject(cell, forKey: idxPath.nsStringValue)
-        // Call delegate method
-        var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.edgeInsetsForRowAtIndexPath(_:))
-            if delegate.responds(to: selector) {
-                edgeInsets = delegate.performWithUnretainedValue(selector, with: idxPath) as! UIEdgeInsets
-            }
-        }
-        // Set properties
-        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-            cell.edgeInsets = edgeInsets
         }
         return cell
     }
