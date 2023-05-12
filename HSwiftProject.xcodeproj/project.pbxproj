@@ -172,6 +172,7 @@
 		EB05976B2A09F02B0016ACD8 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05976A2A09F02B0016ACD8 /* CGRect.swift */; };
 		EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */; };
 		EB0597712A0B6B990016ACD8 /* HNavigationBar2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0597702A0B6B990016ACD8 /* HNavigationBar2.swift */; };
+		EB05977C2A0DF18F0016ACD8 /* HChatTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05977B2A0DF18F0016ACD8 /* HChatTableView.swift */; };
 		EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23D99529DFC6F800C96CAC /* HTextView.swift */; };
 		EB23DAC32A00A4EC00C96CAC /* HNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC22A00A4EB00C96CAC /* HNavigationBar.swift */; };
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
@@ -466,6 +467,7 @@
 		EB05976A2A09F02B0016ACD8 /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCellApexSeparator.swift; sourceTree = "<group>"; };
 		EB0597702A0B6B990016ACD8 /* HNavigationBar2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar2.swift; sourceTree = "<group>"; };
+		EB05977B2A0DF18F0016ACD8 /* HChatTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatTableView.swift; sourceTree = "<group>"; };
 		EB23D99529DFC6F800C96CAC /* HTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
 		EB23DAC22A00A4EB00C96CAC /* HNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar.swift; sourceTree = "<group>"; };
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
@@ -982,6 +984,7 @@
 		A2B43058237FF2B100795605 /* QFUtil */ = {
 			isa = PBXGroup;
 			children = (
+				EB05977A2A0DF1820016ACD8 /* HChatView */,
 				EBD0FB3429CCA33E00808EDA /* HNotification */,
 				EBD0FB2429CC8CEB00808EDA /* HFPickerView */,
 				EBD0FB2129CC739400808EDA /* HDrawerViewController */,
@@ -1171,6 +1174,14 @@
 				2A42856F94E6A14957A7D854 /* Pods-HSwiftProject.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		EB05977A2A0DF1820016ACD8 /* HChatView */ = {
+			isa = PBXGroup;
+			children = (
+				EB05977B2A0DF18F0016ACD8 /* HChatTableView.swift */,
+			);
+			path = HChatView;
 			sourceTree = "<group>";
 		};
 		EB43239E29B988A300EDDB64 /* HResultView */ = {
@@ -1692,6 +1703,7 @@
 				EBC8140A29AA48C000A81431 /* HUserLiveCell+HSection0.swift in Sources */,
 				A2B42FD0237CED5A00795605 /* ViewController.swift in Sources */,
 				A22948BC2397990B0058B939 /* HRegisterController+KS.swift in Sources */,
+				EB05977C2A0DF18F0016ACD8 /* HChatTableView.swift in Sources */,
 				EBC8147129AA541200A81431 /* HSendVideoVC+HStatus2.swift in Sources */,
 				EBC8147529AA541F00A81431 /* HSendVideoVC+HStatus4.swift in Sources */,
 				A26D4323238526BA00F457AE /* UIViewController+HUtil.swift in Sources */,

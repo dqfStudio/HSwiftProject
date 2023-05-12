@@ -20,6 +20,10 @@ extension NSObjectProtocol {
         let selector = NSSelectorFromString(pre + NSStringFromSelector(aSelector))
         return self.perform(selector).takeUnretainedValue()
     }
+    @discardableResult
+    func performWithUnretainedValue(_ aSelector: Selector!) -> AnyObject? {
+        return self.perform(aSelector).takeUnretainedValue()
+    }
 
     
     @discardableResult
@@ -31,6 +35,10 @@ extension NSObjectProtocol {
     func performWithUnretainedValue(_ aSelector: Selector!, with object: Any!, withPre pre: String!) -> AnyObject? {
         let selector = NSSelectorFromString(pre + NSStringFromSelector(aSelector))
         return self.perform(selector, with: object).takeUnretainedValue()
+    }
+    @discardableResult
+    func performWithUnretainedValue(_ aSelector: Selector!, with object: Any!) -> AnyObject? {
+        return self.perform(aSelector, with: object).takeUnretainedValue()
     }
 
     
