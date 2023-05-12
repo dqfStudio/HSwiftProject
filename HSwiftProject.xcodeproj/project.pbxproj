@@ -984,7 +984,7 @@
 		A2B43058237FF2B100795605 /* QFUtil */ = {
 			isa = PBXGroup;
 			children = (
-				EB05977A2A0DF1820016ACD8 /* HChatView */,
+				EB05977A2A0DF1820016ACD8 /* HChatTableView */,
 				EBD0FB3429CCA33E00808EDA /* HNotification */,
 				EBD0FB2429CC8CEB00808EDA /* HFPickerView */,
 				EBD0FB2129CC739400808EDA /* HDrawerViewController */,
@@ -1176,12 +1176,12 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		EB05977A2A0DF1820016ACD8 /* HChatView */ = {
+		EB05977A2A0DF1820016ACD8 /* HChatTableView */ = {
 			isa = PBXGroup;
 			children = (
 				EB05977B2A0DF18F0016ACD8 /* HChatTableView.swift */,
 			);
-			path = HChatView;
+			path = HChatTableView;
 			sourceTree = "<group>";
 		};
 		EB43239E29B988A300EDDB64 /* HResultView */ = {
