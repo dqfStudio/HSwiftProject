@@ -133,53 +133,53 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// Register class
-    func dequeueReusableHeaderWithClass(_ cls: AnyClass, section: Int) -> AnyObject {
-        var cell: HTableBaseApex
+    func dequeueReusableHeaderWithClass(_ cls: AnyClass, section: Int) -> AnyObject? {
+        var cell: UITableViewHeaderFooterView?
         // Unique identifier
         let identifier = "HeaderCell" + NSStringFromClass(cls) + self.addressValue + "\(section)"
         // Determine whether it has been loaded
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
-            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
+            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
             // Save cell
             self.allReuseHeaders.setObject(cell, forKey: "\(section)" as NSString)
         }else {
-            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
+            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
         }
         return cell
     }
     
-    func dequeueReusableFooterWithClass(_ cls: AnyClass, section: Int) -> AnyObject {
-        var cell: HTableBaseApex
+    func dequeueReusableFooterWithClass(_ cls: AnyClass, section: Int) -> AnyObject? {
+        var cell: UITableViewHeaderFooterView?
         // Unique identifier
         let identifier = "FooterCell" + NSStringFromClass(cls) + self.addressValue + "\(section)"
         // Determine whether it has been loaded
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
-            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
+            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
             // Save cell
             self.allReuseFooters.setObject(cell, forKey: "\(section)" as NSString)
         }else {
-            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
+            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
         }
         return cell
     }
 
     func dequeueReusableCellWithClass(_ cls: AnyClass, idxPath: IndexPath) -> AnyObject {
-        var cell: HTableBaseCell
+        var cell: UITableViewCell
         // Unique identifier
         let identifier = "ItemCell" + NSStringFromClass(cls) + self.addressValue + idxPath.stringValue
         // Determine whether it has been loaded
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forCellReuseIdentifier: identifier)
-            cell = self.dequeueReusableCell(withIdentifier: identifier, for: idxPath) as! HTableBaseCell
+            cell = self.dequeueReusableCell(withIdentifier: identifier, for: idxPath)
             // Save cell
             self.allReuseCells.setObject(cell, forKey: idxPath.nsStringValue)
         }else {
-            cell = self.dequeueReusableCell(withIdentifier: identifier, for: idxPath) as! HTableBaseCell
+            cell = self.dequeueReusableCell(withIdentifier: identifier, for: idxPath)
         }
         return cell
     }
@@ -272,7 +272,7 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         // Call delegate method
         if let delegate = self.tableDelegate {
             let selector = #selector(delegate.tableHeader(_:inSection:))
-            let headerBlock = { (_ cls: AnyClass) -> AnyObject in
+            let headerBlock = { (_ cls: AnyClass) -> AnyObject? in
                 return self.dequeueReusableHeaderWithClass(cls, section: section)
             }
             if delegate.responds(to: selector) {
@@ -287,7 +287,7 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         // Call delegate method
         if let delegate = self.tableDelegate {
             let selector = #selector(delegate.tableFooter(_:inSection:))
-            let footerBlock = { (_ cls: AnyClass) -> AnyObject in
+            let footerBlock = { (_ cls: AnyClass) -> AnyObject? in
                 return self.dequeueReusableFooterWithClass(cls, section: section)
             }
             if delegate.responds(to: selector) {
