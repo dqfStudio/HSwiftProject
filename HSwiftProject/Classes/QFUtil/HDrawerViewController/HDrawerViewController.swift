@@ -8,7 +8,6 @@
 
 import UIKit
 
-// 添加注释
 // 获取当前应用程序的关键窗口
 private var KEY_WINDOW = UIApplication.shared.keyWindow
 
