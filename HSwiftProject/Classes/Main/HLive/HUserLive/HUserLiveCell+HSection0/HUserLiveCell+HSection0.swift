@@ -208,6 +208,14 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
 }
 
 class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
+    
+    lazy var tupleView: HTupleView = {
+        let view = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
+        view.backgroundColor = .clear
+        view.disableBounce()
+        return view
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.tupleView.delegate = self
@@ -218,16 +226,6 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-    }
-    
-    private var _tupleView: HTupleView?
-    var tupleView: HTupleView {
-        if (_tupleView == nil) {
-            _tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
-            _tupleView!.backgroundColor = UIColor.clear
-            _tupleView!.disableBounce()
-        }
-        return _tupleView!
     }
 
     func tuple0_insetForSection(_ section: Any) -> Any {
