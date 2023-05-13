@@ -78,10 +78,8 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if (!self.hideVisualView) {
-            for subview in self.visualView!.subviews {
-                subview.layer.cornerRadius = self.tupleView.layer.cornerRadius
-            }
+        if !self.hideVisualView, let visualView = self.visualView {
+            visualView.subviews.forEach { $0.layer.cornerRadius = self.tupleView.layer.cornerRadius }
         }
     }
 
