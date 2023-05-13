@@ -13,17 +13,13 @@ class HUserLiveMiddleBarView : UIView, HTupleViewDelegate {
     var mutableArr: NSMutableArray = NSMutableArray()
     var timer: Timer?
     
-    private var _tupleView: HTupleView?
-    var tupleView: HTupleView {
-        if (_tupleView == nil) {
-            _tupleView = HTupleView(frame: self.bounds)
-            _tupleView!.backgroundColor = UIColor.clear
-            _tupleView!.enableVerticalBounce()
-            //将tupleView倒置
-            _tupleView!.transform = CGAffineTransform (scaleX: 1, y: -1)
-        }
-        return _tupleView!
-    }
+    lazy var tupleView: HTupleView = {
+        let view = HTupleView(frame: self.bounds)
+        view.backgroundColor = .clear
+        view.enableVerticalBounce()
+        view.transform = CGAffineTransform(scaleX: 1, y: -1)
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

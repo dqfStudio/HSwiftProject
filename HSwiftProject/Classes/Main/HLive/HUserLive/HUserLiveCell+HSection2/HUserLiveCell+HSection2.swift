@@ -10,15 +10,12 @@ import UIKit
 
 class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
 
-    private var _tupleView: HTupleView?
-    var tupleView: HTupleView {
-        if (_tupleView == nil) {
-            _tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
-            _tupleView!.backgroundColor = UIColor.clear
-            _tupleView!.disableBounce()
-        }
-        return _tupleView!
-    }
+    lazy var tupleView: HTupleView = {
+        let view = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
+        view.backgroundColor = .clear
+        view.disableBounce()
+        return view
+    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
