@@ -15,47 +15,35 @@ enum HLiveStatus: Int {
 
 class HUserLiveVC : HTupleController {
     
-    private var _inputField: HTextField!
-    var inputField: HTextField {
-        if _inputField == nil {
-            let frame = CGRect(x: 0, y: UIScreen.height, width: UIScreen.width, height: 40)
-            _inputField = HTextField(frame: frame)
-            _inputField.backgroundColor = UIColor.white
-            _inputField.placeholderFont = UIFont.systemFont(ofSize: 14)
-            _inputField.placeholder = "请输入内容..."
-            
-            _inputField.leftWidth = 10
-            _inputField.leftLabel.text = ""
-            
-            // 去掉键盘上的toolBar
-            _inputField.inputAccessoryView = UIView(frame: CGRect.zero)
-            _inputField.reloadInputViews()
-            
-            _inputField.rightWidth = 60
-            _inputField.rightLabel.text = "完成"
-            _inputField.rightLabel.textAlignment = .center
-            _inputField.rightLabel.font = UIFont.systemFont(ofSize: 17)
-            
-            _inputField.rightLabel.addSingleTapGesture(withBlock: { sender in
-                let gesture = sender as! UIGestureRecognizer
-                _ = gesture.view?.superview?.resignFirstResponder()
-            })
-        }
-        return _inputField!
-    }
+    lazy var inputField: HTextField = {
+        let frame = CGRect(x: 0, y: UIScreen.height, width: UIScreen.width, height: 40)
+        let inputField = HTextField(frame: frame)
+        inputField.backgroundColor = UIColor.white
+        inputField.placeholderFont = UIFont.systemFont(ofSize: 14)
+        inputField.placeholder = "请输入内容..."
+        
+        inputField.leftWidth = 10
+        inputField.leftLabel.text = ""
+        
+        // 去掉键盘上的toolBar
+        inputField.inputAccessoryView = UIView(frame: CGRect.zero)
+        inputField.reloadInputViews()
+        
+        inputField.rightWidth = 60
+        inputField.rightLabel.text = "完成"
+        inputField.rightLabel.textAlignment = .center
+        inputField.rightLabel.font = UIFont.systemFont(ofSize: 17)
+        
+        inputField.rightLabel.addSingleTapGesture(withBlock: { sender in
+            // Force hide keyboard
+            UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
+        })
+        return inputField
+    }()
     
-    private func inputFieldFiniishedAction(_ sender: UILabel) {
-        _ = sender.superview?.resignFirstResponder()
-    }
-    
-    private var _liveStatus: HLiveStatus = .loading
-    var liveStatus: HLiveStatus {
-        get {
-            return _liveStatus
-        }
-        set {
-            if (_liveStatus != newValue) {
-                _liveStatus = newValue
+    var liveStatus: HLiveStatus = .loading {
+        didSet {
+            if liveStatus != oldValue {
                 self.tupleView.reloadData()
             }
         }
@@ -158,7 +146,6 @@ class HUserLiveVC : HTupleController {
             //释放textField
             self.inputField.removeFromSuperview()
             self.inputField.text = ""
-            self._inputField = nil
         }
     }
 

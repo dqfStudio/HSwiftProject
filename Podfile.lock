@@ -4,6 +4,7 @@ PODS:
     - Kingfisher/Core (= 5.9.0)
   - Kingfisher/Core (5.9.0)
   - MJRefresh (3.3.1)
+  - SnapKit (5.0.1)
   - SwiftLint (0.43.1)
   - SwiftyLoad (0.1.0)
   - SwizzleSwift (1.0)
@@ -12,6 +13,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.9.1)
   - Kingfisher (~> 5.9.0)
   - MJRefresh (~> 3.3.1)
+  - SnapKit (= 5.0.1)
   - SwiftLint (= 0.43.1)
   - SwiftyLoad
   - SwizzleSwift
@@ -21,6 +23,7 @@ SPEC REPOS:
     - Alamofire
     - Kingfisher
     - MJRefresh
+    - SnapKit
     - SwiftLint
     - SwiftyLoad
     - SwizzleSwift
@@ -29,10 +32,11 @@ SPEC CHECKSUMS:
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
   Kingfisher: ff98240aebb7302bdc4f1ecd701761030ce18b16
   MJRefresh: eeda70fbf0ad277f3178cef1cd0c3532591d6237
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   SwiftyLoad: 8e529992e2ce9b84d56f583201117a55a526891b
   SwizzleSwift: 875aa0d66cd42caa361ab1ecbca663250d725907
 
-PODFILE CHECKSUM: f9a54aa899351dca8156ba3f8887cc0db55f7bfd
+PODFILE CHECKSUM: 6d9900ca354849babf38f7fd6e75a84b4e152e71
 
 COCOAPODS: 1.11.3

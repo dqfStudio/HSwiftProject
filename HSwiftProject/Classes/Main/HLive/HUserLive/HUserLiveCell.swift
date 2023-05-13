@@ -10,25 +10,19 @@ import UIKit
 
 class HUserLiveBgCell : HTupleImageCell {
 
-    private var _effectView: UIVisualEffectView?
-    var effectView: UIVisualEffectView {
-        if _effectView == nil {
-            let blur = UIBlurEffect(style: UIBlurEffect.Style.light)
-            _effectView = UIVisualEffectView(effect: blur)
-            _effectView!.alpha = 0.9
-            _effectView!.frame = self.imageView.bounds
-        }
-        return _effectView!
-    }
+    lazy var effectView: UIVisualEffectView = {
+        let blur = UIBlurEffect(style: .light)
+        let effectView = UIVisualEffectView(effect: blur)
+        effectView.alpha = 0.9
+        effectView.frame = self.imageView.bounds
+        return effectView
+    }()
     
-    private var _activityIndicator: UIActivityIndicatorView?
-    var activityIndicator: UIActivityIndicatorView {
-        if _activityIndicator == nil {
-            _activityIndicator = UIActivityIndicatorView(frame: self.bounds)
-            _activityIndicator!.style = .whiteLarge
-        }
-        return _activityIndicator!
-    }
+    lazy var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(frame: self.bounds)
+        indicator.style = .whiteLarge
+        return indicator
+    }()
     
     //cell初始化是调用的方法
     override func initUI() {
@@ -50,35 +44,29 @@ class HUserLiveBgCell : HTupleImageCell {
 
 class HUserLiveCell : HUserLiveBgCell, HTupleViewDelegate {
     
-    private var _liveLeftView: UIView?
-    var liveLeftView: UIView {
-        if (_liveLeftView == nil) {
-            _liveLeftView = UIView(frame: self.bounds)
-            _liveLeftView!.backgroundColor = UIColor.clear
-            _liveLeftView!.isHidden = true
-            let swipeGesture = UISwipeGestureRecognizer(target: self, action:  #selector(leftSwipped))
-            swipeGesture.direction = .left
-            _liveLeftView!.addGestureRecognizer(swipeGesture)
-        }
-        return _liveLeftView!
-    }
+    lazy var liveLeftView: UIView = {
+        let view = UIView(frame: self.bounds)
+        view.backgroundColor = .clear
+        view.isHidden = true
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(leftSwipped))
+        swipeGesture.direction = .left
+        view.addGestureRecognizer(swipeGesture)
+        return view
+    }()
     
-    private var _liveRightView: HTupleView?
-    var liveRightView: HTupleView {
-        if (_liveRightView == nil) {
-            _liveRightView = HTupleView.tupleFrame({
-                return self.bounds
-            }, exclusiveSections: {
-                return [0, 1, 2]
-            })
-            _liveRightView!.backgroundColor = UIColor.clear
-            _liveRightView!.disableBounce()
-//            let swipeGesture = UISwipeGestureRecognizer(target: self, action:  #selector(rightSwipped))
-//            swipeGesture.direction = .right
-//            _liveRightView!.addGestureRecognizer(swipeGesture)
-        }
-        return _liveRightView!
-    }
+    lazy var liveRightView: HTupleView = {
+        let view = HTupleView.tupleFrame({
+            return self.bounds
+        }, exclusiveSections: {
+            return [0, 1, 2]
+        })
+        view.backgroundColor = UIColor.clear
+        view.disableBounce()
+//        let swipeGesture = UISwipeGestureRecognizer(target: self, action:  #selector(rightSwipped))
+//        swipeGesture.direction = .right
+//        view.addGestureRecognizer(swipeGesture)
+        return view
+    }()
 
     //cell初始化是调用的方法
     override func initUI() {
