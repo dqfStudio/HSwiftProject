@@ -46,36 +46,29 @@ class HLRDManager : NSObject {
     */
     private func cleanAllProperties() {
         var count: UInt32 = 0
-        //let propertys = class_copyPropertyList(self.classForCoder, &count)
         let propertys = class_copyIvarList(self.classForCoder, &count)
-        if propertys != nil {
+        if let propertys = propertys {
             for i in 0..<count {
-                let property = propertys![Int(i)]
+                let property = propertys[Int(i)]
                 let name = ivar_getName(property)
-                //isLogin 这个属性的值由外部业务赋值
-                if name != nil {
-                    //通过KVC的方式赋值
-                    let aKey = String(cString: name!)
-                    let propertyValue: AnyObject? = self.value(forKey: aKey) as AnyObject
-                    
-                    if propertyValue == nil || propertyValue!.isKind(of: NSNull.self) {
+                if let name = name {
+                    let aKey = String(cString: name)
+                    let propertyValue = self.value(forKey: aKey)
+                    if propertyValue == nil || propertyValue is NSNull {
                         continue
                     }
-
-                    //通过KVC的方式赋值
-                    if (self.setupDefaults().containsObject(aKey)) {
-                        //加载初始默认值
+                    if self.setupDefaults().containsObject(aKey) {
                         let propertyValue = self.setupDefaults().object(forKey: aKey)
                         self.setValue(propertyValue, forKey: aKey)
-                    }else {
+                    } else {
                         self.setValue(nil, forKey: aKey)
                     }
                 }
             }
-            // 释放
             free(propertys)
         }
     }
+
 
     /// 如果属性和字典中的key不一致，可以重写此方法 / 或者readonly
     /// 不一致的key和对应的value都会通过这个方法返回，可以在此方法中做特殊处理
