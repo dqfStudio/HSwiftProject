@@ -112,30 +112,21 @@ class HTabBar : UIView {
     
     private var isVertical: Bool = false
     
-
-    private var _items: NSArray?
     /**
     *  TabItems，提供给HTabBarController使用，一般不手动设置此属性
     */
-    var items: NSArray? {
-        get {
-            return _items
-        }
-        set {
+    var items: [HTabItem]? {
+        didSet {
             selectedItemIndex = NSNotFound
             
             // 将老的item从superview上删除
-            if _items != nil {
-                for item in _items! {
-                    let view = item as! UIView
-                    view.removeFromSuperview()
-                }
+            if let oldValue = oldValue {
+                oldValue.forEach { $0.removeFromSuperview() }
             }
-            _items = newValue
             
             // 初始化每一个item
-            for tmpItem in _items! {
-                let item = tmpItem as! HTabItem
+            guard let items = items else { return }
+            for item in items {
                 
                 item.titleColor = self.itemTitleColor
                 item.titleSelectedColor = self.itemTitleSelectedColor
@@ -195,7 +186,7 @@ class HTabBar : UIView {
     var itemTitleColor: UIColor = .white {
         didSet {
             guard let items = self.items, items.count > 0 else { return }
-            items.forEach { ($0 as? HTabItem)?.titleColor = itemTitleColor }
+            items.forEach { $0.titleColor = itemTitleColor }
         }
     }
     
@@ -203,7 +194,7 @@ class HTabBar : UIView {
     var itemTitleSelectedColor: UIColor = .black {
         didSet {
             guard let items = self.items, items.count > 0 else { return }
-            items.forEach { ($0 as? HTabItem)?.titleSelectedColor = itemTitleSelectedColor }
+            items.forEach { $0.titleSelectedColor = itemTitleSelectedColor }
         }
     }
     
@@ -223,7 +214,7 @@ class HTabBar : UIView {
                 if self.itemTitleSelectedFont != nil {
                     // 设置了选中字体，则只更新未选中的item
                     for tmpItem in self.items! {
-                        let item = tmpItem as! HTabItem
+                        let item = tmpItem
                         if item.isSelected == false {
                             item.titleFont = newValue
                         }
@@ -232,7 +223,7 @@ class HTabBar : UIView {
                     // 未设置选中字体，更新所有item
                     if self.items != nil && self.items!.count > 0 {
                         for tmpItem in self.items! {
-                            let item = tmpItem as! HTabItem
+                            let item = tmpItem
                             item.titleFont = newValue
                         }
                     }
@@ -257,7 +248,7 @@ class HTabBar : UIView {
     /// Badge背景颜色
     var badgeBackgroundColor: UIColor? {
         didSet {
-            guard let items = self.items as? [HTabItem] else { return }
+            guard let items = self.items else { return }
             items.forEach { $0.badgeBackgroundColor = badgeBackgroundColor }
         }
     }
@@ -265,7 +256,7 @@ class HTabBar : UIView {
     /// Badge背景图像
     var badgeBackgroundImage: UIImage? {
         didSet {
-            guard let items = self.items as? [HTabItem] else { return }
+            guard let items = self.items else { return }
             items.forEach { $0.badgeBackgroundImage = badgeBackgroundImage }
         }
     }
@@ -273,7 +264,7 @@ class HTabBar : UIView {
     /// Badge标题颜色
     var badgeTitleColor: UIColor = .white {
         didSet {
-            guard let items = self.items as? [HTabItem] else { return }
+            guard let items = self.items else { return }
             items.forEach { $0.badgeTitleColor = badgeTitleColor }
         }
     }
@@ -281,7 +272,7 @@ class HTabBar : UIView {
     /// Badge标题字体
     var badgeTitleFont: UIFont = UIFont.systemFont(ofSize: 10) {
         didSet {
-            guard let items = self.items as? [HTabItem] else { return }
+            guard let items = self.items else { return }
             items.forEach { $0.badgeTitleFont = badgeTitleFont }
         }
     }
@@ -333,7 +324,7 @@ class HTabBar : UIView {
             }
             
             if _selectedItemIndex != NSNotFound {
-                let oldSelectedItem = self.items![_selectedItemIndex] as! HTabItem
+                let oldSelectedItem = self.items![_selectedItemIndex]
                 oldSelectedItem.isSelected = false
                 if self.isItemFontChangeFollowContentScroll {
                     // 如果支持字体平滑渐变切换，则设置item的scale
@@ -345,7 +336,7 @@ class HTabBar : UIView {
                 }
             }
             
-            let newSelectedItem = self.items![newValue] as! HTabItem
+            let newSelectedItem = self.items![newValue]
             newSelectedItem.isSelected = true
             if self.isItemFontChangeFollowContentScroll {
                 // 如果支持字体平滑渐变切换，则设置item的scale
@@ -414,7 +405,7 @@ class HTabBar : UIView {
             } else {
                 self.itemContentHorizontalCenterVerticalOffset = 0
                 self.itemContentHorizontalCenterSpacing = 0
-                self.items?.compactMap({ $0 as? HTabItem }).forEach { $0.isContentHorizontalCenter = false }
+                self.items?.forEach { $0.isContentHorizontalCenter = false }
             }
         }
     }
@@ -478,26 +469,20 @@ class HTabBar : UIView {
         guard self.selectedItemIndex != NSNotFound, let items = self.items else {
             return nil
         }
-        return items[selectedItemIndex] as? HTabItem
+        return items[selectedItemIndex]
     }
 
     /**
     *  根据titles创建item
     */
-    var titles: NSArray? {
-        get {
-            return self.items
+    func setTitles(_ titles: [String]) {
+        var items = [HTabItem]()
+        for title in titles {
+            let item = HTabItem()
+            item.title = title
+            items.append(item)
         }
-        set {
-            let items = NSMutableArray()
-            for tmpItem in newValue! {
-                let title = tmpItem as! String
-                let item = HTabItem()
-                item.title = title
-                items.add(item)
-            }
-            self.items = items
-        }
+        self.items = items
     }
 
     private func updateAllUI() {
@@ -520,7 +505,7 @@ class HTabBar : UIView {
                 self.itemHeight = CGFloat(ceilf(Float((self.frame.size.height - self.leadingSpace - self.trailingSpace) / CGFloat(self.items!.count))))
             }
             for index in 0..<self.items!.count {
-                let item = self.items![index] as! HTabItem
+                let item = self.items![index]
                 item.frame = CGRect(x: 0, y: y, width: self.frame.size.width, height: self.itemHeight)
                 item.index = index
                 y += self.itemHeight
@@ -531,7 +516,7 @@ class HTabBar : UIView {
                 // 支持滚动
                 var x: CGFloat = self.leadingSpace
                 for index in 0..<self.items!.count {
-                    let item = self.items![index] as! HTabItem
+                    let item = self.items![index]
                     var width: CGFloat = 0
                     // item的宽度为一个固定值
                     if self.itemWidth > 0 {
@@ -562,7 +547,7 @@ class HTabBar : UIView {
                 self.itemWidth = CGFloat(floorf(Float(self.itemWidth + 0.5)))
                 
                 for index in 0..<self.items!.count {
-                    let item = self.items![index] as! HTabItem
+                    let item = self.items![index]
                     item.frame = CGRect(x: x, y: 0, width: self.itemWidth, height: self.frame.size.height)
                     item.index = index
                     
@@ -597,7 +582,7 @@ class HTabBar : UIView {
             self.indicatorImageView.frame = CGRect.zero
             return
         }
-        let item = self.items?[index] as! HTabItem
+        let item = self.items![index]
         self.indicatorImageView.frame = item.indicatorFrame
     }
     
@@ -727,8 +712,7 @@ class HTabBar : UIView {
         isItemContentHorizontalCenter = true
         self.itemContentHorizontalCenterVerticalOffset = verticalOffset
         self.itemContentHorizontalCenterSpacing = spacing
-        for tmpItem in self.items! {
-            let item = tmpItem as! HTabItem
+        for item in self.items! {
             item.setContentHorizontalCenterWithVerticalOffset(verticalOffset, spacing: spacing)
         }
     }
@@ -748,8 +732,7 @@ class HTabBar : UIView {
         self.numberBadgeTitleHorizonalSpace = titleHorizonalSpace
         self.numberBadgeTitleVerticalSpace = titleVerticalSpace
         
-        for tmpItem in self.items! {
-            let item = tmpItem as! HTabItem
+        for item in self.items! {
             item.setNumberBadgeMarginTop(marginTop, centerMarginRight: centerMarginRight, titleHorizonalSpace: titleHorizonalSpace, titleVerticalSpace: titleVerticalSpace)
         }
     }
@@ -767,8 +750,7 @@ class HTabBar : UIView {
         self.dotBadgeCenterMarginRight = centerMarginRight
         self.dotBadgeSideLength = sideLength
         
-        for tmpItem in self.items! {
-            let item = tmpItem as! HTabItem
+        for item in self.items! {
             item.setDotBadgeMarginTop(marginTop, centerMarginRight: centerMarginRight, sideLength: sideLength)
         }
     }
@@ -831,9 +813,9 @@ class HTabBar : UIView {
         let leftIndex: Int = Int(offsetX / scrollViewWidth)
         let rightIndex: Int = leftIndex + 1
         
-        let leftItem = self.items![leftIndex] as! HTabItem
+        let leftItem = self.items![leftIndex]
         if rightIndex >= self.items!.count { return }
-        let rightItem: HTabItem = self.items![rightIndex] as! HTabItem
+        let rightItem: HTabItem = self.items![rightIndex]
         
         // 计算右边按钮偏移量
         var rightScale: CGFloat = offsetX / scrollViewWidth
@@ -916,8 +898,8 @@ class HTabBar : UIView {
                     return
                 }
                 
-                let currentItem = self.items![currentIndex] as! HTabItem
-                let targetItem = self.items![targetIndex] as! HTabItem
+                let currentItem = self.items![currentIndex]
+                let targetItem = self.items![targetIndex]
                 
                 let currentItemWidth: CGFloat = currentItem.frameWithOutTransform.size.width
                 let targetItemWidth: CGFloat = targetItem.frameWithOutTransform.size.width
@@ -1003,21 +985,21 @@ class HTabBar : UIView {
         }
         
         for tmpItem in self.items! {
-            let item = tmpItem as! HTabItem
+            let item = tmpItem
             if self.indicatorStyle == .fitTitle {
                 let frame: CGRect = item.frameWithOutTransform
                 let space: CGFloat = (frame.size.width - item.titleWidth - self.indicatorWidthFixTitleAdditional) / 2
                 item.indicatorInsets = UIEdgeInsets(top: self.indicatorInsets.top, left: space, bottom: self.indicatorInsets.bottom, right: space)
             } else if self.indicatorStyle == .fixedWidth {
                 for tmpItem in self.items! {
-                    let item = tmpItem as! HTabItem
+                    let item = tmpItem
                     let frame: CGRect = item.frameWithOutTransform
                     let space:CGFloat = (frame.size.width - self.indicatorWidth) / 2
                     item.indicatorInsets = UIEdgeInsets(top: self.indicatorInsets.top, left: space, bottom: self.indicatorInsets.bottom, right: space)
                 }
             } else if self.indicatorStyle == .fitItem {
                 for tmpItem in self.items! {
-                    let item = tmpItem as! HTabItem
+                    let item = tmpItem
                     item.indicatorInsets = self.indicatorInsets
                 }
             }
@@ -1030,7 +1012,7 @@ class HTabBar : UIView {
             self.itemTitleSelectedFont?.pointSize != self.itemTitleFont.pointSize {
             if self.items != nil && self.items!.count > 0 {
                 for tmpItem in self.items! {
-                    let item = tmpItem as! HTabItem
+                    let item = tmpItem
                     item.titleFont = self.itemTitleSelectedFont
                     if item.isSelected == false {
                         item.transform = CGAffineTransform(scaleX: self.itemTitleUnselectedFontScale, y: self.itemTitleUnselectedFontScale)
@@ -1053,26 +1035,24 @@ class HTabBar : UIView {
                 self.separatorLayers!.removeAllObjects()
             }
             if self.items != nil && self.items!.count > 0 {
-                self.items!.enumerateObjects { (tmpItem, idx, stop) in
-                    let item = tmpItem as! HTabItem
-                    if idx > 0 {
-                        let layer: CALayer = CALayer()
-                        layer.backgroundColor = self.itemSeparatorColor!.cgColor
-                        if self.isVertical {
-                            layer.frame = CGRect(x: self.itemSeparatorLeading,
-                                                 y: item.frame.origin.y - self.itemSeparatorThickness / 2,
-                                                 width: self.bounds.size.width - self.itemSeparatorLeading - self.itemSeparatorTrailing,
-                                                 height: self.itemSeparatorThickness)
-                        } else {
-                            layer.frame = CGRect(x: item.frame.origin.x - self.itemSeparatorThickness / 2,
-                                                 y: self.itemSeparatorLeading,
-                                                 width: self.itemSeparatorThickness,
-                                                 height: self.bounds.size.height - self.itemSeparatorLeading - self.itemSeparatorTrailing)
-                        }
-                        self.scrollView.layer.addSublayer(layer)
-                        self.separatorLayers!.add(layer)
+                for (_, item) in self.items!.enumerated().filter({ $0.offset > 0 }) {
+                    let layer: CALayer = CALayer()
+                    layer.backgroundColor = self.itemSeparatorColor!.cgColor
+                    if self.isVertical {
+                        layer.frame = CGRect(x: self.itemSeparatorLeading,
+                                                y: item.frame.origin.y - self.itemSeparatorThickness / 2,
+                                                width: self.bounds.size.width - self.itemSeparatorLeading - self.itemSeparatorTrailing,
+                                                height: self.itemSeparatorThickness)
+                    } else {
+                        layer.frame = CGRect(x: item.frame.origin.x - self.itemSeparatorThickness / 2,
+                                                y: self.itemSeparatorLeading,
+                                                width: self.itemSeparatorThickness,
+                                                height: self.bounds.size.height - self.itemSeparatorLeading - self.itemSeparatorTrailing)
                     }
+                    self.scrollView.layer.addSublayer(layer)
+                    self.separatorLayers!.add(layer)
                 }
+                
             }
         } else {
             if self.separatorLayers != nil && self.separatorLayers!.count > 0 {
