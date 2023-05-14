@@ -731,7 +731,10 @@ class HTabBar : UIView {
         self.dotBadgeMarginTop = marginTop
         self.dotBadgeCenterMarginRight = centerMarginRight
         self.dotBadgeSideLength = sideLength
-        self.items?.forEach({ $0.setDotBadgeMarginTop(marginTop, centerMarginRight: centerMarginRight, sideLength: sideLength) })
+        
+        self.items?.forEach {
+            $0.setDotBadgeMarginTop(marginTop, centerMarginRight: centerMarginRight, sideLength: sideLength)
+        }
     }
     
     /**
