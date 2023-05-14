@@ -118,21 +118,21 @@ class HViewController: UIViewController {
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
         let naviBar = HNavigationBar(frame: frame)
         naviBar.leftItem.pressedBlock = {
-            self.leftItemPressed()
+            self.leftNaviItemPressed()
         }
         naviBar.rightItem.pressedBlock = {
-            self.rightItemPressed()
+            self.rightNaviItemPressed()
         }
         return naviBar
     }()
 
     // This function is called when the left item is pressed
-    func leftItemPressed() {
+    func leftNaviItemPressed() {
         self.back()
     }
 
     // This function is called when the right item is pressed
-    func rightItemPressed() {
+    func rightNaviItemPressed() {
         
     }
     
