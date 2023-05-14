@@ -463,13 +463,11 @@ class HTabBar : UIView {
     *  根据titles创建item
     */
     func setTitles(_ titles: [String]) {
-        var items = [HTabItem]()
-        for title in titles {
+        self.items = titles.map { title in
             let item = HTabItem()
             item.title = title
-            items.append(item)
+            return item
         }
-        self.items = items
     }
 
     private func updateAllUI() {
