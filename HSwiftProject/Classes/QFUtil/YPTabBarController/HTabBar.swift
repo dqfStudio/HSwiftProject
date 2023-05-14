@@ -565,11 +565,11 @@ class HTabBar : UIView {
      *  更新选中背景的frame
      */
     private func updateIndicatorFrameWithIndex(_ index: Int) {
-        if self.items?.count == 0 || index == NSNotFound {
+        guard let items = self.items, items.count > 0, index != NSNotFound else {
             self.indicatorImageView.frame = CGRect.zero
             return
         }
-        let item = self.items![index]
+        let item = items[index]
         self.indicatorImageView.frame = item.indicatorFrame
     }
     
@@ -579,9 +579,7 @@ class HTabBar : UIView {
     */
     func layoutTabItemsVertical() {
         self.isVertical = true
-        if self.items?.count == 0 {
-            return
-        }
+        guard let items = self.items, !items.isEmpty else { return }
         self.updateAllUI()
     }
     
@@ -593,9 +591,7 @@ class HTabBar : UIView {
     */
     func layoutTabItemsVerticalWithItemHeight(_ height: CGFloat) {
         self.isVertical = true
-        if self.items?.count == 0 {
-            return
-        }
+        guard let items = self.items, !items.isEmpty else { return }
         self.scrollView.isScrollEnabled = true
         self.itemHeight = height
         self.updateAllUI()
@@ -736,10 +732,7 @@ class HTabBar : UIView {
         self.dotBadgeMarginTop = marginTop
         self.dotBadgeCenterMarginRight = centerMarginRight
         self.dotBadgeSideLength = sideLength
-        
-        for item in self.items! {
-            item.setDotBadgeMarginTop(marginTop, centerMarginRight: centerMarginRight, sideLength: sideLength)
-        }
+        self.items?.forEach({ $0.setDotBadgeMarginTop(marginTop, centerMarginRight: centerMarginRight, sideLength: sideLength) })
     }
     
     /**
@@ -1055,7 +1048,7 @@ class HTabBar : UIView {
 
     // 设置指示器的frame
     private func setIndicatorX(_ x: CGFloat, width: CGFloat) {
-        var frame: CGRect = self.indicatorImageView.frame
+        var frame = self.indicatorImageView.frame
         frame.origin.x = x
         frame.size.width = width
         self.indicatorImageView.frame = frame
@@ -1064,10 +1057,10 @@ class HTabBar : UIView {
     /// 让specialItem超出父视图的部分能响应事件
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         var view = super.hitTest(point, with: event)
-        if self.specialItem != nil && view == nil {
-            let tp: CGPoint = self.specialItem!.convert(point, from: self)
-            if self.specialItem!.bounds.contains(tp) {
-                view = self.specialItem
+        if let specialItem = self.specialItem, view == nil {
+            let tp = specialItem.convert(point, from: self)
+            if specialItem.bounds.contains(tp) {
+                view = specialItem
             }
         }
         return view
