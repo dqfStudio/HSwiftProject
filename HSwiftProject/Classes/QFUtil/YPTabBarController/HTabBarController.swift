@@ -69,4 +69,15 @@ class HTabBarController : HViewController, HTabContentViewDelegate {
         self.tabContentView.frame = contentViewFrame
     }
     
+    //震动
+    private func vibrate() {
+        let impactLight = UIImpactFeedbackGenerator(style: .light)
+        impactLight.impactOccurred()
+    }
+
+    func tabContentView(_ tabConentView: HTabContentView, shouldSelectTabAtIndex index: Int) -> Bool {
+        self.vibrate()
+        return true
+    }
+    
 }

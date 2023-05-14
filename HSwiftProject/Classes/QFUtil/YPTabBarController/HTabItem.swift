@@ -1,6 +1,6 @@
 //
 //  HTabItem.swift
-//  HSwiftProject
+//  FreeChat
 //
 //  Created by Wind on 2019/11/29.
 //  Copyright © 2019 wind. All rights reserved.
@@ -48,45 +48,75 @@ class HTabItem : UIButton {
         return _frameWithOutTransform
     }
     
+    private var _title: String?
     /// Title
     var title: String? {
-        didSet {
-            self.setTitle(title, for: .normal)
+        get {
+            return _title
+        }
+        set {
+            _title = newValue
+            self.setTitle(newValue, for: .normal)
             self.calculateTitleWidth()
         }
     }
 
+    private var _titleColor: UIColor?
     var titleColor: UIColor? {
-        didSet {
-            self.setTitleColor(titleColor, for: .normal)
+        get {
+            return _titleColor
+        }
+        set {
+            _titleColor = newValue
+            self.setTitleColor(newValue, for: .normal)
         }
     }
     
+    private var _titleSelectedColor: UIColor?
     var titleSelectedColor: UIColor? {
-        didSet {
-            self.setTitleColor(titleSelectedColor, for: .selected)
+        get {
+            return _titleSelectedColor
+        }
+        set {
+            _titleSelectedColor = newValue
+            self.setTitleColor(newValue, for: .selected)
         }
     }
 
+    private var _titleFont: UIFont?
     var titleFont: UIFont? {
-        didSet {
+        get {
+            return _titleFont
+        }
+        set {
+            _titleFont = newValue
             if #available(iOS 8.0, *) {
-                self.titleLabel?.font = titleFont
+                self.titleLabel?.font = newValue
             }
             self.calculateTitleWidth()
         }
     }
     
+    private var _image: UIImage?
     /// Image
     override var image: UIImage? {
-        didSet {
-            self.setImage(image, for: .normal)
+        get {
+            return _image
+        }
+        set {
+            _image = newValue
+            self.setImage(newValue, for: .normal)
         }
     }
 
+    private var _selectedImage: UIImage?
     var selectedImage: UIImage? {
-        didSet {
-            self.setImage(selectedImage, for: .selected)
+        get {
+            return _selectedImage
+        }
+        set {
+            _selectedImage = newValue
+            self.setImage(newValue, for: .selected)
         }
     }
     
@@ -95,9 +125,14 @@ class HTabItem : UIButton {
         return _titleWidth
     }
 
+    private var _indicatorInsets: UIEdgeInsets = UIEdgeInsets.zero
     /// indicator
-    var indicatorInsets: UIEdgeInsets = .zero {
-        didSet {
+    var indicatorInsets: UIEdgeInsets {
+        get {
+            return _indicatorInsets
+        }
+        set {
+            _indicatorInsets = newValue
             self.calculateIndicatorFrame()
         }
     }
@@ -107,72 +142,107 @@ class HTabItem : UIButton {
         return _indicatorFrame
     }
     
+    private var _badge: Int = 0
     /**
     *  当badgeStyle == HTabItemBadgeStyleNumber时，可以设置此属性，显示badge数值
     *  badge > 99，显示99+
     *  badge <= 99 && badge > -99，显示具体数值
     *  badge < -99，显示-99+
     */
-    var badge: Int = 0 {
-        didSet {
+    var badge: Int {
+        get {
+            return _badge
+        }
+        set {
+            _badge = newValue
             self.updateBadge()
         }
     }
 
+    private var _badgeStyle: HTabItemBadgeStyle = .number
     /**
     *  badge的样式，支持数字样式和小圆点
     */
-    var badgeStyle: HTabItemBadgeStyle = .number {
-        didSet {
+    var badgeStyle: HTabItemBadgeStyle {
+        get {
+            return _badgeStyle
+        }
+        set {
+            _badgeStyle = newValue
             self.updateBadge()
         }
     }
     
+    private var _badgeBackgroundColor: UIColor?
     /**
     *  badge的背景颜色
     */
     var badgeBackgroundColor: UIColor? {
-        didSet {
+        get {
+            return _badgeBackgroundColor
+        }
+        set {
+            _badgeBackgroundColor = newValue
             self.badgeButton.backgroundColor = badgeBackgroundColor
         }
     }
     
+    private var _badgeBackgroundImage: UIImage?
     /**
     *  badge的背景图片
     */
     var badgeBackgroundImage: UIImage? {
-        didSet {
-            self.badgeButton.setBackgroundImage(badgeBackgroundImage, for: .normal)
+        get {
+            return _badgeBackgroundImage
+        }
+        set {
+            _badgeBackgroundImage = newValue
+            self.badgeButton.setBackgroundImage(newValue, for: .normal)
         }
     }
 
+    private var _badgeTitleColor: UIColor?
     /**
     *  badge的标题颜色
     */
     var badgeTitleColor: UIColor? {
-        didSet {
-            self.badgeButton.setTitleColor(badgeTitleColor, for: .normal)
+        get {
+            return _badgeTitleColor
+        }
+        set {
+            _badgeTitleColor = newValue
+            self.badgeButton.setTitleColor(newValue, for: .normal)
         }
     }
 
     
 
+    private var _badgeTitleFont: UIFont = UIFont.systemFont(ofSize: 13)
     /**
     *  badge的标题字体，默认13号
     */
-    var badgeTitleFont: UIFont = UIFont.systemFont(ofSize: 13) {
-        didSet {
-            self.badgeButton.titleLabel?.font = badgeTitleFont
+    var badgeTitleFont: UIFont {
+        get {
+            return _badgeTitleFont
+        }
+        set {
+            _badgeTitleFont = newValue
+            self.badgeButton.titleLabel?.font = newValue
             self.updateBadge()
         }
     }
     
+    private var _isContentHorizontalCenter: Bool = false
     /**
     *  设置Image和Title水平居中
     */
-    var isContentHorizontalCenter: Bool = false {
-        didSet {
-            if isContentHorizontalCenter == false {
+    var isContentHorizontalCenter: Bool {
+        get {
+            return _isContentHorizontalCenter
+        }
+        set {
+            _isContentHorizontalCenter = newValue
+            if _isContentHorizontalCenter == false {
                 self.verticalOffset = 0
                 self.spacing = 0
             }
@@ -194,11 +264,16 @@ class HTabItem : UIButton {
         self.isContentHorizontalCenter = true
     }
     
+    private var _doubleTapHandler: HDoubleTapHandler?
     /**
     *  添加双击事件回调
     */
     private var doubleTapHandler: HDoubleTapHandler? {
-        didSet {
+        get {
+            return _doubleTapHandler
+        }
+        set {
+            _doubleTapHandler = newValue
             if self.doubleTapView == nil {
                 self.doubleTapView = UIView(frame: self.bounds)
                 self.addSubview(self.doubleTapView!)
@@ -211,7 +286,9 @@ class HTabItem : UIButton {
 
     @objc
     private func doubleTapped(_ recognizer: UITapGestureRecognizer) {
-        self.doubleTapHandler?()
+        if self.doubleTapHandler != nil {
+            self.doubleTapHandler!()
+        }
     }
     
     /**
@@ -301,9 +378,13 @@ class HTabItem : UIButton {
     }
 
     override var isSelected: Bool {
-        didSet {
+        get {
+            super.isSelected
+        }
+        set {
+            super.isSelected = newValue
             if self.doubleTapView != nil {
-                self.doubleTapView!.isHidden = !isSelected
+                self.doubleTapView!.isHidden = !newValue
             }
         }
     }

@@ -1,6 +1,6 @@
 //
 //  HTabContentView.swift
-//  HSwiftProject
+//  FreeChat
 //
 //  Created by Wind on 2019/11/30.
 //  Copyright © 2019 wind. All rights reserved.
@@ -130,7 +130,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
             
             let containerVC: UIViewController? = self.contarinerViewController
 
-            var items = [HTabItem]()
+            let items = NSMutableArray()
             for item in _viewControllers! {
                 let vc = item as! UIViewController
                 if containerVC != nil {
@@ -141,7 +141,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
                 item.image = vc.h_tabItemImage
                 item.selectedImage = vc.h_tabItemSelectedImage
                 item.title = vc.h_tabItemTitle
-                items.append(item)
+                items.add(item)
             }
             self.tabBar.items = items
 

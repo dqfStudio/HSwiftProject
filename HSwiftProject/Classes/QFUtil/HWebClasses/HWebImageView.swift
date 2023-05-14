@@ -1,6 +1,6 @@
 //
 //  HWebImageView.swift
-//  FreeChat
+//  HSwiftProject
 //
 //  Created by Wind on 2019/11/18.
 //  Copyright © 2019 wind. All rights reserved.
