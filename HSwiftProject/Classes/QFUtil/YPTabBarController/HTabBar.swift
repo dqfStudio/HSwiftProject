@@ -198,34 +198,21 @@ class HTabBar : UIView {
         }
     }
     
-    private var _itemTitleFont: UIFont = UIFont.systemFont(ofSize: 10)
     /// 标题字体
-    var itemTitleFont: UIFont {
-        get {
-            return _itemTitleFont
-        }
-        set {
-            _itemTitleFont = newValue
+    var itemTitleFont: UIFont = UIFont.systemFont(ofSize: 10) {
+        didSet {
             if self.isItemFontChangeFollowContentScroll {
                 // item字体支持平滑切换，更新每个item的scale
                 self.updateItemsScaleIfNeeded()
             } else {
-                // item字体不支持平滑切换，更新item的字体
-                if self.itemTitleSelectedFont != nil {
-                    // 设置了选中字体，则只更新未选中的item
-                    for tmpItem in self.items! {
-                        let item = tmpItem
-                        if item.isSelected == false {
-                            item.titleFont = newValue
-                        }
-                    }
-                } else {
-                    // 未设置选中字体，更新所有item
-                    if self.items != nil && self.items!.count > 0 {
-                        for tmpItem in self.items! {
-                            let item = tmpItem
-                            item.titleFont = newValue
-                        }
+                if let items = self.items, !items.isEmpty {
+                    // item字体不支持平滑切换，更新item的字体
+                    if self.itemTitleSelectedFont != nil {
+                        // 设置了选中字体，则只更新未选中的item
+                        items.filter({ !$0.isSelected }).forEach({ $0.titleFont = itemTitleFont })
+                    } else {
+                        // 未设置选中字体，更新所有item
+                        items.forEach { $0.titleFont = itemTitleFont }
                     }
                 }
             }
