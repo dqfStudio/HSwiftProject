@@ -940,10 +940,8 @@ class HTabBar : UIView {
      *  获取未选中字体与选中字体大小的比例
      */
     private var itemTitleUnselectedFontScale: CGFloat {
-        if itemTitleSelectedFont != nil {
-            return self.itemTitleFont.pointSize / itemTitleSelectedFont!.pointSize
-        }
-        return 1.0
+        guard let itemTitleSelectedFont = itemTitleSelectedFont else { return 1.0 }
+        return self.itemTitleFont.pointSize / itemTitleSelectedFont.pointSize
     }
 
     @objc
@@ -953,9 +951,7 @@ class HTabBar : UIView {
 
     @objc
     private func specialItemClicked(_ item: HTabItem) {
-        if self.specialItemHandler != nil {
-            self.specialItemHandler!(item)
-        }
+        specialItemHandler?(item)
     }
     
     private func updateItemIndicatorInsets() {
