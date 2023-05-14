@@ -957,32 +957,25 @@ class HTabBar : UIView {
             self.specialItemHandler!(item)
         }
     }
-
+    
     private func updateItemIndicatorInsets() {
         
-        if self.items == nil || self.items!.count == 0 {
-            return
-        }
+        guard let items = self.items, !items.isEmpty else { return }
         
-        for tmpItem in self.items! {
-            let item = tmpItem
-            if self.indicatorStyle == .fitTitle {
-                let frame: CGRect = item.frameWithOutTransform
-                let space: CGFloat = (frame.size.width - item.titleWidth - self.indicatorWidthFixTitleAdditional) / 2
-                item.indicatorInsets = UIEdgeInsets(top: self.indicatorInsets.top, left: space, bottom: self.indicatorInsets.bottom, right: space)
-            } else if self.indicatorStyle == .fixedWidth {
-                for tmpItem in self.items! {
-                    let item = tmpItem
-                    let frame: CGRect = item.frameWithOutTransform
-                    let space:CGFloat = (frame.size.width - self.indicatorWidth) / 2
-                    item.indicatorInsets = UIEdgeInsets(top: self.indicatorInsets.top, left: space, bottom: self.indicatorInsets.bottom, right: space)
-                }
-            } else if self.indicatorStyle == .fitItem {
-                for tmpItem in self.items! {
-                    let item = tmpItem
-                    item.indicatorInsets = self.indicatorInsets
-                }
+        for item in items {
+            let frame = item.frameWithOutTransform
+            let space: CGFloat
+            
+            switch self.indicatorStyle {
+            case .fitTitle:
+                space = (frame.size.width - item.titleWidth - self.indicatorWidthFixTitleAdditional) / 2
+            case .fixedWidth:
+                space = (frame.size.width - self.indicatorWidth) / 2
+            case .fitItem:
+                space = 0
             }
+            
+            item.indicatorInsets = UIEdgeInsets(top: self.indicatorInsets.top, left: space, bottom: self.indicatorInsets.bottom, right: space)
         }
     }
 
