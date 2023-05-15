@@ -11,10 +11,10 @@ import UIKit
 class HToolbar: UIStackView, HTupleViewDelegate {
  
     lazy var tupleView: HTupleView = {
-        return HTupleView(frame: self.bounds, scrollDirection: .horizontal)
+        return HTupleView(frame: .zero, scrollDirection: .horizontal)
     }()
     
-    lazy var lineBar: UIView = {
+    lazy var indicatorBar: UIView = {
         return UIView(frame: self.bounds)
     }()
     
@@ -28,8 +28,8 @@ class HToolbar: UIStackView, HTupleViewDelegate {
         self.tupleView.delegate = self
         self.addArrangedSubview(tupleView)
         
-        lineBar.widthAnchor.constraint(equalToConstant: 3).isActive = true
-        self.addArrangedSubview(lineBar)
+        indicatorBar.widthAnchor.constraint(equalToConstant: 3).isActive = true
+        self.addArrangedSubview(indicatorBar)
         
     }
     
