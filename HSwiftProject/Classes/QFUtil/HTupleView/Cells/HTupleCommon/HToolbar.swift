@@ -25,7 +25,7 @@ class HToolbar: UIStackView, HTupleViewDelegate {
     var selectedIndex: Int = 0
     
     // Define a variable to hold the selected block in the toolbar
-    var toolbarSelectedBlock: HToolbarBlock?
+    var selectedBlock: HToolbarBlock?
     
     // An array of strings representing the items to be displayed
     var items: [String]?
@@ -84,7 +84,7 @@ class HToolbar: UIStackView, HTupleViewDelegate {
         }
         cell.selectBlock = {
             self.selectedIndex = indexPath.row
-            self.toolbarSelectedBlock?(indexPath.row)
+            self.selectedBlock?(indexPath.row)
             self.tupleView.reloadTupleData()
         }
 
