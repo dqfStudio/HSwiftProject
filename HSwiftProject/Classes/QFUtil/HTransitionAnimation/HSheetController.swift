@@ -65,6 +65,7 @@ class HSheetController : HViewController, HTupleViewDelegate {
         tupleView.backgroundColor = UIColor.clear
         tupleView.setCornerRadiiOnTop(16)
         tupleView.isScrollEnabled = false
+        tupleView.tupleStatus = .block
         tupleView.disableBounce()
         return tupleView
     }()
@@ -127,36 +128,28 @@ extension HSheetController {
         }
     }
     @objc
-    func tupleExa0_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        if let title = _title, !title.isEmpty {
-            switch (indexPath.row) {
-            case HCell0:
-                return CGSize(width: self.tupleView.width, height: 35)
-            case HCell1:
-                return CGSize(width: self.tupleView.width, height: 1)
-            default:
-                break
-            }
-        } else {
-            return CGSize(width: self.tupleView.width, height: 1)
-        }
-        return CGSize.zero
-    }
-    @objc
     func tupleExa0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         if let title = _title, !title.isEmpty {
             switch (indexPath.row) {
             case HCell0:
                 let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-                cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
-                cell.label.textColor = UIColor.black
-                cell.label.textAlignment = .center
-                cell.label.text = title
+                cell.sizeBlock = {
+                    return CGSize(width: self.tupleView.width, height: 35)
+                }
+                cell.cellBlock = {
+                    cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
+                    cell.label.textColor = UIColor.black
+                    cell.label.textAlignment = .center
+                    cell.label.text = title
+                }
                 break
             case HCell1:
                 let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
                 cell.backgroundColor = UIColor(white: 0.1, alpha: 0.2)
+                cell.sizeBlock = {
+                    return CGSize(width: self.tupleView.width, height: 1)
+                }
                 break
             default:
                 break
@@ -164,6 +157,9 @@ extension HSheetController {
         } else {
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             cell.backgroundColor = .clear
+            cell.sizeBlock = {
+                return CGSize(width: self.tupleView.width, height: 1)
+            }
         }
     }
 
@@ -177,65 +173,51 @@ extension HSheetController {
         return actions.count + (actions.count - 1)
     }
     @objc
-    func tupleExa1_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        let row = indexPath.row % 2
-        switch row {
-        case 0:
-            return CGSize(width: self.tupleView.width, height: 56)
-        case 1:
-            return CGSize(width: self.tupleView.width, height: 1)
-        default:
-            break
-        }
-        return CGSize.zero
-    }
-    @objc
     func tupleExa1_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         let row = indexPath.row % 2
         switch row {
         case 0:
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-            var button = cell.viewWithTag(12345) as? UIButton
-            if button == nil {
-                button = UIButton(frame: cell.layoutViewBounds)
-                button!.tag = 12345
-                button!.textFont = UIFont.font(ofSize: 16, weight: .regular)
-                button!.textColor = UIColor.black
-                button!.textAlignment = .center
-                button!.isUserInteractionEnabled = false
-                cell.addSubview(button!)
+            cell.sizeBlock = {
+                return CGSize(width: self.tupleView.width, height: 56)
             }
-            // 获取数据
-            let index = indexPath.row / 2
-            let action: HSheetAction = actions[index]
-            // 标题
-            button!.text = action.title
-            // 图标
-            if let image = action.image {
-                button!.setImage(UIImage(named: image), for: .normal)
-                button!.imageAndTextWithSpacing(8)
+            cell.cellBlock = {
+                var button = cell.viewWithTag(12345) as? UIButton
+                if button == nil {
+                    button = UIButton(frame: cell.layoutViewBounds)
+                    button!.tag = 12345
+                    button!.textFont = UIFont.font(ofSize: 16, weight: .regular)
+                    button!.textColor = UIColor.black
+                    button!.textAlignment = .center
+                    button!.isUserInteractionEnabled = false
+                    cell.addSubview(button!)
+                }
+                // 获取数据
+                let index = indexPath.row / 2
+                let action: HSheetAction = self.actions[index]
+                // 标题
+                button!.text = action.title
+                // 图标
+                if let image = action.image {
+                    button!.setImage(UIImage(named: image), for: .normal)
+                    button!.imageAndTextWithSpacing(8)
+                }
+            }
+            cell.selectBlock = {
+                // 获取数据
+                let index = indexPath.row / 2
+                let action: HSheetAction = self.actions[index]
+                // 回调
+                action.handler?(index)
+                self.back()
             }
         case 1:
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             cell.backgroundColor = UIColor(white: 0.1, alpha: 0.2)
-        default:
-            break
-        }
-    }
-    @objc
-    func tupleExa1_didSelectItemAtIndexPath(_ indexPath: IndexPath) {
-        let row = indexPath.row % 2
-        switch row {
-        case 0:
-            // 获取数据
-            let index = indexPath.row / 2
-            let action: HSheetAction = actions[index]
-            // 回调
-            action.handler?(index)
-            self.back()
-        case 1:
-            break
+            cell.sizeBlock = {
+                return CGSize(width: self.tupleView.width, height: 1)
+            }
         default:
             break
         }
@@ -251,48 +233,42 @@ extension HSheetController {
         return 3
     }
     @objc
-    func tupleExa2_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        switch indexPath.row {
-        case HCell0:
-            return CGSize(width: self.tupleView.width, height: 8)
-        case HCell1:
-            return CGSize(width: self.tupleView.width, height: 56)
-        case HCell2:
-            return CGSize(width: self.tupleView.width, height: 1 + UIScreen.bottomBarHeight)
-        default:
-            break
-        }
-        return CGSize.zero
-    }
-    @objc
     func tupleExa2_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         switch (indexPath.row) {
         case HCell0:
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             cell.backgroundColor = UIColor.clear
+            cell.sizeBlock = {
+                return CGSize(width: self.tupleView.width, height: 8)
+            }
             break
         case HCell1:
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-            cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
-            cell.label.textColor = UIColor.black
-            cell.label.textAlignment = .center
-            cell.label.text = cancelAction.title
+            cell.sizeBlock = {
+                return CGSize(width: self.tupleView.width, height: 56)
+            }
+            cell.cellBlock = {
+                cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
+                cell.label.textColor = UIColor.black
+                cell.label.textAlignment = .center
+                cell.label.text = self.cancelAction.title
+            }
+            cell.selectBlock = {
+                // 回调
+                self.cancelAction.handler?(-1)
+                self.back()
+            }
             break
         case HCell2:
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             cell.backgroundColor = UIColor.white
+            cell.sizeBlock = {
+                return CGSize(width: self.tupleView.width, height: 1 + UIScreen.bottomBarHeight)
+            }
             break
         default:
             break
-        }
-    }
-    @objc
-    func tupleExa2_didSelectItemAtIndexPath(_ indexPath: IndexPath) {
-        // 回调
-        if indexPath.row == HCell1 {
-            cancelAction.handler?(-1)
-            self.back()
         }
     }
 
