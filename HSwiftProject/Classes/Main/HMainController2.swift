@@ -41,8 +41,12 @@ class HMainController2: HViewController {
         
         toolbar.items = ["item1", "item2", "item3"]
         
+        toolbar.selectedBlock = { index in
+            NSLog(index)
+        }
         
-//        toolbar.backgroundColor = .red
+        toolbar.cornerRadius = 20
+        toolbar.backgroundColor = .green
         self.view.addSubview(toolbar)
     }
     
