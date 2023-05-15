@@ -14,9 +14,9 @@ class HToolbar: UIStackView, HTupleViewDelegate {
         return HTupleView(frame: .zero, scrollDirection: .horizontal)
     }()
     
-    lazy var indicatorBar: UIView = {
-        return UIView(frame: self.bounds)
-    }()
+//    lazy var indicatorBar: UIView = {
+//        return UIView(frame: .zero)
+//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,8 +28,8 @@ class HToolbar: UIStackView, HTupleViewDelegate {
         self.tupleView.delegate = self
         self.addArrangedSubview(tupleView)
         
-        indicatorBar.widthAnchor.constraint(equalToConstant: 3).isActive = true
-        self.addArrangedSubview(indicatorBar)
+//        indicatorBar.heightAnchor.constraint(equalToConstant: 3).isActive = true
+//        self.addArrangedSubview(indicatorBar)
         
     }
     
@@ -53,5 +53,98 @@ class HToolbar: UIStackView, HTupleViewDelegate {
         }
         
     }
+    
+//    func tupleScrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let offsetY = scrollView.contentOffset.y
+//        if (offsetY >= 2 * self.view.height) {//向上滚动
+//            scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
+//            self.tupleScrollViewDidScrollToTop(scrollView)
+//        }else if (offsetY <= 0) {//向下滚动
+//            scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
+//            self.tupleScrollViewDidScrollToBottom(scrollView)
+//        }
+//    }
+    
+//    func tupleScrollViewDidScroll(_ scrollView: UIScrollView) {
+//        let offsetY = scrollView.contentOffset.y
+//        if (offsetY >= 2 * self.view.height) {//向上滚动
+//            scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
+//            self.tupleScrollViewDidScrollToTop(scrollView)
+//        }else if (offsetY <= 0) {//向下滚动
+//            scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
+//            self.tupleScrollViewDidScrollToBottom(scrollView)
+//        }
+//    }
+    
+    func tupleViewWillEndDragging(_ velocity: CGPoint, targetContentOffset: CGPoint) {
+        let targetX = targetContentOffset.x
+        let currentX = self.tupleView.contentOffset.x
+        let distance = targetX - currentX
+
+        if distance > 0 {
+            // User swiped right
+            print("User swiped right")
+        } else if distance < 0 {
+            // User swiped left
+            print("User swiped left")
+        }
+    }
+    
+    // UIScrollViewDelegate
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        let page: Int = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+//        self.tabBar.selectedItemIndex = page
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+//        // 如果不是手势拖动导致的此方法被调用，不处理
+//        if !(scrollView.isDragging || scrollView.isDecelerating) {
+//            if (scrollView.contentOffset.x == 0) {
+//                // 解决有时候滑动冲突后scrollView跳动导致的item颜色显示错乱的问题
+//                self.tabBar.updateSubViewsWhenParentScrollViewScroll(self.contentScrollView)
+//            }
+//            return
+//        }
+//
+//        // 滑动越界不处理
+//        let offsetX: CGFloat = scrollView.contentOffset.x
+//        let scrollViewWidth: CGFloat = scrollView.frame.size.width
+//
+//        if (offsetX < 0) {
+//            return
+//        }
+//        if (offsetX > scrollView.h_contentSize.width - scrollViewWidth) {
+//            return
+//        }
+//
+//        let leftIndex: Int = Int(offsetX / scrollViewWidth)
+//        var rightIndex: Int = leftIndex + 1
+    }
+    
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        let targetX = targetContentOffset.pointee.x
+//        let currentX = scrollView.contentOffset.x
+//        let distance = targetX - currentX
+//
+//        if distance > 0 {
+//            // User swiped right
+//            print("User swiped right")
+//        } else if distance < 0 {
+//            // User swiped left
+//            print("User swiped left")
+//        }
+//    }
+
+//    //向上滚动
+//    func tupleScrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+//        // 更改直播状态
+////        self.liveStatus = .loading
+//    }
+//    //向下滚动
+//    func tupleScrollViewDidScrollToBottom(_ scrollView: UIScrollView) {
+//        // 更改直播状态
+////        self.liveStatus = .loading
+//    }
     
 }
