@@ -40,7 +40,7 @@ class HSheetController : HViewController, HTupleViewDelegate {
     override var presetType: HTransitionStyle {
         return .sheet
     }
-
+    
     override var isShadowDismiss: Bool {
         return true
     }
@@ -138,6 +138,7 @@ extension HSheetController {
                     return CGSize(width: self.tupleView.width, height: 35)
                 }
                 cell.cellBlock = {
+                    cell.backgroundColor = UIColor.white
                     cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
                     cell.label.textColor = UIColor.black
                     cell.label.textAlignment = .center
@@ -146,7 +147,7 @@ extension HSheetController {
                 break
             case HCell1:
                 let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-                cell.backgroundColor = UIColor(white: 0.1, alpha: 0.2)
+                cell.backgroundColor = UIColor(hex: 0xF7F8FA)
                 cell.sizeBlock = {
                     return CGSize(width: self.tupleView.width, height: 1)
                 }
@@ -156,7 +157,7 @@ extension HSheetController {
             }
         } else {
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-            cell.backgroundColor = .clear
+            cell.backgroundColor = UIColor.white
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 1)
             }
@@ -177,12 +178,13 @@ extension HSheetController {
         let itemBlock = itemBlock as! HTupleItem
         let row = indexPath.row % 2
         switch row {
-        case 0:
+        case HCell0:
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 56)
             }
             cell.cellBlock = {
+                cell.backgroundColor = UIColor.white
                 var button = cell.viewWithTag(12345) as? UIButton
                 if button == nil {
                     button = UIButton(frame: cell.layoutViewBounds)
@@ -212,9 +214,9 @@ extension HSheetController {
                 action.handler?(index)
                 self.back()
             }
-        case 1:
+        case HCell1:
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-            cell.backgroundColor = UIColor(white: 0.1, alpha: 0.2)
+            cell.backgroundColor = UIColor(hex: 0xF7F8FA)
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 1)
             }
@@ -238,7 +240,7 @@ extension HSheetController {
         switch (indexPath.row) {
         case HCell0:
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-            cell.backgroundColor = UIColor.clear
+            cell.backgroundColor = UIColor(hex: 0xF7F8FA)
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 8)
             }
@@ -249,13 +251,13 @@ extension HSheetController {
                 return CGSize(width: self.tupleView.width, height: 56)
             }
             cell.cellBlock = {
+                cell.backgroundColor = UIColor.white
                 cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
                 cell.label.textColor = UIColor.black
                 cell.label.textAlignment = .center
                 cell.label.text = self.cancelAction.title
             }
             cell.selectBlock = {
-                // 回调
                 self.cancelAction.handler?(-1)
                 self.back()
             }
