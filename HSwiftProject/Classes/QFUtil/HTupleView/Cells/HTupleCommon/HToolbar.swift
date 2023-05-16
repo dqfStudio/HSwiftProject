@@ -33,10 +33,12 @@ class HToolbar: UIStackView, HTupleViewDelegate {
     // The font and color of the unselected item titles
     var titleFont: UIFont?
     var titleColor: UIColor?
+    var titleBGColor: UIColor?
     
     // The font and color of the selected item title
     var titleSelectedFont: UIFont?
     var titleSelectedColor: UIColor?
+    var titleSelectedBGColor: UIColor?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -77,9 +79,11 @@ class HToolbar: UIStackView, HTupleViewDelegate {
             if self.selectedIndex == indexPath.row {
                 cell.label.font = self.titleSelectedFont
                 cell.label.textColor = self.titleSelectedColor
+                cell.label.backgroundColor = self.titleSelectedBGColor
             } else {
                 cell.label.font = self.titleFont
                 cell.label.textColor = self.titleColor
+                cell.label.backgroundColor = self.titleBGColor
             }
         }
         cell.selectBlock = {

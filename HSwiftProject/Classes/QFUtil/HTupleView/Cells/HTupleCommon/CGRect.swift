@@ -51,3 +51,10 @@ extension CGRect {
     }
     
 }
+
+
+extension CGSize {
+    var frame: CGRect {
+        return CGRect(origin: .zero, size: self)
+    }
+}

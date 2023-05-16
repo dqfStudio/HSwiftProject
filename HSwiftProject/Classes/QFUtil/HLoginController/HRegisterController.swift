@@ -94,6 +94,37 @@ class HRegisterController: HViewController, HTupleViewDelegate {
         tabBar.setScrollEnabledAndItemWidth(frame.size.width / 2)
         return tabBar
     }
+    
+    lazy var toolbar: HToolbar = {
+        var frame: CGRect = CGRect.zero
+//        frame.origin.x = self.tupleView.width / 2 - 200 / 2
+//        frame.origin.y = 55 / 2 - 35 / 2
+//        frame.size.width = 200
+//        frame.size.height = 35
+        
+        frame = CGSize(width: 200, height: 35).frame
+        
+        let toolbar = HToolbar(frame: frame)
+        toolbar.cornerRadius = 35 / 2
+        toolbar.tag = 12345
+        
+        toolbar.titleColor = .blue
+        toolbar.titleFont = UIFont.font(ofSize: 14, weight: .regular)
+        toolbar.titleBGColor = .green
+        
+        toolbar.titleSelectedColor = .red
+        toolbar.titleSelectedFont = UIFont.font(ofSize: 17, weight: .regular)
+        toolbar.titleSelectedBGColor = .yellow
+        
+        toolbar.items = ["快速注册", "手机注册"]
+        
+        toolbar.selectedBlock = { index in
+            self.tupleView.tupleState = index
+        }
+        
+        return toolbar
+    }()
+    
 
     @objc
     func tupleExa0_numberOfItemsInSection(_ section: Any) -> Any {
@@ -115,9 +146,14 @@ class HRegisterController: HViewController, HTupleViewDelegate {
     func tupleExa0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-        let tabBar = cell.viewWithTag(12345) as? HTabBar
-        if tabBar == nil {
-            cell.addSubview(self.tabBarView)
+//        let tabBar = cell.viewWithTag(12345) as? HTabBar
+//        if tabBar == nil {
+//            cell.addSubview(self.tabBarView)
+//        }
+        let toolbar = cell.viewWithTag(12345) as? HToolbar
+        if toolbar == nil {
+            cell.addSubview(self.toolbar)
+            self.toolbar.centerInSuperView()
         }
     }
 

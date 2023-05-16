@@ -120,6 +120,12 @@ extension UIView {
         self.verticalCenter(withHeight: superview.height)
     }
     
+    func centerInSuperView() {
+        guard let superview = self.superview else { return }
+        self.horizontalCenter(withWidth: superview.width)
+        self.verticalCenter(withHeight: superview.height)
+    }
+    
     // 根据UIEdgeInsets调整frame
     @objc var edgeInsets: UIEdgeInsets {
         get {

@@ -34,10 +34,11 @@ class HMainController2: HViewController {
         
         toolbar.titleColor = .blue
         toolbar.titleFont = UIFont.font(ofSize: 14, weight: .regular)
+        toolbar.titleBGColor = .green
         
         toolbar.titleSelectedColor = .red
         toolbar.titleSelectedFont = UIFont.font(ofSize: 17, weight: .regular)
-        
+        toolbar.titleSelectedBGColor = .yellow
         
         toolbar.items = ["item1", "item2", "item3"]
         
@@ -46,7 +47,7 @@ class HMainController2: HViewController {
         }
         
         toolbar.cornerRadius = 20
-        toolbar.backgroundColor = .green
+//        toolbar.backgroundColor = .green
         self.view.addSubview(toolbar)
     }
     
