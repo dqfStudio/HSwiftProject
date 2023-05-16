@@ -19,7 +19,7 @@ class HToolbar2: UIStackView, HTupleViewDelegate {
 
     lazy var indicatorBar: UIView = {
 //        return UIView(frame: .zero)
-        return UIView(frame: CGRect(x: 0, y: 37, width: 120, height: 3))
+        return UIView(frame: CGRect(x: 0, y: self.height - 3, width: self.width / 3, height: 3))
     }()
 
     var selectedIndex: Int = 0
@@ -28,7 +28,7 @@ class HToolbar2: UIStackView, HTupleViewDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        self.axis = .vertical
+        self.axis = .horizontal
         self.distribution = .fill
         self.alignment = .fill
 
@@ -58,35 +58,34 @@ class HToolbar2: UIStackView, HTupleViewDelegate {
         return 6
     }
     
-    func tupleHeader(_ headerBlock: Any, inSection section: Any) {
-        let headerBlock = headerBlock as! HTupleHeader
-        let cell = headerBlock(nil, HTupleBaseApex.self, nil, true) as! HTupleBaseApex
-        cell.sizeBlock = {
-            let bounds = cell.layoutViewBounds
-            return CGSize(width: bounds.width, height: 3)
-        }
-    }
-    
-//    func tupleFooter(_ footerBlock: Any, inSection section: Any) {
-//        let footerBlock = footerBlock as! HTupleFooter
-//        let cell = footerBlock(nil, HTupleBaseApex.self, nil, true) as! HTupleBaseApex
+//    func tupleHeader(_ headerBlock: Any, inSection section: Any) {
+//        let headerBlock = headerBlock as! HTupleHeader
+//        let cell = headerBlock(nil, HTupleBaseApex.self, nil, true) as! HTupleBaseApex
 //        cell.sizeBlock = {
 //            let bounds = cell.layoutViewBounds
 //            return CGSize(width: bounds.width, height: 3)
 //        }
 //    }
+    
+    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+        return CGSize(width: self.tupleView.width, height: 3)
+    }
+    
+    func tupleFooter(_ footerBlock: Any, inSection section: Any) {
+        let footerBlock = footerBlock as! HTupleFooter
+        let cell = footerBlock(nil, HTupleBaseApex.self, nil, true) as! HTupleBaseApex
+    }
 
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
         cell.sizeBlock = {
-            let bounds = cell.layoutViewBounds
-            return CGSize(width: bounds.width / 3, height: bounds.height)
+            return CGSize(width: self.tupleView.width / 3, height: self.height - 3)
         }
         cell.cellBlock = {
 
-            let bounds = cell.layoutViewBounds
-            cell.label.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 37)
+//            let bounds = cell.layoutViewBounds
+//            cell.label.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 37)
             cell.label.textAlignment = .center
             cell.label.text = "wwww"
             if indexPath.row == 0 {
@@ -114,7 +113,8 @@ class HToolbar2: UIStackView, HTupleViewDelegate {
         cell.selectBlock = {
             self.selectedIndex = indexPath.row
             
-            self.indicatorBar.frame = CGRect(x: 120 * indexPath.row, y: 37, width: 120, height: 3)
+            self.indicatorBar.x = self.indicatorBar.width * CGFloat(indexPath.row)
+//            self.indicatorBar.frame = CGRect(x: (self.tupleView.width/3) * indexPath.row, y: 37, width: self.tupleView.width / 3, height: 3)
             
             
             self.tupleView.reloadTupleData()
@@ -122,8 +122,12 @@ class HToolbar2: UIStackView, HTupleViewDelegate {
 
     }
 
-//    func tupleScrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offsetY = scrollView.contentOffset.y
+    func tupleViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetX = scrollView.contentOffset.x
+        
+        self.indicatorBar.x = offsetX
+        
+        
 //        if (offsetY >= 2 * self.view.height) {//向上滚动
 //            scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
 //            self.tupleScrollViewDidScrollToTop(scrollView)
@@ -131,7 +135,7 @@ class HToolbar2: UIStackView, HTupleViewDelegate {
 //            scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
 //            self.tupleScrollViewDidScrollToBottom(scrollView)
 //        }
-//    }
+    }
 
 //    func tupleScrollViewDidScroll(_ scrollView: UIScrollView) {
 //        let offsetY = scrollView.contentOffset.y

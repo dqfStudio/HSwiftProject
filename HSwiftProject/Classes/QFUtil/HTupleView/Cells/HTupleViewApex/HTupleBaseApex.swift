@@ -8,28 +8,17 @@
 
 import UIKit
 
-typealias HTupleApexSizeBlock = () -> CGSize
-typealias HTupleApexEdgeInsetsBlock = () -> UIEdgeInsets
-typealias HTupleApexBlock = () -> Void
-
 class HTupleBaseApex : UICollectionReusableView {
     
     /// Tuple view where the cell is located
     weak var tuple: UICollectionView?
+    
     /// Whether the cell is a section header
     var isHeader: Bool = false
+    
     /// The indexPath where the cell is located
     var indexPath: IndexPath?
     
-    /// Callback for getting size.
-    var sizeBlock: HTupleApexSizeBlock?
-    
-    /// Callback for obtaining edgeInsets
-    var edgeInsetsBlock: HTupleApexEdgeInsetsBlock?
-    
-    /// Callback for getting a apex
-    var cellBlock: HTupleApexBlock?
-
     /// Signal block
     var signalBlock: HTupleCellSignalBlock?
     

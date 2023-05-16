@@ -465,24 +465,19 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
         // Save cell
         self.allReuseHeaders.setObject(cell, forKey: IndexPath.nsStringValue(0, idxPath.section))
-        
-        // delegate status
-        if tupleStatus == .delegate {
-            // Call delegate method
-            var edgeInsets: UIEdgeInsets = .zero
-            if let delegate = self.tupleDelegate {
-                let prefix = self.tupleSplitPrefix(withSection: idxPath.section)
-                let selector: Selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    edgeInsets = delegate.performWithUnretainedValue(selector, with: idxPath.section, withPre: prefix) as! UIEdgeInsets
-                }
-            }
-            // Set properties
-            if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-                cell.edgeInsets = edgeInsets
+        // Call delegate method
+        var edgeInsets: UIEdgeInsets = .zero
+        if let delegate = self.tupleDelegate {
+            let prefix = self.tupleSplitPrefix(withSection: idxPath.section)
+            let selector: Selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                edgeInsets = delegate.performWithUnretainedValue(selector, with: idxPath.section, withPre: prefix) as! UIEdgeInsets
             }
         }
-        
+        // Set properties
+        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
+            cell.edgeInsets = edgeInsets
+        }
         // Return cell
         return cell
     }
@@ -514,24 +509,19 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
         // Save cell
         self.allReuseFooters.setObject(cell, forKey: IndexPath.nsStringValue(0, idxPath.section))
-        
-        // delegate status
-        if tupleStatus == .delegate {
-            // Call delegate method
-            var edgeInsets: UIEdgeInsets = .zero
-            if let delegate = self.tupleDelegate {
-                let prefix = self.tupleSplitPrefix(withSection: idxPath.section)
-                let selector = #selector(delegate.edgeInsetsForFooterInSection(_:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    edgeInsets = delegate.performWithUnretainedValue(selector, with: idxPath.section, withPre: prefix) as! UIEdgeInsets
-                }
-            }
-            // Set properties
-            if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-                cell.edgeInsets = edgeInsets
+        // Call delegate method
+        var edgeInsets: UIEdgeInsets = .zero
+        if let delegate = self.tupleDelegate {
+            let prefix = self.tupleSplitPrefix(withSection: idxPath.section)
+            let selector = #selector(delegate.edgeInsetsForFooterInSection(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                edgeInsets = delegate.performWithUnretainedValue(selector, with: idxPath.section, withPre: prefix) as! UIEdgeInsets
             }
         }
-        
+        // Set properties
+        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
+            cell.edgeInsets = edgeInsets
+        }
         // Return cell
         return cell
     }
@@ -661,29 +651,6 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             // blcok status
             if tupleStatus == .block {
                 
-                // Traverse to obtain the header, footer of the section
-                let indexPath = IndexPath(row: 0, section: section)
-                let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
-
-                // Call header delegate method
-                let headerSelector = #selector(delegate.tupleHeader(_:inSection:))
-                let headerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
-                    return self.dequeueReusableHeaderWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
-                }
-                if delegate.responds(to: headerSelector, withPre: prefix) {
-                    delegate.perform(headerSelector, with: headerBlock, with: indexPath.section, withPre: prefix)
-                }
-
-
-                // Call footer delegate method
-                let footerSelector = #selector(delegate.tupleFooter(_:inSection:))
-                let footerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
-                    return self.dequeueReusableFooterWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
-                }
-                if delegate.responds(to: footerSelector, withPre: prefix) {
-                    delegate.perform(footerSelector, with: footerBlock, with: indexPath.section, withPre: prefix)
-                }
-                
                 // Traverse to obtain the cell of the section
                 for item in 0...items {
                         
@@ -699,6 +666,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                         delegate.perform(itemSelector, with: itemBlock, with: indexPath, withPre: prefix)
                     }
                 }
+                
             }
             
         }
@@ -738,79 +706,30 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         var size = CGSize.zero
-        // delegate status
-        if tupleStatus == .delegate {
-            
-            if let delegate = self.tupleDelegate {
-                let prefix = self.tupleSplitPrefix(withSection: section)
-                let selector = #selector(delegate.sizeForHeaderInSection(_:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    size = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
-                }
-                // Prevent negative size
-                size.width = max(size.width, 0.0)
-                size.height = max(size.height, 0.0)
+        if let delegate = self.tupleDelegate {
+            let prefix = self.tupleSplitPrefix(withSection: section)
+            let selector = #selector(delegate.sizeForHeaderInSection(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                size = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
             }
-            
-        } else {
-            // Call header
-            let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section)) as? HTupleBaseApex
-            
-            // Update layout
-            if let header = header, let sizeBlock = header.sizeBlock {
-                
-                // Get the size
-                var frame = header.bounds
-                frame.size = sizeBlock()
-                
-                // Prevent negative size
-                if frame.width <= 0 { frame.width = 0.0 }
-                if frame.height <= 0 { frame.height = 0.0 }
-                
-                // Resize
-                header.frame = frame
-                size = frame.size
-            }
+            // Prevent negative size
+            size.width = max(size.width, 0.0)
+            size.height = max(size.height, 0.0)
         }
         return UISizeIntegral(size)
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         var size = CGSize.zero
-        // delegate status
-        if tupleStatus == .delegate {
-            
-            if let delegate = self.tupleDelegate {
-                let prefix = self.tupleSplitPrefix(withSection: section)
-                let selector = #selector(delegate.sizeForFooterInSection(_:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    size = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
-                }
-                // Prevent negative size
-                size.width = max(size.width, 0.0)
-                size.height = max(size.height, 0.0)
+        if let delegate = self.tupleDelegate {
+            let prefix = self.tupleSplitPrefix(withSection: section)
+            let selector = #selector(delegate.sizeForFooterInSection(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                size = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGSize
             }
-            
-        } else {
-            
-            // Call footer
-            let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section)) as? HTupleBaseApex
-            
-            // Update layout
-            if let footer = footer, let sizeBlock = footer.sizeBlock {
-                
-                // Get the size
-                var frame = footer.bounds
-                frame.size = sizeBlock()
-                
-                // Prevent negative size
-                if frame.width <= 0 { frame.width = 0.0 }
-                if frame.height <= 0 { frame.height = 0.0 }
-                
-                // Resize
-                footer.frame = frame
-                size = frame.size
-            }
+            // Prevent negative size
+            size.width = max(size.width, 0.0)
+            size.height = max(size.height, 0.0)
         }
         return UISizeIntegral(size)
     }
@@ -918,68 +837,40 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
     
     internal func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
         var cell: HTupleBaseApex?
-        
-        // delegate status
-        if tupleStatus == .delegate {
-            
-            if kind == UICollectionElementKindSectionHeader {
-                // Call delegate method
-                if let delegate = self.tupleDelegate {
-                    let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
-                    let selector: Selector = #selector(delegate.tupleHeader(_:inSection:))
-                    let headerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
-                        return self.dequeueReusableHeaderWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
-                    }
-                    if delegate.responds(to: selector, withPre: prefix) {
-                        delegate.perform(selector, with: headerBlock, with: indexPath.section, withPre: prefix)
-                    }
+        if kind == UICollectionElementKindSectionHeader {
+            // Call delegate method
+            if let delegate = self.tupleDelegate {
+                let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+                let selector: Selector = #selector(delegate.tupleHeader(_:inSection:))
+                let headerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
+                    return self.dequeueReusableHeaderWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
                 }
-                // Call cell
-                cell = self.allReuseHeaders.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
-            }else if (kind == UICollectionElementKindSectionFooter) {
-                // Call delegate method
-                if let delegate = self.tupleDelegate {
-                    let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
-                    let selector: Selector = #selector(delegate.tupleFooter(_:inSection:))
-                    let footerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
-                        return self.dequeueReusableFooterWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
-                    }
-                    if delegate.responds(to: selector, withPre: prefix) {
-                        delegate.perform(selector, with: footerBlock, with: indexPath.section, withPre: prefix)
-                    }
+                if delegate.responds(to: selector, withPre: prefix) {
+                    delegate.perform(selector, with: headerBlock, with: indexPath.section, withPre: prefix)
                 }
-                // Call cell
-                cell = self.allReuseFooters.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
             }
-            // Update layout
-            if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-                cell.relayoutSubviews()
-            }
-            
-        } else {// block status
-         
-            if kind == UICollectionElementKindSectionHeader {
-                cell = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, indexPath.section)) as? HTupleBaseApex
-            }else if (kind == UICollectionElementKindSectionFooter) {
-                cell = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, indexPath.section)) as? HTupleBaseApex
-            }
-            
-            // Set the edgeInsets of the cell.
-            if let cell = cell {
-                // Reset edge insets
-                if let edgeInsetsBlock = cell.edgeInsetsBlock {
-                    cell.edgeInsets = edgeInsetsBlock()
+            // Call cell
+            cell = self.allReuseHeaders.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
+        }else if (kind == UICollectionElementKindSectionFooter) {
+            // Call delegate method
+            if let delegate = self.tupleDelegate {
+                let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+                let selector: Selector = #selector(delegate.tupleFooter(_:inSection:))
+                let footerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
+                    return self.dequeueReusableFooterWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
                 }
-                // Get apex subview
-                cell.cellBlock?()
-                // Update layout
-                cell.relayoutSubviews()
+                if delegate.responds(to: selector, withPre: prefix) {
+                    delegate.perform(selector, with: footerBlock, with: indexPath.section, withPre: prefix)
+                }
             }
-            
+            // Call cell
+            cell = self.allReuseFooters.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
         }
-        
+        // Update layout
+        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
+            cell.relayoutSubviews()
+        }
         // Prevent crashes
         return cell ?? UICollectionReusableView()
     }
@@ -1345,17 +1236,11 @@ extension HTupleView {
             }
             //release all header
             self.allReuseHeaders.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HTupleBaseApex)?.sizeBlock = nil
-                ($0 as? HTupleBaseApex)?.cellBlock = nil
                 ($0 as? HTupleBaseApex)?.signalBlock = nil
-                ($0 as? HTupleBaseApex)?.edgeInsetsBlock = nil
             }
             //release all footer
             self.allReuseFooters.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HTupleBaseApex)?.sizeBlock = nil
-                ($0 as? HTupleBaseApex)?.cellBlock = nil
                 ($0 as? HTupleBaseApex)?.signalBlock = nil
-                ($0 as? HTupleBaseApex)?.edgeInsetsBlock = nil
             }
         }
     }

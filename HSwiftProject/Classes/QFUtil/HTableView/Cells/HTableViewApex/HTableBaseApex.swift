@@ -8,8 +8,6 @@
 
 import UIKit
 
-typealias HTableApexBlock = (_ idxPath: IndexPath) -> Void
-
 class HTableBaseApex : UITableViewHeaderFooterView {
     
     ///cell所在的table view
@@ -20,9 +18,6 @@ class HTableBaseApex : UITableViewHeaderFooterView {
     
     ///cell所在的section
     var section: Int?
-    
-    ///cell点击block，用户用户点击事件
-    var cellBlock: HTableApexBlock?
     
     ///信号block
     var signalBlock: HTableCellSignalBlock?
