@@ -660,32 +660,35 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             
             // blcok status
             if tupleStatus == .block {
-                // Traverse to obtain the header, footer, and cell of the section
+                
+                // Traverse to obtain the header, footer of the section
+                let indexPath = IndexPath(row: 0, section: section)
+                let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+
+                // Call header delegate method
+                let headerSelector = #selector(delegate.tupleHeader(_:inSection:))
+                let headerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
+                    return self.dequeueReusableHeaderWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
+                }
+                if delegate.responds(to: headerSelector, withPre: prefix) {
+                    delegate.perform(headerSelector, with: headerBlock, with: indexPath.section, withPre: prefix)
+                }
+
+
+                // Call footer delegate method
+                let footerSelector = #selector(delegate.tupleFooter(_:inSection:))
+                let footerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
+                    return self.dequeueReusableFooterWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
+                }
+                if delegate.responds(to: footerSelector, withPre: prefix) {
+                    delegate.perform(footerSelector, with: footerBlock, with: indexPath.section, withPre: prefix)
+                }
+                
+                // Traverse to obtain the cell of the section
                 for item in 0...items {
                         
                     let indexPath = IndexPath(row: item, section: section)
                     let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
-                    
-                    
-                    // Call header delegate method
-                    let headerSelector = #selector(delegate.tupleHeader(_:inSection:))
-                    let headerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
-                        return self.dequeueReusableHeaderWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
-                    }
-                    if delegate.responds(to: headerSelector, withPre: prefix) {
-                        delegate.perform(headerSelector, with: headerBlock, with: indexPath.section, withPre: prefix)
-                    }
-                    
-                    
-                    // Call footer delegate method
-                    let footerSelector = #selector(delegate.tupleFooter(_:inSection:))
-                    let footerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
-                        return self.dequeueReusableFooterWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
-                    }
-                    if delegate.responds(to: footerSelector, withPre: prefix) {
-                        delegate.perform(footerSelector, with: footerBlock, with: indexPath.section, withPre: prefix)
-                    }
-                    
                     
                     // Call cell delegate method
                     let itemSelector = #selector(delegate.tupleItem(_:atIndexPath:))
