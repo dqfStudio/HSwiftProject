@@ -99,18 +99,18 @@ class HRegisterController: HViewController, HTupleViewDelegate {
     func tupleExa0_numberOfItemsInSection(_ section: Any) -> Any {
         return 1
     }
-    @objc
-    func tupleExa0_sizeForHeaderInSection(_ section: Any) -> Any {
-        return CGSize(width: self.tupleView.width, height: 10)
-    }
+//    @objc
+//    func tupleExa0_sizeForHeaderInSection(_ section: Any) -> Any {
+//        return CGSize(width: self.tupleView.width, height: 10)
+//    }
     @objc
     func tupleExa0_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         return CGSize(width: self.tupleView.width, height: 55)
     }
-    @objc
-    func tupleExa0_tupleHeader(_ headerBlock: Any, inSection section: Any) {
-        _ = (headerBlock as! HTupleHeader)(nil, HTupleBaseApex.self, nil, false)
-    }
+//    @objc
+//    func tupleExa0_tupleHeader(_ headerBlock: Any, inSection section: Any) {
+//        _ = (headerBlock as! HTupleHeader)(nil, HTupleBaseApex.self, nil, false)
+//    }
     @objc
     func tupleExa0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem

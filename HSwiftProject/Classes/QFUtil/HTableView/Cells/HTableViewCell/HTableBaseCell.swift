@@ -84,7 +84,7 @@ class HTableBaseCell : UITableViewCell {
     
     /// The layout view loaded on the content view
     lazy var layoutView: UIStackView = {
-        let stackView = UIStackView(frame: self.frame)
+        let stackView = UIStackView(frame: self.bounds)
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .fill
@@ -94,7 +94,7 @@ class HTableBaseCell : UITableViewCell {
 
     /// The separator view loaded on the content view
     lazy var separatorView: HCellApexSeparator = {
-        let separator = HCellApexSeparator(frame: self.frame)
+        let separator = HCellApexSeparator(frame: self.bounds)
         self.contentView.addSubview(separator)
         return separator
     }()

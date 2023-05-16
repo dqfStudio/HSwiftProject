@@ -12,71 +12,77 @@ extension HRegisterController {
 
     @objc
     func tuple0_numberOfSectionsInTupleView() -> Any {
-        return 3
+        return 2
     }
     @objc
     func tuple0_numberOfItemsInSection(_ section: Any) -> Any {
-        switch (section as! Int) {
-        case 1: return 6
-        case 2: return 1
-        default: return 0
-        }
+//        switch (section as! Int) {
+//        case 1: return 6
+//        case 2: return 1
+//        default: return 0
+//        }
+        return 3
     }
     @objc
     func tuple0_sizeForHeaderInSection(_ section: Any) -> Any {
-        switch (section as! Int) {
-        case 1: return CGSize(width: self.tupleView.width, height: 5)
-        case 2: return CGSize.zero
-        default: return CGSize.zero
-        }
+//        switch (section as! Int) {
+//        case 1: return CGSize(width: self.tupleView.width, height: 5)
+//        case 2: return CGSize.zero
+//        default: return CGSize.zero
+//        }
+        return CGSize(width: self.tupleView.width, height: 5)
     }
     @objc
     func tuple0_sizeForFooterInSection(_ section: Any) -> Any {
-        switch (section as! Int) {
-        case 1: return CGSize(width: tupleView.width, height: 15)
-        case 2: return CGSize.zero
-        default:return CGSize.zero
-        }
+//        switch (section as! Int) {
+//        case 1: return CGSize(width: tupleView.width, height: 15)
+//        case 2: return CGSize.zero
+//        default:return CGSize.zero
+//        }
+        return CGSize(width: tupleView.width, height: 15)
     }
     @objc
     func tuple0_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        switch (indexPath.section) {
-        case 1: return CGSize(width: tupleView.width, height: 55)
-        case 2: return CGSize(width: tupleView.width, height: 55)
-        default: return CGSize.zero
-        }
+//        switch (indexPath.section) {
+//        case 1: return CGSize(width: tupleView.width, height: 55)
+//        case 2: return CGSize(width: tupleView.width, height: 55)
+//        default: return CGSize.zero
+//        }
+        return CGSize(width: tupleView.width, height: 55)
     }
 
-    @objc
-    func tuple0_edgeInsetsForHeaderInSection(_ section: Any) -> Any {
-        return UIEdgeInsets.zero
-    }
-    @objc
-    func tuple0_edgeInsetsForFooterInSection(_ section: Any) -> Any {
-        return UIEdgeInsets.zero
-    }
-    @objc
-    func tuple0_edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        switch (indexPath.section) {
-        case 2: return UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 60)
-        default: return UIEdgeInsets.zero
-        }
-    }
+//    @objc
+//    func tuple0_edgeInsetsForHeaderInSection(_ section: Any) -> Any {
+//        return UIEdgeInsets.zero
+//    }
+//    @objc
+//    func tuple0_edgeInsetsForFooterInSection(_ section: Any) -> Any {
+//        return UIEdgeInsets.zero
+//    }
+//    @objc
+//    func tuple0_edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+//        switch (indexPath.section) {
+//        case 2: return UIEdgeInsets(top: 0, left: 60, bottom: 0, right: 60)
+//        default: return UIEdgeInsets.zero
+//        }
+//    }
 
-    @objc
-    func tuple0_insetForSection(_ section: Any) -> Any {
-        return UIEdgeInsets.zero
-    }
-
+//    @objc
+//    func tuple0_insetForSection(_ section: Any) -> Any {
+//        return UIEdgeInsets.zero
+//    }
+//
     @objc
     func tuple0_tupleHeader(_ headerBlock: Any, inSection section: Any) {
         let headerBlock = headerBlock as! HTupleHeader
-        _ = headerBlock(nil, HTupleBaseApex.self, nil, false) as! HTupleBaseApex
+        let cell = headerBlock(nil, HTupleBaseApex.self, nil, false) as! HTupleBaseApex
+        cell.backgroundColor = .red
     }
     @objc
     func tuple0_tupleFooter(_ footerBlock: Any, inSection section: Any) {
         let footerBlock = footerBlock as! HTupleFooter
-        _ = footerBlock(nil, HTupleBaseApex.self, nil, false) as! HTupleBaseApex
+        let cell = footerBlock(nil, HTupleBaseApex.self, nil, false) as! HTupleBaseApex
+        cell.backgroundColor = .blue
     }
     @objc
     func tuple0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
