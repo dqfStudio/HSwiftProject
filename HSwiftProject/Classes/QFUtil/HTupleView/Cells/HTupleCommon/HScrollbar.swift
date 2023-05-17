@@ -50,7 +50,7 @@ class HScrollbar: UIStackView, HTupleViewDelegate {
     }
     
     // Indicator bar height
-    var indicatorBarHeight: CGFloat = 0.0 {
+    var indicatorBarHeight: CGFloat = 3.0 {
         didSet {
             if indicatorBarHeight != oldValue {
                 let originX = abs(indicatorBarWidth - itemWidth) / 2
