@@ -41,6 +41,9 @@ class HMainController2: HViewController {
         toolbar.titleSelectedBGColor = .yellow
 
         toolbar.items = ["item1", "item2", "item3", "item4", "item5", "item6"]
+        toolbar.itemWidth = UIScreen.width / 6
+        
+        toolbar.isScrollEnabled = false
 
         toolbar.selectedBlock = { index in
             NSLog(index)

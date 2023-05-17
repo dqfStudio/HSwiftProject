@@ -70,7 +70,11 @@ class HScrollbar: UIStackView, HTupleViewDelegate {
     var items: [String]?
     
     // Item width
-    var itemWidth: CGFloat = 100.0
+    var itemWidth: CGFloat = 100.0 {
+        didSet {
+            indicatorBarWidth = itemWidth
+        }
+    }
     
     // The font and color of the unselected item titles
     var titleFont: UIFont = UIFont.systemFont(ofSize: 14)
@@ -85,6 +89,12 @@ class HScrollbar: UIStackView, HTupleViewDelegate {
     override var backgroundColor: UIColor? {
         get { return nil }
         set { _ = newValue }
+    }
+    
+    var isScrollEnabled: Bool = true {
+        didSet {
+            tupleView.isScrollEnabled = isScrollEnabled
+        }
     }
     
     override init(frame: CGRect) {
