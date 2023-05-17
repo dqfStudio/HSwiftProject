@@ -1,5 +1,5 @@
 //
-//  HToolbar2.swift
+//  HScrollbar.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/5/15.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-typealias HToolbar2Block = (_ Index: Int) -> Void
+typealias HScrollbarBlock = (_ Index: Int) -> Void
 
 // A custom UIStackView that displays a horizontal list of items with a selected item indicator
-class HToolbar2: UIStackView, HTupleViewDelegate {
+class HScrollbar: UIStackView, HTupleViewDelegate {
     
     // A lazy-loaded HTupleView instance
     private lazy var tupleView: HTupleView = {
@@ -50,7 +50,7 @@ class HToolbar2: UIStackView, HTupleViewDelegate {
     }
     
     // Indicator bar height
-    var indicatorBarHeight: CGFloat = 3.0 {
+    var indicatorBarHeight: CGFloat = 0.0 {
         didSet {
             if indicatorBarHeight != oldValue {
                 let originX = abs(indicatorBarWidth - itemWidth) / 2
@@ -63,8 +63,8 @@ class HToolbar2: UIStackView, HTupleViewDelegate {
     // The index of the currently selected item
     var selectedIndex: Int = 0
     
-    // Define a variable to hold the selected block in the toolbar
-    var selectedBlock: HToolbar2Block?
+    // Define a variable to hold the selected block in the scrollbar
+    var selectedBlock: HScrollbarBlock?
     
     // An array of strings representing the items to be displayed
     var items: [String]?

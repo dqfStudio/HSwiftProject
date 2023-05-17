@@ -12,7 +12,7 @@ class HMainController2: HViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let toolbar = HToolbar2(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 40))
+        let toolbar = HScrollbar(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 40))
 //        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 40))
         
 //        var items = [UIBarButtonItem]()
