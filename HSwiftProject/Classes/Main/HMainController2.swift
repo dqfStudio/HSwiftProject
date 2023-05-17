@@ -32,21 +32,21 @@ class HMainController2: HViewController {
 //        toolbar.setItems(items, animated: false)
         
         
-//        toolbar.titleColor = .blue
-//        toolbar.titleFont = UIFont.font(ofSize: 14, weight: .regular)
-//        toolbar.titleBGColor = .green
-//
-//        toolbar.titleSelectedColor = .red
-//        toolbar.titleSelectedFont = UIFont.font(ofSize: 17, weight: .regular)
-//        toolbar.titleSelectedBGColor = .yellow
-//
-//        toolbar.items = ["item1", "item2", "item3"]
-//
-//        toolbar.selectedBlock = { index in
-//            NSLog(index)
-//        }
+        toolbar.titleColor = .blue
+        toolbar.titleFont = UIFont.font(ofSize: 14, weight: .regular)
+        toolbar.titleBGColor = .green
+
+        toolbar.titleSelectedColor = .red
+        toolbar.titleSelectedFont = UIFont.font(ofSize: 17, weight: .regular)
+        toolbar.titleSelectedBGColor = .yellow
+
+        toolbar.items = ["item1", "item2", "item3", "item4", "item5", "item6"]
+
+        toolbar.selectedBlock = { index in
+            NSLog(index)
+        }
         
-//        toolbar.cornerRadius = 20
+        toolbar.cornerRadius = 20
 //        toolbar.backgroundColor = .green
         self.view.addSubview(toolbar)
     }

@@ -8,225 +8,158 @@
 
 import UIKit
 
-class HToolbar2: UIStackView, HTupleViewDelegate {
+typealias HToolbar2Block = (_ Index: Int) -> Void
 
-    lazy var tupleView: HTupleView = {
+// A custom UIStackView that displays a horizontal list of items with a selected item indicator
+class HToolbar2: UIStackView, HTupleViewDelegate {
+    
+    // A lazy-loaded HTupleView instance
+    private lazy var tupleView: HTupleView = {
         let tupleView = HTupleView(frame: .zero, scrollDirection: .horizontal)
-//        let tupleView = HTupleView(frame: .zero)
         tupleView.tupleStatus = .block
         return tupleView
     }()
-
-    lazy var indicatorBar: UIView = {
-//        return UIView(frame: .zero)
-        return UIView(frame: CGRect(x: 0, y: self.height - 3, width: self.width / 3, height: 3))
+    
+    // Indicator bar
+    private lazy var indicatorBar: UIView = {
+        let originX = abs(indicatorBarWidth - itemWidth) / 2
+        return UIView(frame: CGRect(x: originX, y: self.height - indicatorBarHeight, width: indicatorBarWidth, height: indicatorBarHeight))
     }()
-
+    
+    // Indicator bar color
+    var indicatorBarColor: UIColor = .red {
+        didSet {
+            indicatorBar.backgroundColor = indicatorBarColor
+        }
+    }
+    
+    // Indicator bar width
+    private var _indicatorBarWidth: CGFloat = 100.0
+    var indicatorBarWidth: CGFloat {
+        get {
+            return _indicatorBarWidth
+        }
+        set {
+            if _indicatorBarWidth != newValue {
+                _indicatorBarWidth = min(newValue, itemWidth)
+                let originX = abs(_indicatorBarWidth - itemWidth) / 2
+                let frame = CGRect(x: originX, y: self.height - indicatorBarHeight, width: _indicatorBarWidth, height: indicatorBarHeight)
+                indicatorBar.frame = frame
+            }
+        }
+    }
+    
+    // Indicator bar height
+    var indicatorBarHeight: CGFloat = 3.0 {
+        didSet {
+            if indicatorBarHeight != oldValue {
+                let originX = abs(indicatorBarWidth - itemWidth) / 2
+                let frame = CGRect(x: originX, y: self.height - indicatorBarHeight, width: indicatorBarWidth, height: indicatorBarHeight)
+                indicatorBar.frame = frame
+            }
+        }
+    }
+    
+    // The index of the currently selected item
     var selectedIndex: Int = 0
-
-
+    
+    // Define a variable to hold the selected block in the toolbar
+    var selectedBlock: HToolbar2Block?
+    
+    // An array of strings representing the items to be displayed
+    var items: [String]?
+    
+    // Item width
+    var itemWidth: CGFloat = 100.0
+    
+    // The font and color of the unselected item titles
+    var titleFont: UIFont = UIFont.systemFont(ofSize: 14)
+    var titleColor: UIColor = .black
+    var titleBGColor: UIColor = .white
+    
+    // The font and color of the selected item title
+    var titleSelectedFont: UIFont = UIFont.systemFont(ofSize: 14)
+    var titleSelectedColor: UIColor = .black
+    var titleSelectedBGColor: UIColor = .white
+    
+    override var backgroundColor: UIColor? {
+        get { return nil }
+        set { _ = newValue }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        // Set the stack view properties
         self.axis = .horizontal
         self.distribution = .fill
         self.alignment = .fill
-
-        self.tupleView.delegate = self
+        
+        // Set the delegate of the tuple view to self and add it as a subview
+        tupleView.delegate = self
         self.addArrangedSubview(tupleView)
-
-//        indicatorBar.widthAnchor.constraint(equalToConstant: 120).isActive = true
-//        indicatorBar.heightAnchor.constraint(equalToConstant: 3).isActive = true
-//        self.addArrangedSubview(indicatorBar)
-//        UICollectionView
         
-//        tupleView.isPagingEnabled = true
-//        tupleView.isScrollEnabled = true
-        
-        
-        
-        indicatorBar.backgroundColor = .red
+        // Add indicatorBar
+        indicatorBar.backgroundColor = indicatorBarColor
         tupleView.addSubview(indicatorBar)
     }
-
+    
     @available(*, unavailable)
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    // Returns the number of items in the section
     func numberOfItemsInSection(_ section: Any) -> Any {
-        return 6
-    }
-    
-//    func tupleHeader(_ headerBlock: Any, inSection section: Any) {
-//        let headerBlock = headerBlock as! HTupleHeader
-//        let cell = headerBlock(nil, HTupleBaseApex.self, nil, true) as! HTupleBaseApex
-//        cell.sizeBlock = {
-//            let bounds = cell.layoutViewBounds
-//            return CGSize(width: bounds.width, height: 3)
-//        }
-//    }
-    
-    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return CGSize(width: self.tupleView.width, height: 3)
-    }
-    
-    func tupleFooter(_ footerBlock: Any, inSection section: Any) {
-        let footerBlock = footerBlock as! HTupleFooter
-        let cell = footerBlock(nil, HTupleBaseApex.self, nil, true) as! HTupleBaseApex
+        return items?.count ?? 0
     }
 
+    // Configures the tuple item at the specified index path
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+        let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
         cell.sizeBlock = {
-            return CGSize(width: self.tupleView.width / 3, height: self.height - 3)
+            return CGSize(width: self.itemWidth, height: self.height)
         }
         cell.cellBlock = {
-
-//            let bounds = cell.layoutViewBounds
-//            cell.label.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 37)
+            let bounds = cell.layoutViewBounds
+            let labelFrame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - self.indicatorBarHeight)
+            
+            let item = self.items?[indexPath.row]
+            cell.label.frame = labelFrame
             cell.label.textAlignment = .center
-            cell.label.text = "wwww"
-            if indexPath.row == 0 {
-                cell.label.backgroundColor = UIColor.blue
-            } else if indexPath.row == 1 {
-                cell.label.backgroundColor = UIColor.green
-            } else if indexPath.row == 2 {
-                cell.label.backgroundColor = UIColor.yellow
-            }
-
-//            cell.detailLabel.frame = CGRect(x: 0, y: 37, width: bounds.width, height: 3)
-//            if indexPath.row == 0 {
-//                cell.detailLabel.backgroundColor = .red
-//            } else if indexPath.row == 1 {
-//
-//            } else if indexPath.row == 2 {
-//
-//            }
+            cell.label.text = item
+            
+            // Set the font and color of the title based on whether it is selected or not
             if self.selectedIndex == indexPath.row {
-//                cell.detailLabel.backgroundColor = .red
+                cell.label.font = self.titleSelectedFont
+                cell.label.textColor = self.titleSelectedColor
+                cell.backgroundColor = self.titleSelectedBGColor
             } else {
-//                cell.detailLabel.backgroundColor = .clear
+                cell.label.font = self.titleFont
+                cell.label.textColor = self.titleColor
+                cell.backgroundColor = self.titleBGColor
             }
         }
         cell.selectBlock = {
             self.selectedIndex = indexPath.row
-            
-            self.indicatorBar.x = self.indicatorBar.width * CGFloat(indexPath.row)
-//            self.indicatorBar.frame = CGRect(x: (self.tupleView.width/3) * indexPath.row, y: 37, width: self.tupleView.width / 3, height: 3)
-            
-            
+            self.selectedBlock?(indexPath.row)
             self.tupleView.reloadTupleData()
+            
+            // Set indicatorBar frame
+            let originX = abs(self.indicatorBarWidth - self.itemWidth) / 2
+            self.indicatorBar.x = originX + self.itemWidth * CGFloat(indexPath.row)
+            
+            // Scroll item
+            let items = self.tupleView.numberOfItems(inSection: indexPath.section)
+            var row = indexPath.row + 1
+            if row >= items { row = items - 1 }
+            let indexPath = IndexPath(row: row, section: indexPath.section)
+            self.tupleView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.right, animated: true)
+            
         }
 
     }
-
-    func tupleViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetX = scrollView.contentOffset.x
-        
-        self.indicatorBar.x = offsetX
-        
-        
-//        if (offsetY >= 2 * self.view.height) {//向上滚动
-//            scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
-//            self.tupleScrollViewDidScrollToTop(scrollView)
-//        }else if (offsetY <= 0) {//向下滚动
-//            scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
-//            self.tupleScrollViewDidScrollToBottom(scrollView)
-//        }
-    }
-
-//    func tupleScrollViewDidScroll(_ scrollView: UIScrollView) {
-//        let offsetY = scrollView.contentOffset.y
-//        if (offsetY >= 2 * self.view.height) {//向上滚动
-//            scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
-//            self.tupleScrollViewDidScrollToTop(scrollView)
-//        }else if (offsetY <= 0) {//向下滚动
-//            scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
-//            self.tupleScrollViewDidScrollToBottom(scrollView)
-//        }
-//    }
-
-    func tupleViewWillEndDragging(_ velocity: CGPoint, targetContentOffset: CGPoint) {
-        let targetX = targetContentOffset.x
-        let currentX = self.tupleView.contentOffset.x
-        let distance = targetX - currentX
-
-        if distance > 0 {
-            // User swiped right
-            print("User swiped right")
-        } else if distance < 0 {
-            // User swiped left
-            print("User swiped left")
-        }
-
-        let page: Int = Int(currentX / 150)
-//        self.tabBar.selectedItemIndex = page
-
-//        self.selectedIndex = page
-//        self.tupleView.reloadTupleData()
-    }
-
-    // UIScrollViewDelegate
-    func tupleViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        let page: Int = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
-        let page: Int = Int(scrollView.contentOffset.x / 150)
-//        self.tabBar.selectedItemIndex = page
-
-//        self.selectedIndex = page
-//        self.tupleView.reloadTupleData()
-    }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-
-//        // 如果不是手势拖动导致的此方法被调用，不处理
-//        if !(scrollView.isDragging || scrollView.isDecelerating) {
-//            if (scrollView.contentOffset.x == 0) {
-//                // 解决有时候滑动冲突后scrollView跳动导致的item颜色显示错乱的问题
-//                self.tabBar.updateSubViewsWhenParentScrollViewScroll(self.contentScrollView)
-//            }
-//            return
-//        }
-//
-//        // 滑动越界不处理
-//        let offsetX: CGFloat = scrollView.contentOffset.x
-//        let scrollViewWidth: CGFloat = scrollView.frame.size.width
-//
-//        if (offsetX < 0) {
-//            return
-//        }
-//        if (offsetX > scrollView.h_contentSize.width - scrollViewWidth) {
-//            return
-//        }
-//
-//        let leftIndex: Int = Int(offsetX / scrollViewWidth)
-//        var rightIndex: Int = leftIndex + 1
-    }
-
-//    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        let targetX = targetContentOffset.pointee.x
-//        let currentX = scrollView.contentOffset.x
-//        let distance = targetX - currentX
-//
-//        if distance > 0 {
-//            // User swiped right
-//            print("User swiped right")
-//        } else if distance < 0 {
-//            // User swiped left
-//            print("User swiped left")
-//        }
-//    }
-
-//    //向上滚动
-//    func tupleScrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-//        // 更改直播状态
-////        self.liveStatus = .loading
-//    }
-//    //向下滚动
-//    func tupleScrollViewDidScrollToBottom(_ scrollView: UIScrollView) {
-//        // 更改直播状态
-////        self.liveStatus = .loading
-//    }
-
+    
 }
+
