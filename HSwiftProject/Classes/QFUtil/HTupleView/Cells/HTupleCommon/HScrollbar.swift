@@ -166,7 +166,6 @@ class HScrollbar: UIStackView, HTupleViewDelegate {
             if row >= items { row = items - 1 }
             let indexPath = IndexPath(row: row, section: indexPath.section)
             self.tupleView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.right, animated: true)
-            
         }
 
     }
