@@ -228,6 +228,7 @@
 		EB80B66C2A1130E10016648A /* HToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B66B2A1130E00016648A /* HToolbar.swift */; };
 		EB80B66E2A122A940016648A /* HScrollbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B66D2A122A940016648A /* HScrollbar.swift */; };
 		EB80B6722A150D540016648A /* HToolbar3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6712A150D540016648A /* HToolbar3.swift */; };
+		EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6732A15C8ED0016648A /* HLabel.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -527,6 +528,7 @@
 		EB80B66B2A1130E00016648A /* HToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HToolbar.swift; sourceTree = "<group>"; };
 		EB80B66D2A122A940016648A /* HScrollbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HScrollbar.swift; sourceTree = "<group>"; };
 		EB80B6712A150D540016648A /* HToolbar3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HToolbar3.swift; sourceTree = "<group>"; };
+		EB80B6732A15C8ED0016648A /* HLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLabel.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -787,6 +789,7 @@
 				A2A814C4274F56C400FAB929 /* UIView+HUtil.swift */,
 				EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */,
 				EB80B6692A111C6B0016648A /* HButton.swift */,
+				EB80B6732A15C8ED0016648A /* HLabel.swift */,
 				EB80B66B2A1130E00016648A /* HToolbar.swift */,
 				EB80B66D2A122A940016648A /* HScrollbar.swift */,
 				EB80B6712A150D540016648A /* HToolbar3.swift */,
@@ -1766,6 +1769,7 @@
 				A22948C02397992A0058B939 /* HServiceAuthorizationCell.swift in Sources */,
 				EBC8147329AA541800A81431 /* HSendVideoVC+HStatus3.swift in Sources */,
 				A26D432123842C9400F457AE /* UIGestureRecognizer+HUtil.swift in Sources */,
+				EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */,
 				A22948BA239798FC0058B939 /* HRegisterController.swift in Sources */,
 				A26D432D238682D200F457AE /* HNavigationController.swift in Sources */,
 				A22948B3239798A30058B939 /* HMainController5.swift in Sources */,

@@ -10,50 +10,146 @@ import UIKit
 
 class HMainController2: HViewController {
 
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        let toolbar = HScrollbar(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 40))
+////        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 40))
+//
+////        var items = [UIBarButtonItem]()
+////
+//////        let item1 = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector())
+////        let item1 = UIBarButtonItem()
+////        item1.title = "item1"
+////
+////        let item2 = UIBarButtonItem()
+////        item2.title = "item2"
+////
+//////        let item2 = UIBarButtonItem(title: "item2", menu: nil)
+//////        UIBarItem
+////
+////        items.append(item1)
+////        items.append(item2)
+////        toolbar.setItems(items, animated: false)
+//
+//
+//        toolbar.titleColor = .blue
+//        toolbar.titleFont = UIFont.font(ofSize: 14, weight: .regular)
+//        toolbar.titleBGColor = .green
+//
+//        toolbar.titleSelectedColor = .red
+//        toolbar.titleSelectedFont = UIFont.font(ofSize: 17, weight: .regular)
+//        toolbar.titleSelectedBGColor = .yellow
+//
+//        toolbar.items = ["item1", "item2", "item3", "item4", "item5", "item6"]
+//        toolbar.itemWidth = UIScreen.width / 6
+//
+//        toolbar.isScrollEnabled = false
+//
+//        toolbar.selectedIndex = 1
+//
+//        toolbar.selectedBlock = { index in
+//            NSLog(index)
+//        }
+//
+//        toolbar.cornerRadius = 20
+////        toolbar.backgroundColor = .green
+//        self.view.addSubview(toolbar)
+//    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let toolbar = HScrollbar(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 40))
-//        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 40))
-        
-//        var items = [UIBarButtonItem]()
-//
-////        let item1 = UIBarButtonItem(title: "", style: .plain, target: self, action: #selector())
-//        let item1 = UIBarButtonItem()
-//        item1.title = "item1"
-//
-//        let item2 = UIBarButtonItem()
-//        item2.title = "item2"
-//
-////        let item2 = UIBarButtonItem(title: "item2", menu: nil)
-////        UIBarItem
-//
-//        items.append(item1)
-//        items.append(item2)
-//        toolbar.setItems(items, animated: false)
-        
-        
-        toolbar.titleColor = .blue
-        toolbar.titleFont = UIFont.font(ofSize: 14, weight: .regular)
-        toolbar.titleBGColor = .green
 
-        toolbar.titleSelectedColor = .red
-        toolbar.titleSelectedFont = UIFont.font(ofSize: 17, weight: .regular)
-        toolbar.titleSelectedBGColor = .yellow
+        
+        let stackView = UIStackView(frame: CGRect(x: 100, y: 200, width: 120, height: UIScreen.width))
+        stackView.axis = .vertical
+        stackView.distribution = .fill
+        stackView.alignment = .fill
 
-        toolbar.items = ["item1", "item2", "item3", "item4", "item5", "item6"]
-        toolbar.itemWidth = UIScreen.width / 6
-        
-        toolbar.isScrollEnabled = false
+        let leftEdgeSpaceView = UIView()
+        leftEdgeSpaceView.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        stackView.addArrangedSubview(leftEdgeSpaceView)
 
-        toolbar.selectedIndex = 1
+        let leftItemView = UIImageView()
+        leftItemView.heightAnchor.constraint(equalToConstant: 90).isActive = true
+        leftItemView.backgroundColor = .red
+        stackView.addArrangedSubview(leftItemView)
+        leftItemView.image = UIImage(named: "hvc_back_icon")
+        leftItemView.contentMode = .bottom
+
+        let leftTitleSpaceView = UIView()
+        leftTitleSpaceView.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        stackView.addArrangedSubview(leftTitleSpaceView)
         
-        toolbar.selectedBlock = { index in
-            NSLog(index)
-        }
+        let titleView = HLabel()
+        titleView.backgroundColor = .blue
+        stackView.addArrangedSubview(titleView)
+        titleView.text = "啊发来的撒酒疯拉的屎"
+//        titleView.contentMode = .top
         
-        toolbar.cornerRadius = 20
-//        toolbar.backgroundColor = .green
-        self.view.addSubview(toolbar)
+        titleView.numberOfLines = 0 // Set to 0 for multiline labels
+        titleView.textAlignment = .left // Set your desired text alignment
+        titleView.verticalAlignment = .top // Set vertical alignment to top
+        
+
+        let rightTitleSpaceView = UIView()
+        rightTitleSpaceView.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        stackView.addArrangedSubview(rightTitleSpaceView)
+
+        let rightItemView = UIView()
+        rightItemView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        rightItemView.backgroundColor = .yellow
+        stackView.addArrangedSubview(rightItemView)
+
+        let rightEdgeSpaceView = UIView()
+        rightEdgeSpaceView.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        stackView.addArrangedSubview(rightEdgeSpaceView)
+        
+        view.addSubview(stackView)
+        
+        
+
+//        let stackView = UIStackView(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 120))
+//        stackView.axis = .horizontal
+//        stackView.distribution = .fill
+//        stackView.alignment = .fill
+//
+//        let leftEdgeSpaceView = UIView()
+//        leftEdgeSpaceView.widthAnchor.constraint(equalToConstant: 10).isActive = true
+//        stackView.addArrangedSubview(leftEdgeSpaceView)
+//
+//        let leftItemView = UIImageView()
+//        leftItemView.widthAnchor.constraint(equalToConstant: 90).isActive = true
+//        leftItemView.backgroundColor = .red
+//        stackView.addArrangedSubview(leftItemView)
+//        leftItemView.image = UIImage(named: "hvc_back_icon")
+//        leftItemView.contentMode = .right
+//
+//        let leftTitleSpaceView = UIView()
+//        leftTitleSpaceView.widthAnchor.constraint(equalToConstant: 10).isActive = true
+//        stackView.addArrangedSubview(leftTitleSpaceView)
+//
+//        let titleView = UILabel()
+//        titleView.backgroundColor = .blue
+//        stackView.addArrangedSubview(titleView)
+//        titleView.text = "啊发来的撒酒疯拉的屎"
+//
+//
+//        let rightTitleSpaceView = UIView()
+//        rightTitleSpaceView.widthAnchor.constraint(equalToConstant: 10).isActive = true
+//        stackView.addArrangedSubview(rightTitleSpaceView)
+//
+//        let rightItemView = UIView()
+//        rightItemView.widthAnchor.constraint(equalToConstant: 120).isActive = true
+//        rightItemView.backgroundColor = .yellow
+//        stackView.addArrangedSubview(rightItemView)
+//
+//        let rightEdgeSpaceView = UIView()
+//        rightEdgeSpaceView.widthAnchor.constraint(equalToConstant: 10).isActive = true
+//        stackView.addArrangedSubview(rightEdgeSpaceView)
+//
+//        view.addSubview(stackView)
+
+
     }
     
 //    override func viewDidLoad() {
