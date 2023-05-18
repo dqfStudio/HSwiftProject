@@ -61,7 +61,12 @@ class HScrollbar: UIStackView, HTupleViewDelegate {
     }
     
     // The index of the currently selected item
-    var selectedIndex: Int = 0
+    var selectedIndex: Int = 0 {
+        didSet {
+            let originX = abs(indicatorBarWidth - itemWidth) / 2
+            indicatorBar.x = originX + itemWidth * CGFloat(selectedIndex)
+        }
+    }
     
     // Define a variable to hold the selected block in the scrollbar
     var selectedBlock: HScrollbarBlock?
@@ -154,12 +159,7 @@ class HScrollbar: UIStackView, HTupleViewDelegate {
         cell.selectBlock = {
             self.selectedIndex = indexPath.row
             self.selectedBlock?(indexPath.row)
-            self.tupleView.reloadTupleData()
-            
-            // Set indicatorBar frame
-            let originX = abs(self.indicatorBarWidth - self.itemWidth) / 2
-            self.indicatorBar.x = originX + self.itemWidth * CGFloat(indexPath.row)
-            
+            self.tupleView.reloadTupleData()            
             // Scroll item
             let items = self.tupleView.numberOfItems(inSection: indexPath.section)
             var row = indexPath.row + 1

@@ -45,6 +45,8 @@ class HMainController2: HViewController {
         
         toolbar.isScrollEnabled = false
 
+        toolbar.selectedIndex = 1
+        
         toolbar.selectedBlock = { index in
             NSLog(index)
         }
