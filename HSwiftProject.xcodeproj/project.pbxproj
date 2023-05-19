@@ -229,6 +229,7 @@
 		EB80B66E2A122A940016648A /* HScrollbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B66D2A122A940016648A /* HScrollbar.swift */; };
 		EB80B6722A150D540016648A /* HToolbar3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6712A150D540016648A /* HToolbar3.swift */; };
 		EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6732A15C8ED0016648A /* HLabel.swift */; };
+		EB80B67C2A1779A30016648A /* HFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B67B2A1779A30016648A /* HFormView.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -529,6 +530,7 @@
 		EB80B66D2A122A940016648A /* HScrollbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HScrollbar.swift; sourceTree = "<group>"; };
 		EB80B6712A150D540016648A /* HToolbar3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HToolbar3.swift; sourceTree = "<group>"; };
 		EB80B6732A15C8ED0016648A /* HLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLabel.swift; sourceTree = "<group>"; };
+		EB80B67B2A1779A30016648A /* HFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFormView.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -793,6 +795,7 @@
 				EB80B66B2A1130E00016648A /* HToolbar.swift */,
 				EB80B66D2A122A940016648A /* HScrollbar.swift */,
 				EB80B6712A150D540016648A /* HToolbar3.swift */,
+				EB80B67B2A1779A30016648A /* HFormView.swift */,
 			);
 			path = HTupleCommon;
 			sourceTree = "<group>";
@@ -1866,6 +1869,7 @@
 				A28923C5238CDE8400E4AB75 /* HTupleController.swift in Sources */,
 				A265DA012392A2B3001F39B0 /* UIViewController+HTab.swift in Sources */,
 				EBD0FB0629CA011400808EDA /* HVersionManager.swift in Sources */,
+				EB80B67C2A1779A30016648A /* HFormView.swift in Sources */,
 				A2B43076237FF2B100795605 /* UIWindow+HPrinter.swift in Sources */,
 				EBD0FB9229DA97C000808EDA /* HMainController6+UIExt.swift in Sources */,
 				A26D432523852DB700F457AE /* NSDate+HUtil.swift in Sources */,
