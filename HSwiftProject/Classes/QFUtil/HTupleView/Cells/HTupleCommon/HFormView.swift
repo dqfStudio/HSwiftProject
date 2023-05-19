@@ -23,11 +23,6 @@ class HFormView: UIStackView {
     var footerSpace = 0.0
     
     func reloadData() {
-
-        // Set the stack view properties
-        self.axis = .horizontal
-        self.distribution = .fill
-        self.alignment = .fill
         
         if let itemBlock = itemBlock {
             
