@@ -15,7 +15,7 @@ class HTupleViewApexHoriValue1 : HTupleBaseApex {
     lazy var textLayoutView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 5
         layoutView.addArrangedSubview(stackView)
@@ -40,10 +40,10 @@ class HTupleViewApexHoriValue1 : HTupleBaseApex {
     }()
     
     ///detailLabel的宽度
-    var detailWidth: CGFloat = 0
+    var detailWidth: CGFloat = 0.0
     
     ///accessoryLabel的宽度
-    var accessoryWidth: CGFloat = 0
+    var accessoryWidth: CGFloat = 0.0
     
     private var _imageView: HWebImageView?
     ///左边显示图片
@@ -134,7 +134,7 @@ class HTupleViewApexHoriValue1 : HTupleBaseApex {
         }
     }
     
-    /// Method called during cell initialization
+    /// Method called during apex initialization
     override func initUI() {
         layoutView.spacing = 10
     }
@@ -303,7 +303,7 @@ class HTupleViewApexHoriValue2 : HTupleBaseApex {
         }
     }
     
-    /// Method called during cell initialization
+    /// Method called during apex initialization
     override func initUI() {
         layoutView.spacing = 10
     }

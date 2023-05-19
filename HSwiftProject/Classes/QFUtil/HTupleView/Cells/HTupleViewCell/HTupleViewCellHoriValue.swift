@@ -40,10 +40,10 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
     }()
     
     ///detailLabel的宽度
-    var detailWidth: CGFloat = 0
+    var detailWidth: CGFloat = 0.0
     
     ///accessoryLabel的宽度
-    var accessoryWidth: CGFloat = 0
+    var accessoryWidth: CGFloat = 0.0
     
     private var _imageView: HWebImageView?
     ///左边显示图片
@@ -154,13 +154,6 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
         
         // label
         textLayoutView.addArrangedSubview(label)
-        
-//        if let detailLabel = _detailLabel {
-//            textLayoutView.addArrangedSubview(detailLabel)
-//        }
-//        if let accessoryLabel = _accessoryLabel {
-//            textLayoutView.addArrangedSubview(accessoryLabel)
-//        }
         
         if let detailLabel = _detailLabel {
             if detailWidth > 0 {
