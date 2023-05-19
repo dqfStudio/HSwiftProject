@@ -8,13 +8,13 @@
 
 import UIKit
 
-typealias HFormItemBlock = () -> UIView
+typealias HFormViewBlock = () -> UIView
 
 class HFormView: UIStackView {
     
-    var headerBlock: HFormItemBlock?
-    var footerBlock: HFormItemBlock?
-    var itemBlock: HFormItemBlock?
+    var headerBlock: HFormViewBlock?
+    var footerBlock: HFormViewBlock?
+    var itemBlock: HFormViewBlock?
 
     var headerWidth = 0.0
     var footerWidth = 0.0
