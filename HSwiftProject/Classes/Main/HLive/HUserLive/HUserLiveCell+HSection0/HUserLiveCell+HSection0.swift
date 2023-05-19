@@ -254,7 +254,7 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
         let itemBlock = itemBlock as! HTupleItem
         switch (indexPath.row) {
         case 0:
-            let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
+            let cell = itemBlock(nil, HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
             cell.layoutView.backgroundColor = UIColor.black
             cell.layoutView.cornerRadius = cell.layoutView.height / 2
             
@@ -263,7 +263,7 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
             cell.label.textColor = UIColor.white
             cell.label.text = "魅力值 202"
 
-            cell.detailWidth = 20
+//            cell.detailWidth = 20
             cell.detailLabel.font = UIFont.systemFont(ofSize: 18)
             cell.detailLabel.textAlignment = .right
             cell.detailLabel.textColor = UIColor.white
@@ -273,7 +273,7 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
             cell.detailLabel.text = "›"
             break
         case 1:
-            let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
+            let cell = itemBlock(nil, HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
             cell.layoutView.backgroundColor = UIColor.black
             cell.layoutView.cornerRadius = cell.layoutView.height / 2
             
@@ -282,7 +282,7 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
             cell.label.textColor = UIColor.white
             cell.label.text = "守护 虚位以待"
 
-            cell.detailWidth = 18
+//            cell.detailWidth = 18
             cell.detailLabel.font = UIFont.systemFont(ofSize: 18)
             cell.detailLabel.textAlignment = .right
             cell.detailLabel.textColor = UIColor.white
