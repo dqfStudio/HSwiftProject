@@ -17,17 +17,45 @@ class HButton: UIControl {
     
     var direction: HButtonDirection = .horizontal {
         didSet {
-            if direction == .horizontal {
-                stackView.axis = .horizontal
-            } else {
-                stackView.axis = .vertical
+            if direction != oldValue {
+                setup()
             }
         }
     }
     
-    var imageView: UIImageView?
+    var spacing: CGFloat = 5.0 {
+        didSet {
+            stackView.spacing = spacing
+        }
+    }
     
-    var titleLabel: UILabel?
+    private var _imageView: UIImageView?
+    var imageView: UIImageView {
+        get {
+            if _imageView == nil {
+                _imageView = UIImageView()
+                setup()
+            }
+            return _imageView!
+        }
+        set {
+            _imageView = newValue
+        }
+    }
+    
+    private var _titleLabel: HLabel?
+    var titleLabel: HLabel {
+        get {
+            if _titleLabel == nil {
+                _titleLabel = HLabel()
+                setup()
+            }
+            return _titleLabel!
+        }
+        set {
+            _titleLabel = newValue
+        }
+    }
     
     private lazy var stackView: UIStackView = {
         let stackView = UIStackView(frame: self.bounds)
@@ -45,7 +73,7 @@ class HButton: UIControl {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        setup()
     }
     
     override var frame: CGRect {
@@ -57,35 +85,45 @@ class HButton: UIControl {
         }
     }
     
-    func setLayoutFirstSpacing(_ spacing: CGFloat) {
-//        if let imageView = _imageView {
-//            stackView.setCustomSpacing(spacing, after: imageView)
-//        }
-    }
-    
     private func setup() {
         
-//        UINavigationBar
-        
-//        UIBarButtonItem
-//        UIBarItem
-//        UITabBar
-//        UITabBarItem
-        
-        if let imageView = imageView {
-//            imageView.widthAnchor.constraint(equalToConstant: 90).isActive = true
-            stackView.addArrangedSubview(imageView)
+        if direction == .horizontal {
+            
+            if let imageView = _imageView {
+                imageView.contentMode = (_titleLabel != nil) ? .right : .center
+                let width = imageView.image?.size.width ?? 0
+                imageView.widthAnchor.constraint(equalToConstant: width).isActive = true
+                stackView.addArrangedSubview(imageView)
+            }
+            
+            if let titleLabel = _titleLabel {
+                titleLabel.numberOfLines = 0
+                titleLabel.textAlignment = (_imageView != nil) ? .left : .center
+                titleLabel.verticalAlignment = .middle
+                stackView.addArrangedSubview(titleLabel)
+            }
+            
+            stackView.axis = .horizontal
+            
+        } else {
+
+            if let imageView = _imageView {
+                imageView.contentMode = (_titleLabel != nil) ? .bottom : .center
+                stackView.addArrangedSubview(imageView)
+            }
+            
+            if let titleLabel = _titleLabel {
+                titleLabel.numberOfLines = 0
+                titleLabel.textAlignment = .center
+                titleLabel.verticalAlignment = (_imageView != nil) ? .top : .middle
+                titleLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
+                stackView.addArrangedSubview(titleLabel)
+            }
+            
+            stackView.axis = .vertical
+            
         }
         
-//        titleLabel.widthAnchor.constraint(equalToConstant: 90).isActive = true
-//        stackView.addArrangedSubview(titleLabel)
-
-        // accessoryView
-//        if isShowAccessoryArrow {
-//            accessoryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
-//            accessoryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
-//            arrowLayoutView.addArrangedSubview(accessoryView)
-//        }
     }
     
 }
