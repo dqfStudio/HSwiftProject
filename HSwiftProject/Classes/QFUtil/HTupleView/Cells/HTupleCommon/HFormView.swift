@@ -8,13 +8,22 @@
 
 import UIKit
 
-typealias HFormViewBlock = () -> UIView
-
 class HFormView: UIStackView {
     
-    var headerBlock: HFormViewBlock?
-    var footerBlock: HFormViewBlock?
-    var itemBlock: HFormViewBlock?
+    private var allReuseCells = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
+    
+    var header: UIView? {
+        get { return allReuseCells.object(forKey: "header") as? UIView }
+        set { allReuseCells.setObject(newValue, forKey: "header") }
+    }
+    var footer: UIView? {
+        get { return allReuseCells.object(forKey: "footer") as? UIView }
+        set { allReuseCells.setObject(newValue, forKey: "footer") }
+    }
+    var item: UIView? {
+        get { return allReuseCells.object(forKey: "item") as? UIView }
+        set { allReuseCells.setObject(newValue, forKey: "item") }
+    }
 
     var headerWidth = 0.0
     var footerWidth = 0.0
@@ -24,23 +33,20 @@ class HFormView: UIStackView {
     
     func reloadData() {
         
-        if let itemBlock = itemBlock {
+        if let item = item {
             
             // header
-            if let headerBlock = headerBlock {
-                let header = headerBlock()
+            if let header = header {
                 header.widthAnchor.constraint(equalToConstant: headerWidth).isActive = true
                 self.addArrangedSubview(header)
                 self.setCustomSpacing(headerSpace, after: header)
             }
             
             // item
-            let item = itemBlock()
             self.addArrangedSubview(item)
             
             // footer
-            if let footerBlock = footerBlock {
-                let footer = footerBlock()
+            if let footer = footer {
                 footer.widthAnchor.constraint(equalToConstant: footerWidth).isActive = true
                 self.addArrangedSubview(footer)
                 self.setCustomSpacing(footerSpace, after: item)

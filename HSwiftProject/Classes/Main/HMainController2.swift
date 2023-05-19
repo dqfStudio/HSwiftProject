@@ -66,25 +66,26 @@ class HMainController2: HViewController {
         
         formView.headerWidth = 40
         formView.headerSpace = 5
-        formView.headerBlock = {
-            let view = UIView()
-            view.backgroundColor = .red
-            return view
+        if formView.header == nil {
+            let header = UIView()
+            header.backgroundColor = .red
+            formView.header = header
         }
+        
         
         formView.footerWidth = 40
         formView.footerSpace = 5
-        formView.footerBlock = {
-            let view = UIView()
-            view.backgroundColor = .blue
-            return view
+        if formView.footer == nil {
+            let footer = UIView()
+            footer.backgroundColor = .blue
+            formView.footer = footer
         }
         
         
-        formView.itemBlock = {
-            let view = UIView()
-            view.backgroundColor = .yellow
-            return view
+        if formView.item == nil {
+            let item = UIView()
+            item.backgroundColor = .yellow
+            formView.item = item
         }
         
         formView.reloadData()
