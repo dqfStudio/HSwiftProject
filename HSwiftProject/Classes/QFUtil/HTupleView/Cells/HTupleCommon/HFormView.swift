@@ -10,19 +10,19 @@ import UIKit
 
 class HFormView: UIStackView {
     
-    private var allReuseCells = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
+    private var allReuseViews = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
     
     var header: UIView? {
-        get { return allReuseCells.object(forKey: "header") as? UIView }
-        set { allReuseCells.setObject(newValue, forKey: "header") }
+        get { return allReuseViews.object(forKey: "header") as? UIView }
+        set { allReuseViews.setObject(newValue, forKey: "header") }
     }
     var footer: UIView? {
-        get { return allReuseCells.object(forKey: "footer") as? UIView }
-        set { allReuseCells.setObject(newValue, forKey: "footer") }
+        get { return allReuseViews.object(forKey: "footer") as? UIView }
+        set { allReuseViews.setObject(newValue, forKey: "footer") }
     }
     var item: UIView? {
-        get { return allReuseCells.object(forKey: "item") as? UIView }
-        set { allReuseCells.setObject(newValue, forKey: "item") }
+        get { return allReuseViews.object(forKey: "item") as? UIView }
+        set { allReuseViews.setObject(newValue, forKey: "item") }
     }
 
     var headerWidth = 0.0
