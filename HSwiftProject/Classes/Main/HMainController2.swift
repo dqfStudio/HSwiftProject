@@ -64,24 +64,16 @@ class HMainController2: HViewController {
         self.view.addSubview(formView)
         
         
-        formView.headerWidthBlock = {
-            return 40
-        }
-        formView.headerSpaceBlock = {
-            return 5
-        }
+        formView.headerWidth = 40
+        formView.headerSpace = 5
         formView.headerBlock = {
             let view = UIView()
             view.backgroundColor = .red
             return view
         }
         
-        formView.footerWidthBlock = {
-            return 40
-        }
-        formView.footerSpaceBlock = {
-            return 5
-        }
+        formView.footerWidth = 40
+        formView.footerSpace = 5
         formView.footerBlock = {
             let view = UIView()
             view.backgroundColor = .blue

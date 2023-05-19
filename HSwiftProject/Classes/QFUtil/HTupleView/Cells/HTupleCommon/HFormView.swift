@@ -9,8 +9,6 @@
 import UIKit
 
 typealias HFormItemBlock = () -> UIView
-typealias HFormWidthBlock = () -> CGFloat
-typealias HFormSpaceBlock = () -> CGFloat
 
 class HFormView: UIStackView {
     
@@ -18,11 +16,11 @@ class HFormView: UIStackView {
     var footerBlock: HFormItemBlock?
     var itemBlock: HFormItemBlock?
 
-    var headerWidthBlock: HFormWidthBlock?
-    var footerWidthBlock: HFormWidthBlock?
+    var headerWidth = 0.0
+    var footerWidth = 0.0
 
-    var headerSpaceBlock: HFormSpaceBlock?
-    var footerSpaceBlock: HFormSpaceBlock?
+    var headerSpace = 0.0
+    var footerSpace = 0.0
     
     func reloadData() {
 
@@ -36,16 +34,9 @@ class HFormView: UIStackView {
             // header
             if let headerBlock = headerBlock {
                 let header = headerBlock()
-                if let headerWidthBlock = headerWidthBlock {
-                    let width = headerWidthBlock()
-                    header.widthAnchor.constraint(equalToConstant: width).isActive = true
-                }
+                header.widthAnchor.constraint(equalToConstant: headerWidth).isActive = true
                 self.addArrangedSubview(header)
-                
-                if let headerSpaceBlock = headerSpaceBlock {
-                    let space = headerSpaceBlock()
-                    self.setCustomSpacing(space, after: header)
-                }
+                self.setCustomSpacing(headerSpace, after: header)
             }
             
             // item
@@ -55,16 +46,9 @@ class HFormView: UIStackView {
             // footer
             if let footerBlock = footerBlock {
                 let footer = footerBlock()
-                if let footerWidthBlock = footerWidthBlock {
-                    let width = footerWidthBlock()
-                    footer.widthAnchor.constraint(equalToConstant: width).isActive = true
-                }
+                footer.widthAnchor.constraint(equalToConstant: footerWidth).isActive = true
                 self.addArrangedSubview(footer)
-                
-                if let footerSpaceBlock = footerSpaceBlock {
-                    let space = footerSpaceBlock()
-                    self.setCustomSpacing(space, after: item)
-                }
+                self.setCustomSpacing(footerSpace, after: item)
             }
             
         }
