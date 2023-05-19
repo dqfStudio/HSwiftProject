@@ -10,18 +10,18 @@ import UIKit
 
 ///三个label横向显示
 class HTableViewApexHoriValue1 : HTableBaseApex {
-    
+
     // 用于text布局
     lazy var textLayoutView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 5
         layoutView.addArrangedSubview(stackView)
         return stackView
     }()
-    
+
     // 用于arrow布局
     lazy var arrowLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -31,20 +31,20 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
         layoutView.addArrangedSubview(stackView)
         return stackView
     }()
-    
+
     // arrow
-    lazy private var accessoryViewExa: HWebImageView = {
+    lazy private var accessoryView: HWebImageView = {
         let accessoryView = HWebImageView()
         accessoryView.setImageWithName("icon_tuple_arrow_right")
         return accessoryView
     }()
-    
+
     ///detailLabel的宽度
-    var detailWidth: CGFloat = 0
-    
+    var detailWidth: CGFloat = 0.0
+
     ///accessoryLabel的宽度
-    var accessoryWidth: CGFloat = 0
-    
+    var accessoryWidth: CGFloat = 0.0
+
     private var _imageView: HWebImageView?
     ///左边显示图片
     var imageView: HWebImageView {
@@ -53,14 +53,14 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
         }
         return _imageView!
     }
-    
+
     ///显示文字内容
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
-    
+
     private var _detailLabel: UILabel?
     ///显示文字内容详情
     var detailLabel: UILabel {
@@ -70,7 +70,7 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
         }
         return _detailLabel!
     }
-    
+
     private var _accessoryLabel: UILabel?
     ///显示文字内容附加信息
     var accessoryLabel: UILabel {
@@ -80,7 +80,7 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
         }
         return _accessoryLabel!
     }
-    
+
     private var _detailView: HWebImageView?
     ///右边显示图片
     var detailView: HWebImageView {
@@ -89,60 +89,60 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
         }
         return _detailView!
     }
-    
+
     ///是否显示右边箭头
     var isShowAccessoryArrow: Bool = false
-    
+
     // 设置layoutView通用间隔
     func setLayoutSpacing(_ spacing: CGFloat) {
         layoutView.spacing = spacing
     }
-    
+
     // 在imageView后面添加自定义间隔
     func setLayoutFirstSpacing(_ spacing: CGFloat) {
         if let imageView = _imageView {
             layoutView.setCustomSpacing(spacing, after: imageView)
         }
     }
-    
+
     // 在textLayoutView后面添加自定义间隔
     func setLayoutSecondSpacing(_ spacing: CGFloat) {
         layoutView.setCustomSpacing(spacing, after: textLayoutView)
     }
-    
+
     // 在detailView后面添加自定义间隔
     func setLayoutThirdSpacing(_ spacing: CGFloat) {
         if let detailView = _detailView {
             layoutView.setCustomSpacing(spacing, after: detailView)
         }
     }
-    
+
     // 设置textLayoutView通用间隔
     func setTextSpacing(_ spacing: CGFloat) {
         textLayoutView.spacing = spacing
     }
-    
+
     // 在label后面添加自定义间隔
     func setFirstTextSpacing(_ spacing: CGFloat) {
         textLayoutView.setCustomSpacing(spacing, after: label)
     }
-    
+
     // 在detailLabel后面添加自定义间隔
     func setSecondTextSpacing(_ spacing: CGFloat) {
         if let detailLabel = _detailLabel {
             textLayoutView.setCustomSpacing(spacing, after: detailLabel)
         }
     }
-    
+
     /// Method called during cell initialization
     override func initUI() {
         layoutView.spacing = 10
     }
-    
+
     override func relayoutSubviews() {
-        
+
         let frame = self.bounds.inset(by: self.edgeInsets)
-        
+
         // 重设frame
         layoutView.frame = frame
 
@@ -151,10 +151,10 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
             imageView.widthAnchor.constraint(equalToConstant: frame.height).isActive = true
             layoutView.addArrangedSubview(imageView)
         }
-        
+
         // label
         textLayoutView.addArrangedSubview(label)
-        
+
         if let detailLabel = _detailLabel {
             if detailWidth > 0 {
                 detailLabel.widthAnchor.constraint(equalToConstant: detailWidth).isActive = true
@@ -167,7 +167,7 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
             }
             textLayoutView.addArrangedSubview(accessoryLabel)
         }
-        
+
         // detailView
         if let detailView = _detailView {
             detailView.widthAnchor.constraint(equalToConstant: frame.height).isActive = true
@@ -176,11 +176,11 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
 
         // accessoryView
         if isShowAccessoryArrow {
-            accessoryViewExa.widthAnchor.constraint(equalToConstant: 7).isActive = true
-            accessoryViewExa.heightAnchor.constraint(equalToConstant: 13).isActive = true
-            arrowLayoutView.addArrangedSubview(accessoryViewExa)
+            accessoryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
+            accessoryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
+            arrowLayoutView.addArrangedSubview(accessoryView)
         }
-        
+
     }
 }
 
@@ -208,7 +208,7 @@ class HTableViewApexHoriValue2 : HTableBaseApex {
     }()
     
     // arrow
-    lazy private var accessoryViewExa: HWebImageView = {
+    lazy private var accessoryView: HWebImageView = {
         let accessoryView = HWebImageView()
         accessoryView.setImageWithName("icon_tuple_arrow_right")
         return accessoryView
@@ -337,11 +337,11 @@ class HTableViewApexHoriValue2 : HTableBaseApex {
             layoutView.addArrangedSubview(detailView)
         }
 
-        // accessoryViewExa
+        // accessoryView
         if isShowAccessoryArrow {
-            accessoryViewExa.widthAnchor.constraint(equalToConstant: 7).isActive = true
-            accessoryViewExa.heightAnchor.constraint(equalToConstant: 13).isActive = true
-            arrowLayoutView.addArrangedSubview(accessoryViewExa)
+            accessoryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
+            accessoryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
+            arrowLayoutView.addArrangedSubview(accessoryView)
         }
 
     }

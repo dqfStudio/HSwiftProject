@@ -15,7 +15,7 @@ class HTableViewCellHoriValue1 : HTableBaseCell {
     lazy var textLayoutView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 5
         layoutView.addArrangedSubview(stackView)
@@ -40,10 +40,10 @@ class HTableViewCellHoriValue1 : HTableBaseCell {
     }()
     
     ///detailLabel的宽度
-    var detailWidth: CGFloat = 0
+    var detailWidth: CGFloat = 0.0
     
     ///accessoryLabel的宽度
-    var accessoryWidth: CGFloat = 0
+    var accessoryWidth: CGFloat = 0.0
     
     private var _imageView: HWebImageView?
     ///左边显示图片
@@ -174,7 +174,7 @@ class HTableViewCellHoriValue1 : HTableBaseCell {
             layoutView.addArrangedSubview(detailView)
         }
 
-        // accessoryView
+        // accessoryViewExa
         if isShowAccessoryArrow {
             accessoryViewExa.widthAnchor.constraint(equalToConstant: 7).isActive = true
             accessoryViewExa.heightAnchor.constraint(equalToConstant: 13).isActive = true
