@@ -33,9 +33,10 @@ class HTableViewCellHoriValue1 : HTableBaseCell {
     }()
     
     // arrow
-    lazy private var accessoryViewExa: HWebImageView = {
-        let accessoryView = HWebImageView()
-        accessoryView.setImageWithName("icon_tuple_arrow_right")
+    lazy private var accessoryViewExa: UIImageView = {
+        let accessoryView = UIImageView()
+        accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
+        accessoryView.contentMode = .scaleAspectFit
         return accessoryView
     }()
     
@@ -208,9 +209,10 @@ class HTableViewCellHoriValue2 : HTableBaseCell {
     }()
     
     // arrow
-    lazy private var accessoryViewExa: HWebImageView = {
-        let accessoryView = HWebImageView()
-        accessoryView.setImageWithName("icon_tuple_arrow_right")
+    lazy private var accessoryViewExa: UIImageView = {
+        let accessoryView = UIImageView()
+        accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
+        accessoryView.contentMode = .scaleAspectFit
         return accessoryView
     }()
     

@@ -109,7 +109,7 @@ class HButton: UIControl {
             
             stackView.axis = .horizontal
             
-            stackView.distribution = .fillProportionally
+            stackView.distribution = .fill
             stackView.alignment = .center
             
         } else {
