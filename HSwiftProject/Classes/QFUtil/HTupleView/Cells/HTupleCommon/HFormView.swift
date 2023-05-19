@@ -29,7 +29,7 @@ class HFormView: UIStackView {
         // Set the stack view properties
         self.axis = .horizontal
         self.distribution = .fill
-        self.alignment = .center
+        self.alignment = .fill
         
         if let itemBlock = itemBlock {
             

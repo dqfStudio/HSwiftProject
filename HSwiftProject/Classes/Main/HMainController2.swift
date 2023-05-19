@@ -58,6 +58,46 @@ class HMainController2: HViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let formView = HFormView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+        formView.backgroundColor = .gray
+        self.view.addSubview(formView)
+        
+        
+        formView.headerWidthBlock = {
+            return 40
+        }
+        formView.headerSpaceBlock = {
+            return 5
+        }
+        formView.headerBlock = {
+            let view = UIView()
+            view.backgroundColor = .red
+            return view
+        }
+        
+        formView.footerWidthBlock = {
+            return 40
+        }
+        formView.footerSpaceBlock = {
+            return 5
+        }
+        formView.footerBlock = {
+            let view = UIView()
+            view.backgroundColor = .blue
+            return view
+        }
+        
+        
+        formView.itemBlock = {
+            let view = UIView()
+            view.backgroundColor = .yellow
+            return view
+        }
+        
+        formView.reloadData()
+        
+        return
 
         
         let button = HButton(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
