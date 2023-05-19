@@ -62,7 +62,9 @@ class HMainController2: HViewController {
         
         let button = HButton(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
         
-        button.imageView.image = UIImage(named: "hvc_back_icon")
+//        button.imageView.image = UIImage(named: "hvc_back_icon")
+        button.imageView.image = UIImage(named: "icon_tuple_arrow_right")
+        
         
         button.titleLabel.text = "啊发来的撒酒疯拉的屎"
         

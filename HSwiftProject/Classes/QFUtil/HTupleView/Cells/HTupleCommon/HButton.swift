@@ -43,11 +43,11 @@ class HButton: UIControl {
         }
     }
     
-    private var _titleLabel: HLabel?
-    var titleLabel: HLabel {
+    private var _titleLabel: UILabel?
+    var titleLabel: UILabel {
         get {
             if _titleLabel == nil {
-                _titleLabel = HLabel()
+                _titleLabel = UILabel()
                 setup()
             }
             return _titleLabel!
@@ -61,7 +61,7 @@ class HButton: UIControl {
         let stackView = UIStackView(frame: self.bounds)
         stackView.axis = .horizontal
         stackView.distribution = .fill
-        stackView.alignment = .fill
+        stackView.alignment = .center
         self.addSubview(stackView)
         return stackView
     }()
@@ -93,37 +93,26 @@ class HButton: UIControl {
             
             if let imageView = _imageView {
                 imageView.contentMode = (_titleLabel != nil) ? .right : .center
-//                let width = imageView.image?.size.width ?? 0
-//                imageView.widthAnchor.constraint(equalToConstant: width).isActive = true
                 stackView.addArrangedSubview(imageView)
                 imageView.backgroundColor = .blue
             }
             
             if let titleLabel = _titleLabel {
-                titleLabel.numberOfLines = 0
                 titleLabel.textAlignment = (_imageView != nil) ? .left : .center
-                titleLabel.verticalAlignment = .middle
                 stackView.addArrangedSubview(titleLabel)
                 titleLabel.backgroundColor = .green
             }
             
             stackView.axis = .horizontal
             
-            stackView.distribution = .fill
-            stackView.alignment = .center
-            
         } else {
 
             if let imageView = _imageView {
-                imageView.contentMode = (_titleLabel != nil) ? .bottom : .center
                 stackView.addArrangedSubview(imageView)
             }
             
             if let titleLabel = _titleLabel {
-                titleLabel.numberOfLines = 0
                 titleLabel.textAlignment = .center
-                titleLabel.verticalAlignment = (_imageView != nil) ? .top : .middle
-                titleLabel.heightAnchor.constraint(equalToConstant: 10).isActive = true
                 stackView.addArrangedSubview(titleLabel)
             }
             
