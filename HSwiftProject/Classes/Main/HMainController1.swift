@@ -23,7 +23,7 @@ class HMainController1: HTupleController {
         return 1
     }
     func numberOfItemsInSection(_ section: Any) -> Any {
-        return 8
+        return 9
     }
     func insetForSection(_ section: Any) -> Any {
         return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
@@ -35,7 +35,7 @@ class HMainController1: HTupleController {
         let itemBlock = itemBlock as! HTupleItem
         switch indexPath.row {
         case 0:
-            let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
+            let cell = itemBlock(nil, HTupleViewCellHoriValue3.self, nil, true) as! HTupleViewCellHoriValue3
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 65)
             }
@@ -76,12 +76,12 @@ class HMainController1: HTupleController {
             }
             //接收信号
             cell.signalBlock = { (target, signal) in
-                let cell = target as! HTupleViewCellHoriValue2
+                let cell = target as! HTupleViewCellHoriValue3
                 NSLog("选中%d", cell.label)
             }
             break
         case 1:
-            let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
+            let cell = itemBlock(nil, HTupleViewCellHoriValue3.self, nil, true) as! HTupleViewCellHoriValue3
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 65)
             }
@@ -102,12 +102,12 @@ class HMainController1: HTupleController {
             }
             //接收信号
             cell.signalBlock = { (target, signal) in
-                let cell = target as! HTupleViewCellHoriValue2
+                let cell = target as! HTupleViewCellHoriValue3
                 NSLog("选中%d", cell.label)
             }
             break
         case 2:
-            let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
+            let cell = itemBlock(nil, HTupleViewCellHoriValue3.self, nil, true) as! HTupleViewCellHoriValue3
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 65)
             }
@@ -207,7 +207,7 @@ class HMainController1: HTupleController {
             }
             break
         case 6:
-            let cell = itemBlock(nil, HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
+            let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 65)
             }
@@ -235,6 +235,26 @@ class HMainController1: HTupleController {
             }
             break
         case 7:
+            let cell = itemBlock(nil, HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
+            cell.sizeBlock = {
+                return CGSize(width: self.tupleView.width, height: 65)
+            }
+            cell.edgeInsetsBlock = {
+                return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+            }
+            cell.cellBlock = {
+                cell.backgroundColor = UIColor.gray
+
+                cell.separatorView.separatorInset = UILREdgeInsets(left: 0, right: 10)
+
+                cell.label.backgroundColor = UIColor.green
+                cell.label.text = "labellabel"
+
+                cell.detailLabel.backgroundColor = UIColor.red
+                cell.detailLabel.text = "detailLabeldetailLabeldetailLabel"
+            }
+            break
+        case 8:
             let cell = itemBlock(nil, HTupleTextFieldCell.self, nil, true) as! HTupleTextFieldCell
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 65)

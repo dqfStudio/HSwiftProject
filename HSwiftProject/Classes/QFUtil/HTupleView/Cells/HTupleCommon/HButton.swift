@@ -87,13 +87,16 @@ class HButton: UIControl {
     
     private func setup() {
         
+        stackView.spacing = spacing
+        
         if direction == .horizontal {
             
             if let imageView = _imageView {
                 imageView.contentMode = (_titleLabel != nil) ? .right : .center
-                let width = imageView.image?.size.width ?? 0
-                imageView.widthAnchor.constraint(equalToConstant: width).isActive = true
+//                let width = imageView.image?.size.width ?? 0
+//                imageView.widthAnchor.constraint(equalToConstant: width).isActive = true
                 stackView.addArrangedSubview(imageView)
+                imageView.backgroundColor = .blue
             }
             
             if let titleLabel = _titleLabel {
@@ -101,9 +104,13 @@ class HButton: UIControl {
                 titleLabel.textAlignment = (_imageView != nil) ? .left : .center
                 titleLabel.verticalAlignment = .middle
                 stackView.addArrangedSubview(titleLabel)
+                titleLabel.backgroundColor = .green
             }
             
             stackView.axis = .horizontal
+            
+            stackView.distribution = .fillProportionally
+            stackView.alignment = .center
             
         } else {
 

@@ -60,6 +60,20 @@ class HMainController2: HViewController {
         super.viewDidLoad()
 
         
+        let button = HButton(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+        
+        button.imageView.image = UIImage(named: "hvc_back_icon")
+        
+        button.titleLabel.text = "啊发来的撒酒疯拉的屎"
+        
+        button.spacing = 10
+        
+        button.direction = .horizontal
+        button.backgroundColor = .red
+        self.view.addSubview(button)
+        
+        return
+        
         let stackView = UIStackView(frame: CGRect(x: 100, y: 200, width: 120, height: UIScreen.width))
         stackView.axis = .vertical
         stackView.distribution = .fill
