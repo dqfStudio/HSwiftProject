@@ -69,7 +69,7 @@ class HTupleAppearance : NSObject {
             }
         }
     }
-    static func refreshTuples(key: String, _ completion: @escaping () -> Void) {
+    static func refreshTuple(key: String, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             // Execute in reverse order
             let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
@@ -79,7 +79,7 @@ class HTupleAppearance : NSObject {
             }
         }
     }
-    static func releaseTuples(key: String, _ completion: @escaping () -> Void) {
+    static func releaseTuple(key: String, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInitiated).async {
             // Execute in reverse order
             let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }

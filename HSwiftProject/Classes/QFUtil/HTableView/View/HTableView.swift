@@ -56,6 +56,26 @@ class HTableAppearance : NSObject {
             }
         }
     }
+    static func refreshTable(key: String, _ completion: @escaping () -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            // Execute in reverse order
+            let tables = self.hashTables.allObjects.reversed().compactMap { $0 as? HTableView }
+            tables.filter { $0.reloadTableKey == key }.forEach { $0.reloadTableData() }
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
+    }
+    static func releaseTable(key: String, _ completion: @escaping () -> Void) {
+        DispatchQueue.global(qos: .userInitiated).async {
+            // Execute in reverse order
+            let tables = self.hashTables.allObjects.reversed().compactMap { $0 as? HTableView }
+            tables.filter { $0.releaseTableKey == key }.forEach { $0.releaseTableBlock() }
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
+    }
 }
 
 @objc protocol HTableViewDelegate : UITableViewDelegate {
