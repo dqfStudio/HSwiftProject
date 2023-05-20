@@ -186,7 +186,7 @@ class HMainController1: HTupleController {
                 cell.cellBlock = {
                     cell.backgroundColor = UIColor.gray
 
-                    cell.separatorView.separatorInset = UILREdgeInsets(left: 0, right: 10)
+                    cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
                     cell.label.backgroundColor = UIColor.green
                     cell.label.text = "label"
@@ -211,7 +211,7 @@ class HMainController1: HTupleController {
                 cell.cellBlock = {
                     cell.backgroundColor = UIColor.gray
 
-                    cell.separatorView.separatorInset = UILREdgeInsets(left: 0, right: 10)
+                    cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
                     cell.label.backgroundColor = UIColor.green
                     cell.label.text = "label"
