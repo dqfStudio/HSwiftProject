@@ -59,36 +59,36 @@ class HMainController2: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let formView = HFormView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
-        formView.backgroundColor = .gray
-        self.view.addSubview(formView)
+        let sectionView = HSectionView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+        sectionView.backgroundColor = .gray
+        self.view.addSubview(sectionView)
         
         
-        formView.headerWidth = 40
-        formView.headerSpace = 5
-        if formView.header == nil {
+        sectionView.headerWidth = 40
+        sectionView.headerSpace = 5
+        if sectionView.header == nil {
             let header = UIView()
             header.backgroundColor = .red
-            formView.header = header
+            sectionView.header = header
         }
         
         
-        formView.footerWidth = 40
-        formView.footerSpace = 5
-        if formView.footer == nil {
+        sectionView.footerWidth = 40
+        sectionView.footerSpace = 5
+        if sectionView.footer == nil {
             let footer = UIView()
             footer.backgroundColor = .blue
-            formView.footer = footer
+            sectionView.footer = footer
         }
         
         
-        if formView.item == nil {
+        if sectionView.item == nil {
             let item = UIView()
             item.backgroundColor = .yellow
-            formView.item = item
+            sectionView.item = item
         }
         
-        formView.reloadData()
+        sectionView.reloadData()
         
         return
 

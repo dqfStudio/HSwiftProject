@@ -1,5 +1,5 @@
 //
-//  HFormView.swift
+//  HSectionView.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/5/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HFormView: UIStackView {
+class HSectionView: UIStackView {
     
     private var allReuseViews = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
     
