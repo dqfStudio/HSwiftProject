@@ -12,11 +12,11 @@ import UIKit
 class HTableViewCellVertValue1 : HTableBaseCell {
 
     ///labelLabel的高度
-    var labelHeight: CGFloat = 0
+    var labelHeight: CGFloat = 0.0
     ///detailLabel的高度
-    var detailHeight: CGFloat = 0
+    var detailHeight: CGFloat = 0.0
     ///accessoryLabel的高度
-    var accessoryHeight: CGFloat = 0
+    var accessoryHeight: CGFloat = 0.0
 
     private var _imageView: HWebImageView?
     ///显示图片
@@ -79,7 +79,7 @@ class HTableViewCellVertValue1 : HTableBaseCell {
     }
 
     ///imageView顶部的高度
-    var topHeight: CGFloat = 0
+    var topHeight: CGFloat = 0.0
 
     private var _bottomView: HWebImageView?
     ///imageView底部的背景图片
@@ -103,31 +103,23 @@ class HTableViewCellVertValue1 : HTableBaseCell {
     }
 
     ///imageView底部的高度
-    var bottomHeight: CGFloat = 0
+    var bottomHeight: CGFloat = 0.0
     
     // 设置layoutView通用间隔
-    func setLayoutSpacing(_ spacing: CGFloat) {
-        layoutView.spacing = spacing
+    var layoutSpacing: CGFloat = 0.0 {
+        didSet {
+            layoutView.spacing = layoutSpacing
+        }
     }
     
     // 在imageView后面添加自定义间隔
-    func setLayoutFirstSpacing(_ spacing: CGFloat) {
-        layoutView.setCustomSpacing(spacing, after: imageView)
-    }
+    var layoutFirstSpacing: CGFloat = 0.0
     
     // 在label后面添加自定义间隔
-    func setLayoutSecondSpacing(_ spacing: CGFloat) {
-        if let label = _label {
-            layoutView.setCustomSpacing(spacing, after: label)
-        }
-    }
+    var layoutSecondSpacing: CGFloat = 0.0
     
     // 在detailLabel后面添加自定义间隔
-    func setLayoutThirdSpacing(_ spacing: CGFloat) {
-        if let detailLabel = _detailLabel {
-            layoutView.setCustomSpacing(spacing, after: detailLabel)
-        }
-    }
+    var layoutThirdSpacing: CGFloat = 0.0
     
     /// Method called during cell initialization
     override func initUI() {
@@ -143,6 +135,7 @@ class HTableViewCellVertValue1 : HTableBaseCell {
 
         // imageView
         layoutView.addArrangedSubview(imageView)
+        layoutView.setCustomSpacing(layoutFirstSpacing, after: imageView)
         
         //计算topLabel的坐标
         if self.topHeight > 0 {
@@ -165,15 +158,17 @@ class HTableViewCellVertValue1 : HTableBaseCell {
 
         // label
         if let label = _label, labelHeight > 0 {
-            label.widthAnchor.constraint(equalToConstant: labelHeight).isActive = true
+            label.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
             layoutView.addArrangedSubview(label)
+            layoutView.setCustomSpacing(layoutSecondSpacing, after: label)
         }
         if let detailLabel = _detailLabel, detailHeight > 0 {
-            detailLabel.widthAnchor.constraint(equalToConstant: detailHeight).isActive = true
+            detailLabel.heightAnchor.constraint(equalToConstant: detailHeight).isActive = true
             layoutView.addArrangedSubview(detailLabel)
+            layoutView.setCustomSpacing(layoutThirdSpacing, after: detailLabel)
         }
         if let accessoryLabel = _accessoryLabel, accessoryHeight > 0 {
-            accessoryLabel.widthAnchor.constraint(equalToConstant: accessoryHeight).isActive = true
+            accessoryLabel.heightAnchor.constraint(equalToConstant: accessoryHeight).isActive = true
             layoutView.addArrangedSubview(accessoryLabel)
         }
         
@@ -185,11 +180,11 @@ class HTableViewCellVertValue1 : HTableBaseCell {
 class HTableViewCellVertValue2 : HTableBaseCell {
 
     ///labelLabel的高度
-    var labelHeight: CGFloat = 0
+    var labelHeight: CGFloat = 0.0
     ///detailLabel的高度
-    var detailHeight: CGFloat = 0
+    var detailHeight: CGFloat = 0.0
     ///accessoryLabel的高度
-    var accessoryHeight: CGFloat = 0
+    var accessoryHeight: CGFloat = 0.0
 
     private var _imageView: HWebImageView?
     ///显示图片
@@ -252,7 +247,7 @@ class HTableViewCellVertValue2 : HTableBaseCell {
     }
 
     ///imageView顶部的高度
-    var topHeight: CGFloat = 0
+    var topHeight: CGFloat = 0.0
 
     private var _bottomView: HWebImageView?
     ///imageView底部的背景图片
@@ -276,31 +271,23 @@ class HTableViewCellVertValue2 : HTableBaseCell {
     }
 
     ///imageView底部的高度
-    var bottomHeight: CGFloat = 0
+    var bottomHeight: CGFloat = 0.0
     
     // 设置layoutView通用间隔
-    func setLayoutSpacing(_ spacing: CGFloat) {
-        layoutView.spacing = spacing
+    var layoutSpacing: CGFloat = 0.0 {
+        didSet {
+            layoutView.spacing = layoutSpacing
+        }
     }
     
     // 在accessoryLabel后面添加自定义间隔
-    func setLayoutFirstSpacing(_ spacing: CGFloat) {
-        if let accessoryLabel = _accessoryLabel {
-            layoutView.setCustomSpacing(spacing, after: accessoryLabel)
-        }
-    }
+    var layoutFirstSpacing: CGFloat = 0.0
     
     // 在imageView后面添加自定义间隔
-    func setLayoutSecondSpacing(_ spacing: CGFloat) {
-        layoutView.setCustomSpacing(spacing, after: imageView)
-    }
+    var layoutSecondSpacing: CGFloat = 0.0
     
     // 在label后面添加自定义间隔
-    func setLayoutThirdSpacing(_ spacing: CGFloat) {
-        if let label = _label {
-            layoutView.setCustomSpacing(spacing, after: label)
-        }
-    }
+    var layoutThirdSpacing: CGFloat = 0.0
     
     /// Method called during cell initialization
     override func initUI() {
@@ -315,12 +302,14 @@ class HTableViewCellVertValue2 : HTableBaseCell {
         layoutView.frame = frame
         
         if let accessoryLabel = _accessoryLabel, accessoryHeight > 0 {
-            accessoryLabel.widthAnchor.constraint(equalToConstant: accessoryHeight).isActive = true
+            accessoryLabel.heightAnchor.constraint(equalToConstant: accessoryHeight).isActive = true
             layoutView.addArrangedSubview(accessoryLabel)
+            layoutView.setCustomSpacing(layoutFirstSpacing, after: accessoryLabel)
         }
 
         // imageView
         layoutView.addArrangedSubview(imageView)
+        layoutView.setCustomSpacing(layoutSecondSpacing, after: imageView)
         
         //计算topLabel的坐标
         if self.topHeight > 0 {
@@ -343,11 +332,12 @@ class HTableViewCellVertValue2 : HTableBaseCell {
 
         // label
         if let label = _label, labelHeight > 0 {
-            label.widthAnchor.constraint(equalToConstant: labelHeight).isActive = true
+            label.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
             layoutView.addArrangedSubview(label)
+            layoutView.setCustomSpacing(layoutThirdSpacing, after: label)
         }
         if let detailLabel = _detailLabel, detailHeight > 0 {
-            detailLabel.widthAnchor.constraint(equalToConstant: detailHeight).isActive = true
+            detailLabel.heightAnchor.constraint(equalToConstant: detailHeight).isActive = true
             layoutView.addArrangedSubview(detailLabel)
         }
         
