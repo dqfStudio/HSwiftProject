@@ -18,7 +18,6 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
         stackView.distribution = .fill
         stackView.alignment = .fill
         stackView.spacing = 5
-        layoutView.addArrangedSubview(stackView)
         return stackView
     }()
     
@@ -28,7 +27,6 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .center
-        layoutView.addArrangedSubview(stackView)
         return stackView
     }()
     
@@ -133,10 +131,11 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
         }
         
         // textLayoutView
+        layoutView.addArrangedSubview(textLayoutView)
+        textLayoutView.spacing = textSpacing
         if layoutSecondSpacing > 0 {
             layoutView.setCustomSpacing(layoutSecondSpacing, after: textLayoutView)
         }
-        textLayoutView.spacing = textSpacing
         
         // label
         textLayoutView.addArrangedSubview(label)
@@ -171,6 +170,7 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
 
         // accessoryView
         if isShowAccessoryArrow {
+            layoutView.addArrangedSubview(arrowLayoutView)
             accessoryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
             accessoryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
             arrowLayoutView.addArrangedSubview(accessoryView)
@@ -188,7 +188,6 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
         stackView.axis = .vertical
         stackView.distribution = .fillEqually
         stackView.alignment = .fill
-        layoutView.addArrangedSubview(stackView)
         return stackView
     }()
     
@@ -198,7 +197,6 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .center
-        layoutView.addArrangedSubview(stackView)
         return stackView
     }()
     
@@ -297,10 +295,11 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
         }
         
         // textLayoutView
+        layoutView.addArrangedSubview(textLayoutView)
+        textLayoutView.spacing = textSpacing
         if layoutSecondSpacing > 0 {
             layoutView.setCustomSpacing(layoutSecondSpacing, after: textLayoutView)
         }
-        textLayoutView.spacing = textSpacing
         
         // label
         textLayoutView.addArrangedSubview(label)
@@ -329,6 +328,7 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
 
         // accessoryView
         if isShowAccessoryArrow {
+            layoutView.addArrangedSubview(arrowLayoutView)
             accessoryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
             accessoryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
             arrowLayoutView.addArrangedSubview(accessoryView)
