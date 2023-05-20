@@ -9,7 +9,7 @@
 import UIKit
 
 ///三个label横向显示
-class HTableViewCellHoriValue1 : HTupleBaseCell {
+class HTableViewCellHoriValue1 : HTableBaseCell {
     
     // 用于text布局
     lazy var textLayoutView: UIStackView = {
@@ -33,7 +33,7 @@ class HTableViewCellHoriValue1 : HTupleBaseCell {
     }()
     
     // arrow
-    lazy private var accessoryView: UIImageView = {
+    lazy private var accessoryViewExa: UIImageView = {
         let accessoryView = UIImageView()
         accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
         accessoryView.contentMode = .scaleAspectFit
@@ -48,7 +48,7 @@ class HTableViewCellHoriValue1 : HTupleBaseCell {
     
     private var _imageView: HWebImageView?
     ///左边显示图片
-    var imageView: HWebImageView {
+    override var imageView: HWebImageView {
         if _imageView == nil {
             _imageView = HWebImageView()
         }
@@ -169,16 +169,16 @@ class HTableViewCellHoriValue1 : HTupleBaseCell {
 
         // accessoryView
         if isShowAccessoryArrow {
-            accessoryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
-            accessoryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
-            arrowLayoutView.addArrangedSubview(accessoryView)
+            accessoryViewExa.widthAnchor.constraint(equalToConstant: 7).isActive = true
+            accessoryViewExa.heightAnchor.constraint(equalToConstant: 13).isActive = true
+            arrowLayoutView.addArrangedSubview(accessoryViewExa)
         }
         
     }
 }
 
 ///三个label纵向显示
-class HTableViewCellHoriValue2 : HTupleBaseCell {
+class HTableViewCellHoriValue2 : HTableBaseCell {
     
     // 用于text布局
     lazy var textLayoutView: UIStackView = {
@@ -201,7 +201,7 @@ class HTableViewCellHoriValue2 : HTupleBaseCell {
     }()
     
     // arrow
-    lazy private var accessoryView: UIImageView = {
+    lazy private var accessoryViewExa: UIImageView = {
         let accessoryView = UIImageView()
         accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
         accessoryView.contentMode = .scaleAspectFit
@@ -210,7 +210,7 @@ class HTableViewCellHoriValue2 : HTupleBaseCell {
     
     private var _imageView: HWebImageView?
     ///左边显示图片
-    var imageView: HWebImageView {
+    override var imageView: HWebImageView {
         if _imageView == nil {
             _imageView = HWebImageView()
         }
@@ -325,9 +325,9 @@ class HTableViewCellHoriValue2 : HTupleBaseCell {
 
         // accessoryView
         if isShowAccessoryArrow {
-            accessoryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
-            accessoryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
-            arrowLayoutView.addArrangedSubview(accessoryView)
+            accessoryViewExa.widthAnchor.constraint(equalToConstant: 7).isActive = true
+            accessoryViewExa.heightAnchor.constraint(equalToConstant: 13).isActive = true
+            arrowLayoutView.addArrangedSubview(accessoryViewExa)
         }
 
     }

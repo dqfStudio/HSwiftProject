@@ -10,7 +10,7 @@ import UIKit
 
 ///三个label横向显示
 class HTableViewApexHoriValue1 : HTableBaseApex {
-
+    
     // 用于text布局
     lazy var textLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -21,7 +21,7 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
         layoutView.addArrangedSubview(stackView)
         return stackView
     }()
-
+    
     // 用于arrow布局
     lazy var arrowLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -31,7 +31,7 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
         layoutView.addArrangedSubview(stackView)
         return stackView
     }()
-
+    
     // arrow
     lazy private var accessoryView: UIImageView = {
         let accessoryView = UIImageView()
@@ -39,13 +39,13 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
         accessoryView.contentMode = .scaleAspectFit
         return accessoryView
     }()
-
+    
     ///detailLabel的宽度
     var detailWidth: CGFloat = 0.0
-
+    
     ///accessoryLabel的宽度
     var accessoryWidth: CGFloat = 0.0
-
+    
     private var _imageView: HWebImageView?
     ///左边显示图片
     var imageView: HWebImageView {
@@ -54,14 +54,14 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
         }
         return _imageView!
     }
-
+    
     ///显示文字内容
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         return label
     }()
-
+    
     private var _detailLabel: UILabel?
     ///显示文字内容详情
     var detailLabel: UILabel {
@@ -71,7 +71,7 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
         }
         return _detailLabel!
     }
-
+    
     private var _accessoryLabel: UILabel?
     ///显示文字内容附加信息
     var accessoryLabel: UILabel {
@@ -81,7 +81,7 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
         }
         return _accessoryLabel!
     }
-
+    
     private var _detailView: HWebImageView?
     ///右边显示图片
     var detailView: HWebImageView {
@@ -90,60 +90,44 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
         }
         return _detailView!
     }
-
+    
     ///是否显示右边箭头
     var isShowAccessoryArrow: Bool = false
-
+    
     // 设置layoutView通用间隔
-    func setLayoutSpacing(_ spacing: CGFloat) {
-        layoutView.spacing = spacing
+    var layoutSpacing: CGFloat = 0.0 {
+        didSet {
+            layoutView.spacing = layoutSpacing
+        }
     }
-
+    
     // 在imageView后面添加自定义间隔
-    func setLayoutFirstSpacing(_ spacing: CGFloat) {
-        if let imageView = _imageView {
-            layoutView.setCustomSpacing(spacing, after: imageView)
-        }
-    }
-
+    var layoutFirstSpacing: CGFloat = 0.0
+    
     // 在textLayoutView后面添加自定义间隔
-    func setLayoutSecondSpacing(_ spacing: CGFloat) {
-        layoutView.setCustomSpacing(spacing, after: textLayoutView)
-    }
-
+    var layoutSecondSpacing: CGFloat = 0.0
+    
     // 在detailView后面添加自定义间隔
-    func setLayoutThirdSpacing(_ spacing: CGFloat) {
-        if let detailView = _detailView {
-            layoutView.setCustomSpacing(spacing, after: detailView)
-        }
-    }
-
+    var layoutThirdSpacing: CGFloat = 0.0
+    
     // 设置textLayoutView通用间隔
-    func setTextSpacing(_ spacing: CGFloat) {
-        textLayoutView.spacing = spacing
-    }
-
+    var textSpacing: CGFloat = 0.0
+    
     // 在label后面添加自定义间隔
-    func setFirstTextSpacing(_ spacing: CGFloat) {
-        textLayoutView.setCustomSpacing(spacing, after: label)
-    }
-
+    var firstTextSpacing: CGFloat = 0.0
+    
     // 在detailLabel后面添加自定义间隔
-    func setSecondTextSpacing(_ spacing: CGFloat) {
-        if let detailLabel = _detailLabel {
-            textLayoutView.setCustomSpacing(spacing, after: detailLabel)
-        }
-    }
-
+    var secondTextSpacing: CGFloat = 0.0
+    
     /// Method called during cell initialization
     override func initUI() {
         layoutView.spacing = 10
     }
-
+    
     override func relayoutSubviews() {
-
+        
         let frame = self.bounds.inset(by: self.edgeInsets)
-
+        
         // 重设frame
         layoutView.frame = frame
 
@@ -151,16 +135,23 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
         if let imageView = _imageView {
             imageView.widthAnchor.constraint(equalToConstant: frame.height).isActive = true
             layoutView.addArrangedSubview(imageView)
+            layoutView.setCustomSpacing(layoutFirstSpacing, after: imageView)
         }
-
+        
+        // textLayoutView
+        layoutView.setCustomSpacing(layoutSecondSpacing, after: textLayoutView)
+        textLayoutView.spacing = textSpacing
+        
         // label
         textLayoutView.addArrangedSubview(label)
-
+        textLayoutView.setCustomSpacing(firstTextSpacing, after: label)
+        
         if let detailLabel = _detailLabel {
             if detailWidth > 0 {
                 detailLabel.widthAnchor.constraint(equalToConstant: detailWidth).isActive = true
             }
             textLayoutView.addArrangedSubview(detailLabel)
+            textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
         }
         if let accessoryLabel = _accessoryLabel {
             if accessoryWidth > 0 {
@@ -168,11 +159,12 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
             }
             textLayoutView.addArrangedSubview(accessoryLabel)
         }
-
+        
         // detailView
         if let detailView = _detailView {
             detailView.widthAnchor.constraint(equalToConstant: frame.height).isActive = true
             layoutView.addArrangedSubview(detailView)
+            layoutView.setCustomSpacing(layoutThirdSpacing, after: detailView)
         }
 
         // accessoryView
@@ -181,7 +173,7 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
             accessoryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
             arrowLayoutView.addArrangedSubview(accessoryView)
         }
-
+        
     }
 }
 
@@ -265,45 +257,29 @@ class HTableViewApexHoriValue2 : HTableBaseApex {
     var isShowAccessoryArrow: Bool = false
     
     // 设置layoutView通用间隔
-    func setLayoutSpacing(_ spacing: CGFloat) {
-        layoutView.spacing = spacing
+    var layoutSpacing: CGFloat = 0.0 {
+        didSet {
+            layoutView.spacing = layoutSpacing
+        }
     }
     
     // 在imageView后面添加自定义间隔
-    func setLayoutFirstSpacing(_ spacing: CGFloat) {
-        if let imageView = _imageView {
-            layoutView.setCustomSpacing(spacing, after: imageView)
-        }
-    }
+    var layoutFirstSpacing: CGFloat = 0.0
     
     // 在textLayoutView后面添加自定义间隔
-    func setLayoutSecondSpacing(_ spacing: CGFloat) {
-        layoutView.setCustomSpacing(spacing, after: textLayoutView)
-    }
+    var layoutSecondSpacing: CGFloat = 0.0
     
     // 在detailView后面添加自定义间隔
-    func setLayoutThirdSpacing(_ spacing: CGFloat) {
-        if let detailView = _detailView {
-            layoutView.setCustomSpacing(spacing, after: detailView)
-        }
-    }
+    var layoutThirdSpacing: CGFloat = 0.0
     
     // 设置textLayoutView通用间隔
-    func setTextSpacing(_ spacing: CGFloat) {
-        textLayoutView.spacing = spacing
-    }
+    var textSpacing: CGFloat = 0.0
     
     // 在label后面添加自定义间隔
-    func setFirstTextSpacing(_ spacing: CGFloat) {
-        textLayoutView.setCustomSpacing(spacing, after: label)
-    }
+    var firstTextSpacing: CGFloat = 0.0
     
     // 在detailLabel后面添加自定义间隔
-    func setSecondTextSpacing(_ spacing: CGFloat) {
-        if let detailLabel = _detailLabel {
-            textLayoutView.setCustomSpacing(spacing, after: detailLabel)
-        }
-    }
+    var secondTextSpacing: CGFloat = 0.0
     
     /// Method called during cell initialization
     override func initUI() {
@@ -321,13 +297,20 @@ class HTableViewApexHoriValue2 : HTableBaseApex {
         if let imageView = _imageView {
             imageView.widthAnchor.constraint(equalToConstant: frame.height).isActive = true
             layoutView.addArrangedSubview(imageView)
+            layoutView.setCustomSpacing(layoutFirstSpacing, after: imageView)
         }
+        
+        // textLayoutView
+        layoutView.setCustomSpacing(layoutSecondSpacing, after: textLayoutView)
+        textLayoutView.spacing = textSpacing
         
         // label
         textLayoutView.addArrangedSubview(label)
+        textLayoutView.setCustomSpacing(firstTextSpacing, after: label)
         
         if let detailLabel = _detailLabel {
             textLayoutView.addArrangedSubview(detailLabel)
+            textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
         }
         if let accessoryLabel = _accessoryLabel {
             textLayoutView.addArrangedSubview(accessoryLabel)
@@ -337,6 +320,7 @@ class HTableViewApexHoriValue2 : HTableBaseApex {
         if let detailView = _detailView {
             detailView.widthAnchor.constraint(equalToConstant: frame.height).isActive = true
             layoutView.addArrangedSubview(detailView)
+            layoutView.setCustomSpacing(layoutThirdSpacing, after: detailView)
         }
 
         // accessoryView
