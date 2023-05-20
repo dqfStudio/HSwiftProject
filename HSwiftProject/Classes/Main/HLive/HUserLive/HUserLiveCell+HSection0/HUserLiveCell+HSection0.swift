@@ -267,8 +267,8 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
             cell.detailLabel.font = UIFont.systemFont(ofSize: 18)
             cell.detailLabel.textAlignment = .right
             cell.detailLabel.textColor = UIColor.white
-            cell.setFirstTextSpacing(0)
-            cell.setSecondTextSpacing(5)
+            cell.firstTextSpacing = 0
+            cell.secondTextSpacing = 5
 //            cell.detailLabel setTextVerticalAlignment:HTextVerticalAlignmentBottom]
             cell.detailLabel.text = "›"
             break
@@ -286,8 +286,8 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
             cell.detailLabel.font = UIFont.systemFont(ofSize: 18)
             cell.detailLabel.textAlignment = .right
             cell.detailLabel.textColor = UIColor.white
-            cell.setFirstTextSpacing(0)
-            cell.setSecondTextSpacing(5)
+            cell.firstTextSpacing = 0
+            cell.secondTextSpacing = 5
 //            [cell.detailLabel setTextVerticalAlignment:HTextVerticalAlignmentBottom]
             cell.detailLabel.text = "›"
             break
