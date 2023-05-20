@@ -59,6 +59,36 @@ class HMainController2: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        let inputField = HInputField(frame: CGRect(x: 10, y: 200, width: 320, height: 120))
+        inputField.backgroundColor = .gray
+        self.view.addSubview(inputField)
+        
+//        inputField.headerSpace = 5
+//        inputField.headerWidth = 5
+        if inputField.header == nil {
+            inputField.header = UIView()
+        }
+
+//        inputField.footerSpace = 5
+//        inputField.footerWidth = 5
+        if inputField.footer == nil {
+            inputField.footer = UIView()
+        }
+        
+        
+        inputField.spacing = 5
+//        inputField.axis = .horizontal
+//        inputField.distribution = .equalCentering
+//        inputField.alignment = .fill
+        
+        
+        inputField.textField.backgroundColor = .yellow
+        
+        inputField.reloadData()
+        
+        return
+        
         let sectionView = HSectionView(frame: CGRect(x: 10, y: 200, width: 320, height: 120))
         sectionView.backgroundColor = .gray
         self.view.addSubview(sectionView)

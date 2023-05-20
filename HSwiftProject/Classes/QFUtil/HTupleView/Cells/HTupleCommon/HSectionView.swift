@@ -43,7 +43,9 @@ class HSectionView: UIStackView {
                     header.widthAnchor.constraint(equalToConstant: headerWidth).isActive = true
                 }
                 self.addArrangedSubview(header)
-                self.setCustomSpacing(headerSpace, after: header)
+                if headerSpace > 0 {
+                    self.setCustomSpacing(headerSpace, after: header)
+                }
             }
             
             // item
@@ -57,7 +59,10 @@ class HSectionView: UIStackView {
                     footer.widthAnchor.constraint(equalToConstant: footerWidth).isActive = true
                 }
                 self.addArrangedSubview(footer)
-                self.setCustomSpacing(footerSpace, after: item)
+                if footerSpace > 0 {
+                    self.setCustomSpacing(footerSpace, after: item)
+                }
+                
             }
             
         }
