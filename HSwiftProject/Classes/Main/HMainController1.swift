@@ -278,7 +278,7 @@ class HMainController1: HTupleController {
             cell.sizeBlock = {
                 let width = (self.tupleView.width - 20) / 3
 //                width = self.tupleView.fixSlit(withWidth: width, colCount: 3, index: indexPath.row - 3)
-                return CGSize(width: width, height: 120)
+                return CGSize(width: width, height: width + 5 + 25)
             }
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.gray
