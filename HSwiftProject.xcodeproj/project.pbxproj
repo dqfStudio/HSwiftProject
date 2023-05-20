@@ -227,7 +227,6 @@
 		EB80B66A2A111C6B0016648A /* HButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6692A111C6B0016648A /* HButton.swift */; };
 		EB80B66C2A1130E10016648A /* HToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B66B2A1130E00016648A /* HToolbar.swift */; };
 		EB80B66E2A122A940016648A /* HScrollbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B66D2A122A940016648A /* HScrollbar.swift */; };
-		EB80B6722A150D540016648A /* HToolbar3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6712A150D540016648A /* HToolbar3.swift */; };
 		EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6732A15C8ED0016648A /* HLabel.swift */; };
 		EB80B67C2A1779A30016648A /* HSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B67B2A1779A30016648A /* HSectionView.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
@@ -528,7 +527,6 @@
 		EB80B6692A111C6B0016648A /* HButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HButton.swift; sourceTree = "<group>"; };
 		EB80B66B2A1130E00016648A /* HToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HToolbar.swift; sourceTree = "<group>"; };
 		EB80B66D2A122A940016648A /* HScrollbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HScrollbar.swift; sourceTree = "<group>"; };
-		EB80B6712A150D540016648A /* HToolbar3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HToolbar3.swift; sourceTree = "<group>"; };
 		EB80B6732A15C8ED0016648A /* HLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLabel.swift; sourceTree = "<group>"; };
 		EB80B67B2A1779A30016648A /* HSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSectionView.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
@@ -794,7 +792,6 @@
 				EB80B6732A15C8ED0016648A /* HLabel.swift */,
 				EB80B66B2A1130E00016648A /* HToolbar.swift */,
 				EB80B66D2A122A940016648A /* HScrollbar.swift */,
-				EB80B6712A150D540016648A /* HToolbar3.swift */,
 				EB80B67B2A1779A30016648A /* HSectionView.swift */,
 			);
 			path = HTupleCommon;
@@ -1910,7 +1907,6 @@
 				EBC8146D29AA540000A81431 /* HSendVideoVC.swift in Sources */,
 				EBC8145529AA537700A81431 /* HSendAudioVC.swift in Sources */,
 				EBC8146529AA53DE00A81431 /* HAcceptVideoVC+HStatus1.swift in Sources */,
-				EB80B6722A150D540016648A /* HToolbar3.swift in Sources */,
 				A2A7A93323FE29470090EFD3 /* HTupleViewMarqueeCell.swift in Sources */,
 				A229489723975AE80058B939 /* HTupleViewApex.swift in Sources */,
 				A2B43080237FF57C00795605 /* HViewController.swift in Sources */,
