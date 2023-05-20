@@ -106,11 +106,7 @@ class HTableViewCellVertValue1 : HTableBaseCell {
     var bottomHeight: CGFloat = 0.0
     
     // 设置layoutView通用间隔
-    var layoutSpacing: CGFloat = 0.0 {
-        didSet {
-            layoutView.spacing = layoutSpacing
-        }
-    }
+    var layoutSpacing: CGFloat = 10.0
     
     // 在imageView后面添加自定义间隔
     var layoutFirstSpacing: CGFloat = 0.0
@@ -132,10 +128,13 @@ class HTableViewCellVertValue1 : HTableBaseCell {
 
         // 重设frame
         layoutView.frame = frame
+        layoutView.spacing = layoutSpacing
 
         // imageView
         layoutView.addArrangedSubview(imageView)
-        layoutView.setCustomSpacing(layoutFirstSpacing, after: imageView)
+        if layoutFirstSpacing > 0 {
+            layoutView.setCustomSpacing(layoutFirstSpacing, after: imageView)
+        }
         
         //计算topLabel的坐标
         if self.topHeight > 0 {
@@ -160,12 +159,16 @@ class HTableViewCellVertValue1 : HTableBaseCell {
         if let label = _label, labelHeight > 0 {
             label.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
             layoutView.addArrangedSubview(label)
-            layoutView.setCustomSpacing(layoutSecondSpacing, after: label)
+            if layoutSecondSpacing > 0 {
+                layoutView.setCustomSpacing(layoutSecondSpacing, after: label)
+            }
         }
         if let detailLabel = _detailLabel, detailHeight > 0 {
             detailLabel.heightAnchor.constraint(equalToConstant: detailHeight).isActive = true
             layoutView.addArrangedSubview(detailLabel)
-            layoutView.setCustomSpacing(layoutThirdSpacing, after: detailLabel)
+            if layoutThirdSpacing > 0 {
+                layoutView.setCustomSpacing(layoutThirdSpacing, after: detailLabel)
+            }
         }
         if let accessoryLabel = _accessoryLabel, accessoryHeight > 0 {
             accessoryLabel.heightAnchor.constraint(equalToConstant: accessoryHeight).isActive = true
@@ -274,11 +277,7 @@ class HTableViewCellVertValue2 : HTableBaseCell {
     var bottomHeight: CGFloat = 0.0
     
     // 设置layoutView通用间隔
-    var layoutSpacing: CGFloat = 0.0 {
-        didSet {
-            layoutView.spacing = layoutSpacing
-        }
-    }
+    var layoutSpacing: CGFloat = 10.0
     
     // 在accessoryLabel后面添加自定义间隔
     var layoutFirstSpacing: CGFloat = 0.0
@@ -300,16 +299,21 @@ class HTableViewCellVertValue2 : HTableBaseCell {
 
         // 重设frame
         layoutView.frame = frame
+        layoutView.spacing = layoutSpacing
         
         if let accessoryLabel = _accessoryLabel, accessoryHeight > 0 {
             accessoryLabel.heightAnchor.constraint(equalToConstant: accessoryHeight).isActive = true
             layoutView.addArrangedSubview(accessoryLabel)
-            layoutView.setCustomSpacing(layoutFirstSpacing, after: accessoryLabel)
+            if layoutFirstSpacing > 0 {
+                layoutView.setCustomSpacing(layoutFirstSpacing, after: accessoryLabel)
+            }
         }
 
         // imageView
         layoutView.addArrangedSubview(imageView)
-        layoutView.setCustomSpacing(layoutSecondSpacing, after: imageView)
+        if layoutSecondSpacing > 0 {
+            layoutView.setCustomSpacing(layoutSecondSpacing, after: imageView)
+        }
         
         //计算topLabel的坐标
         if self.topHeight > 0 {
@@ -334,7 +338,9 @@ class HTableViewCellVertValue2 : HTableBaseCell {
         if let label = _label, labelHeight > 0 {
             label.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
             layoutView.addArrangedSubview(label)
-            layoutView.setCustomSpacing(layoutThirdSpacing, after: label)
+            if layoutThirdSpacing > 0 {
+                layoutView.setCustomSpacing(layoutThirdSpacing, after: label)
+            }
         }
         if let detailLabel = _detailLabel, detailHeight > 0 {
             detailLabel.heightAnchor.constraint(equalToConstant: detailHeight).isActive = true
