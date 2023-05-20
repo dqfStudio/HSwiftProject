@@ -59,7 +59,7 @@ class HMainController2: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let sectionView = HSectionView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+        let sectionView = HSectionView(frame: CGRect(x: 10, y: 200, width: 320, height: 120))
         sectionView.backgroundColor = .gray
         self.view.addSubview(sectionView)
         
