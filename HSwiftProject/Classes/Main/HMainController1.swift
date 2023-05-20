@@ -17,6 +17,7 @@ class HMainController1: HTupleController {
         self.navigationBar.leftItem.isHidden = true
         self.tupleView.tupleStatus = .block
         self.tupleView.delegate = self
+        extendedInset = UIEdgeInsets(top: 0, left: 0, bottom: UIScreen.bottomBarHeight + 30, right: 0)
     }
     
     override func viewWillLayoutSubviews() {
