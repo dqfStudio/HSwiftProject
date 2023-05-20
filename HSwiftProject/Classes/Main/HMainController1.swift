@@ -19,26 +19,6 @@ class HMainController1: HTupleController {
         self.tupleView.delegate = self
         extendedInset = UIEdgeInsets(top: 0, left: 0, bottom: UIScreen.bottomBarHeight + 30, right: 0)
     }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        if autoLayout {//Default is YES
-            var frame = view.bounds
-            if topExtendedLayout {//Default is YES
-                frame.origin.x += 10
-                frame.origin.y += UIScreen.topBarHeight
-                frame.size.height -= UIScreen.topBarHeight
-                frame.size.width -= 20
-            }
-            frame.size.height -= bottomExtendedHeight
-            self.tupleView.frame = frame
-            if extendedInset != .zero {//If the value has been set
-                if self.tupleView.contentInset != extendedInset {//If the set value is not equal to the current value
-                    self.tupleView.contentInset = extendedInset
-                }
-            }
-        }
-    }
 
     func numberOfSectionsInTupleView() -> Any {
         return 2
@@ -53,14 +33,9 @@ class HMainController1: HTupleController {
             return 1
         }
     }
-//    func insetForSection(_ section: Any) -> Any {
-//        switch section as! Int {
-//        case 0:
-//            return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-//        default:
-//            return UIEdgeInsets.zero
-//        }
-//    }
+    func insetForSection(_ section: Any) -> Any {
+        return UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+    }
     func colorForSection(_ section: Any) -> UIColor {
         return UIColor.red
     }
@@ -80,7 +55,8 @@ class HMainController1: HTupleController {
             case 0:
                 let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
                 cell.sizeBlock = {
-                    return CGSize(width: self.tupleView.width, height: 65)
+                    let width = self.tupleView.width(forSection: indexPath.section)
+                    return CGSize(width: width, height: 65)
                 }
                 cell.edgeInsetsBlock = {
                     return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -126,7 +102,8 @@ class HMainController1: HTupleController {
             case 1:
                 let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
                 cell.sizeBlock = {
-                    return CGSize(width: self.tupleView.width, height: 65)
+                    let width = self.tupleView.width(forSection: indexPath.section)
+                    return CGSize(width: width, height: 65)
                 }
                 cell.edgeInsetsBlock = {
                     return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -152,7 +129,8 @@ class HMainController1: HTupleController {
             case 2:
                 let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
                 cell.sizeBlock = {
-                    return CGSize(width: self.tupleView.width, height: 65)
+                    let width = self.tupleView.width(forSection: indexPath.section)
+                    return CGSize(width: width, height: 65)
                 }
                 cell.edgeInsetsBlock = {
                     return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -178,7 +156,8 @@ class HMainController1: HTupleController {
             case 3:
                 let cell = itemBlock(nil, HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
                 cell.sizeBlock = {
-                    return CGSize(width: self.tupleView.width, height: 65)
+                    let width = self.tupleView.width(forSection: indexPath.section)
+                    return CGSize(width: width, height: 65)
                 }
                 cell.edgeInsetsBlock = {
                     return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -203,7 +182,8 @@ class HMainController1: HTupleController {
             case 4:
                 let cell = itemBlock(nil, HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
                 cell.sizeBlock = {
-                    return CGSize(width: self.tupleView.width, height: 65)
+                    let width = self.tupleView.width(forSection: indexPath.section)
+                    return CGSize(width: width, height: 65)
                 }
                 cell.edgeInsetsBlock = {
                     return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -226,7 +206,8 @@ class HMainController1: HTupleController {
             case 5:
                 let cell = itemBlock(nil, HTupleTextFieldCell.self, nil, true) as! HTupleTextFieldCell
                 cell.sizeBlock = {
-                    return CGSize(width: self.tupleView.width, height: 65)
+                    let width = self.tupleView.width(forSection: indexPath.section)
+                    return CGSize(width: width, height: 65)
                 }
                 cell.edgeInsetsBlock = {
                     return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -276,7 +257,7 @@ class HMainController1: HTupleController {
         case 1:
             let cell = itemBlock(nil, HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
             cell.sizeBlock = {
-                let width = (self.tupleView.width - 20) / 3
+                let width = (self.tupleView.width(forSection: indexPath.section) - 20) / 3
 //                width = self.tupleView.fixSlit(withWidth: width, colCount: 3, index: indexPath.row - 3)
                 return CGSize(width: width, height: width + 5 + 25)
             }

@@ -53,9 +53,9 @@ typealias HTupleSectionExclusiveBlock = () -> NSArray
 
 /// This class is used for refreshing tupleView throughout the project.
 class HTupleAppearance : NSObject {
-    
+
     private static var hashTuples = NSHashTable<AnyObject>.weakObjects()
-    
+
     static func addTuple(_ anTuple: AnyObject) {
         self.hashTuples.add(anTuple)
     }
@@ -99,7 +99,7 @@ class HTupleAppearance : NSObject {
     /// layout == HCollectionViewFlowLayout
     @objc
     optional func colorForSection(_ section: Any) -> UIColor
-    
+
     @objc
     optional func sizeForHeaderInSection(_ section: Any) -> Any
     @objc
@@ -116,7 +116,7 @@ class HTupleAppearance : NSObject {
 
     @objc
     optional func minimumLineSpacingForSectionAt(_ section: Any) -> Any
-    
+
     @objc
     optional func insetForSection(_ section: Any) -> Any
 
@@ -145,7 +145,7 @@ class HTupleAppearance : NSObject {
     optional func shouldDeselectItemAtIndexPath(_ indexPath: IndexPath) -> Bool
     @objc
     optional func didDeselectItemAtIndexPath(_ indexPath: IndexPath)
-    
+
     @objc
     optional func willDisplayElementKind(_ elementKind: String, atIndexPath indexPath: IndexPath)
     @objc
@@ -158,36 +158,36 @@ class HTupleAppearance : NSObject {
     optional func tupleViewDidScroll(_ scrollView: UIScrollView)
     @objc
     optional func tupleViewDidZoom(_ scrollView: UIScrollView)
-    
+
     @objc
     optional func tupleViewWillBeginDragging(_ scrollView: UIScrollView)
-    
+
     @objc
     optional func tupleViewWillEndDragging(_ velocity: CGPoint, targetContentOffset: CGPoint)
-    
+
     @objc
     optional func tupleViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
-    
+
     @objc
     optional func tupleViewWillBeginDecelerating(_ scrollView: UIScrollView)
     @objc
     optional func tupleViewDidEndDecelerating(_ scrollView: UIScrollView)
-    
+
     @objc
     optional func tupleViewDidEndScrollingAnimation(_ scrollView: UIScrollView)
-    
+
     @objc
     optional func tupleViewForZoomingInScrollView(_ scrollView: UIScrollView) -> UIView?
     @objc
     optional func tupleViewWillBeginZooming(_ scrollView: UIScrollView, withView view: UIView?)
     @objc
     optional func tupleViewDidEndZooming(_ view: UIView?, atScale scale: CGFloat)
-    
+
     @objc
     optional func tupleViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool
     @objc
     optional func tupleViewDidScrollToTop(_ scrollView: UIScrollView)
-    
+
     @objc
     optional func tupleViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView)
 }
@@ -198,7 +198,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
 
     // tuple style
     private var tupleStyle: HTupleStyle = .default
-    
+
     // tuple status
     var tupleStatus: HTupleStatus = .delegate
 
@@ -209,10 +209,10 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     private var allReuseFooters = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
 
     private var sectionPaths: NSArray?
-    
+
     /// Default layout is HCollectionViewFlowLayout
     /// Default scrolling direction is vertical
-    
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -231,19 +231,19 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         flowLayout = layout as? UICollectionViewFlowLayout
         self.setup()
     }
-    
+
     /// Initialization method for split
     static func tupleFrame(_ frame: () -> CGRect, exclusiveSections sections: HTupleSectionExclusiveBlock) -> HTupleView {
         return HTupleView(frame(), exclusiveSections: sections())
     }
-    
+
     private convenience init(_ frame: CGRect, exclusiveSections sectionPaths: NSArray) {
         self.init(frame: UIRectIntegral(frame), collectionViewLayout: HCollectionViewFlowLayout(.vertical))
         self.tupleStyle = .split
         self.sectionPaths = sectionPaths
         self.setup()
     }
-    
+
     private weak var tupleDelegate: HTupleViewDelegate?
     weak override var delegate: UICollectionViewDelegate? {
         get { return super.delegate }
@@ -253,7 +253,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         get { return super.dataSource }
         set { _ = newValue }
     }
-    
+
     override var frame: CGRect {
         get { return super.frame }
         set {
@@ -263,14 +263,14 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             self.reloadData()
         }
     }
-    
+
     private func setup() {
         // Save tupleView for global refresh
         HTupleAppearance.addTuple(self)
-        
+
         // Set default tag
         self.tag = KTupleDefaultTag
-        
+
         if self.flowLayout?.scrollDirection == .vertical {
             self.enableVerticalBounce()
         }else {
@@ -296,7 +296,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             }
         }
     }
-    
+
     /// Page size, Default 20
     var pageSize: Int = KTuplePageSize {
         didSet {
@@ -305,7 +305,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             }
         }
     }
-    
+
     /// Total number. Default 10000
     var totalNo: Int = KTupleTotalPageNo {
         didSet {
@@ -314,13 +314,13 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             }
         }
     }
-    
+
     /// Refresh header style
     var refreshHeaderStyle: HTupleRefreshHeaderStyle = .gray
-    
+
     /// Load more footer style
     var refreshFooterStyle: HTupleRefreshFooterStyle = .style1
-    
+
     /// Block to refresh data
     var refreshBlock: HTupleRefreshBlock? {
         didSet {
@@ -354,7 +354,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             }
         }
     }
-    
+
     /// Set the key value for release
     var releaseTupleKey: String?
 
@@ -373,22 +373,22 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         self.mj_header?.endRefreshing(completionBlock:completion)
 
     }
-    
+
     func endLoadMore(_ completion: @escaping () -> Void) {
         self.mj_footer?.endRefreshing(completionBlock:completion)
     }
-    
+
     /// Whether the header and footer are sticky
     var sectionHeadersPinToVisibleBounds: Bool {
         get { return flowLayout?.sectionHeadersPinToVisibleBounds ?? false }
         set { flowLayout?.sectionHeadersPinToVisibleBounds = newValue }
     }
-    
+
     var sectionFootersPinToVisibleBounds: Bool {
         get { return flowLayout?.sectionFootersPinToVisibleBounds ?? false }
         set { flowLayout?.sectionFootersPinToVisibleBounds = newValue }
     }
-    
+
     /// Bounce method
     func enableHorizontalBounce() {
         self.bounces = true
@@ -484,7 +484,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         // Return cell
         return cell
     }
-    
+
     func dequeueReusableFooterWithClass(_ cls: AnyClass, iblk: AnyObject?, pre: String?, idx: Bool, idxPath: IndexPath) -> AnyObject {
         var cell: HTupleBaseApex
         // Unique identifier
@@ -555,7 +555,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
         // Save cell
         self.allReuseCells.setObject(cell, forKey: idxPath.nsStringValue)
-        
+
         // delegate status
         if tupleStatus == .delegate {
             // Call delegate method
@@ -572,11 +572,11 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 cell.edgeInsets = edgeInsets
             }
         }
-        
+
         // Return cell
         return cell
     }
-    
+
     /// UICollectionViewDatasource  & delegate
     private func scrollSplitPrefix() -> String {
         var prefix = ""
@@ -599,7 +599,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
         return prefix
     }
-    
+
     /// The following are UICollectionView delegate methods
     internal func numberOfSections(in collectionView: UICollectionView) -> Int {
         if self.allSectionInsets.count > 0 {
@@ -632,34 +632,38 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             return sections
         }
     }
-    
+
     internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var items = 0
         if let delegate = self.tupleDelegate {
-            
+
             // Get the number of items
             let prefix = self.tupleSplitPrefix(withSection: section)
             let selector: Selector = #selector(delegate.numberOfItemsInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 items = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! Int
             }
-            
+
             // Get the edgeInsets of the section
-            let edgeInsets = self.collectionView(self, layout: self.flowLayout!, insetForSectionAt: section)
+            var edgeInsets: UIEdgeInsets = .zero
+            let selector2 = #selector(delegate.insetForSection(_:))
+            if delegate.responds(to: selector2, withPre: prefix) {
+                edgeInsets = delegate.performWithUnretainedValue(selector2, with: section, withPre: prefix) as! UIEdgeInsets
+            }
             self.allSectionInsets.setObject(NSStringFromUIEdgeInsets(edgeInsets) as AnyObject, forKey: "\(section)" as NSString)
-            
+
             // Prevents quantity from being less than 0
             items = max(items, 0)
-            
+
             // blcok status
             if tupleStatus == .block {
-                
+
                 // Traverse to obtain the cell of the section
                 for item in 0...items {
-                        
+
                     let indexPath = IndexPath(row: item, section: section)
                     let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
-                    
+
                     // Call cell delegate method
                     let itemSelector = #selector(delegate.tupleItem(_:atIndexPath:))
                     let itemBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
@@ -669,9 +673,9 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                         delegate.perform(itemSelector, with: itemBlock, with: indexPath, withPre: prefix)
                     }
                 }
-                
+
             }
-            
+
         }
         return items
     }
@@ -700,16 +704,15 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(withSection: section)
-            let selector = #selector(delegate.insetForSection(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
-            }
+        //Get the edgeInsets of the section
+        var edgeInsets: UIEdgeInsets = .zero
+        let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
+        if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
+           edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
         }
-        return UIEdgeInsets.zero
+        return edgeInsets
     }
-    
+
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         var size = CGSize.zero
         if let delegate = self.tupleDelegate {
@@ -739,15 +742,15 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }
         return UISizeIntegral(size)
     }
-    
+
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
+
         //item size cannot be zero, otherwise it will crash
         var size = CGSize(width: 1.0, height: 1.0)
-        
+
         // delegate status
         if tupleStatus == .delegate {
-            
+
             if let delegate = self.tupleDelegate {
                 let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
                 let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
@@ -758,46 +761,34 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 if size.width <= 0 { size.width = 1.0 }
                 if size.height <= 0 { size.height = 1.0 }
             }
-            
+
         } else {// block status
-         
+
             // Call cell
             let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
-            
+
             // Update layout
             if let cell = cell, let sizeBlock = cell.sizeBlock {
-                
+
                 // Get the size
-                var frame = cell.bounds
-                frame.size = sizeBlock()
-                
-                // Get section margin
-                let edgeInsetsString = self.allSectionInsets.object(forKey: "\(indexPath.section)" as NSString) as? String
-                if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
-                    let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
-                    // Reset the frame of the cell
-                    frame = frame.inset(by: edgeInsets)
-                }
-                
+                size = sizeBlock()
+
                 // Prevent negative size
-                if frame.width <= 0 { frame.width = 1.0 }
-                if frame.height <= 0 { frame.height = 1.0 }
-                
-                // Resize
-                cell.frame = frame
-                size = frame.size
+                if size.width <= 0 { size.width = 1.0 }
+                if size.height <= 0 { size.height = 1.0 }
+
             }
-            
+
         }
-        
+
         return UISizeIntegral(size)
     }
-    
+
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         // delegate status
         if tupleStatus == .delegate {
-            
+
             // Call delegate method
             if let delegate = self.tupleDelegate {
                 let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
@@ -815,33 +806,21 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
                 cell.relayoutSubviews()
             }
-            
+
             // Prevent crashes
             return cell ?? UICollectionViewCell()
-            
+
         } else {// block status
-         
+
             // Call cell
             let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
-            
-            // Set the edgeInsets of the cell.
-            if let cell = cell {
-                // Reset edge insets
-                if let edgeInsetsBlock = cell.edgeInsetsBlock {
-                    cell.edgeInsets = edgeInsetsBlock()
-                }
-                // Get subviews of cell
-                cell.cellBlock?()
-                // Update layout
-                cell.relayoutSubviews()
-            }
-        
+
             // Prevent crashes
             return cell ?? UICollectionViewCell()
         }
-        
+
     }
-    
+
     internal func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         var cell: HTupleBaseApex?
         if kind == UICollectionElementKindSectionHeader {
@@ -880,9 +859,25 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         // Prevent crashes
         return cell ?? UICollectionReusableView()
     }
-    
+
     internal func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
+        // block status
+        if tupleStatus == .block {
+            // Call cell
+            let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
+            // Set the edgeInsets of the cell.
+            if let cell = cell {
+                // Reset edge insets
+                if let edgeInsetsBlock = cell.edgeInsetsBlock {
+                    cell.edgeInsets = edgeInsetsBlock()
+                }
+                // Get subviews of cell
+                cell.cellBlock?()
+                // Update layout
+                cell.relayoutSubviews()
+            }
+        }
         let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
         let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
         if delegate.responds(to: selector, withPre: prefix) {
@@ -1111,7 +1106,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
-    
+
 }
 
 /// Signal mechanism classification
@@ -1122,7 +1117,7 @@ extension HTupleView {
         get { return self.getAssociatedValueForKey(&KTupleSignalKey) as? HTupleCellSignalBlock }
         set { self.setAssociateCopyValue(newValue, key: &KTupleSignalKey) }
     }
-    
+
     /// Send signal to tupleView
     func signalToTupleView(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
         guard let signalBlock = self.signalBlock else { return }
@@ -1281,7 +1276,7 @@ extension HTupleView {
         }
         return height
     }
-    
+
     func size(forSection section: Int) -> CGSize {
         var size: CGSize = self.size
         let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
@@ -1323,7 +1318,7 @@ extension HTupleView {
             }
         }
     }
-    
+
     /// The state represented by the tupleView split design
     var tupleState: Int {
         get {
@@ -1365,7 +1360,6 @@ extension HTupleView {
                 self.tupleStateSource.removeObject(forKey: aKey)
             }
         }
-        
     }
 
     /// Remove all values ​​of the state
