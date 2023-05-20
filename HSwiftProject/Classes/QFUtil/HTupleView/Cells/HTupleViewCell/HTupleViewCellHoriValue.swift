@@ -95,11 +95,7 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
     var isShowAccessoryArrow: Bool = false
     
     // 设置layoutView通用间隔
-    var layoutSpacing: CGFloat = 0.0 {
-        didSet {
-            layoutView.spacing = layoutSpacing
-        }
-    }
+    var layoutSpacing: CGFloat = 10.0
     
     // 在imageView后面添加自定义间隔
     var layoutFirstSpacing: CGFloat = 0.0
@@ -119,39 +115,43 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
     // 在detailLabel后面添加自定义间隔
     var secondTextSpacing: CGFloat = 0.0
     
-    /// Method called during cell initialization
-    override func initUI() {
-        layoutView.spacing = 10
-    }
-    
     override func relayoutSubviews() {
         
         let frame = self.bounds.inset(by: self.edgeInsets)
         
         // 重设frame
         layoutView.frame = frame
+        layoutView.spacing = layoutSpacing
 
         // imageView
         if let imageView = _imageView {
             imageView.widthAnchor.constraint(equalToConstant: frame.height).isActive = true
             layoutView.addArrangedSubview(imageView)
-            layoutView.setCustomSpacing(layoutFirstSpacing, after: imageView)
+            if layoutFirstSpacing > 0 {
+                layoutView.setCustomSpacing(layoutFirstSpacing, after: imageView)
+            }
         }
         
         // textLayoutView
-        layoutView.setCustomSpacing(layoutSecondSpacing, after: textLayoutView)
+        if layoutSecondSpacing > 0 {
+            layoutView.setCustomSpacing(layoutSecondSpacing, after: textLayoutView)
+        }
         textLayoutView.spacing = textSpacing
         
         // label
         textLayoutView.addArrangedSubview(label)
-        textLayoutView.setCustomSpacing(firstTextSpacing, after: label)
+        if firstTextSpacing > 0 {
+            textLayoutView.setCustomSpacing(firstTextSpacing, after: label)
+        }
         
         if let detailLabel = _detailLabel {
             if detailWidth > 0 {
                 detailLabel.widthAnchor.constraint(equalToConstant: detailWidth).isActive = true
             }
             textLayoutView.addArrangedSubview(detailLabel)
-            textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
+            if secondTextSpacing > 0 {
+                textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
+            }
         }
         if let accessoryLabel = _accessoryLabel {
             if accessoryWidth > 0 {
@@ -164,7 +164,9 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
         if let detailView = _detailView {
             detailView.widthAnchor.constraint(equalToConstant: frame.height).isActive = true
             layoutView.addArrangedSubview(detailView)
-            layoutView.setCustomSpacing(layoutThirdSpacing, after: detailView)
+            if layoutThirdSpacing > 0 {
+                layoutView.setCustomSpacing(layoutThirdSpacing, after: detailView)
+            }
         }
 
         // accessoryView
@@ -257,11 +259,7 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
     var isShowAccessoryArrow: Bool = false
     
     // 设置layoutView通用间隔
-    var layoutSpacing: CGFloat = 0.0 {
-        didSet {
-            layoutView.spacing = layoutSpacing
-        }
-    }
+    var layoutSpacing: CGFloat = 10.0
     
     // 在imageView后面添加自定义间隔
     var layoutFirstSpacing: CGFloat = 0.0
@@ -281,36 +279,40 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
     // 在detailLabel后面添加自定义间隔
     var secondTextSpacing: CGFloat = 0.0
     
-    /// Method called during cell initialization
-    override func initUI() {
-        layoutView.spacing = 10
-    }
-    
     override func relayoutSubviews() {
         
         let frame = self.bounds.inset(by: self.edgeInsets)
         
         // 重设frame
         layoutView.frame = frame
+        layoutView.spacing = layoutSpacing
 
         // imageView
         if let imageView = _imageView {
             imageView.widthAnchor.constraint(equalToConstant: frame.height).isActive = true
             layoutView.addArrangedSubview(imageView)
-            layoutView.setCustomSpacing(layoutFirstSpacing, after: imageView)
+            if layoutFirstSpacing > 0 {
+                layoutView.setCustomSpacing(layoutFirstSpacing, after: imageView)
+            }
         }
         
         // textLayoutView
-        layoutView.setCustomSpacing(layoutSecondSpacing, after: textLayoutView)
+        if layoutSecondSpacing > 0 {
+            layoutView.setCustomSpacing(layoutSecondSpacing, after: textLayoutView)
+        }
         textLayoutView.spacing = textSpacing
         
         // label
         textLayoutView.addArrangedSubview(label)
-        textLayoutView.setCustomSpacing(firstTextSpacing, after: label)
+        if firstTextSpacing > 0 {
+            textLayoutView.setCustomSpacing(firstTextSpacing, after: label)
+        }
         
         if let detailLabel = _detailLabel {
             textLayoutView.addArrangedSubview(detailLabel)
-            textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
+            if secondTextSpacing > 0 {
+                textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
+            }
         }
         if let accessoryLabel = _accessoryLabel {
             textLayoutView.addArrangedSubview(accessoryLabel)
@@ -320,7 +322,9 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
         if let detailView = _detailView {
             detailView.widthAnchor.constraint(equalToConstant: frame.height).isActive = true
             layoutView.addArrangedSubview(detailView)
-            layoutView.setCustomSpacing(layoutThirdSpacing, after: detailView)
+            if layoutThirdSpacing > 0 {
+                layoutView.setCustomSpacing(layoutThirdSpacing, after: detailView)
+            }
         }
 
         // accessoryView
