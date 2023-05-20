@@ -105,7 +105,7 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
     var layoutThirdSpacing: CGFloat = 0.0
     
     // 设置textLayoutView通用间隔
-    var textSpacing: CGFloat = 0.0
+    var textSpacing: CGFloat = 5.0
     
     // 在label后面添加自定义间隔
     var firstTextSpacing: CGFloat = 0.0
