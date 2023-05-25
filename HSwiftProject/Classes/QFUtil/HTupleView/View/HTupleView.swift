@@ -865,9 +865,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         // block status
         if tupleStatus == .block {
             // Call cell
-            let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
-            // Set the edgeInsets of the cell.
-            if let cell = cell {
+            if let cell = cell as? HTupleBaseCell {
                 // Reset edge insets
                 if let edgeInsetsBlock = cell.edgeInsetsBlock {
                     cell.edgeInsets = edgeInsetsBlock()
