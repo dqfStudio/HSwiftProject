@@ -53,7 +53,7 @@ class HMainController1: HTupleController {
         case 0:
             switch indexPath.row {
             case 0:
-                let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
+                let cell = itemBlock(nil, HTupleViewCellHoriValue3.self, nil, true) as! HTupleViewCellHoriValue3
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
@@ -95,12 +95,12 @@ class HMainController1: HTupleController {
                 }
                 //接收信号
                 cell.signalBlock = { (target, signal) in
-                    let cell = target as! HTupleViewCellHoriValue2
+                    let cell = target as! HTupleViewCellHoriValue3
                     NSLog("选中%d", cell.label)
                 }
                 break
             case 1:
-                let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
+                let cell = itemBlock(nil, HTupleViewCellHoriValue3.self, nil, true) as! HTupleViewCellHoriValue3
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
@@ -122,12 +122,12 @@ class HMainController1: HTupleController {
                 }
                 //接收信号
                 cell.signalBlock = { (target, signal) in
-                    let cell = target as! HTupleViewCellHoriValue2
+                    let cell = target as! HTupleViewCellHoriValue3
                     NSLog("选中%d", cell.label)
                 }
                 break
             case 2:
-                let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
+                let cell = itemBlock(nil, HTupleViewCellHoriValue3.self, nil, true) as! HTupleViewCellHoriValue3
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
@@ -170,17 +170,15 @@ class HMainController1: HTupleController {
                     cell.label.backgroundColor = UIColor.green
                     cell.label.text = "label"
 
-                    cell.detailWidth = 60
                     cell.detailLabel.backgroundColor = UIColor.red
                     cell.detailLabel.text = "detailLabel"
 
-                    cell.accessoryWidth = 60
                     cell.accessoryLabel.backgroundColor = UIColor.yellow
                     cell.accessoryLabel.text = "accessoryLabel"
                 }
                 break
             case 4:
-                let cell = itemBlock(nil, HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
+                let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
