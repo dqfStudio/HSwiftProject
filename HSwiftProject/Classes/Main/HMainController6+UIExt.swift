@@ -18,8 +18,6 @@ extension HMainController6 {
             cell.backgroundColor = UIColor.gray
             cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
-            cell.detailWidth = cell.layoutViewBounds.width / 3
-            cell.accessoryWidth = cell.layoutViewBounds.width / 3
             cell.label.backgroundColor = UIColor.green
             cell.label.text = "label"
             cell.label.textAlignment = .center
