@@ -571,7 +571,6 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 cell.edgeInsets = edgeInsets
             }
         }
-
         // Return cell
         return cell
     }
