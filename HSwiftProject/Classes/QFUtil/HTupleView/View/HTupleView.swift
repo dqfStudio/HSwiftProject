@@ -456,6 +456,8 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier)
             cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
+            // Save cell
+            self.allReuseHeaders.setObject(cell, forKey: IndexPath.nsStringValue(0, idxPath.section))
             cell.tuple = self
             cell.indexPath = idxPath
             cell.isHeader = true
@@ -466,8 +468,6 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }else {
             cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
         }
-        // Save cell
-        self.allReuseHeaders.setObject(cell, forKey: IndexPath.nsStringValue(0, idxPath.section))
         // Call delegate method
         var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tupleDelegate {
@@ -500,6 +500,8 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: identifier)
             cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
+            // Save cell
+            self.allReuseFooters.setObject(cell, forKey: IndexPath.nsStringValue(0, idxPath.section))
             cell.tuple = self
             cell.indexPath = idxPath
             cell.isHeader = true
@@ -510,8 +512,6 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }else {
             cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
         }
-        // Save cell
-        self.allReuseFooters.setObject(cell, forKey: IndexPath.nsStringValue(0, idxPath.section))
         // Call delegate method
         var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tupleDelegate {
@@ -544,6 +544,8 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forCellWithReuseIdentifier: identifier)
             cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseCell
+            // Save cell
+            self.allReuseCells.setObject(cell, forKey: idxPath.nsStringValue)
             cell.tuple = self
             cell.indexPath = idxPath
             //init method
@@ -553,9 +555,6 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         }else {
             cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseCell
         }
-        // Save cell
-        self.allReuseCells.setObject(cell, forKey: idxPath.nsStringValue)
-
         // delegate status
         if tupleStatus == .delegate {
             // Call delegate method
