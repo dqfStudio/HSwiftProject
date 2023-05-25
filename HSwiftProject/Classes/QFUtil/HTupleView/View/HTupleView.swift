@@ -116,6 +116,8 @@ class HTupleAppearance : NSObject {
 
     @objc
     optional func minimumLineSpacingForSectionAt(_ section: Any) -> Any
+    @objc
+    optional func minimumInteritemSpacingForSectionAt(_ section: Any) -> Any
 
     @objc
     optional func insetForSection(_ section: Any) -> Any
@@ -694,6 +696,17 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         if let delegate = self.tupleDelegate {
             let prefix = self.tupleSplitPrefix(withSection: section)
             let selector = #selector(delegate.minimumLineSpacingForSectionAt(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
+            }
+        }
+        return 0.0
+    }
+    
+    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        if let delegate = self.tupleDelegate {
+            let prefix = self.tupleSplitPrefix(withSection: section)
+            let selector = #selector(delegate.minimumInteritemSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
             }
