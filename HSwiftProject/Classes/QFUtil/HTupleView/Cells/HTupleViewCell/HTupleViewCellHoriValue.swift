@@ -85,6 +85,7 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
     var detailView: HWebImageView {
         if _detailView == nil {
             _detailView = HWebImageView()
+            _detailView!.contentMode = .scaleAspectFit
         }
         return _detailView!
     }
@@ -254,6 +255,7 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
     var detailView: HWebImageView {
         if _detailView == nil {
             _detailView = HWebImageView()
+            _detailView!.contentMode = .scaleAspectFit
         }
         return _detailView!
     }
@@ -418,6 +420,7 @@ class HTupleViewCellHoriValue3 : HTupleBaseCell {
     var detailView: HWebImageView {
         if _detailView == nil {
             _detailView = HWebImageView()
+            _detailView!.contentMode = .scaleAspectFit
         }
         return _detailView!
     }

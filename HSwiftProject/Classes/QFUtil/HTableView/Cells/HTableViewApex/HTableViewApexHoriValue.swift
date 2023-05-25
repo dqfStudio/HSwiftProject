@@ -85,6 +85,7 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
     var detailView: HWebImageView {
         if _detailView == nil {
             _detailView = HWebImageView()
+            _detailView!.contentMode = .scaleAspectFit
         }
         return _detailView!
     }
@@ -254,6 +255,7 @@ class HTableViewApexHoriValue2 : HTableBaseApex {
     var detailView: HWebImageView {
         if _detailView == nil {
             _detailView = HWebImageView()
+            _detailView!.contentMode = .scaleAspectFit
         }
         return _detailView!
     }
@@ -418,6 +420,7 @@ class HTableViewApexHoriValue3 : HTableBaseApex {
     var detailView: HWebImageView {
         if _detailView == nil {
             _detailView = HWebImageView()
+            _detailView!.contentMode = .scaleAspectFit
         }
         return _detailView!
     }

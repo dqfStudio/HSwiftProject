@@ -85,6 +85,7 @@ class HTableViewCellHoriValue1 : HTableBaseCell {
     var detailView: HWebImageView {
         if _detailView == nil {
             _detailView = HWebImageView()
+            _detailView!.contentMode = .scaleAspectFit
         }
         return _detailView!
     }
@@ -254,6 +255,7 @@ class HTableViewCellHoriValue2 : HTableBaseCell {
     var detailView: HWebImageView {
         if _detailView == nil {
             _detailView = HWebImageView()
+            _detailView!.contentMode = .scaleAspectFit
         }
         return _detailView!
     }
@@ -418,6 +420,7 @@ class HTableViewCellHoriValue3 : HTableBaseCell {
     var detailView: HWebImageView {
         if _detailView == nil {
             _detailView = HWebImageView()
+            _detailView!.contentMode = .scaleAspectFit
         }
         return _detailView!
     }
