@@ -811,7 +811,26 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         } else {// block status
 
             // Call cell
-            let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
+            var cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
+            if cell == nil {
+                // Call delegate method
+                if let delegate = self.tupleDelegate {
+                    let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+                    let selector: Selector = #selector(delegate.tupleItem(_:atIndexPath:))
+                    let itemBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
+                        return self.dequeueReusableCellWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
+                    }
+                    if delegate.responds(to: selector, withPre: prefix) {
+                        delegate.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
+                    }
+                }
+                // Call cell
+                cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
+                // Update layout
+                if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
+                    cell.relayoutSubviews()
+                }
+            }
 
             // Prevent crashes
             return cell ?? UICollectionViewCell()
