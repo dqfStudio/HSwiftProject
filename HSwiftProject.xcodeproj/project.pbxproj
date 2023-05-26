@@ -230,6 +230,7 @@
 		EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6732A15C8ED0016648A /* HLabel.swift */; };
 		EB80B67C2A1779A30016648A /* HSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B67B2A1779A30016648A /* HSectionView.swift */; };
 		EB80B67E2A18A7430016648A /* HInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B67D2A18A7430016648A /* HInputField.swift */; };
+		EB80B6962A20BEEC0016648A /* HTextStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6952A20BEEC0016648A /* HTextStackView.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -531,6 +532,7 @@
 		EB80B6732A15C8ED0016648A /* HLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLabel.swift; sourceTree = "<group>"; };
 		EB80B67B2A1779A30016648A /* HSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSectionView.swift; sourceTree = "<group>"; };
 		EB80B67D2A18A7430016648A /* HInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HInputField.swift; sourceTree = "<group>"; };
+		EB80B6952A20BEEC0016648A /* HTextStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextStackView.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -796,6 +798,7 @@
 				EB80B66D2A122A940016648A /* HScrollbar.swift */,
 				EB80B67B2A1779A30016648A /* HSectionView.swift */,
 				EB80B67D2A18A7430016648A /* HInputField.swift */,
+				EB80B6952A20BEEC0016648A /* HTextStackView.swift */,
 			);
 			path = HTupleCommon;
 			sourceTree = "<group>";
@@ -1758,6 +1761,7 @@
 				EBD0FB1A29CC366D00808EDA /* HAuthorizeManager.swift in Sources */,
 				A286251623EAB8DD00E81781 /* HCountDownButton.swift in Sources */,
 				EBD0FB6C29D02B1000808EDA /* HDefaultsCore+Extern.swift in Sources */,
+				EB80B6962A20BEEC0016648A /* HTextStackView.swift in Sources */,
 				EB23DACF2A029E0900C96CAC /* HAlertController2.swift in Sources */,
 				EBD0FB9E29DB00B300808EDA /* HMainController6+UI.swift in Sources */,
 				EB80B66C2A1130E10016648A /* HToolbar.swift in Sources */,

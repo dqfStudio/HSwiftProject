@@ -60,32 +60,20 @@ class HMainController2: HViewController {
         super.viewDidLoad()
         
         
-        let inputField = HInputField(frame: CGRect(x: 10, y: 200, width: 320, height: 120))
-        inputField.backgroundColor = .gray
-        self.view.addSubview(inputField)
+        let textStackView = HTextStackView(frame: CGRect(x: 10, y: 200, width: 320, height: 120))
+        textStackView.backgroundColor = .gray
+        self.view.addSubview(textStackView)
         
-//        inputField.headerSpace = 5
-//        inputField.headerWidth = 5
-        if inputField.header == nil {
-            inputField.header = UIView()
-        }
-
-//        inputField.footerSpace = 5
-//        inputField.footerWidth = 5
-        if inputField.footer == nil {
-            inputField.footer = UIView()
-        }
+        textStackView.label.text = "label"
+        textStackView.label.backgroundColor = .red
         
+        textStackView.detailLabel.text = "detailLabel"
+        textStackView.detailLabel.backgroundColor = .blue
         
-        inputField.spacing = 5
-//        inputField.axis = .horizontal
-//        inputField.distribution = .equalCentering
-//        inputField.alignment = .fill
+        textStackView.accessoryLabel.text = "accoryLabel"
+        textStackView.accessoryLabel.backgroundColor = .green
         
-        
-        inputField.textField.backgroundColor = .yellow
-        
-        inputField.reloadData()
+        textStackView.reloadData()
         
         return
         
