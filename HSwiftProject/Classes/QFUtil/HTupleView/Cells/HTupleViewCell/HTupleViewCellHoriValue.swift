@@ -146,16 +146,19 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
             textLayoutView.setCustomSpacing(firstTextSpacing, after: label)
         }
         
-        if let detailLabel = _detailLabel {
+        if let accessoryLabel = _accessoryLabel {
             if detailWidth == 0 { detailWidth = detailLabel.intrinsicContentSize.width }
             detailLabel.widthAnchor.constraint(equalToConstant: detailWidth).isActive = true
             textLayoutView.addArrangedSubview(detailLabel)
             if secondTextSpacing > 0 {
                 textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
             }
-        }
-        if let accessoryLabel = _accessoryLabel {
+            
             textLayoutView.addArrangedSubview(accessoryLabel)
+        } else {
+            if let detailLabel = _detailLabel {
+                textLayoutView.addArrangedSubview(detailLabel)
+            }
         }
         
         // detailView
