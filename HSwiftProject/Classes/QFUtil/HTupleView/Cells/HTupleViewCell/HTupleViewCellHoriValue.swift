@@ -218,6 +218,24 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
 ///三个label横向从右向左抱紧显示
 class HTupleViewCellHoriValue2 : HTupleBaseCell {
     
+    // 用于imageView布局
+    private lazy var imageLayoutView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
+    }()
+    
+    private var _imageView: HWebImageView?
+    ///左边显示图片
+    var imageView: HWebImageView {
+        if _imageView == nil {
+            _imageView = HWebImageView()
+        }
+        return _imageView!
+    }
+    
     // 用于text布局
     lazy var textLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -228,37 +246,11 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
         return stackView
     }()
     
-    // 用于arrow布局
-    lazy var arrowLayoutView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.alignment = .center
-        return stackView
-    }()
-    
-    // arrow
-    lazy private var accessoryView: UIImageView = {
-        let accessoryView = UIImageView()
-        accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
-        accessoryView.contentMode = .scaleAspectFill
-        return accessoryView
-    }()
-    
     ///detailLabel的宽度
     var detailWidth: CGFloat = 0.0
     
     ///accessoryLabel的宽度
     var accessoryWidth: CGFloat = 0.0
-    
-    private var _imageView: HWebImageView?
-    ///左边显示图片
-    var imageView: HWebImageView {
-        if _imageView == nil {
-            _imageView = HWebImageView()
-        }
-        return _imageView!
-    }
     
     ///显示文字内容
     lazy var label: UILabel = {
@@ -287,6 +279,15 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
         return _accessoryLabel!
     }
     
+    // 用于detailView布局
+    private lazy var detailLayoutView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
+    }()
+    
     private var _detailView: HWebImageView?
     ///右边显示图片
     var detailView: HWebImageView {
@@ -296,6 +297,23 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
         }
         return _detailView!
     }
+    
+    // 用于arrow布局
+    lazy var arrowLayoutView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
+    }()
+    
+    // arrow
+    lazy private var accessoryView: UIImageView = {
+        let accessoryView = UIImageView()
+        accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
+        accessoryView.contentMode = .scaleAspectFill
+        return accessoryView
+    }()
     
     ///是否显示右边箭头
     var isShowAccessoryArrow: Bool = false
@@ -331,10 +349,18 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
 
         // imageView
         if let imageView = _imageView {
-            imageView.widthAnchor.constraint(equalToConstant: frame.height).isActive = true
-            layoutView.addArrangedSubview(imageView)
+
+            var imageFrame = frame
+            imageFrame.width = frame.height
+            imageFrame = imageFrame.inset(by: imageView.edgeInsets)
+            
+            imageView.widthAnchor.constraint(equalToConstant: imageFrame.width).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: imageFrame.height).isActive = true
+            imageLayoutView.addArrangedSubview(imageView)
+            
+            layoutView.addArrangedSubview(imageLayoutView)
             if layoutFirstSpacing > 0 {
-                layoutView.setCustomSpacing(layoutFirstSpacing, after: imageView)
+                layoutView.setCustomSpacing(layoutFirstSpacing, after: imageLayoutView)
             }
         }
         
@@ -369,10 +395,18 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
         
         // detailView
         if let detailView = _detailView {
-            detailView.widthAnchor.constraint(equalToConstant: frame.height).isActive = true
-            layoutView.addArrangedSubview(detailView)
+
+            var detailFrame = frame
+            detailFrame.width = frame.height
+            detailFrame = detailFrame.inset(by: detailView.edgeInsets)
+            
+            detailView.widthAnchor.constraint(equalToConstant: detailFrame.width).isActive = true
+            detailView.heightAnchor.constraint(equalToConstant: detailFrame.height).isActive = true
+            detailLayoutView.addArrangedSubview(detailView)
+            
+            layoutView.addArrangedSubview(detailLayoutView)
             if layoutThirdSpacing > 0 {
-                layoutView.setCustomSpacing(layoutThirdSpacing, after: detailView)
+                layoutView.setCustomSpacing(layoutThirdSpacing, after: detailLayoutView)
             }
         }
 
