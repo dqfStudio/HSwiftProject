@@ -166,6 +166,10 @@ class HMainController1: HTupleController {
                     cell.backgroundColor = UIColor.gray
 
                     cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+                    
+                    cell.imageView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
+                    cell.imageView.backgroundColor = UIColor.red
+                    cell.imageView.setImageWithName("icon_no_server")
 
                     cell.label.backgroundColor = UIColor.green
                     cell.label.text = "label"
@@ -175,6 +179,12 @@ class HMainController1: HTupleController {
 
                     cell.accessoryLabel.backgroundColor = UIColor.yellow
                     cell.accessoryLabel.text = "accessoryLabel"
+                    
+                    cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
+                    cell.detailView.backgroundColor = UIColor.red
+                    cell.detailView.setImageWithName("icon_no_server")
+                    
+                    cell.isShowAccessoryArrow = true
                 }
                 break
             case 4:
