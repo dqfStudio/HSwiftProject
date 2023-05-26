@@ -34,7 +34,7 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
     lazy private var accessoryView: UIImageView = {
         let accessoryView = UIImageView()
         accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
-        accessoryView.contentMode = .scaleAspectFit
+        accessoryView.contentMode = .scaleAspectFill
         return accessoryView
     }()
     
@@ -207,7 +207,7 @@ class HTableViewApexHoriValue2 : HTableBaseApex {
     lazy private var accessoryView: UIImageView = {
         let accessoryView = UIImageView()
         accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
-        accessoryView.contentMode = .scaleAspectFit
+        accessoryView.contentMode = .scaleAspectFill
         return accessoryView
     }()
     
@@ -378,7 +378,7 @@ class HTableViewApexHoriValue3 : HTableBaseApex {
     lazy private var accessoryView: UIImageView = {
         let accessoryView = UIImageView()
         accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
-        accessoryView.contentMode = .scaleAspectFit
+        accessoryView.contentMode = .scaleAspectFill
         return accessoryView
     }()
     

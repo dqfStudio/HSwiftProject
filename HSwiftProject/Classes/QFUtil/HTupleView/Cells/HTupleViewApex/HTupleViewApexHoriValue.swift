@@ -34,7 +34,7 @@ class HTupleViewApexHoriValue1 : HTupleBaseApex {
     lazy private var accessoryView: UIImageView = {
         let accessoryView = UIImageView()
         accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
-        accessoryView.contentMode = .scaleAspectFit
+        accessoryView.contentMode = .scaleAspectFill
         return accessoryView
     }()
     
@@ -207,7 +207,7 @@ class HTupleViewApexHoriValue2 : HTupleBaseApex {
     lazy private var accessoryView: UIImageView = {
         let accessoryView = UIImageView()
         accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
-        accessoryView.contentMode = .scaleAspectFit
+        accessoryView.contentMode = .scaleAspectFill
         return accessoryView
     }()
     
@@ -378,7 +378,7 @@ class HTupleViewApexHoriValue3 : HTupleBaseApex {
     lazy private var accessoryView: UIImageView = {
         let accessoryView = UIImageView()
         accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
-        accessoryView.contentMode = .scaleAspectFit
+        accessoryView.contentMode = .scaleAspectFill
         return accessoryView
     }()
     
