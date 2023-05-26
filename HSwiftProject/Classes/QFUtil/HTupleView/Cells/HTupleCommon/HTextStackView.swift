@@ -10,14 +10,6 @@ import UIKit
 
 class HTextStackView: UIStackView {
     
-    private lazy var textStackView: UIStackView = {
-        return UIStackView()
-    }()
-    
-    private lazy var leftView: UIView = {
-        return UIView()
-    }()
-    
     lazy var label: UILabel = {
         return UILabel()
     }()
@@ -30,8 +22,16 @@ class HTextStackView: UIStackView {
         return UILabel()
     }()
     
+    private lazy var leftView: UIView = {
+        return UIView()
+    }()
+    
     private lazy var rightView: UIView = {
         return UIView()
+    }()
+    
+    private lazy var textStackView: UIStackView = {
+        return UIStackView()
     }()
     
     // 在label后面添加自定义间隔
