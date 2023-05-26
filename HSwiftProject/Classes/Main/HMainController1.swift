@@ -66,31 +66,21 @@ class HMainController1: HTupleController {
 
                     cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
+                    cell.imageView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.imageView.backgroundColor = UIColor.red
                     cell.imageView.setImageWithName("icon_no_server")
 
+                    cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.detailView.backgroundColor = UIColor.red
                     cell.detailView.setImageWithName("icon_no_server")
 
-        //            cell.detailWidth = 100
-        //            cell.accessoryWidth = 100
-
-                    cell.isShowAccessoryArrow = true
-
-        //            cell.labelInterval = 0
-
                     cell.label.backgroundColor = UIColor.red
                     cell.label.text = "wwwwwwwwwwwwww"
-        //            cell.label.text:"wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
-        //            cell.label.text:"wwwwwwwwwwwwwwwwwwww"
-        //            cell.label.text:"wwwwwwwwwwwwwwwwwww"
 
                     cell.detailLabel.backgroundColor = UIColor.yellow
                     cell.detailLabel.text = "qqqqqqqqqqqqq"
-        //            cell.detailLabel.text:"qqqqqqqqqqqqqqqqqqqqqqqq"
-
-        //            cell.accessoryLabel.backgroundColor = UIColor.green
-    //                cell.accessoryLabel.isHidden = true
+                    
+                    cell.isShowAccessoryArrow = true
 
                 }
                 //接收信号
