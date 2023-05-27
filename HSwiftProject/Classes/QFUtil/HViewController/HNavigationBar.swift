@@ -21,7 +21,8 @@ class HNavigationBar: UIStackView {
     // Width of the right button of the navigation bar
     var rightItemWidth: CGFloat = 60.0
     
-    var loaded: Bool = false
+    // Has it been loaded
+    var isLoaded: Bool = false
 
 
     override init(frame: CGRect) {
@@ -80,13 +81,13 @@ class HNavigationBar: UIStackView {
             buttonView.contentHorizontalAlignment = .left
             buttonView.backgroundColor = UIColor.clear
             buttonView.hiddenBlock = {
-                if self.loaded {
+                if self.isLoaded {
                     self.reloadData()
                 }
             }
             buttonView.addTarget(self, action: #selector(leftItemPressed))
             _leftItem = buttonView
-            if self.loaded {
+            if self.isLoaded {
                 self.reloadData()
             }
         }
@@ -119,13 +120,13 @@ class HNavigationBar: UIStackView {
             buttonView.contentHorizontalAlignment = .right
             buttonView.backgroundColor = UIColor.clear
             buttonView.hiddenBlock = {
-                if self.loaded {
+                if self.isLoaded {
                     self.reloadData()
                 }
             }
             buttonView.addTarget(self, action: #selector(rightItemPressed))
             _rightItem = buttonView
-            if self.loaded {
+            if self.isLoaded {
                 self.reloadData()
             }
         }
@@ -139,7 +140,7 @@ class HNavigationBar: UIStackView {
 
     func reloadData() {
         
-        self.loaded = true
+        self.isLoaded = true
 
         self.axis = .vertical
         self.distribution = .fill
