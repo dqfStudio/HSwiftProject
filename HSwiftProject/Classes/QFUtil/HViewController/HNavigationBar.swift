@@ -245,16 +245,18 @@ class HNavigationItem: UIButton {
     var disableColor: UIColor?
     
     var title: String? {
-        didSet {
-            self.setTitle(title, for: .normal)
-            self.setTitle(title, for: .highlighted)
+        get { return self.title(for: .normal) }
+        set {
+            self.setTitle(newValue, for: .normal)
+            self.setTitle(newValue, for: .highlighted)
         }
     }
     
     override var image: UIImage? {
-        didSet {
-            self.setImage(image, for: .normal)
-            self.setImage(image, for: .highlighted)
+        get { return self.image(for: .normal) }
+        set {
+            self.setImage(newValue, for: .normal)
+            self.setImage(newValue, for: .highlighted)
         }
     }
     
