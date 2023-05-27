@@ -258,7 +258,6 @@ class HNavigationItem: UIButton {
         set {
             self.setImage(newValue, for: .normal)
             self.setImage(newValue, for: .highlighted)
-            hiddenBlock?()
         }
     }
     
