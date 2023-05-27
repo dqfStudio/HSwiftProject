@@ -70,7 +70,7 @@ class HNavigationBar: UIStackView {
     // Left button of the navigation bar
     lazy var leftItem: HNavigationItem = {
         let buttonView = HNavigationItem(frame: .zero)
-        buttonView.titleLabel?.font = UIFont.font(ofSize: 16, weight: .medium)
+        buttonView.titleLabel?.font = UIFont.font(ofSize: 16, weight: .regular)
         buttonView.titleLabel?.adjustsFontSizeToFitWidth = true
         buttonView.imageView?.contentMode = .scaleAspectFit
         buttonView.contentHorizontalAlignment = .left
@@ -100,7 +100,7 @@ class HNavigationBar: UIStackView {
     // Right button of the navigation bar
     lazy var rightItem: HNavigationItem = {
         let buttonView = HNavigationItem(frame: .zero)
-        buttonView.titleLabel?.font = UIFont.font(ofSize: 16, weight: .medium)
+        buttonView.titleLabel?.font = UIFont.font(ofSize: 16, weight: .regular)
         buttonView.titleLabel?.adjustsFontSizeToFitWidth = true
         buttonView.imageView?.contentMode = .scaleAspectFit
         buttonView.contentHorizontalAlignment = .right
