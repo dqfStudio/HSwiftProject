@@ -120,6 +120,7 @@ class HNavigationBar: UIStackView {
     
     private func setup() {
         
+        self.backgroundColor = .white
         self.axis = .vertical
         self.distribution = .fill
         self.alignment = .fill
