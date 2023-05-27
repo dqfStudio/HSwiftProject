@@ -199,8 +199,7 @@ class HViewController: UIViewController {
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         // Dynamically set the status bar style based on the color of the navigation bar
-        self.navigationBar.backgroundColor = self.preferredNavigationBarColor
-        let isLighterColor = self.navigationBar.backgroundColor?.isLighterColor ?? true
+        let isLighterColor = self.preferredNavigationBarColor.isLighterColor
         if self.autoAdjustStatusBarStyle, isLighterColor {
             if #available(iOS 13.0, *) {
                 return .darkContent
