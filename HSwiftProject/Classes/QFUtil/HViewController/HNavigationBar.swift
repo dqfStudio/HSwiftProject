@@ -273,9 +273,7 @@ class HNavigationItem: UIButton {
     // If the button is hidden, execute the hiddenBlock
     override var isHidden: Bool {
         didSet {
-            if isHidden != oldValue {
-                hiddenBlock?()
-            }
+            hiddenBlock?()
         }
     }
 }
