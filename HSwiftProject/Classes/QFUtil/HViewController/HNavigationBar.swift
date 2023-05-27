@@ -24,7 +24,7 @@ class HNavigationBar: UIStackView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
+        reloadData()
     }
     
     @available(*, unavailable)
@@ -76,7 +76,7 @@ class HNavigationBar: UIStackView {
         buttonView.contentHorizontalAlignment = .left
         buttonView.backgroundColor = UIColor.clear
         buttonView.hiddenBlock = {
-            self.setup()
+            self.reloadData()
         }
         buttonView.addTarget(self, action: #selector(leftItemPressed))
         return buttonView
@@ -107,7 +107,7 @@ class HNavigationBar: UIStackView {
         buttonView.backgroundColor = UIColor.clear
         buttonView.isHidden = true
         buttonView.hiddenBlock = {
-            self.setup()
+            self.reloadData()
         }
         buttonView.addTarget(self, action: #selector(rightItemPressed))
         return buttonView
@@ -118,7 +118,7 @@ class HNavigationBar: UIStackView {
         rightItem.pressedBlock?()
     }
     
-    private func setup() {
+    func reloadData() {
         
         self.axis = .vertical
         self.distribution = .fill
@@ -277,5 +277,3 @@ class HNavigationItem: UIButton {
         }
     }
 }
-
-
