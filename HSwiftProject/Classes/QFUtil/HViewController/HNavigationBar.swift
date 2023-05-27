@@ -271,12 +271,16 @@ class HNavigationItem: UIButton {
         set {
             self.setTitle(newValue, for: .normal)
             self.setTitle(newValue, for: .highlighted)
+            self.setImage(nil, for: .normal)
+            self.setImage(nil, for: .highlighted)
         }
     }
 
     override var image: UIImage? {
         get { return self.image(for: .normal) }
         set {
+            self.setTitle(nil, for: .normal)
+            self.setTitle(nil, for: .highlighted)
             self.setImage(newValue, for: .normal)
             self.setImage(newValue, for: .highlighted)
         }
