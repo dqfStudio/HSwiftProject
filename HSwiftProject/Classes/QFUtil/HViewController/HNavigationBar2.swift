@@ -72,9 +72,6 @@ class HNavigationBar: UIStackView, HTupleViewDelegate {
         buttonView.imageView?.contentMode = .scaleAspectFit
         buttonView.contentHorizontalAlignment = .left
         buttonView.backgroundColor = UIColor.clear
-        buttonView.hiddenBlock = {
-            self.reloadData()
-        }
         buttonView.addTarget(self, action: #selector(leftItemPressed))
         return buttonView
     }()
@@ -103,9 +100,6 @@ class HNavigationBar: UIStackView, HTupleViewDelegate {
         buttonView.contentHorizontalAlignment = .right
         buttonView.backgroundColor = UIColor.clear
         buttonView.isHidden = true
-        buttonView.hiddenBlock = {
-            self.reloadData()
-        }
         buttonView.addTarget(self, action: #selector(rightItemPressed))
         return buttonView
     }()
@@ -122,7 +116,7 @@ class HNavigationBar: UIStackView, HTupleViewDelegate {
     }
     
     func reloadData() {
-        self.navigationBar.reloadData()
+        self.navigationBar.reloadTupleData()
     }
 
 }
@@ -154,7 +148,7 @@ extension HNavigationBar {
             }
             cell.cellBlock = {
                 if self.statusBar.superview == nil {
-                    cell.addSubview(self.statusBar)
+                    cell.layoutView.addSubview(self.statusBar)
                 }
                 self.statusBar.frame = cell.layoutViewBounds
             }
@@ -177,7 +171,7 @@ extension HNavigationBar {
                 }
                 cell.cellBlock = {
                     if self.leftItem.superview == nil {
-                        cell.addSubview(self.leftItem)
+                        cell.layoutView.addSubview(self.leftItem)
                     }
                     // Reset frame
                     var frame = cell.layoutViewBounds
@@ -203,7 +197,7 @@ extension HNavigationBar {
                 }
                 cell.cellBlock = {
                     if self.titleItem.superview == nil {
-                        cell.addSubview(self.titleItem)
+                        cell.layoutView.addSubview(self.titleItem)
                     }
                     // Reset frame
                     self.titleItem.frame = cell.layoutViewBounds
@@ -225,7 +219,7 @@ extension HNavigationBar {
                 }
                 cell.cellBlock = {
                     if self.rightItem.superview == nil {
-                        cell.addSubview(self.rightItem)
+                        cell.layoutView.addSubview(self.rightItem)
                     }
                     // Reset frame
                     var frame = cell.layoutViewBounds
@@ -251,7 +245,7 @@ extension HNavigationBar {
             }
             cell.cellBlock = {
                 if self.lineBar.superview == nil {
-                    cell.addSubview(self.lineBar)
+                    cell.layoutView.addSubview(self.lineBar)
                 }
                 self.statusBar.frame = cell.layoutViewBounds
             }
@@ -273,7 +267,7 @@ typealias HNavigationItemBlock = () -> Void
 // This is a custom UIButton class that is used as a navigation item
 class HNavigationItem: UIButton {
     // It has two blocks that can be set to be executed when the button is pressed or hidden
-    var hiddenBlock: HNavigationItemBlock?
+//    var hiddenBlock: HNavigationItemBlock?
     var pressedBlock: HNavigationItemBlock?
 
     // It also has a disableColor property that can be set to change the background color when the button is disabled
@@ -284,7 +278,6 @@ class HNavigationItem: UIButton {
         set {
             self.setTitle(newValue, for: .normal)
             self.setTitle(newValue, for: .highlighted)
-            hiddenBlock?()
         }
     }
     
@@ -293,7 +286,6 @@ class HNavigationItem: UIButton {
         set {
             self.setImage(newValue, for: .normal)
             self.setImage(newValue, for: .highlighted)
-            hiddenBlock?()
         }
     }
     
@@ -304,11 +296,5 @@ class HNavigationItem: UIButton {
             isUserInteractionEnabled = isEnabled
         }
     }
-
-    // If the button is hidden, execute the hiddenBlock
-    override var isHidden: Bool {
-        didSet {
-            hiddenBlock?()
-        }
-    }
+    
 }
