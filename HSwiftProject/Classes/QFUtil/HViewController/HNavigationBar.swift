@@ -249,9 +249,7 @@ class HNavigationItem: UIButton {
         set {
             self.setTitle(newValue, for: .normal)
             self.setTitle(newValue, for: .highlighted)
-            if title != newValue {
-                hiddenBlock?()
-            }
+            hiddenBlock?()
         }
     }
     
@@ -260,9 +258,7 @@ class HNavigationItem: UIButton {
         set {
             self.setImage(newValue, for: .normal)
             self.setImage(newValue, for: .highlighted)
-            if image != newValue {
-                hiddenBlock?()
-            }
+            hiddenBlock?()
         }
     }
     
