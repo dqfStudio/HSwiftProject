@@ -108,7 +108,6 @@ class HViewController: UIViewController {
         didSet {
             guard self.isViewLoaded else { return }
             self.navigationBar.titleItem.text = title
-            self.navigationBar.reloadData()
         }
     }
     

@@ -249,7 +249,6 @@
 //        set {
 //            self.setTitle(newValue, for: .normal)
 //            self.setTitle(newValue, for: .highlighted)
-//            hiddenBlock?()
 //        }
 //    }
 //
@@ -258,7 +257,6 @@
 //        set {
 //            self.setImage(newValue, for: .normal)
 //            self.setImage(newValue, for: .highlighted)
-//            hiddenBlock?()
 //        }
 //    }
 //
