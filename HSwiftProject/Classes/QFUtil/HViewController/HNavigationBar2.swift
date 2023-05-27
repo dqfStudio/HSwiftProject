@@ -85,7 +85,7 @@
 //    // Middle title of the navigation bar
 //    lazy var titleItem: UILabel = {
 //        let labelView = UILabel(frame: .zero)
-//        labelView.font = UIFont.font(ofSize: 16, weight: .medium)
+//        labelView.font = UIFont.font(ofSize: 17, weight: .medium)
 //        labelView.textColor = UIColor.black
 //        labelView.textAlignment = .center
 //        return labelView
