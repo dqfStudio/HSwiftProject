@@ -11,7 +11,7 @@ import UIKit
 class HNavigationBar: UIStackView {
     
     // Spacing between left and right buttons of the navigation bar and the screen
-    var edgeSpace: CGFloat = 10.0
+    var edgeSpace: CGFloat = 16.0
     // Spacing between left button and middle title of the navigation bar
     var titleSpace: CGFloat = 5.0
 
