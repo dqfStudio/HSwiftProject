@@ -244,6 +244,20 @@ class HNavigationItem: UIButton {
     // It also has a disableColor property that can be set to change the background color when the button is disabled
     var disableColor: UIColor?
     
+    var title: String? {
+        didSet {
+            self.setTitle(title, for: .normal)
+            self.setTitle(title, for: .highlighted)
+        }
+    }
+    
+    override var image: UIImage? {
+        didSet {
+            self.setImage(image, for: .normal)
+            self.setImage(image, for: .highlighted)
+        }
+    }
+    
     // If the button is disabled, change the background color to the disableColor property
     override var isEnabled: Bool {
         didSet {
