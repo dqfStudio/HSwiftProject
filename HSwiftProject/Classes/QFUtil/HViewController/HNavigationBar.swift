@@ -80,6 +80,7 @@ class HNavigationBar: UIStackView {
             buttonView.imageView?.contentMode = .scaleAspectFit
             buttonView.contentHorizontalAlignment = .left
             buttonView.backgroundColor = UIColor.clear
+            buttonView.textColor = .black
             buttonView.hiddenBlock = {
                 if self.isLoaded {
                     self.reloadData()
@@ -119,6 +120,7 @@ class HNavigationBar: UIStackView {
             buttonView.imageView?.contentMode = .scaleAspectFit
             buttonView.contentHorizontalAlignment = .right
             buttonView.backgroundColor = UIColor.clear
+            buttonView.textColor = .black
             buttonView.hiddenBlock = {
                 if self.isLoaded {
                     self.reloadData()

@@ -72,6 +72,7 @@
 //        buttonView.imageView?.contentMode = .scaleAspectFit
 //        buttonView.contentHorizontalAlignment = .left
 //        buttonView.backgroundColor = UIColor.clear
+//        buttonView.textColor = .black
 //        buttonView.addTarget(self, action: #selector(leftItemPressed))
 //        return buttonView
 //    }()
@@ -99,6 +100,7 @@
 //        buttonView.imageView?.contentMode = .scaleAspectFit
 //        buttonView.contentHorizontalAlignment = .right
 //        buttonView.backgroundColor = UIColor.clear
+//        buttonView.textColor = .black
 //        buttonView.isHidden = true
 //        buttonView.addTarget(self, action: #selector(rightItemPressed))
 //        return buttonView
