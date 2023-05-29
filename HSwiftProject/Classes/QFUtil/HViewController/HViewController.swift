@@ -150,15 +150,17 @@ class HViewController: UIViewController {
                 break
             }
         } else {
-            let viewcontrollers = self.navigationController?.viewControllers
-            let topViewController = self.navigationController?.topViewController
-            if viewcontrollers?.count ?? 0 > 1 && topViewController == self {
-                // dismiss with present animation
-                self.navigationController?.popViewController(animated: true)
-            }else {
-                // pop view controller with push animation
-                self.dismiss(animated: true, completion: nil)
+            if let navi = self.navigationController {
+                let viewcontrollers = navi.viewControllers
+                let topViewController = navi.topViewController
+                if viewcontrollers.count > 1 && topViewController == self {
+                    // dismiss with present animation
+                    navi.popViewController(animated: true)
+                    return
+                }
             }
+            // pop view controller with push animation
+            self.dismiss(animated: true, completion: nil)
         }
     }
     
