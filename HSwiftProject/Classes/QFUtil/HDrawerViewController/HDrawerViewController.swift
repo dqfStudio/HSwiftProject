@@ -26,9 +26,11 @@ let kScreenshotImageOriginalLeft: CGFloat = -150.0
 let kDefaultVisibleMenuWidth: CGFloat = 300.0
 
 // 代理协议
-protocol HDrawerViewControllerDelegate: AnyObject {
-    func menuDidAppear()
-    func menuDidDisappear()
+@objc protocol HDrawerViewControllerDelegate: AnyObject {
+    @objc
+    optional func menuDidAppear()
+    @objc
+    optional func menuDidDisappear()
 }
 
 // 抽屉控制器
@@ -57,7 +59,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
     // 右侧黑色遮罩视图
     private lazy var rightBlackMaskView: UIControl = {
         let rightBlackMaskView = UIControl(frame: CGRect(x: 0, y: 0, width: mainViewController?.view.bounds.width ?? 0, height: mainViewController?.view.bounds.height ?? 0))
-        rightBlackMaskView.backgroundColor = .clear
+        rightBlackMaskView.backgroundColor = UIColor(white: 1.0, alpha: 0.2)
         rightBlackMaskView.addTarget(self, action: #selector(rightBlackMaskViewAction), for: .touchUpInside)
         return rightBlackMaskView
     }()
@@ -227,7 +229,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
      发送菜单出现通知
      */
     private func sendMenuDidAppearNotification() {
-        delegates.allObjects.compactMap { $0 as? HDrawerViewControllerDelegate }.forEach { $0.menuDidAppear() }
+        delegates.allObjects.compactMap { $0 as? HDrawerViewControllerDelegate }.forEach { $0.menuDidAppear?() }
         if let mainViewController = mainViewController, !mainViewController.view.subviews.contains(rightBlackMaskView) {
             mainViewController.view.addSubview(rightBlackMaskView)
             mainViewController.view.bringSubviewToFront(rightBlackMaskView)
@@ -238,7 +240,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
      发送菜单消失通知
      */
     private func sendMenuDidDisappearNotification() {
-        delegates.allObjects.compactMap { $0 as? HDrawerViewControllerDelegate }.forEach { $0.menuDidDisappear() }
+        delegates.allObjects.compactMap { $0 as? HDrawerViewControllerDelegate }.forEach { $0.menuDidDisappear?() }
         mainViewController?.view.subviews.filter { $0 == rightBlackMaskView }.forEach { $0.removeFromSuperview() }
     }
     
