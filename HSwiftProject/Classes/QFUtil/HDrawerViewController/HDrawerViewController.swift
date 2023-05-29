@@ -169,8 +169,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
      */
     private func moveViewWithX(_ x: CGFloat) {
         guard let menuViewController = menuViewController, let mainViewController = mainViewController else { return }
-        var x = x
-        x = min(x, visibleMenuWidth)
+        var x = min(x, visibleMenuWidth)
         x = max(x, 0)
         var frame = mainViewController.view.frame
         frame.origin.x = x
