@@ -10,6 +10,12 @@ import UIKit
 
 class HCellApexSeparator: UIView {
     
+    var isShow: Bool = false {
+        didSet {
+            isHidden = !isShow
+        }
+    }
+    
     /// The margin of the cell separator line
     var separatorInset: UILREdgeInsets = .zero {
         didSet {
