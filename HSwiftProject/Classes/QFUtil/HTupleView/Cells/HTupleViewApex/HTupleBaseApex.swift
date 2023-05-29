@@ -86,7 +86,9 @@ class HTupleBaseApex : UICollectionReusableView {
             } else {
                 _activity = UIActivityIndicatorView(style: .gray)
             }
-            _activity!.center = self.center
+            let centerX = self.bounds.width / 2
+            let centerY = self.bounds.height / 2
+            _activity!.center = CGPoint(x: centerX, y: centerY)
             self.addSubview(_activity!)
             return _activity!
         }
@@ -97,7 +99,11 @@ class HTupleBaseApex : UICollectionReusableView {
         if !v.frame.equalTo(frame) {
             v.frame = frame
         }
-        _activity?.center = self.center
+        if let activity = _activity {
+            let centerX = self.bounds.width / 2
+            let centerY = self.bounds.height / 2
+            activity.center = CGPoint(x: centerX, y: centerY)
+        }
     }
 
     /// Method called during cell initialization

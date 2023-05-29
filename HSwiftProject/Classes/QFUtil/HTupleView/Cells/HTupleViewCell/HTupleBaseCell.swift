@@ -105,7 +105,9 @@ class HTupleBaseCell : UICollectionViewCell {
             } else {
                 _activity = UIActivityIndicatorView(style: .gray)
             }
-            _activity!.center = self.center
+            let centerX = self.contentView.bounds.width / 2
+            let centerY = self.contentView.bounds.height / 2
+            _activity!.center = CGPoint(x: centerX, y: centerY)
             self.contentView.addSubview(_activity!)
             return _activity!
         }
@@ -116,7 +118,11 @@ class HTupleBaseCell : UICollectionViewCell {
         if !v.frame.equalTo(frame) {
             v.frame = frame
         }
-        _activity?.center = self.center
+        if let activity = _activity {
+            let centerX = self.contentView.bounds.width / 2
+            let centerY = self.contentView.bounds.height / 2
+            activity.center = CGPoint(x: centerX, y: centerY)
+        }
     }
     
     /// Method called during cell initialization
