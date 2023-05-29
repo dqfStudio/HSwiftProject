@@ -42,7 +42,7 @@ class HMainController1: HTupleController {
     func minimumLineSpacingForSectionAt(_ section: Any) -> Any {
         switch section as! Int {
         case 1:
-            return 10
+            return 8
         default:
             return 0
         }
@@ -265,7 +265,7 @@ class HMainController1: HTupleController {
         case 1:
             let cell = itemBlock(nil, HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
             cell.sizeBlock = {
-                let width = (self.tupleView.width(forSection: indexPath.section) - 20) / 3
+                let width = (self.tupleView.width(forSection: indexPath.section) - 16) / 3
 //                width = self.tupleView.fixSlit(withWidth: width, colCount: 3, index: indexPath.row - 3)
                 return CGSize(width: width, height: width + 5 + 25)
             }
