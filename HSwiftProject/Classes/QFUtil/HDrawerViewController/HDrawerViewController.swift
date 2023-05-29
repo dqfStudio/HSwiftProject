@@ -51,14 +51,14 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
     
     // 黑色遮罩视图
     private lazy var blackMaskView: UIView = {
-        let blackMaskView = UIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: view.bounds.height))
+        let blackMaskView = UIView(frame: view.bounds)
         blackMaskView.backgroundColor = .black
         return blackMaskView
     }()
     
     // 右侧黑色遮罩视图
     private lazy var rightBlackMaskView: UIControl = {
-        let rightBlackMaskView = UIControl(frame: CGRect(x: 0, y: 0, width: mainViewController?.view.bounds.width ?? 0, height: mainViewController?.view.bounds.height ?? 0))
+        let rightBlackMaskView = UIControl(frame: mainViewController?.view.bounds ?? .zero)
         rightBlackMaskView.backgroundColor = UIColor(white: 1.0, alpha: 0.2)
         rightBlackMaskView.addTarget(self, action: #selector(rightBlackMaskViewAction), for: .touchUpInside)
         return rightBlackMaskView
@@ -102,7 +102,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
     }
     
     // 可见菜单宽度
-    var visibleMenuWidth: CGFloat = 0.0
+    private var visibleMenuWidth: CGFloat = 0.0
     
     /// 默认为 YES。
     var canDragMenu: Bool = true {
@@ -248,31 +248,31 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
     @objc
     private func paningGestureReceive(_ sender: UIPanGestureRecognizer) {
         if sender.state == .began {
-            _panGestureRecognizerBegan(sender)
+            panGestureRecognizerBegan(sender)
         } else if sender.state == .changed {
-            _panGestureRecognizerChanged(sender)
+            panGestureRecognizerChanged(sender)
         } else if sender.state == .ended {
-            _panGestureRecognizerEnded(sender)
+            panGestureRecognizerEnded(sender)
         } else if sender.state == .cancelled {
-            _panGestureRecognizerCancelled(sender)
+            panGestureRecognizerCancelled(sender)
         }
     }
     
-    private func _panGestureRecognizerBegan(_ sender: UIPanGestureRecognizer) {
+    private func panGestureRecognizerBegan(_ sender: UIPanGestureRecognizer) {
         if let mainViewController = mainViewController {
             isMoving = true
             startTouchPointInMainVC = sender.location(in: mainViewController.view)
         }
     }
     
-    private func _panGestureRecognizerChanged(_ sender: UIPanGestureRecognizer) {
+    private func panGestureRecognizerChanged(_ sender: UIPanGestureRecognizer) {
         let touchPointInWindow = sender.location(in: KEY_WINDOW)
         if isMoving {
             moveViewWithX(touchPointInWindow.x - startTouchPointInMainVC.x)
         }
     }
     
-    private func _panGestureRecognizerEnded(_ sender: UIPanGestureRecognizer) {
+    private func panGestureRecognizerEnded(_ sender: UIPanGestureRecognizer) {
         let touchPointInWindow = sender.location(in: KEY_WINDOW)
         if touchPointInWindow.x - startTouchPointInMainVC.x > visibleMenuWidth / 2.0 {
             UIView.animate(withDuration: 0.2, animations: {
@@ -291,7 +291,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    private func _panGestureRecognizerCancelled(_ sender: UIPanGestureRecognizer) {
+    private func panGestureRecognizerCancelled(_ sender: UIPanGestureRecognizer) {
         UIView.animate(withDuration: 0.2, animations: {
             self.moveViewWithX(0)
         }, completion: { finished in
@@ -301,12 +301,12 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
     }
     
     @objc
-    func tapGestureReceive(_ sender: UITapGestureRecognizer) {
-        dismissMenuViewController()
+    private func tapGestureReceive(_ sender: UITapGestureRecognizer) {
+        self.dismissMenuViewController()
     }
     
     @objc
-    func rightBlackMaskViewAction() {
+    private func rightBlackMaskViewAction() {
         self.dismissMenuViewController()
     }
     
