@@ -69,6 +69,14 @@ class HNavigationBar: UIStackView {
     private lazy var rightEdge: UIView = {
         return UIView()
     }()
+    
+    private lazy var leftLayoutView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
+    }()
 
     // Left button of the navigation bar
     private var _leftItem: HNavigationItem?
@@ -110,6 +118,14 @@ class HNavigationBar: UIStackView {
         labelView.textColor = UIColor.black
         labelView.textAlignment = .center
         return labelView
+    }()
+    
+    private lazy var rightLayoutView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
     }()
 
     // Right button of the navigation bar
@@ -163,32 +179,36 @@ class HNavigationBar: UIStackView {
             if itemWidth > 0 {// If the left item is wider than the right item
 
                 // Add the left button
-                navigationBar.addArrangedSubview(leftItem)
-                leftItem.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // Set the width of the left item
-                navigationBar.setCustomSpacing(titleSpace, after: leftItem) // Add spacing after the left item
+                leftLayoutView.addArrangedSubview(leftItem)
+                navigationBar.addArrangedSubview(leftLayoutView)
+                leftLayoutView.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // Set the width of the left item
+                navigationBar.setCustomSpacing(titleSpace, after: leftLayoutView) // Add spacing after the left item
 
                 // Add the middle title
                 navigationBar.addArrangedSubview(titleItem)
                 navigationBar.setCustomSpacing(abs(itemWidth) + titleSpace, after: titleItem) // Add spacing after the title item
 
                 // Add the right button
-                navigationBar.addArrangedSubview(rightItem)
-                rightItem.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // Set the width of the right item
+                rightLayoutView.addArrangedSubview(rightItem)
+                navigationBar.addArrangedSubview(rightLayoutView)
+                rightLayoutView.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // Set the width of the right item
 
             } else {// If the right item is wider than the left item
 
                 // Add the left button
-                navigationBar.addArrangedSubview(leftItem)
-                leftItem.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // Set the width of the left item
-                navigationBar.setCustomSpacing(abs(itemWidth) + titleSpace, after: leftItem) // Add spacing after the left item
+                leftLayoutView.addArrangedSubview(leftItem)
+                navigationBar.addArrangedSubview(leftLayoutView)
+                leftLayoutView.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // Set the width of the left item
+                navigationBar.setCustomSpacing(abs(itemWidth) + titleSpace, after: leftLayoutView) // Add spacing after the left item
 
                 // Add the middle title
                 navigationBar.addArrangedSubview(titleItem)
                 navigationBar.setCustomSpacing(titleSpace, after: titleItem) // Add spacing after the title item
 
                 // Add the right button
-                navigationBar.addArrangedSubview(rightItem)
-                rightItem.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // Set the width of the right item
+                rightLayoutView.addArrangedSubview(rightItem)
+                navigationBar.addArrangedSubview(rightLayoutView)
+                rightLayoutView.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // Set the width of the right item
             }
 
             // Add the rightmost spacing
@@ -202,9 +222,10 @@ class HNavigationBar: UIStackView {
             leftEdge.widthAnchor.constraint(equalToConstant: edgeSpace).isActive = true
 
             // Add the left button
-            navigationBar.addArrangedSubview(leftItem)
-            leftItem.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // Set the width of the left item
-            navigationBar.setCustomSpacing(titleSpace, after: leftItem) // Add spacing after the left item
+            leftLayoutView.addArrangedSubview(leftItem)
+            navigationBar.addArrangedSubview(leftLayoutView)
+            leftLayoutView.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // Set the width of the left item
+            navigationBar.setCustomSpacing(titleSpace, after: leftLayoutView) // Add spacing after the left item
 
             // Add the middle title
             navigationBar.addArrangedSubview(titleItem)
@@ -224,8 +245,9 @@ class HNavigationBar: UIStackView {
             navigationBar.setCustomSpacing(titleSpace, after: titleItem) // Add spacing after the title item
 
             // Add the right button
-            navigationBar.addArrangedSubview(rightItem)
-            rightItem.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // Set the width of the right item
+            rightLayoutView.addArrangedSubview(rightItem)
+            navigationBar.addArrangedSubview(rightLayoutView)
+            rightLayoutView.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // Set the width of the right item
 
             // Add the rightmost spacing
             navigationBar.addArrangedSubview(rightEdge)
