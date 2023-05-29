@@ -22,7 +22,7 @@ class HNavigationBar: UIStackView {
     var rightItemWidth: CGFloat = 60.0
     
     // Has it been loaded
-    var isLoaded: Bool = false
+    private var isLoaded: Bool = false
 
 
     override init(frame: CGRect) {
