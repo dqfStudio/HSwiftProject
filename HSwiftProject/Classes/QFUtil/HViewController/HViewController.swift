@@ -138,30 +138,32 @@ class HViewController: UIViewController {
     
     /// Return event processing
     func back() {
-        if let navi = self.navigationController, navi.isKind(of: HNavigationController.self) {
-            switch (self.appearType) {
-            case .undefine, .present:
-                // dismiss with present animation
-                self.dismiss(animated: true, completion: nil)
-            case .push:
-                // pop view controller with push animation
-                self.navigationController?.popViewController(animated: true)
-            default:
-                break
-            }
-        } else {
-            if let navi = self.navigationController {
+        if let navi = self.navigationController {
+            if navi.isKind(of: HNavigationController.self), self.isKind(of: HViewController.self) {
+                switch (self.appearType) {
+                case .undefine, .present:
+                    // dismiss with present animation
+                    self.dismiss(animated: true, completion: nil)
+                    return
+                case .push:
+                    // pop view controller with push animation
+                    navi.popViewController(animated: true)
+                    return
+                default:
+                    break
+                }
+            } else {
                 let viewcontrollers = navi.viewControllers
                 let topViewController = navi.topViewController
                 if viewcontrollers.count > 1 && topViewController == self {
-                    // dismiss with present animation
+                    // pop view controller with push animation
                     navi.popViewController(animated: true)
                     return
                 }
             }
-            // pop view controller with push animation
-            self.dismiss(animated: true, completion: nil)
         }
+        // dismiss with present animation
+        self.dismiss(animated: true, completion: nil)
     }
     
     /// Navigation bar status control
