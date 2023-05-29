@@ -89,7 +89,9 @@ class HNavigationBar: UIStackView {
             buttonView.addTarget(self, action: #selector(leftItemPressed))
             _leftItem = buttonView
             if self.isLoaded {
-                self.reloadData()
+                DispatchQueue.main.async {
+                    self.reloadData()
+                }
             }
         }
         return _leftItem!
@@ -129,7 +131,9 @@ class HNavigationBar: UIStackView {
             buttonView.addTarget(self, action: #selector(rightItemPressed))
             _rightItem = buttonView
             if self.isLoaded {
-                self.reloadData()
+                DispatchQueue.main.async {
+                    self.reloadData()
+                }
             }
         }
         return _rightItem!
