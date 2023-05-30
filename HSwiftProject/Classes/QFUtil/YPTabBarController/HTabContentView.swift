@@ -641,19 +641,21 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
         var rightIndex: Int = leftIndex + 1
 
         // 这里处理shouldSelectItemAtIndex方法
-        let selector = #selector(self.delegate!.tabContentView(_:shouldSelectTabAtIndex:))
-        if self.delegate != nil && self.delegate!.responds(to: selector) && !scrollView.isDecelerating {
-            var targetIndex: Int = 0
-            if (_lastContentScrollViewOffsetX < offsetX) {
-                // 向左
-                targetIndex = rightIndex
-            } else {
-                // 向右
-                targetIndex = leftIndex
-            }
-            if (targetIndex != self.selectedTabIndex) {
-                if !self.shouldSelectItemAtIndex(targetIndex) {
-                    scrollView.setContentOffset(CGPoint(x: CGFloat(self.selectedTabIndex) * scrollViewWidth, y: 0), animated: false)
+        if let delegate = self.delegate {
+            let selector = #selector(delegate.tabContentView(_:shouldSelectTabAtIndex:))
+            if delegate.responds(to: selector) && !scrollView.isDecelerating {
+                var targetIndex: Int = 0
+                if (_lastContentScrollViewOffsetX < offsetX) {
+                    // 向左
+                    targetIndex = rightIndex
+                } else {
+                    // 向右
+                    targetIndex = leftIndex
+                }
+                if (targetIndex != self.selectedTabIndex) {
+                    if !self.shouldSelectItemAtIndex(targetIndex) {
+                        scrollView.setContentOffset(CGPoint(x: CGFloat(self.selectedTabIndex) * scrollViewWidth, y: 0), animated: false)
+                    }
                 }
             }
         }
