@@ -48,52 +48,32 @@ class HTabItem : UIButton {
         return _frameWithOutTransform
     }
     
-    private var _title: String?
     /// Title
     var title: String? {
-        get {
-            return _title
-        }
-        set {
-            _title = newValue
-            self.setTitle(newValue, for: .normal)
-            self.calculateTitleWidth()
+        didSet {
+            setTitle(title, for: .normal)
+            calculateTitleWidth()
         }
     }
 
-    private var _titleColor: UIColor?
     var titleColor: UIColor? {
-        get {
-            return _titleColor
-        }
-        set {
-            _titleColor = newValue
-            self.setTitleColor(newValue, for: .normal)
+        didSet {
+            setTitleColor(titleColor, for: .normal)
         }
     }
     
-    private var _titleSelectedColor: UIColor?
     var titleSelectedColor: UIColor? {
-        get {
-            return _titleSelectedColor
-        }
-        set {
-            _titleSelectedColor = newValue
-            self.setTitleColor(newValue, for: .selected)
+        didSet {
+            setTitleColor(titleSelectedColor, for: .selected)
         }
     }
 
-    private var _titleFont: UIFont?
     var titleFont: UIFont? {
-        get {
-            return _titleFont
-        }
-        set {
-            _titleFont = newValue
+        didSet {
             if #available(iOS 8.0, *) {
-                self.titleLabel?.font = newValue
+                self.titleLabel?.font = titleFont
             }
-            self.calculateTitleWidth()
+            calculateTitleWidth()
         }
     }
     
@@ -109,14 +89,9 @@ class HTabItem : UIButton {
         }
     }
 
-    private var _selectedImage: UIImage?
     var selectedImage: UIImage? {
-        get {
-            return _selectedImage
-        }
-        set {
-            _selectedImage = newValue
-            self.setImage(newValue, for: .selected)
+        didSet {
+            setImage(selectedImage, for: .selected)
         }
     }
     
