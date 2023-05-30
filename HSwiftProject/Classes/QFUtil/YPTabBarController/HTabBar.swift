@@ -192,22 +192,18 @@ class HTabBar : UIView {
     /// 标题颜色
     var itemTitleColor: UIColor = .white {
         didSet {
-            if let items = self.items, items.count > 0 {
-                for item in items {
-                    item.titleColor = itemTitleColor
-                }
-            }
+            self.items?.forEach({ item in
+                item.titleColor = itemTitleColor
+            })
         }
     }
     
     /// 选中时标题的颜色
     var itemTitleSelectedColor: UIColor = .black {
         didSet {
-            if let items = self.items, items.count > 0 {
-                for item in items {
-                    item.titleSelectedColor = itemTitleSelectedColor
-                }
-            }
+            self.items?.forEach({ item in
+                item.titleSelectedColor = itemTitleSelectedColor
+            })
         }
     }
     
@@ -259,44 +255,36 @@ class HTabBar : UIView {
     /// Badge背景颜色
     var badgeBackgroundColor: UIColor? {
         didSet {
-            if let items = self.items, items.count > 0 {
-                for item in items {
-                    item.badgeBackgroundColor = badgeBackgroundColor
-                }
-            }
+            self.items?.forEach({ item in
+                item.badgeBackgroundColor = badgeBackgroundColor
+            })
         }
     }
     
     /// Badge背景图像
     var badgeBackgroundImage: UIImage? {
         didSet {
-            if let items = self.items, items.count > 0 {
-                for item in items {
-                    item.badgeBackgroundImage = badgeBackgroundImage
-                }
-            }
+            self.items?.forEach({ item in
+                item.badgeBackgroundImage = badgeBackgroundImage
+            })
         }
     }
     
     /// Badge标题颜色
     var badgeTitleColor: UIColor = .white {
         didSet {
-            if let items = self.items, items.count > 0 {
-                for item in items {
-                    item.badgeTitleColor = badgeTitleColor
-                }
-            }
+            self.items?.forEach({ item in
+                item.badgeTitleColor = badgeTitleColor
+            })
         }
     }
     
     /// Badge标题字体
     var badgeTitleFont: UIFont = .systemFont(ofSize: 10) {
         didSet {
-            if let items = self.items, items.count > 0 {
-                for item in items {
-                    item.badgeTitleFont = badgeTitleFont
-                }
-            }
+            self.items?.forEach({ item in
+                item.badgeTitleFont = badgeTitleFont
+            })
         }
     }
     
@@ -748,11 +736,9 @@ class HTabBar : UIView {
         self.itemContentHorizontalCenterVerticalOffset = verticalOffset
         self.itemContentHorizontalCenterSpacing = spacing
         
-        if let items = self.items, items.count > 0 {
-            for item in items {
-                item.setContentHorizontalCenterWithVerticalOffset(verticalOffset, spacing: spacing)
-            }
-        }
+        self.items?.forEach({ item in
+            item.setContentHorizontalCenterWithVerticalOffset(verticalOffset, spacing: spacing)
+        })
     }
     
     /**
@@ -770,11 +756,9 @@ class HTabBar : UIView {
         self.numberBadgeTitleHorizonalSpace = titleHorizonalSpace
         self.numberBadgeTitleVerticalSpace = titleVerticalSpace
         
-        if let items = self.items, items.count > 0 {
-            for item in items {
-                item.setNumberBadgeMarginTop(marginTop, centerMarginRight: centerMarginRight, titleHorizonalSpace: titleHorizonalSpace, titleVerticalSpace: titleVerticalSpace)
-            }
-        }
+        self.items?.forEach({ item in
+            item.setNumberBadgeMarginTop(marginTop, centerMarginRight: centerMarginRight, titleHorizonalSpace: titleHorizonalSpace, titleVerticalSpace: titleVerticalSpace)
+        })
     }
     
     /**
@@ -790,11 +774,9 @@ class HTabBar : UIView {
         self.dotBadgeCenterMarginRight = centerMarginRight
         self.dotBadgeSideLength = sideLength
         
-        if let items = self.items, items.count > 0 {
-            for item in items {
-                item.setDotBadgeMarginTop(marginTop, centerMarginRight: centerMarginRight, sideLength: sideLength)
-            }
-        }
+        self.items?.forEach({ item in
+            item.setDotBadgeMarginTop(marginTop, centerMarginRight: centerMarginRight, sideLength: sideLength)
+        })
     }
     
     /**
@@ -1021,35 +1003,31 @@ class HTabBar : UIView {
     }
 
     private func updateItemIndicatorInsets() {
-        if let items = self.items, items.count > 0 {
-            for item in items {
-                if self.indicatorStyle == .fitTitle {
-                    let frame: CGRect = item.frameWithOutTransform
-                    let space: CGFloat = (frame.size.width - item.titleWidth - self.indicatorWidthFixTitleAdditional) / 2
-                    item.indicatorInsets = UIEdgeInsets(top: self.indicatorInsets.top, left: space, bottom: self.indicatorInsets.bottom, right: space)
-                } else if self.indicatorStyle == .fixedWidth {
-                    let frame: CGRect = item.frameWithOutTransform
-                    let space: CGFloat = (frame.size.width - self.indicatorWidth) / 2
-                    item.indicatorInsets = UIEdgeInsets(top: self.indicatorInsets.top, left: space, bottom: self.indicatorInsets.bottom, right: space)
-                } else if self.indicatorStyle == .fitItem {
-                    item.indicatorInsets = self.indicatorInsets
-                }
+        self.items?.forEach({ item in
+            if self.indicatorStyle == .fitTitle {
+                let frame: CGRect = item.frameWithOutTransform
+                let space: CGFloat = (frame.size.width - item.titleWidth - self.indicatorWidthFixTitleAdditional) / 2
+                item.indicatorInsets = UIEdgeInsets(top: self.indicatorInsets.top, left: space, bottom: self.indicatorInsets.bottom, right: space)
+            } else if self.indicatorStyle == .fixedWidth {
+                let frame: CGRect = item.frameWithOutTransform
+                let space: CGFloat = (frame.size.width - self.indicatorWidth) / 2
+                item.indicatorInsets = UIEdgeInsets(top: self.indicatorInsets.top, left: space, bottom: self.indicatorInsets.bottom, right: space)
+            } else if self.indicatorStyle == .fitItem {
+                item.indicatorInsets = self.indicatorInsets
             }
-        }
+        })
     }
 
     private func updateItemsScaleIfNeeded() {
         if self.itemTitleSelectedFont != nil &&
             self.isItemFontChangeFollowContentScroll &&
             self.itemTitleSelectedFont?.pointSize != self.itemTitleFont.pointSize {
-            if let items = self.items, items.count > 0 {
-                for item in items {
-                    item.titleFont = self.itemTitleSelectedFont
-                    if item.isSelected == false {
-                        item.transform = CGAffineTransform(scaleX: self.itemTitleUnselectedFontScale, y: self.itemTitleUnselectedFontScale)
-                    }
+            self.items?.forEach({ item in
+                item.titleFont = self.itemTitleSelectedFont
+                if item.isSelected == false {
+                    item.transform = CGAffineTransform(scaleX: self.itemTitleUnselectedFontScale, y: self.itemTitleUnselectedFontScale)
                 }
-            }
+            })
         }
     }
 
@@ -1065,25 +1043,23 @@ class HTabBar : UIView {
                 }
                 self.separatorLayers!.removeAllObjects()
             }
-            if let items = self.items, items.count > 0 {
-                for item in items {
-                    let layer: CALayer = CALayer()
-                    layer.backgroundColor = self.itemSeparatorColor!.cgColor
-                    if self.isVertical {
-                        layer.frame = CGRect(x: self.itemSeparatorLeading,
-                                             y: item.frame.origin.y - self.itemSeparatorThickness / 2,
-                                             width: self.bounds.size.width - self.itemSeparatorLeading - self.itemSeparatorTrailing,
-                                             height: self.itemSeparatorThickness)
-                    } else {
-                        layer.frame = CGRect(x: item.frame.origin.x - self.itemSeparatorThickness / 2,
-                                             y: self.itemSeparatorLeading,
-                                             width: self.itemSeparatorThickness,
-                                             height: self.bounds.size.height - self.itemSeparatorLeading - self.itemSeparatorTrailing)
-                    }
-                    self.scrollView.layer.addSublayer(layer)
-                    self.separatorLayers!.add(layer)
+            self.items?.forEach({ item in
+                let layer: CALayer = CALayer()
+                layer.backgroundColor = self.itemSeparatorColor!.cgColor
+                if self.isVertical {
+                    layer.frame = CGRect(x: self.itemSeparatorLeading,
+                                         y: item.frame.origin.y - self.itemSeparatorThickness / 2,
+                                         width: self.bounds.size.width - self.itemSeparatorLeading - self.itemSeparatorTrailing,
+                                         height: self.itemSeparatorThickness)
+                } else {
+                    layer.frame = CGRect(x: item.frame.origin.x - self.itemSeparatorThickness / 2,
+                                         y: self.itemSeparatorLeading,
+                                         width: self.itemSeparatorThickness,
+                                         height: self.bounds.size.height - self.itemSeparatorLeading - self.itemSeparatorTrailing)
                 }
-            }
+                self.scrollView.layer.addSublayer(layer)
+                self.separatorLayers!.add(layer)
+            })
         } else {
             if self.separatorLayers != nil && self.separatorLayers!.count > 0 {
                 for item in self.separatorLayers! {
