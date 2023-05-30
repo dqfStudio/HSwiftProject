@@ -184,7 +184,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
     
     /// 显示菜单页面
     func presentMenuViewController() {
-        UIView.animate(withDuration: 0.2, animations: {
+        UIView.animate(withDuration: 0.25, animations: {
             self.moveViewWithX(self.visibleMenuWidth)
         }) { (finished) in
             self.sendMenuDidAppearNotification()
@@ -193,8 +193,8 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
     
     /// 隐藏菜单页面
     func dismissMenuViewController() {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.moveViewWithX(0)
+        UIView.animate(withDuration: 0.25, animations: {
+            self.moveViewWithX(0.0)
         }) { (finished) in
             self.sendMenuDidDisappearNotification()
         }
@@ -274,15 +274,15 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
     private func panGestureRecognizerEnded(_ sender: UIPanGestureRecognizer) {
         let touchPointInWindow = sender.location(in: KEY_WINDOW)
         if touchPointInWindow.x - startTouchPointInMainVC.x > visibleMenuWidth / 2.0 {
-            UIView.animate(withDuration: 0.2, animations: {
+            UIView.animate(withDuration: 0.25, animations: {
                 self.moveViewWithX(self.visibleMenuWidth)
             }, completion: { finished in
                 self.isMoving = false
                 self.sendMenuDidAppearNotification()
             })
         } else {
-            UIView.animate(withDuration: 0.2, animations: {
-                self.moveViewWithX(0)
+            UIView.animate(withDuration: 0.25, animations: {
+                self.moveViewWithX(0.0)
             }, completion: { finished in
                 self.isMoving = false
                 self.sendMenuDidDisappearNotification()
@@ -291,8 +291,8 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
     }
     
     private func panGestureRecognizerCancelled(_ sender: UIPanGestureRecognizer) {
-        UIView.animate(withDuration: 0.2, animations: {
-            self.moveViewWithX(0)
+        UIView.animate(withDuration: 0.25, animations: {
+            self.moveViewWithX(0.0)
         }, completion: { finished in
             self.isMoving = false
             self.sendMenuDidDisappearNotification()
