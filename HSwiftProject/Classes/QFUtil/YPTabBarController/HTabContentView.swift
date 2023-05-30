@@ -19,28 +19,16 @@ typealias HViewControllerWillAppearInjectBlock = (_ viewController: UIViewContro
 extension UIViewController {
     
     var h_hasBeenDisplayed: Bool {
-        get {
-            self.getAssociatedValueForKey(&h_hasBeenDisplayedKey) as? Bool ?? false
-        }
-        set {
-            self.setAssociateWeakValue(newValue, key: &h_hasBeenDisplayedKey)
-        }
+        get { self.getAssociatedValueForKey(&h_hasBeenDisplayedKey) as? Bool ?? false }
+        set { self.setAssociateWeakValue(newValue, key: &h_hasBeenDisplayedKey) }
     }
     var h_hasAddedContentOffsetObserver: Bool {
-        get {
-            self.getAssociatedValueForKey(&h_hasAddedContentOffsetObserverKey) as? Bool ?? false
-        }
-        set {
-            self.setAssociateWeakValue(newValue, key: &h_hasAddedContentOffsetObserverKey)
-        }
+        get { self.getAssociatedValueForKey(&h_hasAddedContentOffsetObserverKey) as? Bool ?? false }
+        set { self.setAssociateWeakValue(newValue, key: &h_hasAddedContentOffsetObserverKey) }
     }
     var h_willAppearInjectBlock: HViewControllerWillAppearInjectBlock? {
-        get {
-            self.getAssociatedValueForKey(&h_willAppearInjectBlockKey) as? HViewControllerWillAppearInjectBlock
-        }
-        set {
-            self.setAssociateValue(newValue, key: &h_willAppearInjectBlockKey)
-        }
+        get { self.getAssociatedValueForKey(&h_willAppearInjectBlockKey) as? HViewControllerWillAppearInjectBlock }
+        set { self.setAssociateValue(newValue, key: &h_willAppearInjectBlockKey) }
     }
     
     //以下逻辑移动到HTabBarController
