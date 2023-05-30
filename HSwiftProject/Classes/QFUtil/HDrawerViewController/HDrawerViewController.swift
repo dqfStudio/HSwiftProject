@@ -15,7 +15,7 @@ private var KEY_WINDOW = UIApplication.shared.keyWindow
 private let kRefereWidth: CGFloat = 375.0
 
 // 适配宽度
-private func AdaptW(_ floatValue: CGFloat) -> CGFloat {
+private func kAdaptWidth(_ floatValue: CGFloat) -> CGFloat {
     return floatValue * UIScreen.main.bounds.size.width / kRefereWidth
 }
 
@@ -119,7 +119,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
         super.init(nibName: nil, bundle: nil)
         self.mainViewController = mainViewController
         self.menuViewController = menuViewController
-        self.visibleMenuWidth = AdaptW(kDefaultVisibleMenuWidth)
+        self.visibleMenuWidth = kAdaptWidth(kDefaultVisibleMenuWidth)
         self.mainViewController?.view.addGestureRecognizer(self.panGesture)
     }
     
