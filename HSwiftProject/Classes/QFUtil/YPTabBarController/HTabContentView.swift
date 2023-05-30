@@ -85,9 +85,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
     private var _tabBar: HTabBar = HTabBar()
     var tabBar: HTabBar {
-        get {
-            return _tabBar
-        }
+        get { return _tabBar }
         set {
             _tabBar = newValue
             _tabBar.delegate = self
@@ -159,12 +157,8 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
      */
     private var _selectedTabIndex: Int = NSNotFound
     var selectedTabIndex: Int {
-        get {
-            return _selectedTabIndex
-        }
-        set {
-            self.tabBar.selectedItemIndex = newValue
-        }
+        get { return _selectedTabIndex }
+        set { self.tabBar.selectedItemIndex = newValue }
     }
 
     /**
@@ -187,9 +181,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
     *  此2个属性则可以拦截第一页向右滑动和最后一页向左滑动的手势，实现呼出侧边栏的功能
     */
     var interceptRightSlideGuetureInFirstPage: Bool {
-        get {
-            return _interceptRightSlideGuetureInFirstPage
-        }
+        get { return _interceptRightSlideGuetureInFirstPage }
         set {
             _interceptRightSlideGuetureInFirstPage = newValue
             self.contentScrollView.interceptRightSlideGuetureInFirstPage = newValue
@@ -198,9 +190,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
     
     private var _interceptLeftSlideGuetureInLastPage: Bool = false
     var interceptLeftSlideGuetureInLastPage: Bool {
-        get {
-            return _interceptLeftSlideGuetureInLastPage
-        }
+        get { return _interceptLeftSlideGuetureInLastPage }
         set {
             _interceptLeftSlideGuetureInLastPage = newValue
             self.contentScrollView.interceptLeftSlideGuetureInLastPage = newValue
@@ -281,12 +271,8 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
     private var _contentScrollView: _HTabContentScrollView = _HTabContentScrollView()
     private var contentScrollView: _HTabContentScrollView {
-        get {
-            return _contentScrollView
-        }
-        set {
-            _contentScrollView = newValue
-        }
+        get { return _contentScrollView }
+        set { _contentScrollView = newValue }
     }
 
     private var headerViewDefaultHeight: CGFloat = 0.0

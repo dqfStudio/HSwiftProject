@@ -37,9 +37,7 @@ extension UIViewController {
 
     /// tabItem的标题
     var h_tabItemTitle: String? {
-        get {
-            return self.getAssociatedValueForKey(&h_tabItemTitleKey) as? String
-        }
+        get { return self.getAssociatedValueForKey(&h_tabItemTitleKey) as? String }
         set {
             self.h_tabItem?.title = newValue
             self.setAssociateValue(newValue, key: &h_tabItemTitleKey)
@@ -48,9 +46,7 @@ extension UIViewController {
     
     /// tabItem的图像
     var h_tabItemImage: UIImage? {
-        get {
-            return self.getAssociatedValueForKey(&h_tabItemImageKey) as? UIImage
-        }
+        get { return self.getAssociatedValueForKey(&h_tabItemImageKey) as? UIImage }
         set {
             self.h_tabItem?.image = newValue
             self.setAssociateValue(newValue, key: &h_tabItemImageKey)
@@ -59,9 +55,7 @@ extension UIViewController {
     
     /// tabItem的选中图像
     var h_tabItemSelectedImage: UIImage? {
-        get {
-            return self.getAssociatedValueForKey(&h_tabItemSelectedImageKey) as? UIImage
-        }
+        get { return self.getAssociatedValueForKey(&h_tabItemSelectedImageKey) as? UIImage }
         set {
             self.h_tabItem?.selectedImage = newValue
             self.setAssociateValue(newValue, key: &h_tabItemSelectedImageKey)
@@ -98,12 +92,8 @@ extension UIViewController {
      *  返回是否开启最小ContentHeight
      */
     var h_disableMinContentHeight: Bool {
-        get {
-            return self.getAssociatedValueForKey(&h_disableMinContentHeightKey) as? Bool ?? false
-        }
-        set {
-            self.setAssociateWeakValue(newValue, key: &h_disableMinContentHeightKey)
-        }
+        get { return self.getAssociatedValueForKey(&h_disableMinContentHeightKey) as? Bool ?? false }
+        set { self.setAssociateWeakValue(newValue, key: &h_disableMinContentHeightKey) }
     }
 
 }
