@@ -286,8 +286,8 @@ class HTabItem : UIButton {
 
     @objc
     private func doubleTapped(_ recognizer: UITapGestureRecognizer) {
-        if self.doubleTapHandler != nil {
-            self.doubleTapHandler!()
+        if let doubleTapHandler = self.doubleTapHandler {
+            doubleTapHandler()
         }
     }
     
