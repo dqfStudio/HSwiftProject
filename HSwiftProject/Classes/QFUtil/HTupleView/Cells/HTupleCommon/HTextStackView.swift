@@ -10,68 +10,84 @@ import UIKit
 
 class HTextStackView: UIStackView {
     
-    lazy var label: UILabel = {
-        return UILabel()
-    }()
-    
-    lazy var detailLabel: UILabel = {
-        return UILabel()
-    }()
-    
-    lazy var accessoryLabel: UILabel = {
-        return UILabel()
-    }()
-    
+    /// 左边布局View
     private lazy var leftView: UIView = {
         return UIView()
     }()
     
+    /// 右边布局View
     private lazy var rightView: UIView = {
         return UIView()
     }()
     
-    private lazy var textStackView: UIStackView = {
+    /// 中间label、detailLabel和accessoryLabel布局View
+    private lazy var textLayoutView: UIStackView = {
         return UIStackView()
     }()
     
+    /// label
+    lazy var label: UILabel = {
+        return UILabel()
+    }()
+    
+    /// detailLabel
+    lazy var detailLabel: UILabel = {
+        return UILabel()
+    }()
+    
+    /// accessoryLabel
+    lazy var accessoryLabel: UILabel = {
+        return UILabel()
+    }()
+    
     // 在label后面添加自定义间隔
-    var firstTextSpacing: CGFloat = 5.0
+    var firstSpacing: CGFloat = 5.0
     
     // 在detailLabel后面添加自定义间隔
-    var secondTextSpacing: CGFloat = 5.0
+    var secondSpacing: CGFloat = 5.0
     
     func reloadData() {
         
+        /// 左边布局View
         self.addArrangedSubview(leftView)
         
-        self.addArrangedSubview(textStackView)
+        /// 中间label、detailLabel和accessoryLabel布局View
+        self.addArrangedSubview(textLayoutView)
         
-        textStackView.addArrangedSubview(label)
-        textStackView.addArrangedSubview(detailLabel)
-        textStackView.addArrangedSubview(accessoryLabel)
-        textStackView.setCustomSpacing(firstTextSpacing, after: label)
-        textStackView.setCustomSpacing(secondTextSpacing, after: detailLabel)
+        /// label
+        textLayoutView.addArrangedSubview(label)
+        /// detailLabel
+        textLayoutView.addArrangedSubview(detailLabel)
+        /// accessoryLabel
+        textLayoutView.addArrangedSubview(accessoryLabel)
+        // 在label后面的间隔
+        textLayoutView.setCustomSpacing(firstSpacing, after: label)
+        // 在detailLabel后面的间隔
+        textLayoutView.setCustomSpacing(secondSpacing, after: detailLabel)
         
+        /// 根据label、detailLabel和accessoryLabel的实际大小进行约束布局
         let textWidth1 = label.intrinsicContentSize.width + accessoryLabel.intrinsicContentSize.width
         let textWidth2 = detailLabel.intrinsicContentSize.width
-        let textSpace = firstTextSpacing + secondTextSpacing
+        let textSpace = firstSpacing + secondSpacing
         
         if textWidth1 + textWidth2 + textSpace < self.width {
-            textStackView.widthAnchor.constraint(equalToConstant: textWidth1 + textWidth2 + textSpace).isActive = true
+            textLayoutView.widthAnchor.constraint(equalToConstant: textWidth1 + textWidth2 + textSpace).isActive = true
         } else if textWidth2 + textSpace < self.width {
             label.widthAnchor.constraint(equalToConstant: (self.width - textWidth2 - textSpace) / 2).isActive = true
             detailLabel.widthAnchor.constraint(equalToConstant: textWidth2).isActive = true
             accessoryLabel.widthAnchor.constraint(equalToConstant: (self.width - textWidth2 - textSpace) / 2).isActive = true
-            textStackView.widthAnchor.constraint(equalToConstant: self.width).isActive = true
+            textLayoutView.widthAnchor.constraint(equalToConstant: self.width).isActive = true
         } else {
             label.widthAnchor.constraint(equalToConstant: 0.0).isActive = true
             detailLabel.widthAnchor.constraint(equalToConstant: self.width).isActive = true
             accessoryLabel.widthAnchor.constraint(equalToConstant: 0.0).isActive = true
-            textStackView.widthAnchor.constraint(equalToConstant: self.width).isActive = true
+            textLayoutView.widthAnchor.constraint(equalToConstant: self.width).isActive = true
         }
         
+        /// 右边布局View
         self.addArrangedSubview(rightView)
         
+        /// 左右两边的间隔
         let space = (self.width - textWidth1 - textWidth2 - textSpace) / 2
         if space >= 0 { self.spacing = space }
         
