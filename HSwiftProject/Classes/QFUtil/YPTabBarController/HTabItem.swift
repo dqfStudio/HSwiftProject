@@ -39,7 +39,7 @@ class HTabItem : UIButton {
      */
     var index: Int = 0
 
-    private var _frameWithOutTransform: CGRect = CGRect.zero
+    private var _frameWithOutTransform: CGRect = .zero
     /**
      *  用于记录tabItem在缩放前的frame，
      *  在HTabBar的属性itemFontChangeFollowContentScroll == YES时会用到
@@ -105,7 +105,7 @@ class HTabItem : UIButton {
         }
     }
     
-    private var _indicatorFrame: CGRect = CGRect.zero
+    private var _indicatorFrame: CGRect = .zero
     var indicatorFrame: CGRect {
         return _indicatorFrame
     }
