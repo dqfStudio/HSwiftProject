@@ -59,7 +59,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
     // 右侧黑色遮罩视图
     private lazy var rightBlackMaskView: UIControl = {
         let rightBlackMaskView = UIControl(frame: mainViewController?.view.bounds ?? .zero)
-        rightBlackMaskView.backgroundColor = UIColor(white: 0.2, alpha: 0.1)
+        rightBlackMaskView.backgroundColor = UIColor(white: 0.3, alpha: 0.1)
         rightBlackMaskView.addTarget(self, action: #selector(rightBlackMaskViewAction), for: .touchUpInside)
         return rightBlackMaskView
     }()
