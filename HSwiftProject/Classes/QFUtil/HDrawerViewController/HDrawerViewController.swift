@@ -23,7 +23,7 @@ private func AdaptW(_ floatValue: CGFloat) -> CGFloat {
 let kScreenshotImageOriginalLeft: CGFloat = -150.0
 
 // 默认可见菜单宽度
-let kDefaultVisibleMenuWidth: CGFloat = 300.0
+let kDefaultVisibleMenuWidth: CGFloat = 315.0
 
 // 代理协议
 @objc protocol HDrawerViewControllerDelegate: AnyObject {
@@ -59,7 +59,7 @@ class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
     // 右侧黑色遮罩视图
     private lazy var rightBlackMaskView: UIControl = {
         let rightBlackMaskView = UIControl(frame: mainViewController?.view.bounds ?? .zero)
-        rightBlackMaskView.backgroundColor = UIColor(white: 1.0, alpha: 0.2)
+        rightBlackMaskView.backgroundColor = UIColor(white: 0.1, alpha: 0.2)
         rightBlackMaskView.addTarget(self, action: #selector(rightBlackMaskViewAction), for: .touchUpInside)
         return rightBlackMaskView
     }()
