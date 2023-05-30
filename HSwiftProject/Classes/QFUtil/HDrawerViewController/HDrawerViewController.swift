@@ -26,7 +26,7 @@ let kScreenshotImageOriginalLeft: CGFloat = -150.0
 let kDefaultVisibleMenuWidth: CGFloat = 315.0
 
 // 代理协议
-@objc protocol HDrawerViewControllerDelegate: AnyObject {
+@objc protocol HDrawerViewControllerDelegate: NSObjectProtocol {
     @objc
     optional func menuDidAppear()
     @objc
