@@ -383,8 +383,8 @@ class HTabItem : UIButton {
         }
         set {
             super.isSelected = newValue
-            if self.doubleTapView != nil {
-                self.doubleTapView!.isHidden = !newValue
+            if let doubleTapView = self.doubleTapView {
+                doubleTapView.isHidden = !newValue
             }
         }
     }
@@ -397,8 +397,8 @@ class HTabItem : UIButton {
             super.frame = newValue
             _frameWithOutTransform = frame
             if newValue != CGRect.zero {
-                if self.doubleTapView != nil {
-                    self.doubleTapView!.frame = self.bounds
+                if let doubleTapView = self.doubleTapView {
+                    doubleTapView.frame = self.bounds
                 }
                 self.updateBadge()
                 self.calculateIndicatorFrame()
@@ -411,21 +411,19 @@ class HTabItem : UIButton {
             _titleWidth = 0
             return
         }
-        let tmpTitle: NSString = self.title! as NSString
-        let size = tmpTitle.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude),
-                                        options: [.usesLineFragmentOrigin, .usesFontLeading],
-                                        attributes: [.font : self.titleFont!],
-                                        context: nil).size
-        _titleWidth = CGFloat(ceilf(Float(size.width)))
+        if let title = self.title, let titleFont = self.titleFont {
+            let tmpTitle: NSString = title as NSString
+            let size = tmpTitle.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude),
+                                            options: [.usesLineFragmentOrigin, .usesFontLeading],
+                                            attributes: [.font : titleFont],
+                                            context: nil).size
+            _titleWidth = CGFloat(ceilf(Float(size.width)))
+        }
     }
 
     private func calculateIndicatorFrame() {
-        let frame: CGRect = self.frameWithOutTransform
-        let insets: UIEdgeInsets = self.indicatorInsets
-        _indicatorFrame = CGRect(x: frame.origin.x + insets.left,
-                                 y: frame.origin.y + insets.top,
-                                 width: frame.size.width - insets.left - insets.right,
-                                 height: frame.size.height - insets.top - insets.bottom)
+        let frame = self.frameWithOutTransform
+        _indicatorFrame = frame.inset(by: self.indicatorInsets)
     }
 
     private func updateBadge() {
