@@ -411,22 +411,22 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
     @objc
     private func handlePan(_ gesture: UIPanGestureRecognizer) {
-
-        let scrollView = self.selectedController!.h_displayView as! UIScrollView
-        
-        if !scrollView.isKind(of: UIScrollView.self) {
-            return
-        }
-        if gesture.state == .began {
-            _currentScrollViewOffsetY = scrollView.contentOffset.y
-        }
-        
-        let point = gesture.translation(in: self)
-        scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: _currentScrollViewOffsetY - point.y)
-        if gesture.state == .ended {
-            let defaultOffsetY: CGFloat = -(self.headerViewDefaultHeight + self.tabBar.frame.size.height)
-            if scrollView.contentOffset.y < defaultOffsetY {
-                scrollView.scrollRectToVisible(CGRect(x: 0, y: scrollView.frame.size.height + defaultOffsetY - 1, width: scrollView.frame.size.width, height: 1), animated:true)
+        if let scrollView = self.selectedController?.h_displayView as? UIScrollView {
+            
+            if !scrollView.isKind(of: UIScrollView.self) {
+                return
+            }
+            if gesture.state == .began {
+                _currentScrollViewOffsetY = scrollView.contentOffset.y
+            }
+            
+            let point = gesture.translation(in: self)
+            scrollView.contentOffset = CGPoint(x: scrollView.contentOffset.x, y: _currentScrollViewOffsetY - point.y)
+            if gesture.state == .ended {
+                let defaultOffsetY: CGFloat = -(self.headerViewDefaultHeight + self.tabBar.frame.size.height)
+                if scrollView.contentOffset.y < defaultOffsetY {
+                    scrollView.scrollRectToVisible(CGRect(x: 0, y: scrollView.frame.size.height + defaultOffsetY - 1, width: scrollView.frame.size.width, height: 1), animated:true)
+                }
             }
         }
     }
@@ -445,7 +445,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
                 let height: CGFloat = self.headerViewDefaultHeight - (self.headerViewNeedStretch ? offsetY : 0)
                 headerFrame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: height)
             }
-            self.headerView!.frame = headerFrame
+            self.headerView?.frame = headerFrame
 
             var tabBarFrame: CGRect = self.tabBar.frame
             tabBarFrame.origin.y = headerFrame.maxY
