@@ -1014,27 +1014,17 @@ class HTabBar : UIView {
     }
 
     private func updateItemIndicatorInsets() {
-        
-        if self.items == nil || self.items!.count == 0 {
-            return
-        }
-        
-        for tmpItem in self.items! {
-            let item = tmpItem
-            if self.indicatorStyle == .fitTitle {
-                let frame: CGRect = item.frameWithOutTransform
-                let space: CGFloat = (frame.size.width - item.titleWidth - self.indicatorWidthFixTitleAdditional) / 2
-                item.indicatorInsets = UIEdgeInsets(top: self.indicatorInsets.top, left: space, bottom: self.indicatorInsets.bottom, right: space)
-            } else if self.indicatorStyle == .fixedWidth {
-                for tmpItem in self.items! {
-                    let item = tmpItem
+        if let items = self.items, items.count > 0 {
+            for item in items {
+                if self.indicatorStyle == .fitTitle {
                     let frame: CGRect = item.frameWithOutTransform
-                    let space:CGFloat = (frame.size.width - self.indicatorWidth) / 2
+                    let space: CGFloat = (frame.size.width - item.titleWidth - self.indicatorWidthFixTitleAdditional) / 2
                     item.indicatorInsets = UIEdgeInsets(top: self.indicatorInsets.top, left: space, bottom: self.indicatorInsets.bottom, right: space)
-                }
-            } else if self.indicatorStyle == .fitItem {
-                for tmpItem in self.items! {
-                    let item = tmpItem
+                } else if self.indicatorStyle == .fixedWidth {
+                    let frame: CGRect = item.frameWithOutTransform
+                    let space: CGFloat = (frame.size.width - self.indicatorWidth) / 2
+                    item.indicatorInsets = UIEdgeInsets(top: self.indicatorInsets.top, left: space, bottom: self.indicatorInsets.bottom, right: space)
+                } else if self.indicatorStyle == .fitItem {
                     item.indicatorInsets = self.indicatorInsets
                 }
             }
