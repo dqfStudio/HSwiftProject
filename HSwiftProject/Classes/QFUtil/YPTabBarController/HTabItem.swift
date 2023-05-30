@@ -80,9 +80,7 @@ class HTabItem : UIButton {
     private var _image: UIImage?
     /// Image
     override var image: UIImage? {
-        get {
-            return _image
-        }
+        get { return _image }
         set {
             _image = newValue
             self.setImage(newValue, for: .normal)
@@ -95,20 +93,15 @@ class HTabItem : UIButton {
         }
     }
     
-    private var _titleWidth: CGFloat = 0
+    private var _titleWidth: CGFloat = 0.0
     var titleWidth: CGFloat {
         return _titleWidth
     }
 
-    private var _indicatorInsets: UIEdgeInsets = UIEdgeInsets.zero
     /// indicator
-    var indicatorInsets: UIEdgeInsets {
-        get {
-            return _indicatorInsets
-        }
-        set {
-            _indicatorInsets = newValue
-            self.calculateIndicatorFrame()
+    var indicatorInsets: UIEdgeInsets = .zero {
+        didSet {
+            calculateIndicatorFrame()
         }
     }
     
@@ -117,107 +110,70 @@ class HTabItem : UIButton {
         return _indicatorFrame
     }
     
-    private var _badge: Int = 0
     /**
     *  当badgeStyle == HTabItemBadgeStyleNumber时，可以设置此属性，显示badge数值
     *  badge > 99，显示99+
     *  badge <= 99 && badge > -99，显示具体数值
     *  badge < -99，显示-99+
     */
-    var badge: Int {
-        get {
-            return _badge
-        }
-        set {
-            _badge = newValue
-            self.updateBadge()
+    var badge: Int = 0 {
+        didSet {
+            updateBadge()
         }
     }
 
-    private var _badgeStyle: HTabItemBadgeStyle = .number
     /**
     *  badge的样式，支持数字样式和小圆点
     */
-    var badgeStyle: HTabItemBadgeStyle {
-        get {
-            return _badgeStyle
-        }
-        set {
-            _badgeStyle = newValue
-            self.updateBadge()
+    var badgeStyle: HTabItemBadgeStyle = .number {
+        didSet {
+            updateBadge()
         }
     }
     
-    private var _badgeBackgroundColor: UIColor?
     /**
     *  badge的背景颜色
     */
     var badgeBackgroundColor: UIColor? {
-        get {
-            return _badgeBackgroundColor
-        }
-        set {
-            _badgeBackgroundColor = newValue
-            self.badgeButton.backgroundColor = badgeBackgroundColor
+        didSet {
+            badgeButton.backgroundColor = badgeBackgroundColor
         }
     }
     
-    private var _badgeBackgroundImage: UIImage?
     /**
     *  badge的背景图片
     */
     var badgeBackgroundImage: UIImage? {
-        get {
-            return _badgeBackgroundImage
-        }
-        set {
-            _badgeBackgroundImage = newValue
-            self.badgeButton.setBackgroundImage(newValue, for: .normal)
+        didSet {
+            badgeButton.setBackgroundImage(badgeBackgroundImage, for: .normal)
         }
     }
 
-    private var _badgeTitleColor: UIColor?
     /**
     *  badge的标题颜色
     */
     var badgeTitleColor: UIColor? {
-        get {
-            return _badgeTitleColor
-        }
-        set {
-            _badgeTitleColor = newValue
-            self.badgeButton.setTitleColor(newValue, for: .normal)
+        didSet {
+            badgeButton.setTitleColor(badgeTitleColor, for: .normal)
         }
     }
 
-    
-
-    private var _badgeTitleFont: UIFont = UIFont.systemFont(ofSize: 13)
     /**
     *  badge的标题字体，默认13号
     */
-    var badgeTitleFont: UIFont {
-        get {
-            return _badgeTitleFont
-        }
-        set {
-            _badgeTitleFont = newValue
-            self.badgeButton.titleLabel?.font = newValue
-            self.updateBadge()
+    var badgeTitleFont: UIFont = .systemFont(ofSize: 13) {
+        didSet {
+            badgeButton.titleLabel?.font = badgeTitleFont
+            updateBadge()
         }
     }
     
-    private var _isContentHorizontalCenter: Bool = false
     /**
     *  设置Image和Title水平居中
     */
-    var isContentHorizontalCenter: Bool {
-        get {
-            return _isContentHorizontalCenter
-        }
-        set {
-            _isContentHorizontalCenter = newValue
-            if _isContentHorizontalCenter == false {
+    var isContentHorizontalCenter: Bool = false {
+        didSet {
+            if isContentHorizontalCenter == false {
                 self.verticalOffset = 0
                 self.spacing = 0
             }
@@ -239,16 +195,11 @@ class HTabItem : UIButton {
         self.isContentHorizontalCenter = true
     }
     
-    private var _doubleTapHandler: HDoubleTapHandler?
     /**
     *  添加双击事件回调
     */
     private var doubleTapHandler: HDoubleTapHandler? {
-        get {
-            return _doubleTapHandler
-        }
-        set {
-            _doubleTapHandler = newValue
+        didSet {
             if self.doubleTapView == nil {
                 self.doubleTapView = UIView(frame: self.bounds)
                 self.addSubview(self.doubleTapView!)
@@ -327,9 +278,7 @@ class HTabItem : UIButton {
      *  覆盖父类的setHighlighted:方法，按下HTabItem时，不高亮该item
      */
     override var isHighlighted: Bool {
-        get {
-            super.isHighlighted
-        }
+        get { super.isHighlighted }
         set {
             if self.adjustsImageWhenHighlighted {
                 super.isHighlighted = newValue
@@ -353,9 +302,7 @@ class HTabItem : UIButton {
     }
 
     override var isSelected: Bool {
-        get {
-            super.isSelected
-        }
+        get { super.isSelected }
         set {
             super.isSelected = newValue
             if let doubleTapView = self.doubleTapView {
@@ -365,9 +312,7 @@ class HTabItem : UIButton {
     }
 
     override var frame: CGRect {
-        get {
-            return super.frame
-        }
+        get { return super.frame }
         set {
             super.frame = newValue
             _frameWithOutTransform = frame
