@@ -404,40 +404,26 @@ class HTabBar : UIView {
         return _isItemColorChangeFollowContentScroll
     }
 
-    private var _isItemFontChangeFollowContentScroll: Bool = false
     /**
     *  拖动内容视图时，item的字体是否根据拖动位置显示渐变效果，默认为NO
     */
-    var isItemFontChangeFollowContentScroll: Bool {
-        get {
-            return _isItemFontChangeFollowContentScroll
-        }
-        set {
-            _isItemFontChangeFollowContentScroll = newValue
-            self.updateItemsScaleIfNeeded()
+    var isItemFontChangeFollowContentScroll: Bool = false {
+        didSet {
+            updateItemsScaleIfNeeded()
         }
     }
 
-    private var _isIndicatorScrollFollowContent: Bool = false
     /**
     *  TabItem的选中背景是否随contentView滑动而移动
     */
-    var isIndicatorScrollFollowContent: Bool {
-        get { return _isIndicatorScrollFollowContent }
-        set { _isIndicatorScrollFollowContent = newValue }
-    }
+    var isIndicatorScrollFollowContent: Bool = false
 
-    private var _isItemContentHorizontalCenter: Bool = true
     /**
     *  将Image和Title设置为水平居中，默认为true
     */
-    var isItemContentHorizontalCenter: Bool {
-        get {
-            return _isItemContentHorizontalCenter
-        }
-        set {
-            _isItemContentHorizontalCenter = newValue
-            if newValue {
+    var isItemContentHorizontalCenter: Bool = true {
+        didSet {
+            if isItemContentHorizontalCenter {
                 self.setItemContentHorizontalCenterWithVerticalOffset(5, spacing:5)
             } else {
                 self.itemContentHorizontalCenterVerticalOffset = 0
@@ -1009,8 +995,8 @@ class HTabBar : UIView {
      *  获取未选中字体与选中字体大小的比例
      */
     private var itemTitleUnselectedFontScale: CGFloat {
-        if itemTitleSelectedFont != nil {
-            return self.itemTitleFont.pointSize / itemTitleSelectedFont!.pointSize
+        if let itemTitleSelectedFont = self.itemTitleSelectedFont {
+            return itemTitleFont.pointSize / itemTitleSelectedFont.pointSize
         }
         return 1.0
     }
@@ -1022,8 +1008,8 @@ class HTabBar : UIView {
 
     @objc
     private func specialItemClicked(_ item: HTabItem) {
-        if self.specialItemHandler != nil {
-            self.specialItemHandler!(item)
+        if let specialItemHandler = self.specialItemHandler {
+            specialItemHandler(item)
         }
     }
 
