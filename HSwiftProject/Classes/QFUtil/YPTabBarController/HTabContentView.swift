@@ -116,7 +116,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
             
             let containerVC: UIViewController? = self.contarinerViewController
 
-            let items = NSMutableArray()
+            var items = [HTabItem]()
             for item in _viewControllers! {
                 let vc = item as! UIViewController
                 if containerVC != nil {
@@ -127,7 +127,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
                 item.image = vc.h_tabItemImage
                 item.selectedImage = vc.h_tabItemSelectedImage
                 item.title = vc.h_tabItemTitle
-                items.add(item)
+                items.append(item)
             }
             self.tabBar.items = items
 
