@@ -48,6 +48,10 @@ class HTextStackView: UIStackView {
     
     func reloadData() {
         
+        guard self.frame != .zero else {
+            return
+        }
+        
         /// 左边布局View
         self.addArrangedSubview(leftView)
         
@@ -66,9 +70,14 @@ class HTextStackView: UIStackView {
         textLayoutView.setCustomSpacing(secondSpacing, after: detailLabel)
         
         /// 根据label、detailLabel和accessoryLabel的实际大小进行约束布局
-        let textWidth1 = label.intrinsicContentSize.width + accessoryLabel.intrinsicContentSize.width
-        let textWidth2 = detailLabel.intrinsicContentSize.width
-        let textSpace = firstSpacing + secondSpacing
+        var textWidth1 = label.intrinsicContentSize.width + accessoryLabel.intrinsicContentSize.width + 1
+        textWidth1 = ceil(textWidth1)//向上取整
+        
+        var textWidth2 = detailLabel.intrinsicContentSize.width
+        textWidth2 = ceil(textWidth2)//向上取整
+        
+        var textSpace = firstSpacing + secondSpacing
+        textSpace = ceil(textSpace)//向上取整
         
         if textWidth1 + textWidth2 + textSpace < self.width {
             textLayoutView.widthAnchor.constraint(equalToConstant: textWidth1 + textWidth2 + textSpace).isActive = true

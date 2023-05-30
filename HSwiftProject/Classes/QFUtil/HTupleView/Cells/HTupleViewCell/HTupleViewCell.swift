@@ -71,6 +71,22 @@ class HTupleTextFieldCell : HTupleBaseCell {
     }
 }
 
+class HTupleTextStackCell : HTupleBaseCell {
+    lazy var textStackView: HTextStackView = {
+        let textStackView = HTextStackView()
+        self.layoutView.addSubview(textStackView)
+        return textStackView
+    }()
+    
+    override func relayoutSubviews() {
+        let frame = self.layoutViewBounds
+        if !self.textStackView.frame.equalTo(frame) {
+            self.textStackView.frame = frame
+            self.textStackView.reloadData()
+        }
+    }
+}
+
 class HTupleViewCell : HTupleBaseCell {
     
     ///label

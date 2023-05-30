@@ -106,6 +106,9 @@ class HMainController1: HTupleController {
                     cell.imageView.backgroundColor = UIColor.red
                     cell.imageView.setImageWithName("icon_no_server")
 
+                    cell.detailView.backgroundColor = UIColor.red
+                    cell.detailView.setImageWithName("icon_no_server")
+
                     cell.label.backgroundColor = UIColor.red
 
                     cell.detailLabel.backgroundColor = UIColor.yellow
@@ -117,7 +120,7 @@ class HMainController1: HTupleController {
                 }
                 break
             case 2:
-                let cell = itemBlock(nil, HTupleViewCellHoriValue3.self, nil, true) as! HTupleViewCellHoriValue3
+                let cell = itemBlock(nil, HTupleTextStackCell.self, nil, true) as! HTupleTextStackCell
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
@@ -130,17 +133,14 @@ class HMainController1: HTupleController {
 
                     cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
-        //            cell.isShowAccessoryArrow = true
+                    cell.textStackView.label.backgroundColor = UIColor.green
+                    cell.textStackView.label.text = "label"
 
-                    cell.imageView.backgroundColor = UIColor.red
-                    cell.imageView.setImageWithName("icon_no_server")
+                    cell.textStackView.detailLabel.backgroundColor = UIColor.red
+                    cell.textStackView.detailLabel.text = "detailLabel"
 
-                    cell.detailView.backgroundColor = UIColor.red
-                    cell.detailView.setImageWithName("icon_no_server")
-
-                    cell.label.backgroundColor = UIColor.red
-
-                    cell.detailLabel.backgroundColor = UIColor.yellow
+                    cell.textStackView.accessoryLabel.backgroundColor = UIColor.yellow
+                    cell.textStackView.accessoryLabel.text = "accessoryLabel"
                 }
                 break
             case 3:
