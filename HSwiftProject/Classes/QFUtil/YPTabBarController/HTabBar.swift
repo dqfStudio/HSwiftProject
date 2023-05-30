@@ -1045,8 +1045,8 @@ class HTabBar : UIView {
         if self.itemTitleSelectedFont != nil &&
             self.isItemFontChangeFollowContentScroll &&
             self.itemTitleSelectedFont?.pointSize != self.itemTitleFont.pointSize {
-            if self.items != nil && self.items!.count > 0 {
-                for item in self.items! {
+            if let items = self.items, items.count > 0 {
+                for item in items {
                     item.titleFont = self.itemTitleSelectedFont
                     if item.isSelected == false {
                         item.transform = CGAffineTransform(scaleX: self.itemTitleUnselectedFontScale, y: self.itemTitleUnselectedFontScale)
@@ -1110,10 +1110,10 @@ class HTabBar : UIView {
     /// 让specialItem超出父视图的部分能响应事件
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         var view = super.hitTest(point, with: event)
-        if self.specialItem != nil && view == nil {
-            let tp: CGPoint = self.specialItem!.convert(point, from: self)
-            if self.specialItem!.bounds.contains(tp) {
-                view = self.specialItem
+        if let specialItem = self.specialItem, view == nil {
+            let tp = specialItem.convert(point, from: self)
+            if specialItem.bounds.contains(tp) {
+                view = specialItem
             }
         }
         return view
