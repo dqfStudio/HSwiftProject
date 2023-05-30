@@ -27,17 +27,23 @@ class HTextStackView: UIStackView {
     
     /// label
     lazy var label: UILabel = {
-        return UILabel()
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        return label
     }()
     
     /// detailLabel
     lazy var detailLabel: UILabel = {
-        return UILabel()
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        return label
     }()
     
     /// accessoryLabel
     lazy var accessoryLabel: UILabel = {
-        return UILabel()
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        return label
     }()
     
     // 在label后面添加自定义间隔
