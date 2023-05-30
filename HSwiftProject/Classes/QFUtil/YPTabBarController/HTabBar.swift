@@ -222,18 +222,16 @@ class HTabBar : UIView {
                 // item字体不支持平滑切换，更新item的字体
                 if self.itemTitleSelectedFont != nil {
                     // 设置了选中字体，则只更新未选中的item
-                    for item in self.items! {
+                    self.items?.forEach({ item in
                         if item.isSelected == false {
                             item.titleFont = newValue
                         }
-                    }
+                    })
                 } else {
                     // 未设置选中字体，更新所有item
-                    if self.items != nil && self.items!.count > 0 {
-                        for item in self.items! {
-                            item.titleFont = newValue
-                        }
-                    }
+                    self.items?.forEach({ item in
+                        item.titleFont = newValue
+                    })
                 }
             }
             if self.itemFitTextWidth {
@@ -416,9 +414,9 @@ class HTabBar : UIView {
             } else {
                 self.itemContentHorizontalCenterVerticalOffset = 0
                 self.itemContentHorizontalCenterSpacing = 0
-                for item in self.items! {
+                self.items?.forEach({ item in
                     item.isContentHorizontalCenter = false
-                }
+                })
             }
         }
     }
@@ -497,11 +495,11 @@ class HTabBar : UIView {
     var titles: [String]? {
         didSet {
             var items = [HTabItem]()
-            for title in titles! {
+            self.titles?.forEach({ title in
                 let item = HTabItem()
                 item.title = title
                 items.append(item)
-            }
+            })
             self.items = items
         }
     }
