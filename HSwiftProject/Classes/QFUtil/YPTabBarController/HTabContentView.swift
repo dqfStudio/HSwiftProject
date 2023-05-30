@@ -135,8 +135,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
             // 更新scrollView的content size
             if self.contentScrollEnabled {
-                self.contentScrollView.h_contentSize = CGSize(width: self.contentScrollView.bounds.size.width * CGFloat(_viewControllers!.count),
-                                                              height: self.contentScrollView.bounds.size.height)
+                self.contentScrollView.h_contentSize = CGSize(width: self.contentScrollView.bounds.size.width * CGFloat(_viewControllers!.count), height: self.contentScrollView.bounds.size.height)
             }
             
             if _isDefaultSelectedTabIndexSetuped {
@@ -466,9 +465,11 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
             tabBarFrame.origin.y = headerFrame.maxY
             self.tabBar.frame = tabBarFrame
             
-            let selector = #selector(self.delegate!.tabContentView(_:didChangedContentOffsetY:))
-            if self.delegate != nil && self.delegate!.responds(to: selector) {
-                self.delegate!.tabContentView?(self, didChangedContentOffsetY: offsetY)
+            if let delegate = self.delegate {
+                let selector = #selector(delegate.tabContentView(_:didChangedContentOffsetY:))
+                if delegate.responds(to: selector) {
+                    delegate.tabContentView?(self, didChangedContentOffsetY: offsetY)
+                }
             }
         }
     }
@@ -488,9 +489,11 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
     }
 
     func h_tabBar(_ tabBar: HTabBar, willSelectItemAtIndex index: Int) {
-        let selector = #selector(self.delegate!.tabContentView(_:willSelectTabAtIndex:))
-        if self.delegate != nil && self.delegate!.responds(to: selector) {
-            self.delegate!.tabContentView!(self, willSelectTabAtIndex: index)
+        if let delegate = self.delegate {
+            let selector = #selector(delegate.tabContentView(_:willSelectTabAtIndex:))
+            if delegate.responds(to: selector) {
+                delegate.tabContentView?(self, willSelectTabAtIndex: index)
+            }
         }
     }
 
@@ -588,16 +591,20 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
         _selectedTabIndex = index
 
-        let selecotr = #selector(self.delegate!.tabContentView(_:didSelectedTabAtIndex:))
-        if self.delegate != nil && self.delegate!.responds(to: selecotr) {
-            self.delegate!.tabContentView?(self, didSelectedTabAtIndex: index)
+        if let delegate = self.delegate {
+            let selecotr = #selector(delegate.tabContentView(_:didSelectedTabAtIndex:))
+            if delegate.responds(to: selecotr) {
+                delegate.tabContentView?(self, didSelectedTabAtIndex: index)
+            }
         }
     }
 
     func h_tabBar(_ tabBar: HTabBar, reSelectedTabAtIndex index: Int) {
-        let selector = #selector(self.delegate!.tabContentView(_:reSelectedTabAtIndex:))
-        if self.delegate != nil && self.delegate!.responds(to: selector) {
-            self.delegate!.tabContentView!(self, reSelectedTabAtIndex: index)
+        if let delegate = self.delegate {
+            let selector = #selector(delegate.tabContentView(_:reSelectedTabAtIndex:))
+            if delegate.responds(to: selector) {
+                delegate.tabContentView?(self, reSelectedTabAtIndex: index)
+            }
         }
     }
 
@@ -607,9 +614,11 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
     }
 
     private func shouldSelectItemAtIndex(_ index: Int) -> Bool {
-        let selector = #selector(self.delegate!.tabContentView(_:shouldSelectTabAtIndex:))
-        if self.delegate != nil && self.delegate!.responds(to: selector) {
-            return self.delegate!.tabContentView!(self, shouldSelectTabAtIndex: index)
+        if let delegate = self.delegate {
+            let selector = #selector(delegate.tabContentView(_:shouldSelectTabAtIndex:))
+            if delegate.responds(to: selector) {
+                return delegate.tabContentView!(self, shouldSelectTabAtIndex: index)
+            }
         }
         return true
     }
@@ -760,9 +769,11 @@ private class _HTabContentScrollView : UIScrollView {
         }
         
         // 其他情况
-        let selector = #selector(self.h_delegate!.scrollView(_:shouldScrollToPageIndex:))
-        if (self.h_delegate != nil && self.h_delegate!.responds(to: selector)) {
-            return self.h_delegate!.scrollView!(self, shouldScrollToPageIndex: targetIndex)
+        if let delegate = self.h_delegate {
+            let selector = #selector(delegate.scrollView(_:shouldScrollToPageIndex:))
+            if delegate.responds(to: selector) {
+                return delegate.scrollView!(self, shouldScrollToPageIndex: targetIndex)
+            }
         }
         
         return true
