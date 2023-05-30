@@ -167,74 +167,49 @@ class HTabBar : UIView {
         }
     }
 
-    private var _indicatorColor: UIColor?
     /// item指示器颜色
     var indicatorColor: UIColor? {
-        get {
-            return _indicatorColor
-        }
-        set {
-            _indicatorColor = newValue
-            self.indicatorImageView.backgroundColor = newValue
+        didSet {
+            indicatorImageView.backgroundColor = indicatorColor
         }
     }
     
-    private var _indicatorImage: UIImage?
     /// item指示器图像
     var indicatorImage: UIImage? {
-        get {
-            return _indicatorImage
-        }
-        set {
-            _indicatorImage = newValue
-            self.indicatorImageView.image = newValue
+        didSet {
+            indicatorImageView.image = indicatorImage
         }
     }
     
-    private var _indicatorCornerRadius: CGFloat = 0
     /// item指示器圆角
-    var indicatorCornerRadius: CGFloat {
-        get {
-            return _indicatorCornerRadius
-        }
-        set {
-            _indicatorCornerRadius = newValue
-            self.indicatorImageView.clipsToBounds = true
-            self.indicatorImageView.layer.cornerRadius = newValue
+    var indicatorCornerRadius: CGFloat = 0.0 {
+        didSet {
+            indicatorImageView.clipsToBounds = true
+            indicatorImageView.layer.cornerRadius = indicatorCornerRadius
         }
     }
     
     var indicatorAnimationStyle: HTabBarIndicatorAnimationStyle = .default
 
-    private var _itemTitleColor: UIColor = UIColor.white
     /// 标题颜色
-    var itemTitleColor: UIColor {
-        get {
-            return _itemTitleColor
-        }
-        set {
-            _itemTitleColor = newValue
-            if self.items != nil && self.items!.count > 0 {
-                for tmpItem in self.items! {
-                    let item = tmpItem as! HTabItem
-                    item.titleColor = newValue
+    var itemTitleColor: UIColor = .white {
+        didSet {
+            if let items = self.items, items.count > 0 {
+                for item in items {
+                    let tmpItem = item as? HTabItem
+                    tmpItem?.titleColor = itemTitleColor
                 }
             }
         }
     }
     
-    private var _itemTitleSelectedColor: UIColor = UIColor.black
     /// 选中时标题的颜色
-    var itemTitleSelectedColor: UIColor {
-        get {
-            return _itemTitleSelectedColor
-        }
-        set {
-            _itemTitleSelectedColor = newValue
-            if self.items != nil && self.items!.count > 0 {
-                for tmpItem in self.items! {
-                    let item = tmpItem as! HTabItem
-                    item.titleSelectedColor = newValue
+    var itemTitleSelectedColor: UIColor = .black {
+        didSet {
+            if let items = self.items, items.count > 0 {
+                for item in items {
+                    let tmpItem = item as? HTabItem
+                    tmpItem?.titleSelectedColor = itemTitleSelectedColor
                 }
             }
         }
@@ -279,102 +254,73 @@ class HTabBar : UIView {
         }
     }
     
-    private var _itemTitleSelectedFont: UIFont?
     /// 选中时标题的字体
     var itemTitleSelectedFont: UIFont? {
-        get {
-            return _itemTitleSelectedFont
-        }
-        set {
-            _itemTitleSelectedFont = newValue
-            self.selectedItem?.titleFont = newValue
-            self.updateItemsScaleIfNeeded()
+        didSet {
+            selectedItem?.titleFont = itemTitleSelectedFont
+            updateItemsScaleIfNeeded()
         }
     }
     
-    private var _badgeBackgroundColor: UIColor?
     /// Badge背景颜色
     var badgeBackgroundColor: UIColor? {
-        get {
-            return _badgeBackgroundColor
-        }
-        set {
-            _badgeBackgroundColor = newValue
-            if self.items != nil {
-                for tmpItem in self.items! {
-                    let item = tmpItem as! HTabItem
-                    item.badgeBackgroundColor = newValue
+        didSet {
+            if let items = self.items, items.count > 0 {
+                for item in items {
+                    let tmpItem = item as? HTabItem
+                    tmpItem?.badgeBackgroundColor = badgeBackgroundColor
                 }
             }
         }
     }
     
-    private var _badgeBackgroundImage: UIImage?
     /// Badge背景图像
     var badgeBackgroundImage: UIImage? {
-        get {
-            return _badgeBackgroundImage
-        }
-        set {
-            _badgeBackgroundImage = newValue
-            for tmpItem in self.items! {
-                let item = tmpItem as! HTabItem
-                item.badgeBackgroundImage = newValue
+        didSet {
+            if let items = self.items, items.count > 0 {
+                for item in items {
+                    let tmpItem = item as? HTabItem
+                    tmpItem?.badgeBackgroundImage = badgeBackgroundImage
+                }
             }
         }
     }
     
-    private var _badgeTitleColor: UIColor = UIColor.white
     /// Badge标题颜色
-    var badgeTitleColor: UIColor {
-        get {
-            return _badgeTitleColor
-        }
-        set {
-            _badgeTitleColor = newValue
-            for tmpItem in self.items! {
-                let item = tmpItem as! HTabItem
-                item.badgeTitleColor = newValue
+    var badgeTitleColor: UIColor = .white {
+        didSet {
+            if let items = self.items, items.count > 0 {
+                for item in items {
+                    let tmpItem = item as? HTabItem
+                    tmpItem?.badgeTitleColor = badgeTitleColor
+                }
             }
         }
     }
     
-    private var _badgeTitleFont: UIFont = UIFont.systemFont(ofSize: 10)
     /// Badge标题字体
-    var badgeTitleFont: UIFont {
-        get {
-            return _badgeTitleFont
-        }
-        set {
-            _badgeTitleFont = newValue
-            for tmpItem in self.items! {
-                let item = tmpItem as! HTabItem
-                item.badgeTitleFont = newValue
+    var badgeTitleFont: UIFont = .systemFont(ofSize: 10) {
+        didSet {
+            if let items = self.items, items.count > 0 {
+                for item in items {
+                    let tmpItem = item as? HTabItem
+                    tmpItem?.badgeTitleFont = badgeTitleFont
+                }
             }
         }
     }
     
-    private var _leadingSpace: CGFloat = 0.0
     /// 第一个item与左边或者上边的距离
-    var leadingSpace: CGFloat {
-        get {
-            return _leadingSpace
-        }
-        set {
-            _leadingSpace = newValue
-            self.updateAllUI()
+    var leadingSpace: CGFloat = 0.0 {
+        didSet {
+            updateAllUI()
         }
     }
     
-    private var _trailingSpace: CGFloat = 0.0
     /// 最后一个item与右边或者下边的距离
-    var trailingSpace: CGFloat {
-        get {
-            return _trailingSpace
-        }
-        set {
-            _trailingSpace = newValue
-            self.updateAllUI()
+    var trailingSpace: CGFloat = 0.0 {
+        didSet {
+            updateAllUI()
         }
     }
     
@@ -550,9 +496,7 @@ class HTabBar : UIView {
     }
 
     override var clipsToBounds: Bool {
-        get {
-            return super.clipsToBounds
-        }
+        get { return super.clipsToBounds }
         set {
             super.clipsToBounds = newValue
             self.scrollView.clipsToBounds = newValue
@@ -560,9 +504,7 @@ class HTabBar : UIView {
     }
     
     override var frame: CGRect {
-        get {
-            return super.frame
-        }
+        get { return super.frame }
         set {
             var resize: Bool = false
             if newValue.size != super.frame.size { resize = true }
@@ -590,9 +532,7 @@ class HTabBar : UIView {
     *  根据titles创建item
     */
     var titles: NSArray? {
-        get {
-            return self.items
-        }
+        get { return self.items }
         set {
             let items = NSMutableArray()
             for tmpItem in newValue! {
