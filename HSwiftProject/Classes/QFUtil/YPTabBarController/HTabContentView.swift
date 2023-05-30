@@ -213,31 +213,34 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
         }
         self.headerView = headerView
         
-        let screenSize = UIScreen.main.bounds.size
-        self.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
-        self.headerView!.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: headerHeight)
-        self.addSubview(self.headerView!)
+        if let headerView = self.headerView {
+            let screenSize = UIScreen.main.bounds.size
+            self.frame = CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height)
+            headerView.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: headerHeight)
+            self.addSubview(headerView)
 
-        self.headerViewNeedStretch = needStretch
-        self.headerViewDefaultHeight = headerHeight
+            self.headerViewNeedStretch = needStretch
+            self.headerViewDefaultHeight = headerHeight
 
-        self.tabBar.frame = CGRect(x: 0,
-                                   y: self.headerView!.maxY,
-                                   width: self.frame.size.width,
-                                   height: tabBarHeight)
+            self.tabBar.frame = CGRect(x: 0,
+                                       y: headerView.maxY,
+                                       width: self.frame.size.width,
+                                       height: tabBarHeight)
 
-        self.contentScrollView.frame = CGRect(x: 0,
-                                              y: 0,
-                                              width: self.frame.size.width,
-                                              height: headerHeight + tabBarHeight + contentViewHeight)
+            self.contentScrollView.frame = CGRect(x: 0,
+                                                  y: 0,
+                                                  width: self.frame.size.width,
+                                                  height: headerHeight + tabBarHeight + contentViewHeight)
 
-        self.tabBarStopOnTopHeight = tabBarStopOnTopHeight
+            self.tabBarStopOnTopHeight = tabBarStopOnTopHeight
 
-        let gesture1 = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-        let gesture2 = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-        
-        self.headerView!.addGestureRecognizer(gesture1)
-        self.tabBar.addGestureRecognizer(gesture2)
+            let gesture1 = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+            let gesture2 = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
+            
+            headerView.addGestureRecognizer(gesture1)
+            self.tabBar.addGestureRecognizer(gesture2)
+        }
+
     }
 
     /**
@@ -259,8 +262,8 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
      *  获取被选中的ViewController
      */
     var selectedController: UIViewController? {
-        if self.selectedTabIndex != NSNotFound {
-            return self.viewControllers![self.selectedTabIndex] as? UIViewController
+        if self.selectedTabIndex != NSNotFound, let viewControllers = self.viewControllers {
+            return viewControllers[self.selectedTabIndex] as? UIViewController
         }
         return nil
     }
@@ -326,22 +329,19 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
     }
 
     override var frame: CGRect {
-        get {
-            return super.frame
-        }
+        get { return super.frame }
         set {
             super.frame = newValue
-            if newValue == CGRect.zero {
-                return
+            if newValue != CGRect.zero {
+                self.contentScrollView.frame = self.bounds
+                self.updateContentViewsFrame()
             }
-            self.contentScrollView.frame = self.bounds
-            self.updateContentViewsFrame()
         }
     }
 
     deinit {
-        if self.viewControllers != nil {
-            for item in self.viewControllers! {
+        if let viewControllers = self.viewControllers {
+            for item in viewControllers {
                 let controller = item as! UIViewController
                 if controller.h_hasAddedContentOffsetObserver {
                     // 如果vc注册了contentOffset的观察者，需移除
@@ -354,15 +354,17 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
     private func updateContentViewsFrame() {
         if self.contentScrollEnabled {
-            if self.viewControllers != nil && self.viewControllers!.count > 0 {
-                self.contentScrollView.h_contentSize = CGSize(width: self.contentScrollView.bounds.size.width * CGFloat(self.viewControllers!.count), height: self.contentScrollView.bounds.size.height)
-                self.viewControllers?.enumerateObjects({ (item, idx, stop) in
+            if let viewControllers = self.viewControllers, viewControllers.count > 0 {
+                self.contentScrollView.h_contentSize = CGSize(width: self.contentScrollView.bounds.size.width * CGFloat(viewControllers.count), height: self.contentScrollView.bounds.size.height)
+                viewControllers.enumerateObjects({ (item, idx, stop) in
                     let controller = item as! UIViewController
                     if controller.isViewLoaded {
                         controller.h_displayView.frame = self.frameForControllerAtIndex(idx)
                     }
                 })
-                self.contentScrollView.scrollRectToVisible(self.selectedController!.h_displayView.frame, animated: false)
+                if let selectedController = self.selectedController {
+                    self.contentScrollView.scrollRectToVisible(selectedController.h_displayView.frame, animated: false)
+                }
             }
         } else {
             self.contentScrollView.h_contentSize = self.contentScrollView.bounds.size
