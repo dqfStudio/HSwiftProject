@@ -747,8 +747,11 @@ class HTabBar : UIView {
         isItemContentHorizontalCenter = true
         self.itemContentHorizontalCenterVerticalOffset = verticalOffset
         self.itemContentHorizontalCenterSpacing = spacing
-        for item in self.items! {
-            item.setContentHorizontalCenterWithVerticalOffset(verticalOffset, spacing: spacing)
+        
+        if let items = self.items, items.count > 0 {
+            for item in items {
+                item.setContentHorizontalCenterWithVerticalOffset(verticalOffset, spacing: spacing)
+            }
         }
     }
     
@@ -767,8 +770,10 @@ class HTabBar : UIView {
         self.numberBadgeTitleHorizonalSpace = titleHorizonalSpace
         self.numberBadgeTitleVerticalSpace = titleVerticalSpace
         
-        for item in self.items! {
-            item.setNumberBadgeMarginTop(marginTop, centerMarginRight: centerMarginRight, titleHorizonalSpace: titleHorizonalSpace, titleVerticalSpace: titleVerticalSpace)
+        if let items = self.items, items.count > 0 {
+            for item in items {
+                item.setNumberBadgeMarginTop(marginTop, centerMarginRight: centerMarginRight, titleHorizonalSpace: titleHorizonalSpace, titleVerticalSpace: titleVerticalSpace)
+            }
         }
     }
     
@@ -785,8 +790,10 @@ class HTabBar : UIView {
         self.dotBadgeCenterMarginRight = centerMarginRight
         self.dotBadgeSideLength = sideLength
         
-        for item in self.items! {
-            item.setDotBadgeMarginTop(marginTop, centerMarginRight: centerMarginRight, sideLength: sideLength)
+        if let items = self.items, items.count > 0 {
+            for item in items {
+                item.setDotBadgeMarginTop(marginTop, centerMarginRight: centerMarginRight, sideLength: sideLength)
+            }
         }
     }
     
