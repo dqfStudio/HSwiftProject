@@ -20,12 +20,8 @@ class HTabBarController : HViewController, HTabContentViewDelegate {
     }
     
     var viewControllers: NSArray? {
-        get {
-            return self.tabContentView.viewControllers
-        }
-        set {
-            self.tabContentView.viewControllers = newValue
-        }
+        get { return self.tabContentView.viewControllers }
+        set { self.tabContentView.viewControllers = newValue }
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -51,8 +47,8 @@ class HTabBarController : HViewController, HTabContentViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if self.h_willAppearInjectBlock != nil {
-            self.h_willAppearInjectBlock!(self, animated)
+        if let h_willAppearInjectBlock = self.h_willAppearInjectBlock {
+            h_willAppearInjectBlock(self, animated)
         }
     }
 
@@ -62,7 +58,7 @@ class HTabBarController : HViewController, HTabContentViewDelegate {
      *  如果设置了headerView，此方法不生效
      */
     func setTabBarFrame(_ tabBarFrame: CGRect, contentViewFrame: CGRect) {
-        if self.tabContentView.headerView != nil {
+        guard self.tabContentView.headerView == nil else {
             return
         }
         self.tabBar.frame = tabBarFrame
