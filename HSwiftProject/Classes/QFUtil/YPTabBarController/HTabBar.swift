@@ -531,12 +531,10 @@ class HTabBar : UIView {
     /**
     *  根据titles创建item
     */
-    var titles: NSArray? {
-        get { return self.items }
-        set {
+    var titles: [String]? {
+        didSet {
             let items = NSMutableArray()
-            for tmpItem in newValue! {
-                let title = tmpItem as! String
+            for title in titles! {
                 let item = HTabItem()
                 item.title = title
                 items.add(item)
