@@ -59,10 +59,6 @@ class HTextStackView: UIStackView {
     
     private func setup() {
         
-        guard self.frame != .zero else {
-            return
-        }
-        
         /// 左边布局View
         self.addArrangedSubview(leftView)
         
@@ -81,34 +77,15 @@ class HTextStackView: UIStackView {
         textLayoutView.setCustomSpacing(secondSpacing, after: detailLabel)
         
         /// 根据label、detailLabel和accessoryLabel的实际大小进行约束布局
-        var textWidth1 = label.intrinsicContentSize.width + accessoryLabel.intrinsicContentSize.width
-        textWidth1 = ceil(textWidth1)//向上取整
-        
-        var textWidth2 = detailLabel.intrinsicContentSize.width
-        textWidth2 = ceil(textWidth2)//向上取整
-        
-        var textSpace = firstSpacing + secondSpacing
-        textSpace = ceil(textSpace)//向上取整
-        
-        if textWidth1 + textWidth2 + textSpace < self.width {
-            textLayoutView.widthAnchor.constraint(equalToConstant: textWidth1 + textWidth2 + textSpace).isActive = true
-        } else if textWidth2 + textSpace < self.width {
-            label.widthAnchor.constraint(equalToConstant: (self.width - textWidth2 - textSpace) / 2).isActive = true
-            detailLabel.widthAnchor.constraint(equalToConstant: textWidth2).isActive = true
-            accessoryLabel.widthAnchor.constraint(equalToConstant: (self.width - textWidth2 - textSpace) / 2).isActive = true
-            textLayoutView.widthAnchor.constraint(equalToConstant: self.width).isActive = true
-        } else {
-            label.widthAnchor.constraint(equalToConstant: 0.0).isActive = true
-            detailLabel.widthAnchor.constraint(equalToConstant: self.width).isActive = true
-            accessoryLabel.widthAnchor.constraint(equalToConstant: 0.0).isActive = true
-            textLayoutView.widthAnchor.constraint(equalToConstant: self.width).isActive = true
-        }
+        var textWidth = label.intrinsicContentSize.width + detailLabel.intrinsicContentSize.width + accessoryLabel.intrinsicContentSize.width
+        textWidth += firstSpacing + secondSpacing
+        textWidth = ceil(textWidth)//向上取整
         
         /// 右边布局View
         self.addArrangedSubview(rightView)
         
         /// 左右两边的间隔
-        let space = (self.width - textWidth1 - textWidth2 - textSpace) / 2
+        let space = (self.width - textWidth) / 2
         if space >= 0 { self.spacing = space }
         
     }
