@@ -95,6 +95,18 @@ class HTupleThreeTextsApex : HTupleBaseApex {
     }
 }
 
+class HTupleTextImageApex : HTupleBaseApex {
+    lazy var textContainer: HTextImageView = {
+        let textContainer = HTextImageView()
+        self.layoutView.addSubview(textContainer)
+        return textContainer
+    }()
+    
+    override func relayoutSubviews() {
+        HLayoutTupleApex(self.textContainer)
+    }
+}
+
 class HTupleViewApex : HTupleBaseApex {
 
     ///label
