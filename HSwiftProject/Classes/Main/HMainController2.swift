@@ -60,7 +60,7 @@ class HMainController2: HViewController {
         super.viewDidLoad()
         
         
-//        let textStackView = HTextStackView(frame: CGRect(x: 10, y: 200, width: 320, height: 120))
+//        let textStackView = HThreeTextsView(frame: CGRect(x: 10, y: 200, width: 320, height: 120))
 //        textStackView.backgroundColor = .gray
 //        self.view.addSubview(textStackView)
 //

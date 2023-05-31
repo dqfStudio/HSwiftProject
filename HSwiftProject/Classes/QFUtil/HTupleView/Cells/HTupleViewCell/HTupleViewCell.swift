@@ -71,9 +71,9 @@ class HTupleTextFieldCell : HTupleBaseCell {
     }
 }
 
-class HTupleTextStackCell : HTupleBaseCell {
-    lazy var textContainer: HTextStackView = {
-        let textContainer = HTextStackView()
+class HTupleThreeTextsCell : HTupleBaseCell {
+    lazy var textContainer: HThreeTextsView = {
+        let textContainer = HThreeTextsView()
         self.layoutView.addSubview(textContainer)
         return textContainer
     }()

@@ -83,9 +83,9 @@ class HTupleTextFieldApex : HTupleBaseApex {
     }
 }
 
-class HTupleTextStackApex : HTupleBaseApex {
-    lazy var textContainer: HTextStackView = {
-        let textContainer = HTextStackView()
+class HTupleThreeTextsApex : HTupleBaseApex {
+    lazy var textContainer: HThreeTextsView = {
+        let textContainer = HThreeTextsView()
         self.layoutView.addSubview(textContainer)
         return textContainer
     }()

@@ -116,6 +116,8 @@ class HMainController1: HTupleController {
                     
                     cell.textContainer.firstSpacing = 5.0
                     cell.textContainer.secondSpacing = 5.0
+                    
+                    cell.textContainer.direction = .behind
                 }
                 //接收信号
                 cell.signalBlock = { (target, signal) in
@@ -124,7 +126,7 @@ class HMainController1: HTupleController {
                 }
                 break
             case 2:
-                let cell = itemBlock(nil, HTupleTextStackCell.self, nil, true) as! HTupleTextStackCell
+                let cell = itemBlock(nil, HTupleThreeTextsCell.self, nil, true) as! HTupleThreeTextsCell
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)

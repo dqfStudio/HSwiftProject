@@ -1,5 +1,5 @@
 //
-//  HTextStackView.swift
+//  HThreeTextsView.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/5/26.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTextStackView: UIStackView {
+class HThreeTextsView: UIStackView {
     
     /// 左边布局View
     private lazy var leftView: UIView = {
