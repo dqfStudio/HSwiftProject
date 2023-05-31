@@ -105,7 +105,7 @@ class HMainController1: HTupleController {
                     
                     cell.textContainer.imageView.backgroundColor = UIColor.red
                     var image = UIImage(named: "icon_no_server")
-                    image = image?.scaleImage(CGSize(width: 35, height: 35))
+                    image = image?.scaleImage(CGSize(width: 25, height: 25))
                     cell.textContainer.imageView.image = image
 
                     cell.textContainer.label.backgroundColor = UIColor.green
@@ -119,7 +119,7 @@ class HMainController1: HTupleController {
                     
                     cell.textContainer.detailView.backgroundColor = UIColor.red
                     var image2 = UIImage(named: "icon_no_server")
-                    image2 = image2?.scaleImage(CGSize(width: 35, height: 35))
+                    image2 = image2?.scaleImage(CGSize(width: 25, height: 25))
                     cell.textContainer.detailView.image = image2
                     
                     cell.textContainer.imageSpacing = 5.0
