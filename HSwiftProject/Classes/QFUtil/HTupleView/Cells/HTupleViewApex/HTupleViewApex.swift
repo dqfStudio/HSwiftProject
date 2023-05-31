@@ -84,17 +84,17 @@ class HTupleTextFieldApex : HTupleBaseApex {
 }
 
 class HTupleTextStackApex : HTupleBaseApex {
-    lazy var textStackView: HTextStackView = {
-        let textStackView = HTextStackView()
-        self.layoutView.addSubview(textStackView)
-        return textStackView
+    lazy var textContainer: HTextStackView = {
+        let textContainer = HTextStackView()
+        self.layoutView.addSubview(textContainer)
+        return textContainer
     }()
     
     override func relayoutSubviews() {
         let frame = self.layoutViewBounds
-        if !self.textStackView.frame.equalTo(frame) {
-            self.textStackView.frame = frame
-            self.textStackView.reloadData()
+        if !self.textContainer.frame.equalTo(frame) {
+            self.textContainer.frame = frame
+            self.textContainer.reloadData()
         }
     }
 }

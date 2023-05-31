@@ -133,14 +133,15 @@ class HMainController1: HTupleController {
 
                     cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
-                    cell.textStackView.label.backgroundColor = UIColor.green
-                    cell.textStackView.label.text = "label"
+                    cell.textContainer.label.backgroundColor = UIColor.green
+                    cell.textContainer.label.backgroundColor = UIColor.green
+                    cell.textContainer.label.text = "label"
 
-                    cell.textStackView.detailLabel.backgroundColor = UIColor.red
-                    cell.textStackView.detailLabel.text = "detailLabel"
+                    cell.textContainer.detailLabel.backgroundColor = UIColor.red
+                    cell.textContainer.detailLabel.text = "detailLabel"
 
-                    cell.textStackView.accessoryLabel.backgroundColor = UIColor.yellow
-                    cell.textStackView.accessoryLabel.text = "accessoryLabel"
+                    cell.textContainer.accessoryLabel.backgroundColor = UIColor.yellow
+                    cell.textContainer.accessoryLabel.text = "accessoryLabel"
                 }
                 break
             case 3:
