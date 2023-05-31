@@ -142,6 +142,9 @@ class HMainController1: HTupleController {
 
                     cell.textContainer.accessoryLabel.backgroundColor = UIColor.yellow
                     cell.textContainer.accessoryLabel.text = "accessoryLabel"
+                    
+                    cell.textContainer.firstSpacing = 5.0
+                    cell.textContainer.secondSpacing = 5.0
                 }
                 break
             case 3:
