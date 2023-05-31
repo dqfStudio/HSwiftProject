@@ -230,8 +230,9 @@
 		EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6732A15C8ED0016648A /* HLabel.swift */; };
 		EB80B67C2A1779A30016648A /* HSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B67B2A1779A30016648A /* HSectionView.swift */; };
 		EB80B67E2A18A7430016648A /* HInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B67D2A18A7430016648A /* HInputField.swift */; };
-		EB80B6962A20BEEC0016648A /* HThreeTextsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6952A20BEEC0016648A /* HThreeTextsView.swift */; };
-		EB80B6A22A26F8D40016648A /* HTextImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6A12A26F8D40016648A /* HTextImageView.swift */; };
+		EB80B6962A20BEEC0016648A /* HTextImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6952A20BEEC0016648A /* HTextImageView.swift */; };
+		EB80B6A22A26F8D40016648A /* HTextImageView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6A12A26F8D40016648A /* HTextImageView2.swift */; };
+		EB80B6A42A2742060016648A /* HTwoImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6A32A2742060016648A /* HTwoImageView.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -533,8 +534,9 @@
 		EB80B6732A15C8ED0016648A /* HLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLabel.swift; sourceTree = "<group>"; };
 		EB80B67B2A1779A30016648A /* HSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSectionView.swift; sourceTree = "<group>"; };
 		EB80B67D2A18A7430016648A /* HInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HInputField.swift; sourceTree = "<group>"; };
-		EB80B6952A20BEEC0016648A /* HThreeTextsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HThreeTextsView.swift; sourceTree = "<group>"; };
-		EB80B6A12A26F8D40016648A /* HTextImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextImageView.swift; sourceTree = "<group>"; };
+		EB80B6952A20BEEC0016648A /* HTextImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextImageView.swift; sourceTree = "<group>"; };
+		EB80B6A12A26F8D40016648A /* HTextImageView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextImageView2.swift; sourceTree = "<group>"; };
+		EB80B6A32A2742060016648A /* HTwoImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTwoImageView.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -800,8 +802,9 @@
 				EB80B66D2A122A940016648A /* HScrollbar.swift */,
 				EB80B67B2A1779A30016648A /* HSectionView.swift */,
 				EB80B67D2A18A7430016648A /* HInputField.swift */,
-				EB80B6952A20BEEC0016648A /* HThreeTextsView.swift */,
-				EB80B6A12A26F8D40016648A /* HTextImageView.swift */,
+				EB80B6952A20BEEC0016648A /* HTextImageView.swift */,
+				EB80B6A12A26F8D40016648A /* HTextImageView2.swift */,
+				EB80B6A32A2742060016648A /* HTwoImageView.swift */,
 			);
 			path = HTupleCommon;
 			sourceTree = "<group>";
@@ -1764,7 +1767,7 @@
 				EBD0FB1A29CC366D00808EDA /* HAuthorizeManager.swift in Sources */,
 				A286251623EAB8DD00E81781 /* HCountDownButton.swift in Sources */,
 				EBD0FB6C29D02B1000808EDA /* HDefaultsCore+Extern.swift in Sources */,
-				EB80B6962A20BEEC0016648A /* HThreeTextsView.swift in Sources */,
+				EB80B6962A20BEEC0016648A /* HTextImageView.swift in Sources */,
 				EB23DACF2A029E0900C96CAC /* HAlertController2.swift in Sources */,
 				EBD0FB9E29DB00B300808EDA /* HMainController6+UI.swift in Sources */,
 				EB80B66C2A1130E10016648A /* HToolbar.swift in Sources */,
@@ -1777,6 +1780,7 @@
 				EB23DAC32A00A4EC00C96CAC /* HNavigationBar.swift in Sources */,
 				EBC8146329AA53D100A81431 /* HAcceptVideoVC.swift in Sources */,
 				A22948C02397992A0058B939 /* HServiceAuthorizationCell.swift in Sources */,
+				EB80B6A42A2742060016648A /* HTwoImageView.swift in Sources */,
 				EBC8147329AA541800A81431 /* HSendVideoVC+HStatus3.swift in Sources */,
 				A26D432123842C9400F457AE /* UIGestureRecognizer+HUtil.swift in Sources */,
 				EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */,
@@ -1896,7 +1900,7 @@
 				EB43240929B9F47600EDDB64 /* HProgressHUD.swift in Sources */,
 				A26D433F2386CA0A00F457AE /* NSObject+HSwizzleUtil.swift in Sources */,
 				A22948AD2397987A0058B939 /* HMainController3+HSection1.swift in Sources */,
-				EB80B6A22A26F8D40016648A /* HTextImageView.swift in Sources */,
+				EB80B6A22A26F8D40016648A /* HTextImageView2.swift in Sources */,
 				A2CC441123B360AE00DB095F /* HTupleRefresh.swift in Sources */,
 				EB43240D29C1B70400EDDB64 /* UIView+HAlert.swift in Sources */,
 				A26D433D2386C76D00F457AE /* NSObject+HSafeMessy.swift in Sources */,

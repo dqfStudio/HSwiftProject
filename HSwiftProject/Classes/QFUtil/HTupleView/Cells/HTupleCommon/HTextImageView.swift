@@ -2,21 +2,13 @@
 //  HTextImageView.swift
 //  HSwiftProject
 //
-//  Created by owner on 2023/5/31.
+//  Created by owner on 2023/5/26.
 //  Copyright © 2023 wind. All rights reserved.
 //
 
 import UIKit
 
-enum HTextImageDirection: Int {
-    case front = 0 // Front design
-    case behind = 1 // Behind design
-}
-
 class HTextImageView: UIStackView {
-    
-    /// 布局方向，前或后布局
-    var direction: HTextImageDirection = .front
     
     /// 左边布局View
     private lazy var leftView: UIView = {
@@ -43,29 +35,73 @@ class HTextImageView: UIStackView {
     }()
     
     /// imageView
-    lazy var imageView: UIImageView = {
-        return UIImageView()
-    }()
+    private var _imageView: UIImageView?
+    var imageView: UIImageView {
+        if _imageView == nil {
+            _imageView = UIImageView()
+        }
+        return _imageView!
+    }
     
     /// label
-    lazy var label: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        return label
-    }()
+    private var _label: UILabel?
+    var label: UILabel {
+        if _label == nil {
+            _label = UILabel()
+            _label!.font = UIFont.systemFont(ofSize: 14)
+        }
+        return _label!
+    }
     
     /// detailLabel
-    lazy var detailLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
-        return label
+    private var _detailLabel: UILabel?
+    var detailLabel: UILabel {
+        if _detailLabel == nil {
+            _detailLabel = UILabel()
+            _detailLabel!.font = UIFont.systemFont(ofSize: 14)
+        }
+        return _detailLabel!
+    }
+    
+    /// accessoryLabel
+    private var _accessoryLabel: UILabel?
+    var accessoryLabel: UILabel {
+        if _accessoryLabel == nil {
+            _accessoryLabel = UILabel()
+            _accessoryLabel!.font = UIFont.systemFont(ofSize: 14)
+        }
+        return _accessoryLabel!
+    }
+    
+    // 用于imageView布局
+    private lazy var detailLayoutView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
     }()
     
+    /// imageView
+    private var _detailView: UIImageView?
+    var detailView: UIImageView {
+        if _detailView == nil {
+            _detailView = UIImageView()
+        }
+        return _detailView!
+    }
+    
+    // 在imageView后面添加自定义间隔
+    var imageSpacing: CGFloat = 0.0
+    
     // 在label后面添加自定义间隔
-    var firstSpacing: CGFloat = 0.0
+    var labelSpacing: CGFloat = 0.0
     
     // 在detailLabel后面添加自定义间隔
-    var secondSpacing: CGFloat = 0.0
+    var detailSpacing: CGFloat = 0.0
+    
+    // 在accessoryLabel后面添加自定义间隔
+    var accessorySpacing: CGFloat = 0.0
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -79,40 +115,50 @@ class HTextImageView: UIStackView {
         
         /// 中间label、detailLabel和accessoryLabel布局View
         self.addArrangedSubview(textLayoutView)
-        
-        if direction == .front {
          
-            /// imageView
+        /// imageView
+        if let imageView = _imageView {
             imageLayoutView.addArrangedSubview(imageView)
             textLayoutView.addArrangedSubview(imageLayoutView)
-            /// label
+            textLayoutView.setCustomSpacing(imageSpacing, after: imageLayoutView)
+        }
+        /// label
+        if let label = _label {
             textLayoutView.addArrangedSubview(label)
-            /// detailLabel
+            textLayoutView.setCustomSpacing(labelSpacing, after: label)
+        }
+        /// detailLabel
+        if let detailLabel = _detailLabel {
             textLayoutView.addArrangedSubview(detailLabel)
-            // 在imageView后面的间隔
-            textLayoutView.setCustomSpacing(firstSpacing, after: imageLayoutView)
-            // 在label后面的间隔
-            textLayoutView.setCustomSpacing(secondSpacing, after: label)
-            
-        } else {
-            
-            /// label
-            textLayoutView.addArrangedSubview(label)
-            /// detailLabel
-            textLayoutView.addArrangedSubview(detailLabel)
-            /// imageView
-            imageLayoutView.addArrangedSubview(imageView)
-            textLayoutView.addArrangedSubview(imageLayoutView)
-            // 在label后面的间隔
-            textLayoutView.setCustomSpacing(firstSpacing, after: label)
-            // 在detailLabel后面的间隔
-            textLayoutView.setCustomSpacing(secondSpacing, after: detailLabel)
-            
+            textLayoutView.setCustomSpacing(detailSpacing, after: detailLabel)
+        }
+        /// accessoryLabel
+        if let accessoryLabel = _accessoryLabel {
+            textLayoutView.addArrangedSubview(accessoryLabel)
+            textLayoutView.setCustomSpacing(accessorySpacing, after: accessoryLabel)
+        }
+        
+        /// detailView
+        if let detailView = _detailView {
+            detailLayoutView.addArrangedSubview(detailView)
+            textLayoutView.addArrangedSubview(detailLayoutView)
         }
         
         /// 根据label、detailLabel和accessoryLabel的实际大小进行约束布局
-        var textWidth = label.intrinsicContentSize.width + detailLabel.intrinsicContentSize.width + imageView.intrinsicContentSize.width
-        textWidth += firstSpacing + secondSpacing
+        var textWidth = label.intrinsicContentSize.width
+        if let detailLabel = _detailLabel {
+            textWidth += detailLabel.intrinsicContentSize.width
+        }
+        if let accessoryLabel = _accessoryLabel {
+            textWidth += accessoryLabel.intrinsicContentSize.width
+        }
+        if let imageView = _imageView {
+            textWidth += imageView.intrinsicContentSize.width
+        }
+        if let detailView = _detailView {
+            textWidth += detailView.intrinsicContentSize.width
+        }
+        textWidth += imageSpacing + labelSpacing + detailSpacing + accessorySpacing
         textWidth = ceil(textWidth)//向上取整
         
         /// 右边布局View
@@ -125,4 +171,3 @@ class HTextImageView: UIStackView {
     }
     
 }
-

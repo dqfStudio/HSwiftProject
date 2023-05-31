@@ -71,25 +71,13 @@ class HTupleTextFieldCell : HTupleBaseCell {
     }
 }
 
-class HTupleThreeTextsCell : HTupleBaseCell {
-    lazy var textContainer: HThreeTextsView = {
-        let textContainer = HThreeTextsView()
-        self.layoutView.addSubview(textContainer)
-        return textContainer
-    }()
-    
-    override func relayoutSubviews() {
-        HLayoutTupleCell(self.textContainer)
-    }
-}
-
 class HTupleTextImageCell : HTupleBaseCell {
     lazy var textContainer: HTextImageView = {
         let textContainer = HTextImageView()
         self.layoutView.addSubview(textContainer)
         return textContainer
     }()
-    
+
     override func relayoutSubviews() {
         HLayoutTupleCell(self.textContainer)
     }

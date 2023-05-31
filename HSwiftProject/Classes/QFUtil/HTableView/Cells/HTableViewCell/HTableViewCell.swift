@@ -110,18 +110,6 @@ class HTableTextFieldCell : HTableBaseCell {
     }
 }
 
-class HTableThreeTextsCell : HTableBaseCell {
-    lazy var textContainer: HThreeTextsView = {
-        let textContainer = HThreeTextsView()
-        self.layoutView.addSubview(textContainer)
-        return textContainer
-    }()
-    
-    override func relayoutSubviews() {
-        HLayoutTableCell(self.textContainer)
-    }
-}
-
 class HTableTextImageCell : HTableBaseCell {
     lazy var textContainer: HTextImageView = {
         let textContainer = HTextImageView()

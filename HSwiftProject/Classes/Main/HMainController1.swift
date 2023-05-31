@@ -26,7 +26,7 @@ class HMainController1: HTupleController {
     func numberOfItemsInSection(_ section: Any) -> Any {
         switch section as! Int {
         case 0:
-            return 6
+            return 5
         case 1:
             return 9
         default:
@@ -113,46 +113,22 @@ class HMainController1: HTupleController {
 
                     cell.textContainer.detailLabel.backgroundColor = UIColor.red
                     cell.textContainer.detailLabel.text = "detailLabel"
-                    
-                    cell.textContainer.firstSpacing = 5.0
-                    cell.textContainer.secondSpacing = 5.0
-                    
-                    cell.textContainer.direction = .behind
-                }
-                //接收信号
-                cell.signalBlock = { (target, signal) in
-                    let cell = target as! HTupleViewCellHoriValue3
-                    NSLog("选中%d", cell.label)
-                }
-                break
-            case 2:
-                let cell = itemBlock(nil, HTupleThreeTextsCell.self, nil, true) as! HTupleThreeTextsCell
-                cell.sizeBlock = {
-                    let width = self.tupleView.width(forSection: indexPath.section)
-                    return CGSize(width: width, height: 65)
-                }
-                cell.edgeInsetsBlock = {
-                    return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                }
-                cell.cellBlock = {
-                    cell.backgroundColor = UIColor.gray
-
-                    cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
-
-                    cell.textContainer.label.backgroundColor = UIColor.green
-                    cell.textContainer.label.text = "label"
-
-                    cell.textContainer.detailLabel.backgroundColor = UIColor.red
-                    cell.textContainer.detailLabel.text = "detailLabel"
 
                     cell.textContainer.accessoryLabel.backgroundColor = UIColor.yellow
                     cell.textContainer.accessoryLabel.text = "accessoryLabel"
                     
-                    cell.textContainer.firstSpacing = 5.0
-                    cell.textContainer.secondSpacing = 5.0
+                    cell.textContainer.detailView.backgroundColor = UIColor.red
+                    var image2 = UIImage(named: "icon_no_server")
+                    image2 = image2?.scaleImage(CGSize(width: 35, height: 35))
+                    cell.textContainer.detailView.image = image2
+                    
+                    cell.textContainer.imageSpacing = 5.0
+                    cell.textContainer.labelSpacing = 5.0
+                    cell.textContainer.detailSpacing = 5.0
+                    cell.textContainer.accessorySpacing = 5.0
                 }
                 break
-            case 3:
+            case 2:
                 let cell = itemBlock(nil, HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
@@ -186,7 +162,7 @@ class HMainController1: HTupleController {
                     cell.isShowAccessoryArrow = true
                 }
                 break
-            case 4:
+            case 3:
                 let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
@@ -220,7 +196,7 @@ class HMainController1: HTupleController {
                     cell.isShowAccessoryArrow = true
                 }
                 break
-            case 5:
+            case 4:
                 let cell = itemBlock(nil, HTupleTextFieldCell.self, nil, true) as! HTupleTextFieldCell
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
