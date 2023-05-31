@@ -145,7 +145,10 @@ class HTextImageView: UIStackView {
         }
         
         /// 根据label、detailLabel和accessoryLabel的实际大小进行约束布局
-        var textWidth = label.intrinsicContentSize.width
+        var textWidth = 0.0
+        if let label = _label {
+            textWidth += label.intrinsicContentSize.width
+        }
         if let detailLabel = _detailLabel {
             textWidth += detailLabel.intrinsicContentSize.width
         }
