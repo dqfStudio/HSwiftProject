@@ -76,7 +76,7 @@ class HTextStackView: UIStackView {
         textLayoutView.setCustomSpacing(secondSpacing, after: detailLabel)
         
         /// 根据label、detailLabel和accessoryLabel的实际大小进行约束布局
-        var textWidth1 = label.intrinsicContentSize.width + accessoryLabel.intrinsicContentSize.width + 1
+        var textWidth1 = label.intrinsicContentSize.width + accessoryLabel.intrinsicContentSize.width
         textWidth1 = ceil(textWidth1)//向上取整
         
         var textWidth2 = detailLabel.intrinsicContentSize.width

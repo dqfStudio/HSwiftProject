@@ -60,60 +60,59 @@ class HMainController2: HViewController {
         super.viewDidLoad()
         
         
-        let textStackView = HTextStackView(frame: CGRect(x: 10, y: 200, width: 320, height: 120))
-        textStackView.backgroundColor = .gray
-        self.view.addSubview(textStackView)
-        
-        textStackView.label.text = "label"
-        textStackView.label.backgroundColor = .red
-        
-        textStackView.detailLabel.text = "detailLabel"
-        textStackView.detailLabel.backgroundColor = .blue
-        
-        textStackView.accessoryLabel.text = "accoryLabel"
-        textStackView.accessoryLabel.backgroundColor = .green
-        
-        textStackView.reloadData()
-        
-        return
-        
-        let sectionView = HSectionView(frame: CGRect(x: 10, y: 200, width: 320, height: 120))
-        sectionView.backgroundColor = .gray
-        self.view.addSubview(sectionView)
-        
-        
-        sectionView.headerWidth = 40
-        sectionView.headerSpace = 5
-        if sectionView.header == nil {
-            let header = UIView()
-            header.backgroundColor = .red
-            sectionView.header = header
-        }
-        
-        
-        sectionView.footerWidth = 40
-        sectionView.footerSpace = 5
-        if sectionView.footer == nil {
-            let footer = UIView()
-            footer.backgroundColor = .blue
-            sectionView.footer = footer
-        }
-        
-        
-        if sectionView.item == nil {
-            let item = UIView()
-            item.backgroundColor = .yellow
-            sectionView.item = item
-        }
-        
-        sectionView.reloadData()
-        
-        return
+//        let textStackView = HTextStackView(frame: CGRect(x: 10, y: 200, width: 320, height: 120))
+//        textStackView.backgroundColor = .gray
+//        self.view.addSubview(textStackView)
+//
+//        textStackView.label.text = "label"
+//        textStackView.label.backgroundColor = .red
+//
+//        textStackView.detailLabel.text = "detailLabel"
+//        textStackView.detailLabel.backgroundColor = .blue
+//
+//        textStackView.accessoryLabel.text = "accoryLabel"
+//        textStackView.accessoryLabel.backgroundColor = .green
+//
+//        textStackView.reloadData()
+//
+//        return
+//
+//        let sectionView = HSectionView(frame: CGRect(x: 10, y: 200, width: 320, height: 120))
+//        sectionView.backgroundColor = .gray
+//        self.view.addSubview(sectionView)
+//
+//
+//        sectionView.headerWidth = 40
+//        sectionView.headerSpace = 5
+//        if sectionView.header == nil {
+//            let header = UIView()
+//            header.backgroundColor = .red
+//            sectionView.header = header
+//        }
+//
+//
+//        sectionView.footerWidth = 40
+//        sectionView.footerSpace = 5
+//        if sectionView.footer == nil {
+//            let footer = UIView()
+//            footer.backgroundColor = .blue
+//            sectionView.footer = footer
+//        }
+//
+//
+//        if sectionView.item == nil {
+//            let item = UIView()
+//            item.backgroundColor = .yellow
+//            sectionView.item = item
+//        }
+//
+//        sectionView.reloadData()
+//
+//        return
 
         
         let button = HButton(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
         
-//        button.imageView.image = UIImage(named: "hvc_back_icon")
         button.imageView.image = UIImage(named: "icon_tuple_arrow_right")
         
         
@@ -121,7 +120,7 @@ class HMainController2: HViewController {
         
         button.spacing = 10
         
-        button.direction = .horizontal
+        button.direction = .vertical
         button.backgroundColor = .red
         self.view.addSubview(button)
         

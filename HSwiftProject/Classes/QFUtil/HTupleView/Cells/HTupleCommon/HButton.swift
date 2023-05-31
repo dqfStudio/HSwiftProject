@@ -15,26 +15,27 @@ enum HButtonDirection: Int {
 
 class HButton: UIControl {
     
-    var direction: HButtonDirection = .horizontal {
-        didSet {
-            if direction != oldValue {
-                setup()
-            }
-        }
-    }
+    /// 布局方向，横向或纵向布局
+    var direction: HButtonDirection = .horizontal
     
-    var spacing: CGFloat = 5.0 {
-        didSet {
-            stackView.spacing = spacing
-        }
-    }
+    /// imageView和titleLabel之间的间隔
+    var spacing: CGFloat = 5.0
+    
+    /// 左边布局View
+    private lazy var leftView: UIView = {
+        return UIView()
+    }()
+    
+    /// 右边布局View
+    private lazy var rightView: UIView = {
+        return UIView()
+    }()
     
     private var _imageView: UIImageView?
     var imageView: UIImageView {
         get {
             if _imageView == nil {
                 _imageView = UIImageView()
-                setup()
             }
             return _imageView!
         }
@@ -48,7 +49,6 @@ class HButton: UIControl {
         get {
             if _titleLabel == nil {
                 _titleLabel = UILabel()
-                setup()
             }
             return _titleLabel!
         }
@@ -57,68 +57,110 @@ class HButton: UIControl {
         }
     }
     
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView(frame: self.bounds)
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.alignment = .center
-        self.addSubview(stackView)
-        return stackView
+    /// 用于imageView和titleLabel布局
+    private lazy var layoutView: UIStackView = {
+        let layoutView = UIStackView(frame: self.bounds)
+        layoutView.axis = .horizontal
+        layoutView.distribution = .fill
+        layoutView.alignment = .center
+        self.addSubview(layoutView)
+        return layoutView
     }()
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
     
     override var frame: CGRect {
         didSet {
             guard frame != oldValue else { return }
             var _frame = frame
             _frame.origin = .zero
-            stackView.frame = _frame
+            layoutView.frame = _frame
         }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setup()
     }
     
     private func setup() {
         
-        stackView.spacing = spacing
+        /// 左边布局View
+        layoutView.addArrangedSubview(leftView)
         
         if direction == .horizontal {
             
+            var textWidth1 = 0.0
+            var textWidth2 = 0.0
+            var textSpace = spacing
+            
             if let imageView = _imageView {
                 imageView.contentMode = (_titleLabel != nil) ? .right : .center
-                stackView.addArrangedSubview(imageView)
-                imageView.backgroundColor = .blue
+                layoutView.addArrangedSubview(imageView)
+                
+                textWidth1 = imageView.intrinsicContentSize.width
+                textWidth1 = ceil(textWidth1)//向上取整
             }
             
             if let titleLabel = _titleLabel {
                 titleLabel.textAlignment = (_imageView != nil) ? .left : .center
-                stackView.addArrangedSubview(titleLabel)
-                titleLabel.backgroundColor = .green
+                layoutView.addArrangedSubview(titleLabel)
+                
+                textWidth2 = titleLabel.intrinsicContentSize.width
+                textWidth2 = ceil(textWidth2)//向上取整
             }
             
-            stackView.axis = .horizontal
+            /// 设置imageView和titleLabel之间的间隔
+            if let imageView = _imageView, _titleLabel != nil {
+                layoutView.setCustomSpacing(textSpace, after: imageView)
+            } else {
+                textSpace = 0.0
+            }
+            
+            /// 左右两边的间隔
+            let space = (self.width - textWidth1 - textWidth2 - textSpace) / 2
+            if space >= 0 { layoutView.spacing = space }
+            
+            /// 设置布局方向
+            layoutView.axis = .horizontal
             
         } else {
+            
+            var textHeight1 = 0.0
+            var textHeight2 = 0.0
+            var textSpace = spacing
 
             if let imageView = _imageView {
-                stackView.addArrangedSubview(imageView)
+                layoutView.addArrangedSubview(imageView)
+                
+                textHeight1 = imageView.intrinsicContentSize.height
+                textHeight1 = ceil(textHeight1)//向上取整
             }
             
             if let titleLabel = _titleLabel {
                 titleLabel.textAlignment = .center
-                stackView.addArrangedSubview(titleLabel)
+                layoutView.addArrangedSubview(titleLabel)
+                
+                textHeight2 = titleLabel.intrinsicContentSize.height
+                textHeight2 = ceil(textHeight2)//向上取整
             }
             
-            stackView.axis = .vertical
+            /// 设置imageView和titleLabel之间的间隔
+            if let imageView = _imageView, _titleLabel != nil {
+                layoutView.setCustomSpacing(textSpace, after: imageView)
+            } else {
+                textSpace = 0.0
+            }
+            
+            /// 左右两边的间隔
+            let space = (self.height - textHeight1 - textHeight2 - textSpace) / 2
+            if space >= 0 { layoutView.spacing = space }
+            
+            /// 设置布局方向
+            layoutView.axis = .vertical
             
         }
+        
+        /// 右边布局View
+        layoutView.addArrangedSubview(rightView)
         
     }
     
