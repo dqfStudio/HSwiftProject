@@ -83,6 +83,18 @@ class HTupleTextStackCell : HTupleBaseCell {
     }
 }
 
+class HTupleTextImageCell : HTupleBaseCell {
+    lazy var textContainer: HTextImageView = {
+        let textContainer = HTextImageView()
+        self.layoutView.addSubview(textContainer)
+        return textContainer
+    }()
+    
+    override func relayoutSubviews() {
+        HLayoutTupleCell(self.textContainer)
+    }
+}
+
 class HTupleViewCell : HTupleBaseCell {
     
     ///label

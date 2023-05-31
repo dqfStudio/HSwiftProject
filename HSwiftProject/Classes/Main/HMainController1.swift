@@ -90,7 +90,7 @@ class HMainController1: HTupleController {
                 }
                 break
             case 1:
-                let cell = itemBlock(nil, HTupleViewCellHoriValue3.self, nil, true) as! HTupleViewCellHoriValue3
+                let cell = itemBlock(nil, HTupleTextImageCell.self, nil, true) as! HTupleTextImageCell
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
@@ -102,16 +102,20 @@ class HMainController1: HTupleController {
                     cell.backgroundColor = UIColor.gray
 
                     cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+                    
+                    cell.textContainer.imageView.backgroundColor = UIColor.red
+                    var image = UIImage(named: "icon_no_server")
+                    image = image?.scaleImage(CGSize(width: 35, height: 35))
+                    cell.textContainer.imageView.image = image
 
-                    cell.imageView.backgroundColor = UIColor.red
-                    cell.imageView.setImageWithName("icon_no_server")
+                    cell.textContainer.label.backgroundColor = UIColor.green
+                    cell.textContainer.label.text = "label"
 
-                    cell.detailView.backgroundColor = UIColor.red
-                    cell.detailView.setImageWithName("icon_no_server")
-
-                    cell.label.backgroundColor = UIColor.red
-
-                    cell.detailLabel.backgroundColor = UIColor.yellow
+                    cell.textContainer.detailLabel.backgroundColor = UIColor.red
+                    cell.textContainer.detailLabel.text = "detailLabel"
+                    
+                    cell.textContainer.firstSpacing = 5.0
+                    cell.textContainer.secondSpacing = 5.0
                 }
                 //接收信号
                 cell.signalBlock = { (target, signal) in
@@ -133,7 +137,6 @@ class HMainController1: HTupleController {
 
                     cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
-                    cell.textContainer.label.backgroundColor = UIColor.green
                     cell.textContainer.label.backgroundColor = UIColor.green
                     cell.textContainer.label.text = "label"
 
