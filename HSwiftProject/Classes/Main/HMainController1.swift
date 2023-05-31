@@ -239,11 +239,11 @@ class HMainController1: HTupleController {
 
                     cell.textField.rightWidth = 90
                     //普通view
-    //                cell.textField.rightButton.text = "获取验证码"
-    //                cell.textField.rightButton.backgroundColor = UIColor.green
-    //                cell.textField.rightButton.pressed = { (sender: AnyObject, data: AnyObject) in
-    //
-    //                } as? Callback
+//                    cell.textField.rightButton.text = "获取验证码"
+//                    cell.textField.rightButton.backgroundColor = UIColor.green
+//                    cell.textField.rightButton.pressed = { (sender: AnyObject, data: AnyObject) in
+//
+//                    } as? Callback
                     //短信验证码
                     cell.textField.rightCountDownButton.text = "获取验证码"
                     cell.textField.rightCountDownButton.backgroundColor = UIColor.green
@@ -257,10 +257,10 @@ class HMainController1: HTupleController {
                         return "重新获取"
                     }
                     //图形验证码
-    //                cell.textField.rightVerifyCodeView.backgroundColor = UIColor.green
-    //                cell.textField.rightVerifyCodeView.textSize = 20
-    //                cell.textField.rightVerifyCodeView.textColor = UIColor.black
-    //                cell.textField.rightVerifyCodeView.charsArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+//                    cell.textField.rightVerifyCodeView.backgroundColor = UIColor.green
+//                    cell.textField.rightVerifyCodeView.textSize = 20
+//                    cell.textField.rightVerifyCodeView.textColor = UIColor.black
+//                    cell.textField.rightVerifyCodeView.charsArray = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
                 }
                 break
             default:
