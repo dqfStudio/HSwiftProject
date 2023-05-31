@@ -79,11 +79,7 @@ class HTupleTextStackCell : HTupleBaseCell {
     }()
     
     override func relayoutSubviews() {
-        let frame = self.layoutViewBounds
-        if !self.textContainer.frame.equalTo(frame) {
-            self.textContainer.frame = frame
-            self.textContainer.reloadData()
-        }
+        HLayoutTupleCell(self.textContainer)
     }
 }
 

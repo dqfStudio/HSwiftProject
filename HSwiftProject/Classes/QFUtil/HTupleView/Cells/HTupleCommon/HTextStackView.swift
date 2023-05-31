@@ -52,7 +52,12 @@ class HTextStackView: UIStackView {
     // 在detailLabel后面添加自定义间隔
     var secondSpacing: CGFloat = 0.0
     
-    func reloadData() {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setup()
+    }
+    
+    private func setup() {
         
         guard self.frame != .zero else {
             return

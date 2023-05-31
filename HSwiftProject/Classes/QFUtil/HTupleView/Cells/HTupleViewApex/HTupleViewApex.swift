@@ -91,11 +91,7 @@ class HTupleTextStackApex : HTupleBaseApex {
     }()
     
     override func relayoutSubviews() {
-        let frame = self.layoutViewBounds
-        if !self.textContainer.frame.equalTo(frame) {
-            self.textContainer.frame = frame
-            self.textContainer.reloadData()
-        }
+        HLayoutTupleApex(self.textContainer)
     }
 }
 
