@@ -31,7 +31,12 @@ class HSectionView: UIStackView {
     var headerSpace = 0.0
     var footerSpace = 0.0
     
-    func reloadData() {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setup()
+    }
+    
+    private func setup() {
         
         if let item = item {
             

@@ -30,7 +30,12 @@ class HInputField: UIStackView {
     var headerSpace = 0.0
     var footerSpace = 0.0
     
-    func reloadData() {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setup()
+    }
+    
+    private func setup() {
             
         // header
         if let header = header {
