@@ -12,23 +12,23 @@ class HInputField: UIStackView {
     
     private var allReuseViews = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
     
-    var header: UIView? {
-        get { return allReuseViews.object(forKey: "header") as? UIView }
-        set { allReuseViews.setObject(newValue, forKey: "header") }
+    var leftView: UIView? {
+        get { return allReuseViews.object(forKey: "leftView") as? UIView }
+        set { allReuseViews.setObject(newValue, forKey: "leftView") }
     }
-    var footer: UIView? {
-        get { return allReuseViews.object(forKey: "footer") as? UIView }
-        set { allReuseViews.setObject(newValue, forKey: "footer") }
+    var rightView: UIView? {
+        get { return allReuseViews.object(forKey: "rightView") as? UIView }
+        set { allReuseViews.setObject(newValue, forKey: "rightView") }
     }
     lazy var textField: UITextField = {
         return UITextField()
     }()
 
-    var headerWidth = 0.0
-    var footerWidth = 0.0
+    var leftWidth = 0.0
+    var rightWidth = 0.0
 
-    var headerSpace = 0.0
-    var footerSpace = 0.0
+    var leftSpace = 0.0
+    var rightSpace = 0.0
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -37,24 +37,24 @@ class HInputField: UIStackView {
     
     private func setup() {
             
-        // header
-        if let header = header {
-            header.widthAnchor.constraint(equalToConstant: headerWidth).isActive = true
-            self.addArrangedSubview(header)
-            if headerSpace > 0 {
-                self.setCustomSpacing(headerSpace, after: header)
+        // leftView
+        if let leftView = leftView {
+            leftView.widthAnchor.constraint(equalToConstant: leftWidth).isActive = true
+            self.addArrangedSubview(leftView)
+            if leftSpace > 0 {
+                self.setCustomSpacing(leftSpace, after: leftView)
             }
         }
         
         // item
         self.addArrangedSubview(textField)
         
-        // footer
-        if let footer = footer {
-            footer.widthAnchor.constraint(equalToConstant: footerWidth).isActive = true
-            self.addArrangedSubview(footer)
-            if footerSpace > 0 {
-                self.setCustomSpacing(footerSpace, after: textField)
+        // rightView
+        if let rightView = rightView {
+            rightView.widthAnchor.constraint(equalToConstant: rightWidth).isActive = true
+            self.addArrangedSubview(rightView)
+            if rightSpace > 0 {
+                self.setCustomSpacing(rightSpace, after: textField)
             }
             
         }
