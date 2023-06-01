@@ -788,6 +788,17 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 if size.width <= 0 { size.width = 1.0 }
                 if size.height <= 0 { size.height = 1.0 }
 
+            } else if let delegate = self.tupleDelegate {
+                
+                let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+                let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
+                if delegate.responds(to: selector, withPre: prefix) {
+                    size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
+                }
+                // Prevent negative size
+                if size.width <= 0 { size.width = 1.0 }
+                if size.height <= 0 { size.height = 1.0 }
+                
             }
 
         }
@@ -839,10 +850,6 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 }
                 // Call cell
                 cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
-                // Update layout
-                if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-                    cell.relayoutSubviews()
-                }
             }
 
             // Prevent crashes
@@ -897,9 +904,18 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             // Call cell
             if let cell = cell as? HTupleBaseCell {
                 // Reset edge insets
+                var edgeInsets: UIEdgeInsets = .zero
                 if let edgeInsetsBlock = cell.edgeInsetsBlock {
-                    cell.edgeInsets = edgeInsetsBlock()
+                    edgeInsets = edgeInsetsBlock()
+                }else if let delegate = self.tupleDelegate {// Call delegate method
+                    let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+                    let selector = #selector(delegate.edgeInsetsForItemAtIndexPath(_:))
+                    if delegate.responds(to: selector, withPre: prefix) {
+                        edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! UIEdgeInsets
+                    }
                 }
+                // Reset edge insets
+                cell.edgeInsets = edgeInsets
                 // Get subviews of cell
                 cell.cellBlock?()
                 // Update layout
