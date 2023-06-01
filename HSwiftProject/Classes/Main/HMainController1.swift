@@ -47,6 +47,14 @@ class HMainController1: HTupleController {
             return 0
         }
     }
+    func edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+        switch indexPath.section {
+        case 0:
+            return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        default:
+            return UIEdgeInsets.zero
+        }
+    }
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         switch indexPath.section {
@@ -57,9 +65,6 @@ class HMainController1: HTupleController {
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
-                }
-                cell.edgeInsetsBlock = {
-                    return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
                 }
                 cell.cellBlock = {
                     cell.backgroundColor = UIColor.gray
@@ -94,9 +99,6 @@ class HMainController1: HTupleController {
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
-                }
-                cell.edgeInsetsBlock = {
-                    return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
                 }
                 cell.cellBlock = {
                     cell.backgroundColor = UIColor.gray
@@ -134,9 +136,6 @@ class HMainController1: HTupleController {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
                 }
-                cell.edgeInsetsBlock = {
-                    return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                }
                 cell.cellBlock = {
                     cell.backgroundColor = UIColor.gray
 
@@ -168,9 +167,6 @@ class HMainController1: HTupleController {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
                 }
-                cell.edgeInsetsBlock = {
-                    return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                }
                 cell.cellBlock = {
                     cell.backgroundColor = UIColor.gray
 
@@ -201,9 +197,6 @@ class HMainController1: HTupleController {
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
-                }
-                cell.edgeInsetsBlock = {
-                    return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
                 }
                 cell.cellBlock = {
                     cell.backgroundColor = UIColor.gray
