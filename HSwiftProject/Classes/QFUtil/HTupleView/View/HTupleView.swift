@@ -734,7 +734,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             let prefix = self.tupleSplitPrefix(withSection: section)
             let selector: Selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
-                let spacing: CGFloat = delegate.perform(selector, with: section, withPre: prefix) as! CGFloat
+                let spacing: CGFloat = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
                 size = CGSize(width: self.width, height: spacing)
             } else {
                 let selector = #selector(delegate.sizeForHeaderInSection(_:))
@@ -755,7 +755,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             let prefix = self.tupleSplitPrefix(withSection: section)
             let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
-                let spacing: CGFloat = delegate.perform(selector, with: section, withPre: prefix) as! CGFloat
+                let spacing: CGFloat = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
                 size = CGSize(width: self.width, height: spacing)
             } else {
                 let selector = #selector(delegate.sizeForFooterInSection(_:))
@@ -883,7 +883,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 let selector: Selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     // Unique identifier
-                    let identifier = "HeaderCell" + self.addressValue
+                    let identifier = "HeaderSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.tupleState)"
                     // Determine whether it has been loaded
                     if !self.allReuseIdentifiers.contains(identifier) {
                         self.allReuseIdentifiers.add(identifier)
@@ -892,6 +892,8 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                     }else {
                         cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath) as? HTupleBaseApex
                     }
+                    // Prevent crashes
+                    return cell ?? UICollectionReusableView()
                 } else {
                     let selector: Selector = #selector(delegate.tupleHeader(_:inSection:))
                     let headerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
@@ -911,7 +913,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                 let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     // Unique identifier
-                    let identifier = "FooterCell" + self.addressValue
+                    let identifier = "FooterSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.tupleState)"
                     // Determine whether it has been loaded
                     if !self.allReuseIdentifiers.contains(identifier) {
                         self.allReuseIdentifiers.add(identifier)
@@ -920,6 +922,8 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
                     }else {
                         cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath) as? HTupleBaseApex
                     }
+                    // Prevent crashes
+                    return cell ?? UICollectionReusableView()
                 } else {
                     let selector: Selector = #selector(delegate.tupleFooter(_:inSection:))
                     let footerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
