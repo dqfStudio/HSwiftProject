@@ -224,6 +224,10 @@
 		EB43243829C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43243529C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift */; };
 		EB43243A29C588A400EDDB64 /* HTextViewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43243729C588A400EDDB64 /* HTextViewer.swift */; };
 		EB43244929C5B8E700EDDB64 /* UIImage+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB43244829C5B8E700EDDB64 /* UIImage+HUtil.swift */; };
+		EB5042892A2C31E2007E9FC7 /* HTupleTextImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5042882A2C31E2007E9FC7 /* HTupleTextImageCell.swift */; };
+		EB50428B2A2C33F6007E9FC7 /* HTupleTextImageApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428A2A2C33F6007E9FC7 /* HTupleTextImageApex.swift */; };
+		EB50428D2A2C343C007E9FC7 /* HTableTextImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428C2A2C343C007E9FC7 /* HTableTextImageCell.swift */; };
+		EB50428F2A2C348D007E9FC7 /* HTableTextImageApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428E2A2C348D007E9FC7 /* HTableTextImageApex.swift */; };
 		EB80B66A2A111C6B0016648A /* HButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6692A111C6B0016648A /* HButton.swift */; };
 		EB80B66C2A1130E10016648A /* HToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B66B2A1130E00016648A /* HToolbar.swift */; };
 		EB80B66E2A122A940016648A /* HScrollbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B66D2A122A940016648A /* HScrollbar.swift */; };
@@ -526,6 +530,10 @@
 		EB43243529C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSMutableAttributedString+HUtil.swift"; sourceTree = "<group>"; };
 		EB43243729C588A400EDDB64 /* HTextViewer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTextViewer.swift; sourceTree = "<group>"; };
 		EB43244829C5B8E700EDDB64 /* UIImage+HUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+HUtil.swift"; sourceTree = "<group>"; };
+		EB5042882A2C31E2007E9FC7 /* HTupleTextImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleTextImageCell.swift; sourceTree = "<group>"; };
+		EB50428A2A2C33F6007E9FC7 /* HTupleTextImageApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleTextImageApex.swift; sourceTree = "<group>"; };
+		EB50428C2A2C343C007E9FC7 /* HTableTextImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableTextImageCell.swift; sourceTree = "<group>"; };
+		EB50428E2A2C348D007E9FC7 /* HTableTextImageApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableTextImageApex.swift; sourceTree = "<group>"; };
 		EB80B6692A111C6B0016648A /* HButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HButton.swift; sourceTree = "<group>"; };
 		EB80B66B2A1130E00016648A /* HToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HToolbar.swift; sourceTree = "<group>"; };
 		EB80B66D2A122A940016648A /* HScrollbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HScrollbar.swift; sourceTree = "<group>"; };
@@ -668,6 +676,7 @@
 			children = (
 				A2294887239756770058B939 /* HTableBaseApex.swift */,
 				A229489423975A900058B939 /* HTableViewApex.swift */,
+				EB50428E2A2C348D007E9FC7 /* HTableTextImageApex.swift */,
 				A22948A023975F500058B939 /* HTableViewApexVertValue.swift */,
 				A22948A223975FB10058B939 /* HTableViewApexHoriValue.swift */,
 			);
@@ -688,6 +697,7 @@
 			children = (
 				A229488B239756770058B939 /* HTableBaseCell.swift */,
 				A2294892239756A10058B939 /* HTableViewCell.swift */,
+				EB50428C2A2C343C007E9FC7 /* HTableTextImageCell.swift */,
 				A229489C23975CE40058B939 /* HTableViewCellVertValue.swift */,
 				A229489E23975D850058B939 /* HTableViewCellHoriValue.swift */,
 			);
@@ -763,6 +773,7 @@
 			children = (
 				A2892396238B72F800E4AB75 /* HTupleBaseApex.swift */,
 				A229489623975AE80058B939 /* HTupleViewApex.swift */,
+				EB50428A2A2C33F6007E9FC7 /* HTupleTextImageApex.swift */,
 				A229489823975BA80058B939 /* HTupleViewApexVertValue.swift */,
 				A229489A23975C2E0058B939 /* HTupleViewApexHoriValue.swift */,
 			);
@@ -774,6 +785,7 @@
 			children = (
 				A2892398238B72F800E4AB75 /* HTupleBaseCell.swift */,
 				A28923AA238B733500E4AB75 /* HTupleViewCell.swift */,
+				EB5042882A2C31E2007E9FC7 /* HTupleTextImageCell.swift */,
 				A28923AF238BC2D100E4AB75 /* HTupleViewCellVertValue.swift */,
 				A28923B1238BCB5000E4AB75 /* HTupleViewCellHoriValue.swift */,
 				A28923B3238BCB6200E4AB75 /* tuple_arrow_icons */,
@@ -1751,6 +1763,7 @@
 				EB43244929C5B8E700EDDB64 /* UIImage+HUtil.swift in Sources */,
 				A28923A2238B72F800E4AB75 /* HTupleBaseApex.swift in Sources */,
 				A265D9FD23910309001F39B0 /* HTabBar.swift in Sources */,
+				EB5042892A2C31E2007E9FC7 /* HTupleTextImageCell.swift in Sources */,
 				A250DF1023FFC05C009F5E47 /* HTupleViewBannerCell.swift in Sources */,
 				EB23DAC72A02187700C96CAC /* HAlertAction.swift in Sources */,
 				EBD0FB6E29D02B1000808EDA /* HUserDefaults.swift in Sources */,
@@ -1838,6 +1851,8 @@
 				EBD0FB7829D02B9600808EDA /* HUserDefaults+Property.swift in Sources */,
 				A28C314923EBB4D80050CDA1 /* HVerifyCodeView.swift in Sources */,
 				A28923A8238B72F800E4AB75 /* HCollectionViewFlowLayout.swift in Sources */,
+				EB50428D2A2C343C007E9FC7 /* HTableTextImageCell.swift in Sources */,
+				EB50428B2A2C33F6007E9FC7 /* HTupleTextImageApex.swift in Sources */,
 				EBC8140429AA48C000A81431 /* HUserLiveCell+HSection2.swift in Sources */,
 				A2B43071237FF2B100795605 /* Swifty.m in Sources */,
 				EBD0FB2329CC739A00808EDA /* HDrawerViewController.swift in Sources */,
@@ -1885,6 +1900,7 @@
 				A229489923975BA80058B939 /* HTupleViewApexVertValue.swift in Sources */,
 				EBD0FB0B29CA938900808EDA /* HAssetModel.swift in Sources */,
 				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue.swift in Sources */,
+				EB50428F2A2C348D007E9FC7 /* HTableTextImageApex.swift in Sources */,
 				A265D9FB2390B8EB001F39B0 /* HTabItem.swift in Sources */,
 				EBD0FB3E29CD4DE100808EDA /* AppDelegate+UserService.swift in Sources */,
 				EBD0FB9029DA786C00808EDA /* HInputBoxView.swift in Sources */,

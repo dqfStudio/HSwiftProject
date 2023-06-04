@@ -71,18 +71,6 @@ class HTableTextFieldApex : HTableBaseApex {
     }
 }
 
-class HTableTextImageApex : HTableBaseApex {
-    lazy var textContainer: HTextImageView = {
-        let textContainer = HTextImageView()
-        self.layoutView.addSubview(textContainer)
-        return textContainer
-    }()
-    
-    override func relayoutSubviews() {
-        HLayoutTableApex(self.textContainer)
-    }
-}
-
 class HTableViewApex : HTableBaseApex {
 
     ///label

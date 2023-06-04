@@ -105,29 +105,29 @@ class HMainController1: HTupleController {
 
                     cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
                     
-                    cell.textContainer.imageView.backgroundColor = UIColor.red
+                    cell.imageView.backgroundColor = UIColor.red
                     var image = UIImage(named: "icon_no_server")
                     image = image?.scaleImage(CGSize(width: 25, height: 25))
-                    cell.textContainer.imageView.image = image
+                    cell.imageView.image = image
 
-                    cell.textContainer.label.backgroundColor = UIColor.green
-                    cell.textContainer.label.text = "label"
+                    cell.label.backgroundColor = UIColor.green
+                    cell.label.text = "label"
 
-                    cell.textContainer.detailLabel.backgroundColor = UIColor.red
-                    cell.textContainer.detailLabel.text = "detailLabel"
+                    cell.detailLabel.backgroundColor = UIColor.red
+                    cell.detailLabel.text = "detailLabel"
 
-                    cell.textContainer.accessoryLabel.backgroundColor = UIColor.yellow
-                    cell.textContainer.accessoryLabel.text = "accessoryLabel"
+                    cell.accessoryLabel.backgroundColor = UIColor.yellow
+                    cell.accessoryLabel.text = "accessoryLabel"
                     
-                    cell.textContainer.detailView.backgroundColor = UIColor.red
+                    cell.detailView.backgroundColor = UIColor.red
                     var image2 = UIImage(named: "icon_no_server")
                     image2 = image2?.scaleImage(CGSize(width: 25, height: 25))
-                    cell.textContainer.detailView.image = image2
+                    cell.detailView.image = image2
                     
-                    cell.textContainer.imageSpacing = 5.0
-                    cell.textContainer.labelSpacing = 5.0
-                    cell.textContainer.detailSpacing = 5.0
-                    cell.textContainer.accessorySpacing = 5.0
+                    cell.imageSpacing = 5.0
+                    cell.labelSpacing = 5.0
+                    cell.detailSpacing = 5.0
+                    cell.accessorySpacing = 5.0
                 }
                 break
             case 2:

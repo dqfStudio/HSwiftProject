@@ -110,18 +110,6 @@ class HTableTextFieldCell : HTableBaseCell {
     }
 }
 
-class HTableTextImageCell : HTableBaseCell {
-    lazy var textContainer: HTextImageView = {
-        let textContainer = HTextImageView()
-        self.layoutView.addSubview(textContainer)
-        return textContainer
-    }()
-    
-    override func relayoutSubviews() {
-        HLayoutTableCell(self.textContainer)
-    }
-}
-
 class HTableViewCell : HTableBaseCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
