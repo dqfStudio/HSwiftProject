@@ -13,10 +13,18 @@ enum HButtonDirection: Int {
     case vertical = 1 // Vertical design
 }
 
+enum HButtonImageDirection: Int {
+    case left = 0 // Left design
+    case right = 1 // Right design
+}
+
 class HButton: UIControl {
     
     /// 布局方向，横向或纵向布局
     var direction: HButtonDirection = .horizontal
+    
+    /// image布局方向，左向或右向布局
+    var imageDirection: HButtonImageDirection = .left
     
     /// imageView和titleLabel之间的间隔
     var spacing: CGFloat = 5.0
@@ -92,27 +100,56 @@ class HButton: UIControl {
             var textWidth2 = 0.0
             var textSpace = spacing
             
-            if let imageView = _imageView {
-                imageView.contentMode = (_titleLabel != nil) ? .right : .center
-                layoutView.addArrangedSubview(imageView)
+            if imageDirection == .left {
+              
+                if let imageView = _imageView {
+                    imageView.contentMode = (_titleLabel != nil) ? .right : .center
+                    layoutView.addArrangedSubview(imageView)
+                    
+                    textWidth1 = imageView.intrinsicContentSize.width
+                    textWidth1 = ceil(textWidth1)//向上取整
+                }
                 
-                textWidth1 = imageView.intrinsicContentSize.width
-                textWidth1 = ceil(textWidth1)//向上取整
-            }
-            
-            if let titleLabel = _titleLabel {
-                titleLabel.textAlignment = (_imageView != nil) ? .left : .center
-                layoutView.addArrangedSubview(titleLabel)
+                if let titleLabel = _titleLabel {
+                    titleLabel.textAlignment = (_imageView != nil) ? .left : .center
+                    layoutView.addArrangedSubview(titleLabel)
+                    
+                    textWidth2 = titleLabel.intrinsicContentSize.width
+                    textWidth2 = ceil(textWidth2)//向上取整
+                }
                 
-                textWidth2 = titleLabel.intrinsicContentSize.width
-                textWidth2 = ceil(textWidth2)//向上取整
-            }
-            
-            /// 设置imageView和titleLabel之间的间隔
-            if let imageView = _imageView, _titleLabel != nil {
-                layoutView.setCustomSpacing(textSpace, after: imageView)
+                /// 设置imageView和titleLabel之间的间隔
+                if let imageView = _imageView, _titleLabel != nil {
+                    layoutView.setCustomSpacing(textSpace, after: imageView)
+                } else {
+                    textSpace = 0.0
+                }
+                
             } else {
-                textSpace = 0.0
+                
+                if let titleLabel = _titleLabel {
+                    titleLabel.textAlignment = (_imageView != nil) ? .right : .center
+                    layoutView.addArrangedSubview(titleLabel)
+                    
+                    textWidth1 = titleLabel.intrinsicContentSize.width
+                    textWidth1 = ceil(textWidth1)//向上取整
+                }
+                
+                if let imageView = _imageView {
+                    imageView.contentMode = (_titleLabel != nil) ? .left : .center
+                    layoutView.addArrangedSubview(imageView)
+                    
+                    textWidth2 = imageView.intrinsicContentSize.width
+                    textWidth2 = ceil(textWidth2)//向上取整
+                }
+                
+                /// 设置imageView和titleLabel之间的间隔
+                if let titleLabel = _titleLabel, _imageView != nil {
+                    layoutView.setCustomSpacing(textSpace, after: titleLabel)
+                } else {
+                    textSpace = 0.0
+                }
+                
             }
             
             /// 左右两边的间隔
