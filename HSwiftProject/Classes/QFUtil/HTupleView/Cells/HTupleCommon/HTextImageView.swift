@@ -35,10 +35,10 @@ class HTextImageView: UIStackView {
     }()
     
     /// imageView
-    private var _imageView: UIImageView?
-    var imageView: UIImageView {
+    private var _imageView: HWebImageView?
+    var imageView: HWebImageView {
         if _imageView == nil {
-            _imageView = UIImageView()
+            _imageView = HWebImageView()
         }
         return _imageView!
     }
@@ -83,10 +83,10 @@ class HTextImageView: UIStackView {
     }()
     
     /// imageView
-    private var _detailView: UIImageView?
-    var detailView: UIImageView {
+    private var _detailView: HWebImageView?
+    var detailView: HWebImageView {
         if _detailView == nil {
-            _detailView = UIImageView()
+            _detailView = HWebImageView()
         }
         return _detailView!
     }
