@@ -41,28 +41,20 @@ class HButton: UIControl {
     
     private var _imageView: UIImageView?
     var imageView: UIImageView {
-        get {
-            if _imageView == nil {
-                _imageView = UIImageView()
-            }
-            return _imageView!
+        if _imageView == nil {
+            _imageView = UIImageView()
+            _imageView!.layer.masksToBounds = true
         }
-        set {
-            _imageView = newValue
-        }
+        return _imageView!
     }
     
     private var _titleLabel: UILabel?
     var titleLabel: UILabel {
-        get {
-            if _titleLabel == nil {
-                _titleLabel = UILabel()
-            }
-            return _titleLabel!
+        if _titleLabel == nil {
+            _titleLabel = UILabel()
+            _titleLabel!.font = UIFont.systemFont(ofSize: 14.0)
         }
-        set {
-            _titleLabel = newValue
-        }
+        return _titleLabel!
     }
     
     /// 用于imageView和titleLabel布局
