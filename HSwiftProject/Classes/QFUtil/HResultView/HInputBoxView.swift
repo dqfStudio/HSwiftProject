@@ -16,27 +16,26 @@ class HInputBoxView: UIView, HTupleViewDelegate {
     //是否密文
     var isSecureTextEntry: Bool = false
     //间隔宽度
-    var spaceWidth: CGFloat = 8.0
+    var spaceWidth: CGFloat = 10.0
     
     var inputBoxFinishBlock: HInputBoxFinishBlock?
     var inputBoxChangeBlock: HInputBoxChangeBlock?
     
     lazy var textField: UITextField = {
-        let textField = UITextField(frame: self.bounds)
-        textField.backgroundColor = UIColor.clear
-        textField.textColor = UIColor.clear
-        textField.keyboardType = .numberPad
-        textField.tintColor = .clear
-        textField.delegate = self
-        return textField
+        let _textField = UITextField(frame: self.bounds)
+        _textField.backgroundColor = UIColor.clear
+        _textField.textColor = UIColor.clear
+        _textField.keyboardType = .numberPad
+        _textField.tintColor = .clear
+        _textField.delegate = self
+        return _textField
     }()
     
     lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
-        tupleView.backgroundColor = UIColor.clear
-        tupleView.isScrollEnabled = false
-        tupleView.disableBounce()
-        return tupleView
+        let _tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
+        _tupleView.backgroundColor = UIColor.clear
+        _tupleView.disableBounce()
+        return _tupleView
     }()
     
     required override init(frame: CGRect) {
@@ -52,8 +51,8 @@ class HInputBoxView: UIView, HTupleViewDelegate {
     private func setup() {
         self.backgroundColor = UIColor.clear
         self.tupleView.delegate = self
-        self.addSubview(self.tupleView)
         self.addSubview(self.textField)
+        self.addSubview(self.tupleView)
     }
     
     func numberOfSectionsInTupleView() -> Any {
@@ -130,6 +129,12 @@ class HInputBoxView: UIView, HTupleViewDelegate {
         let footerBlock = footerBlock as! HTupleFooter
         let cell = footerBlock(nil, HTupleBaseApex.self, nil, true) as! HTupleBaseApex
         cell.backgroundColor = .clear
+    }
+    
+    func didSelectItemAtIndexPath(_ indexPath: IndexPath) {
+        if !textField.isFirstResponder {
+            textField.becomeFirstResponder()
+        }
     }
 
 }
