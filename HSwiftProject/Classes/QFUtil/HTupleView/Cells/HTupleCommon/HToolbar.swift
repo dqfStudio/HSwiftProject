@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias HToolbarBlock = (_ Index: Int) -> Void
+typealias HToolbarBlock = (_ index: Int) -> Void
 
 // A custom UIStackView that displays a horizontal list of items with a selected item indicator
 class HToolbar: UIStackView, HTupleViewDelegate {

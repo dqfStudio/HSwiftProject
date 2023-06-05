@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias HScrollbarBlock = (_ Index: Int) -> Void
+typealias HScrollbarBlock = (_ index: Int) -> Void
 
 // A custom UIStackView that displays a horizontal list of items with a selected item indicator
 class HScrollbar: UIStackView, HTupleViewDelegate {
