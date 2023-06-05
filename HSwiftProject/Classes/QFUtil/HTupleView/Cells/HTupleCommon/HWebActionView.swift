@@ -18,12 +18,6 @@ enum HActionImageDirection: Int {
     case right = 1 // Right design
 }
 
-enum HActionTextVerticalAlignment: Int {
-    case top = -1 // Top design
-    case middle = 0 // Middle design
-    case bottom = 1 // Bottom design
-}
-
 class HWebActionView: UIControl {
     
     /// 布局方向，横向或纵向布局
