@@ -1,5 +1,5 @@
 //
-//  HButton.swift
+//  HWebActionView.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/5/14.
@@ -8,23 +8,29 @@
 
 import UIKit
 
-enum HButtonDirection: Int {
+enum HActionDirection: Int {
     case horizontal = 0 // Horizontal design
     case vertical = 1 // Vertical design
 }
 
-enum HButtonImageDirection: Int {
+enum HActionImageDirection: Int {
     case left = 0 // Left design
     case right = 1 // Right design
 }
 
-class HButton: UIControl {
+enum HActionTextVerticalAlignment: Int {
+    case top = -1 // Top design
+    case middle = 0 // Middle design
+    case bottom = 1 // Bottom design
+}
+
+class HWebActionView: UIControl {
     
     /// 布局方向，横向或纵向布局
-    var direction: HButtonDirection = .horizontal
+    var direction: HActionDirection = .horizontal
     
     /// image布局方向，左向或右向布局
-    var imageDirection: HButtonImageDirection = .left
+    var imageDirection: HActionImageDirection = .left
     
     /// imageView和titleLabel之间的间隔
     var spacing: CGFloat = 5.0
@@ -75,6 +81,7 @@ class HButton: UIControl {
             layoutView.frame = _frame
         }
     }
+    
     
     override func layoutSubviews() {
         super.layoutSubviews()

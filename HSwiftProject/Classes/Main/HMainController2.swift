@@ -111,7 +111,7 @@ class HMainController2: HViewController {
 //        return
 
         
-        let button = HButton(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+        let button = HWebActionView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
         
         button.imageView.image = UIImage(named: "icon_tuple_arrow_right")
         
