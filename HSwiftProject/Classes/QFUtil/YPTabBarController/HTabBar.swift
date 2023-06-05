@@ -311,25 +311,29 @@ class HTabBar : UIView {
                 newValue >= self.items!.count ||
                 self.items!.count == 0 {
                 if newValue == _selectedItemIndex {
-                    let selector = #selector(self.delegate!.h_tabBar(_:reSelectedTabAtIndex:))
-                    if self.delegate != nil && self.delegate!.responds(to: selector) {
-                        self.delegate?.h_tabBar!(self, reSelectedTabAtIndex: newValue)
+                    if let delegate = self.delegate {
+                        let selector = #selector(delegate.h_tabBar(_:reSelectedTabAtIndex:))
+                        if delegate.responds(to: selector) {
+                            delegate.h_tabBar!(self, reSelectedTabAtIndex: newValue)
+                        }
                     }
                 }
                 return
             }
             
-            let selector = #selector(self.delegate!.h_tabBar(_:shouldSelectItemAtIndex:))
-            if self.delegate != nil && self.delegate!.responds(to: selector) {
-                let should: Bool = self.delegate!.h_tabBar!(self, shouldSelectItemAtIndex: newValue)
-                if !should {
-                    return
+            if let delegate = self.delegate {
+                let selector = #selector(delegate.h_tabBar(_:shouldSelectItemAtIndex:))
+                if delegate.responds(to: selector) {
+                    let should: Bool = delegate.h_tabBar!(self, shouldSelectItemAtIndex: newValue)
+                    if !should {
+                        return
+                    }
                 }
-            }
-            
-            let selector2 = #selector(self.delegate!.h_tabBar(_:willSelectItemAtIndex:))
-            if self.delegate != nil && self.delegate!.responds(to: selector2) {
-                self.delegate!.h_tabBar!(self, willSelectItemAtIndex: newValue)
+
+                let selector2 = #selector(delegate.h_tabBar(_:willSelectItemAtIndex:))
+                if delegate.responds(to: selector2) {
+                    delegate.h_tabBar!(self, willSelectItemAtIndex: newValue)
+                }
             }
             
             if _selectedItemIndex != NSNotFound {
@@ -370,9 +374,11 @@ class HTabBar : UIView {
             // 如果tabbar支持滚动，将选中的item放到tabbar的中央
             self.setSelectedItemCenter()
             
-            let selector3 = #selector(self.delegate!.h_tabBar(_:didSelectedItemAtIndex:))
-            if self.delegate != nil && self.delegate!.responds(to: selector3) {
-                self.delegate!.h_tabBar?(self, didSelectedItemAtIndex: newValue)
+            if let delegate = self.delegate {
+                let selector3 = #selector(delegate.h_tabBar(_:didSelectedItemAtIndex:))
+                if delegate.responds(to: selector3) {
+                    delegate.h_tabBar?(self, didSelectedItemAtIndex: newValue)
+                }
             }
             if self.tabbardSelectedBlock != nil {
                 self.tabbardSelectedBlock!(newValue)
