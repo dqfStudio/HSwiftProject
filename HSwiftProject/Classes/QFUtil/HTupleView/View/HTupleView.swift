@@ -377,7 +377,6 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     /// Stop refresh
     func endRefreshing(_ completion: @escaping () -> Void) {
         self.mj_header?.endRefreshing(completionBlock:completion)
-
     }
 
     func endLoadMore(_ completion: @escaping () -> Void) {
