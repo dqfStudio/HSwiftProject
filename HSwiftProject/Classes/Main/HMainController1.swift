@@ -87,6 +87,9 @@ class HMainController1: HTupleController {
                     cell.detailLabel.backgroundColor = UIColor.yellow
                     cell.detailLabel.text = "qqqqqqqqqqqqq"
                     
+                    cell.accessoryLabel.backgroundColor = UIColor.green
+                    cell.accessoryLabel.text = "eeeeeeeeeeeee"
+                    
                     cell.isShowAccessoryArrow = true
 
                 }
@@ -264,9 +267,6 @@ class HMainController1: HTupleController {
         default:
             break
         }
-    }
-    func didSelectItemAtIndexPath(_ indexPath: IndexPath) {
-
     }
         
 }
