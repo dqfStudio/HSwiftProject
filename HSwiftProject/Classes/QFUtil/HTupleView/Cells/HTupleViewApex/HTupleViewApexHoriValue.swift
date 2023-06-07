@@ -86,7 +86,6 @@ class HTupleViewApexHoriValue1 : HTupleBaseApex {
     var detailView: HWebImageView {
         if _detailView == nil {
             _detailView = HWebImageView()
-            _detailView!.contentMode = .scaleAspectFit
         }
         return _detailView!
     }
@@ -293,7 +292,6 @@ class HTupleViewApexHoriValue2 : HTupleBaseApex {
     var detailView: HWebImageView {
         if _detailView == nil {
             _detailView = HWebImageView()
-            _detailView!.contentMode = .scaleAspectFit
         }
         return _detailView!
     }
@@ -492,7 +490,6 @@ class HTupleViewApexHoriValue3 : HTupleBaseApex {
     var detailView: HWebImageView {
         if _detailView == nil {
             _detailView = HWebImageView()
-            _detailView!.contentMode = .scaleAspectFit
         }
         return _detailView!
     }
