@@ -60,25 +60,18 @@ class HMainController2: HViewController {
         super.viewDidLoad()
         
         
-//        let button = HWebActionView(imagePosition: .right, space: 10)
-        let button = HWebActionView()
-//        let button = HWebActionView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+//        let button = HWebActionView()
+//        button.frame = CGRect(x: 10, y: 200, width: 320, height: 80)
         
-//        let button = HButton(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
-        button.frame = CGRect(x: 10, y: 200, width: 320, height: 80)
+        let button = HWebActionView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
         
-//        button.image = UIImage(named: "icon_tuple_arrow_right")
-        button.setImage(UIImage(named: "icon_tuple_arrow_right"), for: .normal)
-//        button.imageView?.image = UIImage(named: "icon_tuple_arrow_right")
+        button.image = UIImage(named: "icon_tuple_arrow_right")
         
-//        button.text = "啊发来的撒酒疯拉的屎"
-        button.setTitle("啊发来的撒酒疯拉的屎", for: .normal)
-//        button.titleLabel?.text = "啊发来的撒酒疯拉的屎"
+        button.text = "啊发来的撒酒疯拉的屎"
         
         button.imagePosition = .right
         button.imageSpace = 10
         
-//        button.direction = .vertical
         button.backgroundColor = .red
         self.view.addSubview(button)
         

@@ -263,7 +263,7 @@ extension UIButton {
     
     public var textColor: UIColor? {
         get { return self.titleColor(for: .normal) }
-        set { self.setTitleColor(newValue, for: UIControl.State.normal) }
+        set { self.setTitleColor(newValue, for: .normal) }
     }
     
     public var textAlignment: NSTextAlignment {
@@ -273,16 +273,16 @@ extension UIButton {
     
     @objc open var image: UIImage? {
         get { return self.image(for: .normal) }
-        set { self.setImage(newValue, for: UIControl.State.normal) }
+        set { self.setImage(newValue, for: .normal) }
     }
     
     public var backgroundImage: UIImage? {
         get { return self.backgroundImage(for: .normal) }
-        set { self.setBackgroundImage(newValue, for: UIControl.State.normal) }
+        set { self.setBackgroundImage(newValue, for: .normal) }
     }
     
     public func addTarget(_ target: Any?, action: Selector) {
-        self.addTarget(target, action: action, for: UIControl.Event.touchUpInside)
+        self.addTarget(target, action: action, for: .touchUpInside)
     }
 
     //let the min respond area is 44*44

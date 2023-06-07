@@ -100,7 +100,7 @@ class HWebActionView: UIButton {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        if originBounds != bounds {
+        if self.superview != nil, originBounds != bounds {
             originBounds = bounds
             updatePosition()
         }
