@@ -293,5 +293,23 @@ extension UIButton {
         bounds = bounds.insetBy(dx: -0.5 * widthDelta, dy: -0.5 * heightDelta)
         return bounds.contains(point)
     }
+    
+    ///图左文字右
+    public func imageAndTextWithSpacing(_ spacing: CGFloat) {
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: spacing)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: spacing, bottom: 0, right: 0)
+    }
+
+    ///图右文字左
+    public func textAndImageWithSpacing(_ spacing: CGFloat) {
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: -(self.imageView?.width ?? 0), bottom: 0, right: (self.imageView?.width)!-spacing)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: (self.titleLabel?.width ?? 0) - spacing, bottom: 0, right: -(self.titleLabel?.width)!)
+    }
+    
+    ///图上文字下
+    public func imageUpAndTextDownWithSpacing(_ spacing: CGFloat) {
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: -(self.imageView?.width ?? 0), bottom: -(self.imageView?.width ?? 0) - spacing / 2, right: 0)
+        self.titleEdgeInsets = UIEdgeInsets(top: -(self.titleLabel?.intrinsicContentSize.width ?? 0) - spacing / 2, left: 0, bottom: 0, right: -(self.titleLabel?.intrinsicContentSize.width ?? 0))
+    }
 
 }
