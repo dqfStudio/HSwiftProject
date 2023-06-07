@@ -160,7 +160,7 @@ extension HWebActionView {
     func setImage(_ image: UIImage?) {
         self._setImage(image)
         self.lastURL = ""
-        self.imageView?.alpha = 1
+        self.imageView?.alpha = 1.0
         didGetImage?(self, image)
     }
 
