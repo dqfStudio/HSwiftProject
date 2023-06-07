@@ -67,7 +67,7 @@ class HWebActionView: UIButton {
     private func initialize() {
         self.backgroundColor = UIColor.clear
         self.imageView?.contentMode = .scaleAspectFill
-        self.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        self.titleLabel?.font = UIFont.systemFont(ofSize: 14.0)
         self.layer.masksToBounds = true
         self.addTarget(self, action: #selector(buttonPressed), for:.touchUpInside)
     }
@@ -193,23 +193,21 @@ extension HWebActionView {
         }
         
         if urlString.hasPrefix("http") == false {
-            let image: UIImage? = UIImage(named: urlString)
+            let image = UIImage(named: urlString)
             self._setImage(image)
-            if let imageView = imageView {
-                imageView.alpha = 1
-                didGetImage?(self, imageView.image)
-            }
+            self.imageView?.alpha = 1
+            didGetImage?(self, self.imageView?.image)
             return
         }
 
-        if imageView?.image != nil, lastURL.isEqual(urlString) {
-            imageView?.alpha = 1
-            didGetImage?(self, imageView?.image)
+        if self.imageView?.image != nil, lastURL.isEqual(urlString) {
+            self.imageView?.alpha = 1
+            didGetImage?(self, self.imageView?.image)
             return
         }
         
-        if imageView?.image == nil, placeholder == nil {
-            imageView?.alpha = 0
+        if self.imageView?.image == nil, placeholder == nil {
+            self.imageView?.alpha = 0
         }
         
         self._setImage(nil)
@@ -230,15 +228,15 @@ extension HWebActionView {
                 }
             }
         }
-        if imageView?.image == nil {
-            //imageView?.kf.indicatorType = .activity
-            imageView?.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
+        if self.imageView?.image == nil {
+            //self.imageView?.kf.indicatorType = .activity
+            self.imageView?.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
                 switch result {
                 case .success(let value):
                     self._setImage(value.image)
                     self.lastURL = url.absoluteString
                     if value.cacheType == .none {
-                        UIView.animate(withDuration: 0.5) {
+                        UIView.animate(withDuration: 0.25) {
                             self.imageView?.alpha = 1
                         }
                     }else {
@@ -246,7 +244,7 @@ extension HWebActionView {
                     }
                     self.didGetImage?(self, value.image)
                 case .failure(let value):
-                    self.didGetError?(self, value as AnyObject)
+                    self.didGetError?(self, value)
                 }
             }
         }
@@ -259,18 +257,16 @@ extension HWebActionView {
     */
     func setImageWithFile(_ fileName: String) {
         if fileName.count > 0 {
-            if let resourcePath: String = Bundle.main.resourcePath {
-                let filePath: String = resourcePath.appendingFormat("/%@", fileName)
-                if let image: UIImage = UIImage(contentsOfFile: filePath) {
+            if let resourcePath = Bundle.main.resourcePath {
+                let filePath = resourcePath.appendingFormat("/%@", fileName)
+                if let image = UIImage(contentsOfFile: filePath) {
                     self.setImage(image)
                 }
             }
         }else {
             self._setImage(nil)
             self.lastURL = ""
-            if didGetError != nil {
-                didGetError!(self, herr(kDataFormatErrorCode, desc: "url = \(fileName)"))
-            }
+            didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(fileName)"))
         }
     }
 
