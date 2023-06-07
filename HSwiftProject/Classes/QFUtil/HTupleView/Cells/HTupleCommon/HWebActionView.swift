@@ -195,13 +195,13 @@ extension HWebActionView {
         if urlString.hasPrefix("http") == false {
             let image = UIImage(named: urlString)
             self._setImage(image)
-            self.imageView?.alpha = 1
+            self.imageView?.alpha = 1.0
             didGetImage?(self, self.imageView?.image)
             return
         }
 
         if self.imageView?.image != nil, lastURL.isEqual(urlString) {
-            self.imageView?.alpha = 1
+            self.imageView?.alpha = 1.0
             didGetImage?(self, self.imageView?.image)
             return
         }
@@ -220,7 +220,7 @@ extension HWebActionView {
                 case.success(let value):
                     if value.image != nil {
                         self._setImage(value.image)
-                        self.imageView?.alpha = 1
+                        self.imageView?.alpha = 1.0
                         self.lastURL = url.absoluteString
                         self.didGetImage?(self, value.image)
                     }
@@ -237,10 +237,10 @@ extension HWebActionView {
                     self.lastURL = url.absoluteString
                     if value.cacheType == .none {
                         UIView.animate(withDuration: 0.25) {
-                            self.imageView?.alpha = 1
+                            self.imageView?.alpha = 1.0
                         }
                     }else {
-                        self.imageView?.alpha = 1
+                        self.imageView?.alpha = 1.0
                     }
                     self.didGetImage?(self, value.image)
                 case .failure(let value):
