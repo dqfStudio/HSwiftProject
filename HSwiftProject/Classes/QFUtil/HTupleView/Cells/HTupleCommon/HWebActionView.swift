@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 class HWebActionView: UIButton {
-    
+
     enum Position {
         case top
         case left
@@ -21,11 +21,11 @@ class HWebActionView: UIButton {
     var imageSpace: CGFloat = 0.0
     var imagePosition: Position = .left
     private var originBounds: CGRect = .zero
-    
+
     private var lastURL: String = ""
     // Click time
     private var pressedInterval: TimeInterval = 0.0
-    
+
     // The tintColor in the parent class is problematic
     var renderColor: UIColor? {
         didSet {
@@ -37,24 +37,24 @@ class HWebActionView: UIButton {
             self.setImage(self.image(for:.normal)?.withRenderingMode(.alwaysTemplate), for:.normal)
         }
     }
-    
+
     var hasImage: Bool {
         return self.imageView?.image != nil
     }
     var pressed: Callback?
     var didGetImage: Callback?
     var didGetError: Callback?
-    
+
     required init() {
         super.init(frame: .zero)
         self.setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setup()
     }
-    
+
     required override init(frame: CGRect) {
         super.init(frame: frame)
         self.setup()
@@ -63,7 +63,7 @@ class HWebActionView: UIButton {
     private func setup() {
         self.initialize()
     }
-    
+
     private func initialize() {
         self.backgroundColor = UIColor.clear
         self.imageView?.contentMode = .scaleAspectFill
@@ -84,7 +84,7 @@ class HWebActionView: UIButton {
             pressed(self, nil)
         }
     }
-    
+
     override var intrinsicContentSize: CGSize {
         var size = super.intrinsicContentSize
         switch imagePosition {
@@ -105,7 +105,7 @@ class HWebActionView: UIButton {
             updatePosition()
         }
     }
-    
+
     private func updatePosition() {
         switch imagePosition {
         case .top:
@@ -132,7 +132,7 @@ class HWebActionView: UIButton {
             imageEdgeInsets = UIEdgeInsets(top: 0, left: titleWidth, bottom: 0, right: -titleWidth)
         }
     }
-    
+
 }
 
 
@@ -151,7 +151,7 @@ extension HWebActionView {
             self.imageView?.image = image
         }
     }
-    
+
     /**
     *  Set image directly
     *
@@ -175,7 +175,7 @@ extension HWebActionView {
     func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true) {
         self.setImageUrlString(url.absoluteString, placeholder: placeholder, syncLoadCache: cache)
     }
-    
+
     /**
     *  Set image link, read from cache if available
     *
@@ -191,7 +191,7 @@ extension HWebActionView {
             didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
             return
         }
-        
+
         if urlString.hasPrefix("http") == false {
             let image = UIImage(named: urlString)
             self._setImage(image)
@@ -205,15 +205,15 @@ extension HWebActionView {
             didGetImage?(self, self.imageView?.image)
             return
         }
-        
+
         if self.imageView?.image == nil, placeholder == nil {
             self.imageView?.alpha = 0
         }
-        
+
         self._setImage(nil)
         self.lastURL = ""
         let url: URL = URL(string: urlString)!
-        
+
         if cache {
             KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { result in
                 switch result {
@@ -280,5 +280,5 @@ extension HWebActionView {
             self.setImage(UIImage(named: fileName))
         }
     }
-    
+
 }
