@@ -67,6 +67,16 @@ class HMainController2: HViewController {
         
         button.image = UIImage(named: "icon_tuple_arrow_right")
         
+//        let string = "https://freechatoss.s3.ap-southeast-1.amazonaws.com/images/Group_Chat_Banner_English.png"
+
+//        button.setImageUrlString(string)
+        
+        if button.hasImage {
+            button.renderColor = .green
+        } else {
+            button.renderColor = .yellow
+        }
+        
         button.text = "啊发来的撒酒疯拉的屎"
         
         button.imagePosition = .right

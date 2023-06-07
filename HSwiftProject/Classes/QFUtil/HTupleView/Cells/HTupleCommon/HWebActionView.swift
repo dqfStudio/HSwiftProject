@@ -146,9 +146,9 @@ extension HWebActionView {
         }
         if let renderColor = renderColor {
             self.imageView?.tintColor = renderColor
-            self.imageView?.image = image.withRenderingMode(.alwaysTemplate)
+            self.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
         } else {
-            self.imageView?.image = image
+            self.setImage(image, for: .normal)
         }
     }
 
@@ -216,35 +216,39 @@ extension HWebActionView {
 
         if cache {
             KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { result in
-                switch result {
-                case.success(let value):
-                    if value.image != nil {
-                        self._setImage(value.image)
-                        self.imageView?.alpha = 1.0
-                        self.lastURL = url.absoluteString
-                        self.didGetImage?(self, value.image)
+                DispatchQueue.main.async {
+                    switch result {
+                    case.success(let value):
+                        if value.image != nil {
+                            self._setImage(value.image)
+                            self.imageView?.alpha = 1.0
+                            self.lastURL = url.absoluteString
+                            self.didGetImage?(self, value.image)
+                        }
+                    case .failure(_): break
                     }
-                case .failure(_): break
                 }
             }
         }
         if self.imageView?.image == nil {
             //self.imageView?.kf.indicatorType = .activity
             self.imageView?.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
-                switch result {
-                case .success(let value):
-                    self._setImage(value.image)
-                    self.lastURL = url.absoluteString
-                    if value.cacheType == .none {
-                        UIView.animate(withDuration: 0.25) {
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let value):
+                        self._setImage(value.image)
+                        self.lastURL = url.absoluteString
+                        if value.cacheType == .none {
+                            UIView.animate(withDuration: 0.25) {
+                                self.imageView?.alpha = 1.0
+                            }
+                        }else {
                             self.imageView?.alpha = 1.0
                         }
-                    }else {
-                        self.imageView?.alpha = 1.0
+                        self.didGetImage?(self, value.image)
+                    case .failure(let value):
+                        self.didGetError?(self, value)
                     }
-                    self.didGetImage?(self, value.image)
-                case .failure(let value):
-                    self.didGetError?(self, value)
                 }
             }
         }
