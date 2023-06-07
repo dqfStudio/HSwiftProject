@@ -185,9 +185,11 @@ extension HSheetController {
             }
             cell.cellBlock = {
                 cell.backgroundColor = UIColor.white
-                var button = cell.viewWithTag(12345) as? UIButton
+                var button = cell.viewWithTag(12345) as? HWebActionView
                 if button == nil {
-                    button = UIButton(frame: cell.layoutViewBounds)
+//                    button = HButton(imagePosition: .left, space: 8)
+                    button = HWebActionView()
+                    button!.frame = cell.layoutViewBounds
                     button!.tag = 12345
                     button!.textFont = UIFont.font(ofSize: 16, weight: .regular)
                     button!.textColor = UIColor.black
@@ -202,8 +204,7 @@ extension HSheetController {
                 button!.text = action.title
                 // 图标
                 if let image = action.image {
-                    button!.setImage(UIImage(named: image), for: .normal)
-                    button!.imageAndTextWithSpacing(8)
+                    button!.image = UIImage(named: image)
                 }
             }
             cell.selectBlock = {

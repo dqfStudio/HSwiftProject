@@ -234,7 +234,8 @@
 		EB80B67C2A1779A30016648A /* HSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B67B2A1779A30016648A /* HSectionView.swift */; };
 		EB80B67E2A18A7430016648A /* HInputField.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B67D2A18A7430016648A /* HInputField.swift */; };
 		EB80B6962A20BEEC0016648A /* HTextImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6952A20BEEC0016648A /* HTextImageView.swift */; };
-		EBA53C2C2A2DCA980077158D /* HWebActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C2B2A2DCA980077158D /* HWebActionView.swift */; };
+		EBA53C2C2A2DCA980077158D /* HWebActionView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C2B2A2DCA980077158D /* HWebActionView2.swift */; };
+		EBA53C2E2A308BF00077158D /* HWebActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C2D2A308BF00077158D /* HWebActionView.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -540,7 +541,8 @@
 		EB80B67B2A1779A30016648A /* HSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSectionView.swift; sourceTree = "<group>"; };
 		EB80B67D2A18A7430016648A /* HInputField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HInputField.swift; sourceTree = "<group>"; };
 		EB80B6952A20BEEC0016648A /* HTextImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextImageView.swift; sourceTree = "<group>"; };
-		EBA53C2B2A2DCA980077158D /* HWebActionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HWebActionView.swift; sourceTree = "<group>"; };
+		EBA53C2B2A2DCA980077158D /* HWebActionView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HWebActionView2.swift; sourceTree = "<group>"; };
+		EBA53C2D2A308BF00077158D /* HWebActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebActionView.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -804,13 +806,14 @@
 				A2CC441023B360AE00DB095F /* HTupleRefresh.swift */,
 				A2A814C4274F56C400FAB929 /* UIView+HUtil.swift */,
 				EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */,
-				EBA53C2B2A2DCA980077158D /* HWebActionView.swift */,
+				EBA53C2B2A2DCA980077158D /* HWebActionView2.swift */,
 				EB80B6732A15C8ED0016648A /* HLabel.swift */,
 				EB80B66B2A1130E00016648A /* HToolbar.swift */,
 				EB80B66D2A122A940016648A /* HScrollbar.swift */,
 				EB80B67B2A1779A30016648A /* HSectionView.swift */,
 				EB80B67D2A18A7430016648A /* HInputField.swift */,
 				EB80B6952A20BEEC0016648A /* HTextImageView.swift */,
+				EBA53C2D2A308BF00077158D /* HWebActionView.swift */,
 			);
 			path = HTupleCommon;
 			sourceTree = "<group>";
@@ -1750,6 +1753,7 @@
 				A22948A123975F500058B939 /* HTableViewApexVertValue.swift in Sources */,
 				A28B652323FD26CE00B6B638 /* HNetworkManager.swift in Sources */,
 				EBD0FB3829CCA8D800808EDA /* HRemoteNotification.swift in Sources */,
+				EBA53C2E2A308BF00077158D /* HWebActionView.swift in Sources */,
 				EB4323F029B988C100EDDB64 /* HAlertFormatter.swift in Sources */,
 				A26D434323877F0A00F457AE /* UIControl+HSafeUtil.swift in Sources */,
 				A229489523975A900058B939 /* HTableViewApex.swift in Sources */,
@@ -1940,7 +1944,7 @@
 				EBD0FB7A29D02B9600808EDA /* HUserCore.swift in Sources */,
 				A2A814B8274CCA7200FAB929 /* HPresentAnimation.swift in Sources */,
 				EBC8145D29AA53B500A81431 /* HSendAudioVC+HStatus3.swift in Sources */,
-				EBA53C2C2A2DCA980077158D /* HWebActionView.swift in Sources */,
+				EBA53C2C2A2DCA980077158D /* HWebActionView2.swift in Sources */,
 				EBD0FB2A29CC935D00808EDA /* NSString+HChain.swift in Sources */,
 				EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */,
 				A22948B5239798AF0058B939 /* HMainController6.swift in Sources */,

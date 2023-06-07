@@ -60,6 +60,28 @@ class HMainController2: HViewController {
         super.viewDidLoad()
         
         
+//        let button = HButton(imagePosition: .right, space: 10)
+        let button = HWebActionView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+        
+//        let button = HButton(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+//        button.frame = CGRect(x: 10, y: 200, width: 320, height: 80)
+        
+        button.setImage(UIImage(named: "icon_tuple_arrow_right"), for: .normal)
+//        button.imageView?.image = UIImage(named: "icon_tuple_arrow_right")
+        
+        button.text = "啊发来的撒酒疯拉的屎"
+//        button.setTitle("啊发来的撒酒疯拉的屎", for: .normal)
+//        button.titleLabel?.text = "啊发来的撒酒疯拉的屎"
+        
+        button.imageSpace = 10
+        
+//        button.direction = .vertical
+        button.backgroundColor = .red
+        self.view.addSubview(button)
+        
+        return
+        
+        
 //        let textStackView = HThreeTextsView(frame: CGRect(x: 10, y: 200, width: 320, height: 120))
 //        textStackView.backgroundColor = .gray
 //        self.view.addSubview(textStackView)
@@ -111,20 +133,20 @@ class HMainController2: HViewController {
 //        return
 
         
-        let button = HWebActionView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
-        
-        button.imageView.image = UIImage(named: "icon_tuple_arrow_right")
-        
-        
-        button.titleLabel.text = "啊发来的撒酒疯拉的屎"
-        
-        button.spacing = 10
-        
-        button.direction = .vertical
-        button.backgroundColor = .red
-        self.view.addSubview(button)
-        
-        return
+//        let button = HWebActionView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+//
+//        button.imageView.image = UIImage(named: "icon_tuple_arrow_right")
+//
+//
+//        button.titleLabel.text = "啊发来的撒酒疯拉的屎"
+//
+//        button.spacing = 10
+//
+//        button.direction = .vertical
+//        button.backgroundColor = .red
+//        self.view.addSubview(button)
+//
+//        return
         
         let stackView = UIStackView(frame: CGRect(x: 100, y: 200, width: 120, height: UIScreen.width))
         stackView.axis = .vertical
