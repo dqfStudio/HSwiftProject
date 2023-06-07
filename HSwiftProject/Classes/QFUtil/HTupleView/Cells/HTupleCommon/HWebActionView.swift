@@ -65,9 +65,9 @@ class HWebActionView: UIButton {
     }
 
     private func initialize() {
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = .clear
         self.imageView?.contentMode = .scaleAspectFill
-        self.titleLabel?.font = UIFont.systemFont(ofSize: 14.0)
+        self.titleLabel?.font = .systemFont(ofSize: 14.0)
         self.layer.masksToBounds = true
         self.addTarget(self, action: #selector(buttonPressed), for:.touchUpInside)
     }
