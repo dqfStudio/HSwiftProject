@@ -187,9 +187,8 @@ extension HSheetController {
                 cell.backgroundColor = UIColor.white
                 var button = cell.viewWithTag(12345) as? HWebActionView
                 if button == nil {
-//                    button = HButton(imagePosition: .left, space: 8)
-                    button = HWebActionView()
-                    button!.frame = cell.layoutViewBounds
+                    button = HWebActionView(frame: cell.layoutViewBounds)
+                    button!.imageSpace = 8
                     button!.tag = 12345
                     button!.textFont = UIFont.font(ofSize: 16, weight: .regular)
                     button!.textColor = UIColor.black
