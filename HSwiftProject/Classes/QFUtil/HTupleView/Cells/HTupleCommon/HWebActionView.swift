@@ -212,7 +212,10 @@ extension HWebActionView {
 
         self._setImage(nil)
         self.lastURL = ""
-        let url: URL = URL(string: urlString)!
+        
+        guard let url = URL(string: urlString) else {
+            return
+        }
 
         if cache {
             KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { result in
