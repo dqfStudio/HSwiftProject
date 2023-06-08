@@ -207,6 +207,9 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
 
     // tuple status
     var tupleStatus: HTupleStatus = .delegate
+    
+    // content size center
+    var isContentCenter: Bool = false
 
     private var allReuseIdentifiers: NSMutableSet = NSMutableSet()
     private var allSectionInsets = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
@@ -267,6 +270,16 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             guard frame != super.frame else { return }
             super.frame = frame
             self.reloadData()
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let contentSize = super.contentSize
+        if contentSize != .zero, isContentCenter {
+            let originX = (self.width - contentSize.width) / 2
+            let originY = (self.height - contentSize.height) / 2
+            self.contentInset = UIEdgeInsets(top: originY, left: originX, bottom: 0, right: 0)
         }
     }
 
