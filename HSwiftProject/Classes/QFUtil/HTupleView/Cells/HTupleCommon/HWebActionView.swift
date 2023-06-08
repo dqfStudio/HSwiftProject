@@ -38,9 +38,11 @@ class HWebActionView: UIButton {
         }
     }
 
+    var imageSize: CGSize = .zero
     var hasImage: Bool {
         return self.imageView?.image != nil
     }
+    
     var pressed: Callback?
     var didGetImage: Callback?
     var didGetError: Callback?
@@ -146,9 +148,18 @@ extension HWebActionView {
         }
         if let renderColor = renderColor {
             self.imageView?.tintColor = renderColor
-            self.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
+            if imageSize != .zero {
+                let image = image.withRenderingMode(.alwaysTemplate)
+                self.setImage(image.scaleImage(imageSize), for: .normal)
+            } else {
+                self.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
+            }
         } else {
-            self.setImage(image, for: .normal)
+            if imageSize != .zero {
+                self.setImage(image.scaleImage(imageSize), for: .normal)
+            } else {
+                self.setImage(image, for: .normal)
+            }
         }
     }
 

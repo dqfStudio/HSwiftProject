@@ -65,7 +65,13 @@ class HMainController2: HViewController {
         
         let button = HWebActionView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
         
-        button.image = UIImage(named: "icon_tuple_arrow_right")
+        button.imageSize = CGSize(width: 8, height: 12)
+        
+        let image = UIImage(named: "icon_tuple_arrow_right")
+//        button.image = image?.scaleImage(CGSize(width: 10, height: 12))
+//        button.image = image
+        button.setImage(image)
+        
         
 //        let string = "https://freechatoss.s3.ap-southeast-1.amazonaws.com/images/Group_Chat_Banner_English.png"
 
@@ -80,7 +86,7 @@ class HMainController2: HViewController {
         button.text = "啊发来的撒酒疯拉的屎"
         
         button.imagePosition = .right
-        button.imageSpace = 10
+        button.imageSpace = 5
         
         button.backgroundColor = .red
         self.view.addSubview(button)
