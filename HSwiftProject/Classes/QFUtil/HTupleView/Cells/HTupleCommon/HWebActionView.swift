@@ -39,6 +39,8 @@ class HWebActionView: UIButton {
     }
 
     var imageSize: CGSize = .zero
+    private var needRefresh: Bool = true
+    
     var hasImage: Bool {
         return self.imageView?.image != nil
     }
@@ -102,8 +104,18 @@ class HWebActionView: UIButton {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        if self.superview != nil, originBounds != bounds {
+
+        if self.superview != nil {
+            needRefresh = true //需要刷新
+        }
+        
+        if originBounds != bounds {
             originBounds = bounds
+            needRefresh = true //需要刷新
+        }
+        
+        if needRefresh {
+            needRefresh = false
             updatePosition()
         }
     }
@@ -161,6 +173,8 @@ extension HWebActionView {
                 self.setImage(image, for: .normal)
             }
         }
+        // 需要刷新
+        needRefresh = true
     }
 
     /**
