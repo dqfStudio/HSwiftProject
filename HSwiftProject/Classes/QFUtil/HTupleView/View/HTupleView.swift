@@ -208,8 +208,11 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     // tuple status
     var tupleStatus: HTupleStatus = .delegate
     
-    // content size center
-    var isContentCenter: Bool = false
+    // Set the value of marginTop
+    var marginTop: CGFloat = 0.0
+    
+    // Set the ratio of marginTop
+    var marginRatio: CGFloat = 0.0
 
     private var allReuseIdentifiers: NSMutableSet = NSMutableSet()
     private var allSectionInsets = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
@@ -276,10 +279,15 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     override func layoutSubviews() {
         super.layoutSubviews()
         let contentSize = super.contentSize
-        if contentSize != .zero, isContentCenter {
-            let originX = (self.width - contentSize.width) / 2
-            let originY = (self.height - contentSize.height) / 2
-            self.contentInset = UIEdgeInsets(top: originY, left: originX, bottom: 0, right: 0)
+        if contentSize != .zero {
+            if marginTop > 0 {
+                let originX = (self.width - contentSize.width) / 2
+                self.contentInset = UIEdgeInsets(top: marginTop, left: originX, bottom: 0, right: 0)
+            } else if marginRatio > 0 {
+                let originX = (self.width - contentSize.width) / 2
+                let originY = (self.height - contentSize.height) * marginRatio
+                self.contentInset = UIEdgeInsets(top: originY, left: originX, bottom: 0, right: 0)
+            }
         }
     }
 
