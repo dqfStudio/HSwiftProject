@@ -118,24 +118,6 @@ class HMainController2: HViewController {
         
         return
         
-        
-//        let textStackView = HThreeTextsView(frame: CGRect(x: 10, y: 200, width: 320, height: 120))
-//        textStackView.backgroundColor = .gray
-//        self.view.addSubview(textStackView)
-//
-//        textStackView.label.text = "label"
-//        textStackView.label.backgroundColor = .red
-//
-//        textStackView.detailLabel.text = "detailLabel"
-//        textStackView.detailLabel.backgroundColor = .blue
-//
-//        textStackView.accessoryLabel.text = "accoryLabel"
-//        textStackView.accessoryLabel.backgroundColor = .green
-//
-//        textStackView.reloadData()
-//
-//        return
-//
 //        let sectionView = HSectionView(frame: CGRect(x: 10, y: 200, width: 320, height: 120))
 //        sectionView.backgroundColor = .gray
 //        self.view.addSubview(sectionView)
@@ -166,22 +148,6 @@ class HMainController2: HViewController {
 //        }
 //
 //        sectionView.reloadData()
-//
-//        return
-
-        
-//        let button = HWebActionView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
-//
-//        button.imageView.image = UIImage(named: "icon_tuple_arrow_right")
-//
-//
-//        button.titleLabel.text = "啊发来的撒酒疯拉的屎"
-//
-//        button.spacing = 10
-//
-//        button.direction = .vertical
-//        button.backgroundColor = .red
-//        self.view.addSubview(button)
 //
 //        return
         
