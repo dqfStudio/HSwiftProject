@@ -59,6 +59,31 @@ class HMainController2: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let searchBar = HSearchBar(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+        
+//        searchBar.cornerRadius = 40
+        
+        if searchBar.leftView == nil {
+            searchBar.leftView = UIView()
+            searchBar.leftView?.backgroundColor = .green
+//            searchBar.leftWidth = 40
+            searchBar.leftSpace = 5
+        }
+        
+        searchBar.textField.text = "fffff"
+        searchBar.textField.backgroundColor = .yellow
+        
+        if searchBar.rightView == nil {
+            searchBar.rightView = UIView()
+            searchBar.rightView?.backgroundColor = .blue
+//            searchBar.rightWidth = 40
+            searchBar.rightSpace = 15
+        }
+        
+        searchBar.backgroundColor = .red
+        self.view.addSubview(searchBar)
+        
+        return
         
 //        let button = HWebActionView()
 //        button.frame = CGRect(x: 10, y: 200, width: 320, height: 80)

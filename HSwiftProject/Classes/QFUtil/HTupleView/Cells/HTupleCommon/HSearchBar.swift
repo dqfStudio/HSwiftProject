@@ -10,16 +10,9 @@ import UIKit
 
 class HSearchBar: UIStackView {
     
-    private var allReuseViews = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
-    
-    var leftView: UIView? {
-        get { return allReuseViews.object(forKey: "leftView") as? UIView }
-        set { allReuseViews.setObject(newValue, forKey: "leftView") }
-    }
-    var rightView: UIView? {
-        get { return allReuseViews.object(forKey: "rightView") as? UIView }
-        set { allReuseViews.setObject(newValue, forKey: "rightView") }
-    }
+    var leftView: UIView?
+    var rightView: UIView?
+
     lazy var textField: UITextField = {
         return UITextField()
     }()
