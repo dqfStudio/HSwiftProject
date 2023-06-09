@@ -13,15 +13,15 @@ class HSearchBar: UIStackView {
     var leftView: UIView?
     var rightView: UIView?
 
-    lazy var textField: UITextField = {
-        return UITextField()
-    }()
-
     var leftWidth = 0.0
     var rightWidth = 0.0
 
     var leftSpace = 0.0
     var rightSpace = 0.0
+    
+    lazy var textField: UITextField = {
+        return UITextField()
+    }()
     
     override func layoutSubviews() {
         super.layoutSubviews()
