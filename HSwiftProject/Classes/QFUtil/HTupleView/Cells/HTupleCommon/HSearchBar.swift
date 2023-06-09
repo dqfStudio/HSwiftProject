@@ -1,5 +1,5 @@
 //
-//  HInputField.swift
+//  HSearchBar.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/5/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HInputField: UIStackView {
+class HSearchBar: UIStackView {
     
     private var allReuseViews = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
     
