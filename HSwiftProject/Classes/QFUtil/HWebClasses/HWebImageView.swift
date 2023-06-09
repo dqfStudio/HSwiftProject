@@ -251,3 +251,10 @@ class HWebImageView: UIImageView {
     }
 
 }
+
+
+extension UIImageView {
+    convenience init(named: String) {
+        self.init(image: UIImage(named: named))
+    }
+}
