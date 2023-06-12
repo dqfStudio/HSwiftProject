@@ -239,12 +239,8 @@ class HWebButtonView: UIButton {
 
     // Set background color
     override internal var backgroundColor: UIColor? {
-        get {
-            return _imageView.backgroundColor
-        }
-        set {
-            _imageView.backgroundColor = newValue
-        }
+        get { return _imageView.backgroundColor }
+        set { _imageView.backgroundColor = newValue }
     }
     
 }
