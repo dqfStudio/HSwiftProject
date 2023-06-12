@@ -16,16 +16,14 @@ private var h_disableMinContentHeightKey = "h_disableMinContentHeightKey"
 extension UIViewController {
     
     var h_tabItem: HTabItem? {
-        let tabBar: HTabBar? = self.h_tabBarController?.tabBar
-        if tabBar == nil {
+        guard let items = self.h_tabBarController?.tabBar.items else {
             return nil
         }
-        if !(self.h_tabBarController?.viewControllers?.contains(self) ?? false) {
+        guard let viewControllers = self.h_tabBarController?.viewControllers, viewControllers.contains(self) else {
             return nil
         }
-        
-        let index = self.h_tabBarController?.viewControllers?.index(of: self)
-        return tabBar?.items?[index!] as? HTabItem
+        let index = viewControllers.firstIndex(of: self) ?? 0
+        return items[index]
     }
 
     var h_tabBarController: HTabBarController? {

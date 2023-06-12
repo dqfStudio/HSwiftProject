@@ -117,9 +117,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
             var items = [HTabItem]()
             for vc in _viewControllers! {
-                if containerVC != nil {
-                    containerVC!.addChild(vc)
-                }
+                containerVC?.addChild(vc)
                 
                 let item = HTabItem()
                 item.image = vc.h_tabItemImage
@@ -130,8 +128,9 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
             self.tabBar.items = items
 
             // 更新scrollView的content size
-            if self.contentScrollEnabled {
-                self.contentScrollView.h_contentSize = CGSize(width: self.contentScrollView.bounds.size.width * CGFloat(_viewControllers!.count), height: self.contentScrollView.bounds.size.height)
+            if let viewControllers = _viewControllers, self.contentScrollEnabled {
+                self.contentScrollView.h_contentSize = CGSize(width: self.contentScrollView.bounds.size.width * CGFloat(viewControllers.count),
+                                                              height: self.contentScrollView.bounds.size.height)
             }
             
             if _isDefaultSelectedTabIndexSetuped {
@@ -285,7 +284,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
     
         
     required init() {
-        super.init(frame: CGRect.zero)
+        super.init(frame: .zero)
         self._setup()
     }
     
@@ -305,7 +304,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
     }
 
     private func _setup() {
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = .white
         self.clipsToBounds = true
 
         _tabBar.delegate = self
