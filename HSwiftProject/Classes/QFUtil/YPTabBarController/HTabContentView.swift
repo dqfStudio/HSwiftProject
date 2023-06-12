@@ -339,12 +339,10 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
     deinit {
         if let viewControllers = self.viewControllers {
-            for vc in viewControllers {
-                if vc.h_hasAddedContentOffsetObserver {
-                    // 如果vc注册了contentOffset的观察者，需移除
-                    vc.h_displayView.removeObserver(self, forKeyPath: kContentOffset)
-                    vc.h_hasAddedContentOffsetObserver = false
-                }
+            for vc in viewControllers where vc.h_hasAddedContentOffsetObserver {
+                // 如果vc注册了contentOffset的观察者，需移除
+                vc.h_displayView.removeObserver(self, forKeyPath: kContentOffset)
+                vc.h_hasAddedContentOffsetObserver = false
             }
         }
     }
