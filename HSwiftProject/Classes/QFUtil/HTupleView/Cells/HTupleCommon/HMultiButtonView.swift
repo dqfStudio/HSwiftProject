@@ -10,13 +10,11 @@ import UIKit
 
 class HMultiButtonView: UIStackView {
     
-    private var viewCount: CGFloat = 0.0
-    
     private var _button: HWebButtonView?
     var button: HWebButtonView {
         if _button == nil {
-            _button = HWebButtonView()
-            viewCount += 1
+            _button = HWebButtonView(frame: .zero)
+            self.addArrangedSubview(_button!)
         }
         return _button!
     }
@@ -24,8 +22,8 @@ class HMultiButtonView: UIStackView {
     private var _detailButton: HWebButtonView?
     var detailButton: HWebButtonView {
         if _detailButton == nil {
-            _detailButton = HWebButtonView()
-            viewCount += 1
+            _detailButton = HWebButtonView(frame: .zero)
+            self.addArrangedSubview(_detailButton!)
         }
         return _detailButton!
     }
@@ -33,41 +31,29 @@ class HMultiButtonView: UIStackView {
     private var _accessoryButton: HWebButtonView?
     var accessoryButton: HWebButtonView {
         if _accessoryButton == nil {
-            _accessoryButton = HWebButtonView()
-            viewCount += 1
+            _accessoryButton = HWebButtonView(frame: .zero)
+            self.addArrangedSubview(_accessoryButton!)
         }
         return _accessoryButton!
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setup()
+    required init() {
+        super.init(frame: .zero)
+        self.setup()
+    }
+    
+    @available(*, unavailable)
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    required override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setup()
     }
     
     private func setup() {
-        
-        let width = (self.width - self.spacing) / viewCount
-        
-        guard width > 0 else { return }
-        
-        if let button = _button {
-            button.widthAnchor.constraint(equalToConstant: width).isActive = true
-            button.heightAnchor.constraint(equalToConstant: self.height).isActive = true
-            self.addArrangedSubview(button)
-        }
-        
-        if let detailButton = _detailButton {
-            detailButton.widthAnchor.constraint(equalToConstant: width).isActive = true
-            detailButton.heightAnchor.constraint(equalToConstant: self.height).isActive = true
-            self.addArrangedSubview(detailButton)
-        }
-        
-        if let accessoryButton = _accessoryButton {
-            accessoryButton.widthAnchor.constraint(equalToConstant: width).isActive = true
-            accessoryButton.heightAnchor.constraint(equalToConstant: self.height).isActive = true
-            self.addArrangedSubview(accessoryButton)
-        }
-        
+        self.distribution = .fillEqually
     }
     
 }

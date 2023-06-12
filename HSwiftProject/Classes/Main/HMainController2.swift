@@ -59,6 +59,18 @@ class HMainController2: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let multiButtonView = HMultiButtonView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+        multiButtonView.spacing = 10
+        self.view.addSubview(multiButtonView)
+        
+        multiButtonView.button.backgroundColor = .red
+        
+        multiButtonView.detailButton.backgroundColor = .blue
+        
+        multiButtonView.accessoryButton.backgroundColor = .green
+        
+        return
+        
         let searchBar = HSearchBar(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
         
 //        searchBar.cornerRadius = 40
