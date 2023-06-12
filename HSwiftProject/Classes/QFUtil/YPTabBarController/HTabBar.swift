@@ -64,10 +64,10 @@ class HTabBar : UIView {
     private var specialItemHandler: HSpecialItemHandler?
 
     // 选中背景
-    private var indicatorImageView: UIImageView = UIImageView(frame: CGRect.zero)
+    private var indicatorImageView: UIImageView = UIImageView(frame: .zero)
 
     // 选中背景相对于HTabItem的insets
-    private var indicatorInsets: UIEdgeInsets = UIEdgeInsets.zero
+    private var indicatorInsets: UIEdgeInsets = .zero
     private var indicatorStyle: HTabBarIndicatorStyle = .fitItem
     private var indicatorWidthFixTitleAdditional: CGFloat = 0.0
     private var indicatorWidth: CGFloat = 0.0
