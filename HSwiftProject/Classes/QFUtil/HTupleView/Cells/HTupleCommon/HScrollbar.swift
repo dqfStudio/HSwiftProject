@@ -82,12 +82,12 @@ class HScrollbar: UIStackView, HTupleViewDelegate {
     }
     
     // The font and color of the unselected item titles
-    var titleFont: UIFont = UIFont.systemFont(ofSize: 14)
+    var titleFont: UIFont = .systemFont(ofSize: 14)
     var titleColor: UIColor = .black
     var titleBGColor: UIColor = .white
     
     // The font and color of the selected item title
-    var titleSelectedFont: UIFont = UIFont.systemFont(ofSize: 14)
+    var titleSelectedFont: UIFont = .systemFont(ofSize: 14)
     var titleSelectedColor: UIColor = .black
     var titleSelectedBGColor: UIColor = .white
     
