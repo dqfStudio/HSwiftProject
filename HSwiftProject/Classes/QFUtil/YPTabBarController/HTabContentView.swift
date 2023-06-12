@@ -540,8 +540,8 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
         }
 
         // 当contentView为scrollView及其子类时，设置它支持点击状态栏回到顶部
-        if oldController != nil && oldController!.h_displayView.isKind(of: UIScrollView.self) {
-            let scrollView = oldController!.h_displayView as! UIScrollView
+        if let oldVC = oldController, oldVC.h_displayView.isKind(of: UIScrollView.self) {
+            let scrollView = oldVC.h_displayView as! UIScrollView
             scrollView.scrollsToTop = false
         }
         if curController.h_displayView.isKind(of: UIScrollView.self) {
@@ -556,10 +556,10 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
                     curScrollView.minContentSizeHeight = self.contentScrollView.frame.size.height - self.tabBar.frame.size.height - self.tabBarStopOnTopHeight
                 }
 
-                if oldController != nil && oldController!.h_hasAddedContentOffsetObserver {
+                if let oldVC = oldController, oldVC.h_hasAddedContentOffsetObserver {
                     // 移除oldController的h_displayView注册的观察者
-                    oldController!.h_displayView.removeObserver(self, forKeyPath: kContentOffset)
-                    oldController!.h_hasAddedContentOffsetObserver = false
+                    oldVC.h_displayView.removeObserver(self, forKeyPath: kContentOffset)
+                    oldVC.h_hasAddedContentOffsetObserver = false
                 }
                 if !curController.h_hasAddedContentOffsetObserver {
                     // 注册curScrollView的观察者
