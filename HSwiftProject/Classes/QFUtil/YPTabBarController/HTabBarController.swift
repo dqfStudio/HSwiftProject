@@ -47,9 +47,7 @@ class HTabBarController : HViewController, HTabContentViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let h_willAppearInjectBlock = self.h_willAppearInjectBlock {
-            h_willAppearInjectBlock(self, animated)
-        }
+        self.h_willAppearInjectBlock?(self, animated)
     }
 
     /**
@@ -58,9 +56,7 @@ class HTabBarController : HViewController, HTabContentViewDelegate {
      *  如果设置了headerView，此方法不生效
      */
     func setTabBarFrame(_ tabBarFrame: CGRect, contentViewFrame: CGRect) {
-        guard self.tabContentView.headerView == nil else {
-            return
-        }
+        guard self.tabContentView.headerView == nil else { return }
         self.tabBar.frame = tabBarFrame
         self.tabContentView.frame = contentViewFrame
     }

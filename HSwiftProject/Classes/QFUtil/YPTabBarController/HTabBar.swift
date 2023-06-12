@@ -125,15 +125,13 @@ class HTabBar : UIView {
             selectedItemIndex = NSNotFound
             
             // 将老的item从superview上删除
-            if _items != nil {
-                for item in _items! {
-                    item.removeFromSuperview()
-                }
-            }
+            _items?.forEach({ item in
+                item.removeFromSuperview()
+            })
             _items = newValue
             
             // 初始化每一个item
-            for item in _items! {
+            _items?.forEach({ item in
                 
                 item.titleColor = self.itemTitleColor
                 item.titleSelectedColor = self.itemTitleSelectedColor
@@ -161,7 +159,7 @@ class HTabBar : UIView {
                 // 更新item的大小缩放
                 self.updateItemsScaleIfNeeded()
                 self.updateAllUI()
-            }
+            })
         }
     }
 
@@ -380,9 +378,7 @@ class HTabBar : UIView {
                     delegate.h_tabBar?(self, didSelectedItemAtIndex: newValue)
                 }
             }
-            if self.tabbardSelectedBlock != nil {
-                self.tabbardSelectedBlock!(newValue)
-            }
+            self.tabbardSelectedBlock?(newValue)
         }
     }
     
