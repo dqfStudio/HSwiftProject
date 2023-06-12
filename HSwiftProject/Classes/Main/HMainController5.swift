@@ -57,7 +57,7 @@ class HMainController5: HTabBarController {
         controller3.view.backgroundColor = UIColor.blue
         controller3.h_tabItemTitle = "第三个"
         
-        self.viewControllers = NSMutableArray(objects: controller1, controller2, controller3)
+        self.viewControllers = [controller1, controller2, controller3]
     }
 
 }

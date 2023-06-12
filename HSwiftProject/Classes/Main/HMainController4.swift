@@ -52,7 +52,7 @@ class HMainController4: HTabBarController {
         controller2.view.backgroundColor = UIColor.red
         controller2.h_tabItemTitle = "第二个"
         
-        self.viewControllers = NSMutableArray(objects: controller1, controller2)
+        self.viewControllers = [controller1, controller2]
     }
 
 }

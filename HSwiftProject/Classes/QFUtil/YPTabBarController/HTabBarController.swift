@@ -19,7 +19,7 @@ class HTabBarController : HViewController, HTabContentViewDelegate {
         return _tabContentView
     }
     
-    var viewControllers: NSArray? {
+    var viewControllers: [UIViewController]? {
         get { return self.tabContentView.viewControllers }
         set { self.tabContentView.viewControllers = newValue }
     }

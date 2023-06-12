@@ -92,15 +92,14 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
         }
     }
     
-    private var _viewControllers: NSArray?
-    var viewControllers: NSArray? {
+    private var _viewControllers: [UIViewController]?
+    var viewControllers: [UIViewController]? {
         get {
             return _viewControllers
         }
         set {
             if _viewControllers != nil {
-                for item in _viewControllers! {
-                    let vc = item as! UIViewController
+                for vc in _viewControllers! {
                     if vc.h_hasAddedContentOffsetObserver {
                         vc.h_displayView.removeObserver(self, forKeyPath: kContentOffset)
                         vc.h_hasAddedContentOffsetObserver = false
@@ -117,8 +116,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
             let containerVC: UIViewController? = self.contarinerViewController
 
             var items = [HTabItem]()
-            for item in _viewControllers! {
-                let vc = item as! UIViewController
+            for vc in _viewControllers! {
                 if containerVC != nil {
                     containerVC!.addChild(vc)
                 }
@@ -263,7 +261,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
      */
     var selectedController: UIViewController? {
         if self.selectedTabIndex != NSNotFound, let viewControllers = self.viewControllers {
-            return viewControllers[self.selectedTabIndex] as? UIViewController
+            return viewControllers[self.selectedTabIndex]
         }
         return nil
     }
@@ -341,12 +339,11 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
     deinit {
         if let viewControllers = self.viewControllers {
-            for item in viewControllers {
-                let controller = item as! UIViewController
-                if controller.h_hasAddedContentOffsetObserver {
+            for vc in viewControllers {
+                if vc.h_hasAddedContentOffsetObserver {
                     // 如果vc注册了contentOffset的观察者，需移除
-                    controller.h_displayView.removeObserver(self, forKeyPath: kContentOffset)
-                    controller.h_hasAddedContentOffsetObserver = false
+                    vc.h_displayView.removeObserver(self, forKeyPath: kContentOffset)
+                    vc.h_hasAddedContentOffsetObserver = false
                 }
             }
         }
@@ -356,10 +353,9 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
         if self.contentScrollEnabled {
             if let viewControllers = self.viewControllers, viewControllers.count > 0 {
                 self.contentScrollView.h_contentSize = CGSize(width: self.contentScrollView.bounds.size.width * CGFloat(viewControllers.count), height: self.contentScrollView.bounds.size.height)
-                viewControllers.enumerateObjects({ (item, idx, stop) in
-                    let controller = item as! UIViewController
-                    if controller.isViewLoaded {
-                        controller.h_displayView.frame = self.frameForControllerAtIndex(idx)
+                viewControllers.enumerated().forEach({ (idx, vc) in
+                    if vc.isViewLoaded {
+                        vc.h_displayView.frame = self.frameForControllerAtIndex(idx)
                     }
                 })
                 if let selectedController = self.selectedController {
@@ -491,7 +487,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
         }
         var oldController: UIViewController?
         if self.selectedTabIndex != NSNotFound {
-            oldController = self.viewControllers![self.selectedTabIndex] as? UIViewController
+            oldController = self.viewControllers![self.selectedTabIndex]
             oldController?.h_tabItemDidDeselected()
             let selector = #selector(oldController!.h_tabItemDidDeselected)
             if oldController!.responds(to: selector) {
@@ -499,15 +495,14 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
             }
             if (!self.contentScrollEnabled ||
                     (self.contentScrollEnabled && self.removeViewOfChildContollerWhileDeselected)) {
-                self.viewControllers!.enumerateObjects { (item, idx, stop) in
-                    let controller = item as! UIViewController
-                    if (idx != index && controller.isViewLoaded && controller.h_displayView.superview != nil) {
-                        controller.h_displayView.removeFromSuperview()
+                self.viewControllers!.enumerated().forEach({ (idx, vc) in
+                    if (idx != index && vc.isViewLoaded && vc.h_displayView.superview != nil) {
+                        vc.h_displayView.removeFromSuperview()
                     }
-                }
+               })
             }
         }
-        let curController = self.viewControllers![index] as! UIViewController
+        let curController = self.viewControllers![index]
         if self.contentScrollEnabled {
             // contentView支持滚动
             if !curController.isViewLoaded {
@@ -670,7 +665,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
         // 将需要显示的child view放到scrollView上
         for index in leftIndex..<rightIndex + 1 {
 
-            let controller = self.viewControllers![index] as! UIViewController
+            let controller = self.viewControllers![index]
 
             if (!controller.isViewLoaded && self.loadViewOfChildContollerWhileAppear) {
                 let frame: CGRect = self.frameForControllerAtIndex(index)

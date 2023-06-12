@@ -55,7 +55,7 @@ class HMenuViewController: HTabBarController {
         registerVC.h_tabItemImage = UIImage(named: "di_index")
         registerVC.h_tabItemSelectedImage = UIImage(named: "di_index_h")
         
-        self.viewControllers = NSMutableArray(objects: mainVC1, mainVC2, mainVC3, mainVC4, loginVC, registerVC)
+        self.viewControllers = [mainVC1, mainVC2, mainVC3, mainVC4, loginVC, registerVC]
     }
     
     func setupFrameOfTabBarAndContentView() {
