@@ -317,9 +317,7 @@ class HTabItem : UIButton {
             super.frame = newValue
             _frameWithOutTransform = frame
             if newValue != CGRect.zero {
-                if let doubleTapView = self.doubleTapView {
-                    doubleTapView.frame = self.bounds
-                }
+                self.doubleTapView?.frame = self.bounds
                 self.updateBadge()
                 self.calculateIndicatorFrame()
             }
