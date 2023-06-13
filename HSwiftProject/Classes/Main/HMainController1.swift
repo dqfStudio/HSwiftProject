@@ -129,6 +129,7 @@ class HMainController1: HTupleController {
                     var image2 = UIImage(named: "icon_no_server")
                     image2 = image2?.scaleImage(CGSize(width: 25, height: 25))
                     cell.detailView.image = image2
+                    cell.detailView.cornerRadius = 25 / 2
                     
                     cell.imageSpacing = 5.0
                     cell.labelSpacing = 5.0
@@ -150,6 +151,7 @@ class HMainController1: HTupleController {
                     cell.imageView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.imageView.backgroundColor = UIColor.red
                     cell.imageView.setImageWithName("icon_no_server")
+                    cell.imageView.cornerRadius = 25 / 2
 
                     cell.label.backgroundColor = UIColor.green
                     cell.label.text = "label"
@@ -163,6 +165,7 @@ class HMainController1: HTupleController {
                     cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.detailView.backgroundColor = UIColor.red
                     cell.detailView.setImageWithName("icon_no_server")
+                    cell.detailView.cornerRadius = 25 / 2
                     
                     cell.isShowAccessoryArrow = true
                 }
@@ -181,6 +184,7 @@ class HMainController1: HTupleController {
                     cell.imageView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.imageView.backgroundColor = UIColor.red
                     cell.imageView.setImageWithName("icon_no_server")
+                    cell.imageView.cornerRadius = 25 / 2
 
                     cell.label.backgroundColor = UIColor.green
                     cell.label.text = "label"
@@ -194,6 +198,7 @@ class HMainController1: HTupleController {
                     cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.detailView.backgroundColor = UIColor.red
                     cell.detailView.setImageWithName("icon_no_server")
+                    cell.detailView.cornerRadius = 25 / 2
                     
                     cell.isShowAccessoryArrow = true
                 }
