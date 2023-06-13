@@ -266,6 +266,7 @@ class HMainController1: HTupleController {
                 cell.imageView.setImageWithName("icon_no_server")
 
                 cell.labelHeight = 25
+                cell.label.backgroundColor = .green
                 cell.label.textAlignment = .center
                 cell.label.text = "黑客帝国"
             }
