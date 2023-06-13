@@ -11,6 +11,13 @@ import Kingfisher
 
 class HWebButtonView2: UIButton {
     
+    var hasImage: Bool {
+        return self.imageView?.image != nil
+    }
+    var pressed: Callback?
+    var didGetImage: Callback?
+    var didGetError: Callback?
+    
     private var lastURL: String = ""
     // Click time
     private var pressedInterval: TimeInterval = 0.0
@@ -22,17 +29,10 @@ class HWebButtonView2: UIButton {
                 self.setImage(self.image(for:.normal)?.withRenderingMode(.alwaysOriginal), for:.normal)
                 return
             }
-            imageView?.tintColor = color
+            self.imageView?.tintColor = color
             self.setImage(self.image(for:.normal)?.withRenderingMode(.alwaysTemplate), for:.normal)
         }
     }
-    
-    var hasImage: Bool {
-        return imageView?.image != nil
-    }
-    var pressed: Callback?
-    var didGetImage: Callback?
-    var didGetError: Callback?
     
     required init() {
         super.init(frame: .zero)
@@ -51,23 +51,23 @@ class HWebButtonView2: UIButton {
 
     private func setup() {
         self.backgroundColor = UIColor.clear
-        titleLabel?.font = .systemFont(ofSize: 14.0)
+        self.titleLabel?.font = .systemFont(ofSize: 14.0)
         self.imageView?.contentMode = .scaleAspectFill
         self.layer.masksToBounds = true
         self.addTarget(self, action: #selector(buttonPressed), for:.touchUpInside)
     }
 
     private func _setImage(_ image: UIImage?) {
-        imageView?.kf.cancelDownloadTask()
+        self.imageView?.kf.cancelDownloadTask()
         guard let image = image else {
-            imageView?.image = nil
+            self.imageView?.image = nil
             return
         }
         if let renderColor = renderColor {
-            imageView?.tintColor = renderColor
-            imageView?.image = image.withRenderingMode(.alwaysTemplate)
+            self.imageView?.tintColor = renderColor
+            self.imageView?.image = image.withRenderingMode(.alwaysTemplate)
         } else {
-            imageView?.image = image
+            self.imageView?.image = image
         }
     }
     
@@ -112,15 +112,15 @@ class HWebButtonView2: UIButton {
         }
         
         if urlString.hasPrefix("http") == false {
-            let image: UIImage? = UIImage(named: urlString)
+            let image = UIImage(named: urlString)
             self._setImage(image)
             self.imageView?.alpha = 1.0
-            didGetImage?(self, imageView?.image)
+            didGetImage?(self, self.imageView?.image)
             return
         }
         if self.imageView?.image != nil && lastURL.isEqual(urlString) {
             self.imageView?.alpha = 1.0
-            didGetImage?(self, imageView?.image)
+            didGetImage?(self, self.imageView?.image)
             return
         }
         
@@ -196,7 +196,8 @@ class HWebButtonView2: UIButton {
     */
     func setImageWithName(_ fileName: String) {
         if fileName.count > 0 {
-            self.setImage(UIImage(named: fileName))
+            let image = UIImage(named: fileName)
+            self.setImage(image)
         }
     }
 
