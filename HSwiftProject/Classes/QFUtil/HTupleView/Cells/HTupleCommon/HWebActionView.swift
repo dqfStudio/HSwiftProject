@@ -25,6 +25,10 @@ class HWebActionView: UIButton {
         return self.imageView?.image != nil
     }
     
+    var pressed: Callback?
+    var didGetImage: Callback?
+    var didGetError: Callback?
+    
     private var originBounds: CGRect = .zero
     private var needRefresh: Bool = true
 
@@ -43,10 +47,6 @@ class HWebActionView: UIButton {
             self.setImage(self.image(for:.normal)?.withRenderingMode(.alwaysTemplate), for:.normal)
         }
     }
-    
-    var pressed: Callback?
-    var didGetImage: Callback?
-    var didGetError: Callback?
 
     required init() {
         super.init(frame: .zero)
@@ -64,15 +64,11 @@ class HWebActionView: UIButton {
     }
 
     private func setup() {
-        self.initialize()
-    }
-
-    private func initialize() {
         self.backgroundColor = .clear
         self.imageView?.contentMode = .scaleAspectFill
         self.titleLabel?.font = .systemFont(ofSize: 17.0)
         self.layer.masksToBounds = true
-        self.addTarget(self, action: #selector(buttonPressed), for:.touchUpInside)
+        self.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
 
     // Click response event
