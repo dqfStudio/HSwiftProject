@@ -202,9 +202,9 @@ class HWebImageView: UIImageView {
     */
     func setImageWithFile(_ fileName: String) {
         if fileName.count > 0 {
-            if let resourcePath: String = Bundle.main.resourcePath {
-                let filePath: String = resourcePath.appendingFormat("/%@", fileName)
-                if let image: UIImage = UIImage(contentsOfFile: filePath) {
+            if let resourcePath = Bundle.main.resourcePath {
+                let filePath = resourcePath.appendingFormat("/%@", fileName)
+                if let image = UIImage(contentsOfFile: filePath) {
                     self.setImage(image)
                 }
             }
