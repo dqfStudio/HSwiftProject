@@ -104,7 +104,7 @@ class HWebImageView: UIImageView {
         self._setImage(image)
         self.lastURL = ""
         self.alpha = 1
-        didGetImage?(self, image!)
+        didGetImage?(self, image)
     }
 
     /**
