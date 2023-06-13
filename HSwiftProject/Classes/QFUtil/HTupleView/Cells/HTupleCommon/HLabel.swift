@@ -27,7 +27,7 @@ class HLabel: UILabel {
             return
         }
 
-        let size = text.size(withAttributes: [NSAttributedString.Key.font: font ?? UIFont.systemFont(ofSize: 14)])
+        let size = text.size(withAttributes: [NSAttributedString.Key.font: font ?? UIFont.systemFont(ofSize: 14.0)])
         var newRect = rect
 
         switch verticalAlignment {
