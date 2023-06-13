@@ -19,8 +19,14 @@ class HWebActionView: UIButton {
     }
 
     var imageSpace: CGFloat = 0.0
+    var imageSize: CGSize = .zero
     var imagePosition: Position = .left
+    var hasImage: Bool {
+        return self.imageView?.image != nil
+    }
+    
     private var originBounds: CGRect = .zero
+    private var needRefresh: Bool = true
 
     private var lastURL: String = ""
     // Click time
@@ -36,13 +42,6 @@ class HWebActionView: UIButton {
             self.imageView?.tintColor = color
             self.setImage(self.image(for:.normal)?.withRenderingMode(.alwaysTemplate), for:.normal)
         }
-    }
-
-    var imageSize: CGSize = .zero
-    private var needRefresh: Bool = true
-    
-    var hasImage: Bool {
-        return self.imageView?.image != nil
     }
     
     var pressed: Callback?
@@ -104,16 +103,13 @@ class HWebActionView: UIButton {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-
         if self.superview != nil {
             needRefresh = true //需要刷新
         }
-        
         if originBounds != bounds {
             originBounds = bounds
             needRefresh = true //需要刷新
         }
-        
         if needRefresh {
             needRefresh = false
             updatePosition()
