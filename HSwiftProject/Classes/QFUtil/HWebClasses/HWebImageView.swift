@@ -21,7 +21,7 @@ class HWebImageView: UIImageView {
     
     private var lastURL: String = ""
     // Click time
-    private var pressedInterval: TimeInterval = 0
+    private var pressedInterval: TimeInterval = 0.0
     
     // The tintColor in the parent class is problematic
     var renderColor: UIColor? {
@@ -103,7 +103,7 @@ class HWebImageView: UIImageView {
     func setImage(_ image: UIImage?) {
         self._setImage(image)
         self.lastURL = ""
-        self.alpha = 1
+        self.alpha = 1.0
         didGetImage?(self, image)
     }
 
@@ -131,26 +131,20 @@ class HWebImageView: UIImageView {
         if urlString.count == 0 {
             self._setImage(nil)
             self.lastURL = ""
-            if didGetError != nil {
-                didGetError!(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
-            }
+            didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
             return
         }
         
         if urlString.hasPrefix("http") == false {
             let image: UIImage? = UIImage(named: urlString)
             self._setImage(image)
-            self.alpha = 1
-            if didGetImage != nil {
-                didGetImage!(self, self.image!)
-            }
+            self.alpha = 1.0
+            didGetImage?(self, self.image)
             return
         }
         if self.image != nil && lastURL.isEqual(urlString) {
-            self.alpha = 1
-            if didGetImage != nil {
-                didGetImage!(self, self.image!)
-            }
+            self.alpha = 1.0
+            didGetImage?(self, self.image)
             return
         }
         
@@ -160,7 +154,10 @@ class HWebImageView: UIImageView {
         
         self._setImage(nil)
         self.lastURL = ""
-        let url: URL = URL(string: urlString)!
+        
+        guard let url = URL(string: urlString) else {
+            return
+        }
         
         if cache {
             KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { result in
@@ -168,11 +165,9 @@ class HWebImageView: UIImageView {
                 case.success(let value):
                     if value.image != nil {
                         self._setImage(value.image)
-                        self.alpha = 1
+                        self.alpha = 1.0
                         self.lastURL = url.absoluteString
-                        if self.didGetImage != nil {
-                            self.didGetImage!(self, value.image)
-                        }
+                        self.didGetImage?(self, value.image)
                     }
                 case .failure(_): break
                 }
@@ -187,18 +182,14 @@ class HWebImageView: UIImageView {
                     self.lastURL = url.absoluteString
                     if value.cacheType == .none {
                         UIView.animate(withDuration: 0.5) {
-                            self.alpha = 1
+                            self.alpha = 1.0
                         }
                     }else {
-                        self.alpha = 1
+                        self.alpha = 1.0
                     }
-                    if self.didGetImage != nil {
-                        self.didGetImage!(self, value.image)
-                    }
+                    self.didGetImage?(self, value.image)
                 case .failure(let value):
-                    if self.didGetError != nil {
-                        self.didGetError!(self, value as AnyObject)
-                    }
+                    self.didGetError?(self, value as AnyObject)
                 }
             }
         }
@@ -220,9 +211,7 @@ class HWebImageView: UIImageView {
         }else {
             self._setImage(nil)
             self.lastURL = ""
-            if didGetError != nil {
-                didGetError!(self, herr(kDataFormatErrorCode, desc: "url = \(fileName)"))
-            }
+            didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(fileName)"))
         }
     }
 

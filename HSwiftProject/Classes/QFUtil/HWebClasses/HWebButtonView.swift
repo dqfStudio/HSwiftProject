@@ -22,7 +22,7 @@ class HWebButtonView: UIButton {
     
     private var lastURL: String = ""
     // Click time
-    private var pressedInterval: TimeInterval = 0
+    private var pressedInterval: TimeInterval = 0.0
 
     override var contentMode: UIView.ContentMode {
         didSet {
@@ -74,7 +74,7 @@ class HWebButtonView: UIButton {
     }
     
     private func initialize() {
-        titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        titleLabel?.font = .systemFont(ofSize: 14.0)
         self.imageView?.contentMode = .scaleAspectFill
         self.layer.masksToBounds = true
         self.addTarget(self, action: #selector(buttonPressed), for:.touchUpInside)
@@ -102,7 +102,7 @@ class HWebButtonView: UIButton {
     func setImage(_ image: UIImage?) {
         self._setImage(image)
         self.lastURL = ""
-        self.imageView?.alpha = 1
+        self.imageView?.alpha = 1.0
         didGetImage?(self, image)
     }
 
@@ -137,12 +137,12 @@ class HWebButtonView: UIButton {
         if urlString.hasPrefix("http") == false {
             let image: UIImage? = UIImage(named: urlString)
             self._setImage(image)
-            self._imageView.alpha = 1
+            self._imageView.alpha = 1.0
             didGetImage?(self, _imageView.image!)
             return
         }
         if self._imageView.image != nil && lastURL.isEqual(urlString) {
-            self._imageView.alpha = 1
+            self._imageView.alpha = 1.0
             didGetImage?(self, _imageView.image!)
             return
         }
@@ -153,7 +153,10 @@ class HWebButtonView: UIButton {
         
         self._setImage(nil)
         self.lastURL = ""
-        let url: URL = URL(string: urlString)!
+        
+        guard let url = URL(string: urlString) else {
+            return
+        }
         
         if cache {
             KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { result in
@@ -161,7 +164,7 @@ class HWebButtonView: UIButton {
                 case.success(let value):
                     if value.image != nil {
                         self._setImage(value.image)
-                        self._imageView.alpha = 1
+                        self._imageView.alpha = 1.0
                         self.lastURL = url.absoluteString
                         self.didGetImage?(self, value.image)
                     }
@@ -178,10 +181,10 @@ class HWebButtonView: UIButton {
                     self.lastURL = url.absoluteString
                     if value.cacheType == .none {
                         UIView.animate(withDuration: 0.5) {
-                            self._imageView.alpha = 1
+                            self._imageView.alpha = 1.0
                         }
                     }else {
-                        self._imageView.alpha = 1
+                        self._imageView.alpha = 1.0
                     }
                     self.didGetImage?(self, value.image)
                 case .failure(let value):
@@ -207,9 +210,7 @@ class HWebButtonView: UIButton {
         }else {
             self._setImage(nil)
             self.lastURL = ""
-            if didGetError != nil {
-                didGetError!(self, herr(kDataFormatErrorCode, desc: "url = \(fileName)"))
-            }
+            didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(fileName)"))
         }
     }
 
