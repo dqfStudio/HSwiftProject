@@ -138,12 +138,12 @@ class HWebButtonView: UIButton {
             let image: UIImage? = UIImage(named: urlString)
             self._setImage(image)
             self._imageView.alpha = 1.0
-            didGetImage?(self, _imageView.image!)
+            didGetImage?(self, _imageView.image)
             return
         }
         if self._imageView.image != nil && lastURL.isEqual(urlString) {
             self._imageView.alpha = 1.0
-            didGetImage?(self, _imageView.image!)
+            didGetImage?(self, _imageView.image)
             return
         }
         
