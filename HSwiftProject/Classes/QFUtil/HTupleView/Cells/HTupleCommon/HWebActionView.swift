@@ -274,35 +274,4 @@ extension HWebActionView {
         }
     }
 
-    /**
-    *  Set the image name and load it through the file
-    *
-    *  @param fileName image name
-    */
-    func setImageWithFile(_ fileName: String) {
-        if fileName.count > 0 {
-            if let resourcePath = Bundle.main.resourcePath {
-                let filePath = resourcePath.appendingFormat("/%@", fileName)
-                if let image = UIImage(contentsOfFile: filePath) {
-                    self.setImage(image)
-                }
-            }
-        }else {
-            self._setImage(nil)
-            self.lastURL = ""
-            didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(fileName)"))
-        }
-    }
-
-    /**
-    *  Set the image name and load it using imageName
-    *
-    *  @param fileName The name of the image
-    */
-    func setImageWithName(_ fileName: String) {
-        if fileName.count > 0 {
-            self.setImage(UIImage(named: fileName))
-        }
-    }
-
 }

@@ -11,49 +11,61 @@ import Kingfisher
 
 class HWebButtonView: UIButton {
     
-    lazy private var _imageView: UIImageView = {
-        let imageView: UIImageView = UIImageView(frame: self.bounds)
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.masksToBounds = true
-        imageView.isUserInteractionEnabled = false
-        imageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        return imageView
-    }()
-    
-    private var lastURL: String = ""
-    // Click time
-    private var pressedInterval: TimeInterval = 0.0
+    enum HImagePosition {
+        case top
+        case left
+        case bottom
+        case right
+    }
 
-    override var contentMode: UIView.ContentMode {
+    var imageSize: CGSize = .zero {
         didSet {
-            _imageView.contentMode = contentMode
+            if imageSize != oldValue, superview != nil {
+                updateSubviews()
+            }
+        }
+    }
+    var imageSpace: CGFloat = 0.0 {
+        didSet {
+            if imageSpace != oldValue, superview != nil {
+                updateSubviews()
+            }
+        }
+    }
+    var imagePosition: HImagePosition = .left {
+        didSet {
+            if imagePosition != oldValue, superview != nil {
+                updateSubviews()
+            }
         }
     }
     
     // The tintColor in the parent class is problematic
-    var renderColor: UIColor? {
-        didSet {
-            guard let color = renderColor else {
-                _imageView.image = _imageView.image?.withRenderingMode(.alwaysOriginal)
-                self.setImage(self.image(for:.normal)?.withRenderingMode(.alwaysOriginal), for:.normal)
-                return
-            }
-            _imageView.tintColor = color
-            _imageView.image = _imageView.image?.withRenderingMode(.alwaysTemplate)
-            self.tintColor = color
-            self.setImage(self.image(for:.normal)?.withRenderingMode(.alwaysTemplate), for:.normal)
-        }
-    }
+    var renderColor: UIColor?
     
-    var hasImage: Bool {
-        return _imageView.image != nil
-    }
     var pressed: Callback?
     var didGetImage: Callback?
     var didGetError: Callback?
     
+    private var lastURL: String = ""
+    // Click time
+    private var pressedInterval: TimeInterval = 0.0
+    
+    private var _webImageView: UIImageView?
+    var webImageView: UIImageView {
+        if _webImageView == nil {
+            _webImageView = UIImageView(frame: self.bounds)
+            _webImageView!.contentMode = .scaleAspectFill
+            _webImageView!.layer.masksToBounds = true
+            _webImageView!.isUserInteractionEnabled = false
+            _webImageView!.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            self.addSubview(_webImageView!)
+        }
+        return _webImageView!
+    }
+    
     required init() {
-        super.init(frame: CGRect(x: 0, y: 0, width: 200, height: 200))
+        super.init(frame: .zero)
         self.setup()
     }
     
@@ -68,29 +80,100 @@ class HWebButtonView: UIButton {
     }
 
     private func setup() {
-        self.addSubview(_imageView)
         self.backgroundColor = UIColor.clear
-        self.initialize()
-    }
-    
-    private func initialize() {
-        titleLabel?.font = .systemFont(ofSize: 14.0)
         self.imageView?.contentMode = .scaleAspectFill
+        self.titleLabel?.font = .systemFont(ofSize: 17.0)
         self.layer.masksToBounds = true
         self.addTarget(self, action: #selector(buttonPressed), for:.touchUpInside)
     }
+    
+    @objc
+    private func buttonPressed() {
+        guard let pressed = pressed else { return }
+        // Click time
+        if Date().timeIntervalSince1970 - pressedInterval > 0.5 {
+            // Record click time
+            pressedInterval = Date().timeIntervalSince1970
+            // Callback
+            pressed(self, nil)
+        }
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        var size = super.intrinsicContentSize
+        switch imagePosition {
+        case .left, .right:
+            size.width += imageSpace
+        case .top, .bottom:
+            let titleHeight = titleLabel?.bounds.height ?? 0
+            let imageHeight = imageView?.bounds.height ?? 0
+            size.height = imageSpace + titleHeight + imageHeight
+        }
+        return size
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        updateSubviews()
+    }
+    
+    private func updateSubviews() {
+        if let normalImage = self.image(for: .normal) {
+            var image: UIImage? = normalImage
+            if imageSize != .zero {
+                image = image?.cropImage(imageSize)
+            }
+            if let color = renderColor {
+                self.tintColor = color
+                image = image?.withRenderingMode(.alwaysTemplate)
+            }
+            self.setImage(image, for: .normal)
+        }
+        // 更新image和text坐标
+        updatePosition()
+    }
 
+    private func updatePosition() {
+        switch imagePosition {
+        case .top:
+            let imageWidth = imageView?.bounds.width ?? 0
+            let titleWidth = titleLabel?.bounds.width ?? 0
+            let titleHeight = titleLabel?.bounds.height ?? 0
+            let imageHeight = imageView?.bounds.height ?? 0
+            titleEdgeInsets = UIEdgeInsets(top: (titleHeight + imageSpace) * 0.5, left: -imageWidth * 0.5, bottom: -imageSpace, right: imageWidth * 0.5)
+            imageEdgeInsets = UIEdgeInsets(top: 0, left: titleWidth * 0.5, bottom: imageHeight + imageSpace, right: -titleWidth * 0.5)
+        case .left:
+            titleEdgeInsets = UIEdgeInsets(top: 0, left: imageSpace, bottom: 0, right: 0)
+            imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: imageSpace)
+        case .bottom:
+            let imageWidth = imageView?.bounds.width ?? 0
+            let titleWidth = titleLabel?.bounds.width ?? 0
+            let titleHeight = titleLabel?.bounds.height ?? 0
+            let imageHeight = imageView?.bounds.height ?? 0
+            titleEdgeInsets = UIEdgeInsets(top: -(titleHeight + imageSpace) * 0.5, left: -imageWidth * 0.5, bottom: imageSpace, right: imageWidth * 0.5)
+            imageEdgeInsets = UIEdgeInsets(top: imageHeight + imageSpace, left: titleWidth * 0.5, bottom: 0, right: -titleWidth * 0.5)
+        case .right:
+            let imageWidth = (imageView?.bounds.width ?? 0) + imageSpace * 0.5
+            let titleWidth = (titleLabel?.bounds.width ?? 0) + imageSpace * 0.5
+            titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageWidth, bottom: 0, right: imageWidth)
+            imageEdgeInsets = UIEdgeInsets(top: 0, left: titleWidth, bottom: 0, right: -titleWidth)
+        }
+    }
+    
+}
+
+extension HWebButtonView {
+    
     private func _setImage(_ image: UIImage?) {
-        self._imageView.kf.cancelDownloadTask()
+        self.webImageView.kf.cancelDownloadTask()
         guard let image = image else {
-            _imageView.image = nil
+            DispatchQueue.main.async {
+                self.webImageView.image = nil
+            }
             return
         }
-        if let renderColor = renderColor {
-            _imageView.tintColor = renderColor
-            _imageView.image = image.withRenderingMode(.alwaysTemplate)
-        } else {
-            _imageView.image = image
+        DispatchQueue.main.async {
+            self.webImageView.image = image
         }
     }
     
@@ -99,10 +182,10 @@ class HWebButtonView: UIButton {
     *
     *  @param image image
     */
-    func setImage(_ image: UIImage?) {
+    private func setImage(_ image: UIImage?) {
         self._setImage(image)
         self.lastURL = ""
-        self.imageView?.alpha = 1.0
+        self.webImageView.alpha = 1.0
         didGetImage?(self, image)
     }
 
@@ -137,18 +220,18 @@ class HWebButtonView: UIButton {
         if urlString.hasPrefix("http") == false {
             let image: UIImage? = UIImage(named: urlString)
             self._setImage(image)
-            self._imageView.alpha = 1.0
-            didGetImage?(self, _imageView.image)
+            self.webImageView.alpha = 1.0
+            didGetImage?(self, webImageView.image)
             return
         }
-        if self._imageView.image != nil && lastURL.isEqual(urlString) {
-            self._imageView.alpha = 1.0
-            didGetImage?(self, _imageView.image)
+        if self.webImageView.image != nil && lastURL.isEqual(urlString) {
+            self.webImageView.alpha = 1.0
+            didGetImage?(self, webImageView.image)
             return
         }
         
-        if placeholder == nil && self._imageView.image == nil {
-            self._imageView.alpha = 0
+        if placeholder == nil && self.webImageView.image == nil {
+            self.webImageView.alpha = 0
         }
         
         self._setImage(nil)
@@ -164,7 +247,7 @@ class HWebButtonView: UIButton {
                 case.success(let value):
                     if value.image != nil {
                         self._setImage(value.image)
-                        self._imageView.alpha = 1.0
+                        self.webImageView.alpha = 1.0
                         self.lastURL = url.absoluteString
                         self.didGetImage?(self, value.image)
                     }
@@ -172,74 +255,24 @@ class HWebButtonView: UIButton {
                 }
             }
         }
-        if _imageView.image == nil {
-            //_imageView.kf.indicatorType = .activity
-            _imageView.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
-                switch result {
-                case .success(let value):
-                    self._setImage(value.image)
-                    self.lastURL = url.absoluteString
-                    if value.cacheType == .none {
-                        UIView.animate(withDuration: 0.5) {
-                            self._imageView.alpha = 1.0
-                        }
-                    }else {
-                        self._imageView.alpha = 1.0
+        //self.webImageView.kf.indicatorType = .activity
+        self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
+            switch result {
+            case .success(let value):
+                self._setImage(value.image)
+                self.lastURL = url.absoluteString
+                if value.cacheType == .none {
+                    UIView.animate(withDuration: 0.5) {
+                        self.webImageView.alpha = 1.0
                     }
-                    self.didGetImage?(self, value.image)
-                case .failure(let value):
-                    self.didGetError?(self, value as AnyObject)
+                }else {
+                    self.webImageView.alpha = 1.0
                 }
+                self.didGetImage?(self, value.image)
+            case .failure(let value):
+                self.didGetError?(self, value as AnyObject)
             }
         }
-    }
-
-    /**
-    *  Set the image name and load it through the file
-    *
-    *  @param fileName image name
-    */
-    func setImageWithFile(_ fileName: String) {
-        if fileName.count > 0 {
-            if let filePath = Bundle.main.resourcePath?.appendingFormat("/%@", fileName),
-               let image = UIImage(contentsOfFile: filePath) {
-                self.setImage(image)
-            }
-        }else {
-            self._setImage(nil)
-            self.lastURL = ""
-            didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(fileName)"))
-        }
-    }
-
-    /**
-    *  Set the image name and load it using imageName
-    *
-    *  @param fileName The name of the image
-    */
-    func setImageWithName(_ fileName: String) {
-        if fileName.count > 0 {
-            self.setImage(UIImage(named: fileName))
-        }
-    }
-
-    // Click response event
-    @objc
-    private func buttonPressed() {
-        guard let pressed = pressed else { return }
-        // Click time
-        if Date().timeIntervalSince1970 - pressedInterval > 0.5 {
-            // Record click time
-            pressedInterval = Date().timeIntervalSince1970
-            // Callback
-            pressed(self, nil)
-        }
-    }
-
-    // Set background color
-    override internal var backgroundColor: UIColor? {
-        get { return _imageView.backgroundColor }
-        set { _imageView.backgroundColor = newValue }
     }
     
 }
@@ -276,6 +309,19 @@ extension UIButton {
         set { self.setBackgroundImage(newValue, for: .normal) }
     }
     
+    public func setImageWithFile(_ fileName: String) {
+        if let filePath = Bundle.main.resourcePath?.appendingFormat("/%@", fileName),
+           let image = UIImage(contentsOfFile: filePath) {
+            self.setImage(image, for: .normal)
+        }
+    }
+
+    public func setImageWithName(_ fileName: String) {
+        if let image = UIImage(named: fileName) {
+            self.setImage(image, for: .normal)
+        }
+    }
+    
     public func addTarget(_ target: Any?, action: Selector) {
         self.addTarget(target, action: action, for: .touchUpInside)
     }
@@ -297,14 +343,32 @@ extension UIButton {
 
     ///图右文字左
     public func textAndImageWithSpacing(_ spacing: CGFloat) {
-        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: -(self.imageView?.width ?? 0), bottom: 0, right: (self.imageView?.width)!-spacing)
-        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: (self.titleLabel?.width ?? 0) - spacing, bottom: 0, right: -(self.titleLabel?.width)!)
+        let imageLeft = -(self.imageView?.width ?? 0)
+        let imageRight = (self.imageView?.width ?? 0) - spacing
+        let titleLeft = (self.titleLabel?.width ?? 0) - spacing
+        let titleRight = -(self.titleLabel?.width ?? 0)
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: imageLeft, bottom: 0, right: imageRight)
+        self.titleEdgeInsets = UIEdgeInsets(top: 0, left: titleLeft, bottom: 0, right: titleRight)
     }
     
     ///图上文字下
     public func imageUpAndTextDownWithSpacing(_ spacing: CGFloat) {
-        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: -(self.imageView?.width ?? 0), bottom: -(self.imageView?.width ?? 0) - spacing / 2, right: 0)
-        self.titleEdgeInsets = UIEdgeInsets(top: -(self.titleLabel?.intrinsicContentSize.width ?? 0) - spacing / 2, left: 0, bottom: 0, right: -(self.titleLabel?.intrinsicContentSize.width ?? 0))
+        let imageLeft = -(self.imageView?.width ?? 0)
+        let imageBottom = -(self.imageView?.width ?? 0) - spacing / 2
+        let titleTop = -(self.titleLabel?.intrinsicContentSize.width ?? 0) - spacing / 2
+        let titleRight = -(self.titleLabel?.intrinsicContentSize.width ?? 0)
+        self.imageEdgeInsets = UIEdgeInsets(top: 0, left: imageLeft, bottom: imageBottom, right: 0)
+        self.titleEdgeInsets = UIEdgeInsets(top: titleTop, left: 0, bottom: 0, right: titleRight)
     }
 
+}
+
+extension UIImage {
+    func cropImage(_ size: CGSize) -> UIImage? {
+        UIGraphicsBeginImageContext(size)
+        self.draw(in: CGRect(origin: .zero, size: size))
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return scaledImage
+    }
 }

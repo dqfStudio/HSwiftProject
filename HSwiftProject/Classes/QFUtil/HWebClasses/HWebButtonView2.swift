@@ -171,36 +171,6 @@ class HWebButtonView2: UIButton {
         }
     }
 
-    /**
-    *  Set the image name and load it through the file
-    *
-    *  @param fileName image name
-    */
-    func setImageWithFile(_ fileName: String) {
-        if fileName.count > 0 {
-            if let filePath = Bundle.main.resourcePath?.appendingFormat("/%@", fileName),
-               let image = UIImage(contentsOfFile: filePath) {
-                self.setImage(image)
-            }
-        }else {
-            self._setImage(nil)
-            self.lastURL = ""
-            didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(fileName)"))
-        }
-    }
-
-    /**
-    *  Set the image name and load it using imageName
-    *
-    *  @param fileName The name of the image
-    */
-    func setImageWithName(_ fileName: String) {
-        if fileName.count > 0 {
-            let image = UIImage(named: fileName)
-            self.setImage(image)
-        }
-    }
-
     // Click response event
     @objc
     private func buttonPressed() {

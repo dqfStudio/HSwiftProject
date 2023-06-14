@@ -100,25 +100,30 @@ class HMainController2: HViewController {
 //        let button = HWebActionView()
 //        button.frame = CGRect(x: 10, y: 200, width: 320, height: 80)
         
-        let button = HWebActionView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+//        let imageView = UIImageView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+//        let tintColor = imageView.tintColor
+        
+//        let button = HWebActionView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+        let button = HWebButtonView(frame: CGRect(x: 10, y: 200, width: 320, height: 80))
+        self.view.addSubview(button)
         
         button.imageSize = CGSize(width: 8, height: 12)
         
         let image = UIImage(named: "icon_tuple_arrow_right")
 //        button.image = image?.scaleImage(CGSize(width: 10, height: 12))
-//        button.image = image
-        button.setImage(image)
+        button.image = image
+//        button.setImage(image)
         
         
 //        let string = "https://freechatoss.s3.ap-southeast-1.amazonaws.com/images/Group_Chat_Banner_English.png"
 
 //        button.setImageUrlString(string)
         
-        if button.hasImage {
-            button.renderColor = .green
-        } else {
+//        if button.hasImage {
+//            button.renderColor = .green
+//        } else {
             button.renderColor = .yellow
-        }
+//        }
         
         button.text = "啊发来的撒酒疯拉的屎"
         
@@ -126,7 +131,7 @@ class HMainController2: HViewController {
         button.imageSpace = 15
         
         button.backgroundColor = .red
-        self.view.addSubview(button)
+//        self.view.addSubview(button)
         
         return
         
