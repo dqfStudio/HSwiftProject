@@ -11,7 +11,7 @@ import Kingfisher
 
 class HWebImageView: UIImageView {
     
-    lazy private var tapGesture: UITapGestureRecognizer! = {
+    lazy private var tapGesture: UITapGestureRecognizer = {
         let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer()
         tapGesture.numberOfTapsRequired = 1
         tapGesture.numberOfTouchesRequired = 1

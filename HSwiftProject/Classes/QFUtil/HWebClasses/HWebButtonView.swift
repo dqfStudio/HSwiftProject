@@ -11,7 +11,7 @@ import Kingfisher
 
 class HWebButtonView: UIButton {
     
-    lazy private var _imageView: UIImageView! = {
+    lazy private var _imageView: UIImageView = {
         let imageView: UIImageView = UIImageView(frame: self.bounds)
         imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
