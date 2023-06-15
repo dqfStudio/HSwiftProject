@@ -218,7 +218,7 @@ extension HWebButtonView {
         }
         
         if urlString.hasPrefix("http") == false {
-            let image: UIImage? = UIImage(named: urlString)
+            let image = UIImage(named: urlString)
             self._setImage(image)
             self.webImageView.alpha = 1.0
             didGetImage?(self, webImageView.image)
