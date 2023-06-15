@@ -705,11 +705,11 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
                 if image == nil {
                     image = UIImage(contentsOfFile: imagePath! as String)
                 }
-                cell.imageView.setImage(image)
+                cell.imageView.image = image
             }
         } else if (!self.onlyDisplayText && imagePath!.isKind(of: UIImage.self)) {
             let image = self.imagePathsGroup![itemIndex] as? UIImage
-            cell.imageView.setImage(image)
+            cell.imageView.image = image
         }
 
         if (titlesGroup != nil && titlesGroup!.count > 0 && itemIndex < titlesGroup!.count) {

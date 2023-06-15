@@ -238,6 +238,7 @@
 		EBA53C2E2A308BF00077158D /* HWebActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C2D2A308BF00077158D /* HWebActionView.swift */; };
 		EBA53C322A3210FB0077158D /* HMultiButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C312A3210FA0077158D /* HMultiButtonView.swift */; };
 		EBA53C382A38AF000077158D /* HWebButtonView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C372A38AF000077158D /* HWebButtonView2.swift */; };
+		EBA53C3A2A3B47240077158D /* HWebImageView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C392A3B47240077158D /* HWebImageView2.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -547,6 +548,7 @@
 		EBA53C2D2A308BF00077158D /* HWebActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebActionView.swift; sourceTree = "<group>"; };
 		EBA53C312A3210FA0077158D /* HMultiButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMultiButtonView.swift; sourceTree = "<group>"; };
 		EBA53C372A38AF000077158D /* HWebButtonView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebButtonView2.swift; sourceTree = "<group>"; };
+		EBA53C392A3B47240077158D /* HWebImageView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebImageView2.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -1205,6 +1207,7 @@
 				A2B4308223801C4E00795605 /* HWebButtonView.swift */,
 				EBA53C372A38AF000077158D /* HWebButtonView2.swift */,
 				A2B4308C23825BBE00795605 /* HWebImageView.swift */,
+				EBA53C392A3B47240077158D /* HWebImageView2.swift */,
 			);
 			path = HWebClasses;
 			sourceTree = "<group>";
@@ -1891,6 +1894,7 @@
 				A26D432723853F2900F457AE /* NSObject+HMessy.swift in Sources */,
 				A229489F23975D850058B939 /* HTableViewCellHoriValue.swift in Sources */,
 				A2A814B4274C0E2000FAB929 /* HTupleHeader.swift in Sources */,
+				EBA53C3A2A3B47240077158D /* HWebImageView2.swift in Sources */,
 				A26D43192383E23300F457AE /* NSString+HUtil.swift in Sources */,
 				A22948A5239798000058B939 /* HMainController1.swift in Sources */,
 				A2188797238FD3D6005C20BF /* HGameCategoryVC+HSection1.swift in Sources */,

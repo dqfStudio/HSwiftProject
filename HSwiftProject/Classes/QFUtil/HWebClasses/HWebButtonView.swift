@@ -41,7 +41,13 @@ class HWebButtonView: UIButton {
     }
     
     // The tintColor in the parent class is problematic
-    var renderColor: UIColor?
+    var renderColor: UIColor? {
+        didSet {
+            if renderColor != oldValue, superview != nil {
+                updateSubviews()
+            }
+        }
+    }
     
     var pressed: Callback?
     var didGetImage: Callback?
@@ -166,12 +172,6 @@ extension HWebButtonView {
     
     private func _setImage(_ image: UIImage?) {
         self.webImageView.kf.cancelDownloadTask()
-        guard let image = image else {
-            DispatchQueue.main.async {
-                self.webImageView.image = nil
-            }
-            return
-        }
         DispatchQueue.main.async {
             self.webImageView.image = image
         }

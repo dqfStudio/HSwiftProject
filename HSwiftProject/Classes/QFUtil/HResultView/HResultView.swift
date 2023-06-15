@@ -82,25 +82,25 @@ class HResultView: UIView, HTupleViewDelegate {
 
     func tupleHeader(_ headerBlock: Any, inSection section: Any) {
         let headerBlock = headerBlock as! HTupleHeader
-        let cell = headerBlock(nil, HTupleImageApex.self, nil, true) as! HTupleImageApex
-        cell.imageView.backgroundColor = UIColor.white
+        let cell = headerBlock(nil, HTupleButtonApex.self, nil, true) as! HTupleButtonApex
+        cell.buttonView.backgroundColor = UIColor.white
         if let make = make {
             if let bgColor = make.bgColor {
-                cell.imageView.backgroundColor = bgColor
+                cell.buttonView.backgroundColor = bgColor
             }
             switch make.style {
             case .noData:
-                cell.imageView.image = UIImage(named: "icon_load_nothing")
+                cell.buttonView.setImageWithName("icon_load_nothing")
                 break
             case .loadError:
-                cell.imageView.image = UIImage(named: "loading_gif_white")
+                cell.buttonView.setImageWithName("loading_gif_white")
                 break
             case .noNetwork:
-                cell.imageView.image = UIImage(named: "loading_gif_lightGray")
+                cell.buttonView.setImageWithName("loading_gif_lightGray")
                 break
             }
         }
-        cell.imageView.pressed = { (_ sender: Any?, _ data: Any?) in
+        cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
             if let make = self.make, let clickedBlock = make.clickedBlock {
                 clickedBlock()
             }
