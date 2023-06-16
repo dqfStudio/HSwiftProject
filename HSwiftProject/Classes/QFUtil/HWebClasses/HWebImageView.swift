@@ -96,8 +96,8 @@ class HWebImageView: UIImageView {
     }
     
     private func updateSubviews() {
-        if let normalImage = super.image {
-            var image: UIImage? = normalImage
+        if let superImage = super.image {
+            var image: UIImage? = superImage
             if imageSize != .zero {
                 image = image?.cropImage(imageSize)
             }
