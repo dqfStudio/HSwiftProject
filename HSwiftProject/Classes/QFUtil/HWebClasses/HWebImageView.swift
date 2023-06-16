@@ -213,4 +213,7 @@ extension UIImageView {
             self.image = image
         }
     }
+    func setImage(_ image: UIImage?) {
+        self.image = image
+    }
 }

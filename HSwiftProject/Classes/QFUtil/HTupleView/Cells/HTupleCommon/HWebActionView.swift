@@ -170,18 +170,6 @@ extension HWebActionView {
     }
 
     /**
-    *  Set image directly
-    *
-    *  @param image image
-    */
-    func setImage(_ image: UIImage?) {
-        self._setImage(image)
-        self.lastURL = ""
-        self.imageView?.alpha = 1.0
-        didGetImage?(self, image)
-    }
-
-    /**
     *  Set image link, read cache synchronously if available
     *
     *  @param url                      Link

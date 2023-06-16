@@ -301,6 +301,11 @@ extension UIButton {
             self.adjustsImageWhenHighlighted = false
         }
     }
+    
+    public func setImage(_ image: UIImage?) {
+        self.setImage(image, for: .normal)
+        self.adjustsImageWhenHighlighted = (image == nil)
+    }
 
     public func addTarget(_ target: Any?, action: Selector) {
         self.addTarget(target, action: action, for: .touchUpInside)
