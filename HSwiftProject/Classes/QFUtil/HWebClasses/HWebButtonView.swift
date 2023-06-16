@@ -50,7 +50,7 @@ class HWebButtonView: UIButton {
     }
 
     var hasImage: Bool {
-        return _webImageView?.image != nil
+        return webImageView.image != nil
     }
     var pressed: Callback?
     var didGetImage: Callback?
