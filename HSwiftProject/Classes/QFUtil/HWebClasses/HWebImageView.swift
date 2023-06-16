@@ -41,6 +41,9 @@ class HWebImageView: UIImageView {
         }
     }
     
+    var hasImage: Bool {
+        return super.image != nil
+    }
     var didGetImage: Callback?
     var didGetError: Callback?
     
