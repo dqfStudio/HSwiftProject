@@ -400,7 +400,7 @@
 //    *
 //    *  @param fileName The name of the image
 //    */
-//    func setImageWithName(_ fileName: String) {
+//    func setImage(WithName: _ fileName: String) {
 //        if fileName.count > 0 {
 //            self.setImage(UIImage(named: fileName))
 //        }

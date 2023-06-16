@@ -74,12 +74,12 @@ class HMainController1: HTupleController {
                     cell.imageView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.imageView.cornerRadius = 25 / 2
                     cell.imageView.backgroundColor = UIColor.red
-                    cell.imageView.setImageWithName("icon_no_server")
+                    cell.imageView.setImage(WithName: "icon_no_server")
 
                     cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.detailView.cornerRadius = 25 / 2
                     cell.detailView.backgroundColor = UIColor.red
-                    cell.detailView.setImageWithName("icon_no_server")
+                    cell.detailView.setImage(WithName: "icon_no_server")
 
                     cell.label.backgroundColor = UIColor.red
                     cell.label.text = "wwwwwwwwwwwwww"
@@ -150,7 +150,7 @@ class HMainController1: HTupleController {
                     
                     cell.imageView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.imageView.backgroundColor = UIColor.red
-                    cell.imageView.setImageWithName("icon_no_server")
+                    cell.imageView.setImage(WithName: "icon_no_server")
                     cell.imageView.cornerRadius = 25 / 2
 
                     cell.label.backgroundColor = UIColor.green
@@ -164,7 +164,7 @@ class HMainController1: HTupleController {
                     
                     cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.detailView.backgroundColor = UIColor.red
-                    cell.detailView.setImageWithName("icon_no_server")
+                    cell.detailView.setImage(WithName: "icon_no_server")
                     cell.detailView.cornerRadius = 25 / 2
                     
                     cell.isShowAccessoryArrow = true
@@ -183,7 +183,7 @@ class HMainController1: HTupleController {
                     
                     cell.imageView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.imageView.backgroundColor = UIColor.red
-                    cell.imageView.setImageWithName("icon_no_server")
+                    cell.imageView.setImage(WithName: "icon_no_server")
                     cell.imageView.cornerRadius = 25 / 2
 
                     cell.label.backgroundColor = UIColor.green
@@ -197,7 +197,7 @@ class HMainController1: HTupleController {
                     
                     cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.detailView.backgroundColor = UIColor.red
-                    cell.detailView.setImageWithName("icon_no_server")
+                    cell.detailView.setImage(WithName: "icon_no_server")
                     cell.detailView.cornerRadius = 25 / 2
                     
                     cell.isShowAccessoryArrow = true
@@ -263,7 +263,7 @@ class HMainController1: HTupleController {
                 cell.layoutFirstSpacing = 5
                 
                 cell.imageView.backgroundColor = UIColor.red
-                cell.imageView.setImageWithName("icon_no_server")
+                cell.imageView.setImage(WithName: "icon_no_server")
 
                 cell.labelHeight = 25
                 cell.label.backgroundColor = .green

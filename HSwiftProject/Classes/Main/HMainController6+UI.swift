@@ -32,10 +32,10 @@ extension HMainController6 {
             cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
             cell.imageView.backgroundColor = UIColor.red
-            cell.imageView.setImageWithName("icon_no_server")
+            cell.imageView.setImage(WithName: "icon_no_server")
 
             cell.detailView.backgroundColor = UIColor.red
-            cell.detailView.setImageWithName("icon_no_server")
+            cell.detailView.setImage(WithName: "icon_no_server")
 
 //            cell.detailWidth = 100
 //            cell.accessoryWidth = 100
@@ -69,7 +69,7 @@ extension HMainController6 {
             cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
             cell.imageView.backgroundColor = UIColor.red
-            cell.imageView.setImageWithName("icon_no_server")
+            cell.imageView.setImage(WithName: "icon_no_server")
             
             cell.label.backgroundColor = UIColor.red
 
@@ -90,10 +90,10 @@ extension HMainController6 {
 //            cell.isShowAccessoryArrow = true
 
             cell.imageView.backgroundColor = UIColor.red
-            cell.imageView.setImageWithName("icon_no_server")
+            cell.imageView.setImage(WithName: "icon_no_server")
 
             cell.detailView.backgroundColor = UIColor.red
-            cell.detailView.setImageWithName("icon_no_server")
+            cell.detailView.setImage(WithName: "icon_no_server")
 
             cell.label.backgroundColor = UIColor.red
 

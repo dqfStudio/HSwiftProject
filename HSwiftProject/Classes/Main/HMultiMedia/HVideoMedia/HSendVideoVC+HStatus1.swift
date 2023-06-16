@@ -36,7 +36,7 @@ extension HSendVideoVC {
             let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
             let frame = CGRect(x: 20, y: UIScreen.naviBarHeight + 15, width: 30, height: 30)
             cell.buttonView.frame = frame
-            cell.buttonView.setImageWithName("mdeia-reduce")
+            cell.buttonView.setImage(WithName: "mdeia-reduce")
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
                 self.dismiss(animated: true)
             }
@@ -61,7 +61,7 @@ extension HSendVideoVC {
 
             let frame1 = CGRect(x: bounds.size.width / 2 - 40 - KSendVideoHeight1, y: 0, width: KSendVideoHeight1, height: KSendVideoHeight1)
             cell.buttonView.frame = frame1
-            cell.buttonView.setImageWithName("mdeia-button")
+            cell.buttonView.setImage(WithName: "mdeia-button")
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
                 
             }
@@ -76,7 +76,7 @@ extension HSendVideoVC {
             
             let frame3 = CGRect(x: bounds.size.width / 2 + 40, y: 0, width: KSendVideoHeight1, height: KSendVideoHeight1)
             cell.detailButtonView.frame = frame3
-            cell.detailButtonView.setImageWithName("mdeia-button")
+            cell.detailButtonView.setImage(WithName: "mdeia-button")
             cell.detailButtonView.pressed = { (_ sender: Any?, _ data: Any?) in
                 
             }
@@ -97,7 +97,7 @@ extension HSendVideoVC {
 
             let frame1 = CGRect(x: bounds.size.width / 2 - KSendVideoHeight2 / 2, y: 0, width: KSendVideoHeight2, height: KSendVideoHeight2)
             cell.buttonView.frame = frame1
-            cell.buttonView.setImageWithName("mdeia-button")
+            cell.buttonView.setImage(WithName: "mdeia-button")
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
                 
             }

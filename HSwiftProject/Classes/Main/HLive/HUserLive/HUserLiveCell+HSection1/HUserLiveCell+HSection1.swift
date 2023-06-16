@@ -134,7 +134,7 @@ extension HUserLiveCell {
                 buttonView = HWebButtonView(frame: tmpFrame)
                 buttonView!.backgroundColor = UIColor.red
                 buttonView!.cornerRadius = buttonView!.width / 2
-                buttonView!.setImageWithName("icon_no_server")
+                buttonView!.setImage(WithName: "icon_no_server")
 //                    buttonView! setFillet:YES]
                 buttonView!.tag = 123456
                 cell.addSubview(buttonView!)
@@ -181,7 +181,7 @@ extension HUserLiveCell {
                 buttonView = HWebButtonView(frame: tmpFrame)
                 buttonView!.backgroundColor = UIColor.red
                 buttonView!.cornerRadius = buttonView!.width / 2
-                buttonView!.setImageWithName("icon_no_server")
+                buttonView!.setImage(WithName: "icon_no_server")
 //                    buttonView! setFillet:YES]
                 buttonView!.tag = 123456
                 cell.addSubview(buttonView!)

@@ -90,13 +90,13 @@ class HResultView: UIView, HTupleViewDelegate {
             }
             switch make.style {
             case .noData:
-                cell.buttonView.setImageWithName("icon_load_nothing")
+                cell.buttonView.setImage(WithName: "icon_load_nothing")
                 break
             case .loadError:
-                cell.buttonView.setImageWithName("loading_gif_white")
+                cell.buttonView.setImage(WithName: "loading_gif_white")
                 break
             case .noNetwork:
-                cell.buttonView.setImageWithName("loading_gif_lightGray")
+                cell.buttonView.setImage(WithName: "loading_gif_lightGray")
                 break
             }
         }

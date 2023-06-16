@@ -123,7 +123,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
         
         let cell = itemBlock(nil, HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
         cell.imageView.backgroundColor = UIColor.red
-        cell.imageView.setImageWithName("icon_no_server")
+        cell.imageView.setImage(WithName: "icon_no_server")
         //[cell.imageView setFillet:YES]
         cell.labelHeight = 25
         cell.label.text = "Item"

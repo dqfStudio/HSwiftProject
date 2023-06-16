@@ -90,7 +90,7 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
             
             let model = self.modelArr![index]
             
-            cell.buttonView.setImageWithName(model.icon!)
+            cell.buttonView.setImage(WithName: model.icon!)
             cell.buttonView.text = model.title
             
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in

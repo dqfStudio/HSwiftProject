@@ -309,15 +309,14 @@ extension UIButton {
         set { self.setBackgroundImage(newValue, for: .normal) }
     }
     
-    public func setImageWithFile(_ fileName: String) {
+    public func setImage(WithFile fileName: String) {
         if let filePath = Bundle.main.resourcePath?.appendingFormat("/%@", fileName),
            let image = UIImage(contentsOfFile: filePath) {
             self.setImage(image, for: .normal)
         }
     }
-
-    public func setImageWithName(_ fileName: String) {
-        if let image = UIImage(named: fileName) {
+    public func setImage(WithName fileName: String) {
+        if fileName.count > 0 {
             self.setImage(image, for: .normal)
         }
     }

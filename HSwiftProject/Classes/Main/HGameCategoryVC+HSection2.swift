@@ -35,20 +35,20 @@ extension HGameCategoryVC {
         tmpFrame.size.width = tmpFrame.height
         cell.imageView.frame = tmpFrame
         cell.imageView.backgroundColor = UIColor.red
-        cell.imageView.setImageWithName("icon_no_server")
+        cell.imageView.setImage(WithName: "icon_no_server")
         
         var tmpFrame2: CGRect = CGRect(x: 0, y: 0, width: 7, height: 13)
         
         tmpFrame2.origin.x = frame.width - tmpFrame2.width
         tmpFrame2.origin.y = frame.height / 2 - tmpFrame2.height / 2
         cell.accessoryImageView.frame = tmpFrame2
-        cell.accessoryImageView.setImageWithName("icon_tuple_arrow_right")
+        cell.accessoryImageView.setImage(WithName: "icon_tuple_arrow_right")
         
         var tmpFrame3: CGRect = tmpFrame
         tmpFrame3.origin.x = tmpFrame2.minX - tmpFrame3.width - 10
         cell.detailImageView.frame = tmpFrame3
         cell.detailImageView.backgroundColor = UIColor.red
-        cell.detailImageView.setImageWithName("icon_no_server")
+        cell.detailImageView.setImage(WithName: "icon_no_server")
         
         var tmpFrame4: CGRect = frame
         tmpFrame4.origin.x += tmpFrame.maxY + 10

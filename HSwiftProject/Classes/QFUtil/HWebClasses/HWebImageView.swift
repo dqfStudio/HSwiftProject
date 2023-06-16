@@ -220,13 +220,13 @@ extension UIImageView {
     convenience init(named: String) {
         self.init(image: UIImage(named: named))
     }
-    func setImageWithFile(_ fileName: String) {
+    func setImage(WithFile fileName: String) {
         if let filePath = Bundle.main.resourcePath?.appendingFormat("/%@", fileName),
            let image = UIImage(contentsOfFile: filePath) {
             self.image = image
         }
     }
-    func setImageWithName(_ fileName: String) {
+    func setImage(WithName fileName: String) {
         if fileName.count > 0 {
             self.image = UIImage(named: fileName)
         }

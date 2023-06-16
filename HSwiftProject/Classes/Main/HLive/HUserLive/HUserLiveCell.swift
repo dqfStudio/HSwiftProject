@@ -27,7 +27,7 @@ class HUserLiveBgCell : HTupleImageCell {
     //cell初始化是调用的方法
     override func initUI() {
         super.initUI()
-        self.imageView.setImageWithName("live_bg_icon")
+        self.imageView.setImage(WithName: "live_bg_icon")
         //添加模态效果
         self.imageView.addSubview(self.effectView)
         //添加转圈等待效果
