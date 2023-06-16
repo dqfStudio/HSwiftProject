@@ -32,8 +32,8 @@ class HWebImageView: UIImageView {
         didSet {
             if pressed != nil {
                 isUserInteractionEnabled = true
-                if tapGesture.view == nil {
-                    addGestureRecognizer(tapGesture)
+                if pressedGesture.view == nil {
+                    addGestureRecognizer(pressedGesture)
                 }
             } else {
                 isUserInteractionEnabled = false
@@ -48,17 +48,17 @@ class HWebImageView: UIImageView {
     // Click time
     private var pressedInterval: TimeInterval = 0.0
     
-    lazy private var tapGesture: UITapGestureRecognizer = {
-        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer()
-        tapGesture.numberOfTapsRequired = 1
-        tapGesture.numberOfTouchesRequired = 1
-        tapGesture.addTarget(self, action: #selector(tapGestureAction))
-        return tapGesture
+    lazy private var pressedGesture: UITapGestureRecognizer = {
+        let pressedGesture = UITapGestureRecognizer()
+        pressedGesture.numberOfTapsRequired = 1
+        pressedGesture.numberOfTouchesRequired = 1
+        pressedGesture.addTarget(self, action: #selector(pressedAction))
+        return pressedGesture
     }()
     
     // Click response event
     @objc
-    private func tapGestureAction() {
+    private func pressedAction() {
         guard let pressed = pressed else { return }
         // Click time
         if Date().timeIntervalSince1970 - pressedInterval > 0.5 {
