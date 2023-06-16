@@ -97,7 +97,7 @@ extension HRegisterController {
         cell.textField.leftLabel.text = "+86"
 
         cell.textField.textColor = UIColor(hex: "#BABABF")
-        cell.textField.font = UIFont.systemFont(ofSize: 14)
+        cell.textField.font = .systemFont(ofSize: 14.0)
         
         cell.textField.text = self.tupleView.object(forKey: "state", state: 1) as? String
 

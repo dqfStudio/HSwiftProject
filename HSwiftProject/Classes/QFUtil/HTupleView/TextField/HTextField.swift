@@ -14,7 +14,7 @@ class HTextField : UITextField, UITextFieldDelegate {
     
     lazy var leftLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 14.0)
         self.leftViewMode = .always
         self.leftView = label
         self.setLeftViewFrame()
@@ -23,7 +23,7 @@ class HTextField : UITextField, UITextFieldDelegate {
     
     lazy var rightLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 14.0)
         self.rightViewMode = .always
         self.rightView = label
         self.setRightViewFrame()
@@ -48,7 +48,7 @@ class HTextField : UITextField, UITextFieldDelegate {
 
     lazy var leftButton: HWebButtonView = {
         let button = HWebButtonView()
-        button.textFont = UIFont.systemFont(ofSize: 14)
+        button.textFont = .systemFont(ofSize: 14.0)
         self.leftViewMode = .always
         self.leftView = button
         self.setLeftViewFrame()
@@ -57,7 +57,7 @@ class HTextField : UITextField, UITextFieldDelegate {
     
     lazy var rightButton: HWebButtonView = {
         let button = HWebButtonView()
-        button.textFont = UIFont.systemFont(ofSize: 14)
+        button.textFont = .systemFont(ofSize: 14.0)
         self.rightViewMode = .always
         self.rightView = button
         self.setRightViewFrame()
@@ -66,7 +66,7 @@ class HTextField : UITextField, UITextFieldDelegate {
     
     lazy var rightCountDownButton: HCountDownButton = {
         let button = HCountDownButton()
-        button.textFont = UIFont.systemFont(ofSize: 14)
+        button.textFont = .systemFont(ofSize: 14.0)
         self.rightViewMode = .always
         self.rightView = button
         self.setRightViewFrame()
@@ -179,7 +179,7 @@ class HTextField : UITextField, UITextFieldDelegate {
     private func setup() {
         self.delegate = self
         self.backgroundColor = UIColor.clear
-        self.font = UIFont.systemFont(ofSize: 14)
+        self.font = .systemFont(ofSize: 14.0)
     }
 
     private func setLeftViewFrame() {

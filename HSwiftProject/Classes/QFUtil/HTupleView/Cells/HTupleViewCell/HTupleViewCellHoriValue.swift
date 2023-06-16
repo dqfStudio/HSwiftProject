@@ -48,7 +48,7 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
     ///显示文字内容
     lazy var label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 14.0)
         return label
     }()
     
@@ -57,7 +57,7 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
     var detailLabel: UILabel {
         if _detailLabel == nil {
             _detailLabel = UILabel()
-            _detailLabel!.font = UIFont.systemFont(ofSize: 14)
+            _detailLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _detailLabel!
     }
@@ -67,7 +67,7 @@ class HTupleViewCellHoriValue1 : HTupleBaseCell {
     var accessoryLabel: UILabel {
         if _accessoryLabel == nil {
             _accessoryLabel = UILabel()
-            _accessoryLabel!.font = UIFont.systemFont(ofSize: 14)
+            _accessoryLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _accessoryLabel!
     }
@@ -254,7 +254,7 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
     ///显示文字内容
     lazy var label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 14.0)
         return label
     }()
     
@@ -263,7 +263,7 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
     var detailLabel: UILabel {
         if _detailLabel == nil {
             _detailLabel = UILabel()
-            _detailLabel!.font = UIFont.systemFont(ofSize: 14)
+            _detailLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _detailLabel!
     }
@@ -273,7 +273,7 @@ class HTupleViewCellHoriValue2 : HTupleBaseCell {
     var accessoryLabel: UILabel {
         if _accessoryLabel == nil {
             _accessoryLabel = UILabel()
-            _accessoryLabel!.font = UIFont.systemFont(ofSize: 14)
+            _accessoryLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _accessoryLabel!
     }
@@ -452,7 +452,7 @@ class HTupleViewCellHoriValue3 : HTupleBaseCell {
     ///显示文字内容
     lazy var label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 14.0)
         return label
     }()
     
@@ -461,7 +461,7 @@ class HTupleViewCellHoriValue3 : HTupleBaseCell {
     var detailLabel: UILabel {
         if _detailLabel == nil {
             _detailLabel = UILabel()
-            _detailLabel!.font = UIFont.systemFont(ofSize: 14)
+            _detailLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _detailLabel!
     }
@@ -471,7 +471,7 @@ class HTupleViewCellHoriValue3 : HTupleBaseCell {
     var accessoryLabel: UILabel {
         if _accessoryLabel == nil {
             _accessoryLabel = UILabel()
-            _accessoryLabel!.font = UIFont.systemFont(ofSize: 14)
+            _accessoryLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _accessoryLabel!
     }

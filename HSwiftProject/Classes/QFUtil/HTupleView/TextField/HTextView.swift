@@ -51,8 +51,8 @@ class HTextView : UITextView, UITextViewDelegate {
     
     private func setup() {
         self.delegate = self
-        self.backgroundColor = UIColor.clear
-        self.font = UIFont.systemFont(ofSize: 14)
+        self.backgroundColor = .clear
+        self.font = .systemFont(ofSize: 14.0)
     }
     
     private var trimmingWhitespaceAndNewline: String? {

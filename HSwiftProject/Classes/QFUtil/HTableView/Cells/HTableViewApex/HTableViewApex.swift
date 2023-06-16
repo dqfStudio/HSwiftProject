@@ -11,7 +11,7 @@ import UIKit
 class HTableLabelApex : HTableBaseApex {
     lazy var label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 14.0)
         self.layoutView.addSubview(label)
         return label
     }()
@@ -24,7 +24,7 @@ class HTableLabelApex : HTableBaseApex {
 class HTableTextApex : HTableBaseApex {
     lazy var textView: HTextView = {
         let textView = HTextView()
-        textView.font = UIFont.systemFont(ofSize: 14)
+        textView.font = .systemFont(ofSize: 14.0)
         self.layoutView.addSubview(textView)
         return textView
     }()
@@ -76,19 +76,19 @@ class HTableViewApex : HTableBaseApex {
     ///label
     lazy var label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 14.0)
         self.layoutView.addSubview(label)
         return label
     }()
     lazy var detailLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 14.0)
         self.layoutView.addSubview(label)
         return label
     }()
     lazy var accessoryLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = .systemFont(ofSize: 14.0)
         self.layoutView.addSubview(label)
         return label
     }()
@@ -97,19 +97,19 @@ class HTableViewApex : HTableBaseApex {
     ///textView
     lazy var textView: HTextView = {
         let textView = HTextView()
-        textView.font = UIFont.systemFont(ofSize: 14)
+        textView.font = .systemFont(ofSize: 14.0)
         self.layoutView.addSubview(textView)
         return textView
     }()
     lazy var detailTextView: HTextView = {
         let textView = HTextView()
-        textView.font = UIFont.systemFont(ofSize: 14)
+        textView.font = .systemFont(ofSize: 14.0)
         self.layoutView.addSubview(textView)
         return textView
     }()
     lazy var accessoryTextView: HTextView = {
         let textView = HTextView()
-        textView.font = UIFont.systemFont(ofSize: 14)
+        textView.font = .systemFont(ofSize: 14.0)
         self.layoutView.addSubview(textView)
         return textView
     }()

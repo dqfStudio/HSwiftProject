@@ -59,7 +59,7 @@ class HLoginController: HTupleController {
 
             cell.textField.placeholder = "请输入手机号"
             cell.textField.textColor = UIColor(hex:"#BABABF")
-            cell.textField.font = UIFont.systemFont(ofSize: 14)
+            cell.textField.font = .systemFont(ofSize: 14.0)
             //cell.textField.inputValidator = HPhoneValidator.new
 
             cell.signalBlock = { (target, signal) in
@@ -76,7 +76,7 @@ class HLoginController: HTupleController {
 
             cell.textField.placeholder = "请输入昵称"
             cell.textField.textColor = UIColor(hex:"#BABABF")
-            cell.textField.font = UIFont.systemFont(ofSize: 14)
+            cell.textField.font = .systemFont(ofSize: 14.0)
 
             cell.signalBlock = { (target, signal) in
                 let cell = target as! HTupleTextFieldCell
@@ -92,12 +92,12 @@ class HLoginController: HTupleController {
 
             cell.textField.placeholder = "请输入验证码"
             cell.textField.textColor = UIColor(hex:"#BABABF")
-            cell.textField.font = UIFont.systemFont(ofSize: 14)
+            cell.textField.font = .systemFont(ofSize: 14.0)
             //cell.textField.inputValidator = HNumericValidator.new
 
             cell.textField.rightWidth = 120
             cell.textField.rightButton.text = "获取验证码"
-            cell.textField.rightButton.textFont = UIFont.systemFont(ofSize: 14)
+            cell.textField.rightButton.textFont = .systemFont(ofSize: 14.0)
             cell.textField.rightButton.pressed = { (sender, data) in
 
             }

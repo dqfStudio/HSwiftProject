@@ -19,7 +19,7 @@ class HUserLiveVC : HTupleController {
         let frame = CGRect(x: 0, y: UIScreen.height, width: UIScreen.width, height: 40)
         let inputField = HTextField(frame: frame)
         inputField.backgroundColor = UIColor.white
-        inputField.placeholderFont = UIFont.systemFont(ofSize: 14)
+        inputField.placeholderFont = .systemFont(ofSize: 14.0)
         inputField.placeholder = "请输入内容..."
         
         inputField.leftWidth = 10

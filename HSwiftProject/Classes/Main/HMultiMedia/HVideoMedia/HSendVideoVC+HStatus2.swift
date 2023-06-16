@@ -48,7 +48,7 @@ extension HSendVideoVC {
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             cell.label.text = "等待对方接受邀请"
             cell.label.textColor = UIColor.white
-            cell.label.font = UIFont.systemFont(ofSize: 14)
+            cell.label.font = .systemFont(ofSize: 14.0)
             cell.label.textAlignment = .center
             cell.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             break

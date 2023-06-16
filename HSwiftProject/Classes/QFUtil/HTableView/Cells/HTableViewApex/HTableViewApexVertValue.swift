@@ -28,7 +28,7 @@ class HTableViewApexVertValue1 : HTableBaseApex {
     var label: UILabel {
         if _label == nil {
             _label = UILabel()
-            _label!.font = UIFont.systemFont(ofSize: 14)
+            _label!.font = .systemFont(ofSize: 14.0)
         }
         return _label!
     }
@@ -38,7 +38,7 @@ class HTableViewApexVertValue1 : HTableBaseApex {
     var detailLabel: UILabel {
         if _detailLabel == nil {
             _detailLabel = UILabel()
-            _detailLabel!.font = UIFont.systemFont(ofSize: 14)
+            _detailLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _detailLabel!
     }
@@ -48,7 +48,7 @@ class HTableViewApexVertValue1 : HTableBaseApex {
     var accessoryLabel: UILabel {
         if _accessoryLabel == nil {
             _accessoryLabel = UILabel()
-            _accessoryLabel!.font = UIFont.systemFont(ofSize: 14)
+            _accessoryLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _accessoryLabel!
     }
@@ -68,7 +68,7 @@ class HTableViewApexVertValue1 : HTableBaseApex {
     var topLabel: UILabel {
         if _topLabel == nil {
             _topLabel = UILabel()
-            _topLabel!.font = UIFont.systemFont(ofSize: 14)
+            _topLabel!.font = .systemFont(ofSize: 14.0)
             self.topView.addSubview(_topLabel!)
         }
         return _topLabel!
@@ -92,7 +92,7 @@ class HTableViewApexVertValue1 : HTableBaseApex {
     var bottomLabel: UILabel {
         if _bottomLabel == nil {
             _bottomLabel = UILabel()
-            _bottomLabel!.font = UIFont.systemFont(ofSize: 14)
+            _bottomLabel!.font = .systemFont(ofSize: 14.0)
             self.bottomView.addSubview(_bottomLabel!)
         }
         return _bottomLabel!
@@ -195,7 +195,7 @@ class HTableViewApexVertValue2 : HTableBaseApex {
     var label: UILabel {
         if _label == nil {
             _label = UILabel()
-            _label!.font = UIFont.systemFont(ofSize: 14)
+            _label!.font = .systemFont(ofSize: 14.0)
         }
         return _label!
     }
@@ -205,7 +205,7 @@ class HTableViewApexVertValue2 : HTableBaseApex {
     var detailLabel: UILabel {
         if _detailLabel == nil {
             _detailLabel = UILabel()
-            _detailLabel!.font = UIFont.systemFont(ofSize: 14)
+            _detailLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _detailLabel!
     }
@@ -215,7 +215,7 @@ class HTableViewApexVertValue2 : HTableBaseApex {
     var accessoryLabel: UILabel {
         if _accessoryLabel == nil {
             _accessoryLabel = UILabel()
-            _accessoryLabel!.font = UIFont.systemFont(ofSize: 14)
+            _accessoryLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _accessoryLabel!
     }
@@ -235,7 +235,7 @@ class HTableViewApexVertValue2 : HTableBaseApex {
     var topLabel: UILabel {
         if _topLabel == nil {
             _topLabel = UILabel()
-            _topLabel!.font = UIFont.systemFont(ofSize: 14)
+            _topLabel!.font = .systemFont(ofSize: 14.0)
             self.topView.addSubview(_topLabel!)
         }
         return _topLabel!
@@ -259,7 +259,7 @@ class HTableViewApexVertValue2 : HTableBaseApex {
     var bottomLabel: UILabel {
         if _bottomLabel == nil {
             _bottomLabel = UILabel()
-            _bottomLabel!.font = UIFont.systemFont(ofSize: 14)
+            _bottomLabel!.font = .systemFont(ofSize: 14.0)
             self.bottomView.addSubview(_bottomLabel!)
         }
         return _bottomLabel!

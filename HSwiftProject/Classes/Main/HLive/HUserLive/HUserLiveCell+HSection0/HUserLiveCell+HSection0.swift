@@ -136,7 +136,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             break
         case 1:
             let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-            cell.label.font = UIFont.systemFont(ofSize: 14)
+            cell.label.font = .systemFont(ofSize: 14.0)
             cell.label.textAlignment = .center
             cell.label.textColor = HColorHex("#0B0A0C")
             break
@@ -403,7 +403,7 @@ extension HUserLiveCell {
             cell.buttonView.cornerRadius = cell.layoutViewFrame.height / 2
             cell.buttonView.backgroundColor = UIColor.yellow
             cell.buttonView.text = "测试公告"
-            cell.buttonView.textFont = UIFont.systemFont(ofSize: 14)
+            cell.buttonView.textFont = .systemFont(ofSize: 14.0)
             cell.buttonView.textColor = UIColor.black
             cell.buttonView.textAlignment = .left
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in

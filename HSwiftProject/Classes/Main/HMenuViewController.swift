@@ -89,9 +89,9 @@ class HMenuViewController: HTabBarController {
         
         self.tabBar.itemTitleColor = UIColor(hex: "#535353")
         self.tabBar.itemTitleSelectedColor = UIColor(hex: "#CFA359")
-        self.tabBar.itemTitleFont = UIFont.systemFont(ofSize: 14)
-        self.tabBar.itemTitleSelectedFont = UIFont.systemFont(ofSize: 14)
-        self.tabBar.backgroundColor = UIColor.white
+        self.tabBar.itemTitleFont = .systemFont(ofSize: 14.0)
+        self.tabBar.itemTitleSelectedFont = .systemFont(ofSize: 14.0)
+        self.tabBar.backgroundColor = .white
         self.tabBar.addTopLineViewWithColor(UIColor.gray)
         self.tabBar.addBottomBlankViewWithColor(UIColor.white)
     }
@@ -105,7 +105,7 @@ class HMenuViewController: HTabBarController {
         specialItem.titleColor = UIColor(hex: "#535353")
         specialItem.titleSelectedColor = UIColor(hex: "#CFA359")
         specialItem.backgroundColor = UIColor.clear
-        specialItem.titleFont = UIFont.systemFont(ofSize: 14)
+        specialItem.titleFont = .systemFont(ofSize: 14.0)
         
         specialItem.setContentHorizontalCenterWithVerticalOffset(13, spacing: 10)
         // 设置其size，如果不设置，则默认为与其他item一样

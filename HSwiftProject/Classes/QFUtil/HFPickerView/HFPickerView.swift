@@ -45,7 +45,7 @@ class HFPickerView: UIView, UITableViewDelegate, UITableViewDataSource {
         
         doneBtn = UIButton(type: .custom)
         doneBtn.setTitle("完成", for: .normal)
-        doneBtn.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        doneBtn.titleLabel?.font = .systemFont(ofSize: 14.0)
         doneBtn.setTitleColor(UIColor.gray, for: .normal)
         doneBtn.frame = CGRect(x: 320 / 375, y: 5 / 667, width: 50 / 375, height: 40 / 667)
         doneBtn.addTarget(self, action: #selector(quit), for: .touchUpInside)

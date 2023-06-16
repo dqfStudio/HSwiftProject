@@ -32,7 +32,7 @@ class HTableViewCellVertValue1 : HTableBaseCell {
     var label: UILabel {
         if _label == nil {
             _label = UILabel()
-            _label!.font = UIFont.systemFont(ofSize: 14)
+            _label!.font = .systemFont(ofSize: 14.0)
         }
         return _label!
     }
@@ -42,7 +42,7 @@ class HTableViewCellVertValue1 : HTableBaseCell {
     var detailLabel: UILabel {
         if _detailLabel == nil {
             _detailLabel = UILabel()
-            _detailLabel!.font = UIFont.systemFont(ofSize: 14)
+            _detailLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _detailLabel!
     }
@@ -52,7 +52,7 @@ class HTableViewCellVertValue1 : HTableBaseCell {
     var accessoryLabel: UILabel {
         if _accessoryLabel == nil {
             _accessoryLabel = UILabel()
-            _accessoryLabel!.font = UIFont.systemFont(ofSize: 14)
+            _accessoryLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _accessoryLabel!
     }
@@ -72,7 +72,7 @@ class HTableViewCellVertValue1 : HTableBaseCell {
     var topLabel: UILabel {
         if _topLabel == nil {
             _topLabel = UILabel()
-            _topLabel!.font = UIFont.systemFont(ofSize: 14)
+            _topLabel!.font = .systemFont(ofSize: 14.0)
             self.topView.addSubview(_topLabel!)
         }
         return _topLabel!
@@ -96,7 +96,7 @@ class HTableViewCellVertValue1 : HTableBaseCell {
     var bottomLabel: UILabel {
         if _bottomLabel == nil {
             _bottomLabel = UILabel()
-            _bottomLabel!.font = UIFont.systemFont(ofSize: 14)
+            _bottomLabel!.font = .systemFont(ofSize: 14.0)
             self.bottomView.addSubview(_bottomLabel!)
         }
         return _bottomLabel!
@@ -203,7 +203,7 @@ class HTableViewCellVertValue2 : HTableBaseCell {
     var label: UILabel {
         if _label == nil {
             _label = UILabel()
-            _label!.font = UIFont.systemFont(ofSize: 14)
+            _label!.font = .systemFont(ofSize: 14.0)
         }
         return _label!
     }
@@ -213,7 +213,7 @@ class HTableViewCellVertValue2 : HTableBaseCell {
     var detailLabel: UILabel {
         if _detailLabel == nil {
             _detailLabel = UILabel()
-            _detailLabel!.font = UIFont.systemFont(ofSize: 14)
+            _detailLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _detailLabel!
     }
@@ -223,7 +223,7 @@ class HTableViewCellVertValue2 : HTableBaseCell {
     var accessoryLabel: UILabel {
         if _accessoryLabel == nil {
             _accessoryLabel = UILabel()
-            _accessoryLabel!.font = UIFont.systemFont(ofSize: 14)
+            _accessoryLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _accessoryLabel!
     }
@@ -243,7 +243,7 @@ class HTableViewCellVertValue2 : HTableBaseCell {
     var topLabel: UILabel {
         if _topLabel == nil {
             _topLabel = UILabel()
-            _topLabel!.font = UIFont.systemFont(ofSize: 14)
+            _topLabel!.font = .systemFont(ofSize: 14.0)
             self.topView.addSubview(_topLabel!)
         }
         return _topLabel!
@@ -267,7 +267,7 @@ class HTableViewCellVertValue2 : HTableBaseCell {
     var bottomLabel: UILabel {
         if _bottomLabel == nil {
             _bottomLabel = UILabel()
-            _bottomLabel!.font = UIFont.systemFont(ofSize: 14)
+            _bottomLabel!.font = .systemFont(ofSize: 14.0)
             self.bottomView.addSubview(_bottomLabel!)
         }
         return _bottomLabel!

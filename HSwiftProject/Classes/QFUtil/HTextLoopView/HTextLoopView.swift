@@ -99,9 +99,9 @@ class HTextLoopView: UIView, UITableViewDataSource, UITableViewDelegate {
             cell = UITableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
         }
         cell!.textLabel!.text = dataSource![indexPath.row] as? String
-        cell!.textLabel!.font = UIFont.systemFont(ofSize: 14)
-        cell!.textLabel!.textColor = UIColor.lightText
-        cell!.backgroundColor = UIColor.clear
+        cell!.textLabel!.font = .systemFont(ofSize: 14.0)
+        cell!.textLabel!.textColor = .lightText
+        cell!.backgroundColor = .clear
         cell!.selectionStyle = .none
         return cell!
     }

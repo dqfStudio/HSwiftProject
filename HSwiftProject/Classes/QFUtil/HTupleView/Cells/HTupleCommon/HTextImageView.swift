@@ -48,7 +48,7 @@ class HTextImageView: UIStackView {
     var label: UILabel {
         if _label == nil {
             _label = UILabel()
-            _label!.font = UIFont.systemFont(ofSize: 14)
+            _label!.font = .systemFont(ofSize: 14.0)
         }
         return _label!
     }
@@ -58,7 +58,7 @@ class HTextImageView: UIStackView {
     var detailLabel: UILabel {
         if _detailLabel == nil {
             _detailLabel = UILabel()
-            _detailLabel!.font = UIFont.systemFont(ofSize: 14)
+            _detailLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _detailLabel!
     }
@@ -68,7 +68,7 @@ class HTextImageView: UIStackView {
     var accessoryLabel: UILabel {
         if _accessoryLabel == nil {
             _accessoryLabel = UILabel()
-            _accessoryLabel!.font = UIFont.systemFont(ofSize: 14)
+            _accessoryLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _accessoryLabel!
     }
