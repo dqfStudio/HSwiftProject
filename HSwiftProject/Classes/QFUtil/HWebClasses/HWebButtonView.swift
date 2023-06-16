@@ -73,7 +73,7 @@ class HWebButtonView: UIButton {
     }
 
     private func setup() {
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = .clear
         self.imageView?.contentMode = .scaleAspectFill
         self.titleLabel?.font = .systemFont(ofSize: 17.0)
         self.layer.masksToBounds = true

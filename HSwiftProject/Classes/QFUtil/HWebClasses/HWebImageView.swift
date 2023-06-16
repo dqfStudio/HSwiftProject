@@ -85,7 +85,7 @@ class HWebImageView: UIImageView {
     }
 
     private func setup() {
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = .clear
         self.contentMode = .scaleAspectFill
         self.layer.masksToBounds = true
     }
