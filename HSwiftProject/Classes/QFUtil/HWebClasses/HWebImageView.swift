@@ -108,24 +108,21 @@ class HWebImageView: UIImageView {
             super.image = image
         }
     }
-    
-    private func _setImage(_ image: UIImage?) {
-        kf.cancelDownloadTask()
-        DispatchQueue.main.async {
-            super.image = image
-        }
-    }
+
+}
+
+extension HWebImageView {
     
     /**
     *  Set image directly
     *
     *  @param image image
     */
-    private func setImage(_ image: UIImage?) {
-        self._setImage(image)
-        self.lastURL = ""
-        self.alpha = 1.0
-        didGetImage?(self, image)
+    private func _setImage(_ image: UIImage?) {
+        DispatchQueue.main.async {
+            super.kf.cancelDownloadTask()
+            super.image = image
+        }
     }
 
     /**
@@ -157,20 +154,14 @@ class HWebImageView: UIImageView {
         }
         
         if urlString.hasPrefix("http") == false {
-            let image: UIImage? = UIImage(named: urlString)
+            let image = UIImage(named: urlString)
             self._setImage(image)
-            self.alpha = 1.0
             didGetImage?(self, self.image)
             return
         }
         if self.image != nil && lastURL.isEqual(urlString) {
-            self.alpha = 1.0
             didGetImage?(self, self.image)
             return
-        }
-        
-        if placeholder == nil && self.image == nil {
-            self.alpha = 0
         }
         
         self._setImage(nil)
@@ -186,7 +177,6 @@ class HWebImageView: UIImageView {
                 case.success(let value):
                     if value.image != nil {
                         self._setImage(value.image)
-                        self.alpha = 1.0
                         self.lastURL = url.absoluteString
                         self.didGetImage?(self, value.image)
                     }
@@ -200,20 +190,12 @@ class HWebImageView: UIImageView {
             case .success(let value):
                 self._setImage(value.image)
                 self.lastURL = url.absoluteString
-                if value.cacheType == .none {
-                    UIView.animate(withDuration: 0.5) {
-                        self.alpha = 1.0
-                    }
-                }else {
-                    self.alpha = 1.0
-                }
                 self.didGetImage?(self, value.image)
             case .failure(let value):
                 self.didGetError?(self, value as AnyObject)
             }
         }
     }
-
 }
 
 extension UIImageView {
