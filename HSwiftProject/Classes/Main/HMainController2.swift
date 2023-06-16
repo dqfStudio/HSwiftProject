@@ -110,9 +110,7 @@ class HMainController2: HViewController {
         button.imageSize = CGSize(width: 8, height: 12)
         
         let image = UIImage(named: "icon_tuple_arrow_right")
-//        button.image = image?.scaleImage(CGSize(width: 10, height: 12))
         button.image = image
-//        button.setImage(image)
         
         
 //        let string = "https://freechatoss.s3.ap-southeast-1.amazonaws.com/images/Group_Chat_Banner_English.png"

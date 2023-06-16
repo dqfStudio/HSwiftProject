@@ -239,6 +239,7 @@
 		EBA53C322A3210FB0077158D /* HMultiButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C312A3210FA0077158D /* HMultiButtonView.swift */; };
 		EBA53C382A38AF000077158D /* HWebButtonView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C372A38AF000077158D /* HWebButtonView2.swift */; };
 		EBA53C3A2A3B47240077158D /* HWebImageView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C392A3B47240077158D /* HWebImageView2.swift */; };
+		EBA53C3C2A3BED2B0077158D /* HWebButtonView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C3B2A3BED2B0077158D /* HWebButtonView3.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -549,6 +550,7 @@
 		EBA53C312A3210FA0077158D /* HMultiButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMultiButtonView.swift; sourceTree = "<group>"; };
 		EBA53C372A38AF000077158D /* HWebButtonView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebButtonView2.swift; sourceTree = "<group>"; };
 		EBA53C392A3B47240077158D /* HWebImageView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebImageView2.swift; sourceTree = "<group>"; };
+		EBA53C3B2A3BED2B0077158D /* HWebButtonView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebButtonView3.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -1206,6 +1208,7 @@
 				EB4323F729B9B41000EDDB64 /* HAnimatedImage */,
 				A2B4308223801C4E00795605 /* HWebButtonView.swift */,
 				EBA53C372A38AF000077158D /* HWebButtonView2.swift */,
+				EBA53C3B2A3BED2B0077158D /* HWebButtonView3.swift */,
 				A2B4308C23825BBE00795605 /* HWebImageView.swift */,
 				EBA53C392A3B47240077158D /* HWebImageView2.swift */,
 			);
@@ -1813,6 +1816,7 @@
 				A2B4308F2382CC8A00795605 /* UIDevice+HUtil.swift in Sources */,
 				EBD0FB8A29D5668E00808EDA /* CALayer+HUtil.swift in Sources */,
 				EB23DACD2A027D6C00C96CAC /* HSheetAction.swift in Sources */,
+				EBA53C3C2A3BED2B0077158D /* HWebButtonView3.swift in Sources */,
 				EB05976B2A09F02B0016ACD8 /* CGRect.swift in Sources */,
 				EB43241229C2EB3F00EDDB64 /* NSObject+HLanguage.swift in Sources */,
 				A229488E239756770058B939 /* HTableBaseApex.swift in Sources */,

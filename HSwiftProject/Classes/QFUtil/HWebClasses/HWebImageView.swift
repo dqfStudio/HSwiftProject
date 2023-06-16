@@ -227,8 +227,8 @@ extension UIImageView {
         }
     }
     func setImage(WithName fileName: String) {
-        if fileName.count > 0 {
-            self.image = UIImage(named: fileName)
+        if let image = UIImage(named: fileName) {
+            self.image = image
         }
     }
 }

@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 class HWebButtonView: UIButton {
-    
+
     enum HImagePosition {
         case top
         case left
@@ -39,7 +39,7 @@ class HWebButtonView: UIButton {
             }
         }
     }
-    
+
     // The tintColor in the parent class is problematic
     var renderColor: UIColor? {
         didSet {
@@ -48,38 +48,25 @@ class HWebButtonView: UIButton {
             }
         }
     }
-    
+
     var pressed: Callback?
     var didGetImage: Callback?
     var didGetError: Callback?
-    
+
     private var lastURL: String = ""
     // Click time
     private var pressedInterval: TimeInterval = 0.0
-    
-    private var _webImageView: UIImageView?
-    var webImageView: UIImageView {
-        if _webImageView == nil {
-            _webImageView = UIImageView(frame: self.bounds)
-            _webImageView!.contentMode = .scaleAspectFill
-            _webImageView!.layer.masksToBounds = true
-            _webImageView!.isUserInteractionEnabled = false
-            _webImageView!.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-            self.addSubview(_webImageView!)
-        }
-        return _webImageView!
-    }
-    
+
     required init() {
         super.init(frame: .zero)
         self.setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setup()
     }
-    
+
     required override init(frame: CGRect) {
         super.init(frame: frame)
         self.setup()
@@ -92,7 +79,7 @@ class HWebButtonView: UIButton {
         self.layer.masksToBounds = true
         self.addTarget(self, action: #selector(buttonPressed), for:.touchUpInside)
     }
-    
+
     @objc
     private func buttonPressed() {
         guard let pressed = pressed else { return }
@@ -104,7 +91,7 @@ class HWebButtonView: UIButton {
             pressed(self, nil)
         }
     }
-    
+
     override var intrinsicContentSize: CGSize {
         var size = super.intrinsicContentSize
         switch imagePosition {
@@ -117,12 +104,12 @@ class HWebButtonView: UIButton {
         }
         return size
     }
-    
+
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         updateSubviews()
     }
-    
+
     private func updateSubviews() {
         if let normalImage = self.image(for: .normal) {
             var image: UIImage? = normalImage
@@ -165,28 +152,22 @@ class HWebButtonView: UIButton {
             imageEdgeInsets = UIEdgeInsets(top: 0, left: titleWidth, bottom: 0, right: -titleWidth)
         }
     }
-    
+
 }
 
 extension HWebButtonView {
-    
-    private func _setImage(_ image: UIImage?) {
-        self.webImageView.kf.cancelDownloadTask()
-        DispatchQueue.main.async {
-            self.webImageView.image = image
-        }
-    }
-    
+
     /**
     *  Set image directly
     *
     *  @param image image
     */
-    private func setImage(_ image: UIImage?) {
-        self._setImage(image)
-        self.lastURL = ""
-        self.webImageView.alpha = 1.0
-        didGetImage?(self, image)
+    private func _setImage(_ image: UIImage?) {
+        DispatchQueue.main.async {
+            self.imageView?.kf.cancelDownloadTask()
+            self.setImage(image, for: .normal)
+            self.adjustsImageWhenHighlighted = (image == nil)
+        }
     }
 
     /**
@@ -200,7 +181,7 @@ extension HWebButtonView {
     func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true) {
         self.setImageUrlString(url.absoluteString, placeholder: placeholder, syncLoadCache: cache)
     }
-    
+
     /**
     *  Set image link, read from cache if available
     *
@@ -216,38 +197,31 @@ extension HWebButtonView {
             didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
             return
         }
-        
+
         if urlString.hasPrefix("http") == false {
             let image = UIImage(named: urlString)
             self._setImage(image)
-            self.webImageView.alpha = 1.0
-            didGetImage?(self, webImageView.image)
+            didGetImage?(self, imageView?.image)
             return
         }
-        if self.webImageView.image != nil && lastURL.isEqual(urlString) {
-            self.webImageView.alpha = 1.0
-            didGetImage?(self, webImageView.image)
+        if self.imageView?.image != nil && lastURL.isEqual(urlString) {
+            didGetImage?(self, imageView?.image)
             return
         }
-        
-        if placeholder == nil && self.webImageView.image == nil {
-            self.webImageView.alpha = 0
-        }
-        
+
         self._setImage(nil)
         self.lastURL = ""
-        
+
         guard let url = URL(string: urlString) else {
             return
         }
-        
+
         if cache {
             KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { result in
                 switch result {
                 case.success(let value):
                     if value.image != nil {
                         self._setImage(value.image)
-                        self.webImageView.alpha = 1.0
                         self.lastURL = url.absoluteString
                         self.didGetImage?(self, value.image)
                     }
@@ -255,72 +229,79 @@ extension HWebButtonView {
                 }
             }
         }
-        //self.webImageView.kf.indicatorType = .activity
-        self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
+        //self.imageView?.kf.indicatorType = .activity
+        self.imageView?.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
             switch result {
             case .success(let value):
                 self._setImage(value.image)
                 self.lastURL = url.absoluteString
-                if value.cacheType == .none {
-                    UIView.animate(withDuration: 0.5) {
-                        self.webImageView.alpha = 1.0
-                    }
-                }else {
-                    self.webImageView.alpha = 1.0
-                }
                 self.didGetImage?(self, value.image)
             case .failure(let value):
                 self.didGetError?(self, value as AnyObject)
             }
         }
     }
-    
+
 }
 
 extension UIButton {
 
     public var text: String? {
         get { return self.title(for: .normal) }
-        set { self.setTitle(newValue, for: .normal) }
+        set {
+            self.setTitle(newValue, for: .normal)
+            self.adjustsImageWhenHighlighted = false
+        }
     }
 
     public var textFont: UIFont? {
         get { return self.titleLabel?.font }
         set { self.titleLabel?.font = newValue }
     }
-    
+
     public var textColor: UIColor? {
         get { return self.titleColor(for: .normal) }
-        set { self.setTitleColor(newValue, for: .normal) }
+        set {
+            self.setTitleColor(newValue, for: .normal)
+            self.adjustsImageWhenHighlighted = false
+        }
     }
-    
+
     public var textAlignment: NSTextAlignment {
         get { return self.titleLabel?.textAlignment ?? .center }
         set { self.titleLabel?.textAlignment = newValue }
     }
-    
+
     @objc open var image: UIImage? {
         get { return self.image(for: .normal) }
-        set { self.setImage(newValue, for: .normal) }
+        set {
+            self.setImage(newValue, for: .normal)
+            self.adjustsImageWhenHighlighted = false
+        }
     }
-    
+
     public var backgroundImage: UIImage? {
         get { return self.backgroundImage(for: .normal) }
-        set { self.setBackgroundImage(newValue, for: .normal) }
+        set {
+            self.setBackgroundImage(newValue, for: .normal)
+            self.adjustsImageWhenHighlighted = false
+        }
     }
-    
+
     public func setImage(WithFile fileName: String) {
         if let filePath = Bundle.main.resourcePath?.appendingFormat("/%@", fileName),
            let image = UIImage(contentsOfFile: filePath) {
             self.setImage(image, for: .normal)
+            self.adjustsImageWhenHighlighted = false
         }
     }
     public func setImage(WithName fileName: String) {
-        if fileName.count > 0 {
+        if let image = UIImage(named: fileName) {
             self.setImage(image, for: .normal)
+            self.adjustsImageWhenHighlighted = false
         }
     }
-    
+
     public func addTarget(_ target: Any?, action: Selector) {
         self.addTarget(target, action: action, for: .touchUpInside)
     }
@@ -333,7 +314,7 @@ extension UIButton {
         bounds = bounds.insetBy(dx: -0.5 * widthDelta, dy: -0.5 * heightDelta)
         return bounds.contains(point)
     }
-    
+
     ///图左文字右
     public func imageAndTextWithSpacing(_ spacing: CGFloat) {
         self.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: spacing)
@@ -349,7 +330,7 @@ extension UIButton {
         self.imageEdgeInsets = UIEdgeInsets(top: 0, left: imageLeft, bottom: 0, right: imageRight)
         self.titleEdgeInsets = UIEdgeInsets(top: 0, left: titleLeft, bottom: 0, right: titleRight)
     }
-    
+
     ///图上文字下
     public func imageUpAndTextDownWithSpacing(_ spacing: CGFloat) {
         let imageLeft = -(self.imageView?.width ?? 0)
