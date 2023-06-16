@@ -159,6 +159,7 @@ extension HWebImageView {
             didGetImage?(self, self.image)
             return
         }
+        
         if self.image != nil && lastURL.isEqual(urlString) {
             didGetImage?(self, self.image)
             return
@@ -184,6 +185,7 @@ extension HWebImageView {
                 }
             }
         }
+        
         //self.kf.indicatorType = .activity
         self.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
             switch result {

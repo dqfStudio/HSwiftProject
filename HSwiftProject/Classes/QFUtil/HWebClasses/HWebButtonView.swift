@@ -57,6 +57,19 @@ class HWebButtonView: UIButton {
     // Click time
     private var pressedInterval: TimeInterval = 0.0
 
+    private var _webImageView: UIImageView?
+    var webImageView: UIImageView {
+        if _webImageView == nil {
+            _webImageView = UIImageView(frame: self.bounds)
+            _webImageView!.contentMode = .scaleAspectFill
+            _webImageView!.layer.masksToBounds = true
+            _webImageView!.isUserInteractionEnabled = false
+            _webImageView!.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+            self.addSubview(_webImageView!)
+        }
+        return _webImageView!
+    }
+
     required init() {
         super.init(frame: .zero)
         self.setup()
@@ -164,9 +177,8 @@ extension HWebButtonView {
     */
     private func _setImage(_ image: UIImage?) {
         DispatchQueue.main.async {
-            self.imageView?.kf.cancelDownloadTask()
-            self.setImage(image, for: .normal)
-            self.adjustsImageWhenHighlighted = (image == nil)
+            self.webImageView.kf.cancelDownloadTask()
+            self.webImageView.image = image
         }
     }
 
@@ -201,12 +213,19 @@ extension HWebButtonView {
         if urlString.hasPrefix("http") == false {
             let image = UIImage(named: urlString)
             self._setImage(image)
-            didGetImage?(self, imageView?.image)
+            self.webImageView.alpha = 1.0
+            didGetImage?(self, webImageView.image)
             return
         }
-        if self.imageView?.image != nil && lastURL.isEqual(urlString) {
-            didGetImage?(self, imageView?.image)
+        
+        if self.webImageView.image != nil && lastURL.isEqual(urlString) {
+            self.webImageView.alpha = 1.0
+            didGetImage?(self, webImageView.image)
             return
+        }
+
+        if placeholder == nil && self.webImageView.image == nil {
+            self.webImageView.alpha = 0
         }
 
         self._setImage(nil)
@@ -222,6 +241,7 @@ extension HWebButtonView {
                 case.success(let value):
                     if value.image != nil {
                         self._setImage(value.image)
+                        self.webImageView.alpha = 1.0
                         self.lastURL = url.absoluteString
                         self.didGetImage?(self, value.image)
                     }
@@ -229,12 +249,20 @@ extension HWebButtonView {
                 }
             }
         }
-        //self.imageView?.kf.indicatorType = .activity
-        self.imageView?.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
+        
+        //self.webImageView.kf.indicatorType = .activity
+        self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
             switch result {
             case .success(let value):
                 self._setImage(value.image)
                 self.lastURL = url.absoluteString
+                if value.cacheType == .none {
+                    UIView.animate(withDuration: 0.5) {
+                        self.webImageView.alpha = 1.0
+                    }
+                }else {
+                    self.webImageView.alpha = 1.0
+                }
                 self.didGetImage?(self, value.image)
             case .failure(let value):
                 self.didGetError?(self, value as AnyObject)
@@ -248,10 +276,7 @@ extension UIButton {
 
     public var text: String? {
         get { return self.title(for: .normal) }
-        set {
-            self.setTitle(newValue, for: .normal)
-            self.adjustsImageWhenHighlighted = false
-        }
+        set { self.setTitle(newValue, for: .normal) }
     }
 
     public var textFont: UIFont? {
@@ -261,10 +286,7 @@ extension UIButton {
 
     public var textColor: UIColor? {
         get { return self.titleColor(for: .normal) }
-        set {
-            self.setTitleColor(newValue, for: .normal)
-            self.adjustsImageWhenHighlighted = false
-        }
+        set { self.setTitleColor(newValue, for: .normal) }
     }
 
     public var textAlignment: NSTextAlignment {
@@ -274,37 +296,25 @@ extension UIButton {
 
     @objc open var image: UIImage? {
         get { return self.image(for: .normal) }
-        set {
-            self.setImage(newValue, for: .normal)
-            self.adjustsImageWhenHighlighted = false
-        }
+        set { self.setImage(newValue, for: .normal) }
     }
 
     public var backgroundImage: UIImage? {
         get { return self.backgroundImage(for: .normal) }
-        set {
-            self.setBackgroundImage(newValue, for: .normal)
-            self.adjustsImageWhenHighlighted = false
-        }
+        set { self.setBackgroundImage(newValue, for: .normal) }
     }
 
     public func setImage(WithFile fileName: String) {
         if let filePath = Bundle.main.resourcePath?.appendingFormat("/%@", fileName),
            let image = UIImage(contentsOfFile: filePath) {
             self.setImage(image, for: .normal)
-            self.adjustsImageWhenHighlighted = false
-        }
-    }
-    public func setImage(WithName fileName: String) {
-        if let image = UIImage(named: fileName) {
-            self.setImage(image, for: .normal)
-            self.adjustsImageWhenHighlighted = false
         }
     }
     
-    public func setImage(_ image: UIImage?) {
-        self.setImage(image, for: .normal)
-        self.adjustsImageWhenHighlighted = (image == nil)
+    public func setImage(WithName fileName: String) {
+        if let image = UIImage(named: fileName) {
+            self.setImage(image, for: .normal)
+        }
     }
 
     public func addTarget(_ target: Any?, action: Selector) {
