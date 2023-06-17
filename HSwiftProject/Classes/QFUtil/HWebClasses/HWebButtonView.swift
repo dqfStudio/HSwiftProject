@@ -180,6 +180,7 @@ extension HWebButtonView {
     */
     private func _setImage(_ image: UIImage?) {
         DispatchQueue.main.async {
+            self.adjustsImageWhenHighlighted = false
             self.webImageView.kf.cancelDownloadTask()
             self.webImageView.image = image
         }
