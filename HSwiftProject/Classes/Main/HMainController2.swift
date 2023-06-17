@@ -12,6 +12,23 @@ class HMainController2: HViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let webActionView = HWebActionView(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 40))
+        webActionView.backgroundColor = .red
+        
+        webActionView.imagePosition = .left
+        webActionView.renderColor = .yellow
+        webActionView.imageSpace = 10
+        webActionView.imageView.image = UIImage(named: "hvc_back_icon")
+        webActionView.titleLabel.text = "封疆大吏是否能啦"
+        webActionView.titleLabel.backgroundColor = .blue
+        
+        webActionView.pressed = { (_ sender: Any?, _ data: Any?) in
+            NSLog("")
+        }
+        
+        self.view.addSubview(webActionView)
+        return
 
         let toolbar = HScrollbar(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 40))
 

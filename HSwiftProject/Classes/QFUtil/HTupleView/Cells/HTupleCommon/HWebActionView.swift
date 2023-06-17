@@ -37,6 +37,7 @@ class HWebActionView: UIControl {
             _imageView!.backgroundColor = .clear
             _imageView!.layer.masksToBounds = true
             _imageView!.contentMode = .scaleAspectFill
+            _imageView!.isUserInteractionEnabled = false
         }
         return _imageView!
     }
@@ -77,6 +78,7 @@ class HWebActionView: UIControl {
     /// 用于imageView和titleLabel布局
     private lazy var layoutView: UIStackView = {
         let layoutView = UIStackView(frame: self.bounds)
+        layoutView.isUserInteractionEnabled = false
         layoutView.axis = .horizontal
         layoutView.distribution = .fill
         layoutView.alignment = .center
@@ -101,7 +103,7 @@ class HWebActionView: UIControl {
 
     private func setup() {
         self.backgroundColor = .clear
-        self.addTarget(self, action: #selector(buttonPressed), for:.touchUpInside)
+        self.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
 
     // Click response event
