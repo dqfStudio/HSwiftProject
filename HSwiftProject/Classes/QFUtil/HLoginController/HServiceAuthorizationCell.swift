@@ -12,16 +12,9 @@ typealias HServiceAgreementBlock = () -> Void
 //typedef void(^HServiceAgreementBlock)(void)
 
 class HServiceAuthorizationCell : HTupleLabelCell {
-    private var _isAuthorized: Bool = true
+    
     ///default is true
-    var isAuthorized: Bool {
-        get {
-            return _isAuthorized
-        }
-        set {
-            _isAuthorized = newValue
-        }
-    }
+    var isAuthorized: Bool = true
     var serviceAgreementBlock: HServiceAgreementBlock?
     
 //@property(nonatomic, getter=isAuthorized) BOOL authorized //default is YES
@@ -32,19 +25,17 @@ class HServiceAuthorizationCell : HTupleLabelCell {
     
     private var _buttonView: HWebButtonView?
     private var buttonView: HWebButtonView? {
-        get {
-            if _buttonView == nil {
-                _buttonView = HWebButtonView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
-                _buttonView!.setImage(UIImage(named: "registet_checkbox_icon"), for: .normal)
-                _buttonView!.setImage(UIImage(named: "registet_checkbox_icon_h"), for: .selected)
-                _buttonView!.isSelected = !_buttonView!.isSelected
-                _buttonView!.pressed = { (target, data) in
-                    let buttonView = target as! HWebButtonView
-                    buttonView.isSelected = !buttonView.isSelected
-                }
+        if _buttonView == nil {
+            _buttonView = HWebButtonView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+            _buttonView!.setImage(UIImage(named: "registet_checkbox_icon"), for: .normal)
+            _buttonView!.setImage(UIImage(named: "registet_checkbox_icon_h"), for: .selected)
+            _buttonView!.isSelected = !_buttonView!.isSelected
+            _buttonView!.pressed = { (target, data) in
+                let buttonView = target as! HWebButtonView
+                buttonView.isSelected = !buttonView.isSelected
             }
-            return _buttonView!
         }
+        return _buttonView!
     }
     
     private var _attributedString: NSMutableAttributedString?

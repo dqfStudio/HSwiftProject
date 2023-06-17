@@ -127,7 +127,7 @@ class HLoginController: HTupleController {
             }
             cell.signalBlock = { (target, signal) in
                 let cell = target as! HServiceAuthorizationCell
-                if (cell.isAuthorized) {
+                if cell.isAuthorized {
 
                 }
             }
