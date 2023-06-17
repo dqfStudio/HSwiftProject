@@ -279,7 +279,10 @@ extension UIButton {
 
     public var text: String? {
         get { return self.title(for: .normal) }
-        set { self.setTitle(newValue, for: .normal) }
+        set {
+            self.setTitle(newValue, for: .normal)
+            self.adjustsImageWhenHighlighted = false
+        }
     }
 
     public var textFont: UIFont? {
@@ -289,7 +292,10 @@ extension UIButton {
 
     public var textColor: UIColor? {
         get { return self.titleColor(for: .normal) }
-        set { self.setTitleColor(newValue, for: .normal) }
+        set {
+            self.setTitleColor(newValue, for: .normal)
+            self.adjustsImageWhenHighlighted = false
+        }
     }
 
     public var textAlignment: NSTextAlignment {
@@ -299,24 +305,32 @@ extension UIButton {
 
     @objc open var image: UIImage? {
         get { return self.image(for: .normal) }
-        set { self.setImage(newValue, for: .normal) }
+        set {
+            self.setImage(newValue, for: .normal)
+            self.adjustsImageWhenHighlighted = false
+        }
     }
 
     public var backgroundImage: UIImage? {
         get { return self.backgroundImage(for: .normal) }
-        set { self.setBackgroundImage(newValue, for: .normal) }
+        set {
+            self.setBackgroundImage(newValue, for: .normal)
+            self.adjustsImageWhenHighlighted = false
+        }
     }
 
     public func setImage(WithFile fileName: String) {
         if let filePath = Bundle.main.resourcePath?.appendingFormat("/%@", fileName),
            let image = UIImage(contentsOfFile: filePath) {
             self.setImage(image, for: .normal)
+            self.adjustsImageWhenHighlighted = false
         }
     }
     
     public func setImage(WithName fileName: String) {
         if let image = UIImage(named: fileName) {
             self.setImage(image, for: .normal)
+            self.adjustsImageWhenHighlighted = false
         }
     }
 
