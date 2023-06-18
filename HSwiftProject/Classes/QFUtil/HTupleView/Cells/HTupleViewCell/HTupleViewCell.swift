@@ -58,6 +58,18 @@ class HTupleImageCell : HTupleBaseCell {
     }
 }
 
+class HTupleActionCell : HTupleBaseCell {
+    lazy var actionView: HWebActionView = {
+        let actionView = HWebActionView()
+        self.layoutView.addSubview(actionView)
+        return actionView
+    }()
+    
+    override func relayoutSubviews() {
+        HLayoutTupleCell(self.actionView)
+    }
+}
+
 class HTupleTextFieldCell : HTupleBaseCell {
     lazy var textField: HTextField = {
         let textField = HTextField()
