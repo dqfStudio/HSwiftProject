@@ -47,7 +47,7 @@ class HWebActionView: UIControl {
         if _titleLabel == nil {
             _titleLabel = UILabel()
             _titleLabel!.backgroundColor = .clear
-            _titleLabel!.font = .systemFont(ofSize: 17.0)
+            _titleLabel!.font = .systemFont(ofSize: 14.0)
         }
         return _titleLabel!
     }

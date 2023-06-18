@@ -20,8 +20,10 @@ class HMainController2: HViewController {
         webActionView.renderColor = .yellow
         webActionView.imageSpace = 10
         webActionView.imageView.image = UIImage(named: "hvc_back_icon")
+//        webActionView.imageView.backgroundColor = .green
         webActionView.titleLabel.text = "封疆大吏是否能啦"
-        webActionView.titleLabel.backgroundColor = .blue
+//        webActionView.titleLabel.font = UIFont.systemFont(ofSize: 17)
+//        webActionView.titleLabel.backgroundColor = .blue
         
         webActionView.pressed = { (_ sender: Any?, _ data: Any?) in
             NSLog("")
