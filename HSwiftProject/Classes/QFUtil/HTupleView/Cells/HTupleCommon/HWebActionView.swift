@@ -298,22 +298,21 @@ extension HWebActionView {
     *  @param image image
     */
     private func _setImage(_ image: UIImage?) {
-        DispatchQueue.main.async {
-            self.imageView.kf.cancelDownloadTask()
-            guard let tmpImage = image else {
-                self.imageView.image = nil
-                return
-            }
-            var image: UIImage? = tmpImage
-            if self.imageSize != .zero {
-                image = image?.cropImage(self.imageSize)
-            }
-            if let renderColor = self.renderColor {
-                self.imageView.tintColor = renderColor
-                self.imageView.image = image?.withRenderingMode(.alwaysTemplate)
-            } else {
-                self.imageView.image = image
-            }
+        self.imageView.kf.cancelDownloadTask()
+        guard let tmpImage = image else {
+            self.imageView.image = nil
+            return
+        }
+        var image: UIImage? = tmpImage
+        if self.imageSize == .zero {
+            self.imageSize = self.bounds.size
+        }
+        image = image?.cropImage(self.imageSize)
+        if let renderColor = self.renderColor {
+            self.imageView.tintColor = renderColor
+            self.imageView.image = image?.withRenderingMode(.alwaysTemplate)
+        } else {
+            self.imageView.image = image
         }
     }
 
@@ -352,13 +351,13 @@ extension HWebActionView {
             didGetImage?(self, imageView.image)
             return
         }
-        if imageView.image != nil && lastURL.isEqual(urlString) {
+        if self.imageView.image != nil && lastURL.isEqual(urlString) {
             self.imageView.alpha = 1.0
             didGetImage?(self, imageView.image)
             return
         }
 
-        if placeholder == nil && imageView.image == nil {
+        if placeholder == nil && self.imageView.image == nil {
             self.imageView.alpha = 0
         }
 
@@ -371,35 +370,39 @@ extension HWebActionView {
 
         if cache {
             KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { result in
-                switch result {
-                case.success(let value):
-                    if value.image != nil {
-                        self._setImage(value.image)
-                        self.imageView.alpha = 1.0
-                        self.lastURL = url.absoluteString
-                        self.didGetImage?(self, value.image)
+                DispatchQueue.main.async {
+                    switch result {
+                    case.success(let value):
+                        if value.image != nil {
+                            self._setImage(value.image)
+                            self.imageView.alpha = 1.0
+                            self.lastURL = url.absoluteString
+                            self.didGetImage?(self, value.image)
+                        }
+                    case .failure(_): break
                     }
-                case .failure(_): break
                 }
             }
         }
         
         //imageView.kf.indicatorType = .activity
         imageView.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
-            switch result {
-            case .success(let value):
-                self._setImage(value.image)
-                self.lastURL = url.absoluteString
-                    if value.cacheType == .none {
-                        UIView.animate(withDuration: 0.5) {
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let value):
+                    self._setImage(value.image)
+                    self.lastURL = url.absoluteString
+                        if value.cacheType == .none {
+                            UIView.animate(withDuration: 0.5) {
+                                self.imageView.alpha = 1.0
+                            }
+                        }else {
                             self.imageView.alpha = 1.0
                         }
-                    }else {
-                        self.imageView.alpha = 1.0
-                    }
-                self.didGetImage?(self, value.image)
-            case .failure(let value):
-                self.didGetError?(self, value as AnyObject)
+                    self.didGetImage?(self, value.image)
+                case .failure(let value):
+                    self.didGetError?(self, value as AnyObject)
+                }
             }
         }
     }

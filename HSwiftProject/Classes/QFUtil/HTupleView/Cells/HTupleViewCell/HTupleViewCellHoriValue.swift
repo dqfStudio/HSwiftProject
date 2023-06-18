@@ -431,11 +431,11 @@ class HTupleViewCellHoriValue3 : HTupleBaseCell {
         return stackView
     }()
     
-    private var _imageView: HWebImageView?
+    private var _imageView: HWebActionView?
     ///左边显示图片
-    var imageView: HWebImageView {
+    var imageView: HWebActionView {
         if _imageView == nil {
-            _imageView = HWebImageView()
+            _imageView = HWebActionView()
         }
         return _imageView!
     }
@@ -485,11 +485,11 @@ class HTupleViewCellHoriValue3 : HTupleBaseCell {
         return stackView
     }()
     
-    private var _detailView: HWebImageView?
+    private var _detailView: HWebActionView?
     ///文字右边，箭头左边显示图片
-    var detailView: HWebImageView {
+    var detailView: HWebActionView {
         if _detailView == nil {
-            _detailView = HWebImageView()
+            _detailView = HWebActionView()
         }
         return _detailView!
     }
