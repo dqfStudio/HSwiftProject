@@ -74,7 +74,6 @@ class HMainController1: HTupleController {
                     cell.imageView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.imageView.cornerRadius = 25 / 2
                     cell.imageView.backgroundColor = UIColor.red
-                    cell.imageView.renderColor = .blue
                     cell.imageView.setImage(WithName: "icon_no_server")
 
                     cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
