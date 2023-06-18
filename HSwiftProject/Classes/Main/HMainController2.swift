@@ -13,13 +13,16 @@ class HMainController2: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let webActionView = HWebActionView(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 40))
+        let webActionView = HWebActionView(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 60))
         webActionView.backgroundColor = .red
-        
-        webActionView.imagePosition = .left
-        webActionView.renderColor = .yellow
+//        webActionView.setImageUrlString("https://d1e084oasoo524.cloudfront.net/images/Group_Chat-Banner.png")
+        webActionView.imagePosition = .right
+//        webActionView.renderColor = .yellow
         webActionView.imageSpace = 10
-        webActionView.imageView.image = UIImage(named: "hvc_back_icon")
+//        webActionView.imageView.image = UIImage(named: "hvc_back_icon")
+        webActionView.setImage(WithName: "hvc_back_icon")
+//        webActionView.imageSize = CGSize(width: 23, height: 23)
+        
 //        webActionView.imageView.backgroundColor = .green
         webActionView.titleLabel.text = "封疆大吏是否能啦"
 //        webActionView.titleLabel.font = UIFont.systemFont(ofSize: 17)

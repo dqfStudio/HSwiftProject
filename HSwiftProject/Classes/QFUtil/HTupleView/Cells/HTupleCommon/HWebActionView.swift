@@ -131,9 +131,46 @@ class HWebActionView: UIControl {
         }
         return size
     }
-
+    
     override func layoutSubviews() {
-        super.layoutSubviews()
+        // 更新布局
+        self.updateSubviews()
+    }
+
+    private func updateSubviews(_ image: UIImage? = nil) {
+        
+        if let image = image ?? self.imageView.image {
+            if self.imageSize == .zero {
+                self.imageSize = image.size
+                if self.imageSize == .zero ||
+                    self.imageSize.width > self.bounds.size.width ||
+                    self.imageSize.height > self.bounds.size.height {
+                    self.imageSize = self.bounds.size
+                    switch imagePosition {
+                    case .left, .right:
+                        self.imageSize.width -= imageSpace
+                        self.imageSize.width -= titleLabel.intrinsicContentSize.width
+                    case .top, .bottom:
+                        self.imageSize.height -= imageSpace
+                        self.imageSize.height -= titleLabel.intrinsicContentSize.height
+                    }
+                }
+            }
+            let tmpImage = image.cropImage(self.imageSize)
+            if let renderColor = self.renderColor {
+                self.imageView.tintColor = renderColor
+                self.imageView.image = tmpImage?.withRenderingMode(.alwaysTemplate)
+            } else {
+                self.imageView.image = tmpImage
+            }
+        }
+        
+        // 更新image和text坐标
+        updatePosition()
+    }
+    
+    // 更新布局
+    private func updatePosition() {
 
         /// 左边布局View
         layoutView.addArrangedSubview(leftView)
@@ -143,32 +180,20 @@ class HWebActionView: UIControl {
             
             var imageHeight = 0.0
             var textHeight = 0.0
-            var textSpace = imageSpace
 
-            if let imageView = _imageView {
-                layoutView.addArrangedSubview(imageView)
-                
-                imageHeight = imageView.intrinsicContentSize.height
-                imageHeight = ceil(imageHeight)//向上取整
-            }
+            layoutView.addArrangedSubview(imageView)
+            imageHeight = imageSize.height
+            imageHeight = max(imageHeight, 0)
 
-            if let titleLabel = _titleLabel {
-                titleLabel.textAlignment = .center
-                layoutView.addArrangedSubview(titleLabel)
-                
-                textHeight = titleLabel.intrinsicContentSize.height
-                textHeight = ceil(textHeight)//向上取整
-            }
+            layoutView.addArrangedSubview(titleLabel)
+            textHeight = titleLabel.intrinsicContentSize.height
+            textHeight = max(textHeight, 0)
 
             /// 设置imageView和titleLabel之间的间隔
-            if let imageView = _imageView, _titleLabel != nil {
-                layoutView.setCustomSpacing(textSpace, after: imageView)
-            } else {
-                textSpace = 0.0
-            }
+            layoutView.setCustomSpacing(imageSpace, after: imageView)
 
             /// 上下两边的间隔
-            let space = (self.height - imageHeight - textHeight - textSpace) / 2
+            let space = (self.height - imageHeight - textHeight - imageSpace) / 2
             if space >= 0 { layoutView.spacing = space }
 
             /// 设置布局方向
@@ -178,33 +203,20 @@ class HWebActionView: UIControl {
             
             var imageWidth = 0.0
             var textWidth = 0.0
-            var textSpace = imageSpace
+
+            layoutView.addArrangedSubview(imageView)
+            imageWidth = imageSize.width
+            imageWidth = max(imageWidth, 0)
             
-            if let imageView = _imageView {
-                imageView.contentMode = (_titleLabel != nil) ? .right : .center
-                layoutView.addArrangedSubview(imageView)
-
-                imageWidth = imageView.intrinsicContentSize.width
-                imageWidth = ceil(imageWidth)//向上取整
-            }
-
-            if let titleLabel = _titleLabel {
-                titleLabel.textAlignment = (_imageView != nil) ? .left : .center
-                layoutView.addArrangedSubview(titleLabel)
-
-                textWidth = titleLabel.intrinsicContentSize.width
-                textWidth = ceil(textWidth)//向上取整
-            }
+            layoutView.addArrangedSubview(titleLabel)
+            textWidth = titleLabel.intrinsicContentSize.width
+            textWidth = max(textWidth, 0)
 
             /// 设置imageView和titleLabel之间的间隔
-            if let imageView = _imageView, _titleLabel != nil {
-                layoutView.setCustomSpacing(textSpace, after: imageView)
-            } else {
-                textSpace = 0.0
-            }
+            layoutView.setCustomSpacing(imageSpace, after: imageView)
             
             /// 左右两边的间隔
-            let space = (self.width - imageWidth - textWidth - textSpace) / 2
+            let space = (self.width - imageWidth - textWidth - imageSpace) / 2
             if space >= 0 { layoutView.spacing = space }
             
             /// 设置布局方向
@@ -214,32 +226,20 @@ class HWebActionView: UIControl {
             
             var textHeight = 0.0
             var imageHeight = 0.0
-            var textSpace = imageSpace
-            
-            if let titleLabel = _titleLabel {
-                titleLabel.textAlignment = .center
-                layoutView.addArrangedSubview(titleLabel)
-                
-                textHeight = titleLabel.intrinsicContentSize.height
-                textHeight = ceil(textHeight)//向上取整
-            }
 
-            if let imageView = _imageView {
-                layoutView.addArrangedSubview(imageView)
-                
-                imageHeight = imageView.intrinsicContentSize.height
-                imageHeight = ceil(imageHeight)//向上取整
-            }
+            layoutView.addArrangedSubview(titleLabel)
+            textHeight = titleLabel.intrinsicContentSize.height
+            textHeight = max(textHeight, 0)
+
+            layoutView.addArrangedSubview(imageView)
+            imageHeight = imageSize.height
+            imageHeight = max(imageHeight, 0)
 
             /// 设置imageView和titleLabel之间的间隔
-            if let titleLabel = _titleLabel, _imageView != nil {
-                layoutView.setCustomSpacing(textSpace, after: titleLabel)
-            } else {
-                textSpace = 0.0
-            }
+            layoutView.setCustomSpacing(imageSpace, after: titleLabel)
 
             /// 上下两边的间隔
-            let space = (self.height - textHeight - imageHeight - textSpace) / 2
+            let space = (self.height - textHeight - imageHeight - imageSpace) / 2
             if space >= 0 { layoutView.spacing = space }
 
             /// 设置布局方向
@@ -249,33 +249,20 @@ class HWebActionView: UIControl {
             
             var textWidth = 0.0
             var imageWidth = 0.0
-            var textSpace = imageSpace
-            
-            if let titleLabel = _titleLabel {
-                titleLabel.textAlignment = (_imageView != nil) ? .right : .center
-                layoutView.addArrangedSubview(titleLabel)
 
-                textWidth = titleLabel.intrinsicContentSize.width
-                textWidth = ceil(textWidth)//向上取整
-            }
+            layoutView.addArrangedSubview(titleLabel)
+            textWidth = titleLabel.intrinsicContentSize.width
+            textWidth = max(textWidth, 0)
 
-            if let imageView = _imageView {
-                imageView.contentMode = (_titleLabel != nil) ? .left : .center
-                layoutView.addArrangedSubview(imageView)
-
-                imageWidth = imageView.intrinsicContentSize.width
-                imageWidth = ceil(imageWidth)//向上取整
-            }
+            layoutView.addArrangedSubview(imageView)
+            imageWidth = imageSize.width
+            imageWidth = max(imageWidth, 0)
 
             /// 设置imageView和titleLabel之间的间隔
-            if let titleLabel = _titleLabel, _imageView != nil {
-                layoutView.setCustomSpacing(textSpace, after: titleLabel)
-            } else {
-                textSpace = 0.0
-            }
+            layoutView.setCustomSpacing(imageSpace, after: titleLabel)
             
             /// 左右两边的间隔
-            let space = (self.width - textWidth - imageWidth - textSpace) / 2
+            let space = (self.width - textWidth - imageWidth - imageSpace) / 2
             if space >= 0 { layoutView.spacing = space }
             
             /// 设置布局方向
@@ -298,21 +285,14 @@ extension HWebActionView {
     *  @param image image
     */
     private func _setImage(_ image: UIImage?) {
-        self.imageView.kf.cancelDownloadTask()
-        guard let tmpImage = image else {
-            self.imageView.image = nil
-            return
-        }
-        var image: UIImage? = tmpImage
-        if self.imageSize == .zero {
-            self.imageSize = self.bounds.size
-        }
-        image = image?.cropImage(self.imageSize)
-        if let renderColor = self.renderColor {
-            self.imageView.tintColor = renderColor
-            self.imageView.image = image?.withRenderingMode(.alwaysTemplate)
-        } else {
-            self.imageView.image = image
+        DispatchQueue.main.async {
+            self.imageView.kf.cancelDownloadTask()
+            guard let tmpImage = image else {
+                self.imageView.image = nil
+                return
+            }
+            // 更新布局
+            self.updateSubviews(tmpImage)
         }
     }
 
