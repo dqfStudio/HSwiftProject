@@ -104,7 +104,7 @@ class HTabBar : UIView {
     private var dotBadgeSideLength: CGFloat = 10.0
 
     // 分割线相关属性
-    private var separatorLayers: NSMutableArray?
+    private var separatorLayers: [CALayer] = [CALayer]()
     private var itemSeparatorColor: UIColor?
     private var itemSeparatorThickness: CGFloat = 0.0
     private var itemSeparatorLeading: CGFloat = 0.0
@@ -1036,20 +1036,16 @@ class HTabBar : UIView {
     }
 
     private func updateSeperators() {
-        if self.itemSeparatorColor != nil {
-            if self.separatorLayers == nil {
-                self.separatorLayers = NSMutableArray()
+        if self.separatorLayers.count > 0 {
+            self.separatorLayers.forEach { layer in
+                layer.removeFromSuperlayer()
             }
-            if self.separatorLayers!.count > 0 {
-                for item in self.separatorLayers! {
-                    let layer = item as! CALayer
-                    layer.removeFromSuperlayer()
-                }
-                self.separatorLayers!.removeAllObjects()
-            }
+            self.separatorLayers.removeAll()
+        }
+        if let itemSeparatorColor = self.itemSeparatorColor {
             self.items?.forEach({ item in
                 let layer: CALayer = CALayer()
-                layer.backgroundColor = self.itemSeparatorColor!.cgColor
+                layer.backgroundColor = itemSeparatorColor.cgColor
                 if self.isVertical {
                     layer.frame = CGRect(x: self.itemSeparatorLeading,
                                          y: item.frame.origin.y - self.itemSeparatorThickness / 2,
@@ -1062,17 +1058,8 @@ class HTabBar : UIView {
                                          height: self.bounds.size.height - self.itemSeparatorLeading - self.itemSeparatorTrailing)
                 }
                 self.scrollView.layer.addSublayer(layer)
-                self.separatorLayers!.add(layer)
+                self.separatorLayers.append(layer)
             })
-        } else {
-            if self.separatorLayers != nil && self.separatorLayers!.count > 0 {
-                for item in self.separatorLayers! {
-                    let view = item as! UIView
-                    view.removeFromSuperview()
-                }
-                self.separatorLayers!.removeAllObjects()
-            }
-            self.separatorLayers = nil
         }
     }
 
