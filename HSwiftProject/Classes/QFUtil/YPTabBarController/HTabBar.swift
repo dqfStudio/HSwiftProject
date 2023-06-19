@@ -56,7 +56,7 @@ class HTabBar : UIView {
     private var _scrollViewLastOffsetX: CGFloat = 0.0
 
     // 当TabBar支持滚动时，使用此scrollView
-    private var scrollView: UIScrollView = UIScrollView()
+    private var scrollView = UIScrollView()
 
     private var specialItem: HTabItem?
     
@@ -64,7 +64,7 @@ class HTabBar : UIView {
     private var specialItemHandler: HSpecialItemHandler?
 
     // 选中背景
-    private var indicatorImageView: UIImageView = UIImageView(frame: .zero)
+    private var indicatorImageView = UIImageView(frame: .zero)
 
     // 选中背景相对于HTabItem的insets
     private var indicatorInsets: UIEdgeInsets = .zero
@@ -205,7 +205,7 @@ class HTabBar : UIView {
         }
     }
     
-    private var _itemTitleFont: UIFont = UIFont.systemFont(ofSize: 10)
+    private var _itemTitleFont: UIFont = .systemFont(ofSize: 10.0)
     /// 标题字体
     var itemTitleFont: UIFont {
         get {
@@ -276,7 +276,7 @@ class HTabBar : UIView {
     }
     
     /// Badge标题字体
-    var badgeTitleFont: UIFont = .systemFont(ofSize: 10) {
+    var badgeTitleFont: UIFont = .systemFont(ofSize: 10.0) {
         didSet {
             self.items?.forEach({ item in
                 item.badgeTitleFont = badgeTitleFont
