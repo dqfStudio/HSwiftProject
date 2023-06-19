@@ -112,7 +112,6 @@ class HMainController1: HTupleController {
                     
                     cell.imageView.backgroundColor = UIColor.red
                     let image = UIImage(named: "icon_no_server")
-//                    image = image?.scaleImage(CGSize(width: 25, height: 25))
                     cell.imageView.imageSize = CGSize(width: 25, height: 25)
                     cell.imageView.setImage(image)
                     cell.imageView.cornerRadius = 25 / 2
@@ -128,7 +127,6 @@ class HMainController1: HTupleController {
                     
                     cell.detailView.backgroundColor = UIColor.red
                     let image2 = UIImage(named: "icon_no_server")
-//                    image2 = image2?.scaleImage(CGSize(width: 25, height: 25))
                     cell.detailView.imageSize = CGSize(width: 25, height: 25)
                     cell.detailView.setImage(image2)
                     cell.detailView.cornerRadius = 25 / 2
