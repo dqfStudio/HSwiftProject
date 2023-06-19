@@ -97,18 +97,6 @@ class HTableImageCell : HTableBaseCell {
     }
 }
 
-class HTableActionCell : HTableBaseCell {
-    lazy var actionView: HWebActionView = {
-        let actionView = HWebActionView()
-        self.layoutView.addSubview(actionView)
-        return actionView
-    }()
-    
-    override func relayoutSubviews() {
-        HLayoutTableCell(self.actionView)
-    }
-}
-
 class HTableTextFieldCell : HTableBaseCell {
     lazy var textField: HTextField = {
         let textField = HTextField()

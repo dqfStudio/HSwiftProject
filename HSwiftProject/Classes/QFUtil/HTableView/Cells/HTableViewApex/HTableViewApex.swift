@@ -58,18 +58,6 @@ class HTableImageApex : HTableBaseApex {
     }
 }
 
-class HTableActionApex : HTableBaseApex {
-    lazy var actionView: HWebActionView = {
-        let actionView = HWebActionView()
-        self.layoutView.addSubview(actionView)
-        return actionView
-    }()
-    
-    override func relayoutSubviews() {
-        HLayoutTableApex(self.actionView)
-    }
-}
-
 class HTableTextFieldApex : HTableBaseApex {
     lazy var textField: HTextField = {
         let textField = HTextField()

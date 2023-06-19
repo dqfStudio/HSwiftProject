@@ -58,18 +58,6 @@ class HTupleImageApex : HTupleBaseApex {
     }
 }
 
-class HTupleActionApex : HTupleBaseApex {
-    lazy var actionView: HWebActionView = {
-        let actionView = HWebActionView()
-        self.layoutView.addSubview(actionView)
-        return actionView
-    }()
-    
-    override func relayoutSubviews() {
-        HLayoutTupleApex(self.actionView)
-    }
-}
-
 class HTupleAnimatedImageApex : HTupleBaseApex {
     lazy var imageView: HAnimatedImageView = {
         let imageView = HAnimatedImageView()
