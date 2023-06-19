@@ -334,8 +334,8 @@ class HTabBar : UIView {
                 }
             }
             
-            if _selectedItemIndex != NSNotFound {
-                let oldSelectedItem = self.items![_selectedItemIndex]
+            if _selectedItemIndex != NSNotFound, let items = self.items {
+                let oldSelectedItem = items[_selectedItemIndex]
                 oldSelectedItem.isSelected = false
                 if self.isItemFontChangeFollowContentScroll {
                     // 如果支持字体平滑渐变切换，则设置item的scale
@@ -354,8 +354,8 @@ class HTabBar : UIView {
                 newSelectedItem.transform = CGAffineTransform(scaleX: 1, y: 1)
             } else {
                 // 如果支持字体平滑渐变切换，则直接设置字体
-                if self.itemTitleSelectedFont != nil {
-                    newSelectedItem.titleFont = self.itemTitleSelectedFont
+                if let itemTitleSelectedFont = self.itemTitleSelectedFont {
+                    newSelectedItem.titleFont = itemTitleSelectedFont
                 }
             }
             
@@ -445,7 +445,7 @@ class HTabBar : UIView {
 
     private func _setup() {
         
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = .white
         self.clipsToBounds = true
 
         badgeBackgroundColor = BADGE_BG_COLOR_DEFAULT
@@ -515,7 +515,7 @@ class HTabBar : UIView {
 
     private func updateItemsFrame() {
         
-        if self.items == nil || self.items!.count == 0 {
+        guard let tmpItems = self.items, tmpItems.count > 0 else {
             return
         }
         
@@ -523,10 +523,10 @@ class HTabBar : UIView {
             // 支持滚动
             var y: CGFloat = self.leadingSpace
             if !self.scrollView.isScrollEnabled {
-                self.itemHeight = CGFloat(ceilf(Float((self.frame.size.height - self.leadingSpace - self.trailingSpace) / CGFloat(self.items!.count))))
+                self.itemHeight = CGFloat(ceilf(Float((self.frame.size.height - self.leadingSpace - self.trailingSpace) / CGFloat(tmpItems.count))))
             }
-            for index in 0..<self.items!.count {
-                let item = self.items![index]
+            for index in 0..<tmpItems.count {
+                let item = tmpItems[index]
                 item.frame = CGRect(x: 0, y: y, width: self.frame.size.width, height: self.itemHeight)
                 item.index = index
                 y += self.itemHeight
@@ -536,8 +536,8 @@ class HTabBar : UIView {
             if self.scrollView.isScrollEnabled {
                 // 支持滚动
                 var x: CGFloat = self.leadingSpace
-                for index in 0..<self.items!.count {
-                    let item = self.items![index]
+                for index in 0..<tmpItems.count {
+                    let item = tmpItems[index]
                     var width: CGFloat = 0
                     // item的宽度为一个固定值
                     if self.itemWidth > 0 {
@@ -559,16 +559,16 @@ class HTabBar : UIView {
                 var x: CGFloat = self.leadingSpace
                 let allItemsWidth: CGFloat = self.frame.size.width - self.leadingSpace - self.trailingSpace
                 if self.specialItem != nil && self.specialItem!.frame.size.width != 0 {
-                    self.itemWidth = (allItemsWidth - self.specialItem!.frame.size.width) / CGFloat(self.items!.count)
+                    self.itemWidth = (allItemsWidth - self.specialItem!.frame.size.width) / CGFloat(tmpItems.count)
                 } else {
-                    self.itemWidth = allItemsWidth / CGFloat(self.items!.count)
+                    self.itemWidth = allItemsWidth / CGFloat(tmpItems.count)
                 }
                 
                 // 四舍五入，取整，防止字体模糊
                 self.itemWidth = CGFloat(floorf(Float(self.itemWidth + 0.5)))
                 
-                for index in 0..<self.items!.count {
-                    let item = self.items![index]
+                for index in 0..<tmpItems.count {
+                    let item = tmpItems[index]
                     item.frame = CGRect(x: x, y: 0, width: self.itemWidth, height: self.frame.size.height)
                     item.index = index
                     
@@ -830,6 +830,10 @@ class HTabBar : UIView {
     *  此方法用于同步内容视图scrollView拖动的偏移量，以此来改变HTabBar内控件的状态
     */
     func updateSubViewsWhenParentScrollViewScroll(_ scrollView: UIScrollView) {
+        
+        guard let tmpItems = self.items, tmpItems.count > 0 else {
+            return
+        }
 
         let offsetX: CGFloat = scrollView.contentOffset.x
         let scrollViewWidth: CGFloat = scrollView.frame.size.width
@@ -837,9 +841,9 @@ class HTabBar : UIView {
         let leftIndex: Int = Int(offsetX / scrollViewWidth)
         let rightIndex: Int = leftIndex + 1
         
-        let leftItem = self.items![leftIndex]
-        if rightIndex >= self.items!.count { return }
-        let rightItem: HTabItem = self.items![rightIndex]
+        let leftItem = tmpItems[leftIndex]
+        if rightIndex >= tmpItems.count { return }
+        let rightItem: HTabItem = tmpItems[rightIndex]
         
         // 计算右边按钮偏移量
         var rightScale: CGFloat = offsetX / scrollViewWidth
@@ -918,12 +922,12 @@ class HTabBar : UIView {
                 } else {
                     return
                 }
-                if targetIndex >= self.items!.count {
+                if targetIndex >= tmpItems.count {
                     return
                 }
                 
-                let currentItem = self.items![currentIndex]
-                let targetItem = self.items![targetIndex]
+                let currentItem = tmpItems[currentIndex]
+                let targetItem = tmpItems[targetIndex]
                 
                 let currentItemWidth: CGFloat = currentItem.frameWithOutTransform.size.width
                 let targetItemWidth: CGFloat = targetItem.frameWithOutTransform.size.width
