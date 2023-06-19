@@ -149,7 +149,7 @@ extension HWebImageView {
     */
     func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true) {
         if urlString.count == 0 {
-            self._setImage(nil)
+            self._setImage(placeholder)
             self.lastURL = ""
             didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
             return
