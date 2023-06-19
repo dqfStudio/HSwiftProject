@@ -135,14 +135,13 @@ extension HUserLiveCell {
                 buttonView!.backgroundColor = UIColor.red
                 buttonView!.cornerRadius = buttonView!.width / 2
                 buttonView!.setImage(WithName: "icon_no_server")
-//                    buttonView! setFillet:YES]
                 buttonView!.tag = 123456
                 cell.addSubview(buttonView!)
-//                    [buttonView setPressed:^(id sender, id data) {
-//                        [[self viewController] presentController:HAlertController.new completion:^(HTransitionType transitionType) {
-//                            NSLog(@"")
-//                        }]
+//                [buttonView setPressed:^(id sender, id data) {
+//                    [[self viewController] presentController:HAlertController.new completion:^(HTransitionType transitionType) {
+//                        NSLog(@"")
 //                    }]
+//                }]
             }
             var honorLabel = cell.viewWithTag(234567) as? UILabel
             if (honorLabel == nil) {
@@ -182,20 +181,19 @@ extension HUserLiveCell {
                 buttonView!.backgroundColor = UIColor.red
                 buttonView!.cornerRadius = buttonView!.width / 2
                 buttonView!.setImage(WithName: "icon_no_server")
-//                    buttonView! setFillet:YES]
                 buttonView!.tag = 123456
                 cell.addSubview(buttonView!)
-//                    [buttonView setPressed:^(id sender, id data) {
-//                        [[self viewController] presentController:HAlertController.new completion:^(HTransitionType transitionType) {
-//                            NSLog(@"")
-//                        }]
+//                [buttonView setPressed:^(id sender, id data) {
+//                    [[self viewController] presentController:HAlertController.new completion:^(HTransitionType transitionType) {
+//                        NSLog(@"")
 //                    }]
+//                }]
             }
             break
         case 2:
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             var bottomBarView = cell.viewWithTag(123456) as? HUserLiveMiddleBarView
-            if (bottomBarView == nil) {
+            if bottomBarView == nil {
                 bottomBarView = HUserLiveMiddleBarView(frame: cell.bounds)
                 bottomBarView!.tag = 123456
                 cell.addSubview(bottomBarView!)

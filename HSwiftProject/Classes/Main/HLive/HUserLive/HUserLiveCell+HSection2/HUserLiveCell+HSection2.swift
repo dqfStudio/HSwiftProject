@@ -75,10 +75,9 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
         case 0:
             let cell = itemBlock(nil, HTupleButtonCell.self, nil, true) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
-//                cell.buttonView.cornerRadius = cell.buttonView.height / 2
+//            cell.buttonView.cornerRadius = cell.buttonView.height / 2
             cell.buttonView.cornerRadius = cell.layoutViewFrame.height / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
-//                cell.buttonView setFillet:YES]
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
                 NotificationCenter.default.post(name: NSNotification.Name(KShowKeyboardNotify), object: nil)
             }
@@ -89,10 +88,9 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
         case 2:
             let cell = itemBlock(nil, HTupleButtonCell.self, nil, true) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
-//                cell.buttonView.cornerRadius = cell.buttonView.height / 2
+//            cell.buttonView.cornerRadius = cell.buttonView.height / 2
             cell.buttonView.cornerRadius = cell.layoutViewFrame.height / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
-//                cell.buttonView setFillet:YES]
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
                 self.viewController?.presentController(HUserLiveNoteVC(), completion: { transitionType in
                     NSLog("")
@@ -102,10 +100,9 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
         case 3:
             let cell = itemBlock(nil, HTupleButtonCell.self, nil, true) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
-//                cell.buttonView.cornerRadius = cell.buttonView.height / 2
+//            cell.buttonView.cornerRadius = cell.buttonView.height / 2
             cell.buttonView.cornerRadius = cell.layoutViewFrame.height / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
-//                [cell.buttonView setFillet:YES]
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
                 self.viewController?.presentController(HUserLiveShareVC(), completion: { transitionType in
                     NSLog("")
@@ -115,7 +112,7 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
         case 4:
             let cell = itemBlock(nil, HTupleButtonCell.self, nil, true) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
-//                cell.buttonView.cornerRadius = cell.buttonView.height / 2
+//            cell.buttonView.cornerRadius = cell.buttonView.height / 2
             cell.buttonView.cornerRadius = cell.layoutViewFrame.height / 2
             cell.buttonView.text = "✕"
             cell.buttonView.textColor = UIColor.white
@@ -155,7 +152,7 @@ extension HUserLiveCell {
         let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
         
         var bottomBarView = cell.viewWithTag(123456) as? HUserLiveBottomBarView
-        if (bottomBarView == nil) {
+        if bottomBarView == nil {
             bottomBarView = HUserLiveBottomBarView(frame: cell.bounds)
             bottomBarView!.tag = 123456
             cell.addSubview(bottomBarView!)

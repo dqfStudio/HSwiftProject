@@ -18,7 +18,7 @@ class HUserLiveVC : HTupleController {
     lazy var inputField: HTextField = {
         let frame = CGRect(x: 0, y: UIScreen.height, width: UIScreen.width, height: 40)
         let inputField = HTextField(frame: frame)
-        inputField.backgroundColor = UIColor.white
+        inputField.backgroundColor = .white
         inputField.placeholderFont = .systemFont(ofSize: 14.0)
         inputField.placeholder = "请输入内容..."
         
@@ -26,13 +26,13 @@ class HUserLiveVC : HTupleController {
         inputField.leftLabel.text = ""
         
         // 去掉键盘上的toolBar
-        inputField.inputAccessoryView = UIView(frame: CGRect.zero)
+        inputField.inputAccessoryView = UIView()
         inputField.reloadInputViews()
         
         inputField.rightWidth = 60
         inputField.rightLabel.text = "完成"
         inputField.rightLabel.textAlignment = .center
-        inputField.rightLabel.font = UIFont.systemFont(ofSize: 17)
+        inputField.rightLabel.font = .systemFont(ofSize: 17.0)
         
         inputField.rightLabel.addSingleTapGesture(withBlock: { sender in
             // Force hide keyboard
@@ -52,7 +52,6 @@ class HUserLiveVC : HTupleController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.white
         self.topExtendedLayout = false
         self.tupleView.isPagingEnabled = true
         self.tupleView.delegate = self
@@ -74,7 +73,7 @@ class HUserLiveVC : HTupleController {
         // 监测当前设备是否处于录屏状态
         let sc = UIScreen.main
         if #available(iOS 11.0, *) {
-            if (sc.isCaptured) {
+            if sc.isCaptured {
                 self.recordingScreen()
             }
         }
@@ -151,10 +150,10 @@ class HUserLiveVC : HTupleController {
 
     func tupleScrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
-        if (offsetY >= 2 * self.view.height) {//向上滚动
+        if offsetY >= 2 * self.view.height {//向上滚动
             scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
             self.tupleScrollViewDidScrollToTop(scrollView)
-        }else if (offsetY <= 0) {//向下滚动
+        }else if offsetY <= 0 {//向下滚动
             scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
             self.tupleScrollViewDidScrollToBottom(scrollView)
         }
@@ -180,7 +179,7 @@ class HUserLiveVC : HTupleController {
             _ = itemBlock(nil, HUserLiveBgCell.self, nil, true)
             break
         case 1:
-            if (self.liveStatus == .loading) {
+            if self.liveStatus == .loading {
                 let cell = itemBlock(nil, HUserLiveBgCell.self, nil, true) as! HUserLiveBgCell
                 // 禁止滚动
                 self.tupleView.isScrollEnabled = false
@@ -197,7 +196,7 @@ class HUserLiveVC : HTupleController {
                         self.liveStatus = .liveing
                     }
                 }
-            }else if (self.liveStatus == .liveing) {
+            }else if self.liveStatus == .liveing {
                 _ = itemBlock(nil, HUserLiveCell.self, nil, true)
             }
             break
@@ -220,11 +219,9 @@ class HUserLiveVC : HTupleController {
     }
     //可反复加载内容的直播功能
     func reloadLiveBroadcast(_ completion: (() -> Void)?) {
-        let deadline = DispatchTime.now() + 3
+        let deadline = DispatchTime.now() + 3.0
         DispatchQueue.global().asyncAfter(deadline: deadline) {
-            if (completion != nil) {
-                completion!()
-            }
+            completion?()
         }
     }
 }

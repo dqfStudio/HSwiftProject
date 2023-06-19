@@ -12,7 +12,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
 
     private var _visualView: UIVisualEffectView?
     private var visualView: UIVisualEffectView {
-        if (_visualView == nil) {
+        if _visualView == nil {
             let blur = UIBlurEffect(style: .extraLight)
             _visualView = UIVisualEffectView(effect: blur)
             var frame = CGRect.zero
@@ -24,11 +24,11 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
     
     private var _tupleView: HTupleView?
     private var tupleView: HTupleView {
-        if (_tupleView == nil) {
+        if _tupleView == nil {
             var frame = CGRect.zero
             frame.size = self.containerSize
             _tupleView = HTupleView(frame: frame)
-            _tupleView!.backgroundColor = UIColor.clear
+            _tupleView!.backgroundColor = .clear
             _tupleView!.layer.cornerRadius = 10.0//默认系统弹框圆角为10.f
             _tupleView!.disableBounce()
         }
@@ -47,10 +47,9 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.clear
-//        self.topBar.isHidden = true
+        self.view.backgroundColor = .clear
         self.navigationBar.isHidden = true
-        if (self.hideVisualView) {
+        if self.hideVisualView {
             self.tupleView.backgroundColor = UIColor.white
             self.view.addSubview(self.tupleView)
         }else {
@@ -62,7 +61,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if (!self.hideVisualView) {
+        if !self.hideVisualView {
             for subview in self.visualView.subviews {
                 subview.layer.cornerRadius = self.tupleView.layer.cornerRadius
             }
@@ -153,7 +152,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
 
     }
     func didSelectItemAtIndexPath(_ indexPath: IndexPath) {
-        if (indexPath.row == HCell3) {
+        if indexPath.row == HCell3 {
             self.back()
         }
     }

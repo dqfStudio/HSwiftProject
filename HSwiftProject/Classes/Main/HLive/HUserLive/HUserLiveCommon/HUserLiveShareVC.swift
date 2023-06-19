@@ -14,8 +14,8 @@ private var KFooterHeight = 50.0
 class HUserLiveShareVC : HViewController, HTupleViewDelegate {
 
     private var _visualView: UIVisualEffectView?
-    private var visualView: UIVisualEffectView? {
-        if (_visualView == nil) {
+    private var visualView: UIVisualEffectView {
+        if _visualView == nil {
             let blur = UIBlurEffect(style: .extraLight)
             _visualView = UIVisualEffectView(effect: blur)
             var frame = CGRect.zero
@@ -27,11 +27,11 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     
     private var _tupleView: HTupleView?
     private var tupleView: HTupleView {
-        if (_tupleView == nil) {
+        if _tupleView == nil {
             var frame = CGRect.zero
             frame.size = self.containerSize
             _tupleView = HTupleView(frame: frame)
-            _tupleView!.backgroundColor = UIColor.clear
+            _tupleView!.backgroundColor = .clear
             _tupleView!.layer.cornerRadius = 3.0//默认系统弹框圆角为10.f
             _tupleView!.disableBounce()
         }
@@ -51,15 +51,14 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.clear
-//        self.topBar.isHidden = true
+        self.view.backgroundColor = .clear
         self.navigationBar.isHidden = true
-        if (self.hideVisualView) {
+        if self.hideVisualView {
             self.tupleView.backgroundColor = UIColor.white
             self.view.addSubview(self.tupleView)
         }else {
-            self.visualView!.contentView.addSubview(self.tupleView)
-            self.view.addSubview(self.visualView!)
+            self.visualView.contentView.addSubview(self.tupleView)
+            self.view.addSubview(self.visualView)
         }
         self.tupleView.delegate = self
         self.rowItems = 5
@@ -78,8 +77,8 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if !self.hideVisualView, let visualView = self.visualView {
-            visualView.subviews.forEach { $0.layer.cornerRadius = self.tupleView.layer.cornerRadius }
+        if !self.hideVisualView {
+            self.visualView.subviews.forEach { $0.layer.cornerRadius = self.tupleView.layer.cornerRadius }
         }
     }
 
@@ -120,11 +119,9 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     }
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        
         let cell = itemBlock(nil, HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
         cell.imageView.backgroundColor = UIColor.red
         cell.imageView.setImage(WithName: "icon_no_server")
-        //[cell.imageView setFillet:YES]
         cell.labelHeight = 25
         cell.label.text = "Item"
         cell.label.textColor = UIColor.black

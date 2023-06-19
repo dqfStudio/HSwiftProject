@@ -90,7 +90,6 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             tmpFrame.width = tmpFrame.height
             cell.imageView.frame = tmpFrame
             cell.imageView.backgroundColor = UIColor.red
-//                [cell.imageView setFillet:YES]
             cell.imageView.cornerRadius = tmpFrame.width / 2
             cell.imageView.setImage(WithName: "icon_no_server")
             
@@ -106,12 +105,12 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             cell.buttonView.textFont = UIFont.systemFont(ofSize: 12)
             cell.buttonView.cornerRadius = cell.buttonView.height / 2
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
-//                self.viewController?.present(HAlertController(), animated: true, completion: {
+//            self.viewController?.present(HAlertController(), animated: true, completion: {
 //
-//                })
-//                [[self viewController] presentController:HAlertController.new completion:^(HTransitionType transitionType) {
-//                    NSLog(@"")
-//                }]
+//            })
+//            [[self viewController] presentController:HAlertController.new completion:^(HTransitionType transitionType) {
+//                NSLog(@"")
+//            }]
             }
             
             var tmpFrame3 = frame
@@ -145,14 +144,13 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
-//                cell.buttonView setFillet:YES]
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
-//                    self.viewController?.present(HAlertController(), animated: true, completion: {
+//            self.viewController?.present(HAlertController(), animated: true, completion: {
 //
-//                    })
-//                    [[self viewController] presentController:HAlertController.new completion:^(HTransitionType transitionType) {
-//                        NSLog(@"")
-//                    }]
+//            })
+//            [[self viewController] presentController:HAlertController.new completion:^(HTransitionType transitionType) {
+//                NSLog(@"")
+//            }]
             }
             break
         case 3:
@@ -160,14 +158,13 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
-//                cell.buttonView setFillet:YES]
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
-//                    self.viewController?.present(HAlertController(), animated: true, completion: {
+//            self.viewController?.present(HAlertController(), animated: true, completion: {
 //
-//                    })
-//                    [[self viewController] presentController:HAlertController.new completion:^(HTransitionType transitionType) {
-//                        NSLog(@"")
-//                    }]
+//            })
+//            [[self viewController] presentController:HAlertController.new completion:^(HTransitionType transitionType) {
+//                NSLog(@"")
+//            }]
             }
             break
         case 4:
@@ -175,14 +172,13 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
-//                cell.buttonView setFillet:YES]
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
-//                self.viewController?.present(HAlertController(), animated: true, completion: {
+//            self.viewController?.present(HAlertController(), animated: true, completion: {
 //
-//                })
-//                [[self viewController] presentController:HAlertController.new completion:^(HTransitionType transitionType) {
-//                    NSLog(@"")
-//                }]
+//            })
+//            [[self viewController] presentController:HAlertController.new completion:^(HTransitionType transitionType) {
+//                NSLog(@"")
+//            }]
             }
             break
         case 5:
@@ -190,14 +186,13 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
-//                cell.buttonView setFillet:YES]
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
-//                self.viewController?.present(HAlertController(), animated: true, completion: {
+//            self.viewController?.present(HAlertController(), animated: true, completion: {
 //
-//                })
-//                [[self viewController] presentController:HAlertController.new completion:^(HTransitionType transitionType) {
-//                    NSLog(@"")
-//                }]
+//            })
+//            [[self viewController] presentController:HAlertController.new completion:^(HTransitionType transitionType) {
+//                NSLog(@"")
+//            }]
             }
             break
             
@@ -352,7 +347,7 @@ extension HUserLiveCell {
         case 0:
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             var topHeaderView = cell.viewWithTag(123456) as? HUserLiveTopHeaderView
-            if (topHeaderView == nil) {
+            if topHeaderView == nil {
                 topHeaderView = HUserLiveTopHeaderView(frame: cell.bounds)
                 topHeaderView!.tag = 123456
                 cell.addSubview(topHeaderView!)
@@ -368,35 +363,35 @@ extension HUserLiveCell {
             }
             break
         case 2:
-//                let cell = itemBlock(nil, HTupleViewMarqueeCell.self, nil, true) as! HTupleViewMarqueeCell
-//                cell.layoutView.backgroundColor = UIColor.black
-//                cell.layoutView.cornerRadius = cell.layoutView.height / 2
-//                cell.msg = "测试通告!!!"
-//                cell.bgColor = UIColor.black
-//                cell.txtColor = UIColor.white
-//                cell.selectedBlock = { () in
-//                    NSLog("")
-//                }
+//            let cell = itemBlock(nil, HTupleViewMarqueeCell.self, nil, true) as! HTupleViewMarqueeCell
+//            cell.layoutView.backgroundColor = UIColor.black
+//            cell.layoutView.cornerRadius = cell.layoutView.height / 2
+//            cell.msg = "测试通告!!!"
+//            cell.bgColor = UIColor.black
+//            cell.txtColor = UIColor.white
+//            cell.selectedBlock = { () in
+//                NSLog("")
+//            }
             
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             cell.layoutView.backgroundColor = UIColor.black
             cell.layoutView.cornerRadius = cell.layoutView.height / 2
             
-//                HNoticeBrowseLabel *noticeBrowse = [cell viewWithTag:345678]
-//                [noticeBrowse releaseNotice]
-//                if (!noticeBrowse) {
-//                    CGRect frame = cell.layoutViewBounds
-//                    frame.origin.x = 20
-//                    frame.size.width -= 20
-//                    noticeBrowse = [[HNoticeBrowseLabel alloc] initWithFrame:frame]
-//                    [noticeBrowse setTag:345678]
-//                    noticeBrowse.textColor = UIColor.whiteColor
-//                    noticeBrowse.textFont = [UIFont systemFontOfSize:12.f]
-//                    noticeBrowse.durationTime = 4.0
-//                    [cell addSubview:noticeBrowse]
-//                }
-//                noticeBrowse.texts = @[@"测试通告!!!"]
-//                [noticeBrowse reloadData]
+//            HNoticeBrowseLabel *noticeBrowse = [cell viewWithTag:345678]
+//            [noticeBrowse releaseNotice]
+//            if (!noticeBrowse) {
+//                CGRect frame = cell.layoutViewBounds
+//                frame.origin.x = 20
+//                frame.size.width -= 20
+//                noticeBrowse = [[HNoticeBrowseLabel alloc] initWithFrame:frame]
+//                [noticeBrowse setTag:345678]
+//                noticeBrowse.textColor = UIColor.whiteColor
+//                noticeBrowse.textFont = [UIFont systemFontOfSize:12.f]
+//                noticeBrowse.durationTime = 4.0
+//                [cell addSubview:noticeBrowse]
+//            }
+//            noticeBrowse.texts = @[@"测试通告!!!"]
+//            [noticeBrowse reloadData]
             break
         case 3:
             let cell = itemBlock(nil, HTupleButtonCell.self, nil, true) as! HTupleButtonCell
@@ -407,9 +402,9 @@ extension HUserLiveCell {
             cell.buttonView.textColor = UIColor.black
             cell.buttonView.textAlignment = .left
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
-//                [[self viewController] presentController:HUserLiveNoteVC.new completion:^(HTransitionType transitionType) {
-//                    NSLog(@"")
-//                }]
+//            [[self viewController] presentController:HUserLiveNoteVC.new completion:^(HTransitionType transitionType) {
+//                NSLog(@"")
+//            }]
             }
             break
             

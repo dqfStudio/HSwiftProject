@@ -71,7 +71,7 @@ class HUserLiveCell : HUserLiveBgCell, HTupleViewDelegate {
     //cell初始化是调用的方法
     override func initUI() {
         super.initUI()
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = .clear
         self.liveRightView.delegate = self
         self.addSubview(self.liveRightView)
         self.addSubview(self.liveLeftView)
