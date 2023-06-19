@@ -286,13 +286,9 @@ extension HWebActionView {
     */
     private func _setImage(_ image: UIImage?) {
         DispatchQueue.main.async {
-            self.imageView.kf.cancelDownloadTask()
-            guard let tmpImage = image else {
-                self.imageView.image = nil
-                return
+            if image != nil {
+                self.updateSubviews(image)
             }
-            // 更新布局
-            self.updateSubviews(tmpImage)
         }
     }
 
@@ -318,7 +314,7 @@ extension HWebActionView {
     */
     func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true) {
         if urlString.count == 0 {
-            self._setImage(nil)
+            self._setImage(placeholder)
             self.lastURL = ""
             didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
             return
@@ -341,7 +337,7 @@ extension HWebActionView {
             self.imageView.alpha = 0
         }
 
-        self._setImage(nil)
+        //self._setImage(nil)
         self.lastURL = ""
         
         guard let url = URL(string: urlString) else {
