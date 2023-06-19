@@ -123,7 +123,6 @@ extension HWebImageView {
     */
     private func _setImage(_ image: UIImage?) {
         DispatchQueue.main.async {
-            super.kf.cancelDownloadTask()
             super.image = image
         }
     }
