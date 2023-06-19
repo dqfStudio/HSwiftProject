@@ -1023,11 +1023,11 @@ class HTabBar : UIView {
     }
 
     private func updateItemsScaleIfNeeded() {
-        if self.itemTitleSelectedFont != nil &&
-            self.isItemFontChangeFollowContentScroll &&
-            self.itemTitleSelectedFont?.pointSize != self.itemTitleFont.pointSize {
+        if let itemTitleSelectedFont = self.itemTitleSelectedFont,
+            self.isItemFontChangeFollowContentScroll,
+            itemTitleSelectedFont.pointSize != self.itemTitleFont.pointSize {
             self.items?.forEach({ item in
-                item.titleFont = self.itemTitleSelectedFont
+                item.titleFont = itemTitleSelectedFont
                 if item.isSelected == false {
                     item.transform = CGAffineTransform(scaleX: self.itemTitleUnselectedFontScale, y: self.itemTitleUnselectedFontScale)
                 }
@@ -1065,7 +1065,7 @@ class HTabBar : UIView {
 
     // 设置指示器的frame
     private func setIndicatorX(_ x: CGFloat, width: CGFloat) {
-        var frame: CGRect = self.indicatorImageView.frame
+        var frame = self.indicatorImageView.frame
         frame.origin.x = x
         frame.size.width = width
         self.indicatorImageView.frame = frame
