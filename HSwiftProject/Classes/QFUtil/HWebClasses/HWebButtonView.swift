@@ -172,6 +172,37 @@ class HWebButtonView: UIButton {
 }
 
 extension HWebButtonView {
+    func setImage(WithFile fileName: String) {
+        if let filePath = Bundle.main.resourcePath?.appendingFormat("/%@", fileName),
+           let image = UIImage(contentsOfFile: filePath) {
+            self.setImage(image, for: .normal)
+            self.adjustsImageWhenHighlighted = false
+            updateSubviews()
+        }
+    }
+    func setImage(WithName fileName: String) {
+        if let image = UIImage(named: fileName) {
+            self.setImage(image, for: .normal)
+            self.adjustsImageWhenHighlighted = false
+            updateSubviews()
+        }
+    }
+    func setImage(_ image: UIImage?) {
+        if image != nil {
+            self.setImage(image, for: .normal)
+            self.adjustsImageWhenHighlighted = false
+            updateSubviews()
+        }
+    }
+    
+    override var image: UIImage? {
+        didSet {
+            updateSubviews()
+        }
+    }
+}
+
+extension HWebButtonView {
 
     /**
     *  Set image directly
@@ -317,21 +348,6 @@ extension UIButton {
         get { return self.backgroundImage(for: .normal) }
         set {
             self.setBackgroundImage(newValue, for: .normal)
-            self.adjustsImageWhenHighlighted = false
-        }
-    }
-
-    public func setImage(WithFile fileName: String) {
-        if let filePath = Bundle.main.resourcePath?.appendingFormat("/%@", fileName),
-           let image = UIImage(contentsOfFile: filePath) {
-            self.setImage(image, for: .normal)
-            self.adjustsImageWhenHighlighted = false
-        }
-    }
-    
-    public func setImage(WithName fileName: String) {
-        if let image = UIImage(named: fileName) {
-            self.setImage(image, for: .normal)
             self.adjustsImageWhenHighlighted = false
         }
     }

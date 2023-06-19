@@ -112,8 +112,8 @@ class HMainController1: HTupleController {
                     
                     cell.imageView.backgroundColor = UIColor.red
                     let image = UIImage(named: "icon_no_server")
+                    cell.imageView.image = image
                     cell.imageView.imageSize = CGSize(width: 25, height: 25)
-                    cell.imageView.setImage(image)
                     cell.imageView.cornerRadius = 25 / 2
 
                     cell.label.backgroundColor = UIColor.green

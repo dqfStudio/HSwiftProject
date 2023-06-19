@@ -115,6 +115,29 @@ class HWebImageView: UIImageView {
 }
 
 extension HWebImageView {
+    func setImage(WithFile fileName: String) {
+        if let filePath = Bundle.main.resourcePath?.appendingFormat("/%@", fileName),
+           let image = UIImage(contentsOfFile: filePath) {
+            self.image = image
+        }
+    }
+    func setImage(WithName fileName: String) {
+        if let image = UIImage(named: fileName) {
+            self.image = image
+        }
+    }
+    func setImage(_ image: UIImage?) {
+        self.image = image
+    }
+    
+    override var image: UIImage? {
+        didSet {
+            updateSubviews()
+        }
+    }
+}
+
+extension HWebImageView {
     
     /**
     *  Set image directly
@@ -202,24 +225,11 @@ extension HWebImageView {
             }
         }
     }
+    
 }
 
 extension UIImageView {
     convenience init(named: String) {
         self.init(image: UIImage(named: named))
-    }
-    func setImage(WithFile fileName: String) {
-        if let filePath = Bundle.main.resourcePath?.appendingFormat("/%@", fileName),
-           let image = UIImage(contentsOfFile: filePath) {
-            self.image = image
-        }
-    }
-    func setImage(WithName fileName: String) {
-        if let image = UIImage(named: fileName) {
-            self.image = image
-        }
-    }
-    func setImage(_ image: UIImage?) {
-        self.image = image
     }
 }
