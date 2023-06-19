@@ -181,7 +181,9 @@ extension HWebButtonView {
     private func _setImage(_ image: UIImage?) {
         DispatchQueue.main.async {
             self.adjustsImageWhenHighlighted = false
-            self.webImageView.image = image
+            if image != nil {
+                self.webImageView.image = image
+            }
         }
     }
 
@@ -231,7 +233,7 @@ extension HWebButtonView {
             self.webImageView.alpha = 0
         }
 
-        self._setImage(nil)
+        //self._setImage(nil)
         self.lastURL = ""
 
         guard let url = URL(string: urlString) else {

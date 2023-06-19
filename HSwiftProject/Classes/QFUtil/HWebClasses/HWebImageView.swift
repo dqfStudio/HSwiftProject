@@ -123,7 +123,9 @@ extension HWebImageView {
     */
     private func _setImage(_ image: UIImage?) {
         DispatchQueue.main.async {
-            super.image = image
+            if image != nil {
+                super.image = image
+            }
         }
     }
 
@@ -167,7 +169,7 @@ extension HWebImageView {
             return
         }
         
-        self._setImage(nil)
+        //self._setImage(nil)
         self.lastURL = ""
         
         guard let url = URL(string: urlString) else {
