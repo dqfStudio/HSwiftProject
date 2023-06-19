@@ -413,5 +413,14 @@ extension HWebActionView {
             didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(fileName)"))
         }
     }
+    
+    func setImage(_ image: UIImage?) {
+        if image != nil {
+            self._setImage(image)
+        }else {
+            self._setImage(nil)
+            self.lastURL = ""
+        }
+    }
 
 }
