@@ -79,9 +79,9 @@ class HWebActionView: UIControl {
     private lazy var layoutView: UIStackView = {
         let layoutView = UIStackView(frame: self.bounds)
         layoutView.isUserInteractionEnabled = false
-        layoutView.axis = .horizontal
         layoutView.distribution = .fill
         layoutView.alignment = .center
+        layoutView.axis = .horizontal
         self.addSubview(layoutView)
         return layoutView
     }()
