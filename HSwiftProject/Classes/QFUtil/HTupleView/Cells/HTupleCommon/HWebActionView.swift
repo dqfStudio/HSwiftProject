@@ -31,7 +31,7 @@ class HWebActionView: UIControl {
     var renderColor: UIColor?
 
     private var _imageView: UIImageView?
-    var imageView: UIImageView {
+    private var imageView: UIImageView {
         if _imageView == nil {
             _imageView = UIImageView()
             _imageView!.backgroundColor = .clear
