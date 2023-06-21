@@ -44,13 +44,11 @@ class HUserStore : NSObject {
         super.init()
         var count: UInt32 = 0
         //let propertys = class_copyPropertyList(self.classForCoder, &count)
-        let propertys = class_copyIvarList(self.classForCoder, &count)
-        if propertys != nil {
+        if let propertys = class_copyIvarList(self.classForCoder, &count) {
             for i in 0..<count {
-                let property = propertys![Int(i)]
-                let name = ivar_getName(property)
-                if name != nil {
-                    let key = String(cString: name!)
+                let property = propertys[Int(i)]
+                if let name = ivar_getName(property) {
+                    let key = String(cString: name)
                     let value = aDecoder.decodeObject(forKey: key)
                     self.setValue(value, forKey: key)
                 }
@@ -62,13 +60,11 @@ class HUserStore : NSObject {
     private func encodeWithCoder(aCoder: NSCoder) {
         var count: UInt32 = 0
         //let propertys = class_copyPropertyList(self.classForCoder, &count)
-        let propertys = class_copyIvarList(self.classForCoder, &count)
-        if propertys != nil {
+        if let propertys = class_copyIvarList(self.classForCoder, &count) {
             for i in 0..<count {
-                let property = propertys![Int(i)]
-                let name = ivar_getName(property)
-                if name != nil {
-                    let key = String(cString: name!)
+                let property = propertys[Int(i)]
+                if let name = ivar_getName(property) {
+                    let key = String(cString: name)
                     aCoder.encode(self.value(forKey: key), forKey: key)
                 }
             }
@@ -81,28 +77,26 @@ class HUserStore : NSObject {
         super.init()
     }
 
-    static var defaults: HUserStore = {
+    static var defaults: HUserStore? = {
         var share: HUserStore?
-        let defaultsUserId: String? = HKeyChainStore.keyChainStore.stringForKey(KUSER)
-        if defaultsUserId != nil {
-            let data: Data? = HKeyChainStore.keyChainStore.dataForKey(defaultsUserId)
-            if data != nil {
+        if let defaultsUserId = HKeyChainStore.keyChainStore.stringForKey(KUSER) {
+            if let data = HKeyChainStore.keyChainStore.dataForKey(defaultsUserId) {
                 if #available(iOS 11.0, *) {
-                    share = try! NSKeyedUnarchiver.unarchivedObject(ofClasses: [HUserStore.self], from: data!) as! HUserStore
+                    share = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [HUserStore.self], from: data) as? HUserStore
                 }else {
-                    share = NSKeyedUnarchiver.unarchiveObject(with: data!) as? HUserStore
+                    share = NSKeyedUnarchiver.unarchiveObject(with: data) as? HUserStore
                 }
             }
         }
-        if share == nil || share!.responds(to: #selector(initData)) == false {
+        if share == nil || share?.responds(to: #selector(initData)) == false {
             share = HUserStore()
         }
-        share!.initData()
-        return share!
+        share?.initData()
+        return share
     }()
 
     private static var defaultsUserId: String? {
-        return HUserStore.defaults.userName.uppercased()
+        return HUserStore.defaults?.userName.uppercased()
     }
 
     //初始化数据
@@ -120,8 +114,7 @@ class HUserStore : NSObject {
             }else {
                 data = NSKeyedArchiver.archivedData(withRootObject: self)
             }
-            let defaultsUserId = HUserStore.defaultsUserId
-            if defaultsUserId!.length > 0 && data != nil {
+            if let defaultsUserId = HUserStore.defaultsUserId, defaultsUserId.length > 0, data != nil {
                 HKeyChainStore.keyChainStore.setData(data: data, forKey: defaultsUserId)
                 HKeyChainStore.keyChainStore.setString(string: defaultsUserId, forKey: KUSER)
                 HKeyChainStore.keyChainStore.synchronizable = true
@@ -135,15 +128,14 @@ class HUserStore : NSObject {
         var boolValue: Bool = false
         if userName.length > 3 {
             let defaultsUserId: String = userName.uppercased()
-            let data: Data? = HKeyChainStore.keyChainStore.dataForKey(defaultsUserId)
-            if data != nil {
+            if let data = HKeyChainStore.keyChainStore.dataForKey(defaultsUserId) {
                 var userDefaults: HUserStore?
                 if #available(iOS 11.0, *) {
-                    userDefaults = try! NSKeyedUnarchiver.unarchivedObject(ofClasses: [HUserStore.self], from: data!) as? HUserStore
+                    userDefaults = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [HUserStore.self], from: data) as? HUserStore
                 } else {
-                    userDefaults = NSKeyedUnarchiver.unarchiveObject(with: data!) as? HUserStore
+                    userDefaults = NSKeyedUnarchiver.unarchiveObject(with: data) as? HUserStore
                 }
-                let propertyValue = userDefaults!.value(forKey: "password") as! String
+                let propertyValue = userDefaults?.value(forKey: "password") as? String
                 //密码不相等则不能提取用户信息
                 if pwd != propertyValue {
                     userDefaults = nil
@@ -154,17 +146,15 @@ class HUserStore : NSObject {
                 
                 var count: UInt32 = 0
                 //let propertys = class_copyPropertyList(self.classForCoder, &count)
-                let propertys = class_copyIvarList(self.classForCoder, &count)
-                if propertys != nil {
+                if let propertys = class_copyIvarList(self.classForCoder, &count) {
                     for i in 0..<count {
-                        let property = propertys![Int(i)]
-                        let name = ivar_getName(property)
+                        let property = propertys[Int(i)]
                         //isLogin 这个属性的值由外部业务赋值
-                        if name != nil {
+                        if let name = ivar_getName(property) {
                             //通过KVC的方式赋值
-                            let key = String(cString: name!)
+                            let key = String(cString: name)
                             if key != "isLogin" {
-                                let propertyValue: Any? = userDefaults!.value(forKey: key)
+                                let propertyValue = userDefaults?.value(forKey: key)
                                 self.setValue(propertyValue, forKey: key)
                             }
                         }
@@ -194,23 +184,21 @@ class HUserStore : NSObject {
         
         var count: UInt32 = 0
         //let propertys = class_copyPropertyList(self.classForCoder, &count)
-        let propertys = class_copyIvarList(self.classForCoder, &count)
-        if propertys != nil {
+        if let propertys = class_copyIvarList(self.classForCoder, &count) {
             for i in 0..<count {
-                let property = propertys![Int(i)]
-                let name = ivar_getName(property)
+                let property = propertys[Int(i)]
                 //isLogin 这个属性的值由外部业务赋值
-                if name != nil {
+                if let name = ivar_getName(property) {
                     //通过KVC的方式赋值
-                    let key = String(cString: name!)
+                    let key = String(cString: name)
                     let propertyValue: AnyObject? = self.value(forKey: key) as AnyObject
-                    
+
                     if propertyValue == nil || propertyValue!.isKind(of: NSNull.self) {
                         continue
                     }
-                    
+
                     //通过KVC的方式赋值
-                    
+
                     if propertyValue!.isKind(of: NSString.self) {
                         self.setValue("", forKey: key)
                     }
