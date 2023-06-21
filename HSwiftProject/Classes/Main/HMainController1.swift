@@ -261,7 +261,7 @@ class HMainController1: HTupleController {
             let cell = itemBlock(nil, HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
             cell.sizeBlock = {
                 let width = (self.tupleView.width(forSection: indexPath.section) - 16) / 3
-//                width = self.tupleView.fixSlit(withWidth: width, colCount: 3, index: indexPath.row - 3)
+                //width = self.tupleView.fixSlit(withWidth: width, colCount: 3, index: indexPath.row - 3)
                 return CGSize(width: width, height: width + 5 + 25)
             }
             cell.cellBlock = {
