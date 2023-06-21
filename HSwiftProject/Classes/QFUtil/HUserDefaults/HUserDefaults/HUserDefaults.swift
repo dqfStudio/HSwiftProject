@@ -18,7 +18,7 @@ class HUserDefaults: NSObject {
     static var user: HUserCore {
         get {
             if _user == nil {
-                _user = HUserCore(suiteName: HUserDefaults.userCoreKey)!
+                _user = HUserCore(suiteName: HUserDefaults.userCoreKey)
             }
             return _user!
         }
