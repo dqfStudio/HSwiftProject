@@ -15,12 +15,12 @@ class HUserDefaults: NSObject {
     
     // User Defaults
     private static var _user: HUserCore?
-    static var user: HUserCore {
+    static var user: HUserCore? {
         get {
             if _user == nil {
                 _user = HUserCore(suiteName: HUserDefaults.userCoreKey)
             }
-            return _user!
+            return _user
         }
         set {
             if _user != newValue {
