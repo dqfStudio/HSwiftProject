@@ -183,17 +183,11 @@ class HNumberFormatter: NSObject {
     //当达到千、百万、亿、兆时，使用省略写法（K、M、B、T），默认为NO
     var conversion: Bool = false
 
-    lazy var formatterEnum: NSArray = {
-        return [NumberFormatter.RoundingMode.ceiling,
-                NumberFormatter.RoundingMode.floor,
-                NumberFormatter.RoundingMode.down,
-                NumberFormatter.RoundingMode.up,
-                NumberFormatter.RoundingMode.halfEven,
-                NumberFormatter.RoundingMode.halfDown,
-                NumberFormatter.RoundingMode.halfUp]
+    lazy var formatterEnum: [NumberFormatter.RoundingMode] = {
+        return [.ceiling, .floor, .down, .up, .halfEven, .halfDown, .halfUp]
     }()
 
-    func object(_ objc: String, roundingMode mode: NumberFormatter.RoundingMode, afterPoint: Int, pointZero: Bool, grouping: Bool, prefix: Bool, symbol: String?, conversion: Bool) -> String {
+    func object(_ objc: String, roundingMode mode: NumberFormatter.RoundingMode, afterPoint: Int, pointZero: Bool, grouping: Bool, prefix: Bool, symbol: String?, conversion: Bool) -> String? {
 
         var decimalNumber = NSDecimalNumber.activeNumber(withText: objc, operationMode: .undefine)
         let numberFormatter = NumberFormatter()
@@ -219,16 +213,16 @@ class HNumberFormatter: NSObject {
         numberFormatter.decimalSeparator = "."
         //正前缀和负前缀
         if decimalNumber.doubleValue == 0 {
-            if symbol != nil, symbol!.count > 0 {
+            if let symbol = symbol, symbol.count > 0 {
                 numberFormatter.positivePrefix = symbol
                 numberFormatter.negativePrefix = symbol
             }
-        }else if prefix, symbol != nil, symbol!.count > 0 {
-            numberFormatter.positivePrefix = "+".appending(symbol!)
-            numberFormatter.negativePrefix = "-".appending(symbol!)
-        }else if symbol != nil, symbol!.count > 0 {
-            numberFormatter.positivePrefix = symbol!
-            numberFormatter.negativePrefix = symbol!
+        }else if prefix, let symbol = symbol, symbol.count > 0 {
+            numberFormatter.positivePrefix = "+".appending(symbol)
+            numberFormatter.negativePrefix = "-".appending(symbol)
+        }else if let symbol = symbol, symbol.count > 0 {
+            numberFormatter.positivePrefix = symbol
+            numberFormatter.negativePrefix = symbol
         }else if prefix {
             numberFormatter.positivePrefix = "+"
             numberFormatter.negativePrefix = "-"
@@ -272,7 +266,7 @@ class HNumberFormatter: NSObject {
             numberFormatter.negativeSuffix = appendString
         }
 
-        return numberFormatter.string(from: decimalNumber)!
+        return numberFormatter.string(from: decimalNumber)
     }
 
 }
@@ -303,10 +297,10 @@ extension String {
         return activeNumber.dividing(by: unactiveNumber).stringValue
     }
     //格式化
-    func formatter(_ make: (_ make: HNumberFormatter) -> Void) -> String {
+    func formatter(_ make: (_ make: HNumberFormatter) -> Void) -> String? {
         let formatter = HNumberFormatter()
         make(formatter)
-        let modeNumber = formatter.formatterEnum[formatter.roundingMode.rawValue] as! NumberFormatter.RoundingMode
+        let modeNumber = formatter.formatterEnum[formatter.roundingMode.rawValue]
         return formatter.object(self, roundingMode: modeNumber, afterPoint: formatter.afterPoint, pointZero: formatter.pointZero, grouping: formatter.grouping, prefix: formatter.prefix, symbol: formatter.symbol, conversion: formatter.conversion)
     }
     //去格式化
@@ -361,7 +355,7 @@ extension NSNumber {
         return self.stringValue.dividingBy(value.stringValue)
     }
     //格式化
-    func formatter(_ make: (_ make: HNumberFormatter) -> Void) -> String {
+    func formatter(_ make: (_ make: HNumberFormatter) -> Void) -> String? {
         return self.stringValue.formatter(make)
     }
     //去格式化
