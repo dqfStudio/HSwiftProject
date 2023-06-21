@@ -24,7 +24,7 @@ class HNetworkDAO: NSObject {
                         failure:@escaping HRequestFailureBlock) {
         var urlString = url
         let baseUrl = HNetworkDAO.hostName
-        if (baseUrl.length > 0 && url.length > 0) {
+        if baseUrl.length > 0, url.length > 0 {
             if url.hasPrefix(baseUrl) == false {
                 urlString = baseUrl + url
             }
@@ -48,7 +48,7 @@ class HNetworkDAO: NSObject {
                          failure:@escaping HRequestFailureBlock) {
         var urlString = url
         let baseUrl = HNetworkDAO.hostName
-        if (baseUrl.length > 0 && url.length > 0) {
+        if baseUrl.length > 0, url.length > 0 {
             if url.hasPrefix(baseUrl) == false {
                 urlString = baseUrl + url
             }
@@ -73,7 +73,7 @@ class HNetworkDAO: NSObject {
                             failure:@escaping HRequestFailureBlock) {
         var urlString = url
         let baseUrl = HNetworkDAO.hostName
-        if (baseUrl.length > 0 && url.length > 0) {
+        if baseUrl.length > 0, url.length > 0 {
             if url.hasPrefix(baseUrl) == false {
                 urlString = baseUrl + url
             }
@@ -97,7 +97,7 @@ class HNetworkDAO: NSObject {
                              failure:@escaping HRequestFailureBlock) {
         var urlString = url
         let baseUrl = HNetworkDAO.hostName
-        if (baseUrl.length > 0 && url.length > 0) {
+        if baseUrl.length > 0, url.length > 0 {
             if url.hasPrefix(baseUrl) == false {
                 urlString = baseUrl + url
             }

@@ -26,7 +26,7 @@ class HNetworkManager: NSObject {
     }()
     
     ///当前网络状态
-    var networkStatus: KNetworkStatus = KNetworkStatus.Unknow
+    var networkStatus: KNetworkStatus = .Unknow
     
     ///网络请求
     func sendGetWith(url: String,
@@ -70,16 +70,16 @@ extension HNetworkManager {
             if reachability?.isReachable ?? false {
                 switch status {
                 case .notReachable:
-                    weakSelf.networkStatus = KNetworkStatus.Not
+                    weakSelf.networkStatus = .Not
                 case .unknown:
-                    weakSelf.networkStatus = KNetworkStatus.Unknow
+                    weakSelf.networkStatus = .Unknow
                 case .reachable(.wwan):
-                    weakSelf.networkStatus = KNetworkStatus.Wwan
+                    weakSelf.networkStatus = .Wwan
                 case .reachable(.ethernetOrWiFi):
-                    weakSelf.networkStatus = KNetworkStatus.Wifi
+                    weakSelf.networkStatus = .Wifi
                 }
             }else {
-               weakSelf.networkStatus = KNetworkStatus.Not
+               weakSelf.networkStatus = .Not
             }
             networkStatus(weakSelf.networkStatus.rawValue)
         }
