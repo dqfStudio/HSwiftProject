@@ -21,7 +21,7 @@ extension NSObject {
             objc_setAssociatedObject(self, &kExclusiveSetKey, set, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return set
         }
-        set(newValue) {
+        set {
             objc_setAssociatedObject(self, &kExclusiveSetKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }

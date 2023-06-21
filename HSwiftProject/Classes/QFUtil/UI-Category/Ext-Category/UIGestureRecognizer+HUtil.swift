@@ -18,9 +18,7 @@ class UIGestureRecognizerBlockTarget : NSObject {
     
     @objc
     private func invoke(_ sender: AnyObject) {
-        if self.block != nil {
-            self.block!(sender)
-        }
+        self.block?(sender)
     }
 
     convenience init(block: @escaping HGestureBlock) {

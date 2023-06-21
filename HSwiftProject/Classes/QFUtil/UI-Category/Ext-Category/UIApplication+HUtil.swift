@@ -160,8 +160,7 @@ extension UIApplication {
     static var networkStatusFromStateBar: HANetworkStatus {
         let objc = UIApplication.shared.value(forKey: "statusBar") as AnyObject
         let arr: Array<UIView> = objc.value(forKeyPath: "foregroundView") as? Array ?? []
-        for item in arr {
-            let view: UIView = item
+        for view in arr {
             if view.isKind(of:NSClassFromString("UIStatusBarDataNetworkItemView")!.self) {
                 let value: String? = view.value(forKeyPath: "dataNetworkType") as? String
                 if let value = value, let intValue = Int(value), let status = HANetworkStatus(rawValue: intValue) {
