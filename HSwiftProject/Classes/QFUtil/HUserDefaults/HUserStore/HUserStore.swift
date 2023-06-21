@@ -12,17 +12,11 @@ private var KUSER = "H_USER_DEFAULTS"
 
 class HUserStore : NSObject {
 
-
     /** 是否登录 */
-    private var _isLogin: Bool = false
-    var isLogin: Bool {
-        get {
-            return _isLogin
-        }
-        set {
-            if _isLogin != newValue {
-                _isLogin = newValue
-                if _isLogin {
+    var isLogin: Bool = false {
+        didSet {
+            if isLogin != oldValue {
+                if isLogin {
                     self.saveUser()
                 }else {
                     self.removeUser()
@@ -30,7 +24,6 @@ class HUserStore : NSObject {
             }
         }
     }
-
 
     /** 用户ID */
     var userId: String?
@@ -127,7 +120,7 @@ class HUserStore : NSObject {
 
         var boolValue: Bool = false
         if userName.length > 3 {
-            let defaultsUserId: String = userName.uppercased()
+            let defaultsUserId = userName.uppercased()
             if let data = HKeyChainStore.keyChainStore.dataForKey(defaultsUserId) {
                 var userDefaults: HUserStore?
                 if #available(iOS 11.0, *) {
