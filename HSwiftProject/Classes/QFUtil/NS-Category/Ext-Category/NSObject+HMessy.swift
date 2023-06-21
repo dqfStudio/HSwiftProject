@@ -45,8 +45,8 @@ extension NSObject {
 extension NSDictionary {
     
     //将字典转化成json data
-    var jsonData: NSData {
-        return try! JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted) as NSData
+    var jsonData: NSData? {
+        return try? JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted) as NSData
     }
 
     //将字典转化成字符串 如：rn=1&tt=3&rr=4
@@ -63,16 +63,16 @@ extension NSDictionary {
     }
     
     //将字典转化成json字符串
-    var jsonString: NSString {
-        let jsonData = try! JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted)
-        return NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)!
+    var jsonString: NSString? {
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted) else { return nil }
+        return NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
     }
 
     //去掉json字符串中的空格和换行符
-    var jsonString2: NSString {
+    var jsonString2: NSString? {
         var jsonString = self.jsonString
-        jsonString = jsonString.replacingOccurrences(of: " ", with: "") as NSString
-        jsonString = jsonString.replacingOccurrences(of: "\n", with: "") as NSString
+        jsonString = jsonString?.replacingOccurrences(of: " ", with: "") as? NSString
+        jsonString = jsonString?.replacingOccurrences(of: "\n", with: "") as? NSString
         return jsonString
     }
     
@@ -81,8 +81,8 @@ extension NSDictionary {
 extension Dictionary {
     
     //将字典转化成json data
-    var jsonData: Data {
-        return try! JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted) as Data
+    var jsonData: Data? {
+        return try? JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted) as Data
     }
 
     //将字典转化成字符串 如：rn=1&tt=3&rr=4
@@ -99,16 +99,16 @@ extension Dictionary {
     }
     
     //将字典转化成json字符串
-    var jsonString: String {
-        let jsonData = try! JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted)
-        return String(data: jsonData, encoding: String.Encoding.utf8)!
+    var jsonString: String? {
+        guard let jsonData = try? JSONSerialization.data(withJSONObject: self, options: JSONSerialization.WritingOptions.prettyPrinted) else { return nil }
+        return String(data: jsonData, encoding: String.Encoding.utf8)
     }
 
     //去掉json字符串中的空格和换行符
-    var jsonString2: String {
+    var jsonString2: String? {
         var jsonString = self.jsonString
-        jsonString = jsonString.replacingOccurrences(of: " ", with: "")
-        jsonString = jsonString.replacingOccurrences(of: "\n", with: "")
+        jsonString = jsonString?.replacingOccurrences(of: " ", with: "")
+        jsonString = jsonString?.replacingOccurrences(of: "\n", with: "")
         return jsonString
     }
     
@@ -116,45 +116,47 @@ extension Dictionary {
 
 extension NSString {
     //将json字符串转化成字典
-    var dictionary: NSDictionary {
-        return try! JSONSerialization.jsonObject(with: self.data(using: String.Encoding.utf8.rawValue)!, options: .mutableContainers) as! NSDictionary
+    var dictionary: NSDictionary? {
+        guard let data = self.data(using: String.Encoding.utf8.rawValue) else { return nil }
+        return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
     }
     //将字符串转化data
-    var dataValue: NSData {
-        return self.data(using: String.Encoding.utf8.rawValue)! as NSData
+    var dataValue: NSData? {
+        return self.data(using: String.Encoding.utf8.rawValue) as? NSData
     }
 }
 
 extension String {
     //将json字符串转化成字典
-    var dictionary: Dictionary<String, Any> {
-        return try! JSONSerialization.jsonObject(with: self.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))!, options: .mutableContainers) as! Dictionary
+    var dictionary: Dictionary<String, Any>? {
+        guard let data = self.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue)) else { return nil }
+        return try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? Dictionary
     }
     //将字符串转化data
-    var dataValue: Data {
-        return self.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))! as Data
+    var dataValue: Data? {
+        return self.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
     }
 }
 
 
 extension NSData {
     //将json data转化成字典
-    var dictionary: NSDictionary {
-        return try! JSONSerialization.jsonObject(with: self as Data, options: .mutableContainers) as! NSDictionary
+    var dictionary: NSDictionary? {
+        return try? JSONSerialization.jsonObject(with: self as Data, options: .mutableContainers) as? NSDictionary
     }
     //将data转化成字符串
-    var stringValue: NSString {
-        return NSString(data: self as Data, encoding: String.Encoding.utf8.rawValue)!
+    var stringValue: NSString? {
+        return NSString(data: self as Data, encoding: String.Encoding.utf8.rawValue)
     }
 }
 
 extension Data {
     //将json data转化成字典
-    var dictionary: Dictionary<String, Any> {
-        return try! JSONSerialization.jsonObject(with: self, options: .mutableContainers) as! Dictionary
+    var dictionary: Dictionary<String, Any>? {
+        return try? JSONSerialization.jsonObject(with: self, options: .mutableContainers) as? Dictionary
     }
     //将data转化成字符串
-    var stringValue: String {
-        return String(data: self, encoding: .utf8)!
+    var stringValue: String? {
+        return String(data: self, encoding: .utf8)
     }
 }
