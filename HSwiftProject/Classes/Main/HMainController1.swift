@@ -113,8 +113,7 @@ class HMainController1: HTupleController {
                     cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
                     
                     cell.imageView.backgroundColor = UIColor.red
-                    let image = UIImage(named: "icon_no_server")
-                    cell.imageView.image = image
+                    cell.imageView.image = UIImage(named: "icon_no_server")
                     cell.imageView.imageSize = CGSize(width: 25, height: 25)
                     cell.imageView.cornerRadius = 25 / 2
 
@@ -128,9 +127,8 @@ class HMainController1: HTupleController {
                     cell.accessoryLabel.text = "accessoryLabel"
                     
                     cell.detailView.backgroundColor = UIColor.red
-                    let image2 = UIImage(named: "icon_no_server")
                     cell.detailView.imageSize = CGSize(width: 25, height: 25)
-                    cell.detailView.setImage(image2)
+                    cell.detailView.setImage(WithName: "icon_no_server")
                     cell.detailView.cornerRadius = 25 / 2
                     
                     cell.imageSpacing = 10.0
