@@ -143,8 +143,12 @@ class HTableViewCellHoriValue1 : HTableBaseCell {
         if let imageView = _imageView {
             
             var imageFrame = frame
-            imageFrame.width = frame.height
-            imageFrame = imageFrame.inset(by: imageView.edgeInsets)
+            if imageView.imageSize != .zero {
+                imageFrame.size = imageView.imageSize
+            } else {
+                imageFrame.width = frame.height
+                imageFrame = imageFrame.inset(by: imageView.edgeInsets)
+            }
             
             imageView.widthAnchor.constraint(equalToConstant: imageFrame.width).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageFrame.height).isActive = true
@@ -190,8 +194,12 @@ class HTableViewCellHoriValue1 : HTableBaseCell {
         if let detailView = _detailView {
 
             var detailFrame = frame
-            detailFrame.width = frame.height
-            detailFrame = detailFrame.inset(by: detailView.edgeInsets)
+            if detailView.imageSize != .zero {
+                detailFrame.size = detailView.imageSize
+            } else {
+                detailFrame.width = frame.height
+                detailFrame = detailFrame.inset(by: detailView.edgeInsets)
+            }
             
             detailView.widthAnchor.constraint(equalToConstant: detailFrame.width).isActive = true
             detailView.heightAnchor.constraint(equalToConstant: detailFrame.height).isActive = true
@@ -349,8 +357,12 @@ class HTableViewCellHoriValue2 : HTableBaseCell {
         if let imageView = _imageView {
 
             var imageFrame = frame
-            imageFrame.width = frame.height
-            imageFrame = imageFrame.inset(by: imageView.edgeInsets)
+            if imageView.imageSize != .zero {
+                imageFrame.size = imageView.imageSize
+            } else {
+                imageFrame.width = frame.height
+                imageFrame = imageFrame.inset(by: imageView.edgeInsets)
+            }
             
             imageView.widthAnchor.constraint(equalToConstant: imageFrame.width).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageFrame.height).isActive = true
@@ -395,8 +407,12 @@ class HTableViewCellHoriValue2 : HTableBaseCell {
         if let detailView = _detailView {
 
             var detailFrame = frame
-            detailFrame.width = frame.height
-            detailFrame = detailFrame.inset(by: detailView.edgeInsets)
+            if detailView.imageSize != .zero {
+                detailFrame.size = detailView.imageSize
+            } else {
+                detailFrame.width = frame.height
+                detailFrame = detailFrame.inset(by: detailView.edgeInsets)
+            }
             
             detailView.widthAnchor.constraint(equalToConstant: detailFrame.width).isActive = true
             detailView.heightAnchor.constraint(equalToConstant: detailFrame.height).isActive = true
@@ -547,8 +563,12 @@ class HTableViewCellHoriValue3 : HTableBaseCell {
         if let imageView = _imageView {
 
             var imageFrame = frame
-            imageFrame.width = frame.height
-            imageFrame = imageFrame.inset(by: imageView.edgeInsets)
+            if imageView.imageSize != .zero {
+                imageFrame.size = imageView.imageSize
+            } else {
+                imageFrame.width = frame.height
+                imageFrame = imageFrame.inset(by: imageView.edgeInsets)
+            }
             
             imageView.widthAnchor.constraint(equalToConstant: imageFrame.width).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageFrame.height).isActive = true
@@ -587,8 +607,12 @@ class HTableViewCellHoriValue3 : HTableBaseCell {
         if let detailView = _detailView {
 
             var detailFrame = frame
-            detailFrame.width = frame.height
-            detailFrame = detailFrame.inset(by: detailView.edgeInsets)
+            if detailView.imageSize != .zero {
+                detailFrame.size = detailView.imageSize
+            } else {
+                detailFrame.width = frame.height
+                detailFrame = detailFrame.inset(by: detailView.edgeInsets)
+            }
             
             detailView.widthAnchor.constraint(equalToConstant: detailFrame.width).isActive = true
             detailView.heightAnchor.constraint(equalToConstant: detailFrame.height).isActive = true
