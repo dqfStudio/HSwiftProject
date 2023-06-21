@@ -20,12 +20,8 @@ enum UIDeviceOrientationStyle: Int {
 
 extension AppDelegate {
     static var orientationStyle: UIDeviceOrientationStyle {
-        get {
-            return objc_getAssociatedObject(self, &KOrientationStyleKey) as! UIDeviceOrientationStyle
-        }
-        set {
-            objc_setAssociatedObject(self, &KOrientationStyleKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
+        get { return objc_getAssociatedObject(self, &KOrientationStyleKey) as! UIDeviceOrientationStyle }
+        set { objc_setAssociatedObject(self, &KOrientationStyleKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
     @available(iOS 12.0, *)

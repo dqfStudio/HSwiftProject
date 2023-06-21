@@ -22,25 +22,19 @@ extension AppDelegate {
             }
             return audioPlayer
         }
-        set {
-            objc_setAssociatedObject(self, #function, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
+        set { objc_setAssociatedObject(self, #function, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
 
     
     var musicVolume: Float {
-        get {
-            return objc_getAssociatedObject(self, #function) as? Float ?? 0
-        }
-        set {
-            objc_setAssociatedObject(self, #function, newValue, .OBJC_ASSOCIATION_ASSIGN)
-        }
+        get { return objc_getAssociatedObject(self, #function) as? Float ?? AVAudioSession.sharedInstance().outputVolume }
+        set { objc_setAssociatedObject(self, #function, newValue, .OBJC_ASSOCIATION_ASSIGN) }
     }
     
     //播放音效
     func startPlayMusic() {
         audioPlayer?.volume = musicVolume
-        if !(audioPlayer?.isPlaying ?? false) {
+        if !(audioPlayer?.isPlaying ?? true) {
             audioPlayer?.play()
         }
     }
