@@ -133,10 +133,10 @@ class HMainController1: HTupleController {
                     cell.detailView.setImage(image2)
                     cell.detailView.cornerRadius = 25 / 2
                     
-                    cell.imageSpacing = 5.0
+                    cell.imageSpacing = 10.0
                     cell.labelSpacing = 5.0
                     cell.detailSpacing = 5.0
-                    cell.accessorySpacing = 5.0
+                    cell.accessorySpacing = 10.0
                 }
                 break
             case 2:

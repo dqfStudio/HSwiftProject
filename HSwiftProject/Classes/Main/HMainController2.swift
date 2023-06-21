@@ -13,6 +13,30 @@ class HMainController2: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let webButtonView = HWebButtonView(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 60))
+        webButtonView.backgroundColor = .red
+//        webButtonView.setImageUrlString("https://d1e084oasoo524.cloudfront.net/images/Group_Chat-Banner.png")
+        webButtonView.imagePosition = .left
+//        webButtonView.renderColor = .yellow
+        webButtonView.imageSpace = 10
+        webButtonView.image = UIImage(named: "hvc_back_icon")
+//        webButtonView.setImage(WithName: "hvc_back_icon")
+//        webButtonView.imageSize = CGSize(width: 23, height: 23)
+        
+//        webButtonView.imageView.backgroundColor = .green
+        
+        webButtonView.text = "封疆大吏是否能啦"
+//        webButtonView.titleLabel.text = "封疆大吏是否能啦"
+//        webButtonView.titleLabel.font = UIFont.systemFont(ofSize: 17)
+//        webButtonView.titleLabel.backgroundColor = .blue
+        
+        webButtonView.pressed = { (_ sender: Any?, _ data: Any?) in
+            NSLog("")
+        }
+        
+        self.view.addSubview(webButtonView)
+        return
+        
         let webActionView = HWebActionView(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 60))
         webActionView.backgroundColor = .red
 //        webActionView.setImageUrlString("https://d1e084oasoo524.cloudfront.net/images/Group_Chat-Banner.png")
