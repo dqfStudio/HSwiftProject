@@ -192,25 +192,29 @@ class HUserStore : NSObject {
                     //通过KVC的方式赋值
                     let key = String(cString: name)
                     let propertyValue: AnyObject? = self.value(forKey: key) as AnyObject
-
-                    if propertyValue == nil || propertyValue!.isKind(of: NSNull.self) {
+                    
+                    guard let propertyValue = propertyValue else {
+                        continue
+                    }
+                    
+                    guard !propertyValue.isKind(of: NSNull.self) else {
                         continue
                     }
 
                     //通过KVC的方式赋值
 
-                    if propertyValue!.isKind(of: NSString.self) {
+                    if propertyValue.isKind(of: NSString.self) {
                         self.setValue("", forKey: key)
                     }
-                    else if propertyValue!.isKind(of: NSNumber.self) {
+                    else if propertyValue.isKind(of: NSNumber.self) {
                         self.setValue(NSNumber(), forKey: key)
                     }
-                    else if propertyValue!.isKind(of: NSMutableDictionary.self) ||
-                             propertyValue!.isKind(of: NSDictionary.self) {
+                    else if propertyValue.isKind(of: NSMutableDictionary.self) ||
+                             propertyValue.isKind(of: NSDictionary.self) {
                         self.setValue(NSDictionary(), forKey: key)
                     }
-                    else if propertyValue!.isKind(of: NSMutableArray.self) ||
-                             propertyValue!.isKind(of: NSArray.self) {
+                    else if propertyValue.isKind(of: NSMutableArray.self) ||
+                             propertyValue.isKind(of: NSArray.self) {
                         self.setValue(NSArray(), forKey: key)
                     }
                     else {
