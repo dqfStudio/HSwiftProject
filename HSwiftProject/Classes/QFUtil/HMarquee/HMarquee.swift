@@ -32,27 +32,25 @@ class HMarquee: UIView {
     
     private var _marqueeLbl: UILabel?
     private var marqueeLbl: UILabel {
-        get {
-            if _marqueeLbl == nil {
-                self.tapMode = .Move
-                let h: CGFloat = self.frame.size.height
-                _marqueeLbl = UILabel()
-                _marqueeLbl!.text = self.msg
-                
-                let fnt = UIFont(name: "HelveticaNeue", size: 14.0)
-                _marqueeLbl!.font = fnt
-                
-                let text: NSString = _marqueeLbl!.text! as NSString
-                let msgSize = text.size(withAttributes: [NSAttributedString.Key.font: fnt!])
-                
-                _marqueeLbl!.frame = CGRect(x: 0, y: 0, width: msgSize.width, height: h)
-                if self.marqueeLabelFont != nil {
-                    _marqueeLbl!.font = self.marqueeLabelFont
-                }
-                _marqueeLbl!.textColor = self.txtColor
+        if _marqueeLbl == nil {
+            self.tapMode = .Move
+            let h: CGFloat = self.frame.size.height
+            _marqueeLbl = UILabel()
+            _marqueeLbl!.text = self.msg
+            
+            let fnt = UIFont(name: "HelveticaNeue", size: 14.0)
+            _marqueeLbl!.font = fnt
+            
+            let text: NSString = _marqueeLbl!.text! as NSString
+            let msgSize = text.size(withAttributes: [NSAttributedString.Key.font: fnt!])
+            
+            _marqueeLbl!.frame = CGRect(x: 0, y: 0, width: msgSize.width, height: h)
+            if self.marqueeLabelFont != nil {
+                _marqueeLbl!.font = self.marqueeLabelFont
             }
-            return _marqueeLbl!
+            _marqueeLbl!.textColor = self.txtColor
         }
+        return _marqueeLbl!
     }
     private var tapAction: HWonderfulAction?
     private var tapMode: HMarqueeTapMode = .Move

@@ -43,9 +43,7 @@ class HTupleViewMarqueeCell: HTupleBaseCell {
     lazy private var marquee: HMarquee = {
         let marquee = HMarquee(frame: self.bounds, speed: .MediumSlow, msg: nil)
         marquee.changeTapMarqueeAction {
-            if self.selectedBlock != nil {
-                self.selectedBlock!()
-            }
+            self.selectedBlock?()
         }
         return marquee
     }()
