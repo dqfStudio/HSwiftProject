@@ -531,23 +531,28 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
 
                 //UICollectionViewScrollPositionNone
                 //UICollectionView.ScrollPosition.init(rawValue: 0)
-                mainView!.scrollToItem(at: IndexPath(item: Int(targetIndex), section: 0), at: UICollectionView.ScrollPosition.top, animated: false)
+                mainView?.scrollToItem(at: IndexPath(item: Int(targetIndex), section: 0), at: UICollectionView.ScrollPosition.top, animated: false)
             }
             return
         }
-        mainView!.scrollToItem(at: IndexPath(item: Int(targetIndex), section: 0), at: UICollectionView.ScrollPosition.top, animated: true)
+        mainView?.scrollToItem(at: IndexPath(item: Int(targetIndex), section: 0), at: UICollectionView.ScrollPosition.top, animated: true)
     }
 
     private func currentIndex() -> Int {
-        if (mainView!.hc_width == 0 || mainView!.hc_height == 0) {
+        
+        guard let mainView = mainView, let flowLayout = flowLayout else {
+            return 0
+        }
+        
+        if mainView.hc_width == 0 || mainView.hc_height == 0 {
             return 0
         }
 
         var index: CGFloat = 0.0
-        if (flowLayout!.scrollDirection == .horizontal) {
-            index = (mainView!.contentOffset.x + flowLayout!.itemSize.width * 0.5) / flowLayout!.itemSize.width
+        if flowLayout.scrollDirection == .horizontal {
+            index = (mainView.contentOffset.x + flowLayout.itemSize.width * 0.5) / flowLayout.itemSize.width
         } else {
-            index = (mainView!.contentOffset.y + flowLayout!.itemSize.height * 0.5) / flowLayout!.itemSize.height
+            index = (mainView.contentOffset.y + flowLayout.itemSize.height * 0.5) / flowLayout.itemSize.height
         }
         
         return Int(max(0, index))
