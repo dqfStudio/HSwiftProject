@@ -345,16 +345,8 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         }
     }
 
-    private var _pageDotImage: UIImage?
     /** 其他分页控件小圆标图片 */
-    var pageDotImage: UIImage? {
-        get {
-            return _pageDotImage
-        }
-        set {
-            _pageDotImage = newValue
-        }
-    }
+    var pageDotImage: UIImage?
 
     /** 轮播文字label字体颜色 */
     var titleLabelTextColor: UIColor?
@@ -374,13 +366,11 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     /** 滚动手势禁用（文字轮播较实用） */
     func disableScrollGesture() {
         self.mainView!.canCancelContentTouches = false
-        if self.mainView!.gestureRecognizers != nil {
-            for gesture in self.mainView!.gestureRecognizers! {
-                if gesture.isKind(of: UIPanGestureRecognizer.self) {
-                    self.mainView?.removeGestureRecognizer(gesture)
-                }
+        self.mainView?.gestureRecognizers?.forEach({ gesture in
+            if gesture.isKind(of: UIPanGestureRecognizer.self) {
+                self.mainView?.removeGestureRecognizer(gesture)
             }
-        }
+        })
     }
 
 
@@ -412,10 +402,10 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     private func initialization() {
         pageControlAliment = .Center
         autoScrollTimeInterval = 2.0
-        titleLabelTextColor = UIColor.white
-        titleLabelTextFont = UIFont.systemFont(ofSize: 14.0)
+        titleLabelTextColor = .white
+        titleLabelTextFont = .systemFont(ofSize: 14.0)
         titleLabelBackgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
-        titleLabelHeight = 30
+        titleLabelHeight = 30.0
         titleLabelTextAlignment = .left
         autoScroll = true
         infiniteLoop = true
@@ -425,10 +415,10 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         pageControlRightOffset = 0
         pageControlStyle = .Classic
         hidesForSinglePage = true
-        currentPageDotColor = UIColor.white
-        pageDotColor = UIColor.lightGray
+        currentPageDotColor = .white
+        pageDotColor = .lightGray
         bannerImageViewContentMode = .scaleToFill
-        self.backgroundColor = UIColor.lightGray
+        self.backgroundColor = .lightGray
     }
 
 
@@ -440,7 +430,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         self.flowLayout = flowLayout
 
         let mainView = UICollectionView(frame: self.bounds, collectionViewLayout: flowLayout)
-        mainView.backgroundColor = UIColor.clear
+        mainView.backgroundColor = .clear
         mainView.isPagingEnabled = true
         mainView.showsHorizontalScrollIndicator = false
         mainView.showsVerticalScrollIndicator = false
@@ -454,15 +444,12 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     }
 
     private func setCustomPageControlDotImage(_ image: UIImage?, isCurrentPageDot: Bool) {
-
-        if (image == nil || self.pageControl == nil) { return }
-
-        if self.pageControl!.isKind(of: HPageControl.self) {
-            let pageControl = self.pageControl as! HPageControl
+        if let pageControl = self.pageControl, pageControl.isKind(of: HPageControl.self), image != nil {
+            let pageControl = self.pageControl as? HPageControl
             if isCurrentPageDot {
-                pageControl.currentDotImage = image
+                pageControl?.currentDotImage = image
             } else {
-                pageControl.dotImage = image
+                pageControl?.dotImage = image
             }
         }
     }
@@ -472,7 +459,9 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         self.invalidateTimer() // 创建定时器前先停止定时器，不然会出现僵尸定时器，导致轮播频率错误
 
         timer = Timer.scheduledTimer(timeInterval: self.autoScrollTimeInterval, target: self, selector: #selector(automaticScroll), userInfo: nil, repeats: true)
-        RunLoop.main.add(timer!, forMode: .common)
+        if let timer = timer {
+            RunLoop.main.add(timer, forMode: .common)
+        }
     }
 
     private func invalidateTimer() {
@@ -481,20 +470,26 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     }
 
     private func setupPageControl() {
-        if pageControl != nil {
-            pageControl?.removeFromSuperview()// 重新加载数据时调整
+        pageControl?.removeFromSuperview()// 重新加载数据时调整
+
+        guard let imgPathsGroup = self.imagePathsGroup, imgPathsGroup.count > 0 else {
+            return
         }
-
-        if (self.imagePathsGroup!.count == 0 || self.onlyDisplayText) { return }
-
-        if ((self.imagePathsGroup!.count == 1) && self.hidesForSinglePage) { return }
+        
+        guard !self.onlyDisplayText else {
+            return
+        }
+        
+        if imgPathsGroup.count == 1, self.hidesForSinglePage {
+            return
+        }
 
         let indexOnPageControl = self.pageControlIndexWithCurrentCellIndex(self.currentIndex())
 
         switch (self.pageControlStyle) {
         case .Animated:
             let pageControl = HPageControl()
-            pageControl.numberOfPages = self.imagePathsGroup!.count
+            pageControl.numberOfPages = imgPathsGroup.count
             pageControl.dotColor = self.currentPageDotColor
             pageControl.isUserInteractionEnabled = false
             pageControl.currentPage = indexOnPageControl
@@ -503,7 +498,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
             break
         case .Classic:
             let pageControl = UIPageControl()
-            pageControl.numberOfPages = self.imagePathsGroup!.count
+            pageControl.numberOfPages = imgPathsGroup.count
             pageControl.currentPageIndicatorTintColor = self.currentPageDotColor
             pageControl.pageIndicatorTintColor = self.pageDotColor
             pageControl.isUserInteractionEnabled = false
@@ -516,25 +511,22 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         }
 
         // 重设pagecontroldot图片
-        if (_currentPageDotImage != nil) {
+        if _currentPageDotImage != nil {
             self.currentPageDotImage = _currentPageDotImage
-        }
-        if (_pageDotImage != nil) {
-            self.pageDotImage = _pageDotImage
         }
     }
 
     @objc
     private func automaticScroll() {
-        if (0 == totalItemsCount) { return }
+        if (totalItemsCount == 0) { return }
         let currentIndex = self.currentIndex()
         let targetIndex = currentIndex + 1
         self.scrollToIndex(targetIndex)
     }
 
     private func scrollToIndex(_ targetIndex: Int) {
-        if (targetIndex >= totalItemsCount) {
-            if (self.infiniteLoop) {
+        if targetIndex >= totalItemsCount {
+            if self.infiniteLoop {
                 let targetIndex = CGFloat(totalItemsCount) * 0.5
 
                 //UICollectionViewScrollPositionNone
