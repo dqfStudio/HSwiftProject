@@ -216,14 +216,17 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
 
     /** 可以调用此方法手动控制滚动到哪一个index */
     func makeScrollViewScrollToIndex(_ index: Int) {
-        if (self.autoScroll) {
+        if self.autoScroll {
             self.invalidateTimer()
         }
-        if (0 == totalItemsCount) { return }
+        
+        guard totalItemsCount > 0 else {
+            return
+        }
 
         self.scrollToIndex(Int(CGFloat(totalItemsCount) * 0.5) + index)
 
-        if (self.autoScroll) {
+        if self.autoScroll {
             self.setupTimer()
         }
     }
@@ -231,7 +234,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     /** 解决viewWillAppear时出现时轮播图卡在一半的问题，在控制器viewWillAppear时调用此方法 */
     func adjustWhenControllerViewWillAppera() {
         let targetIndex = self.currentIndex()
-        if (targetIndex < totalItemsCount) {
+        if targetIndex < totalItemsCount {
             mainView!.scrollToItem(at: IndexPath(item: targetIndex, section: 0), at: UICollectionView.ScrollPosition.top, animated: false)
         }
     }
@@ -277,14 +280,9 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     /** 只展示文字轮播 */
     var onlyDisplayText: Bool = false
 
-    private var _pageControlStyle: HCycleScrollViewPageContolStyle = .Animated
     /** pagecontrol 样式，默认为动画样式 */
-    var pageControlStyle: HCycleScrollViewPageContolStyle {
-        get {
-            return _pageControlStyle
-        }
-        set {
-            _pageControlStyle = newValue
+    var pageControlStyle: HCycleScrollViewPageContolStyle = .Animated {
+        didSet {
             self.setupPageControl()
         }
     }
@@ -298,51 +296,36 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     /** 分页控件距离轮播图的右边间距（在默认间距基础上）的偏移量 */
     var pageControlRightOffset: CGFloat = 0.0
 
-    private var _pageControlDotSize: CGSize = CGSize.zero
     /** 分页控件小圆标大小 */
-    var pageControlDotSize: CGSize {
-        get {
-            return _pageControlDotSize
-        }
-        set {
-            _pageControlDotSize = newValue
+    var pageControlDotSize: CGSize = .zero {
+        didSet {
             self.setupPageControl()
-            if self.pageControl!.isKind(of: HPageControl.self) {
-                let pageContol = self.pageControl as! HPageControl
-                pageContol.dotSize = newValue
+            if let pageControl = self.pageControl, pageControl.isKind(of: HPageControl.self) {
+                let pageContol = self.pageControl as? HPageControl
+                pageContol?.dotSize = pageControlDotSize
             }
         }
     }
 
-    private var _currentPageDotColor: UIColor?
     /** 当前分页控件小圆标颜色 */
     var currentPageDotColor: UIColor? {
-        get {
-            return _currentPageDotColor
-        }
-        set {
-            _currentPageDotColor = newValue
-            if self.pageControl!.isKind(of: HPageControl.self) {
-                let pageContol = self.pageControl as! HPageControl
-                pageContol.dotColor = currentPageDotColor
+        didSet {
+            if let pageControl = self.pageControl, pageControl.isKind(of: HPageControl.self) {
+                let pageContol = self.pageControl as? HPageControl
+                pageContol?.dotColor = currentPageDotColor
             }else {
-                let pageContol = self.pageControl as! UIPageControl
-                pageContol.currentPageIndicatorTintColor = newValue
+                let pageContol = self.pageControl as? UIPageControl
+                pageContol?.currentPageIndicatorTintColor = currentPageDotColor
             }
         }
     }
 
-    private var _pageDotColor: UIColor?
     /** 其他分页控件小圆标颜色 */
     var pageDotColor: UIColor? {
-        get {
-            return _pageDotColor
-        }
-        set {
-            _pageDotColor = newValue
-            if self.pageControl!.isKind(of: UIPageControl.self) {
-                let pageContol = self.pageControl as! UIPageControl
-                pageContol.pageIndicatorTintColor = newValue
+        didSet {
+            if let pageControl = self.pageControl, pageControl.isKind(of: UIPageControl.self) {
+                let pageContol = self.pageControl as? UIPageControl
+                pageContol?.pageIndicatorTintColor = pageDotColor
             }
         }
     }
