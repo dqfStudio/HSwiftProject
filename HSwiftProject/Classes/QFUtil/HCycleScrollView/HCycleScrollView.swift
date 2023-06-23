@@ -196,12 +196,12 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         }
         set {
             _delegate = newValue
-            if _delegate != nil {
-                if _delegate!.responds(to: #selector(_delegate!.customCollectionViewCellClassForCycleScrollView(_:))) {
-                    let nib: AnyClass = _delegate!.customCollectionViewCellClassForCycleScrollView!(self)
+            if let delegate = _delegate {
+                if delegate.responds(to: #selector(delegate.customCollectionViewCellClassForCycleScrollView(_:))) {
+                    let nib: AnyClass? = delegate.customCollectionViewCellClassForCycleScrollView?(self)
                     self.mainView?.register(nib, forCellWithReuseIdentifier: KCycleID)
-                }else if _delegate!.responds(to: #selector(_delegate!.customCollectionViewCellNibForCycleScrollView(_:))) {
-                    let nib: UINib = _delegate!.customCollectionViewCellNibForCycleScrollView!(self)
+                }else if delegate.responds(to: #selector(delegate.customCollectionViewCellNibForCycleScrollView(_:))) {
+                    let nib: UINib? = delegate.customCollectionViewCellNibForCycleScrollView?(self)
                     self.mainView?.register(nib, forCellWithReuseIdentifier: KCycleID)
                 }
             }
