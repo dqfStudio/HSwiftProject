@@ -70,10 +70,10 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
 
             _imagePathsGroup = newValue
 
-            if _imagePathsGroup != nil {
-                totalItemsCount = self.infiniteLoop ? _imagePathsGroup!.count * 100 : _imagePathsGroup!.count
+            if let imagePathsGroup = _imagePathsGroup {
+                totalItemsCount = self.infiniteLoop ? imagePathsGroup.count * 100 : imagePathsGroup.count
 
-                if (_imagePathsGroup!.count > 1) { // 由于 !=1 包含count == 0等情况
+                if (imagePathsGroup.count > 1) { // 由于 !=1 包含count == 0等情况
                     self.mainView!.isScrollEnabled = true
                     self.autoScroll = _autoScroll
                 } else {
