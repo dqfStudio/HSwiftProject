@@ -128,60 +128,40 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     /** 网络图片 url string 数组 */
     var imageURLStringsGroup: NSArray?
 
-    private var _titlesGroup: NSArray?
     /** 每张图片对应要显示的文字数组 */
     var titlesGroup: NSArray? {
-        get {
-            return _titlesGroup
-        }
-        set {
-            _titlesGroup = newValue
-            if (self.onlyDisplayText && _titlesGroup != nil) {
+        didSet {
+            if self.onlyDisplayText, titlesGroup != nil {
                 let temp = NSMutableArray()
-                for _ in 0..<_titlesGroup!.count {
+                for _ in 0..<titlesGroup!.count {
                     temp.add("")
                 }
-                self.backgroundColor = UIColor.clear
+                self.backgroundColor = .clear
                 self.imageURLStringsGroup = temp
             }
         }
     }
 
-    private var _localizationImageNamesGroup: NSArray?
     /** 本地图片数组 */
     var localizationImageNamesGroup: NSArray? {
-        get {
-            return _localizationImageNamesGroup
-        }
-        set {
-            _localizationImageNamesGroup = newValue
-            self.imagePathsGroup = newValue
+        didSet {
+            self.imagePathsGroup = localizationImageNamesGroup
         }
     }
 
 
-    private var _autoScrollTimeInterval: TimeInterval = 2.0
     //////////////////////  滚动控制API //////////////////////
     /** 自动滚动间隔时间,默认2s */
-    var autoScrollTimeInterval: TimeInterval {
-        get {
-            return _autoScrollTimeInterval
-        }
-        set {
-            _autoScrollTimeInterval = newValue
+    var autoScrollTimeInterval: TimeInterval = 2.0 {
+        didSet {
             self.autoScroll = _autoScroll
         }
     }
 
-    private var _infiniteLoop: Bool = true
     /** 是否无限循环,默认true */
-    var infiniteLoop: Bool {
-        get {
-            return _infiniteLoop
-        }
-        set {
-            _infiniteLoop = newValue
-            if self.imagePathsGroup!.count > 0 {
+    var infiniteLoop: Bool = true {
+        didSet {
+            if let imagePathsGroup = self.imagePathsGroup, imagePathsGroup.count > 0 {
                 self.imagePathsGroup = _imagePathsGroup
             }
         }
@@ -196,21 +176,16 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         set {
             _autoScroll = newValue
             self.invalidateTimer()
-            if (_autoScroll) {
+            if _autoScroll {
                 self.setupTimer()
             }
         }
     }
 
-    private var _scrollDirection: UICollectionView.ScrollDirection = .horizontal
     /** 图片滚动方向，默认为水平滚动 */
-    var scrollDirection: UICollectionView.ScrollDirection {
-        get {
-            return _scrollDirection
-        }
-        set {
-            _scrollDirection = newValue
-            flowLayout!.scrollDirection = newValue
+    var scrollDirection: UICollectionView.ScrollDirection = .horizontal {
+        didSet {
+            flowLayout?.scrollDirection = scrollDirection
         }
     }
 
