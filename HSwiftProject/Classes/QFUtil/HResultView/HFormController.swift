@@ -104,9 +104,7 @@ class HFormController: NSObject, HTupleViewDelegate {
         cell.rowItems = self.rowItems
         
         cell.formCellBlock = { (_ idxPath: IndexPath, _ model: HFormModel) in
-            if self.cellBlock != nil {
-                self.cellBlock!(indexPath, model)
-            }
+            self.cellBlock?(indexPath, model)
         }
     }
     

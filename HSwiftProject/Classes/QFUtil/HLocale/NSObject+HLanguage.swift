@@ -18,61 +18,31 @@ public extension String {
 extension UILabel {
     var textLocalized: String? {
         get { return self.text }
-        set {
-            if newValue != nil, newValue!.isEmpty != false {
-                self.text = newValue!.localized()
-            }else {
-                self.text = newValue
-            }
-        }
+        set { self.text = newValue?.localized() }
     }
 }
 
 extension UIButton {
     var textLocalized: String? {
         get { return self.title(for: .normal) }
-        set {
-            if newValue != nil, newValue!.isEmpty != false {
-                self.setTitle(newValue!.localized(), for: .normal)
-            }else {
-                self.setTitle(newValue, for: .normal)
-            }
-        }
+        set { self.setTitle(newValue?.localized(), for: .normal) }
     }
 }
 
 extension UITextView {
     var textLocalized: String? {
         get { return self.text }
-        set {
-            if newValue != nil, newValue!.isEmpty != false {
-                self.text = newValue!.localized()
-            }else {
-                self.text = newValue
-            }
-        }
+        set { self.text = newValue?.localized() }
     }
 }
 
 extension UITextField {
     var textLocalized: String? {
         get { return self.text }
-        set {
-            if newValue != nil, newValue!.isEmpty != false {
-                self.text = newValue!.localized()
-            }else {
-                self.text = newValue
-            }
-        }
+        set { self.text = newValue?.localized() }
     }
     var placeholderLocalized: String? {
         get { return self.placeholder }
-        set {
-            if newValue != nil, newValue!.isEmpty != false {
-                self.placeholder = newValue!.localized()
-            }else {
-                self.placeholder = newValue
-            }
-        }
+        set { self.placeholder = newValue?.localized() }
     }
 }
