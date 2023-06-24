@@ -46,11 +46,13 @@ extension UIImage {
         colorFilter?.setValue(CIColor(cgColor: color.cgColor), forKey: "inputColor0")
         colorFilter?.setValue(CIColor(cgColor: backgroundColor.cgColor), forKey: "inputColor1")
         // 3、生成处理
-        let outImage = colorFilter?.outputImage
-        //    CGFloat scale = size / outImage.extent.size.width;
-        //    outImage = [outImage imageByApplyingTransform:CGAffineTransformMakeScale(scale, scale)];
-        //    return [UIImage imageWithCIImage:outImage];
-        return createNonInterpolatedUIImageFormCIImage(image: outImage!, withSize: size)
+        if let outImage = colorFilter?.outputImage {
+//            CGFloat scale = size / outImage.extent.size.width;
+//            outImage = [outImage imageByApplyingTransform:CGAffineTransformMakeScale(scale, scale)];
+//            return [UIImage imageWithCIImage:outImage];
+            return createNonInterpolatedUIImageFormCIImage(image: outImage, withSize: size)
+        }
+        return nil
     }
 
     /**
@@ -122,15 +124,19 @@ extension UIImage {
         let width = extent.width * scale
         let height = extent.height * scale
         let cs = CGColorSpaceCreateDeviceGray()
-        let bitmapRef = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: cs, bitmapInfo: CGImageAlphaInfo.none.rawValue)!
-        let context = CIContext(options: nil)
-        let bitmapImage = context.createCGImage(image, from: extent)
-        bitmapRef.interpolationQuality = .none
-        bitmapRef.scaleBy(x: scale, y: scale)
-        bitmapRef.draw(bitmapImage!, in: extent)
-        // 2.保存bitmap到图片
-        let scaledImage = bitmapRef.makeImage()
-        return UIImage(cgImage: scaledImage!)
+        if let bitmapRef = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: cs, bitmapInfo: CGImageAlphaInfo.none.rawValue) {
+            let context = CIContext(options: nil)
+            if let bitmapImage = context.createCGImage(image, from: extent) {
+                bitmapRef.interpolationQuality = .none
+                bitmapRef.scaleBy(x: scale, y: scale)
+                bitmapRef.draw(bitmapImage, in: extent)
+                // 2.保存bitmap到图片
+                if let scaledImage = bitmapRef.makeImage() {
+                    return UIImage(cgImage: scaledImage)
+                }
+            }
+        }
+        return nil
     }
 
     /**
@@ -140,18 +146,21 @@ extension UIImage {
      *  return 绘制颜色后的图片
      */
     func image(with color: UIColor) -> UIImage? {
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        let context = UIGraphicsGetCurrentContext()
-        context?.translateBy(x: 0, y: size.height)
-        context?.scaleBy(x: 1.0, y: -1.0)
-        context?.setBlendMode(.normal)
-        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
-        context?.clip(to: rect, mask: cgImage!)
-        color.setFill()
-        context?.fill(rect)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage
+        if let cgImage = self.cgImage {
+            UIGraphicsBeginImageContextWithOptions(size, false, scale)
+            let context = UIGraphicsGetCurrentContext()
+            context?.translateBy(x: 0, y: size.height)
+            context?.scaleBy(x: 1.0, y: -1.0)
+            context?.setBlendMode(.normal)
+            let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            context?.clip(to: rect, mask: cgImage)
+            color.setFill()
+            context?.fill(rect)
+            let newImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            return newImage
+        }
+        return nil
     }
     /**
      *  按照固定的宽度缩放
