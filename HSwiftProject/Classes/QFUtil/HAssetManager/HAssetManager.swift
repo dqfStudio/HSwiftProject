@@ -154,21 +154,21 @@ class HAssetManager: NSObject {
     }
     
     func saveVideoPath(_ videoPath: String?, completionHandler: ((Bool, Error?) -> Void)?) {
-        if videoPath == nil {
+        guard let videoPath = videoPath, !videoPath.isEmpty else {
             if let completionHandler = completionHandler {
                 let error = NSError(domain: "HAssetOperator", code: -999, userInfo: [NSLocalizedDescriptionKey : "视频路径不能为空"])
                 completionHandler(false, error)
             }
             return
         }
-        if FileManager.default.fileExists(atPath: videoPath!) == false {
+        if FileManager.default.fileExists(atPath: videoPath) == false {
             if let completionHandler = completionHandler {
                 let error = NSError(domain: "HAssetOperator", code: -999, userInfo: [NSLocalizedDescriptionKey : "该路径下的文件不存在"])
                 completionHandler(false, error)
             }
             return
         }
-        saveVideoPathURL(URL(fileURLWithPath: videoPath!), completionHandler: completionHandler)
+        saveVideoPathURL(URL(fileURLWithPath: videoPath), completionHandler: completionHandler)
     }
     
     func saveVideoPathURL(_ videoPathURL: URL?, completionHandler: ((Bool, Error?) -> Void)?) {
@@ -205,7 +205,7 @@ class HAssetManager: NSObject {
     
     func deleteAlbumsAllFile(completionHandler: ((Bool, Error?) -> Void)?) {
         guard let albumArray = HAssetManager.share.getImagesAndVideoFromFolder() else { return }
-        for model in albumArray {
+        albumArray.forEach { model in
             HAssetManager.share.deleteFile(with: model.localIdentifier ?? "", completionHandler: { (success, error) in })
         }
         completionHandler?(true, nil)
