@@ -161,7 +161,7 @@ class HTabItem : UIButton {
     /**
     *  badge的标题字体，默认13号
     */
-    var badgeTitleFont: UIFont = .systemFont(ofSize: 13) {
+    var badgeTitleFont: UIFont = .systemFont(ofSize: 13.0) {
         didSet {
             badgeButton.titleLabel?.font = badgeTitleFont
             updateBadge()
