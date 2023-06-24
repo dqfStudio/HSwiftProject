@@ -139,7 +139,7 @@ class HNaviToastView: UIView {
     static func allToastForView(_ view: UIView) -> [HNaviToastView] {
         let toastViews = NSMutableArray()
         let subViews = view.subviews
-        for aView in subViews {
+        subViews.forEach { aView in
             if aView.isKind(of: HNaviToastView.self) {
                 toastViews.add(aView)
             }
