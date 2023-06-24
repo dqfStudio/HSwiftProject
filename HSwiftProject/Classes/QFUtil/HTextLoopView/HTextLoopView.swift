@@ -80,7 +80,7 @@ class HTextLoopView: UIView, UITableViewDataSource, UITableViewDelegate {
             if self.currentRowIndex >= self.dataSource!.count {
                 self.currentRowIndex = 0
             }
-            self.tableView!.setContentOffset(CGPoint(x: 0, y: CGFloat(self.currentRowIndex) * self.tableView!.rowHeight), animated: true)
+            self.tableView?.setContentOffset(CGPoint(x: 0, y: CGFloat(self.currentRowIndex) * self.tableView!.rowHeight), animated: true)
         }
     }
     
@@ -98,9 +98,9 @@ class HTextLoopView: UIView, UITableViewDataSource, UITableViewDelegate {
         if cell == nil {
             cell = UITableViewCell(style: .default, reuseIdentifier: reuseIdentifier)
         }
-        cell!.textLabel!.text = dataSource![indexPath.row] as? String
-        cell!.textLabel!.font = .systemFont(ofSize: 14.0)
-        cell!.textLabel!.textColor = .lightText
+        cell!.textLabel?.text = dataSource?[indexPath.row] as? String
+        cell!.textLabel?.font = .systemFont(ofSize: 14.0)
+        cell!.textLabel?.textColor = .lightText
         cell!.backgroundColor = .clear
         cell!.selectionStyle = .none
         return cell!
@@ -109,9 +109,7 @@ class HTextLoopView: UIView, UITableViewDataSource, UITableViewDelegate {
     // tableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        if selectBlock != nil {
-            selectBlock!(dataSource![indexPath.row] as! NSString, indexPath.row)
-        }
+        selectBlock?(dataSource?[indexPath.row] as! NSString, indexPath.row)
     }
 
     // scrollViewDelegate
@@ -131,7 +129,7 @@ class HTextLoopView: UIView, UITableViewDataSource, UITableViewDelegate {
             if currentRowIndex >= dataSource!.count {
                 currentRowIndex = 0
             }
-            self.selectBlock!(dataSource![currentRowIndex] as! NSString, currentRowIndex)
+            self.selectBlock?(dataSource?[currentRowIndex] as! NSString, currentRowIndex)
         }
     }
 
