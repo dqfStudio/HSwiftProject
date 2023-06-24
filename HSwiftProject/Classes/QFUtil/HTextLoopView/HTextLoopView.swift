@@ -77,10 +77,12 @@ class HTextLoopView: UIView, UITableViewDataSource, UITableViewDelegate {
     private func timer() {
         DispatchQueue.main.async {
             self.currentRowIndex += 1
-            if self.currentRowIndex >= self.dataSource!.count {
+            if let dataSource = self.dataSource, self.currentRowIndex >= dataSource.count {
                 self.currentRowIndex = 0
             }
-            self.tableView?.setContentOffset(CGPoint(x: 0, y: CGFloat(self.currentRowIndex) * self.tableView!.rowHeight), animated: true)
+            if let tableView = self.tableView {
+                tableView.setContentOffset(CGPoint(x: 0, y: CGFloat(self.currentRowIndex) * tableView.rowHeight), animated: true)
+            }
         }
     }
     
@@ -89,7 +91,7 @@ class HTextLoopView: UIView, UITableViewDataSource, UITableViewDelegate {
         return 2
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource!.count
+        return dataSource?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -115,7 +117,7 @@ class HTextLoopView: UIView, UITableViewDataSource, UITableViewDelegate {
     // scrollViewDelegate
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         // 以无动画的形式跳到第1组的第0行
-        if currentRowIndex == dataSource!.count {
+        if let dataSource = dataSource, currentRowIndex == dataSource.count {
             currentRowIndex = 0
             DispatchQueue.main.async {
                 self.tableView?.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
@@ -126,7 +128,7 @@ class HTextLoopView: UIView, UITableViewDataSource, UITableViewDelegate {
     // touch method
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if selectBlock != nil {
-            if currentRowIndex >= dataSource!.count {
+            if let dataSource = dataSource, currentRowIndex >= dataSource.count {
                 currentRowIndex = 0
             }
             self.selectBlock?(dataSource?[currentRowIndex] as! NSString, currentRowIndex)
