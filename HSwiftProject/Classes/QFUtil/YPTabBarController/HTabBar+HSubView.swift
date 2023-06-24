@@ -11,16 +11,16 @@ import UIKit
 extension HTabBar {
     ///顶部添加分割线
     func addTopLineViewWithColor(_ color: UIColor) {
-        let frame: CGRect = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 1)
-        let lineView: UIView = UIView(frame: frame)
+        let frame = CGRect(x: 0, y: 0, width: UIScreen.width, height: 1)
+        let lineView = UIView(frame: frame)
         lineView.backgroundColor = color
         self.addSubview(lineView)
         self.sendSubviewToBack(lineView)
     }
     ///底部添加分割线
     func addBottomLineViewWithColor(_ color: UIColor) {
-        let frame: CGRect = CGRect(x: 0, y: self.frame.height - 1, width: UIScreen.main.bounds.width, height: 1)
-        let lineView: UIView = UIView(frame: frame)
+        let frame = CGRect(x: 0, y: self.frame.height - 1, width: UIScreen.width, height: 1)
+        let lineView = UIView(frame: frame)
         lineView.backgroundColor = color
         self.addSubview(lineView)
         self.sendSubviewToBack(lineView)
@@ -28,10 +28,10 @@ extension HTabBar {
     ///添加空白适配
     func addBottomBlankViewWithColor(_ color: UIColor) {
         if UIScreen.isIPhoneX {
-            var frame: CGRect = self.bounds
+            var frame = self.bounds
             frame.origin.y = frame.size.height
             frame.size.height = UIScreen.bottomBarHeight
-            let bottomView: UIView = UIView(frame: frame)
+            let bottomView = UIView(frame: frame)
             bottomView.backgroundColor = color
             self.addSubview(bottomView)
             self.clipsToBounds = false

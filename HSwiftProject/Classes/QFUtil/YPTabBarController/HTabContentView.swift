@@ -98,25 +98,23 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
             return _viewControllers
         }
         set {
-            if _viewControllers != nil {
-                for vc in _viewControllers! {
-                    if vc.h_hasAddedContentOffsetObserver {
-                        vc.h_displayView.removeObserver(self, forKeyPath: kContentOffset)
-                        vc.h_hasAddedContentOffsetObserver = false
-                    }
-                    vc.removeFromParent()
-                    if vc.isViewLoaded {
-                        vc.h_displayView.removeFromSuperview()
-                    }
+            _viewControllers?.forEach({ vc in
+                if vc.h_hasAddedContentOffsetObserver {
+                    vc.h_displayView.removeObserver(self, forKeyPath: kContentOffset)
+                    vc.h_hasAddedContentOffsetObserver = false
                 }
-            }
+                vc.removeFromParent()
+                if vc.isViewLoaded {
+                    vc.h_displayView.removeFromSuperview()
+                }
+            })
 
             _viewControllers = newValue
             
             let containerVC: UIViewController? = self.contarinerViewController
 
             var items = [HTabItem]()
-            for vc in _viewControllers! {
+            _viewControllers?.forEach({ vc in
                 containerVC?.addChild(vc)
                 
                 let item = HTabItem()
@@ -124,7 +122,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
                 item.selectedImage = vc.h_tabItemSelectedImage
                 item.title = vc.h_tabItemTitle
                 items.append(item)
-            }
+            })
             self.tabBar.items = items
 
             // 更新scrollView的content size
@@ -375,11 +373,10 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
     private var contarinerViewController: UIViewController? {
         var view: UIView? = self
         while view != nil {
-            let nextResponder: UIResponder? = view!.next
-            if nextResponder != nil && nextResponder!.isKind(of: UIViewController.self) {
+            if let nextResponder = view?.next, nextResponder.isKind(of: UIViewController.self) {
                 return nextResponder as? UIViewController
             }
-            view = view!.superview
+            view = view?.superview
         }
         return nil
     }
@@ -390,9 +387,9 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
             
         let vc: UIViewController? = self.contarinerViewController
         if #available(iOS 11.0, *) {
-            if vc != nil && vc!.view.isKind(of: UIScrollView.self) {
-                let scrollView = vc!.view as! UIScrollView
-                scrollView.contentInsetAdjustmentBehavior = .never
+            if let vc = vc, vc.view.isKind(of: UIScrollView.self) {
+                let scrollView = vc.view as? UIScrollView
+                scrollView?.contentInsetAdjustmentBehavior = .never
             }
         }else {
             vc?.automaticallyAdjustsScrollViewInsets = false
@@ -430,7 +427,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
         if kContentOffset == keyPath {
             let value = change![NSKeyValueChangeKey.newKey] as! NSValue
             let offsetY: CGFloat = value.cgPointValue.y + self.headerViewDefaultHeight + self.tabBar.frame.size.height
-            var headerFrame: CGRect = CGRect.zero
+            var headerFrame: CGRect = .zero
             let minHeaderY: CGFloat = self.headerViewDefaultHeight - self.tabBarStopOnTopHeight
             if (offsetY > minHeaderY) {
                 headerFrame = CGRect(x: 0, y: -minHeaderY, width: self.frame.size.width, height: self.headerViewDefaultHeight)
@@ -456,7 +453,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
     }
 
     private func updateContentOffsetOfDisplayScrollView(_ scrollView: UIScrollView) {
-        let tabBarY: CGFloat = self.tabBar.frame.origin.y
+        let tabBarY = self.tabBar.frame.origin.y
         if (tabBarY > self.tabBarStopOnTopHeight ||
                 scrollView.contentOffset.y == 0 ||
                 scrollView.contentOffset.y <= -self.tabBar.frame.maxY) {
@@ -484,7 +481,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
         }
         var oldController: UIViewController?
         if self.selectedTabIndex != NSNotFound {
-            oldController = self.viewControllers![self.selectedTabIndex]
+            oldController = self.viewControllers?[self.selectedTabIndex]
             oldController?.h_tabItemDidDeselected()
             let selector = #selector(oldController!.h_tabItemDidDeselected)
             if oldController!.responds(to: selector) {
@@ -492,7 +489,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
             }
             if (!self.contentScrollEnabled ||
                     (self.contentScrollEnabled && self.removeViewOfChildContollerWhileDeselected)) {
-                self.viewControllers!.enumerated().forEach({ (idx, vc) in
+                self.viewControllers?.enumerated().forEach({ (idx, vc) in
                     if (idx != index && vc.isViewLoaded && vc.h_displayView.superview != nil) {
                         vc.h_displayView.removeFromSuperview()
                     }
@@ -540,8 +537,8 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
         // 当contentView为scrollView及其子类时，设置它支持点击状态栏回到顶部
         if let oldVC = oldController, oldVC.h_displayView.isKind(of: UIScrollView.self) {
-            let scrollView = oldVC.h_displayView as! UIScrollView
-            scrollView.scrollsToTop = false
+            let scrollView = oldVC.h_displayView as? UIScrollView
+            scrollView?.scrollsToTop = false
         }
         if curController.h_displayView.isKind(of: UIScrollView.self) {
             let curScrollView = curController.h_displayView as! UIScrollView

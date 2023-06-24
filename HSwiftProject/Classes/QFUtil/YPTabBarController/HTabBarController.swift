@@ -40,7 +40,7 @@ class HTabBarController : HViewController, HTabContentViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = UIColor.white
+        self.view.backgroundColor = .white
         self.view.addSubview(self.tabContentView)
         self.view.addSubview(self.tabBar)
     }
@@ -63,8 +63,7 @@ class HTabBarController : HViewController, HTabContentViewDelegate {
     
     //震动
     private func vibrate() {
-        let impactLight = UIImpactFeedbackGenerator(style: .light)
-        impactLight.impactOccurred()
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
 
     func tabContentView(_ tabConentView: HTabContentView, shouldSelectTabAtIndex index: Int) -> Bool {

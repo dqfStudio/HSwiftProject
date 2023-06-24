@@ -605,8 +605,7 @@ class HTabBar : UIView {
             self.indicatorImageView.frame = CGRect.zero
             return
         }
-        if let items = self.items {
-            let item = items[index]
+        if let item = self.items?[index] {
             self.indicatorImageView.frame = item.indicatorFrame
         }
     }
