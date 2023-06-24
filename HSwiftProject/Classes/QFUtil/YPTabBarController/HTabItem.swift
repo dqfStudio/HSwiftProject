@@ -288,16 +288,16 @@ class HTabItem : UIButton {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        if self.image(for: .normal) != nil && self.isContentHorizontalCenter {
-            var titleSize: CGSize = self.titleLabel?.frame.size ?? CGSize.zero
-            let imageSize: CGSize = self.imageView?.frame.size ?? CGSize.zero
+        if self.image(for: .normal) != nil, self.isContentHorizontalCenter {
+            var titleSize: CGSize = self.titleLabel?.frame.size ?? .zero
+            let imageSize: CGSize = self.imageView?.frame.size ?? .zero
             titleSize = CGSize(width: CGFloat(ceilf(Float(titleSize.width))), height: CGFloat(ceilf(Float(titleSize.height))))
             let totalHeight: CGFloat = (imageSize.height + titleSize.height + self.spacing)
             self.imageEdgeInsets = UIEdgeInsets(top: -(totalHeight - imageSize.height - self.verticalOffset), left: 0, bottom: 0, right: -titleSize.width)
             self.titleEdgeInsets = UIEdgeInsets(top: self.verticalOffset, left: -imageSize.width, bottom: -(totalHeight - titleSize.height), right: 0)
         }else {
-            self.imageEdgeInsets = UIEdgeInsets.zero
-            self.titleEdgeInsets = UIEdgeInsets.zero
+            self.imageEdgeInsets = .zero
+            self.titleEdgeInsets = .zero
         }
     }
 
@@ -354,26 +354,27 @@ class HTabItem : UIButton {
                 }
                 
                 // 计算badgeStr的size
-                let tmpBadgeStr: NSString = badgeStr as NSString
-                let size = tmpBadgeStr.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude),
-                                                options: [.usesLineFragmentOrigin, .usesFontLeading],
-                                                attributes: [.font : self.badgeButton.titleLabel!.font as Any],
-                                                context: nil).size
-                // 计算badgeButton的宽度和高度
-                var width: CGFloat = CGFloat(ceilf(Float(size.width))) + self.numberBadgeTitleHorizonalSpace
-                let height: CGFloat = CGFloat(ceilf(Float(size.height))) + self.numberBadgeTitleVerticalSpace
-                
-                // 宽度取width和height的较大值，使badge为个位数时，badgeButton为圆形
-                width = max(width, height)
-                
-                // 设置badgeButton的frame
-                self.badgeButton.frame = CGRect(x: self.bounds.size.width - width / 2 - self.numberBadgeCenterMarginRight,
-                                                y: self.numberBadgeMarginTop,
-                                                width: width,
-                                                height: height)
-                self.badgeButton.layer.cornerRadius = self.badgeButton.bounds.size.height / 2
-                self.badgeButton.setTitle(badgeStr, for: .normal)
-                self.badgeButton.isHidden = false
+                if let font = self.badgeButton.titleLabel?.font {
+                    let size = badgeStr.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude),
+                                                    options: [.usesLineFragmentOrigin, .usesFontLeading],
+                                                    attributes: [.font : font],
+                                                    context: nil).size
+                    // 计算badgeButton的宽度和高度
+                    var width = CGFloat(ceilf(Float(size.width))) + self.numberBadgeTitleHorizonalSpace
+                    let height = CGFloat(ceilf(Float(size.height))) + self.numberBadgeTitleVerticalSpace
+                    
+                    // 宽度取width和height的较大值，使badge为个位数时，badgeButton为圆形
+                    width = max(width, height)
+                    
+                    // 设置badgeButton的frame
+                    self.badgeButton.frame = CGRect(x: self.bounds.size.width - width / 2 - self.numberBadgeCenterMarginRight,
+                                                    y: self.numberBadgeMarginTop,
+                                                    width: width,
+                                                    height: height)
+                    self.badgeButton.layer.cornerRadius = self.badgeButton.bounds.size.height / 2
+                    self.badgeButton.setTitle(badgeStr, for: .normal)
+                    self.badgeButton.isHidden = false
+                }
             }
         } else if self.badgeStyle == .dot {
             self.badgeButton.setTitle(nil, for: .normal)
