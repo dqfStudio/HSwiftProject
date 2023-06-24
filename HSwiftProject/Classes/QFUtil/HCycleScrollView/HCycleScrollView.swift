@@ -569,9 +569,9 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
 
         super.layoutSubviews()
 
-        flowLayout!.itemSize = self.frame.size
+        flowLayout?.itemSize = self.frame.size
 
-        mainView!.frame = self.bounds
+        mainView?.frame = self.bounds
         if (mainView!.contentOffset.x == 0 && totalItemsCount > 0) {
             var targetIndex = 0
             if (self.infiniteLoop) {
@@ -579,7 +579,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
             }else {
                 targetIndex = 0
             }
-            mainView!.scrollToItem(at: IndexPath(item: targetIndex, section: 0), at: UICollectionView.ScrollPosition.top, animated: false)
+            mainView?.scrollToItem(at: IndexPath(item: targetIndex, section: 0), at: UICollectionView.ScrollPosition.top, animated: false)
         }
 
         var size = CGSize.zero
@@ -607,12 +607,10 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         var pageControlFrame = CGRect(x: x, y: y, width: size.width, height: size.height)
         pageControlFrame.origin.y -= self.pageControlBottomOffset
         pageControlFrame.origin.x -= self.pageControlRightOffset
-        self.pageControl!.frame = pageControlFrame
-        self.pageControl!.isHidden = !_showPageControl
+        self.pageControl?.frame = pageControlFrame
+        self.pageControl?.isHidden = !_showPageControl
 
-        if self.backgroundImageView != nil {
-            self.backgroundImageView!.frame = self.bounds
-        }
+        self.backgroundImageView?.frame = self.bounds
 
     }
 
@@ -625,8 +623,8 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
 
     //解决当timer释放后 回调scrollViewDidScroll时访问野指针导致崩溃
     deinit {
-        mainView!.delegate = nil
-        mainView!.dataSource = nil
+        mainView?.delegate = nil
+        mainView?.dataSource = nil
     }
 
     /// UICollectionViewDataSource
@@ -640,35 +638,39 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
 
         let itemIndex = self.pageControlIndexWithCurrentCellIndex(indexPath.item)
 
-        if (self.delegate!.responds(to: #selector(self.delegate!.setupCustomCell(_:forIndex:cycleScrollView:))) &&
-            self.delegate!.responds(to: #selector(self.delegate!.customCollectionViewCellClassForCycleScrollView(_:)))) {
-            self.delegate!.setupCustomCell!(cell, forIndex: itemIndex, cycleScrollView: self)
-            return cell
-        }else if (self.delegate!.responds(to: #selector(self.delegate!.setupCustomCell(_:forIndex:cycleScrollView:))) &&
-                  self.delegate!.responds(to: #selector(self.delegate!.customCollectionViewCellNibForCycleScrollView(_:)))) {
-            self.delegate!.setupCustomCell!(cell, forIndex: itemIndex, cycleScrollView: self)
-            return cell
+        if let delegate = self.delegate {
+            if (delegate.responds(to: #selector(delegate.setupCustomCell(_:forIndex:cycleScrollView:))) &&
+                delegate.responds(to: #selector(delegate.customCollectionViewCellClassForCycleScrollView(_:)))) {
+                delegate.setupCustomCell?(cell, forIndex: itemIndex, cycleScrollView: self)
+                return cell
+            }else if (delegate.responds(to: #selector(delegate.setupCustomCell(_:forIndex:cycleScrollView:))) &&
+                      delegate.responds(to: #selector(delegate.customCollectionViewCellNibForCycleScrollView(_:)))) {
+                delegate.setupCustomCell?(cell, forIndex: itemIndex, cycleScrollView: self)
+                return cell
+            }
         }
 
-        let imagePath = self.imagePathsGroup![itemIndex] as? NSString
+        let imagePath = self.imagePathsGroup?[itemIndex] as? NSString
 
-        if (!self.onlyDisplayText && imagePath!.isKind(of: NSString.self)) {
-            if imagePath!.hasPrefix("http") {
-                cell.imageView.setImageUrlString(imagePath! as String, placeholder: self.placeholderImage)
-            } else {
-                var image: UIImage? = UIImage(named: imagePath! as String)
-                if image == nil {
-                    image = UIImage(contentsOfFile: imagePath! as String)
+        if let imagePath = imagePath {
+            if !self.onlyDisplayText, imagePath.isKind(of: NSString.self) {
+                if imagePath.hasPrefix("http") {
+                    cell.imageView.setImageUrlString(imagePath as String, placeholder: self.placeholderImage)
+                } else {
+                    var image: UIImage? = UIImage(named: imagePath as String)
+                    if image == nil {
+                        image = UIImage(contentsOfFile: imagePath as String)
+                    }
+                    cell.imageView.image = image
                 }
+            } else if !self.onlyDisplayText, imagePath.isKind(of: UIImage.self) {
+                let image = self.imagePathsGroup?[itemIndex] as? UIImage
                 cell.imageView.image = image
             }
-        } else if (!self.onlyDisplayText && imagePath!.isKind(of: UIImage.self)) {
-            let image = self.imagePathsGroup![itemIndex] as? UIImage
-            cell.imageView.image = image
         }
 
-        if (titlesGroup != nil && titlesGroup!.count > 0 && itemIndex < titlesGroup!.count) {
-            cell.title = titlesGroup![itemIndex] as? String
+        if let titlesGroup = titlesGroup, titlesGroup.count > 0, itemIndex < titlesGroup.count {
+            cell.title = titlesGroup[itemIndex] as? String
         }
 
         if (!cell.hasConfigured) {
@@ -719,7 +721,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     }
 
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if (self.autoScroll) {
+        if self.autoScroll {
             self.setupTimer()
         }
     }
