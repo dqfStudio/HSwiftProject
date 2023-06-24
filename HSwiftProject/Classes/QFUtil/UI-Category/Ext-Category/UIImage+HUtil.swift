@@ -344,9 +344,9 @@ extension UIImage {
     @objc
     func image(_ image: UIImage, didFinishSavingWithError error: NSError?, contextInfo: UnsafeMutableRawPointer?) {
         if error == nil {
-            if let completeBlock = self.completeBlock { completeBlock() }
+            self.completeBlock?()
         }else {
-            if let failBlock = self.failBlock { failBlock() }
+            self.failBlock?()
         }
     }
 
@@ -373,20 +373,12 @@ extension UIImage {
      *  模拟成员变量
      */
     private var failBlock: (() -> Void)? {
-        get {
-            return objc_getAssociatedObject(self, &FailBlockKey) as? () -> Void
-        }
-        set {
-            objc_setAssociatedObject(self, &FailBlockKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
+        get { return objc_getAssociatedObject(self, &FailBlockKey) as? () -> Void }
+        set { objc_setAssociatedObject(self, &FailBlockKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
 
     private var completeBlock: (() -> Void)? {
-        get {
-            return objc_getAssociatedObject(self, &CompleteBlockKey) as? () -> Void
-        }
-        set {
-            objc_setAssociatedObject(self, &CompleteBlockKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
+        get { return objc_getAssociatedObject(self, &CompleteBlockKey) as? () -> Void }
+        set { objc_setAssociatedObject(self, &CompleteBlockKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
 }
