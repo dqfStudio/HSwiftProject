@@ -97,8 +97,8 @@ class HFileCache: NSObject {
             return nil
         }
         var fileName = key.md5()
-        if self.fileExtension != nil {
-            fileName = fileName.appendingFormat(".%@", self.fileExtension!)
+        if let fileExtension = self.fileExtension {
+            fileName = fileName.appendingFormat(".%@", fileExtension)
         }
         return self.cacheDir.appending("/").appending(fileName)
     }
@@ -111,19 +111,19 @@ class HFileCache: NSObject {
      *  param filePath
      */
     func setExpire(_ expire: Date?, forFilePath filePath: String?) {
-        if expire == nil {
+        guard let expire = expire else {
             return
         }
         self.queue.sync {
-            self._setExpire(expire!, forFilePath: filePath)
+            self._setExpire(expire, forFilePath: filePath)
         }
     }
     
     private func _setExpire(_ expire: Date, forFilePath filePath: String?) {
-        if filePath == nil {
+        guard let filePath = filePath else {
             return
         }
-        try? FileManager.default.setAttributes([.modificationDate: expire], ofItemAtPath: filePath!)
+        try? FileManager.default.setAttributes([.modificationDate: expire], ofItemAtPath: filePath)
     }
     
     /**
@@ -134,11 +134,11 @@ class HFileCache: NSObject {
      *  param filePath
      */
     func setAccessDate(_ accessDate: Date?, forFilePath filePath: String) {
-        if accessDate == nil {
+        guard let accessDate = accessDate else {
             return
         }
         self.queue.sync {
-            self._setAccessDate(accessDate!, forFilePath: filePath)
+            self._setAccessDate(accessDate, forFilePath: filePath)
         }
     }
     
