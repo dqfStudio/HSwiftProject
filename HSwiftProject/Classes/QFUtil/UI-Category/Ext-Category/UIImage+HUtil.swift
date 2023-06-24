@@ -31,8 +31,8 @@ extension UIImage {
 
     static func testImage(_ size: CGSize) -> UIImage? {
         let imageString = "🏄"
-        let font = UIFont(name: "Menlo", size: size.height)
-        let image = self.imageWithString(imageString, font: font!, width: size.width, textAlignment: NSTextAlignment.left)
+        let font = UIFont(name: "Menlo", size: size.height) ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        let image = self.imageWithString(imageString, font: font, width: size.width, textAlignment: NSTextAlignment.left)
         return image
     }
 
@@ -161,8 +161,10 @@ extension UIImage {
     }
 
     static func resizeWithImageName(_ name: String, leftCap: CGFloat, topCap: CGFloat) -> UIImage? {
-        let image = self.imageFromName(name)
-        return image?.stretchableImage(withLeftCapWidth: Int((image?.size.width)! * leftCap), topCapHeight: Int((image?.size.height)! * topCap))
+        if let image = self.imageFromName(name) {
+            return image.stretchableImage(withLeftCapWidth: Int(image.size.width * leftCap), topCapHeight: Int(image.size.height * topCap))
+        }
+        return nil
     }
 
     static func resizeWithImageName(_ name: String) -> UIImage? {
@@ -236,26 +238,31 @@ extension UIImage {
             break
         }
 
-        let ctx = CGContext(data: nil, width: Int(self.size.width), height: Int(self.size.height),
-                             bitsPerComponent: self.cgImage!.bitsPerComponent, bytesPerRow: 0,
-                             space: self.cgImage!.colorSpace!,
-                             bitmapInfo: self.cgImage!.bitmapInfo.rawValue)
+        if let cgImage = self.cgImage, let colorSpace = cgImage.colorSpace {
+            let ctx = CGContext(data: nil, width: Int(self.size.width), height: Int(self.size.height),
+                                bitsPerComponent: cgImage.bitsPerComponent, bytesPerRow: 0,
+                                 space: colorSpace,
+                                 bitmapInfo: cgImage.bitmapInfo.rawValue)
 
-        ctx?.concatenate(transform)
+            ctx?.concatenate(transform)
 
-        switch self.imageOrientation {
-        case UIImage.Orientation.left, UIImage.Orientation.leftMirrored, UIImage.Orientation.right, UIImage.Orientation.rightMirrored:
-            ctx?.draw(self.cgImage!, in: CGRect(x: 0, y: 0, width: self.size.height, height: self.size.width))
-            break
+            switch self.imageOrientation {
+            case UIImage.Orientation.left, UIImage.Orientation.leftMirrored, UIImage.Orientation.right, UIImage.Orientation.rightMirrored:
+                ctx?.draw(cgImage, in: CGRect(x: 0, y: 0, width: self.size.height, height: self.size.width))
+                break
 
-        default:
-            ctx?.draw(self.cgImage!, in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
-            break
+            default:
+                ctx?.draw(cgImage, in: CGRect(x: 0, y: 0, width: self.size.width, height: self.size.height))
+                break
+            }
+
+            if let cgimage = ctx?.makeImage() {
+                return UIImage(cgImage: cgimage)
+            }
+            
         }
-
-        let cgimage = ctx?.makeImage()
-        let image = UIImage(cgImage: cgimage!)
-        return image
+        
+        return nil
     }
 
     static func thumbnailWithImage(_ originalImage: UIImage, size: CGSize) -> UIImage? {
@@ -275,16 +282,20 @@ extension UIImage {
                 imageRef = originalImage.cgImage?.cropping(to: CGRect(x: originalsize.width / 2 - size.width * rate / 2, y: 0, width: size.width * rate, height: originalsize.height))//获取图片整体部分
             }
 
-            UIGraphicsBeginImageContext(size)//指定要绘画图片的大小
-            let con = UIGraphicsGetCurrentContext()
+            if let imageRef = imageRef {
+                UIGraphicsBeginImageContext(size)//指定要绘画图片的大小
+                let con = UIGraphicsGetCurrentContext()
 
-            con?.translateBy(x: 0.0, y: size.height)
-            con?.scaleBy(x: 1.0, y: -1.0)
-            con?.draw(imageRef!, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+                con?.translateBy(x: 0.0, y: size.height)
+                con?.scaleBy(x: 1.0, y: -1.0)
+                con?.draw(imageRef, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
 
-            let standardImage = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            return standardImage
+                let standardImage = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                return standardImage
+            }
+            
+            return nil
         }
         //原图长宽有一项大于标准长宽的，对大于标准的那一项进行裁剪，另一项保持不变
         else if originalsize.height > size.height || originalsize.width > size.width {
@@ -295,17 +306,21 @@ extension UIImage {
                 imageRef = originalImage.cgImage?.cropping(to: CGRect(x: originalsize.width / 2 - size.width / 2, y: 0, width: size.width, height: originalsize.height))//获取图片整体部分
             }
 
-            UIGraphicsBeginImageContext(size)//指定要绘画图片的大小
-            let con = UIGraphicsGetCurrentContext()
-            con?.translateBy(x: 0.0, y: size.height)
-            con?.scaleBy(x: 1.0, y: -1.0)
-            con?.draw(imageRef!, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
+            if let imageRef = imageRef {
+                UIGraphicsBeginImageContext(size)//指定要绘画图片的大小
+                let con = UIGraphicsGetCurrentContext()
+                con?.translateBy(x: 0.0, y: size.height)
+                con?.scaleBy(x: 1.0, y: -1.0)
+                con?.draw(imageRef, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
 
-            let standardImage = UIGraphicsGetImageFromCurrentImageContext()
-            //NSLog(@"改变后图片的宽度为%f,图片的高度为%f",[standardImage size].width,[standardImage size].height);
-            UIGraphicsEndImageContext()
+                let standardImage = UIGraphicsGetImageFromCurrentImageContext()
+                //NSLog(@"改变后图片的宽度为%f,图片的高度为%f",[standardImage size].width,[standardImage size].height);
+                UIGraphicsEndImageContext()
 
-            return standardImage
+                return standardImage
+            }
+            
+            return nil
         }
         //原图为标准长宽的，不做处理
         else {

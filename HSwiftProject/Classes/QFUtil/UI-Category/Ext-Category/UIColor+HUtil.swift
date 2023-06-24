@@ -152,9 +152,9 @@ extension UIColor {
         if self.responds(to:#selector(getRed(_:green:blue:alpha:))) {
             self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
         }else {
-            red  = self.cgColor.components![0]
-            green = self.cgColor.components![1]
-            blue = self.cgColor.components![2]
+            red  = self.cgColor.components?[0] ?? 0.0
+            green = self.cgColor.components?[1] ?? 0.0
+            blue = self.cgColor.components?[2] ?? 0.0
         }
         
         var isLighter: Bool = false
@@ -173,9 +173,11 @@ extension UIColor {
         UIGraphicsBeginImageContext(gradientLayer.bounds.size)
         if let context = UIGraphicsGetCurrentContext() {
             gradientLayer.render(in: context)
-            let image = UIGraphicsGetImageFromCurrentImageContext()
+            if let image = UIGraphicsGetImageFromCurrentImageContext() {
+                UIGraphicsEndImageContext()
+                return UIColor(patternImage: image)
+            }
             UIGraphicsEndImageContext()
-            return UIColor(patternImage: image!)
         }
         return UIColor.clear
     }
