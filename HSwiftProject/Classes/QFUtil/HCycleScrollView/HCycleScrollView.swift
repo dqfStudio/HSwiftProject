@@ -74,15 +74,15 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
                 totalItemsCount = self.infiniteLoop ? imagePathsGroup.count * 100 : imagePathsGroup.count
 
                 if (imagePathsGroup.count > 1) { // 由于 !=1 包含count == 0等情况
-                    self.mainView!.isScrollEnabled = true
+                    self.mainView?.isScrollEnabled = true
                     self.autoScroll = _autoScroll
                 } else {
-                    self.mainView!.isScrollEnabled = false
+                    self.mainView?.isScrollEnabled = false
                     self.invalidateTimer()
                 }
 
                 self.setupPageControl()
-                self.mainView!.reloadData()
+                self.mainView?.reloadData()
             }
         }
     }
@@ -235,7 +235,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     func adjustWhenControllerViewWillAppera() {
         let targetIndex = self.currentIndex()
         if targetIndex < totalItemsCount {
-            mainView!.scrollToItem(at: IndexPath(item: targetIndex, section: 0), at: UICollectionView.ScrollPosition.top, animated: false)
+            mainView?.scrollToItem(at: IndexPath(item: targetIndex, section: 0), at: UICollectionView.ScrollPosition.top, animated: false)
         }
     }
 
@@ -252,13 +252,13 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         }
         set {
             _placeholderImage = newValue
-            if self.backgroundImageView == nil {
+            if self.backgroundImageView == nil, let mainView = self.mainView {
                 let bgImageView = UIImageView()
                 bgImageView.contentMode = .scaleAspectFit
-                self.insertSubview(bgImageView, belowSubview: self.mainView!)
+                self.insertSubview(bgImageView, belowSubview: mainView)
                 self.backgroundImageView = bgImageView
             }
-            self.backgroundImageView!.image = _placeholderImage
+            self.backgroundImageView?.image = _placeholderImage
         }
     }
 
@@ -365,7 +365,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
 
     /** 滚动手势禁用（文字轮播较实用） */
     func disableScrollGesture() {
-        self.mainView!.canCancelContentTouches = false
+        self.mainView?.canCancelContentTouches = false
         self.mainView?.gestureRecognizers?.forEach({ gesture in
             if gesture.isKind(of: UIPanGestureRecognizer.self) {
                 self.mainView?.removeGestureRecognizer(gesture)
@@ -559,7 +559,10 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     }
 
     private func pageControlIndexWithCurrentCellIndex(_ index: Int) -> Int {
-        return index % self.imagePathsGroup!.count
+        if let imagePathsGroup = self.imagePathsGroup, imagePathsGroup.count > 0 {
+            return index % imagePathsGroup.count
+        }
+        return 0
     }
 
     /// life circles
@@ -571,15 +574,17 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
 
         flowLayout?.itemSize = self.frame.size
 
-        mainView?.frame = self.bounds
-        if (mainView!.contentOffset.x == 0 && totalItemsCount > 0) {
-            var targetIndex = 0
-            if (self.infiniteLoop) {
-                targetIndex = totalItemsCount / 2
-            }else {
-                targetIndex = 0
+        if let mainView = mainView {
+            mainView.frame = self.bounds
+            if mainView.contentOffset.x == 0, totalItemsCount > 0 {
+                var targetIndex = 0
+                if self.infiniteLoop {
+                    targetIndex = totalItemsCount / 2
+                }else {
+                    targetIndex = 0
+                }
+                mainView.scrollToItem(at: IndexPath(item: targetIndex, section: 0), at: UICollectionView.ScrollPosition.top, animated: false)
             }
-            mainView?.scrollToItem(at: IndexPath(item: targetIndex, section: 0), at: UICollectionView.ScrollPosition.top, animated: false)
         }
 
         var size = CGSize.zero
