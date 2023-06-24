@@ -14,9 +14,8 @@ class HNaviToastView: UIView {
     
     lazy var titleLabel: UILabel = {
         let titleLabel = UILabel()
-        titleLabel.numberOfLines = 1
         titleLabel.textAlignment = .left
-        titleLabel.font = UIFont.systemFont(ofSize: 16)
+        titleLabel.font = .systemFont(ofSize: 16.0)
         titleLabel.textColor = UIColor(hex: 0x5e5e5e)
         return titleLabel
     }()
@@ -57,9 +56,9 @@ class HNaviToastView: UIView {
     private func refreshUI() {
         if !self.iconImageView.isHidden {
             self.iconImageView.frame = CGRect(x: self.x + 10,
-                                     y: self.height - 16 - 14,
-                                     width: 16,
-                                     height: 16)
+                                              y: self.height - 16 - 14,
+                                              width: 16,
+                                              height: 16)
             self.titleLabel.frame = CGRect(x: self.iconImageView.maxX + 6,
                                            y: self.iconImageView.centerY - 20 / 2,
                                            width: self.width - (self.iconImageView.maxX + 6),
@@ -160,11 +159,11 @@ class HNaviToastView: UIView {
     static func customToastAddedTo(_ view: UIView, animated: Bool) -> HNaviToastView {
         let toastView = self.showToastAddedTo(view, animated: animated)
         toastView.titleLabel.textColor = UIColor(hex: 0x5e5e5e)
-        toastView.backgroundColor = UIColor.white
+        toastView.backgroundColor = .white
         toastView.iconImageView.image = UIImage(named: "mgf_icon_toast_success")
         toastView.layer.shadowColor = UIColor.black.cgColor
         toastView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        toastView.layer.shadowRadius = 4
+        toastView.layer.shadowRadius = 4.0
         toastView.layer.shadowOpacity = 0.1
         return toastView
     }
@@ -176,14 +175,16 @@ class HNaviToastView: UIView {
         toastView.show(animated)
         return toastView
     }
-    static func showCustomToast(_ string: String, afterDelay delay: TimeInterval, icon: UIImage) -> HNaviToastView {
-        let window = UIApplication.shared.keyWindow
-        HNaviToastView.hideAllToastForView(window!, animated: false)
-        let toastView = HNaviToastView.customToastAddedTo(window!, animated: true)
-        toastView.titleLabel.text = string
-        toastView.iconImage = icon
-        toastView.hide(true, afterDelay: delay)
-        return toastView
+    static func showCustomToast(_ string: String, afterDelay delay: TimeInterval, icon: UIImage) -> HNaviToastView? {
+        if let window = UIApplication.shared.keyWindow {
+            HNaviToastView.hideAllToastForView(window, animated: false)
+            let toastView = HNaviToastView.customToastAddedTo(window, animated: true)
+            toastView.titleLabel.text = string
+            toastView.iconImage = icon
+            toastView.hide(true, afterDelay: delay)
+            return toastView
+        }
+        return nil
     }
     
     //快速获取错误toast
@@ -195,14 +196,16 @@ class HNaviToastView: UIView {
         return toastView
     }
     
-    static func showErrorToast(_ string: String, afterDelay delay: TimeInterval, icon: UIImage) -> HNaviToastView {
-        let window = UIApplication.shared.keyWindow
-        HNaviToastView.hideAllToastForView(window!, animated: false)
-        let toastView = HNaviToastView.errorToastAddedTo(window!, animated: true)
-        toastView.titleLabel.text = string
-        toastView.iconImage = icon
-        toastView.hide(true, afterDelay: delay)
-        return toastView
+    static func showErrorToast(_ string: String, afterDelay delay: TimeInterval, icon: UIImage) -> HNaviToastView? {
+        if let window = UIApplication.shared.keyWindow {
+            HNaviToastView.hideAllToastForView(window, animated: false)
+            let toastView = HNaviToastView.errorToastAddedTo(window, animated: true)
+            toastView.titleLabel.text = string
+            toastView.iconImage = icon
+            toastView.hide(true, afterDelay: delay)
+            return toastView
+        }
+        return nil
     }
     
 }
