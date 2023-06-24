@@ -14,7 +14,7 @@ import Foundation
 public func NSLog<T>(_ message: T, file: String = #file, method: String = #function, line: Int = #line) {
     let fileName: String
     if file.contains(".") {
-        fileName = file.components(separatedBy: "/").last!
+        fileName = file.components(separatedBy: "/").last ?? ""
     }else {
         fileName = file
     }

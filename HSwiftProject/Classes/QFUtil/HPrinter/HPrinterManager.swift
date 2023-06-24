@@ -23,7 +23,7 @@ class HPrinterManager: NSObject {
             }
             return dict!
         }
-        set(newValue) {
+        set {
             objc_setAssociatedObject(self, &KPrinterManagerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }

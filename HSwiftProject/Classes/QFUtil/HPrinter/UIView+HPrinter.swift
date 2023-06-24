@@ -14,7 +14,7 @@ extension UIView {
 #if DEBUG
         let filePath: String
         if file.contains(".") {
-            filePath = file.components(separatedBy: "/").last!
+            filePath = file.components(separatedBy: "/").last ?? ""
         }else {
             filePath = file
         }
@@ -36,34 +36,34 @@ extension UIView {
         if self.isSystemClass(self.classForCoder) == false {
             print("HPrinting-->className:\(self.className)\n")
         }
-        let loginfo: String = self.logInfo()
+        let loginfo = self.logInfo()
         if !loginfo.isEmpty {
             print("HPrinting-->loginfo:\(loginfo)\n")
         }
         if self.isKind(of: UILabel.self) {
             let label: UILabel = self as! UILabel
-            if (label.text != nil) {
-                print("HPrinting-->label.text:\(label.text!)\n")
+            if let text = label.text, !text.isEmpty {
+                print("HPrinting-->label.text:\(text)\n")
             }
         }
         else if self.isKind(of: UITextView.self) {
             let textView: UITextView = self as! UITextView
-            if (textView.text != nil) {
-                print("HPrinting-->textView.text:\(textView.text!)\n")
+            if let text = textView.text, !text.isEmpty {
+                print("HPrinting-->textView.text:\(text)\n")
             }
         }
         else if self.isKind(of: UIControl.self) {
             if self.isKind(of: UIButton.self) {
                 let btn: UIButton = self as! UIButton
-                if (btn.titleLabel?.text != nil) {
-                    print("HPrinting-->button.text:\(btn.titleLabel!.text!)\n")
+                if let text = btn.titleLabel?.text, !text.isEmpty {
+                    print("HPrinting-->button.text:\(text)\n")
                 }
 //                if btn.allTargets.count > 0 {
 //                    let objc: AnyHashable = btn.allTargets.first!
 //                    print("HPrinting-->button.targets:\(objc.description)\n")
 //                }
-                if btn.imageView?.image?.accessibilityIdentifier != nil {
-                    print("HPrinting-->button.image.name:\(btn.imageView!.image!.accessibilityIdentifier!)\n")
+                if let identifier = btn.imageView?.image?.accessibilityIdentifier, !identifier.isEmpty {
+                    print("HPrinting-->button.image.name:\(identifier)\n")
                     return
                 }
             }else if self.isKind(of: UIControl.self) {
@@ -76,18 +76,18 @@ extension UIView {
         }
         else if self.isKind(of: UIImageView.self) {
             let imageView: UIImageView = self as! UIImageView
-            if imageView.image?.accessibilityIdentifier != nil {
-                print("HPrinting-->imageView.image.name:\(imageView.image!.accessibilityIdentifier!)\n")
+            if let identifier = imageView.image?.accessibilityIdentifier, !identifier.isEmpty {
+                print("HPrinting-->imageView.image.name:\(identifier)\n")
             }
             return
         }
         
-        if self.superview != nil && self.isSystemClass(self.superview!.classForCoder) == false {
-            print("HPrinting-->super[1]ClassName:\(self.superview!.className)\n")
-        }else if self.superview?.superview != nil && self.isSystemClass(self.superview!.superview!.classForCoder) == false {
-            print("HPrinting-->super[2]ClassName:\(self.superview!.superview!.className)\n")
-        }else if self.superview?.superview?.superview != nil && self.isSystemClass(self.superview!.superview!.superview!.classForCoder) == false {
-            print("HPrinting-->super[3]ClassName:\(self.superview!.superview!.superview!.className)\n")
+        if let superview = self.superview, self.isSystemClass(superview.classForCoder) == false {
+            print("HPrinting-->super[1]ClassName:\(superview.className)\n")
+        }else if let superview = self.superview?.superview, self.isSystemClass(superview.classForCoder) == false {
+            print("HPrinting-->super[2]ClassName:\(superview.className)\n")
+        }else if let superview = self.superview?.superview?.superview, self.isSystemClass(superview.classForCoder) == false {
+            print("HPrinting-->super[3]ClassName:\(superview.className)\n")
         }
         
         self.logVC()

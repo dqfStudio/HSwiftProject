@@ -14,22 +14,21 @@ extension UIWindow {
 
     override open func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         // 判断自己能否接收事件
-        if(self.isUserInteractionEnabled == false || self.isHidden == true || self.alpha <= 0.01) {
-               return nil
+        if self.isUserInteractionEnabled == false || self.isHidden == true || self.alpha <= 0.01 {
+            return nil
         }
         // 触摸点在不在自己身上
-        if (self.point(inside: point, with: event) == false) {
+        if self.point(inside: point, with: event) == false {
             return nil
         }
         // 从后往前遍历自己的子控件(重复前面的两个步骤)
         for item in self.subviews.enumerated().reversed() {
-            let childV:UIView = item.element
+            let childV = item.element
             // point必须得要跟childV相同的坐标系.
             // 把point转换childV坐标系上面的点
-            let childP:CGPoint = self.convert(point, to: childV)
-            let fitView:UIView? = childV.hitTest(childP, with: event)
-            if (fitView != nil) {
-                fitView!.logMark()
+            let childP = self.convert(point, to: childV)
+            if let fitView = childV.hitTest(childP, with: event) {
+                fitView.logMark()
                 return fitView
             }
         }
