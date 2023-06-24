@@ -36,13 +36,13 @@ extension UIScreen {
     
     static var isIPhoneX: Bool = {
         var iPhoneXSeries: Bool = false
-        if (UIDevice.current.userInterfaceIdiom == .phone) {
+        if UIDevice.current.userInterfaceIdiom == .phone {
             if #available(iOS 11.0, *) {
                 let mainWindow = UIWindow(frame: UIScreen.main.bounds)
-                if (mainWindow.safeAreaInsets.bottom > 0.0) {
+                if mainWindow.safeAreaInsets.bottom > 0.0 {
                     iPhoneXSeries = true
                 }
-                if !iPhoneXSeries && UIScreen.statusBarHeight >= 44 {
+                if !iPhoneXSeries, UIScreen.statusBarHeight >= 44 {
                     iPhoneXSeries = true
                 }
             }
@@ -52,7 +52,7 @@ extension UIScreen {
     
     static var statusBarHeight: CGFloat {
         var height: CGFloat = 0.0
-        if (!UIApplication.shared.statusBarOrientation.isLandscape) {
+        if !UIApplication.shared.statusBarOrientation.isLandscape {
             if #available(iOS 13.0, *) {
                 height = UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.size.height ?? 0.0
             } else {
