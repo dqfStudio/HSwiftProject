@@ -325,18 +325,15 @@ class HTabItem : UIButton {
     }
 
     private func calculateTitleWidth() {
-        if self.title == nil || self.title!.isEmpty || self.titleFont == nil {
+        guard let tmpTitle = self.title, !tmpTitle.isEmpty, let titleFont = self.titleFont else {
             _titleWidth = 0
             return
         }
-        if let title = self.title, let titleFont = self.titleFont {
-            let tmpTitle: NSString = title as NSString
-            let size = tmpTitle.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude),
-                                            options: [.usesLineFragmentOrigin, .usesFontLeading],
-                                            attributes: [.font : titleFont],
-                                            context: nil).size
-            _titleWidth = CGFloat(ceilf(Float(size.width)))
-        }
+        let size = tmpTitle.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude),
+                                        options: [.usesLineFragmentOrigin, .usesFontLeading],
+                                        attributes: [.font : titleFont],
+                                        context: nil).size
+        _titleWidth = CGFloat(ceilf(Float(size.width)))
     }
 
     private func calculateIndicatorFrame() {
