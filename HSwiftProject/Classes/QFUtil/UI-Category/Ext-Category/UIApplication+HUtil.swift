@@ -150,8 +150,8 @@ extension UIApplication {
     /**
     *  获取当前语言
     */
-    static var currentLanguage: String {
-        return NSLocale.preferredLanguages.first!
+    static var currentLanguage: String? {
+        return NSLocale.preferredLanguages.first
     }
 
     /**
@@ -161,7 +161,8 @@ extension UIApplication {
         let objc = UIApplication.shared.value(forKey: "statusBar") as AnyObject
         let arr: Array<UIView> = objc.value(forKeyPath: "foregroundView") as? Array ?? []
         for view in arr {
-            if view.isKind(of:NSClassFromString("UIStatusBarDataNetworkItemView")!.self) {
+            let itemView: AnyClass? = NSClassFromString("UIStatusBarDataNetworkItemView")
+            if let itemView = itemView, view.isKind(of:itemView.self) {
                 let value: String? = view.value(forKeyPath: "dataNetworkType") as? String
                 if let value = value, let intValue = Int(value), let status = HANetworkStatus(rawValue: intValue) {
                     return status
@@ -178,7 +179,7 @@ extension UIApplication {
         
         if getgid() <= 10 { return true } // process ID shouldn't be root
         
-        if Bundle.main.infoDictionary!["SignerIdentity"] != nil { return true }
+        if Bundle.main.infoDictionary?["SignerIdentity"] != nil { return true }
         
         if self.fileExistInMainBundle("_CodeSignature") == false { return true }
         
