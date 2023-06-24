@@ -689,33 +689,36 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if self.delegate != nil && self.delegate!.responds(to: #selector(self.delegate!.cycleScrollView(_:didSelectItemAtIndex:))) {
-            self.delegate!.cycleScrollView?(self, didSelectItemAtIndex: self.pageControlIndexWithCurrentCellIndex(indexPath.item))
+        if let delegate = self.delegate, delegate.responds(to: #selector(delegate.cycleScrollView(_:didSelectItemAtIndex:))) {
+            delegate.cycleScrollView?(self, didSelectItemAtIndex: self.pageControlIndexWithCurrentCellIndex(indexPath.item))
         }
-        if (self.clickItemOperationBlock != nil) {
-            self.clickItemOperationBlock!(self.pageControlIndexWithCurrentCellIndex(indexPath.item))
-        }
+        self.clickItemOperationBlock?(self.pageControlIndexWithCurrentCellIndex(indexPath.item))
     }
 
 
     /// UIScrollViewDelegate
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if (self.imagePathsGroup!.count == 0) { return } // 解决清除timer时偶尔会出现的问题
+        guard let imagePathsGroup = self.imagePathsGroup, imagePathsGroup.count > 0 else {
+            return // 解决清除timer时偶尔会出现的问题
+        }
+
         let itemIndex = self.currentIndex()
         let indexOnPageControl = self.pageControlIndexWithCurrentCellIndex(itemIndex)
 
-        if self.pageControl != nil && self.pageControl!.isKind(of: HPageControl.self) {
-            let pageControl = self.pageControl! as! HPageControl
-            pageControl.currentPage = indexOnPageControl
-        } else {
-            let pageControl = self.pageControl! as! UIPageControl
-            pageControl.currentPage = indexOnPageControl
+        if let pageControl = self.pageControl {
+            if pageControl.isKind(of: HPageControl.self) {
+                let pageControl = pageControl as? HPageControl
+                pageControl?.currentPage = indexOnPageControl
+            } else {
+                let pageControl = pageControl as? UIPageControl
+                pageControl?.currentPage = indexOnPageControl
+            }
         }
     }
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if (self.autoScroll) {
+        if self.autoScroll {
             self.invalidateTimer()
         }
     }
@@ -731,14 +734,18 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     }
 
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        if (self.imagePathsGroup!.count == 0) { return } // 解决清除timer时偶尔会出现的问题
+
+        guard let imagePathsGroup = self.imagePathsGroup, imagePathsGroup.count > 0 else {
+            return // 解决清除timer时偶尔会出现的问题
+        }
+
         let itemIndex = self.currentIndex()
         let indexOnPageControl = self.pageControlIndexWithCurrentCellIndex(itemIndex)
 
-        if self.delegate != nil && self.delegate!.responds(to: #selector(self.delegate?.cycleScrollView(_:didScrollToIndex:))) {
-            self.delegate!.cycleScrollView!(self, didScrollToIndex: indexOnPageControl)
+        if let delegate = self.delegate, delegate.responds(to: #selector(delegate.cycleScrollView(_:didScrollToIndex:))) {
+            delegate.cycleScrollView!(self, didScrollToIndex: indexOnPageControl)
         } else if (self.itemDidScrollOperationBlock != nil) {
-            self.itemDidScrollOperationBlock!(indexOnPageControl)
+            self.itemDidScrollOperationBlock?(indexOnPageControl)
         }
     }
 
