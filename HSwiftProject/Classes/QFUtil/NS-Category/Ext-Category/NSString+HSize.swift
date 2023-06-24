@@ -17,17 +17,14 @@ extension NSString {
      */
     func heightWithFont(_ font: UIFont?, constrainedToWidth width: CGFloat) -> CGFloat {
 
-        var textFont: UIFont? = font
-        if (font == nil) {
-            textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        }
+        let textFont = font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)
 
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
 
         let textSize = self.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
                                          options: .usesLineFragmentOrigin,
-                                         attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
+                                         attributes: [NSAttributedString.Key.font : textFont, NSAttributedString.Key.paragraphStyle : paragraph],
                                          context: nil).size
 
         return ceil(textSize.height)
@@ -41,17 +38,14 @@ extension NSString {
      */
     func widthWithFont(_ font: UIFont?, constrainedToHeight height: CGFloat) -> CGFloat {
 
-        var textFont: UIFont? = font
-        if (font == nil) {
-            textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        }
+        let textFont = font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)
 
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
 
         let textSize = self.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: height),
                                          options: .usesLineFragmentOrigin,
-                                         attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
+                                         attributes: [NSAttributedString.Key.font : textFont, NSAttributedString.Key.paragraphStyle : paragraph],
                                          context: nil).size
 
         return ceil(textSize.width)
@@ -65,17 +59,14 @@ extension NSString {
      */
     func sizeWithFont(_ font: UIFont?, constrainedToWidth width: CGFloat) -> CGSize {
 
-        var textFont: UIFont? = font
-        if (font == nil) {
-            textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        }
+        let textFont = font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)
 
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
 
         let textSize = self.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
                                          options: .usesLineFragmentOrigin,
-                                         attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
+                                         attributes: [NSAttributedString.Key.font : textFont, NSAttributedString.Key.paragraphStyle : paragraph],
                                          context: nil).size
 
         return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))
@@ -89,17 +80,14 @@ extension NSString {
      */
     func sizeWithFont(_ font: UIFont?, constrainedToHeight height: CGFloat) -> CGSize {
 
-        var textFont: UIFont? = font
-        if (font == nil) {
-            textFont = UIFont.systemFont(ofSize: UIFont.systemFontSize)
-        }
+        let textFont = font ?? UIFont.systemFont(ofSize: UIFont.systemFontSize)
 
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
 
         let textSize = self.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: height),
                                          options: .usesLineFragmentOrigin,
-                                         attributes: [NSAttributedString.Key.font : textFont!, NSAttributedString.Key.paragraphStyle : paragraph],
+                                         attributes: [NSAttributedString.Key.font : textFont, NSAttributedString.Key.paragraphStyle : paragraph],
                                          context: nil).size
 
         return CGSize(width: ceil(textSize.width), height: ceil(textSize.height))

@@ -96,11 +96,13 @@ class HFileCache: NSObject {
         guard let key = key else {
             return nil
         }
-        var fileName = key.md5()
-        if let fileExtension = self.fileExtension {
-            fileName = fileName.appendingFormat(".%@", fileExtension)
+        if var fileName = key.md5() {
+            if let fileExtension = self.fileExtension {
+                fileName = fileName.appendingFormat(".%@", fileExtension)
+            }
+            return self.cacheDir.appending("/").appending(fileName)
         }
-        return self.cacheDir.appending("/").appending(fileName)
+        return nil
     }
 
     /**
