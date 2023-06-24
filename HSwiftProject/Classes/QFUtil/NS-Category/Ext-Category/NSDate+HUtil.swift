@@ -28,8 +28,8 @@ extension NSDate {
     }
     
     static func endTime() {
-        if startDate != nil {
-            NSLog("time: %f", -startDate!.timeIntervalSinceNow)
+        if let startDate = startDate {
+            NSLog("time: %f", -startDate.timeIntervalSinceNow)
             self.startTime()
         }
     }
@@ -42,7 +42,9 @@ extension NSDate {
             startDate = NSDate()
         }
         Callback()
-        NSLog("time: %f", -startDate!.timeIntervalSinceNow)
+        if let startDate = startDate {
+            NSLog("time: %f", -startDate.timeIntervalSinceNow)
+        }
     }
     
     static func dateWithFormat(_ format: NSDateFormat) -> String {
@@ -56,20 +58,22 @@ extension NSDate {
         }
     }
     
-    static func dateWithString(_ aString: String, format: NSDateFormat) -> NSDate {
+    static func dateWithString(_ aString: String, format: NSDateFormat) -> NSDate? {
         let formatString: String = self.stringWithFormat(format)
         let formatter: DateFormatter = DateFormatter()
         formatter.dateFormat = formatString
-        return formatter.date(from: aString)! as NSDate
+        return formatter.date(from: aString) as? NSDate
     }
     
-    static func weekdayFromDate(_ date: NSDate) -> NSDate {
+    static func weekdayFromDate(_ date: NSDate) -> NSDate? {
         let weekdays: NSArray = NSArray(array: ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"])
-        let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.chinese)!
-        let timeZone: NSTimeZone = NSTimeZone(name: "Asia/Shanghai")!
-        calendar.timeZone = timeZone as TimeZone
-        let theComponents: NSDateComponents = calendar.components(in: timeZone as TimeZone, from: date as Date) as NSDateComponents
-        return weekdays.object(at: theComponents.weekday) as! NSDate
+        if let calendar: NSCalendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.chinese),
+           let timeZone: NSTimeZone = NSTimeZone(name: "Asia/Shanghai") {
+            calendar.timeZone = timeZone as TimeZone
+            let theComponents: NSDateComponents = calendar.components(in: timeZone as TimeZone, from: date as Date) as NSDateComponents
+            return weekdays.object(at: theComponents.weekday) as? NSDate
+        }
+        return nil
     }
     
     static func pastWithDays(_ days: Int, format: NSDateFormat) -> String {
