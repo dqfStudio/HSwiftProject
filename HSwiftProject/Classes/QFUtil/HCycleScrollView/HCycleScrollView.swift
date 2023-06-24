@@ -586,7 +586,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         
         if let pageControl = self.pageControl, pageControl.isKind(of: HPageControl.self) {
             let pageControl = pageControl as? HPageControl
-            if (!(self.pageDotImage != nil && self.currentPageDotImage != nil && kCycleScrollViewInitialPageControlDotSize == self.pageControlDotSize)) {
+            if !(self.pageDotImage != nil && self.currentPageDotImage != nil && kCycleScrollViewInitialPageControlDotSize == self.pageControlDotSize) {
                 pageControl?.dotSize = self.pageControlDotSize
             }
             size = pageControl?.sizeForNumberOfPages(self.imagePathsGroup!.count) ?? .zero
