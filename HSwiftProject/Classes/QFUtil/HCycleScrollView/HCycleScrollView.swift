@@ -584,24 +584,24 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
 
         var size = CGSize.zero
         
-        if (self.pageControl!.isKind(of: HPageControl.self)) {
-            let pageControl = self.pageControl as! HPageControl
+        if let pageControl = self.pageControl, pageControl.isKind(of: HPageControl.self) {
+            let pageControl = pageControl as? HPageControl
             if (!(self.pageDotImage != nil && self.currentPageDotImage != nil && kCycleScrollViewInitialPageControlDotSize == self.pageControlDotSize)) {
-                pageControl.dotSize = self.pageControlDotSize
+                pageControl?.dotSize = self.pageControlDotSize
             }
-            size = pageControl.sizeForNumberOfPages(self.imagePathsGroup!.count)
+            size = pageControl?.sizeForNumberOfPages(self.imagePathsGroup!.count) ?? .zero
         }else {
             size = CGSize(width: CGFloat(self.imagePathsGroup!.count) * self.pageControlDotSize.width * 1.5, height: self.pageControlDotSize.height)
         }
         var x = (self.hc_width - size.width) * 0.5
-        if (self.pageControlAliment == .Right) {
+        if self.pageControlAliment == .Right {
             x = self.mainView!.hc_width - size.width - 10
         }
         let y = self.mainView!.hc_height - size.height - 10
         
-        if self.pageControl!.isKind(of: HPageControl.self) {
-            let pageControl = self.pageControl as! HPageControl
-            pageControl.sizeToFit()
+        if let pageControl = self.pageControl, pageControl.isKind(of: HPageControl.self) {
+            let pageControl = pageControl as? HPageControl
+            pageControl?.sizeToFit()
         }
 
         var pageControlFrame = CGRect(x: x, y: y, width: size.width, height: size.height)
@@ -730,7 +730,9 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     }
 
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.scrollViewDidEndScrollingAnimation(self.mainView!)
+        if let mainView = self.mainView {
+            self.scrollViewDidEndScrollingAnimation(mainView)
+        }
     }
 
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
@@ -743,7 +745,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         let indexOnPageControl = self.pageControlIndexWithCurrentCellIndex(itemIndex)
 
         if let delegate = self.delegate, delegate.responds(to: #selector(delegate.cycleScrollView(_:didScrollToIndex:))) {
-            delegate.cycleScrollView!(self, didScrollToIndex: indexOnPageControl)
+            delegate.cycleScrollView?(self, didScrollToIndex: indexOnPageControl)
         } else if (self.itemDidScrollOperationBlock != nil) {
             self.itemDidScrollOperationBlock?(indexOnPageControl)
         }
