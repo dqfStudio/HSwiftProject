@@ -376,9 +376,7 @@ class HFileCache: NSObject {
                 }
             }
             if self.maxCacheSize < 0 {
-                if finish != nil {
-                    finish!()
-                }
+                finish?()
                 return
             }
             var cacheSize = self._getSize()
@@ -414,9 +412,8 @@ class HFileCache: NSObject {
                     }
                 }
             }
-            if finish != nil {
-                finish!()
-            }
+            
+            finish?()
         }
     }
     
@@ -429,9 +426,7 @@ class HFileCache: NSObject {
         self.queue.async(flags: .barrier, execute: {
             try? FileManager.default.removeItem(atPath: self.cacheDir)
             try? FileManager.default.createDirectory(atPath: self.cacheDir, withIntermediateDirectories: true, attributes: nil)
-            if let finish = finish {
-                finish()
-            }
+            finish?()
         })
     }
     
