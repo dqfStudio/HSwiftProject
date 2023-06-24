@@ -82,7 +82,7 @@ class HCollectionViewCell: UICollectionViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        if (self.onlyDisplayText) {
+        if self.onlyDisplayText {
             titleLabel.frame = self.bounds
         }else {
             imageView.frame = self.bounds
