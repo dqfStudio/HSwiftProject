@@ -306,13 +306,13 @@ class HTabBar : UIView {
         }
         set {
             if newValue == _selectedItemIndex ||
-                newValue >= self.items!.count ||
-                self.items!.count == 0 {
+                newValue >= self.items?.count ?? 0 ||
+                self.items?.count == 0 {
                 if newValue == _selectedItemIndex {
                     if let delegate = self.delegate {
                         let selector = #selector(delegate.h_tabBar(_:reSelectedTabAtIndex:))
                         if delegate.responds(to: selector) {
-                            delegate.h_tabBar!(self, reSelectedTabAtIndex: newValue)
+                            delegate.h_tabBar?(self, reSelectedTabAtIndex: newValue)
                         }
                     }
                 }
@@ -322,7 +322,7 @@ class HTabBar : UIView {
             if let delegate = self.delegate {
                 let selector = #selector(delegate.h_tabBar(_:shouldSelectItemAtIndex:))
                 if delegate.responds(to: selector) {
-                    let should: Bool = delegate.h_tabBar!(self, shouldSelectItemAtIndex: newValue)
+                    let should: Bool = delegate.h_tabBar?(self, shouldSelectItemAtIndex: newValue) ?? false
                     if !should {
                         return
                     }
@@ -330,7 +330,7 @@ class HTabBar : UIView {
 
                 let selector2 = #selector(delegate.h_tabBar(_:willSelectItemAtIndex:))
                 if delegate.responds(to: selector2) {
-                    delegate.h_tabBar!(self, willSelectItemAtIndex: newValue)
+                    delegate.h_tabBar?(self, willSelectItemAtIndex: newValue)
                 }
             }
             
@@ -347,19 +347,21 @@ class HTabBar : UIView {
                 }
             }
             
-            let newSelectedItem = self.items![newValue]
-            newSelectedItem.isSelected = true
-            if self.isItemFontChangeFollowContentScroll {
-                // 如果支持字体平滑渐变切换，则设置item的scale
-                newSelectedItem.transform = CGAffineTransform(scaleX: 1, y: 1)
-            } else {
-                // 如果支持字体平滑渐变切换，则直接设置字体
-                if let itemTitleSelectedFont = self.itemTitleSelectedFont {
-                    newSelectedItem.titleFont = itemTitleSelectedFont
+            if let items = self.items {
+                let newSelectedItem = items[newValue]
+                newSelectedItem.isSelected = true
+                if self.isItemFontChangeFollowContentScroll {
+                    // 如果支持字体平滑渐变切换，则设置item的scale
+                    newSelectedItem.transform = CGAffineTransform(scaleX: 1, y: 1)
+                } else {
+                    // 如果支持字体平滑渐变切换，则直接设置字体
+                    if let itemTitleSelectedFont = self.itemTitleSelectedFont {
+                        newSelectedItem.titleFont = itemTitleSelectedFont
+                    }
                 }
             }
             
-            if self.indicatorSwitchAnimated && _selectedItemIndex != NSNotFound {
+            if self.indicatorSwitchAnimated, _selectedItemIndex != NSNotFound {
                 UIView.animate(withDuration: 0.25) {
                     self.updateIndicatorFrameWithIndex(newValue)
                 }
@@ -558,8 +560,8 @@ class HTabBar : UIView {
                 
                 var x: CGFloat = self.leadingSpace
                 let allItemsWidth: CGFloat = self.frame.size.width - self.leadingSpace - self.trailingSpace
-                if self.specialItem != nil && self.specialItem!.frame.size.width != 0 {
-                    self.itemWidth = (allItemsWidth - self.specialItem!.frame.size.width) / CGFloat(tmpItems.count)
+                if let specialItem = self.specialItem, specialItem.frame.size.width != 0 {
+                    self.itemWidth = (allItemsWidth - specialItem.frame.size.width) / CGFloat(tmpItems.count)
                 } else {
                     self.itemWidth = allItemsWidth / CGFloat(tmpItems.count)
                 }
@@ -575,18 +577,18 @@ class HTabBar : UIView {
                     x += self.itemWidth
                     
                     // 如果有特殊的单独item，设置其位置
-                    if self.specialItem != nil && self.specialItem!.index == index {
-                        var width: CGFloat = self.specialItem!.frame.size.width
+                    if let specialItem = self.specialItem, specialItem.index == index {
+                        var width: CGFloat = specialItem.frame.size.width
                         // 如果宽度为0，将其宽度设置为itemWidth
                         if width == 0 {
                             width = self.itemWidth
                         }
-                        var height: CGFloat = self.specialItem!.frame.size.height
+                        var height: CGFloat = specialItem.frame.size.height
                         // 如果高度为0，将其宽度设置为tabBar的高度
                         if height == 0 {
                             height = self.frame.size.height
                         }
-                        self.specialItem!.frame = CGRect(x: x, y: self.frame.size.height - height, width: width, height: height)
+                        specialItem.frame = CGRect(x: x, y: self.frame.size.height - height, width: width, height: height)
                         x += width
                     }
                 }
@@ -851,7 +853,7 @@ class HTabBar : UIView {
         rightScale = rightScale - CGFloat(leftIndex)
         let leftScale: CGFloat = 1 - rightScale
         
-        if self.isItemFontChangeFollowContentScroll && self.itemTitleUnselectedFontScale != 1.0 {
+        if self.isItemFontChangeFollowContentScroll, self.itemTitleUnselectedFontScale != 1.0 {
             // 如果支持title大小跟随content的拖动进行变化，并且未选中字体和已选中字体的大小不一致
             
             // 计算字体大小的差值
@@ -969,7 +971,7 @@ class HTabBar : UIView {
             return
         }
         // 修改偏移量
-        var offsetX: CGFloat = (self.selectedItem?.center.x)! - self.scrollView.frame.size.width * 0.5
+        var offsetX: CGFloat = (self.selectedItem?.center.x ?? 0) - self.scrollView.frame.size.width * 0.5
         
         // 处理最小滚动偏移量
         if offsetX < 0 {
