@@ -38,7 +38,7 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
     
     lazy private var tupleView: HTupleView = {
         let tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
-        tupleView.backgroundColor = UIColor.white
+        tupleView.backgroundColor = .white
         tupleView.isPagingEnabled = true
         tupleView.delegate = self
         // 设置默认参数
@@ -84,19 +84,17 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         let index = indexPath.section * self.rows * self.rowItems + indexPath.row
-        if index < self.modelArr!.count {
+        if let modelArr = self.modelArr, index < modelArr.count {
             let cell = itemBlock(nil, HTupleButtonCell.self, nil, true) as! HTupleButtonCell
-            cell.buttonView.textColor = UIColor.black
+            cell.buttonView.textColor = .black
             
-            let model = self.modelArr![index]
+            let model = modelArr[index]
             
             cell.buttonView.setImage(WithName: model.icon!)
             cell.buttonView.text = model.title
             
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
-                if self.formCellBlock != nil {
-                    self.formCellBlock!(indexPath, model)
-                }
+                self.formCellBlock?(indexPath, model)
             }
         }else {
             _ = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
