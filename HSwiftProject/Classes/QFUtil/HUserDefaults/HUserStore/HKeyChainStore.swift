@@ -487,10 +487,8 @@ class HKeyChainStore : NSObject {
     }
 
     func stringForKey(_ key: String?, error: inout Error?) -> String? {
-        let data: Data? = self.dataForKey(key, error:&error)
-        if data != nil {
-            let string: String? = String(data: data!, encoding: .utf8)
-            if string != nil {
+        if let data = self.dataForKey(key, error:&error) {
+            if let string = String(data: data, encoding: .utf8) {
                 return string
             }
             let e: NSError = HKeyChainStore.conversionError("failed to convert data to string")
@@ -540,8 +538,7 @@ class HKeyChainStore : NSObject {
         if string == nil {
             return self.removeItemForKey(key, error: &error)
         }
-        let data: Data? = string?.data(using: .utf8)
-        if data != nil {
+        if let data = string?.data(using: .utf8) {
             return self.setData(data, forKey:key, genericAttribute: genericAttribute, label: label, comment: comment, error: &error)
         }
         let e: Error = HKeyChainStore.conversionError("failed to convert string to data")
@@ -669,14 +666,14 @@ class HKeyChainStore : NSObject {
                 return false
             } else {
                 
-                if (status == errSecInteractionNotAllowed && floor(NSFoundationVersionNumber) <= floor(1140.11)) { // iOS 8.0.x
-                    if (self.removeItemForKey(key, error: &error)) {
+                if status == errSecInteractionNotAllowed, floor(NSFoundationVersionNumber) <= floor(1140.11) { // iOS 8.0.x
+                    if self.removeItemForKey(key, error: &error) {
                         return self.setData(data: data, forKey:key, label:label, comment:comment, error:&error)
                     }
                 } else {
                     status = SecItemUpdate(query, attributes)
                 }
-                if (status != errSecSuccess) {
+                if status != errSecSuccess {
                     let e: Error = HKeyChainStore.securityError(status)
                     if error != nil {
                         error = e
@@ -684,7 +681,7 @@ class HKeyChainStore : NSObject {
                     return false
                 }
             }
-        } else if (status == errSecItemNotFound) {
+        } else if status == errSecItemNotFound {
             var unexpectedError: NSError?
             let attributes: NSMutableDictionary = self.attributesWithKey(key, value:data! as NSData, error:&unexpectedError)
             
@@ -706,7 +703,7 @@ class HKeyChainStore : NSObject {
                 return false
             } else {
                 status = SecItemAdd(attributes, nil)
-                if (status != errSecSuccess) {
+                if status != errSecSuccess {
                     let e: Error = HKeyChainStore.securityError(status)
                     if error != nil {
                         error = e
@@ -820,7 +817,7 @@ class HKeyChainStore : NSObject {
         query[kSecAttrAccount] = key
         
         let status: OSStatus = SecItemDelete(query)
-        if (status != errSecSuccess && status != errSecItemNotFound) {
+        if status != errSecSuccess, status != errSecItemNotFound {
             let e: Error = HKeyChainStore.securityError(status)
             if error != nil {
                 error = e
@@ -844,7 +841,7 @@ class HKeyChainStore : NSObject {
     #endif
         
         let status: OSStatus = SecItemDelete(query)
-        if (status != errSecSuccess && status != errSecItemNotFound) {
+        if status != errSecSuccess, status != errSecItemNotFound {
             let e: Error = HKeyChainStore.securityError(status)
             if error != nil {
                 error = e
@@ -888,7 +885,7 @@ class HKeyChainStore : NSObject {
             var array: NSArray?
             if let data = result as! Data? {
                 if #available(iOS 11.0, *) {
-                    array = try! NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self], from: data) as? NSArray
+                    array = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self], from: data) as? NSArray
                 } else {
                     array = NSKeyedUnarchiver.unarchiveObject(with: data) as? NSArray
                 }
@@ -908,7 +905,7 @@ class HKeyChainStore : NSObject {
                 }
             }
             return keys
-        } else if (status == errSecItemNotFound) {
+        } else if status == errSecItemNotFound {
             return []
         }
         
@@ -936,11 +933,11 @@ class HKeyChainStore : NSObject {
         let cfquery: CFDictionary = CFBridgingRetain(query) as! CFDictionary
         let status: OSStatus = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(cfquery, UnsafeMutablePointer($0)) }
         
-        if (status == errSecSuccess) {
+        if status == errSecSuccess {
             var array: NSArray?
             if let data = result as! Data? {
                 if #available(iOS 11.0, *) {
-                    array = try! NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self], from: data) as? NSArray
+                    array = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self], from: data) as? NSArray
                 } else {
                     array = NSKeyedUnarchiver.unarchiveObject(with: data) as? NSArray
                 }
@@ -949,7 +946,7 @@ class HKeyChainStore : NSObject {
                 }
             }
             return self.prettify(itemClassObject, items: array!)
-        } else if (status == errSecItemNotFound) {
+        } else if status == errSecItemNotFound {
             return []
         }
         
@@ -967,11 +964,11 @@ class HKeyChainStore : NSObject {
         var result: AnyObject?
         let status: OSStatus = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(query, UnsafeMutablePointer($0)) }
         
-        if (status == errSecSuccess) {
+        if status == errSecSuccess {
             var array: NSArray?
             if let data = result as! Data? {
                 if #available(iOS 11.0, *) {
-                    array = try! NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self], from: data) as? NSArray
+                    array = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self], from: data) as? NSArray
                 } else {
                     array = NSKeyedUnarchiver.unarchiveObject(with: data) as? NSArray
                 }
@@ -980,7 +977,7 @@ class HKeyChainStore : NSObject {
                 }
             }
             return array!
-        } else if (status == errSecItemNotFound) {
+        } else if status == errSecItemNotFound {
             return []
         }
         
@@ -995,49 +992,40 @@ class HKeyChainStore : NSObject {
             let item: NSMutableDictionary = NSMutableDictionary()
             if itemClass == kSecClassGenericPassword {
                 item["class"] = "GenericPassword"
-                let service: Any? = attributes[kSecAttrService as String]
-                if service != nil {
+                if let service = attributes[kSecAttrService as String] {
                     item["service"] = service
                 }
-                let accessGroup: Any? = attributes[kSecAttrAccessGroup as String]
-                if accessGroup != nil {
+                if let accessGroup = attributes[kSecAttrAccessGroup as String] {
                     item["accessGroup"] = accessGroup
                 }
             } else if itemClass == kSecClassInternetPassword {
                 item["class"] = "InternetPassword"
-                let service: Any? = attributes[kSecAttrService as String]
-                if service != nil {
+                if let service = attributes[kSecAttrService as String] {
                     item["service"] = service
                 }
-                let protocolType: Any? = attributes[kSecAttrProtocol as String]
-                if protocolType != nil {
+                if let protocolType = attributes[kSecAttrProtocol as String] {
                     item["protocol"] = protocolType
                 }
-                let authenticationType: Any? = attributes[kSecAttrAuthenticationType as String]
-                if authenticationType != nil {
+                if let authenticationType = attributes[kSecAttrAuthenticationType as String] {
                     item["authenticationType"] = authenticationType
                 }
             }
-            let key: Any? = attributes[kSecAttrAccount as String]
-            if key != nil {
+            if let key = attributes[kSecAttrAccount as String] {
                 item["key"] = key
             }
             let data: Data = attributes[kSecValueData as String] as! Data
-            let string: String? = String(data: data, encoding: .utf8)
-            if string != nil {
+            if let string = String(data: data, encoding: .utf8) {
                 item["value"] = string
             } else {
                 item["value"] = data
             }
             
-            let accessible: Any? = attributes[kSecAttrAccessible as String]
-            if accessible != nil {
+            if let accessible = attributes[kSecAttrAccessible as String] {
                 item["accessibility"] = accessible
             }
             
-            if (floor(NSFoundationVersionNumber) > floor(993.00)) { // iOS 7+
-                let synchronizable: Any? = attributes[kSecAttrSynchronizable as String]
-                if synchronizable != nil {
+            if floor(NSFoundationVersionNumber) > floor(993.00) { // iOS 7+
+                if let synchronizable = attributes[kSecAttrSynchronizable as String] {
                     item["synchronizable"] = synchronizable
                 }
             }
@@ -1125,16 +1113,13 @@ class HKeyChainStore : NSObject {
             for item in tmpCredentials {
                 let credential = item as! NSDictionary
                 let sharedCredential = NSMutableDictionary()
-                let server: String? = credential[kSecAttrServer as String] as? String
-                if server != nil {
+                if let server = credential[kSecAttrServer as String] as? String {
                     sharedCredential["server"] = server
                 }
-                let account: String? = credential[kSecAttrAccount as String] as? String
-                if account != nil {
+                if let account = credential[kSecAttrAccount as String] as? String {
                     sharedCredential["account"] = account
                 }
-                let password: String? = credential[kSecSharedPassword as String] as? String
-                if password != nil {
+                if let password = credential[kSecSharedPassword as String] as? String {
                     sharedCredential["password"] = password
                 }
                 sharedCredentials.add(sharedCredential)
@@ -1198,8 +1183,8 @@ class HKeyChainStore : NSObject {
         }
         
     #if TARGET_OS_IOS
-        if (_authenticationPrompt) {
-            if (floor(NSFoundationVersionNumber) > floor(1047.25)) { // iOS 8+ (NSFoundationVersionNumber_iOS_7_1)
+        if _authenticationPrompt {
+            if floor(NSFoundationVersionNumber) > floor(1047.25) { // iOS 8+ (NSFoundationVersionNumber_iOS_7_1)
                 query[kSecUseOperationPrompt] = _authenticationPrompt
             } else {
                 NSLog("Unavailable 'authenticationPrompt' attribute on iOS versions prior to 8.0.")
