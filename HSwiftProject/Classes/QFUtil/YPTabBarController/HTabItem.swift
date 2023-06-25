@@ -89,7 +89,7 @@ class HTabItem : UIButton {
 
     var selectedImage: UIImage? {
         didSet {
-            setImage(selectedImage, for: .selected)
+            self.setImage(selectedImage, for: .selected)
         }
     }
     
@@ -174,8 +174,8 @@ class HTabItem : UIButton {
     var isContentHorizontalCenter: Bool = false {
         didSet {
             if isContentHorizontalCenter == false {
-                self.verticalOffset = 0
-                self.spacing = 0
+                self.verticalOffset = 0.0
+                self.spacing = 0.0
             }
             if self.superview != nil {
                 self.layoutSubviews()
