@@ -120,9 +120,13 @@ class HAuthorizeManager: NSObject, CLLocationManagerDelegate {
         let cancelTitle = "取消"
         let gosetting = {
             if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: [:], completionHandler: nil)
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
             } else {
-                UIApplication.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    UIApplication.shared.openURL(url)
+                }
             }
         }
         switch authorizationType {

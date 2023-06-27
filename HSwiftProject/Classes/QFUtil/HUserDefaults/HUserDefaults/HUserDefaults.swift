@@ -35,8 +35,8 @@ class HUserDefaults: NSObject {
     
     
     // Get User Core Key
-    private static var userCoreKey: String {
-        return HUserDefaults.defaults.string(forKey: KUserDefaultsKey)!
+    private static var userCoreKey: String? {
+        return HUserDefaults.defaults.string(forKey: KUserDefaultsKey)
     }
     // Set User Core Key
     static func setUserCoreKey(_ key: String) {

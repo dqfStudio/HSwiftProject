@@ -256,9 +256,13 @@ class HTextField : UITextField, UITextFieldDelegate {
     //移动光标
     private func cursorLocation(_ textField: UITextField, index: Int) {
         let range = NSRange(location: index, length: 0)
-        let start: UITextPosition = textField.position(from: textField.beginningOfDocument, offset: range.location)!
-        let end: UITextPosition = textField.position(from: start, offset: range.length)!
-        textField.selectionRects(for: textField.textRange(from: start, to: end)!)
+        if let start = textField.position(from: textField.beginningOfDocument, offset: range.location) {
+            if let end = textField.position(from: start, offset: range.length) {
+                if let textRange = textField.textRange(from: start, to: end) {
+                    textField.selectionRects(for: textRange)
+                }
+            }
+        }
     }
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {

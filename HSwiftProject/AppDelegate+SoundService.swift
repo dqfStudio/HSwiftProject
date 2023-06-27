@@ -13,14 +13,17 @@ extension AppDelegate {
 
     var audioPlayer: AVAudioPlayer? {
         get {
-            var audioPlayer = objc_getAssociatedObject(self, #function) as? AVAudioPlayer
-            if audioPlayer == nil {
-                audioPlayer = try? AVAudioPlayer(contentsOf: Bundle.main.url(forResource: "music", withExtension: "mp3")!)
+            if let audioPlayer = objc_getAssociatedObject(self, #function) as? AVAudioPlayer {
+                return audioPlayer
+            }
+            if let url = Bundle.main.url(forResource: "music", withExtension: "mp3") {
+                let audioPlayer = try? AVAudioPlayer(contentsOf: url)
                 audioPlayer!.numberOfLoops = -1
                 audioPlayer!.prepareToPlay()
                 self.audioPlayer = audioPlayer
+                return audioPlayer
             }
-            return audioPlayer
+            return nil
         }
         set { objc_setAssociatedObject(self, #function, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }

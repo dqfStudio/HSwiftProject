@@ -107,25 +107,27 @@ class HVerifyCodeView: UIControl {
             textC.draw(at: point, withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: textSize), NSAttributedString.Key.foregroundColor: textColor])
         }
 
-        let context: CGContext = UIGraphicsGetCurrentContext()!
-        context.setLineWidth(1.0)
-        
-        for _ in 0..<10 {
+        if let context = UIGraphicsGetCurrentContext() {
+            context.setLineWidth(1.0)
             
-            color = HRandColor(0.2)
-            context.setStrokeColor(color.cgColor)
-            let path = CGMutablePath()
-            
-            pX = CGFloat.random(in: 1...rect.size.width)
-            pY = CGFloat.random(in: 1...rect.size.height)
-            path.move(to: CGPoint(x: pX, y: pY))
-            
-            pX = CGFloat.random(in: 1...rect.size.width)
-            pY = CGFloat.random(in: 1...rect.size.height)
-            path.addLine(to: CGPoint(x: pX, y: pY))
-            
-            context.strokePath()
+            for _ in 0..<10 {
+                
+                color = HRandColor(0.2)
+                context.setStrokeColor(color.cgColor)
+                let path = CGMutablePath()
+                
+                pX = CGFloat.random(in: 1...rect.size.width)
+                pY = CGFloat.random(in: 1...rect.size.height)
+                path.move(to: CGPoint(x: pX, y: pY))
+                
+                pX = CGFloat.random(in: 1...rect.size.width)
+                pY = CGFloat.random(in: 1...rect.size.height)
+                path.addLine(to: CGPoint(x: pX, y: pY))
+                
+                context.strokePath()
+            }
         }
+        
     }
 
 }

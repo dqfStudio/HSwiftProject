@@ -34,7 +34,7 @@ extension UIViewController {
     var appearType: HVCAppearType {
         get {
             let value = self.getAssociatedValueForKey(&kHVCAppearTypeKey) as? NSNumber ?? NSNumber(value: 0)
-            return HVCAppearType(rawValue: value.intValue)!
+            return HVCAppearType(rawValue: value.intValue) ?? .undefine
         }
         set {
             // Set the appearance of the view controller

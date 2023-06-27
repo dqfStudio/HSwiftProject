@@ -30,7 +30,10 @@ extension UIDevice {
     
     /// 判断设备是否能打电话
     static var canMakePhoneCalls: Bool = {
-        return UIApplication.shared.canOpenURL(URL(string: "tel://")!)
+        if let url = URL(string: "tel://") {
+            return UIApplication.shared.canOpenURL(url)
+        }
+        return false
     }()
 
     /// 设备型号名称，例如："iPhone 5s" "iPad mini 2"

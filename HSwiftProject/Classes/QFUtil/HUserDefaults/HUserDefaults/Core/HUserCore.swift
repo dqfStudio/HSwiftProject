@@ -13,7 +13,7 @@ class HUserCore: UserDefaults {
     private static var mapping = [String: Property]()
 
     override init?(suiteName suitename: String?) {
-        super.init(suiteName: suitename)!
+        super.init(suiteName: suitename)
         exchangeAccessMethods()
     }
     

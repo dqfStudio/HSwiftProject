@@ -113,7 +113,7 @@ extension UIView {
     private func logInfo() -> String {
         let aKey: String = String(format: "%p", self)
         if HPrinterManager.share.containsObject(aKey) {
-            return HPrinterManager.share.objectForKey(aKey)!
+            return HPrinterManager.share.objectForKey(aKey) ?? ""
         }
         return ""
     }

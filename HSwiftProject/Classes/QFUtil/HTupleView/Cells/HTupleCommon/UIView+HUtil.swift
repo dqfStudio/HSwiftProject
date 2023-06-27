@@ -410,23 +410,30 @@ extension UIView {
     /**
     *  生成快照图像
     */
-    func snapshotImage() -> UIImage {
+    func snapshotImage() -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0)
-        self.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let snap: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return snap
+        if let context = UIGraphicsGetCurrentContext() {
+            self.layer.render(in: context)
+            if let snap = UIGraphicsGetImageFromCurrentImageContext() {
+                UIGraphicsEndImageContext()
+                return snap
+            }
+        }
+        return nil
     }
 
-    func snapshotImage(withFrame frame: CGRect) -> UIImage {
+    func snapshotImage(withFrame frame: CGRect) -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(frame.size, self.isOpaque, 0.0)
-        let context: CGContext = UIGraphicsGetCurrentContext()!
-        context.translateBy(x: -frame.origin.x, y: -frame.origin.y)
-        self.layer.render(in: context)
-        context.translateBy(x: frame.origin.x, y: frame.origin.y)
-        let theImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext()
-        return theImage
+        if let context = UIGraphicsGetCurrentContext() {
+            context.translateBy(x: -frame.origin.x, y: -frame.origin.y)
+            self.layer.render(in: context)
+            context.translateBy(x: frame.origin.x, y: frame.origin.y)
+            if let theImage = UIGraphicsGetImageFromCurrentImageContext() {
+                UIGraphicsEndImageContext()
+                return theImage
+            }
+        }
+        return nil
     }
     
 }
