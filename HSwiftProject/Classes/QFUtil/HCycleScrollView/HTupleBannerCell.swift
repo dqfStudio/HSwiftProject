@@ -7,7 +7,7 @@
 
 import UIKit
 
-private let KBannerSize: Int = 1000
+private let kBannerSize: Int = 1000
 
 typealias HTupleBannerCellBlock = (_ index: Int, _ url: String) -> Void
 
@@ -48,7 +48,7 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     
     func numberOfSectionsInTupleView() -> Any {
         if let imageURLStringsGroup = imageURLStringsGroup, imageURLStringsGroup.count > 0 {
-            return imageURLStringsGroup.count * KBannerSize
+            return imageURLStringsGroup.count * kBannerSize
         }
         return 1
     }
@@ -83,9 +83,9 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     
     func willDisplayCell(_ cell: UICollectionViewCell, atIndexPath indexPath: IndexPath) {
         if let imageURLStringsGroup = imageURLStringsGroup, imageURLStringsGroup.count > 0 {
-            if indexPath.section == 0 || indexPath.section == imageURLStringsGroup.count * KBannerSize - 1 {
+            if indexPath.section == 0 || indexPath.section == imageURLStringsGroup.count * kBannerSize - 1 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.tupleView.contentOffset = CGPoint(x: Int(self.tupleView.width) * imageURLStringsGroup.count * KBannerSize / 2, y: 0)
+                    self.tupleView.contentOffset = CGPoint(x: Int(self.tupleView.width) * imageURLStringsGroup.count * kBannerSize / 2, y: 0)
                 }
             }
         }
