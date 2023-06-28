@@ -22,7 +22,7 @@ class HTupleViewBannerCell : HTupleBaseCell, HCycleScrollViewDelegate {
     var imageUrlArr: NSArray? {
         didSet {
             if imageUrlArr != oldValue {
-                self.cycleScrollView.imageURLStringsGroup = imageUrlArr
+                self.cycleScrollView.imagePathsGroup = imageUrlArr
             }
         }
     }

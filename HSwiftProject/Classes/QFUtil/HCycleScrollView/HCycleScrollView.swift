@@ -61,7 +61,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     weak private var flowLayout: UICollectionViewFlowLayout?
 
     private var _imagePathsGroup: NSArray?
-    private var imagePathsGroup: NSArray? {
+    var imagePathsGroup: NSArray? {
         get {
             return _imagePathsGroup
         }
@@ -97,11 +97,11 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         return cycleScrollView
     }
 
-    static func cycleScrollViewWithFrame(_ frame: CGRect, imageURLStringsGroup: NSArray) -> HCycleScrollView {
-        let cycleScrollView = HCycleScrollView(frame: frame)
-        cycleScrollView.imageURLStringsGroup = imageURLStringsGroup
-        return cycleScrollView
-    }
+//    static func cycleScrollViewWithFrame(_ frame: CGRect, imageURLStringsGroup: NSArray) -> HCycleScrollView {
+//        let cycleScrollView = HCycleScrollView(frame: frame)
+//        cycleScrollView.imageURLStringsGroup = imageURLStringsGroup
+//        return cycleScrollView
+//    }
 
     /** 本地图片轮播初始化方式 */
     static func cycleScrollViewWithFrame(_ frame: CGRect, imageNamesGroup: NSArray) -> HCycleScrollView {
@@ -122,21 +122,22 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     //////////////////////  数据源API //////////////////////
 
     /** 网络图片 url string 数组 */
-    var imageURLStringsGroup: NSArray?
+//    var imageURLStringsGroup: NSArray?
 
     /** 每张图片对应要显示的文字数组 */
-    var titlesGroup: NSArray? {
-        didSet {
-            if self.onlyDisplayText, titlesGroup != nil {
-                let temp = NSMutableArray()
-                for _ in 0..<titlesGroup!.count {
-                    temp.add("")
-                }
-                self.backgroundColor = .clear
-                self.imageURLStringsGroup = temp
-            }
-        }
-    }
+    var titlesGroup: NSArray?
+//    {
+//        didSet {
+//            if self.onlyDisplayText, titlesGroup != nil {
+//                let temp = NSMutableArray()
+//                for _ in 0..<titlesGroup!.count {
+//                    temp.add("")
+//                }
+//                self.backgroundColor = .clear
+//                self.imageURLStringsGroup = temp
+//            }
+//        }
+//    }
 
     /** 本地图片数组 */
     var localizationImageNamesGroup: NSArray? {
