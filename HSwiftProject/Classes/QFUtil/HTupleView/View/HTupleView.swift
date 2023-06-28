@@ -755,7 +755,11 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             let selector: Selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 let spacing: CGFloat = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
-                size = CGSize(width: self.width, height: spacing)
+                if self.flowLayout?.scrollDirection == .vertical {
+                    size = CGSize(width: self.width, height: spacing)
+                }else {
+                    size = CGSize(width: spacing, height: self.height)
+                }
             } else {
                 let selector = #selector(delegate.sizeForHeaderInSection(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
@@ -776,7 +780,11 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
             let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 let spacing: CGFloat = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
-                size = CGSize(width: self.width, height: spacing)
+                if self.flowLayout?.scrollDirection == .vertical {
+                    size = CGSize(width: self.width, height: spacing)
+                }else {
+                    size = CGSize(width: spacing, height: self.height)
+                }
             } else {
                 let selector = #selector(delegate.sizeForFooterInSection(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
