@@ -308,6 +308,8 @@
 		EBD0FBA029DB00D100808EDA /* HMainController6+Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB9F29DB00D100808EDA /* HMainController6+Event.swift */; };
 		EBD0FBA229DB00DE00808EDA /* HMainController6+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */; };
 		EBD0FBB229DBEE4800808EDA /* HNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */; };
+		EBED9CA52A4C3C8600E590DE /* HTupleBannerApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */; };
+		EBED9CA62A4C3C8600E590DE /* HTupleBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CA42A4C3C8500E590DE /* HTupleBannerCell.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -618,6 +620,8 @@
 		EBD0FB9F29DB00D100808EDA /* HMainController6+Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+Event.swift"; sourceTree = "<group>"; };
 		EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+Cell.swift"; sourceTree = "<group>"; };
 		EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNumberFormatter.swift; sourceTree = "<group>"; };
+		EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleBannerApex.swift; sourceTree = "<group>"; };
+		EBED9CA42A4C3C8500E590DE /* HTupleBannerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleBannerCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -906,6 +910,8 @@
 				A2A7A94A23FE8A5A0090EFD3 /* HCyclePlaceholder@2x.png */,
 				A250DF0F23FFC05C009F5E47 /* HTupleViewBannerCell.swift */,
 				A250DF1123FFC2AB009F5E47 /* HTupleViewBannerApex.swift */,
+				EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */,
+				EBED9CA42A4C3C8500E590DE /* HTupleBannerCell.swift */,
 			);
 			path = HCycleScrollView;
 			sourceTree = "<group>";
@@ -1832,8 +1838,10 @@
 				A28923A4238B72F800E4AB75 /* HGeometry.swift in Sources */,
 				EBC8140629AA48C000A81431 /* HUserLiveVC.swift in Sources */,
 				EBD0FB3129CCA16400808EDA /* AppDelegate+WindowService.swift in Sources */,
+				EBED9CA52A4C3C8600E590DE /* HTupleBannerApex.swift in Sources */,
 				A2A814BE274D6C3000FAB929 /* HPushAnimation.swift in Sources */,
 				A2A814C0274E030100FAB929 /* HSheetController.swift in Sources */,
+				EBED9CA62A4C3C8600E590DE /* HTupleBannerCell.swift in Sources */,
 				EBC8140829AA48C000A81431 /* HLRDManager.swift in Sources */,
 				EBC8147729AA542500A81431 /* HSendVideoVC+HStatus5.swift in Sources */,
 				A22948A72397980A0058B939 /* HMainController2.swift in Sources */,
