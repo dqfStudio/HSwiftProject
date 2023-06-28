@@ -14,7 +14,7 @@ typealias HTupleBannerApexBlock = (_ index: Int, _ url: String) -> Void
 class HTupleBannerApex : HTupleBaseApex, HTupleViewDelegate {
     
     // 图片之间的间隔
-    var imageSpace: CGFloat = 16.0
+    var imageSpace: CGFloat = 0.0
     
     // 网络图片 url string 数组
     var imageURLStringsGroup: [String]? {
