@@ -67,12 +67,9 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         }
         set {
             self.invalidateTimer()
-
             _imagePathsGroup = newValue
-
             if let imagePathsGroup = _imagePathsGroup {
                 totalItemsCount = self.infiniteLoop ? imagePathsGroup.count * 100 : imagePathsGroup.count
-
                 if (imagePathsGroup.count > 1) { // 由于 !=1 包含count == 0等情况
                     self.mainView?.isScrollEnabled = true
                     self.autoScroll = _autoScroll
@@ -80,7 +77,6 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
                     self.mainView?.isScrollEnabled = false
                     self.invalidateTimer()
                 }
-
                 self.setupPageControl()
                 self.mainView?.reloadData()
             }
@@ -94,7 +90,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
 
 
     /** 初始轮播图（推荐使用） */
-    static func cycleScrollViewWithFrame(_ frame: CGRect, delegate: HCycleScrollViewDelegate, placeholderImage: UIImage) -> HCycleScrollView {
+    static func cycleScrollViewWithFrame(_ frame: CGRect, delegate: HCycleScrollViewDelegate, placeholderImage: UIImage?) -> HCycleScrollView {
         let cycleScrollView = HCycleScrollView(frame: frame)
         cycleScrollView.delegate = delegate
         cycleScrollView.placeholderImage = placeholderImage
@@ -457,7 +453,6 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
     /// actions
     private func setupTimer() {
         self.invalidateTimer() // 创建定时器前先停止定时器，不然会出现僵尸定时器，导致轮播频率错误
-
         timer = Timer.scheduledTimer(timeInterval: self.autoScrollTimeInterval, target: self, selector: #selector(automaticScroll), userInfo: nil, repeats: true)
         if let timer = timer {
             RunLoop.main.add(timer, forMode: .common)
