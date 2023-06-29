@@ -213,6 +213,9 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     
     // Set the ratio of marginTop
     var marginRatio: CGFloat = 0.0
+    
+    var verticalCenter: Bool = false
+    var horizontalCenter: Bool = true
 
     private var allReuseIdentifiers: NSMutableSet = NSMutableSet()
     private var allSectionInsets = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
@@ -280,13 +283,20 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         super.layoutSubviews()
         let contentSize = super.contentSize
         if contentSize != .zero {
+            var originX: CGFloat = 0.0
+            if horizontalCenter {
+                originX = (self.width - contentSize.width) / 2
+            }
             if marginTop > 0 {
-                let originX = (self.width - contentSize.width) / 2
                 self.contentInset = UIEdgeInsets(top: marginTop, left: originX, bottom: 0, right: 0)
             } else if marginRatio > 0 {
-                let originX = (self.width - contentSize.width) / 2
                 let originY = (self.height - contentSize.height) * marginRatio
                 self.contentInset = UIEdgeInsets(top: originY, left: originX, bottom: 0, right: 0)
+            } else if verticalCenter {
+                let originY = (self.height - contentSize.height) / 2
+                self.contentInset = UIEdgeInsets(top: originY, left: originX, bottom: 0, right: 0)
+            } else {
+                self.contentInset = UIEdgeInsets(top: 0, left: originX, bottom: 0, right: 0)
             }
         }
     }

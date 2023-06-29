@@ -14,29 +14,71 @@ typealias HTupleBannerApexBlock = (_ index: Int, _ url: String) -> Void
 class HTupleBannerApex : HTupleBaseApex, HTupleViewDelegate {
     
     // 图片之间的间隔
-    var imageSpace: CGFloat = 0.0
+    var imageSpace: CGFloat = 8.0
+    
+    var imageHeight: CGFloat = 16.0
     
     // 网络图片 url string 数组
-    var imageURLStringsGroup: [String]? {
+    var imageUrlArr: [String]? {
         didSet {
-            if let groups = imageURLStringsGroup, groups != oldValue, groups.count > 0 {
+            if let groups = imageUrlArr, groups != oldValue, groups.count > 0 {
                 self.tupleView.reloadTupleData()
+                if self.dotIndicatorBar.superview == nil {
+                    self.addSubview(self.dotIndicatorBar)
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                        self.runloopTimer.safe_resume()
+                    }
+                }
             }
         }
     }
     
     var selectedBannerBlock: HTupleBannerApexBlock?
     
-    //cell初始化是调用的方法
+    lazy var dotIndicatorBar: HDotIndicatorBar = {
+        let dotIndicatorBar = HDotIndicatorBar(frame: .zero)
+        dotIndicatorBar.items = imageUrlArr?.count ?? 0
+        dotIndicatorBar.itemSpace = imageSpace
+        dotIndicatorBar.itemColor = .green
+        dotIndicatorBar.itemSelectedColor = .yellow
+        dotIndicatorBar.itemSelectedWidth = imageHeight * 4
+        return dotIndicatorBar
+    }()
+    
+    private var selectedIndex: Int = 0
+    private lazy var runloopTimer: Timer = {
+        let timer = Timer(timeInterval: 3.0, repeats: true) { [self] weakTimer in
+            if let imageUrlArr = imageUrlArr, imageUrlArr.count > 0 {
+                if selectedIndex == imageUrlArr.count * kBannerSize - 1 {
+                    selectedIndex = imageUrlArr.count * kBannerSize / 2
+                }
+                let indexPath = IndexPath(row: 0, section: selectedIndex + 1)
+                self.tupleView.scrollToItem(at: indexPath, at: .right, animated: true)
+            }
+        }
+        timer.safe_pause()
+        RunLoop.current.add(timer, forMode: .common)
+        return timer
+    }()
+    
+    //Apex初始化是调用的方法
     override func initUI() {
         super.initUI()
         self.tupleView.delegate = self
         self.addSubview(self.tupleView)
     }
     
+    deinit {
+        runloopTimer.invalidate()
+    }
+    
     //用于子类更新子视图布局
     override func relayoutSubviews() {
         self.tupleView.frame = self.layoutViewFrame
+        self.dotIndicatorBar.frame = CGRect(x: self.layoutViewFrame.x,
+                                            y: self.height - 12 - imageHeight,
+                                            width: self.layoutViewBounds.width,
+                                            height: imageHeight)
     }
     
     lazy var tupleView: HTupleView = {
@@ -47,14 +89,14 @@ class HTupleBannerApex : HTupleBaseApex, HTupleViewDelegate {
     }()
     
     func numberOfSectionsInTupleView() -> Any {
-        if let imageURLStringsGroup = imageURLStringsGroup, imageURLStringsGroup.count > 0 {
-            return imageURLStringsGroup.count * kBannerSize
+        if let imageUrlArr = imageUrlArr, imageUrlArr.count > 0 {
+            return imageUrlArr.count * kBannerSize
         }
         return 1
     }
 
     func numberOfItemsInSection(_ section: Any) -> Any {
-        if let imageURLStringsGroup = imageURLStringsGroup, imageURLStringsGroup.count > 0 {
+        if let imageUrlArr = imageUrlArr, imageUrlArr.count > 0 {
             return 1
         }
         return 0
@@ -70,10 +112,10 @@ class HTupleBannerApex : HTupleBaseApex, HTupleViewDelegate {
     
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleButtonCell.self, nil, true) as! HTupleButtonCell
-        if let imageURLStringsGroup = imageURLStringsGroup {
-            let index = indexPath.section % imageURLStringsGroup.count
-            let imageUrlString = imageURLStringsGroup[index]
+        let cell = itemBlock(nil, HTupleButtonApex.self, nil, true) as! HTupleButtonApex
+        if let imageUrlArr = imageUrlArr {
+            let index = indexPath.section % imageUrlArr.count
+            let imageUrlString = imageUrlArr[index]
             cell.buttonView.setImageUrlString(imageUrlString)
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
                 self.selectedBannerBlock?(index, imageUrlString)
@@ -82,12 +124,15 @@ class HTupleBannerApex : HTupleBaseApex, HTupleViewDelegate {
     }
     
     func willDisplayCell(_ cell: UICollectionViewCell, atIndexPath indexPath: IndexPath) {
-        if let imageURLStringsGroup = imageURLStringsGroup, imageURLStringsGroup.count > 0 {
-            if indexPath.section == 0 || indexPath.section == imageURLStringsGroup.count * kBannerSize - 1 {
+        if let imageUrlArr = imageUrlArr, imageUrlArr.count > 0 {
+            if indexPath.section == 0 || indexPath.section == imageUrlArr.count * kBannerSize - 1 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.tupleView.contentOffset = CGPoint(x: Int(self.tupleView.width) * imageURLStringsGroup.count * kBannerSize / 2, y: 0)
+                    self.tupleView.contentOffset = CGPoint(x: Int(self.tupleView.width) * imageUrlArr.count * kBannerSize / 2, y: 0)
                 }
             }
+            let index = indexPath.section % imageUrlArr.count
+            self.dotIndicatorBar.selectedIndex = index
+            self.selectedIndex = indexPath.section
         }
     }
 

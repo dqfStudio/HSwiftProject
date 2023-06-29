@@ -18,7 +18,6 @@ class HDotIndicatorBar: UIStackView, HTupleViewDelegate {
         let tupleView = HTupleView(frame: .zero, scrollDirection: .horizontal)
         tupleView.isScrollEnabled = false
         tupleView.tupleStatus = .block
-        tupleView.marginTop = 0.1
         return tupleView
     }()
     
@@ -37,7 +36,7 @@ class HDotIndicatorBar: UIStackView, HTupleViewDelegate {
     
     // An array of strings representing the items to be displayed
     var items: Int = 0
-    var itemSpace: Int = 0
+    var itemSpace: CGFloat = 0.0
     
     var itemColor: UIColor = .green
     var itemSelectedColor: UIColor = .yellow

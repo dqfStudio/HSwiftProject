@@ -61,39 +61,15 @@ class HMainController1: HTupleController {
         case 0:
             switch indexPath.row {
             case 0:
-                let cell = itemBlock(nil, HTupleViewCellHoriValue3.self, nil, true) as! HTupleViewCellHoriValue3
+                let cell = itemBlock(nil, HTupleBannerCell.self, nil, true) as! HTupleBannerCell
                 cell.sizeBlock = {
-                    let width = self.tupleView.width(forSection: indexPath.section)
-                    return CGSize(width: width, height: 65)
+                    return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: 130)
                 }
                 cell.cellBlock = {
-                    cell.backgroundColor = UIColor.gray
-
-                    cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
-
-                    //cell.imageView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
-                    cell.imageView.imageSize = CGSize(width: 25, height: 25)
-                    cell.imageView.cornerRadius = 25 / 2
-                    cell.imageView.backgroundColor = UIColor.red
-                    cell.imageView.setImage(WithName: "icon_no_server")
-
-                    //cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
-                    cell.detailView.imageSize = CGSize(width: 25, height: 25)
-                    cell.detailView.cornerRadius = 25 / 2
-                    cell.detailView.backgroundColor = UIColor.red
-                    cell.detailView.setImage(WithName: "icon_no_server")
-
-                    cell.label.backgroundColor = UIColor.red
-                    cell.label.text = "wwwwwwwwwwwwww"
-
-                    cell.detailLabel.backgroundColor = UIColor.yellow
-                    cell.detailLabel.text = "qqqqqqqqqqqqq"
+                    cell.imageUrlArr = ["https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png",
+                                        "https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png",
+                                        "https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png"]
                     
-                    cell.accessoryLabel.backgroundColor = UIColor.green
-                    cell.accessoryLabel.text = "eeeeeeeeeeeee"
-                    
-                    cell.isShowAccessoryArrow = true
-
                 }
                 //接收信号
                 cell.signalBlock = { (target, signal) in
