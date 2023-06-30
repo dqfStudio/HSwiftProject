@@ -61,12 +61,12 @@ class HDotIndicatorBar: UIStackView, HTupleViewDelegate {
     }
     
     func numberOfSectionsInTupleView() -> Any {
-        return items > 1 ? items: 1
+        return items > 1 ? items : 1
     }
     
     // Returns the number of items in the section
     func numberOfItemsInSection(_ section: Any) -> Any {
-        return items > 1 ? 1: 0
+        return items > 1 ? 1 : 0
     }
     
     func minimumFooterSpacingForSectionAt(_ section: Any) -> Any {
