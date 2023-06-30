@@ -14,9 +14,9 @@ typealias HTupleBannerCellBlock = (_ index: Int, _ url: String) -> Void
 class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     
     // 图片之间的间隔
-    var imageSpace: CGFloat = 8.0
+    var dotSpace: CGFloat = 8.0
     
-    var imageHeight: CGFloat = 16.0
+    var dotHeight: CGFloat = 16.0
     
     // 网络图片 url string 数组
     var imageUrlArr: [String]? {
@@ -38,10 +38,10 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     lazy var dotIndicatorBar: HDotIndicatorBar = {
         let dotIndicatorBar = HDotIndicatorBar(frame: .zero)
         dotIndicatorBar.items = imageUrlArr?.count ?? 0
-        dotIndicatorBar.itemSpace = imageSpace
+        dotIndicatorBar.itemSpace = dotSpace
         dotIndicatorBar.itemColor = .green
         dotIndicatorBar.itemSelectedColor = .yellow
-        dotIndicatorBar.itemSelectedWidth = imageHeight * 4
+        dotIndicatorBar.itemSelectedWidth = dotHeight * 4
         return dotIndicatorBar
     }()
     
@@ -76,9 +76,9 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     override func relayoutSubviews() {
         self.tupleView.frame = self.layoutViewFrame
         self.dotIndicatorBar.frame = CGRect(x: self.layoutViewFrame.x,
-                                            y: self.height - 12 - imageHeight,
+                                            y: self.height - 12 - dotHeight,
                                             width: self.layoutViewBounds.width,
-                                            height: imageHeight)
+                                            height: dotHeight)
     }
     
     lazy var tupleView: HTupleView = {
@@ -103,11 +103,11 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     }
 
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return CGSize(width: self.tupleView.width - imageSpace, height: self.tupleView.height)
+        return CGSize(width: self.tupleView.width - dotSpace, height: self.tupleView.height)
     }
     
     func minimumFooterSpacingForSectionAt(_ section: Any) -> Any {
-        return imageSpace
+        return dotSpace
     }
     
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
