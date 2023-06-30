@@ -112,7 +112,7 @@ class HTupleBannerApex : HTupleBaseApex, HTupleViewDelegate {
     
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleButtonApex.self, nil, true) as! HTupleButtonApex
+        let cell = itemBlock(nil, HTupleButtonCell.self, nil, true) as! HTupleButtonCell
         if let imageUrlArr = imageUrlArr {
             let index = indexPath.section % imageUrlArr.count
             let imageUrlString = imageUrlArr[index]
