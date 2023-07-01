@@ -8,6 +8,7 @@
 import UIKit
 
 private let kBannerSize: Int = 1000
+private let kRunloopCount: CGFloat = 5.0
 
 typealias HTupleBannerCellBlock = (_ index: Int, _ url: String) -> Void
 
@@ -16,7 +17,7 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     // 图片之间的间隔
     var dotSpace: CGFloat = 8.0
     
-    var dotHeight: CGFloat = 16.0
+    var dotHeight: CGFloat = 6.0
     
     // 网络图片 url string 数组
     var imageUrlArr: [String]? {
@@ -25,7 +26,8 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
                 self.tupleView.reloadTupleData()
                 if self.dotIndicatorBar.superview == nil {
                     self.addSubview(self.dotIndicatorBar)
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + kRunloopCount) {
+                        self.bringSubviewToFront(self.dotIndicatorBar)
                         self.runloopTimer.safe_resume()
                     }
                 }
@@ -39,21 +41,22 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
         let dotIndicatorBar = HDotIndicatorBar(frame: .zero)
         dotIndicatorBar.items = imageUrlArr?.count ?? 0
         dotIndicatorBar.itemSpace = dotSpace
-        dotIndicatorBar.itemColor = .green
-        dotIndicatorBar.itemSelectedColor = .yellow
+        dotIndicatorBar.itemColor = UIColor(white: 1.0, alpha: 0.5)
+        dotIndicatorBar.itemSelectedColor = UIColor.white
         dotIndicatorBar.itemSelectedWidth = dotHeight * 4
         return dotIndicatorBar
     }()
     
     private var selectedIndex: Int = 0
     private lazy var runloopTimer: Timer = {
-        let timer = Timer(timeInterval: 3.0, repeats: true) { [self] weakTimer in
+        let timer = Timer(timeInterval: kRunloopCount, repeats: true) { [self] weakTimer in
             if let imageUrlArr = imageUrlArr, imageUrlArr.count > 0 {
                 if selectedIndex == imageUrlArr.count * kBannerSize - 1 {
                     selectedIndex = imageUrlArr.count * kBannerSize / 2
                 }
                 let indexPath = IndexPath(row: 0, section: selectedIndex + 1)
                 self.tupleView.scrollToItem(at: indexPath, at: .right, animated: true)
+                self.bringSubviewToFront(self.dotIndicatorBar)
             }
         }
         timer.safe_pause()
@@ -61,7 +64,7 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
         return timer
     }()
     
-    //cell初始化是调用的方法
+    //Cell初始化是调用的方法
     override func initUI() {
         super.initUI()
         self.tupleView.delegate = self
@@ -103,11 +106,11 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     }
 
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return CGSize(width: self.tupleView.width - dotSpace, height: self.tupleView.height)
+        return CGSize(width: self.tupleView.width - 16, height: self.tupleView.height)
     }
     
     func minimumFooterSpacingForSectionAt(_ section: Any) -> Any {
-        return dotSpace
+        return 16
     }
     
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
@@ -116,6 +119,7 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
         if let imageUrlArr = imageUrlArr {
             let index = indexPath.section % imageUrlArr.count
             let imageUrlString = imageUrlArr[index]
+            cell.buttonView.cornerRadius = 16
             cell.buttonView.setImageUrlString(imageUrlString)
             cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
                 self.selectedBannerBlock?(index, imageUrlString)
@@ -127,7 +131,8 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
         if let imageUrlArr = imageUrlArr, imageUrlArr.count > 0 {
             if indexPath.section == 0 || indexPath.section == imageUrlArr.count * kBannerSize - 1 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.tupleView.contentOffset = CGPoint(x: Int(self.tupleView.width) * imageUrlArr.count * kBannerSize / 2, y: 0)
+                    let tmpIndexPath = IndexPath(row: 0, section: imageUrlArr.count * kBannerSize / 2)
+                    self.tupleView.scrollToItem(at: tmpIndexPath, at: .right, animated: false)
                 }
             }
             let index = indexPath.section % imageUrlArr.count
