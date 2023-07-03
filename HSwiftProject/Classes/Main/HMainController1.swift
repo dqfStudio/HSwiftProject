@@ -66,10 +66,11 @@ class HMainController1: HTupleController {
                     return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: 130)
                 }
                 cell.cellBlock = {
-                    cell.imageUrlArr = ["https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png",
-                                        "https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png",
-                                        "https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png"]
-                    
+                    if cell.imageUrlArr == nil {
+                        cell.imageUrlArr = ["https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png",
+                                            "https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png",
+                                            "https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png"]
+                    }
                 }
                 //接收信号
                 cell.signalBlock = { (target, signal) in
