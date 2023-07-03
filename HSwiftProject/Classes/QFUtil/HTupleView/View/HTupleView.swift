@@ -284,22 +284,23 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let contentSize = super.contentSize
         if contentSize != .zero {
             var originX: CGFloat = 0.0
+            let inset = self.contentInset
             if horizontalCenter {
                 originX = (self.width - contentSize.width) / 2
                 originX = max(originX, 0)
             }
             if marginTop > 0 {
-                self.contentInset = UIEdgeInsets(top: marginTop, left: originX, bottom: 0, right: 0)
+                self.contentInset = UIEdgeInsets(top: marginTop, left: originX, bottom: inset.bottom, right: inset.right)
             } else if marginRatio > 0 {
                 var originY = (self.height - contentSize.height) * marginRatio
                 originY = max(originY, 0)
-                self.contentInset = UIEdgeInsets(top: originY, left: originX, bottom: 0, right: 0)
+                self.contentInset = UIEdgeInsets(top: originY, left: originX, bottom: inset.bottom, right: inset.right)
             } else if verticalCenter {
                 var originY = (self.height - contentSize.height) / 2
                 originY = max(originY, 0)
-                self.contentInset = UIEdgeInsets(top: originY, left: originX, bottom: 0, right: 0)
+                self.contentInset = UIEdgeInsets(top: originY, left: originX, bottom: inset.bottom, right: inset.right)
             } else {
-                self.contentInset = UIEdgeInsets(top: 0, left: originX, bottom: 0, right: 0)
+                self.contentInset = UIEdgeInsets(top: inset.top, left: originX, bottom: inset.bottom, right: inset.right)
             }
         }
     }
