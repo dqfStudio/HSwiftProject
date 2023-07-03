@@ -24,7 +24,7 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
         didSet {
             if let groups = imageUrlArr, groups != oldValue, groups.count > 0 {
                 self.tupleView.reloadTupleData()
-                if self.dotIndicatorBar.superview == nil {
+                if self.dotIndicatorBar.superview == nil, groups.count > 1 {
                     self.addSubview(self.dotIndicatorBar)
                     DispatchQueue.main.asyncAfter(deadline: .now() + kRunloopCount) {
                         self.bringSubviewToFront(self.dotIndicatorBar)
@@ -50,7 +50,7 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     private var selectedIndex: Int = 0
     private lazy var runloopTimer: Timer = {
         let timer = Timer(timeInterval: kRunloopCount, repeats: true) { [self] weakTimer in
-            if let imageUrlArr = imageUrlArr, imageUrlArr.count > 0 {
+            if let imageUrlArr = imageUrlArr, imageUrlArr.count > 1 {
                 if selectedIndex == imageUrlArr.count * kBannerSize - 1 {
                     selectedIndex = imageUrlArr.count * kBannerSize / 2
                 }
@@ -92,7 +92,7 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     }()
     
     func numberOfSectionsInTupleView() -> Any {
-        if let imageUrlArr = imageUrlArr, imageUrlArr.count > 0 {
+        if let imageUrlArr = imageUrlArr, imageUrlArr.count > 1 {
             return imageUrlArr.count * kBannerSize
         }
         return 1
@@ -128,7 +128,7 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     }
     
     func willDisplayCell(_ cell: UICollectionViewCell, atIndexPath indexPath: IndexPath) {
-        if let imageUrlArr = imageUrlArr, imageUrlArr.count > 0 {
+        if let imageUrlArr = imageUrlArr, imageUrlArr.count > 1 {
             if indexPath.section == 0 || indexPath.section == imageUrlArr.count * kBannerSize - 1 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     let tmpIndexPath = IndexPath(row: 0, section: imageUrlArr.count * kBannerSize / 2)
