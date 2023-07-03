@@ -63,7 +63,8 @@ class HMainController1: HTupleController {
             case 0:
                 let cell = itemBlock(nil, HTupleBannerCell.self, nil, true) as! HTupleBannerCell
                 cell.sizeBlock = {
-                    return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: 130)
+                    //return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: 130)
+                    return CGSize(width: self.tupleView.width, height: 130)
                 }
                 cell.cellBlock = {
                     if cell.imageUrlArr == nil {
