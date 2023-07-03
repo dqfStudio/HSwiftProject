@@ -50,16 +50,33 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
         return dotIndicatorBar
     }()
     
-    private var selectedIndex: Int = 0
+    // 是否为自动滚动
+    private var autoScroll: Bool = false
+    
+    // 当前选中的item序号
+    private var selectedIndex: Int = 0 {
+        didSet {
+            // 自动滚动
+            if self.autoScroll {
+                self.autoScroll = false
+            } else {
+                self.runloopTimer.safe_pause()
+                DispatchQueue.main.asyncAfter(deadline: .now() + kRunloopCount) {
+                    self.runloopTimer.safe_resume()
+                }
+            }
+        }
+    }
+    
     private lazy var runloopTimer: Timer = {
         let timer = Timer(timeInterval: kRunloopCount, repeats: true) { [self] weakTimer in
             if let imageUrlArr = imageUrlArr, imageUrlArr.count > 1 {
-                if selectedIndex == imageUrlArr.count * kBannerSize - 1 {
-                    selectedIndex = imageUrlArr.count * kBannerSize / 2
+                if selectedIndex <= imageUrlArr.count * kBannerSize - 2 {
+                    self.autoScroll = true //自动滚动
+                    let indexPath = IndexPath(row: 0, section: selectedIndex + 1)
+                    self.tupleView.scrollToItem(at: indexPath, at: .right, animated: true)
+                    self.bringSubviewToFront(self.dotIndicatorBar)
                 }
-                let indexPath = IndexPath(row: 0, section: selectedIndex + 1)
-                self.tupleView.scrollToItem(at: indexPath, at: .right, animated: true)
-                self.bringSubviewToFront(self.dotIndicatorBar)
             }
         }
         timer.safe_pause()
@@ -134,13 +151,15 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
         if let imageUrlArr = imageUrlArr, imageUrlArr.count > 1 {
             if indexPath.section == 0 || indexPath.section == imageUrlArr.count * kBannerSize - 1 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.autoScroll = true //自动滚动
                     let tmpIndexPath = IndexPath(row: 0, section: imageUrlArr.count * kBannerSize / 2)
                     self.tupleView.scrollToItem(at: tmpIndexPath, at: .right, animated: false)
                 }
+            } else {
+                let index = indexPath.section % imageUrlArr.count
+                self.dotIndicatorBar.selectedIndex = index
+                self.selectedIndex = indexPath.section
             }
-            let index = indexPath.section % imageUrlArr.count
-            self.dotIndicatorBar.selectedIndex = index
-            self.selectedIndex = indexPath.section
         }
     }
 
