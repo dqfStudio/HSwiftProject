@@ -24,7 +24,9 @@ class HTupleBannerApex : HTupleBaseApex, HTupleViewDelegate {
         didSet {
             if let groups = imageUrlArr, groups != oldValue, groups.count > 0 {
                 self.tupleView.reloadTupleData()
+                self.tupleView.isScrollEnabled = false
                 if self.dotIndicatorBar.superview == nil, groups.count > 1 {
+                    self.tupleView.isScrollEnabled = true
                     self.addSubview(self.dotIndicatorBar)
                     DispatchQueue.main.asyncAfter(deadline: .now() + kRunloopCount) {
                         self.bringSubviewToFront(self.dotIndicatorBar)
