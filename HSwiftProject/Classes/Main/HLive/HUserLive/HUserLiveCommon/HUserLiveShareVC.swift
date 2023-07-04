@@ -82,7 +82,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     }
     func sizeForFooterInSection(_ section: Any) -> Any {
         var height = KFooterHeight
-        if (UIScreen.isIPhoneX) {
+        if UIScreen.isIPhoneX {
             height += UIScreen.bottomBarHeight
         }
         return CGSize(width: self.tupleView.width, height: height)
@@ -96,7 +96,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     }
     func edgeInsetsForFooterInSection(_ section: Any) -> Any {
         var height = 0.0
-        if (UIScreen.isIPhoneX) {
+        if UIScreen.isIPhoneX {
             height += UIScreen.bottomBarHeight
         }
         return UIEdgeInsets(top: 10, left: 0, bottom: height, right: 0)
