@@ -21,17 +21,14 @@ var KAcceptVideoHeight2: CGFloat = 65.0
 ///视频来电
 class HAcceptVideoVC: HViewController, HTupleViewDelegate {
     
-    private var _tupleView: HTupleView?
-    var tupleView: HTupleView {
-        if _tupleView == nil {
-            _tupleView = HTupleView.tupleFrame({ () -> CGRect in
-                return UIScreen.bound
-            }, exclusiveSections: { () -> NSArray in
-                return []
-            })
-        }
-        return _tupleView!
-    }
+    lazy var tupleView: HTupleView = {
+        let tupleView = HTupleView.tupleFrame({ () -> CGRect in
+            return UIScreen.bound
+        }, exclusiveSections: { () -> NSArray in
+            return []
+        })
+        return tupleView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()

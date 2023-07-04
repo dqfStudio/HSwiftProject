@@ -10,30 +10,24 @@ import UIKit
 
 class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
 
-    private var _visualView: UIVisualEffectView?
-    private var visualView: UIVisualEffectView {
-        if _visualView == nil {
-            let blur = UIBlurEffect(style: .extraLight)
-            _visualView = UIVisualEffectView(effect: blur)
-            var frame = CGRect.zero
-            frame.size = self.containerSize
-            _visualView!.frame = frame
-        }
-        return _visualView!
-    }
+    private lazy var visualView: UIVisualEffectView = {
+        let blur = UIBlurEffect(style: .extraLight)
+        let visualView = UIVisualEffectView(effect: blur)
+        var frame = CGRect.zero
+        frame.size = self.containerSize
+        visualView.frame = frame
+        return visualView
+    }()
     
-    private var _tupleView: HTupleView?
-    private var tupleView: HTupleView {
-        if _tupleView == nil {
-            var frame = CGRect.zero
-            frame.size = self.containerSize
-            _tupleView = HTupleView(frame: frame)
-            _tupleView!.backgroundColor = .clear
-            _tupleView!.layer.cornerRadius = 10.0//默认系统弹框圆角为10.f
-            _tupleView!.disableBounce()
-        }
-        return _tupleView!
-    }
+    private lazy var tupleView: HTupleView = {
+        var frame = CGRect.zero
+        frame.size = self.containerSize
+        let tupleView = HTupleView(frame: frame)
+        tupleView.backgroundColor = .clear
+        tupleView.layer.cornerRadius = 10.0 //默认系统弹框圆角为10.f
+        tupleView.disableBounce()
+        return tupleView
+    }()
     
     private var note: String?
     private var noteSize: CGSize?
@@ -71,7 +65,6 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
     override func vcWillDisappear(_ type: HVCDisappearType) {
         if type == HVCDisappearType.pop || type == HVCDisappearType.dismiss {
             self.tupleView.releaseTupleBlock()
-            self._visualView = nil
         }
     }
 

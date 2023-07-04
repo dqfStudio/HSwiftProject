@@ -13,30 +13,24 @@ private var KFooterHeight = 50.0
 
 class HUserLiveShareVC : HViewController, HTupleViewDelegate {
 
-    private var _visualView: UIVisualEffectView?
-    private var visualView: UIVisualEffectView {
-        if _visualView == nil {
-            let blur = UIBlurEffect(style: .extraLight)
-            _visualView = UIVisualEffectView(effect: blur)
-            var frame = CGRect.zero
-            frame.size = self.containerSize
-            _visualView!.frame = frame
-        }
-        return _visualView!
-    }
+    private lazy var visualView: UIVisualEffectView = {
+        let blur = UIBlurEffect(style: .extraLight)
+        let visualView = UIVisualEffectView(effect: blur)
+        var frame = CGRect.zero
+        frame.size = self.containerSize
+        visualView.frame = frame
+        return visualView
+    }()
     
-    private var _tupleView: HTupleView?
-    private var tupleView: HTupleView {
-        if _tupleView == nil {
-            var frame = CGRect.zero
-            frame.size = self.containerSize
-            _tupleView = HTupleView(frame: frame)
-            _tupleView!.backgroundColor = .clear
-            _tupleView!.layer.cornerRadius = 3.0//默认系统弹框圆角为10.f
-            _tupleView!.disableBounce()
-        }
-        return _tupleView!
-    }
+    private lazy var tupleView: HTupleView = {
+        var frame = CGRect.zero
+        frame.size = self.containerSize
+        let tupleView = HTupleView(frame: frame)
+        tupleView.backgroundColor = .clear
+        tupleView.layer.cornerRadius = 3.0 //默认系统弹框圆角为10.f
+        tupleView.disableBounce()
+        return tupleView
+    }()
     
     private var rowItems: Int = 0
 
@@ -67,7 +61,6 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     override func vcWillDisappear(_ type: HVCDisappearType) {
         if type == HVCDisappearType.pop || type == HVCDisappearType.dismiss {
             self.tupleView.releaseTupleBlock()
-            self._visualView = nil
         }
     }
 
@@ -78,7 +71,9 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if !self.hideVisualView {
-            self.visualView.subviews.forEach { $0.layer.cornerRadius = self.tupleView.layer.cornerRadius }
+            self.visualView.subviews.forEach {
+                $0.layer.cornerRadius = self.tupleView.layer.cornerRadius
+            }
         }
     }
 

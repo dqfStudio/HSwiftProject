@@ -10,20 +10,17 @@ import UIKit
 
 class HGameCategoryVC : HViewController, HTupleViewDelegate {
     
-    private var _tupleView: HTupleView?
-    var tupleView: HTupleView {
-        if _tupleView == nil {
-            var frame: CGRect = UIScreen.bound
-            frame.y += UIScreen.topBarHeight
-            frame.height -= UIScreen.topBarHeight
-            _tupleView = HTupleView.tupleFrame({ () -> CGRect in
-                return frame
-            }, exclusiveSections: { () -> NSArray in
-                return [0, 1, 2]
-            })
-        }
-        return _tupleView!
-    }
+    lazy var tupleView: HTupleView = {
+        var frame: CGRect = UIScreen.bound
+        frame.y += UIScreen.topBarHeight
+        frame.height -= UIScreen.topBarHeight
+        let tupleView = HTupleView.tupleFrame({ () -> CGRect in
+            return frame
+        }, exclusiveSections: { () -> NSArray in
+            return [0, 1, 2]
+        })
+        return tupleView
+    }()
     
     override func vcWillDisappear(_ type: HVCDisappearType) {
         if (type == .pop || type == .dismiss) {

@@ -21,17 +21,15 @@ var KSendVideoHeight1: CGFloat = 55.0
 var KSendVideoHeight2: CGFloat = 65.0
 
 class HSendVideoVC: HViewController, HTupleViewDelegate {
-    private var _tupleView: HTupleView?
-    var tupleView: HTupleView {
-        if _tupleView == nil {
-            _tupleView = HTupleView.tupleFrame({ () -> CGRect in
-                return UIScreen.bound
-            }, exclusiveSections: { () -> NSArray in
-                return []
-            })
-        }
-        return _tupleView!
-    }
+    
+    lazy var tupleView: HTupleView = {
+        let tupleView = HTupleView.tupleFrame({ () -> CGRect in
+            return UIScreen.bound
+        }, exclusiveSections: { () -> NSArray in
+            return []
+        })
+        return tupleView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
