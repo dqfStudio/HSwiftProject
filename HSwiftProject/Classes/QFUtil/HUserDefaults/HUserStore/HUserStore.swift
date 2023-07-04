@@ -70,7 +70,7 @@ class HUserStore : NSObject {
         super.init()
     }
 
-    static var defaults: HUserStore? = {
+    static var defaults: HUserStore = {
         var share: HUserStore?
         if let defaultsUserId = HKeyChainStore.keyChainStore.stringForKey(KUSER) {
             if let data = HKeyChainStore.keyChainStore.dataForKey(defaultsUserId) {
@@ -84,12 +84,12 @@ class HUserStore : NSObject {
         if share == nil || share?.responds(to: #selector(initData)) == false {
             share = HUserStore()
         }
-        share?.initData()
-        return share
+        share!.initData()
+        return share!
     }()
 
     private static var defaultsUserId: String? {
-        return HUserStore.defaults?.userName.uppercased()
+        return HUserStore.defaults.userName.uppercased()
     }
 
     //初始化数据
@@ -233,33 +233,6 @@ class HUserStore : NSObject {
     }
     func baseLink() -> NSString {
         UserDefaults.standard.object(forKey: "baseLink") as! NSString
-    }
-    
-
-    func setH5Link(_ h5Link: NSString) {
-        UserDefaults.standard.set(h5Link, forKey: "h5Link")
-        UserDefaults.standard.synchronize()
-    }
-    func h5Link() -> NSString {
-        UserDefaults.standard.object(forKey: "h5Link") as! NSString
-    }
-
-
-    func setPlatCodeLink(_ platCodeLink: NSString) {
-        UserDefaults.standard.set(platCodeLink, forKey: "platCodeLink")
-        UserDefaults.standard.synchronize()
-    }
-    func platCodeLink() -> NSString {
-        UserDefaults.standard.object(forKey: "platCodeLink") as! NSString
-    }
-
-
-    func setSrc1Link(_ src1Link: NSString) {
-        UserDefaults.standard.set(src1Link, forKey: "src1Link")
-        UserDefaults.standard.synchronize()
-    }
-    func src1Link() -> NSString {
-        UserDefaults.standard.object(forKey: "src1Link") as! NSString
     }
 
 }
