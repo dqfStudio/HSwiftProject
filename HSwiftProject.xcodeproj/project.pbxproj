@@ -102,7 +102,6 @@
 		A28B652123FD215500B6B638 /* HNetworkDAO.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28B652023FD215500B6B638 /* HNetworkDAO.swift */; };
 		A28B652323FD26CE00B6B638 /* HNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28B652223FD26CE00B6B638 /* HNetworkManager.swift */; };
 		A28C314923EBB4D80050CDA1 /* HVerifyCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28C314823EBB4D80050CDA1 /* HVerifyCodeView.swift */; };
-		A28DF9B823FF748A0065418F /* UIView+HExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DF9B723FF748A0065418F /* UIView+HExtension.swift */; };
 		A28DF9BA23FF77350065418F /* HCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28DF9B923FF77350065418F /* HCollectionViewCell.swift */; };
 		A2A7A93323FE29470090EFD3 /* HTupleViewMarqueeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A7A93223FE29470090EFD3 /* HTupleViewMarqueeCell.swift */; };
 		A2A7A93523FE2CBF0090EFD3 /* HTupleViewMarqueeApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A7A93423FE2CBF0090EFD3 /* HTupleViewMarqueeApex.swift */; };
@@ -412,7 +411,6 @@
 		A28B652023FD215500B6B638 /* HNetworkDAO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNetworkDAO.swift; sourceTree = "<group>"; };
 		A28B652223FD26CE00B6B638 /* HNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNetworkManager.swift; sourceTree = "<group>"; };
 		A28C314823EBB4D80050CDA1 /* HVerifyCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HVerifyCodeView.swift; sourceTree = "<group>"; };
-		A28DF9B723FF748A0065418F /* UIView+HExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+HExtension.swift"; sourceTree = "<group>"; };
 		A28DF9B923FF77350065418F /* HCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollectionViewCell.swift; sourceTree = "<group>"; };
 		A2A7A93223FE29470090EFD3 /* HTupleViewMarqueeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewMarqueeCell.swift; sourceTree = "<group>"; };
 		A2A7A93423FE2CBF0090EFD3 /* HTupleViewMarqueeApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewMarqueeApex.swift; sourceTree = "<group>"; };
@@ -908,7 +906,6 @@
 				A2A7A93723FE2DFE0090EFD3 /* HPageControl */,
 				A2A7A94823FE8A400090EFD3 /* HCycleScrollView.swift */,
 				A28DF9B923FF77350065418F /* HCollectionViewCell.swift */,
-				A28DF9B723FF748A0065418F /* UIView+HExtension.swift */,
 				A2A7A94A23FE8A5A0090EFD3 /* HCyclePlaceholder@2x.png */,
 				A250DF0F23FFC05C009F5E47 /* HTupleViewBannerCell.swift */,
 				A250DF1123FFC2AB009F5E47 /* HTupleViewBannerApex.swift */,
@@ -1754,7 +1751,6 @@
 				EB23DAD92A02AA7A00C96CAC /* HAlertModel.swift in Sources */,
 				EB80B66E2A122A940016648A /* HScrollbar.swift in Sources */,
 				EBD0FB3A29CD461E00808EDA /* AppDelegate+NotifyService.swift in Sources */,
-				A28DF9B823FF748A0065418F /* UIView+HExtension.swift in Sources */,
 				EBC8140A29AA48C000A81431 /* HUserLiveCell+HSection0.swift in Sources */,
 				A2B42FD0237CED5A00795605 /* ViewController.swift in Sources */,
 				A22948BC2397990B0058B939 /* HRegisterController+KS.swift in Sources */,

@@ -540,7 +540,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
             return 0
         }
         
-        if mainView.hc_width == 0 || mainView.hc_height == 0 {
+        if mainView.width == 0 || mainView.height == 0 {
             return 0
         }
 
@@ -594,11 +594,11 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         }else {
             size = CGSize(width: CGFloat(self.imagePathsGroup!.count) * self.pageControlDotSize.width * 1.5, height: self.pageControlDotSize.height)
         }
-        var x = (self.hc_width - size.width) * 0.5
+        var x = (self.width - size.width) * 0.5
         if self.pageControlAliment == .Right {
-            x = self.mainView!.hc_width - size.width - 10
+            x = self.mainView!.width - size.width - 10
         }
-        let y = self.mainView!.hc_height - size.height - 10
+        let y = self.mainView!.height - size.height - 10
         
         if let pageControl = self.pageControl, pageControl.isKind(of: HPageControl.self) {
             let pageControl = pageControl as? HPageControl
