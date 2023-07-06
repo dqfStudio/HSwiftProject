@@ -13,15 +13,15 @@ class HMainController2: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let dotIndicatorBar = HDotIndicatorBar(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 36))
-//        dotIndicatorBar.backgroundColor = .red
-        dotIndicatorBar.itemSelectedWidth = 36 * 4
-        dotIndicatorBar.itemSpace = 8
-        dotIndicatorBar.items = 5
-        
-        
-        self.view.addSubview(dotIndicatorBar)
-        return
+//        let dotIndicatorBar = HDotIndicatorBar(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 36))
+////        dotIndicatorBar.backgroundColor = .red
+//        dotIndicatorBar.itemSelectedWidth = 36 * 4
+//        dotIndicatorBar.itemSpace = 8
+//        dotIndicatorBar.items = 5
+//
+//
+//        self.view.addSubview(dotIndicatorBar)
+//        return
         
         let webButtonView = HWebButtonView(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 60))
         webButtonView.backgroundColor = .red
@@ -40,7 +40,11 @@ class HMainController2: HViewController {
 //        webButtonView.titleLabel.font = UIFont.systemFont(ofSize: 17)
 //        webButtonView.titleLabel.backgroundColor = .blue
         
-        webButtonView.pressed = { (_ sender: Any?, _ data: Any?) in
+//        webButtonView.pressed = { (_ sender: Any?, _ data: Any?) in
+//            NSLog("")
+//        }
+        
+        webButtonView.pressed = { (sender, data) in
             NSLog("")
         }
         
