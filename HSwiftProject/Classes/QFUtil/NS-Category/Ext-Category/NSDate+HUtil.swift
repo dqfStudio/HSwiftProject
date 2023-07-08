@@ -10,8 +10,9 @@ import UIKit
 
 enum NSDateFormat: Int {
     case style1 = 0 ///yyyy-MM-dd HH:mm:ss
-    case style2 = 1 ///yyyy-MM-dd
-    case style3 = 2 ///yyyy年MM月dd日
+    case style2 = 1 ///yyyy-MM-dd HH:mm
+    case style3 = 2 ///yyyy-MM-dd
+    case style4 = 3 ///yyyy年MM月dd日
 }
 
 private var startDate: NSDate?
@@ -28,8 +29,8 @@ extension NSDate {
     }
     
     static func endTime() {
-        if let startDate = startDate {
-            NSLog("time: %f", -startDate.timeIntervalSinceNow)
+        if startDate != nil {
+            NSLog("time: %f", -startDate!.timeIntervalSinceNow)
             self.startTime()
         }
     }
@@ -42,9 +43,7 @@ extension NSDate {
             startDate = NSDate()
         }
         Callback()
-        if let startDate = startDate {
-            NSLog("time: %f", -startDate.timeIntervalSinceNow)
-        }
+        NSLog("time: %f", -startDate!.timeIntervalSinceNow)
     }
     
     static func dateWithFormat(_ format: NSDateFormat) -> String {
@@ -111,8 +110,10 @@ extension NSDate {
         case .style1:
             formatString = "yyyy-MM-dd HH:mm:ss"
         case .style2:
-            formatString = "yyyy-MM-dd"
+            formatString = "yyyy-MM-dd HH:mm"
         case .style3:
+            formatString = "yyyy-MM-dd"
+        case .style4:
             formatString = "yyyy年MM月dd日"
         }
         return formatString
