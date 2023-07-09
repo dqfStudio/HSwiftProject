@@ -52,6 +52,8 @@ class HTupleBannerApex : HTupleBaseApex, HTupleViewDelegate {
     
     // 是否为自动滚动
     private var autoScroll: Bool = false
+    // 是否为延时执行
+    private var delayPerform: Bool = false
     
     // 当前选中的item序号
     private var selectedIndex: Int = 0 {
@@ -61,11 +63,17 @@ class HTupleBannerApex : HTupleBaseApex, HTupleViewDelegate {
                 self.autoScroll = false
             } else {
                 self.runloopTimer.safe_pause()
-                DispatchQueue.main.asyncAfter(deadline: .now() + kRunloopCount) {
-                    self.runloopTimer.safe_resume()
-                }
+                // 添加延时任务
+                if self.delayPerform { NSObject.cancelPreviousPerformRequests(withTarget: self) }
+                self.perform(#selector(resumeTimer), with: nil, afterDelay: kRunloopCount)
+                self.delayPerform = true
             }
         }
+    }
+
+    @objc
+    private func resumeTimer() {
+        self.runloopTimer.safe_resume()
     }
     
     private lazy var runloopTimer: Timer = {
@@ -135,13 +143,13 @@ class HTupleBannerApex : HTupleBaseApex, HTupleViewDelegate {
     
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleButtonCell.self, nil, true) as! HTupleButtonCell
+        let cell = itemBlock(nil, HTupleButtonCell.self, "banner", true) as! HTupleButtonCell
         if let imageUrlArr = imageUrlArr {
             let index = indexPath.section % imageUrlArr.count
             let imageUrlString = imageUrlArr[index]
             cell.buttonView.cornerRadius = 16
-            cell.buttonView.setImageUrlString(imageUrlString)
-            cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+            cell.buttonView.setImageUrlString(imageUrlString, placeholder: UIImage(named: "community_banner_placeholder"))
+            cell.buttonView.pressed = { (sender, data) in
                 self.selectedBannerBlock?(index, imageUrlString)
             }
         }
