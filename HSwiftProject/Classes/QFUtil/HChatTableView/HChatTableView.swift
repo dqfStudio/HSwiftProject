@@ -68,11 +68,11 @@ class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     
     private func setup() {
         
+        self.backgroundColor = .clear
         self.alwaysBounceVertical = true
-        self.backgroundColor = UIColor.clear
         self.keyboardDismissMode = .onDrag
-        self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
+        self.showsHorizontalScrollIndicator = false
 
         if #available(iOS 11.0, *) {
             self.contentInsetAdjustmentBehavior = .never
