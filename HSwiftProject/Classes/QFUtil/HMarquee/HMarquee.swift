@@ -182,9 +182,7 @@ class HMarquee: UIView {
 
     @objc
     private func bgButtonClick() {
-        if self.tapAction != nil {
-            self.tapAction!()
-        }
+        self.tapAction?()
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
