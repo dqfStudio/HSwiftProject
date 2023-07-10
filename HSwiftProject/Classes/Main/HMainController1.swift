@@ -71,6 +71,27 @@ class HMainController1: HTupleController {
                         cell.imageUrlArr = ["https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png",
                                             "https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png",
                                             "https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png"]
+                        
+//                        if cell.imageUrlArr == nil {
+//                        var imageUrlArr: [String] = []
+//                        self.bannerItems.forEach { item in
+//                            if let imageURL = item.imageURL, imageURL.hasPrefix("http") {
+//                                imageUrlArr.append(imageURL)
+//                            } else {
+//                                imageUrlArr.append("community_banner_placeholder")
+//                            }
+//                        }
+//                        cell.imageUrlArr = imageUrlArr
+                        cell.selectedBannerBlock = { (_ index: Int, _ url: String) in
+//                            if index >= 0, index < self.bannerItems.count {
+//                                let openBannerItem = self.bannerItems[index]
+//                                if let urlString = openBannerItem.link, urlString.hasPrefix("http") {
+//                                    let param = FCWebVCParams().setUrlString(urlString)
+//                                    let webVC = FCNFTWebViewVC(parameters: param)
+//                                    self.present(FCNavVC.configFullScreenModalNav(vc: webVC), animated: true)
+//                                }
+//                            }
+                        }
                     }
                 }
                 //接收信号

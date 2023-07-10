@@ -64,7 +64,9 @@ class HTupleBannerApex : HTupleBaseApex, HTupleViewDelegate {
             } else {
                 self.runloopTimer.safe_pause()
                 // 添加延时任务
-                if self.delayPerform { NSObject.cancelPreviousPerformRequests(withTarget: self) }
+                if self.delayPerform {
+                    NSObject.cancelPreviousPerformRequests(withTarget: self, selector: #selector(resumeTimer), object: nil)
+                }
                 self.perform(#selector(resumeTimer), with: nil, afterDelay: kRunloopCount)
                 self.delayPerform = true
             }
