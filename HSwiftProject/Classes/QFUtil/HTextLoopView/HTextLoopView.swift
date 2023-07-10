@@ -120,7 +120,7 @@ class HTextLoopView: UIView, UITableViewDataSource, UITableViewDelegate {
         if let dataSource = dataSource, currentRowIndex == dataSource.count {
             currentRowIndex = 0
             DispatchQueue.main.async {
-                self.tableView?.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+                self.tableView?.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
             }
         }
     }
