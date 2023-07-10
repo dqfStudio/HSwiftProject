@@ -21,7 +21,7 @@ class HVerifyCodeView: UIControl {
     VerifyCodeView:1.随机内容(默认由0~9与26个大小写字母随机组合)2.文本颜色(默认黑色)3.字体大小(默认20)4.获取当前验证码等
     */
     /// 文本颜色
-    var textColor: UIColor = UIColor.black
+    var textColor: UIColor = .black
     /// 字体大小
     var textSize: CGFloat = 20.0
     
