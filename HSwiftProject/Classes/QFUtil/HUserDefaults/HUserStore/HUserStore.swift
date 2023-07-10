@@ -142,11 +142,11 @@ class HUserStore : NSObject {
                 if let propertys = class_copyIvarList(self.classForCoder, &count) {
                     for i in 0..<count {
                         let property = propertys[Int(i)]
-                        //isLogin 这个属性的值由外部业务赋值
                         if let name = ivar_getName(property) {
-                            //通过KVC的方式赋值
                             let key = String(cString: name)
+                            //isLogin 这个属性的值由外部业务赋值
                             if key != "isLogin" {
+                                //通过KVC的方式赋值
                                 let propertyValue = userDefaults?.value(forKey: key)
                                 self.setValue(propertyValue, forKey: key)
                             }
@@ -195,7 +195,6 @@ class HUserStore : NSObject {
                     }
 
                     //通过KVC的方式赋值
-
                     if propertyValue.isKind(of: NSString.self) {
                         self.setValue("", forKey: key)
                     }
