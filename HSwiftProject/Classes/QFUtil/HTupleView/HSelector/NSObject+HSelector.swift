@@ -9,7 +9,7 @@
 import UIKit
 
 extension NSObjectProtocol {
-    func responds(to aSelector: Selector!, withPre prefix: String) -> Bool {
+    func responds(to aSelector: Selector, withPre prefix: String) -> Bool {
         let selectorString = prefix + NSStringFromSelector(aSelector)
         let selector = NSSelectorFromString(selectorString)
         return self.responds(to: selector)
