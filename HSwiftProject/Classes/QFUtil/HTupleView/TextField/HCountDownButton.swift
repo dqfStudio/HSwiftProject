@@ -8,8 +8,8 @@
 
 import UIKit
 
-typealias HCountDownChanging = (_ countDownButton: HCountDownButton, _ second: Int) -> NSString
-typealias HCountDownFinished = (_ countDownButton: HCountDownButton, _ second: Int) -> NSString
+typealias HCountDownChanging = (_ countDownButton: HCountDownButton, _ second: Int) -> String
+typealias HCountDownFinished = (_ countDownButton: HCountDownButton, _ second: Int) -> String
 typealias HCountDownHandler = (_ countDownButton: HCountDownButton, _ tag: Int) -> Void
 
 class HCountDownButton: UIButton {
@@ -62,7 +62,7 @@ class HCountDownButton: UIButton {
         } else {
             let title: String
             if let countDownChanging = self.countDownChanging {
-                title = countDownChanging(self, self.currentSecond) as String
+                title = countDownChanging(self, self.currentSecond)
             } else {
                 title = String(format: "%zd秒", self.currentSecond)
             }
@@ -77,7 +77,7 @@ class HCountDownButton: UIButton {
         timer.invalidate()
         currentSecond = self.totalSecond
         let title = countDownFinished?(self, self.totalSecond) ?? "重新获取"
-        self.setTitle(title as String, for: .normal)
+        self.setTitle(title, for: .normal)
         self.adjustsImageWhenHighlighted = false
     }
 

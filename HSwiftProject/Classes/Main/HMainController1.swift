@@ -240,10 +240,10 @@ class HMainController1: HTupleController {
                     cell.textField.rightCountDownButton.countDownButtonHandler { (countDownButton, tag) in
                         countDownButton.startCountDownWithSecond(60)
                     }
-                    cell.textField.rightCountDownButton.countDownChanging({ (countDownButton, second) -> NSString in
-                        return NSString(format: "还剩%lu秒", second)
+                    cell.textField.rightCountDownButton.countDownChanging({ (countDownButton, second) -> String in
+                        return String(format: "还剩%lu秒", second)
                     })
-                    cell.textField.rightCountDownButton .countDownFinished { (countDownButton, second) -> NSString in
+                    cell.textField.rightCountDownButton .countDownFinished { (countDownButton, second) -> String in
                         return "重新获取"
                     }
                     //图形验证码
