@@ -54,11 +54,12 @@ class HUserStore : NSObject, NSCoding {
         if let defaultsUserId = HKeychainSwift.defaults.get(KUSER), defaultsUserId.length > 0,
             let data = HKeychainSwift.defaults.getData(defaultsUserId),
             let share = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? HUserStore,
-            share.responds(to: #selector(initData)) {
-            share.initData()
+            share.responds(to: #selector(loadObserver)) {
+            share.loadObserver()
             return share
         } else {
             let share = HUserStore()
+            share.loadObserver()
             share.initData()
             return share
         }
@@ -72,10 +73,17 @@ class HUserStore : NSObject, NSCoding {
         return HUserStore.defaults.userId
     }
 
-    /// 初始化数据
     @objc
-    private func initData() {
+    private func loadObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(saveUser), name: UIApplication.willTerminateNotification, object: nil)
+    }
+    
+    /// 默认初始属性值
+    private func initData() {
+        let dataSource = ["userId": "2222", "userName": "张三", "password": "123456"]
+        dataSource.forEach { (key, value) in
+            self.setValue(value, forKey: key)
+        }
     }
 
     @objc
@@ -118,6 +126,8 @@ class HUserStore : NSObject, NSCoding {
                 }
             }
         }
+        //加载默认初始属性值
+        initData()
     }
 
     /// 如果属性和字典中的key不一致，可以重写此方法 / 或者readonly
