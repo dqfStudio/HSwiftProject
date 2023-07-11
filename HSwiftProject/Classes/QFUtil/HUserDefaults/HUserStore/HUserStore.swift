@@ -42,8 +42,8 @@ class HUserStore : NSObject, NSCoding {
         super.init()
         let properties = Mirror(reflecting: self).children
         for property in properties {
-            if let propertyName = property.label {
-                let propertyValue = aDecoder.decodeObject(forKey: propertyName)
+            if let propertyName = property.label,
+               let propertyValue = aDecoder.decodeObject(forKey: propertyName) {
                 self.setValue(propertyValue, forKey: propertyName)
             }
         }
