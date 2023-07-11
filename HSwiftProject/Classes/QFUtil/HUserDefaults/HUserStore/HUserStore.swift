@@ -26,9 +26,8 @@ class HUserStore : NSObject, NSCoding {
     }
 
     /** 用户ID */
-    var userId: String = "www"
+    var userId: String?
     var userName: String?
-    var realname: String?
 
     /** 密码 */
     var password: String?
