@@ -291,7 +291,6 @@
 		EBD0FB3E29CD4DE100808EDA /* AppDelegate+UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3D29CD4DE100808EDA /* AppDelegate+UserService.swift */; };
 		EBD0FB4029CD4E4400808EDA /* AppDelegate+RotateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB3F29CD4E4400808EDA /* AppDelegate+RotateService.swift */; };
 		EBD0FB6929D02B1000808EDA /* HUserDefaults2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB5E29D02B1000808EDA /* HUserDefaults2.swift */; };
-		EBD0FB6A29D02B1000808EDA /* HKeyChainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB6029D02B1000808EDA /* HKeyChainStore.swift */; };
 		EBD0FB6B29D02B1000808EDA /* HUserStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB6129D02B1000808EDA /* HUserStore.swift */; };
 		EBD0FB6C29D02B1000808EDA /* HDefaultsCore+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB6329D02B1000808EDA /* HDefaultsCore+Extern.swift */; };
 		EBD0FB6E29D02B1000808EDA /* HUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB6529D02B1000808EDA /* HUserDefaults.swift */; };
@@ -603,7 +602,6 @@
 		EBD0FB3D29CD4DE100808EDA /* AppDelegate+UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+UserService.swift"; sourceTree = "<group>"; };
 		EBD0FB3F29CD4E4400808EDA /* AppDelegate+RotateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+RotateService.swift"; sourceTree = "<group>"; };
 		EBD0FB5E29D02B1000808EDA /* HUserDefaults2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserDefaults2.swift; sourceTree = "<group>"; };
-		EBD0FB6029D02B1000808EDA /* HKeyChainStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKeyChainStore.swift; sourceTree = "<group>"; };
 		EBD0FB6129D02B1000808EDA /* HUserStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserStore.swift; sourceTree = "<group>"; };
 		EBD0FB6329D02B1000808EDA /* HDefaultsCore+Extern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HDefaultsCore+Extern.swift"; sourceTree = "<group>"; };
 		EBD0FB6529D02B1000808EDA /* HUserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserDefaults.swift; sourceTree = "<group>"; };
@@ -1523,7 +1521,6 @@
 		EBD0FB5F29D02B1000808EDA /* HUserStore */ = {
 			isa = PBXGroup;
 			children = (
-				EBD0FB6029D02B1000808EDA /* HKeyChainStore.swift */,
 				EBD0FB6129D02B1000808EDA /* HUserStore.swift */,
 			);
 			path = HUserStore;
@@ -1745,7 +1742,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EBD0FB6A29D02B1000808EDA /* HKeyChainStore.swift in Sources */,
 				A2B4308323801C4E00795605 /* HWebButtonView.swift in Sources */,
 				A26D43172383DE5800F457AE /* UIColor+HUtil.swift in Sources */,
 				EB23DAD92A02AA7A00C96CAC /* HAlertModel.swift in Sources */,

@@ -13,6 +13,8 @@ class HMainController2: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        HUserStore.defaults.isLogin = true
+        
 //        let dotIndicatorBar = HDotIndicatorBar(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 36))
 ////        dotIndicatorBar.backgroundColor = .red
 //        dotIndicatorBar.itemSelectedWidth = 36 * 4

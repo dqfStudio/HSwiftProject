@@ -32,5 +32,69 @@
             endingLineNumber = "483">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "09A35DFF-0971-4DC6-B030-875ABD5C634A"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HSwiftProject/Classes/QFUtil/HUserDefaults/HUserStore/HKeyChainStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "490"
+            endingLineNumber = "490"
+            landmarkName = "stringForKey(_:error:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "09A35DFF-0971-4DC6-B030-875ABD5C634A - 5d8be7c396a2e5a8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HSwiftProject.HKeyChainStore.stringForKey(_: Swift.Optional&lt;Swift.String&gt;, error: inout Swift.Optional&lt;Swift.Error&gt;) -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "HSwiftProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/owner/Documents/Github/HSwiftProject/HSwiftProject/Classes/QFUtil/HUserDefaults/HUserStore/HKeyChainStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "490"
+                  endingLineNumber = "490"
+                  offsetFromSymbolStart = "148">
+               </Location>
+               <Location
+                  uuid = "09A35DFF-0971-4DC6-B030-875ABD5C634A - 5d8be7c396a2e5a8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "HSwiftProject.HKeyChainStore.stringForKey(_: Swift.Optional&lt;Swift.String&gt;, error: inout Swift.Optional&lt;Swift.Error&gt;) -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  moduleName = "HSwiftProject"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/owner/Documents/Github/HSwiftProject/HSwiftProject/Classes/QFUtil/HUserDefaults/HUserStore/HKeyChainStore.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "490"
+                  endingLineNumber = "490"
+                  offsetFromSymbolStart = "224">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8D8442B3-F007-4A52-B605-DEDF7AB03D6D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HSwiftProject/Classes/QFUtil/HUserDefaults/HUserStore/HKeyChainStore.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "566"
+            endingLineNumber = "566"
+            landmarkName = "dataForKey(_:error:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

@@ -10,7 +10,7 @@ import UIKit
 
 private var KUSER = "H_USER_DEFAULTS"
 
-class HUserStore : NSObject {
+class HUserStore : NSObject, NSCoding {
 
     /** 是否登录 */
     var isLogin: Bool = false {
@@ -27,44 +27,32 @@ class HUserStore : NSObject {
 
     /** 用户ID */
     var userId: String?
-    var userName: String = ""
+    var userName: String = "www"
     var realname: String?
 
     /** 密码 */
     var password: String?
 
-    private init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init()
-        var count: UInt32 = 0
-        //let propertys = class_copyPropertyList(self.classForCoder, &count)
-        if let propertys = class_copyIvarList(self.classForCoder, &count) {
-            for i in 0..<count {
-                let property = propertys[Int(i)]
-                if let name = ivar_getName(property) {
-                    let key = String(cString: name)
-                    let value = aDecoder.decodeObject(forKey: key)
-                    self.setValue(value, forKey: key)
-                }
+        let properties = Mirror(reflecting: self).children
+        for property in properties {
+            if let propertyName = property.label {
+                let propertyValue = aDecoder.decodeObject(forKey: propertyName)
+                self.setValue(propertyValue, forKey: propertyName)
             }
-            free(propertys)
         }
     }
 
-    private func encodeWithCoder(aCoder: NSCoder) {
-        var count: UInt32 = 0
-        //let propertys = class_copyPropertyList(self.classForCoder, &count)
-        if let propertys = class_copyIvarList(self.classForCoder, &count) {
-            for i in 0..<count {
-                let property = propertys[Int(i)]
-                if let name = ivar_getName(property) {
-                    let key = String(cString: name)
-                    aCoder.encode(self.value(forKey: key), forKey: key)
-                }
+    func encode(with aCoder: NSCoder) {
+        let properties = Mirror(reflecting: self).children
+        for property in properties {
+            if let propertyName = property.label {
+                let propertyValue = property.value
+                aCoder.encode(propertyValue, forKey: propertyName)
             }
-            free(propertys)
         }
     }
-
     
     private override init() {
         super.init()
@@ -72,14 +60,9 @@ class HUserStore : NSObject {
 
     static var defaults: HUserStore = {
         var share: HUserStore?
-        if let defaultsUserId = HKeyChainStore.keyChainStore.stringForKey(KUSER) {
-            if let data = HKeyChainStore.keyChainStore.dataForKey(defaultsUserId) {
-                if #available(iOS 11.0, *) {
-                    share = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [HUserStore.self], from: data) as? HUserStore
-                }else {
-                    share = NSKeyedUnarchiver.unarchiveObject(with: data) as? HUserStore
-                }
-            }
+        if let defaultsUserId = HKeychainSwift.defaults.get(KUSER), defaultsUserId.length > 0,
+           let data = HKeychainSwift.defaults.getData(defaultsUserId) {
+            share = NSKeyedUnarchiver.unarchiveObject(with: data) as? HUserStore
         }
         if share == nil || share?.responds(to: #selector(initData)) == false {
             share = HUserStore()
@@ -92,7 +75,7 @@ class HUserStore : NSObject {
         return HUserStore.defaults.userName.uppercased()
     }
 
-    //初始化数据
+    /// 初始化数据
     @objc
     private func initData() {
         NotificationCenter.default.addObserver(self, selector: #selector(saveUser), name: UIApplication.willTerminateNotification, object: nil)
@@ -101,121 +84,73 @@ class HUserStore : NSObject {
     @objc
     private func saveUser() {
         if self.isLogin {
-            var data: Data?
-            if #available(iOS 11.0, *) {
-                data = try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: true)
-            }else {
-                data = NSKeyedArchiver.archivedData(withRootObject: self)
-            }
-            if let defaultsUserId = HUserStore.defaultsUserId, defaultsUserId.length > 0, data != nil {
-                HKeyChainStore.keyChainStore.setData(data: data, forKey: defaultsUserId)
-                HKeyChainStore.keyChainStore.setString(string: defaultsUserId, forKey: KUSER)
-                HKeyChainStore.keyChainStore.synchronizable = true
+            if let defaultsUserId = HUserStore.defaultsUserId, defaultsUserId.length > 0 {
+                let data = NSKeyedArchiver.archivedData(withRootObject: self)
+                HKeychainSwift.defaults.set(data, forKey: defaultsUserId)
+                HKeychainSwift.defaults.set(defaultsUserId, forKey: KUSER)
+                HKeychainSwift.defaults.synchronizable = true
             }
         }
     }
 
-    ///加载钥匙串中的数据
+    /// 加载钥匙串中的数据
     func loadKeyChainDataWith(_ userName: String, pwd: String) -> Bool {
 
         var boolValue: Bool = false
         if userName.length > 3 {
             let defaultsUserId = userName.uppercased()
-            if let data = HKeyChainStore.keyChainStore.dataForKey(defaultsUserId) {
-                var userDefaults: HUserStore?
-                if #available(iOS 11.0, *) {
-                    userDefaults = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [HUserStore.self], from: data) as? HUserStore
-                } else {
-                    userDefaults = NSKeyedUnarchiver.unarchiveObject(with: data) as? HUserStore
-                }
+            if let data = HKeychainSwift.defaults.getData(defaultsUserId) {
+                var userDefaults: HUserStore? = NSKeyedUnarchiver.unarchiveObject(with: data) as? HUserStore
                 let propertyValue = userDefaults?.value(forKey: "password") as? String
                 //密码不相等则不能提取用户信息
                 if pwd != propertyValue {
                     userDefaults = nil
                     return boolValue
                 }
-
                 boolValue = true
                 
-                var count: UInt32 = 0
-                //let propertys = class_copyPropertyList(self.classForCoder, &count)
-                if let propertys = class_copyIvarList(self.classForCoder, &count) {
-                    for i in 0..<count {
-                        let property = propertys[Int(i)]
-                        if let name = ivar_getName(property) {
-                            let key = String(cString: name)
-                            //isLogin 这个属性的值由外部业务赋值
-                            if key != "isLogin" {
-                                //通过KVC的方式赋值
-                                let propertyValue = userDefaults?.value(forKey: key)
-                                self.setValue(propertyValue, forKey: key)
-                            }
-                        }
+                let properties = Mirror(reflecting: self).children
+                for property in properties {
+                    //isLogin 这个属性的值由外部业务赋值
+                    if let propertyName = property.label,
+                       propertyName != "isLogin" {
+                        let propertyValue = property.value
+                        self.setValue(propertyValue, forKey: propertyName)
                     }
-                    // 释放
-                    userDefaults = nil
-                    free(propertys)
                 }
             }
         }
         return boolValue
     }
 
-    //登出的时候需要移除用户信息
+    /// 登出的时候需要移除用户信息
     private func removeUser() {
         //删除记录的登录标志
-        HKeyChainStore.keyChainStore.setString(string: nil, forKey: KUSER)
-        HKeyChainStore.keyChainStore.synchronizable = true
+        HKeychainSwift.defaults.delete(KUSER)
+        HKeychainSwift.defaults.synchronizable = true
         //清空所有属性值
         self.cleanAllProperties()
     }
 
-    /**
-    清空属性值
-    */
+    /// 清空属性值
     private func cleanAllProperties() {
-        
-        var count: UInt32 = 0
-        //let propertys = class_copyPropertyList(self.classForCoder, &count)
-        if let propertys = class_copyIvarList(self.classForCoder, &count) {
-            for i in 0..<count {
-                let property = propertys[Int(i)]
-                //isLogin 这个属性的值由外部业务赋值
-                if let name = ivar_getName(property) {
-                    //通过KVC的方式赋值
-                    let key = String(cString: name)
-                    let propertyValue: AnyObject? = self.value(forKey: key) as AnyObject
-                    
-                    guard let propertyValue = propertyValue else {
-                        continue
-                    }
-                    
-                    guard !propertyValue.isKind(of: NSNull.self) else {
-                        continue
-                    }
-
-                    //通过KVC的方式赋值
-                    if propertyValue.isKind(of: NSString.self) {
-                        self.setValue("", forKey: key)
-                    }
-                    else if propertyValue.isKind(of: NSNumber.self) {
-                        self.setValue(NSNumber(), forKey: key)
-                    }
-                    else if propertyValue.isKind(of: NSMutableDictionary.self) ||
-                             propertyValue.isKind(of: NSDictionary.self) {
-                        self.setValue(NSDictionary(), forKey: key)
-                    }
-                    else if propertyValue.isKind(of: NSMutableArray.self) ||
-                             propertyValue.isKind(of: NSArray.self) {
-                        self.setValue(NSArray(), forKey: key)
-                    }
-                    else {
-                        self.setValue(nil, forKey: key)
-                    }
+        let properties = Mirror(reflecting: self).children
+        for property in properties {
+            if let propertyName = property.label {
+                let propertyValue = property.value
+                switch propertyValue {
+                case is NSString:
+                    self.setValue("", forKey: propertyName)
+                case is NSNumber:
+                    self.setValue(NSNumber(), forKey: propertyName)
+                case is NSDictionary:
+                    self.setValue(NSDictionary(), forKey: propertyName)
+                case is NSArray:
+                    self.setValue(NSArray(), forKey: propertyName)
+                default:
+                    self.setValue(nil, forKey: propertyName)
                 }
             }
-            // 释放
-            free(propertys)
         }
     }
 

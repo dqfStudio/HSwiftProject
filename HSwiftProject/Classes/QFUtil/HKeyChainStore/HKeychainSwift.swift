@@ -34,6 +34,10 @@ open class HKeychainSwift {
     open var synchronizable: Bool = false
 
     private let readLock = NSLock()
+    
+    static let defaults: HKeychainSwift = {
+        return HKeychainSwift()
+    }()
 
     /// Instantiate a HKeychainSwift object
     public init() { }
