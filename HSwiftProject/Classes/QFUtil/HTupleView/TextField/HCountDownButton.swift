@@ -10,59 +10,61 @@ import UIKit
 
 typealias HCountDownChanging = (_ countDownButton: HCountDownButton, _ second: Int) -> NSString
 typealias HCountDownFinished = (_ countDownButton: HCountDownButton, _ second: Int) -> NSString
-typealias HTouchedCountDownButtonHandler = (_ countDownButton: HCountDownButton, _ tag: Int) -> Void
+typealias HCountDownHandler = (_ countDownButton: HCountDownButton, _ tag: Int) -> Void
 
 class HCountDownButton: UIButton {
 
-    private var _second: Int = 0
-    private var _totalSecond: Int = 0
+    private var currentSecond: Int = 0
+    private var totalSecond: Int = 0
     
-    private var _timer: Timer?
-    private var _startDate: NSDate?
+    private var countDownTimer: Timer?
+    private var startDate: NSDate?
     
-    private var _countDownChanging: HCountDownChanging?
-    private var _countDownFinished: HCountDownFinished?
-    private var _touchedCountDownButtonHandler: HTouchedCountDownButtonHandler?
+    private var countDownChanging: HCountDownChanging?
+    private var countDownFinished: HCountDownFinished?
+    private var countDownHandler: HCountDownHandler?
     
     ///倒计时按钮点击回调
-    func countDownButtonHandler(_ touchedCountDownButtonHandler: @escaping HTouchedCountDownButtonHandler) {
-        _touchedCountDownButtonHandler = touchedCountDownButtonHandler
-        self.addTarget(self, action: #selector(touched(_:)))
+    func countDownButtonHandler(_ countDownHandler: @escaping HCountDownHandler) {
+        self.countDownHandler = countDownHandler
+        self.addTarget(self, action: #selector(touchAction(_:)))
     }
 
     @objc
-    private func touched(_ sender: HCountDownButton) {
-        guard let touchedCountDownButtonHandler = _touchedCountDownButtonHandler,
-              (_second <= 0 || _second == _totalSecond) else { return }
-        touchedCountDownButtonHandler(sender, sender.tag)
+    private func touchAction(_ sender: HCountDownButton) {
+        guard let countDownHandler = self.countDownHandler, (currentSecond <= 0 || currentSecond == totalSecond) else { return }
+        countDownHandler(sender, sender.tag)
     }
 
     ///开始倒计时
     func startCountDownWithSecond(_ totalSecond: Int) {
-        _totalSecond = totalSecond
-        _second = totalSecond
-        
-        _timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerStart(_:)), userInfo: nil, repeats: true)
-        _startDate = NSDate() as NSDate
-        _timer!.fireDate = NSDate.distantPast
-        RunLoop.current.add(_timer!, forMode: .common)
+        self.totalSecond = totalSecond
+        currentSecond = totalSecond
+        countDownTimer = Timer.scheduledTimer(timeInterval: 1.0,
+                                              target: self,
+                                              selector: #selector(timerStart(_:)),
+                                              userInfo: nil,
+                                              repeats: true)
+        startDate = NSDate()
+        countDownTimer!.fireDate = NSDate.distantPast
+        RunLoop.current.add(countDownTimer!, forMode: .common)
     }
     
     @objc
     private func timerStart(_ theTimer: Timer) {
 
-        guard let startDate = _startDate else { return }
+        guard let startDate = self.startDate else { return }
         let deltaTime: Double = NSDate().timeIntervalSince(startDate as Date)
-        _second = _totalSecond - NSInteger(deltaTime + 0.5)
+        currentSecond = self.totalSecond - NSInteger(deltaTime + 0.5)
         
-        if (_second <= 0) {
+        if currentSecond <= 0 {
             self.stopCountDown()
         } else {
             let title: String
-            if let countDownChanging = self._countDownChanging {
-                title = countDownChanging(self, self._second) as String
+            if let countDownChanging = self.countDownChanging {
+                title = countDownChanging(self, self.currentSecond) as String
             } else {
-                title = String(format: "%zd秒", self._second)
+                title = String(format: "%zd秒", self.currentSecond)
             }
             self.setTitle(title, for: .normal)
             self.adjustsImageWhenHighlighted = false
@@ -71,21 +73,22 @@ class HCountDownButton: UIButton {
     
     ///停止倒计时
     func stopCountDown() {
-        guard let timer = _timer, timer.isValid else { return }
+        guard let timer = countDownTimer, timer.isValid else { return }
         timer.invalidate()
-        _second = _totalSecond
-        let title = _countDownFinished?(self, _totalSecond) ?? "重新获取"
+        currentSecond = self.totalSecond
+        let title = countDownFinished?(self, self.totalSecond) ?? "重新获取"
         self.setTitle(title as String, for: .normal)
         self.adjustsImageWhenHighlighted = false
     }
 
     ///倒计时时间改变回调
     func countDownChanging(_ countDownChanging: @escaping HCountDownChanging) {
-        _countDownChanging = countDownChanging
+        self.countDownChanging = countDownChanging
     }
+    
     ///倒计时结束回调
     func countDownFinished(_ countDownFinished: @escaping HCountDownFinished) {
-        _countDownFinished = countDownFinished
+        self.countDownFinished = countDownFinished
     }
 
 }
