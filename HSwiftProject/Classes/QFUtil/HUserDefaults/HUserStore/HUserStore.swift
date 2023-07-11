@@ -26,13 +26,18 @@ class HUserStore : NSObject, NSCoding {
     }
 
     /** 用户ID */
-    var userId: String?
-    var userName: String = "www"
+    var userId: String = "www"
+    var userName: String?
     var realname: String?
 
     /** 密码 */
     var password: String?
 
+    
+    override init() {
+        super.init()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init()
         let properties = Mirror(reflecting: self).children
@@ -53,16 +58,12 @@ class HUserStore : NSObject, NSCoding {
             }
         }
     }
-    
-    private override init() {
-        super.init()
-    }
 
     static var defaults: HUserStore = {
         var share: HUserStore?
         if let defaultsUserId = HKeychainSwift.defaults.get(KUSER), defaultsUserId.length > 0,
            let data = HKeychainSwift.defaults.getData(defaultsUserId) {
-            share = NSKeyedUnarchiver.unarchiveObject(with: data) as? HUserStore
+            share = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? HUserStore
         }
         if share == nil || share?.responds(to: #selector(initData)) == false {
             share = HUserStore()
@@ -72,7 +73,7 @@ class HUserStore : NSObject, NSCoding {
     }()
 
     private static var defaultsUserId: String? {
-        return HUserStore.defaults.userName.uppercased()
+        return HUserStore.defaults.userId
     }
 
     /// 初始化数据
@@ -84,43 +85,13 @@ class HUserStore : NSObject, NSCoding {
     @objc
     private func saveUser() {
         if self.isLogin {
-            if let defaultsUserId = HUserStore.defaultsUserId, defaultsUserId.length > 0 {
-                let data = NSKeyedArchiver.archivedData(withRootObject: self)
+            if let defaultsUserId = HUserStore.defaultsUserId, defaultsUserId.length > 0,
+               let data = try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false) {
                 HKeychainSwift.defaults.set(data, forKey: defaultsUserId)
                 HKeychainSwift.defaults.set(defaultsUserId, forKey: KUSER)
                 HKeychainSwift.defaults.synchronizable = true
             }
         }
-    }
-
-    /// 加载钥匙串中的数据
-    func loadKeyChainDataWith(_ userName: String, pwd: String) -> Bool {
-
-        var boolValue: Bool = false
-        if userName.length > 3 {
-            let defaultsUserId = userName.uppercased()
-            if let data = HKeychainSwift.defaults.getData(defaultsUserId) {
-                var userDefaults: HUserStore? = NSKeyedUnarchiver.unarchiveObject(with: data) as? HUserStore
-                let propertyValue = userDefaults?.value(forKey: "password") as? String
-                //密码不相等则不能提取用户信息
-                if pwd != propertyValue {
-                    userDefaults = nil
-                    return boolValue
-                }
-                boolValue = true
-                
-                let properties = Mirror(reflecting: self).children
-                for property in properties {
-                    //isLogin 这个属性的值由外部业务赋值
-                    if let propertyName = property.label,
-                       propertyName != "isLogin" {
-                        let propertyValue = property.value
-                        self.setValue(propertyValue, forKey: propertyName)
-                    }
-                }
-            }
-        }
-        return boolValue
     }
 
     /// 登出的时候需要移除用户信息

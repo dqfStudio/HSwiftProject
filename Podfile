@@ -16,6 +16,10 @@ target 'HSwiftProject' do
   # 布局
   pod 'SnapKit', '5.0.1'
 
+  # Rx
+  pod 'RxSwift', '6.1.0'
+  pod 'RxCocoa', '6.1.0'
+
   # 代码规范
   pod 'SwiftLint', '0.43.1', configurations: ['Debug']
 
