@@ -32,9 +32,8 @@ class HCountDownButton: UIButton {
 
     @objc
     private func touched(_ sender: HCountDownButton) {
-        guard let touchedCountDownButtonHandler = _touchedCountDownButtonHandler, (_second <= 0 || _second == _totalSecond) else {
-            return
-        }
+        guard let touchedCountDownButtonHandler = _touchedCountDownButtonHandler,
+              (_second <= 0 || _second == _totalSecond) else { return }
         touchedCountDownButtonHandler(sender, sender.tag)
     }
 
@@ -52,10 +51,7 @@ class HCountDownButton: UIButton {
     @objc
     private func timerStart(_ theTimer: Timer) {
 
-        guard let startDate = _startDate else {
-            return
-        }
-        
+        guard let startDate = _startDate else { return }
         let deltaTime: Double = NSDate().timeIntervalSince(startDate as Date)
         _second = _totalSecond - NSInteger(deltaTime + 0.5)
         
@@ -68,19 +64,19 @@ class HCountDownButton: UIButton {
             } else {
                 title = String(format: "%zd秒", self._second)
             }
-            self.setTitle(title, for: [.normal, .disabled])
+            self.setTitle(title, for: .normal)
+            self.adjustsImageWhenHighlighted = false
         }
     }
     
     ///停止倒计时
     func stopCountDown() {
-        guard let timer = _timer, timer.isValid else {
-            return
-        }
+        guard let timer = _timer, timer.isValid else { return }
         timer.invalidate()
         _second = _totalSecond
         let title = _countDownFinished?(self, _totalSecond) ?? "重新获取"
-        self.setTitle(title as String, for: [.normal, .disabled])
+        self.setTitle(title as String, for: .normal)
+        self.adjustsImageWhenHighlighted = false
     }
 
     ///倒计时时间改变回调
