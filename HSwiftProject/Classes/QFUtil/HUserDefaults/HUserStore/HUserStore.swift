@@ -80,13 +80,12 @@ class HUserStore : NSObject, NSCoding {
 
     @objc
     private func saveUser() {
-        if self.isLogin {
-            if let defaultsUserId = HUserStore.defaultsUserId, defaultsUserId.length > 0,
-               let data = try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false) {
-                HKeychainSwift.defaults.set(data, forKey: defaultsUserId)
-                HKeychainSwift.defaults.set(defaultsUserId, forKey: KUSER)
-                HKeychainSwift.defaults.synchronizable = true
-            }
+        guard isLogin else { return }
+        if let defaultsUserId = HUserStore.defaultsUserId, defaultsUserId.length > 0,
+           let data = try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false) {
+            HKeychainSwift.defaults.set(data, forKey: defaultsUserId)
+            HKeychainSwift.defaults.set(defaultsUserId, forKey: KUSER)
+            HKeychainSwift.defaults.synchronizable = true
         }
     }
 
@@ -96,11 +95,11 @@ class HUserStore : NSObject, NSCoding {
         HKeychainSwift.defaults.delete(KUSER)
         HKeychainSwift.defaults.synchronizable = true
         //清空所有属性值
-        self.cleanAllProperties()
+        cleanProperties()
     }
 
     /// 清空属性值
-    private func cleanAllProperties() {
+    private func cleanProperties() {
         let properties = Mirror(reflecting: self).children
         for property in properties {
             if let propertyName = property.label {
