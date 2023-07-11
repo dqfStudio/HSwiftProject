@@ -18,7 +18,7 @@ class HCountDownButton: UIButton {
     private var totalSecond: Int = 0
     
     private var countDownTimer: Timer?
-    private var startDate: NSDate?
+    private var countDownDate: Date?
     
     private var countDownChanging: HCountDownChanging?
     private var countDownFinished: HCountDownFinished?
@@ -45,16 +45,16 @@ class HCountDownButton: UIButton {
                                               selector: #selector(timerStart(_:)),
                                               userInfo: nil,
                                               repeats: true)
-        startDate = NSDate()
-        countDownTimer!.fireDate = NSDate.distantPast
+        countDownDate = Date()
+        countDownTimer!.fireDate = Date.distantPast
         RunLoop.current.add(countDownTimer!, forMode: .common)
     }
     
     @objc
     private func timerStart(_ theTimer: Timer) {
 
-        guard let startDate = self.startDate else { return }
-        let deltaTime: Double = NSDate().timeIntervalSince(startDate as Date)
+        guard let countDownDate = self.countDownDate else { return }
+        let deltaTime: Double = Date().timeIntervalSince(countDownDate)
         currentSecond = self.totalSecond - NSInteger(deltaTime + 0.5)
         
         if currentSecond <= 0 {
