@@ -16,11 +16,7 @@ class HUserStore : NSObject, NSCoding {
     var isLogin: Bool = false {
         didSet {
             if isLogin != oldValue {
-                if isLogin {
-                    self.saveUser()
-                }else {
-                    self.removeUser()
-                }
+                isLogin ? saveUser() : removeUser()
             }
         }
     }
