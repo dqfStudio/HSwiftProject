@@ -34,10 +34,6 @@ class HUserStore : NSObject, NSCoding {
     var password: String?
 
     
-    override init() {
-        super.init()
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init()
         let properties = Mirror(reflecting: self).children
@@ -60,17 +56,22 @@ class HUserStore : NSObject, NSCoding {
     }
 
     static var defaults: HUserStore = {
-        var share: HUserStore?
         if let defaultsUserId = HKeychainSwift.defaults.get(KUSER), defaultsUserId.length > 0,
-           let data = HKeychainSwift.defaults.getData(defaultsUserId) {
-            share = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? HUserStore
+            let data = HKeychainSwift.defaults.getData(defaultsUserId),
+            let share = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? HUserStore,
+            share.responds(to: #selector(initData)) {
+            share.initData()
+            return share
+        } else {
+            let share = HUserStore()
+            share.initData()
+            return share
         }
-        if share == nil || share?.responds(to: #selector(initData)) == false {
-            share = HUserStore()
-        }
-        share!.initData()
-        return share!
     }()
+    
+    override init() {
+        super.init()
+    }
 
     private static var defaultsUserId: String? {
         return HUserStore.defaults.userId
