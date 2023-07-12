@@ -491,7 +491,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
         if self.contentScrollEnabled {
             // contentView支持滚动
             if !curController.isViewLoaded {
-                let frame: CGRect = self.frameForControllerAtIndex(index)
+                let frame = self.frameForControllerAtIndex(index)
                 if curController.view != curController.h_displayView {
                     curController.view.frame = frame
                 }
@@ -527,15 +527,13 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
         }
 
         // 当contentView为scrollView及其子类时，设置它支持点击状态栏回到顶部
-        if let oldVC = oldController, oldVC.h_displayView.isKind(of: UIScrollView.self) {
-            let scrollView = oldVC.h_displayView as? UIScrollView
-            scrollView?.scrollsToTop = false
+        if let scrollView = oldController?.h_displayView as? UIScrollView {
+            scrollView.scrollsToTop = false
         }
-        if curController.h_displayView.isKind(of: UIScrollView.self) {
-            let curScrollView = curController.h_displayView as! UIScrollView
+        if let curScrollView = curController.h_displayView as? UIScrollView {
             curScrollView.scrollsToTop = false
             if self.headerView != nil {
-                var insets: UIEdgeInsets = curScrollView.contentInset
+                var insets = curScrollView.contentInset
                 insets.top = self.headerViewDefaultHeight + self.tabBar.frame.size.height
                 curScrollView.contentInset = insets
                 curScrollView.scrollIndicatorInsets = insets
