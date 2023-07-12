@@ -27,7 +27,7 @@ extension UIView {
 #if DEBUG
     
     public func logMark() {
-        self.exclusive(exc: "logMarkExclusive", delay: 1) {
+        self.exclusive(exc: "logMarkExclusive", delay: 1.0) {
             self.logAction()
         }
     }
