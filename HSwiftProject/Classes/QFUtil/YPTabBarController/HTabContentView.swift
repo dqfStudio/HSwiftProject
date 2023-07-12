@@ -596,7 +596,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
     // UIScrollViewDelegate
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let page: Int = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+        let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
         self.tabBar.selectedItemIndex = page
     }
     
@@ -604,7 +604,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
         // 如果不是手势拖动导致的此方法被调用，不处理
         if !(scrollView.isDragging || scrollView.isDecelerating) {
-            if (scrollView.contentOffset.x == 0) {
+            if scrollView.contentOffset.x == 0 {
                 // 解决有时候滑动冲突后scrollView跳动导致的item颜色显示错乱的问题
                 self.tabBar.updateSubViewsWhenParentScrollViewScroll(self.contentScrollView)
             }
@@ -615,29 +615,25 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
         let offsetX: CGFloat = scrollView.contentOffset.x
         let scrollViewWidth: CGFloat = scrollView.frame.size.width
 
-        if (offsetX < 0) {
-            return
-        }
-        if (offsetX > scrollView.h_contentSize.width - scrollViewWidth) {
-            return
-        }
+        if offsetX < 0 { return }
+        if offsetX > scrollView.h_contentSize.width - scrollViewWidth { return }
 
-        let leftIndex: Int = Int(offsetX / scrollViewWidth)
-        var rightIndex: Int = leftIndex + 1
+        let leftIndex = Int(offsetX / scrollViewWidth)
+        var rightIndex = leftIndex + 1
 
         // 这里处理shouldSelectItemAtIndex方法
         if let delegate = self.delegate {
             let selector = #selector(delegate.tabContentView(_:shouldSelectTabAtIndex:))
-            if delegate.responds(to: selector) && !scrollView.isDecelerating {
+            if delegate.responds(to: selector), !scrollView.isDecelerating {
                 var targetIndex: Int = 0
-                if (_lastContentScrollViewOffsetX < offsetX) {
+                if _lastContentScrollViewOffsetX < offsetX {
                     // 向左
                     targetIndex = rightIndex
                 } else {
                     // 向右
                     targetIndex = leftIndex
                 }
-                if (targetIndex != self.selectedTabIndex) {
+                if targetIndex != self.selectedTabIndex {
                     if !self.shouldSelectItemAtIndex(targetIndex) {
                         scrollView.setContentOffset(CGPoint(x: CGFloat(self.selectedTabIndex) * scrollViewWidth, y: 0), animated: false)
                     }
@@ -647,7 +643,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
         _lastContentScrollViewOffsetX = offsetX
 
         // 刚好处于能完整显示一个child view的位置
-        if (leftIndex == Int(offsetX / scrollViewWidth)) {
+        if leftIndex == Int(offsetX / scrollViewWidth) {
             rightIndex = leftIndex
         }
         // 将需要显示的child view放到scrollView上
@@ -655,7 +651,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
             let controller = self.viewControllers![index]
 
-            if (!controller.isViewLoaded && self.loadViewOfChildContollerWhileAppear) {
+            if !controller.isViewLoaded, self.loadViewOfChildContollerWhileAppear {
                 let frame: CGRect = self.frameForControllerAtIndex(index)
                 if controller.view != controller.h_displayView {
                     controller.view.frame = frame
@@ -663,17 +659,17 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
                 controller.h_displayView.removeFromSuperview()
                 controller.h_displayView.frame = frame
             }
-            if (controller.isViewLoaded && controller.h_displayView.superview == nil) {
+            if controller.isViewLoaded, controller.h_displayView.superview == nil {
                 self.contentScrollView.addSubview(controller.h_displayView)
 
                 if self.headerView != nil {
                     let scrollView = controller.h_displayView as! UIScrollView
                     // 如果有headerView，需要更新contentOffset
-                    var insets: UIEdgeInsets = scrollView.contentInset
+                    var insets = scrollView.contentInset
                     insets.top = self.headerViewDefaultHeight + self.tabBar.frame.size.height
                     scrollView.contentInset = insets
                     scrollView.scrollIndicatorInsets = insets
-                    if (!controller.h_disableMinContentHeight) {
+                    if !controller.h_disableMinContentHeight {
                         scrollView.minContentSizeHeight = self.contentScrollView.frame.size.height - self.tabBar.frame.size.height - self.tabBarStopOnTopHeight
                     }
                     self.updateContentOffsetOfDisplayScrollView(scrollView)
@@ -718,25 +714,25 @@ private class _HTabContentScrollView : UIScrollView {
             return true
         }
         // 计算可能切换到的index
-        let currentIndex: Int = Int(self.contentOffset.x / self.frame.size.width)
-        var targetIndex: Int = currentIndex
+        let currentIndex = Int(self.contentOffset.x / self.frame.size.width)
+        var targetIndex = currentIndex
         
         let translation = gestureRecognizer.translation(in: self)
-        if (translation.x > 0) {
+        if translation.x > 0 {
             targetIndex = currentIndex - 1
         } else {
             targetIndex = currentIndex + 1
         }
         
         // 第一页往右滑动
-        if (self.interceptRightSlideGuetureInFirstPage && targetIndex < 0) {
+        if self.interceptRightSlideGuetureInFirstPage, targetIndex < 0 {
             return false
         }
         
         // 最后一页往左滑动
-        if (self.interceptLeftSlideGuetureInLastPage) {
-            let numberOfPage: Int = Int(self.h_contentSize.width / self.frame.size.width)
-            if (targetIndex >= numberOfPage) {
+        if self.interceptLeftSlideGuetureInLastPage {
+            let numberOfPage = Int(self.h_contentSize.width / self.frame.size.width)
+            if targetIndex >= numberOfPage {
                 return false
             }
         }
