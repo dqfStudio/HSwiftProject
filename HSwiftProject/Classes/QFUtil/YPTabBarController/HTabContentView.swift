@@ -111,7 +111,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
             _viewControllers = newValue
             
-            let containerVC = self.contarinerViewController
+            let containerVC = self.containerViewController
 
             var items = [HTabItem]()
             _viewControllers?.forEach({ vc in
@@ -362,19 +362,17 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
     }
 
     private func frameForControllerAtIndex(_ index: Int) -> CGRect {
-        return CGRect(x: CGFloat(index) * self.contentScrollView.bounds.size.width,
-                      y: 0,
-                      width: self.contentScrollView.bounds.size.width,
-                      height: self.contentScrollView.bounds.size.height)
+        let size = self.contentScrollView.bounds.size
+        return CGRect(x: CGFloat(index) * size.width, y: 0, width: size.width, height: size.height)
     }
 
-    private var contarinerViewController: UIViewController? {
+    private var containerViewController: UIViewController? {
         var view: UIView? = self
-        while view != nil {
-            if let nextResponder = view?.next, nextResponder.isKind(of: UIViewController.self) {
-                return nextResponder as? UIViewController
+        while let currentView = view {
+            if let nextResponder = currentView.next as? UIViewController {
+                return nextResponder
             }
-            view = view?.superview
+            view = currentView.superview
         }
         return nil
     }
@@ -382,20 +380,19 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         if _isDefaultSelectedTabIndexSetuped { return }
-            
-        let vc: UIViewController? = self.contarinerViewController
-        if #available(iOS 11.0, *) {
-            if let vc = vc, vc.view.isKind(of: UIScrollView.self) {
-                let scrollView = vc.view as? UIScrollView
-                scrollView?.contentInsetAdjustmentBehavior = .never
+        if let vc = self.containerViewController {
+            if #available(iOS 11.0, *) {
+                if let scrollView = vc.view as? UIScrollView {
+                    scrollView.contentInsetAdjustmentBehavior = .never
+                }
+            }else {
+                vc.automaticallyAdjustsScrollViewInsets = false
             }
-        }else {
-            vc?.automaticallyAdjustsScrollViewInsets = false
-        }
-        vc?.h_willAppearInjectBlock = { [weak vc] (_ viewController: UIViewController, _ animated: Bool) in
-            self.selectedTabIndex = self.defaultSelectedTabIndex
-            self._isDefaultSelectedTabIndexSetuped = true
-            vc?.h_willAppearInjectBlock = nil
+            vc.h_willAppearInjectBlock = { (_ viewController: UIViewController, _ animated: Bool) in
+                self.selectedTabIndex = self.defaultSelectedTabIndex
+                self._isDefaultSelectedTabIndexSetuped = true
+                vc.h_willAppearInjectBlock = nil
+            }
         }
     }
 
