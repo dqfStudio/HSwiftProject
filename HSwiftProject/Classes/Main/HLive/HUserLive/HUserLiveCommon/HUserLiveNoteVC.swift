@@ -29,13 +29,13 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
         return tupleView
     }()
     
-    private var note: String?
-    private var noteSize: CGSize?
+    private var note: String = ""
+    private var noteSize: CGSize = .zero
 
     override var containerSize: CGSize {
         self.note = "测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告测试通告end"
-        self.noteSize = self.note?.sizeWithFont(UIFont.systemFont(ofSize: 12), constrainedToWidth: 240)
-        return CGSize(width: 270, height: 86 + self.noteSize!.height)
+        self.noteSize = self.note.sizeWithFont(UIFont.systemFont(ofSize: 12), constrainedToWidth: 240)
+        return CGSize(width: 270, height: 86 + self.noteSize.height)
     }
 
     override func viewDidLoad() {
@@ -79,7 +79,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
         case HCell0:
             return CGSize(width: self.tupleView.width, height: 42.5)
         case HCell1:
-            return CGSize(width: self.tupleView.width, height: self.noteSize!.height)
+            return CGSize(width: self.tupleView.width, height: self.noteSize.height)
         case HCell2:
             return CGSize(width: self.tupleView.width, height: 1)
         case HCell3:
@@ -126,7 +126,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
             //cell.label.textVerticalAlignment = HTextVerticalAlignmentTop
             cell.label.numberOfLines = 0
             cell.label.textColor = UIColor(hex: 0x070507)
-            cell.label.text = self.note!
+            cell.label.text = self.note
             break
         case HCell2:
             let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
