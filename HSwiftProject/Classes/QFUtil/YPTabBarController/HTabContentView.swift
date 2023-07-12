@@ -447,9 +447,9 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
     private func updateContentOffsetOfDisplayScrollView(_ scrollView: UIScrollView) {
         let tabBarY = self.tabBar.frame.origin.y
-        if (tabBarY > self.tabBarStopOnTopHeight ||
-                scrollView.contentOffset.y == 0 ||
-                scrollView.contentOffset.y <= -self.tabBar.frame.maxY) {
+        if tabBarY > self.tabBarStopOnTopHeight ||
+            scrollView.contentOffset.y == 0 ||
+            scrollView.contentOffset.y <= -self.tabBar.frame.maxY {
             scrollView.contentOffset = CGPoint(x: 0, y: -(tabBarY + self.tabBar.frame.size.height))
         }
     }
