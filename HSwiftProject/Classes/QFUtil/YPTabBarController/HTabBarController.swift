@@ -14,10 +14,9 @@ class HTabBarController : HViewController, HTabContentViewDelegate {
         return self.tabContentView.tabBar
     }
 
-    private var _tabContentView: HTabContentView = HTabContentView()
-    var tabContentView: HTabContentView {
-        return _tabContentView
-    }
+    lazy var tabContentView: HTabContentView = {
+        return HTabContentView()
+    }()
     
     var viewControllers: [UIViewController]? {
         get { return self.tabContentView.viewControllers }
@@ -26,15 +25,15 @@ class HTabBarController : HViewController, HTabContentViewDelegate {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        self._setup()
+        self.setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self._setup()
+        self.setup()
     }
 
-    private func _setup() {
+    private func setup() {
         self.tabContentView.delegate = self
     }
 

@@ -283,25 +283,25 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
         
     required init() {
         super.init(frame: .zero)
-        self._setup()
+        self.setup()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self._setup()
+        self.setup()
     }
     
     required override init(frame: CGRect) {
         super.init(frame: frame)
-        self._setup()
+        self.setup()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self._setup()
+        self.setup()
     }
 
-    private func _setup() {
+    private func setup() {
         self.backgroundColor = .white
         self.clipsToBounds = true
 
