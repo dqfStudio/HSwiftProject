@@ -60,7 +60,7 @@ class HUserLiveCell : HUserLiveBgCell, HTupleViewDelegate {
         }, exclusiveSections: {
             return [0, 1, 2]
         })
-        view.backgroundColor = UIColor.clear
+        view.backgroundColor = .clear
         view.disableBounce()
 //        let swipeGesture = UISwipeGestureRecognizer(target: self, action:  #selector(rightSwipped))
 //        swipeGesture.direction = .right

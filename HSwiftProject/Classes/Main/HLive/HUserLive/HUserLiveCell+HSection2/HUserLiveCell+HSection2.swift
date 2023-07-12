@@ -78,7 +78,7 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
 //            cell.buttonView.cornerRadius = cell.buttonView.height / 2
             cell.buttonView.cornerRadius = cell.layoutViewFrame.height / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
-            cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+            cell.buttonView.pressed = { (sender, data) in
                 NotificationCenter.default.post(name: NSNotification.Name(KShowKeyboardNotify), object: nil)
             }
             break
@@ -91,7 +91,7 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
 //            cell.buttonView.cornerRadius = cell.buttonView.height / 2
             cell.buttonView.cornerRadius = cell.layoutViewFrame.height / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
-            cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+            cell.buttonView.pressed = { (sender, data) in
                 self.viewController?.presentController(HUserLiveNoteVC(), completion: { transitionType in
                     NSLog("")
                 })
@@ -103,7 +103,7 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
 //            cell.buttonView.cornerRadius = cell.buttonView.height / 2
             cell.buttonView.cornerRadius = cell.layoutViewFrame.height / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
-            cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+            cell.buttonView.pressed = { (sender, data) in
                 self.viewController?.presentController(HUserLiveShareVC(), completion: { transitionType in
                     NSLog("")
                 })
@@ -117,7 +117,7 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
             cell.buttonView.text = "✕"
             cell.buttonView.textColor = UIColor.white
             cell.buttonView.textFont = UIFont.systemFont(ofSize: 17)
-            cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+            cell.buttonView.pressed = { (sender, data) in
                 self.viewController?.dismiss(animated: true, completion: nil)
             }
             break

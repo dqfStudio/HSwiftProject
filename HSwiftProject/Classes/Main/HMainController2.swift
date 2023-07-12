@@ -42,7 +42,7 @@ class HMainController2: HViewController {
 //        webButtonView.titleLabel.font = UIFont.systemFont(ofSize: 17)
 //        webButtonView.titleLabel.backgroundColor = .blue
         
-//        webButtonView.pressed = { (_ sender: Any?, _ data: Any?) in
+//        webButtonView.pressed = { (sender, data) in
 //            NSLog("")
 //        }
         
@@ -68,7 +68,7 @@ class HMainController2: HViewController {
 //        webActionView.titleLabel.font = UIFont.systemFont(ofSize: 17)
 //        webActionView.titleLabel.backgroundColor = .blue
         
-        webActionView.pressed = { (_ sender: Any?, _ data: Any?) in
+        webActionView.pressed = { (sender, data) in
             NSLog("")
         }
         

@@ -100,7 +100,7 @@ class HResultView: UIView, HTupleViewDelegate {
                 break
             }
         }
-        cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+        cell.buttonView.pressed = { (sender, data) in
             if let make = self.make, let clickedBlock = make.clickedBlock {
                 clickedBlock()
             }

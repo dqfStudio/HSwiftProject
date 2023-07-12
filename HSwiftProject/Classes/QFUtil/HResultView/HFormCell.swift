@@ -95,7 +95,7 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
             }
             cell.buttonView.text = model.title
             
-            cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+            cell.buttonView.pressed = { (sender, data) in
                 self.formCellBlock?(indexPath, model)
             }
         }else {

@@ -108,7 +108,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
         cell.buttonView.backgroundColor = UIColor.white
         cell.buttonView.textColor = UIColor.black
         cell.buttonView.text = "取消"
-        cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+        cell.buttonView.pressed = { (sender, data) in
             self.back()
         }
     }

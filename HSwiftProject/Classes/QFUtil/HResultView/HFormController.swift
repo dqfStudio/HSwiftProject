@@ -78,7 +78,7 @@ class HFormController: NSObject, HTupleViewDelegate {
         _ = headerBlock as! HTupleItem
 //        let headerBlock = headerBlock as! HTupleItem
 //        let cell = itemBlock(nil, HTupleButtonApex.self, nil, true) as! HTupleButtonApex
-//        cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+//        cell.buttonView.pressed = { (sender, data) in
 //            //销毁对象
 //            self.destroy()
 //        }
@@ -89,7 +89,7 @@ class HFormController: NSObject, HTupleViewDelegate {
         cell.buttonView.backgroundColor = UIColor.white
         cell.buttonView.textColor = UIColor.black
         cell.buttonView.text = "取消"
-        cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+        cell.buttonView.pressed = { (sender, data) in
             //销毁对象
             self.destroy()
         }

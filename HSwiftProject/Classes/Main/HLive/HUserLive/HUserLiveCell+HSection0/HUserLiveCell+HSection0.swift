@@ -37,7 +37,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
         return 6
     }
     func edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        switch (indexPath.row) {
+        switch indexPath.row {
         case 0:
             return UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         case 1:
@@ -57,7 +57,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
         return UIEdgeInsets.zero
     }
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        switch (indexPath.row) {
+        switch indexPath.row {
         case 0:
             return CGSize(width: 135, height: self.tupleView.height)
         case 1:
@@ -78,10 +78,10 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
     }
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        switch (indexPath.row) {
+        switch indexPath.row {
         case 0:
             let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
-            cell.backgroundColor = UIColor.black
+            cell.backgroundColor = .black
             cell.cornerRadius = cell.height / 2
             
             let frame = cell.layoutViewBounds
@@ -89,7 +89,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             var tmpFrame = frame
             tmpFrame.width = tmpFrame.height
             cell.imageView.frame = tmpFrame
-            cell.imageView.backgroundColor = UIColor.red
+            cell.imageView.backgroundColor = .red
             cell.imageView.cornerRadius = tmpFrame.width / 2
             cell.imageView.setImage(WithName: "icon_no_server")
             
@@ -99,12 +99,12 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             tmpFrame2.width = 40
             
             cell.buttonView.frame = tmpFrame2
-            cell.buttonView.backgroundColor = UIColor.red
+            cell.buttonView.backgroundColor = .red
             cell.buttonView.text = "关注"
-            cell.buttonView.textColor = UIColor.white
-            cell.buttonView.textFont = UIFont.systemFont(ofSize: 12)
+            cell.buttonView.textColor = .white
+            cell.buttonView.textFont = .systemFont(ofSize: 12.0)
             cell.buttonView.cornerRadius = cell.buttonView.height / 2
-            cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+            cell.buttonView.pressed = { (sender, data) in
 //            self.viewController?.present(HAlertController(), animated: true, completion: {
 //
 //            })
@@ -144,7 +144,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
-            cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+            cell.buttonView.pressed = { (sender, data) in
 //            self.viewController?.present(HAlertController(), animated: true, completion: {
 //
 //            })
@@ -158,7 +158,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
-            cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+            cell.buttonView.pressed = { (sender, data) in
 //            self.viewController?.present(HAlertController(), animated: true, completion: {
 //
 //            })
@@ -172,7 +172,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
-            cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+            cell.buttonView.pressed = { (sender, data) in
 //            self.viewController?.present(HAlertController(), animated: true, completion: {
 //
 //            })
@@ -186,7 +186,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
-            cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+            cell.buttonView.pressed = { (sender, data) in
 //            self.viewController?.present(HAlertController(), animated: true, completion: {
 //
 //            })
@@ -401,7 +401,7 @@ extension HUserLiveCell {
             cell.buttonView.textFont = .systemFont(ofSize: 14.0)
             cell.buttonView.textColor = UIColor.black
             cell.buttonView.textAlignment = .left
-            cell.buttonView.pressed = { (_ sender: Any?, _ data: Any?) in
+            cell.buttonView.pressed = { (sender, data) in
 //            [[self viewController] presentController:HUserLiveNoteVC.new completion:^(HTransitionType transitionType) {
 //                NSLog(@"")
 //            }]

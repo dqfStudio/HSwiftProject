@@ -171,7 +171,7 @@ class HUserLiveVC : HTupleController {
         
         let itemBlock = itemBlock as! HTupleItem
         
-        switch (indexPath.row) {
+        switch indexPath.row {
         case 0:
             _ = itemBlock(nil, HUserLiveBgCell.self, nil, true)
             break

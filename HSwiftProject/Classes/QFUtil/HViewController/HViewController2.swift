@@ -196,7 +196,7 @@
 //        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
 //        button.contentHorizontalAlignment = .left
 //        button.backgroundColor = UIColor.clear
-//        button.pressed = { [weak self] (_ sender: Any?, _ data: Any?) -> Void in
+//        button.pressed = { [weak self] (sender, data) in
 //            guard let self = self else { return }
 //            self.leftNaviButtonPressed()
 //        }
@@ -215,7 +215,7 @@
 //            _rightNaviButton!.autoresizingMask = .flexibleLeftMargin
 //            _rightNaviButton!.contentHorizontalAlignment = .center
 //            _rightNaviButton!.titleLabel?.adjustsFontSizeToFitWidth = true
-//            _rightNaviButton!.pressed = { [weak self] (_ sender: Any?, _ data: Any?) -> Void in
+//            _rightNaviButton!.pressed = { [weak self] (sender, data) in
 //                guard let self = self else { return }
 //                self.rightNaviButtonPressed()
 //            }

@@ -230,7 +230,7 @@ class HMainController1: HTupleController {
                     /*
                     cell.textField.rightButton.text = "获取验证码"
                     cell.textField.rightButton.backgroundColor = UIColor.green
-                    cell.textField.rightButton.pressed = { (_ sender: Any?, _ data: Any?) in
+                    cell.textField.rightButton.pressed = { (sender, data) in
 
                     }
                      */
