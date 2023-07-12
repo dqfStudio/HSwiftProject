@@ -111,7 +111,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
             _viewControllers = newValue
             
-            let containerVC: UIViewController? = self.contarinerViewController
+            let containerVC = self.contarinerViewController
 
             var items = [HTabItem]()
             _viewControllers?.forEach({ vc in
@@ -203,9 +203,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
      */
     func setHeaderView(_ headerView: UIView?, needStretch: Bool, headerHeight: CGFloat, tabBarHeight: CGFloat, contentViewHeight: CGFloat, tabBarStopOnTopHeight: CGFloat) {
 
-        if headerView == nil {
-            return
-        }
+        if headerView == nil { return }
         self.headerView = headerView
         
         if let headerView = self.headerView {
@@ -405,9 +403,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
     private func handlePan(_ gesture: UIPanGestureRecognizer) {
         if let scrollView = self.selectedController?.h_displayView as? UIScrollView {
             
-            if !scrollView.isKind(of: UIScrollView.self) {
-                return
-            }
+            if !scrollView.isKind(of: UIScrollView.self) { return }
             if gesture.state == .began {
                 _currentScrollViewOffsetY = scrollView.contentOffset.y
             }
@@ -476,9 +472,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
     }
 
     func h_tabBar(_ tabBar: HTabBar, didSelectedItemAtIndex index: Int) {
-        if index == self.selectedTabIndex {
-            return
-        }
+        if index == self.selectedTabIndex { return }
         var oldController: UIViewController?
         if self.selectedTabIndex != NSNotFound {
             oldController = self.viewControllers?[self.selectedTabIndex]
