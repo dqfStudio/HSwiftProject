@@ -14,61 +14,49 @@ class HLRDManager : NSObject {
 
     private override init() {
         super.init()
-        //加载初始默认值
-        self._setupDefaults()
+        //加载默认初始属性值
+        initData()
     }
 
     static var defaults: HLRDManager = {
         return HLRDManager()
     }()
 
-    private func setupDefaults() -> NSDictionary {
-        return ["isLogin": 0, "userId": "111"]
-    }
-
-    //清空属性值
+    /// 清空属性值
     func clear() {
-        self.cleanAllProperties()
+        cleanProperties()
     }
     
-    private func _setupDefaults() {
-        let setupDefaultSEL = NSSelectorFromString("setupDefaults")
-        if (self.responds(to: setupDefaultSEL)) {
-            let defaultsDict = self.perform(setupDefaultSEL).takeUnretainedValue() as! NSDictionary
-            for (aKey, aValue) in defaultsDict {
-                self.setValue(aValue, forKey: aKey as! String)
-            }
+    private func initData() {
+        let dataSource = ["userId": "2222", "userName": "张三", "password": "123456"]
+        dataSource.forEach { (key, value) in
+            self.setValue(value, forKey: key)
         }
     }
     
-    /**
-    清空属性值
-    */
-    private func cleanAllProperties() {
-        var count: UInt32 = 0
-        let propertys = class_copyIvarList(self.classForCoder, &count)
-        if let propertys = propertys {
-            for i in 0..<count {
-                let property = propertys[Int(i)]
-                let name = ivar_getName(property)
-                if let name = name {
-                    let aKey = String(cString: name)
-                    let propertyValue = self.value(forKey: aKey)
-                    if propertyValue == nil || propertyValue is NSNull {
-                        continue
-                    }
-                    if self.setupDefaults().containsObject(aKey) {
-                        let propertyValue = self.setupDefaults().object(forKey: aKey)
-                        self.setValue(propertyValue, forKey: aKey)
-                    } else {
-                        self.setValue(nil, forKey: aKey)
-                    }
+    /// 清空属性值
+    private func cleanProperties() {
+        let properties = Mirror(reflecting: self).children
+        for property in properties {
+            if let propertyName = property.label {
+                let propertyValue = property.value
+                switch propertyValue {
+                case is NSString:
+                    self.setValue("", forKey: propertyName)
+                case is NSNumber:
+                    self.setValue(NSNumber(), forKey: propertyName)
+                case is NSDictionary:
+                    self.setValue(NSDictionary(), forKey: propertyName)
+                case is NSArray:
+                    self.setValue(NSArray(), forKey: propertyName)
+                default:
+                    self.setValue(nil, forKey: propertyName)
                 }
             }
-            free(propertys)
         }
+        //加载默认初始属性值
+        initData()
     }
-
 
     /// 如果属性和字典中的key不一致，可以重写此方法 / 或者readonly
     /// 不一致的key和对应的value都会通过这个方法返回，可以在此方法中做特殊处理
