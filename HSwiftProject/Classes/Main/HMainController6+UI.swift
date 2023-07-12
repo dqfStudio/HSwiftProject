@@ -72,8 +72,10 @@ extension HMainController6 {
             cell.imageView.setImage(WithName: "icon_no_server")
             
             cell.label.backgroundColor = UIColor.red
+            cell.label.text = "wwwwwwwwwwwwww"
 
             cell.detailLabel.backgroundColor = UIColor.yellow
+            cell.detailLabel.text = "qqqqqqqqqqqqq"
             
             //接收信号
             cell.signalBlock = { (target, signal) in
@@ -96,8 +98,10 @@ extension HMainController6 {
             cell.detailView.setImage(WithName: "icon_no_server")
 
             cell.label.backgroundColor = UIColor.red
+            cell.label.text = "wwwwwwwwwwwwww"
 
             cell.detailLabel.backgroundColor = UIColor.yellow
+            cell.detailLabel.text = "qqqqqqqqqqqqq"
             break
         default:
             self.ext_tableRow(itemBlock, atIndexPath: indexPath)
