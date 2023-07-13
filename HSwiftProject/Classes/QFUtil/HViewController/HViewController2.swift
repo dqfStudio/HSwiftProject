@@ -112,7 +112,7 @@
 //    }
 //
 //    override func vcWillDisappear(_ type: HVCDisappearType) {
-//        if (type == .pop || type == .dismiss) {
+//        if type == .pop || type == .dismiss {
 //            //tupleView default tag 1213141516
 //            if let tupleView = self.view.viewWithTag(1213141516) as? HTupleView {
 //                tupleView.releaseTupleBlock()

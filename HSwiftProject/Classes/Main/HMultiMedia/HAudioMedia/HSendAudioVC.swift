@@ -36,7 +36,7 @@ class HSendAudioVC: HTupleController {
     }
     
     override func vcWillDisappear(_ type: HVCDisappearType) {
-        if type == HVCDisappearType.pop || type == HVCDisappearType.dismiss {
+        if type == .pop || type == .dismiss {
             self.tupleView.releaseTupleBlock()
             //释放相关内容
             if #available(iOS 11.0, *) {

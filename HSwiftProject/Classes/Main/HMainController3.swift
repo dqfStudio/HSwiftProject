@@ -23,7 +23,7 @@ class HMainController3: HViewController, HTupleViewDelegate {
     }()
 
     override func vcWillDisappear(_ type: HVCDisappearType) {
-        if type == HVCDisappearType.pop || type == HVCDisappearType.dismiss {
+        if type == .pop || type == .dismiss {
             self.tupleView.releaseTupleBlock()
         }
     }

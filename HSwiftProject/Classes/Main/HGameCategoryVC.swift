@@ -23,7 +23,7 @@ class HGameCategoryVC : HViewController, HTupleViewDelegate {
     }()
     
     override func vcWillDisappear(_ type: HVCDisappearType) {
-        if (type == .pop || type == .dismiss) {
+        if type == .pop || type == .dismiss {
             self.tupleView.releaseTupleBlock()
         }
     }
