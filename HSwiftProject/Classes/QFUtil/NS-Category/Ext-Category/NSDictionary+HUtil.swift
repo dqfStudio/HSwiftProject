@@ -12,7 +12,7 @@ extension NSDictionary {
 
     func containsObject(_ anObject: String) -> Bool {
         self.allKeys.contains(where: { (object) -> Bool in
-            let objectStr: String = object as! String
+            let objectStr = object as! String
             if anObject == objectStr {
                 return true
             }
