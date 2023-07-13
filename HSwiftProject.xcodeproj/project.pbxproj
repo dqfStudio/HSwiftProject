@@ -39,7 +39,6 @@
 		A22948BA239798FC0058B939 /* HRegisterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948B9239798FC0058B939 /* HRegisterController.swift */; };
 		A22948BC2397990B0058B939 /* HRegisterController+KS.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948BB2397990B0058B939 /* HRegisterController+KS.swift */; };
 		A22948BE239799190058B939 /* HRegisterController+SJ.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948BD239799190058B939 /* HRegisterController+SJ.swift */; };
-		A22948C02397992A0058B939 /* HServiceAuthorizationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948BF2397992A0058B939 /* HServiceAuthorizationCell.swift */; };
 		A2418C8F2745172A005C8125 /* NSDictionary+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2418C8E2745172A005C8125 /* NSDictionary+HUtil.swift */; };
 		A250DF1023FFC05C009F5E47 /* HTupleViewBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A250DF0F23FFC05C009F5E47 /* HTupleViewBannerCell.swift */; };
 		A250DF1223FFC2AB009F5E47 /* HTupleViewBannerApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A250DF1123FFC2AB009F5E47 /* HTupleViewBannerApex.swift */; };
@@ -347,7 +346,6 @@
 		A22948B9239798FC0058B939 /* HRegisterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HRegisterController.swift; sourceTree = "<group>"; };
 		A22948BB2397990B0058B939 /* HRegisterController+KS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HRegisterController+KS.swift"; sourceTree = "<group>"; };
 		A22948BD239799190058B939 /* HRegisterController+SJ.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HRegisterController+SJ.swift"; sourceTree = "<group>"; };
-		A22948BF2397992A0058B939 /* HServiceAuthorizationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HServiceAuthorizationCell.swift; sourceTree = "<group>"; };
 		A2418C8E2745172A005C8125 /* NSDictionary+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSDictionary+HUtil.swift"; sourceTree = "<group>"; };
 		A250DF0F23FFC05C009F5E47 /* HTupleViewBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewBannerCell.swift; sourceTree = "<group>"; };
 		A250DF1123FFC2AB009F5E47 /* HTupleViewBannerApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewBannerApex.swift; sourceTree = "<group>"; };
@@ -726,7 +724,6 @@
 			isa = PBXGroup;
 			children = (
 				A22948B7239798EC0058B939 /* HLoginController.swift */,
-				A22948BF2397992A0058B939 /* HServiceAuthorizationCell.swift */,
 				A22948B9239798FC0058B939 /* HRegisterController.swift */,
 				A22948BB2397990B0058B939 /* HRegisterController+KS.swift */,
 				A22948BD239799190058B939 /* HRegisterController+SJ.swift */,
@@ -1801,7 +1798,6 @@
 				EB43241629C34BB800EDDB64 /* HFormCell.swift in Sources */,
 				EB23DAC32A00A4EC00C96CAC /* HNavigationBar.swift in Sources */,
 				EBC8146329AA53D100A81431 /* HAcceptVideoVC.swift in Sources */,
-				A22948C02397992A0058B939 /* HServiceAuthorizationCell.swift in Sources */,
 				EBC8147329AA541800A81431 /* HSendVideoVC+HStatus3.swift in Sources */,
 				A26D432123842C9400F457AE /* UIGestureRecognizer+HUtil.swift in Sources */,
 				EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */,

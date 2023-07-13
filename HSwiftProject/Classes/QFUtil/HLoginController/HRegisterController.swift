@@ -97,11 +97,6 @@ class HRegisterController: HViewController, HTupleViewDelegate {
     
     lazy var toolbar: HToolbar = {
         var frame: CGRect = CGRect.zero
-//        frame.origin.x = self.tupleView.width / 2 - 200 / 2
-//        frame.origin.y = 55 / 2 - 35 / 2
-//        frame.size.width = 200
-//        frame.size.height = 35
-        
         frame = CGSize(width: 200, height: 35).frame
         
         let toolbar = HToolbar(frame: frame)
@@ -130,18 +125,10 @@ class HRegisterController: HViewController, HTupleViewDelegate {
     func tupleExa0_numberOfItemsInSection(_ section: Any) -> Any {
         return 1
     }
-//    @objc
-//    func tupleExa0_sizeForHeaderInSection(_ section: Any) -> Any {
-//        return CGSize(width: self.tupleView.width, height: 10)
-//    }
     @objc
     func tupleExa0_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         return CGSize(width: self.tupleView.width, height: 55)
     }
-//    @objc
-//    func tupleExa0_tupleHeader(_ headerBlock: Any, inSection section: Any) {
-//        _ = (headerBlock as! HTupleHeader)(nil, HTupleBaseApex.self, nil, false)
-//    }
     @objc
     func tupleExa0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
