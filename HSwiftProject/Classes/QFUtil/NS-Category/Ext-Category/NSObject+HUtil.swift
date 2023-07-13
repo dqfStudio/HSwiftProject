@@ -14,14 +14,14 @@ extension NSObject {
     var className: String {
         let name = type(of: self).description()
         if name.contains(".") {
-            return name.components(separatedBy: ".")[1]
+            return name.components(separatedBy: ".").last ?? ""
         }else {
             return name
         }
     }
     
-    public func isSystemClass(_ aClass: AnyClass ) -> Bool {
-        let bundle: Bundle = Bundle(for: aClass)
+    public func isSystemClass(_ aClass: AnyClass) -> Bool {
+        let bundle = Bundle(for: aClass)
         if bundle == Bundle.main {
             return false
         }else {
