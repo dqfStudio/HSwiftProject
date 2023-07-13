@@ -27,9 +27,9 @@ class HUserDefaults: NSObject {
         return _user!
     }
     // Standard Defaults
-    static var defaults: HDefaultsCore {
+    static let defaults: HDefaultsCore = {
         return HDefaultsCore()
-    }
+    }()
     
 
     // Get User Core Key
