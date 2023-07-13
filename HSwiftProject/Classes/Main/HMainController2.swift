@@ -13,6 +13,10 @@ class HMainController2: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        HUserDefaults.setUserCoreKey("23234")
+//        HUserDefaults.defaults.set("ff", forKey: "ee")
+//        HUserDefaults.user.set("ee", forKey: "rr")
+        
 //        HUserStore.defaults.isLogin = true
         
 //        let dotIndicatorBar = HDotIndicatorBar(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 36))
