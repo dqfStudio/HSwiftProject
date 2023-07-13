@@ -14,9 +14,9 @@ class HRegisterController: HViewController, HTupleViewDelegate {
         var frame = UIScreen.bound
         frame.origin.y += UIScreen.topBarHeight
         frame.size.height -= UIScreen.topBarHeight
-        let tupleView = HTupleView.tupleFrame({ () -> CGRect in
+        let tupleView = HTupleView.tupleFrame({
             return frame
-        }, exclusiveSections: { () -> NSArray in
+        }, exclusiveSections: {
             return [0]
         })
         return tupleView

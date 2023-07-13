@@ -22,9 +22,9 @@ var KAcceptVideoHeight2: CGFloat = 65.0
 class HAcceptVideoVC: HViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView.tupleFrame({ () -> CGRect in
+        let tupleView = HTupleView.tupleFrame({
             return UIScreen.bound
-        }, exclusiveSections: { () -> NSArray in
+        }, exclusiveSections: {
             return []
         })
         return tupleView

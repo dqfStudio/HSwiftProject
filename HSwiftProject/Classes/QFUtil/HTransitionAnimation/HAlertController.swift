@@ -69,11 +69,11 @@ class HAlertController : HViewController, HTupleViewDelegate {
     }()
 
     lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView.tupleFrame({ () -> CGRect in
+        let tupleView = HTupleView.tupleFrame({
             var frame = CGRect.zero
             frame.size = self.containerSize
             return frame
-        }, exclusiveSections: { () -> NSArray in
+        }, exclusiveSections: {
             return []
         })
         tupleView.backgroundColor = UIColor.clear

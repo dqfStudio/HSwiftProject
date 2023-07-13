@@ -14,9 +14,9 @@ class HGameCategoryVC : HViewController, HTupleViewDelegate {
         var frame: CGRect = UIScreen.bound
         frame.y += UIScreen.topBarHeight
         frame.height -= UIScreen.topBarHeight
-        let tupleView = HTupleView.tupleFrame({ () -> CGRect in
+        let tupleView = HTupleView.tupleFrame({
             return frame
-        }, exclusiveSections: { () -> NSArray in
+        }, exclusiveSections: {
             return [0, 1, 2]
         })
         return tupleView

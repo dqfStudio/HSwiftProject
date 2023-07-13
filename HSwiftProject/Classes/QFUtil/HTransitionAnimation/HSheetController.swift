@@ -55,11 +55,11 @@ class HSheetController : HViewController, HTupleViewDelegate {
     }()
 
     private lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView.tupleFrame({ () -> CGRect in
+        let tupleView = HTupleView.tupleFrame({
             var frame = CGRect.zero
             frame.size = self.containerSize
             return frame
-        }, exclusiveSections: { () -> NSArray in
+        }, exclusiveSections: {
             return [0, 1, 2]
         })
         tupleView.backgroundColor = UIColor.clear
