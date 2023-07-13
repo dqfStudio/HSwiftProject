@@ -156,8 +156,8 @@ extension HUserDefaults2 {
 }
 
 
-extension UserDefaults {
-    static var std: HUserDefaults2 {
-        return HUserDefaults2.standard
-    }
-}
+//extension UserDefaults {
+//    static var std: HUserDefaults2 {
+//        return HUserDefaults2.standard
+//    }
+//}
