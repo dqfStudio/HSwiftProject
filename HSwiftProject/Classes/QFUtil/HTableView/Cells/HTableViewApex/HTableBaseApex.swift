@@ -25,14 +25,14 @@ class HTableBaseApex : UITableViewHeaderFooterView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = .clear
         self.initUI()
         
     }
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = .clear
         self.initUI()
     }
     

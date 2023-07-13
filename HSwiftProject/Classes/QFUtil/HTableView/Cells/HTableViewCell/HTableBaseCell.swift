@@ -8,8 +8,8 @@
 
 import UIKit
 
-typealias HTableCellBlock = (_ idxPath: IndexPath) -> Void
-typealias HTableCellSelectBlock = (_ target: HTableBaseCell, _ indexPath: IndexPath) -> Void
+typealias HTableCellBlock = () -> Void
+typealias HTableCellSelectBlock = () -> Void
 
 class HTableBaseCell : UITableViewCell {
     
@@ -31,13 +31,13 @@ class HTableBaseCell : UITableViewCell {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = .clear
         self.initUI()
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor.clear
+        self.backgroundColor = .clear
         self.selectionStyle = .none
         self.style = style
         self.initUI()
