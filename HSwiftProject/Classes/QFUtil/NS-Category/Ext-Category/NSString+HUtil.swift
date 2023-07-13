@@ -99,9 +99,7 @@ extension String {
     }
 
     func subString(from: Int) -> String {
-        if from >= self.count {
-            return ""
-        }
+        if from >= self.count { return "" }
         let startIndex = self.index(self.startIndex, offsetBy: from)
         let endIndex = self.endIndex
         return String(self[startIndex..<endIndex])
@@ -111,7 +109,6 @@ extension String {
         if start < end {
             let startIndex = self.index(self.startIndex, offsetBy: start)
             let endIndex = self.index(self.startIndex, offsetBy: end)
-            
             return String(self[startIndex..<endIndex])
         }
         return ""
