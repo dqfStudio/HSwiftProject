@@ -137,12 +137,12 @@ class HUserStore : NSObject, NSCoding {
     }
 
     ///线上环境链接
-    func setBaseLink(_ baseLink: NSString) {
+    func setBaseLink(_ baseLink: String) {
         UserDefaults.standard.set(baseLink, forKey: "baseLink")
         UserDefaults.standard.synchronize()
     }
-    func baseLink() -> NSString {
-        UserDefaults.standard.object(forKey: "baseLink") as! NSString
+    func baseLink() -> String? {
+        UserDefaults.standard.object(forKey: "baseLink") as? String
     }
 
 }
