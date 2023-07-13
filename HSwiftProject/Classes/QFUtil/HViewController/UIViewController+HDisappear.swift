@@ -68,8 +68,7 @@ extension HViewController {
             return
         }
         // Traverse all the view controllers in the navigation controller and set the disappearance of the view controller to dismiss
-        for item in viewControllers {
-            let vc = item as UIViewController
+        viewControllers.forEach { vc in
             vc.vcWillDisappear(.dismiss)
         }
     }
