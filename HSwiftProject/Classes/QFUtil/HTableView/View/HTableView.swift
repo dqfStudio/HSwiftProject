@@ -176,8 +176,8 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         // Set default tag
         self.tag = KTableDefaultTag
         
+        self.backgroundColor = .clear
         self.alwaysBounceVertical = true
-        self.backgroundColor = UIColor.clear
         self.keyboardDismissMode = .onDrag
         self.showsHorizontalScrollIndicator = false
         self.showsVerticalScrollIndicator = false
@@ -186,9 +186,9 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             self.contentInsetAdjustmentBehavior = .never
         }
         
-        self.estimatedRowHeight = 0
-        self.estimatedSectionHeaderHeight = 0
-        self.estimatedSectionFooterHeight = 0
+        self.estimatedRowHeight = 0.0
+        self.estimatedSectionHeaderHeight = 0.0
+        self.estimatedSectionFooterHeight = 0.0
         
         self.tableFooterView = UIView()
         super.delegate = self
