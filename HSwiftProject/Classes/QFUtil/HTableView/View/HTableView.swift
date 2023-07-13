@@ -373,7 +373,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tableDelegate {
             let prefix = self.tableSplitPrefix(withSection: section)
-            let selector: Selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
+            let selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 edgeInsets = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
             }
@@ -518,7 +518,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         var items = 0
         if let delegate = self.tableDelegate {
             let prefix = self.tableSplitPrefix(withSection: section)
-            let selector: Selector = #selector(delegate.numberOfRowsInSection(_:))
+            let selector = #selector(delegate.numberOfRowsInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 items = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! Int
             }
@@ -575,7 +575,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         // Call delegate method
         if let delegate = self.tableDelegate {
             let prefix = self.tableSplitPrefix(withSection: indexPath.section)
-            let selector: Selector = #selector(delegate.tableRow(_:atIndexPath:))
+            let selector = #selector(delegate.tableRow(_:atIndexPath:))
             let itemBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
                 return self.dequeueReusableCellWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
             }
@@ -597,7 +597,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         // Call delegate method
         if let delegate = self.tableDelegate {
             let prefix = self.tableSplitPrefix(withSection: section)
-            let selector: Selector = #selector(delegate.tableHeader(_:inSection:))
+            let selector = #selector(delegate.tableHeader(_:inSection:))
             let headerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
                 return self.dequeueReusableHeaderWithClass(cls, iblk: iblk, pre: pre, idx: idx, section: section)
             }
@@ -616,7 +616,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         // Call delegate method
         if let delegate = self.tableDelegate {
             let prefix = self.tableSplitPrefix(withSection: section)
-            let selector: Selector = #selector(delegate.tableFooter(_:inSection:))
+            let selector = #selector(delegate.tableFooter(_:inSection:))
             let footerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
                 return self.dequeueReusableFooterWithClass(cls, iblk: iblk, pre: pre, idx: idx, section: section)
             }
