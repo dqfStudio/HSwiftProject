@@ -8,6 +8,8 @@
 
 import UIKit
 
+typealias HTableCellHeightBlock = () -> CGFloat
+typealias HTableCellEdgeInsetsBlock = () -> UIEdgeInsets
 typealias HTableCellBlock = () -> Void
 typealias HTableCellSelectBlock = () -> Void
 
@@ -18,6 +20,12 @@ class HTableBaseCell : UITableViewCell {
     
     ///cell所在的indexPath
     var indexPath: IndexPath?
+    
+    /// Callback for getting height.
+    var heightBlock: HTableCellHeightBlock?
+    
+    /// Callback for obtaining edgeInsets
+    var edgeInsetsBlock: HTupleCellEdgeInsetsBlock?
     
     ///cell点击block，用户用户点击事件
     var cellBlock: HTableCellBlock?
