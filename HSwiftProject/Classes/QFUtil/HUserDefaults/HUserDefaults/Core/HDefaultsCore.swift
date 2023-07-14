@@ -36,8 +36,8 @@ extension HDefaultsCore {
             HDefaultsCore.mapping[getterKey] = property
             HDefaultsCore.mapping[setterKey] = property
 
-            let getterSel : Selector = NSSelectorFromString(getterKey)
-            let setterSel : Selector = NSSelectorFromString(setterKey)
+            let getterSel: Selector = NSSelectorFromString(getterKey)
+            let setterSel: Selector = NSSelectorFromString(setterKey)
 
             var getterImp: IMP!
             var setterImp: IMP!

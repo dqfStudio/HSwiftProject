@@ -25,6 +25,12 @@ class HMainController2: HViewController {
         HUserDefaults.user.removeObject(forKey: "rr")
         HUserDefaults.user.synchronize()
         
+        HUserDefaults.user.userId = "11"
+        HUserDefaults.user.isUserFirstLaunch = true
+        
+        HUserDefaults.defaults.isUserLogin = true
+        HUserDefaults.defaults.isAPPFirstLaunch = true
+        
 //        HUserStore.defaults.isLogin = true
         
 //        let dotIndicatorBar = HDotIndicatorBar(frame: CGRect(x: 0, y: 200, width: UIScreen.width, height: 36))
