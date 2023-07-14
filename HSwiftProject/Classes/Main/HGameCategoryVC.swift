@@ -11,7 +11,7 @@ import UIKit
 class HGameCategoryVC : HViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
-        var frame: CGRect = UIScreen.bound
+        var frame = UIScreen.bound
         frame.y += UIScreen.topBarHeight
         frame.height -= UIScreen.topBarHeight
         let tupleView = HTupleView.tupleFrame({
