@@ -18,11 +18,7 @@ class HUserDefaults: NSObject {
     private static var _user: HUserCore?
     static var user: HUserCore {
         if _user == nil {
-            if let userCoreKey = HUserDefaults.userCoreKey {
-                _user = HUserCore(suiteName: userCoreKey)
-            } else {
-                _user = HUserCore(suiteName: KUserKey)
-            }
+            _user = HUserCore(suiteName: HUserDefaults.userCoreKey)
         }
         return _user!
     }
@@ -33,8 +29,8 @@ class HUserDefaults: NSObject {
     
 
     // Get User Core Key
-    private static var userCoreKey: String? {
-        return HUserDefaults.defaults.string(forKey: KDefaultsKey)
+    private static var userCoreKey: String {
+        return HUserDefaults.defaults.string(forKey: KDefaultsKey) ?? KUserKey
     }
     // Set User Core Key
     static func setUserCoreKey(_ key: String) {
