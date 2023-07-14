@@ -51,6 +51,45 @@ extension HMainController6 {
                 
             }
             break
+        case 5:
+            let cell = itemBlock(nil, HTableCellValue1.self, nil, true) as! HTableCellValue1
+            cell.backgroundColor = UIColor.gray
+            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+            
+            cell.textLabel?.backgroundColor = UIColor.green
+            cell.textLabel?.text = "label"
+            cell.textLabel?.textAlignment = .center
+
+            cell.detailTextLabel?.backgroundColor = UIColor.red
+            cell.detailTextLabel?.text = "detailLabel"
+            cell.detailTextLabel?.textAlignment = .center
+            break
+        case 6:
+            let cell = itemBlock(nil, HTableCellValue2.self, nil, true) as! HTableCellValue2
+            cell.backgroundColor = UIColor.gray
+            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+            
+            cell.textLabel?.backgroundColor = UIColor.green
+            cell.textLabel?.text = "label"
+            cell.textLabel?.textAlignment = .center
+
+            cell.detailTextLabel?.backgroundColor = UIColor.red
+            cell.detailTextLabel?.text = "detailLabel"
+            cell.detailTextLabel?.textAlignment = .center
+            break
+        case 7:
+            let cell = itemBlock(nil, HTableCellSubtitle.self, nil, true) as! HTableCellSubtitle
+            cell.backgroundColor = UIColor.gray
+            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+            
+            cell.textLabel?.backgroundColor = UIColor.green
+            cell.textLabel?.text = "label"
+            cell.textLabel?.textAlignment = .center
+
+            cell.detailTextLabel?.backgroundColor = UIColor.red
+            cell.detailTextLabel?.text = "detailLabel"
+            cell.detailTextLabel?.textAlignment = .center
+            break
         default: break
         }
         

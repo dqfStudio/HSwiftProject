@@ -14,7 +14,7 @@ extension HMainController6 {
         return 1
     }
     func numberOfRowsInSection(_ section: Any) -> Any {
-        return 5
+        return 8
     }
     func heightForRowAtIndexPath(_ indexPath: IndexPath) -> Any {
         return 65
