@@ -765,7 +765,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
                     cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as? HTableBaseApex
                 }
                 // Prevent crashes
-                return cell ?? UIView()
+                return cell
             } else {
                 let selector = #selector(delegate.tableHeader(_:inSection:))
                 let headerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
@@ -801,7 +801,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
                     cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as? HTableBaseApex
                 }
                 // Prevent crashes
-                return cell ?? UIView()
+                return cell
             } else {
                 let selector = #selector(delegate.tableFooter(_:inSection:))
                 let footerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
