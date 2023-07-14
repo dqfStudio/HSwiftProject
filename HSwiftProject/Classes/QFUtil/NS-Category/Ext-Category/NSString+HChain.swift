@@ -159,7 +159,7 @@ extension String {
     func componentsByStringBySetString(_ separator: String, _ setSeparator: String) -> [String] {
         var mutablerArr = [String]()
         let arr = self.componentsByString(separator)
-        for str in arr {
+        arr.forEach { str in
             let tmpArr = str.componentsBySetString(setSeparator)
             mutablerArr.append(contentsOf: tmpArr)
         }
