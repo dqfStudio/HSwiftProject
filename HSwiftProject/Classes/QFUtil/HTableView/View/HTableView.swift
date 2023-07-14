@@ -128,6 +128,15 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
 
     // table status
     var tableStatus: HTableStatus = .delegate
+    
+    // Set the value of marginTop
+    var marginTop: CGFloat = 0.0
+    
+    // Set the ratio of marginTop
+    var marginRatio: CGFloat = 0.0
+    
+    var verticalCenter: Bool = false
+    var horizontalCenter: Bool = true
 
      private var allReuseIdentifiers: NSMutableSet = NSMutableSet()
      private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
@@ -179,6 +188,32 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
             if frame != super.frame {
                 super.frame = frame
                 self.reloadData()
+            }
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        let contentSize = super.contentSize
+        if contentSize != .zero {
+            let inset = self.contentInset
+            var originX: CGFloat = inset.left
+            if horizontalCenter {
+                originX = (self.width - contentSize.width) / 2
+                originX = max(originX, 0)
+            }
+            if marginTop > 0 {
+                self.contentInset = UIEdgeInsets(top: marginTop, left: originX, bottom: inset.bottom, right: inset.right)
+            } else if marginRatio > 0 {
+                var originY = (self.height - contentSize.height) * marginRatio
+                originY = max(originY, 0)
+                self.contentInset = UIEdgeInsets(top: originY, left: originX, bottom: inset.bottom, right: inset.right)
+            } else if verticalCenter {
+                var originY = (self.height - contentSize.height) / 2
+                originY = max(originY, 0)
+                self.contentInset = UIEdgeInsets(top: originY, left: originX, bottom: inset.bottom, right: inset.right)
+            } else {
+                self.contentInset = UIEdgeInsets(top: inset.top, left: originX, bottom: inset.bottom, right: inset.right)
             }
         }
     }
