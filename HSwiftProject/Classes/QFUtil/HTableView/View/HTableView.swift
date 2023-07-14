@@ -855,7 +855,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let delegate = self.tableDelegate else { return }
         let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTableBaseCell
-        if let cell = cell, let selectBlock = cell.selectBlock {
+        if let selectBlock = cell?.selectBlock {
             selectBlock()
         }else {
             let prefix = self.tableSplitPrefix(withSection: indexPath.section)
