@@ -234,6 +234,9 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         if #available(iOS 11.0, *) {
             self.contentInsetAdjustmentBehavior = .never
         }
+        if #available(iOS 15.0, *) {
+            self.sectionHeaderTopPadding = 0.0
+        }
         
         self.estimatedRowHeight = 0.0
         self.estimatedSectionHeaderHeight = 0.0
