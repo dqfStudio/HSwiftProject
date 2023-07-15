@@ -45,7 +45,7 @@ extension String {
 
     func rangeOf(_ subString: String) -> NSRange {
         if self.contains(subString) {
-            return NSString(string: self).range(of: subString, options: String.CompareOptions.caseInsensitive)
+            return NSString(string: self).range(of: subString, options: .caseInsensitive)
         }
         return NSRange(location: 0, length: 0)
     }
@@ -65,7 +65,7 @@ extension String {
 
     func encode() -> String? {
         let string = self.removingPercentEncoding //先移除已有的相同编码，然后再进行编码
-        return string?.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed)
+        return string?.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
     }
     
     func decode() -> String? {
@@ -74,7 +74,7 @@ extension String {
 
     ///去除字符串两端的空白字符
     func trim() -> String {
-        return self.trimmingCharacters(in: CharacterSet.whitespaces)
+        return self.trimmingCharacters(in: .whitespaces)
     }
     
     func md5() -> String? {

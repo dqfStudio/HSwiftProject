@@ -232,10 +232,10 @@ class HNumberFormatter: NSObject {
         if conversion {
 
             /*
-             let range = NSString(string: objc).range(of: HUserRegion.defaultRegion.decimalSeparator, options: String.CompareOptions.caseInsensitive)
+             let range = NSString(string: objc).range(of: HUserRegion.defaultRegion.decimalSeparator, options: .caseInsensitive)
              */
 
-            let range = NSString(string: objc).range(of: ".", options: String.CompareOptions.caseInsensitive)
+            let range = NSString(string: objc).range(of: ".", options: .caseInsensitive)
 
             var length = range.location
             if range.location == NSNotFound {
