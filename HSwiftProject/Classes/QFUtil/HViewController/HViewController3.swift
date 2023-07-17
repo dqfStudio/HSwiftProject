@@ -45,6 +45,7 @@ class HViewController3: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.becomeFirstResponder()
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
         if #available(iOS 11.0, *) {
             if let scrollView = self.view as? UIScrollView {
                 scrollView.contentInsetAdjustmentBehavior = .never
