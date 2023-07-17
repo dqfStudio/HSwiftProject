@@ -1,5 +1,5 @@
 //
-//  UIViewController+HNavigationBar.swift
+//  HNavigationBar3.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/7/17.
@@ -9,11 +9,12 @@
 import UIKit
 
 private var kHVCNaviLeftItemKey = "kHVCNaviLeftItemKey"
+private var kHVCNaviTitleItemKey = "kHVCNaviTitleItemKey"
 private var kHVCNaviRightItemKey = "kHVCNaviRightItemKey"
 
-extension UIViewController {
+extension UINavigationItem {
     
-    var leftNaviItem: HNavigationItem {
+    var leftItem: HNavigationItem {
         if let leftItem = self.getAssociatedValueForKey(&kHVCNaviLeftItemKey) as? HNavigationItem {
             return leftItem
         }
@@ -24,13 +25,26 @@ extension UIViewController {
         buttonView.contentHorizontalAlignment = .left
         buttonView.backgroundColor = UIColor.clear
         buttonView.textColor = .black
-        buttonView.addTarget(self, action: #selector(leftNaviItemPressed))
+        buttonView.addTarget(self, action: #selector(leftItemPressed))
         self.setAssociateValue(buttonView, key: &kHVCNaviLeftItemKey)
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: buttonView)
+        self.leftBarButtonItem = UIBarButtonItem(customView: buttonView)
         return buttonView
     }
     
-    var rightNaviItem: HNavigationItem {
+    var titleItem: UILabel {
+        if let titleItem = self.getAssociatedValueForKey(&kHVCNaviTitleItemKey) as? UILabel {
+            return titleItem
+        }
+        let labelView = UILabel(frame: .zero)
+        labelView.font = UIFont.font(ofSize: 17, weight: .medium)
+        labelView.textColor = UIColor.black
+        labelView.textAlignment = .center
+        self.setAssociateValue(labelView, key: &kHVCNaviTitleItemKey)
+        self.titleView = labelView
+        return labelView
+    }
+    
+    var rightItem: HNavigationItem {
         if let rightItem = self.getAssociatedValueForKey(&kHVCNaviRightItemKey) as? HNavigationItem {
             return rightItem
         }
@@ -41,20 +55,20 @@ extension UIViewController {
         buttonView.contentHorizontalAlignment = .right
         buttonView.backgroundColor = UIColor.clear
         buttonView.textColor = .black
-        buttonView.addTarget(self, action: #selector(rightNaviItemPressed))
+        buttonView.addTarget(self, action: #selector(rightItemPressed))
         self.setAssociateValue(buttonView, key: &kHVCNaviRightItemKey)
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: buttonView)
+        self.rightBarButtonItem = UIBarButtonItem(customView: buttonView)
         return buttonView
     }
     
     @objc
-    private func leftNaviItemPressed() {
-        leftNaviItem.pressedBlock?()
+    private func leftItemPressed() {
+        leftItem.pressedBlock?()
     }
     
     @objc
-    private func rightNaviItemPressed() {
-        rightNaviItem.pressedBlock?()
+    private func rightItemPressed() {
+        rightItem.pressedBlock?()
     }
 
 }

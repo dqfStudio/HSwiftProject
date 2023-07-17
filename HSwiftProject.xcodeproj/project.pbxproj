@@ -305,7 +305,7 @@
 		EBD0FBA029DB00D100808EDA /* HMainController6+Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB9F29DB00D100808EDA /* HMainController6+Event.swift */; };
 		EBD0FBA229DB00DE00808EDA /* HMainController6+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */; };
 		EBD0FBB229DBEE4800808EDA /* HNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */; };
-		EBD213CB2A6516DB00C31E2D /* UIViewController+HNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213CA2A6516DB00C31E2D /* UIViewController+HNavigationBar.swift */; };
+		EBD213CF2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */; };
 		EBED9CA52A4C3C8600E590DE /* HTupleBannerApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */; };
 		EBED9CA62A4C3C8600E590DE /* HTupleBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CA42A4C3C8500E590DE /* HTupleBannerCell.swift */; };
 		EBED9CCA2A4D339700E590DE /* HDotIndicatorBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CC92A4D339700E590DE /* HDotIndicatorBar.swift */; };
@@ -616,7 +616,7 @@
 		EBD0FB9F29DB00D100808EDA /* HMainController6+Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+Event.swift"; sourceTree = "<group>"; };
 		EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+Cell.swift"; sourceTree = "<group>"; };
 		EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNumberFormatter.swift; sourceTree = "<group>"; };
-		EBD213CA2A6516DB00C31E2D /* UIViewController+HNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+HNavigationBar.swift"; sourceTree = "<group>"; };
+		EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+HNaviBar.swift"; sourceTree = "<group>"; };
 		EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleBannerApex.swift; sourceTree = "<group>"; };
 		EBED9CA42A4C3C8500E590DE /* HTupleBannerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleBannerCell.swift; sourceTree = "<group>"; };
 		EBED9CC92A4D339700E590DE /* HDotIndicatorBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDotIndicatorBar.swift; sourceTree = "<group>"; };
@@ -1196,8 +1196,8 @@
 				EB23DAC42A00D69300C96CAC /* HViewController2.swift */,
 				A258395823B4E70F00881941 /* HTableController.swift */,
 				A28923C4238CDE8400E4AB75 /* HTupleController.swift */,
+				EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */,
 				A26D432E23868AFE00F457AE /* UIViewController+HDisappear.swift */,
-				EBD213CA2A6516DB00C31E2D /* UIViewController+HNavigationBar.swift */,
 				A26D432C238682D200F457AE /* HNavigationController.swift */,
 			);
 			path = HViewController;
@@ -1805,7 +1805,6 @@
 				A26D432123842C9400F457AE /* UIGestureRecognizer+HUtil.swift in Sources */,
 				EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */,
 				A22948BA239798FC0058B939 /* HRegisterController.swift in Sources */,
-				EBD213CB2A6516DB00C31E2D /* UIViewController+HNavigationBar.swift in Sources */,
 				A26D432D238682D200F457AE /* HNavigationController.swift in Sources */,
 				A22948B3239798A30058B939 /* HMainController5.swift in Sources */,
 				EBD0FB2629CC8CF100808EDA /* HFPickerView.swift in Sources */,
@@ -1820,6 +1819,7 @@
 				A229488E239756770058B939 /* HTableBaseApex.swift in Sources */,
 				EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */,
 				A22948B1239798960058B939 /* HMainController4.swift in Sources */,
+				EBD213CF2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift in Sources */,
 				A229489D23975CE40058B939 /* HTableViewCellVertValue.swift in Sources */,
 				A26D431523839C2800F457AE /* UIApplication+HUtil.swift in Sources */,
 				A2A814AE274C05BB00FAB929 /* HAlertController.swift in Sources */,
