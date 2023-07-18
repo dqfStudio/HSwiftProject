@@ -93,6 +93,10 @@ class HNavigationBar2: UIStackView, HTupleViewDelegate {
         self.tupleView.delegate = self
         self.addArrangedSubview(self.tupleView)
     }
+    
+    deinit {
+        self.tupleView.releaseTupleBlock()
+    }
 
 }
 
