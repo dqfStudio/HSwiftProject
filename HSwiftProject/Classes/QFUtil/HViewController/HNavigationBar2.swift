@@ -106,9 +106,9 @@ extension HNavigationBar2 {
         return UIScreen.statusBarHeight
     }
     
-    func minimumFooterSpacingForSectionAt(_ section: Any) -> Any {
-        return UIScreen.onePixel
-    }
+//    func minimumFooterSpacingForSectionAt(_ section: Any) -> Any {
+//        return UIScreen.onePixel
+//    }
     
     func insetForSection(_ section: Any) -> Any {
         return UIEdgeInsets(top: 0, left: edgeSpace, bottom: 0, right: edgeSpace)
@@ -116,7 +116,8 @@ extension HNavigationBar2 {
 
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let naviBarHeight = UIScreen.naviBarHeight - UIScreen.onePixel
+        //let naviBarHeight = UIScreen.naviBarHeight - UIScreen.onePixel
+        let naviBarHeight = UIScreen.naviBarHeight
         switch indexPath.row {
         case 0:
             let cell = itemBlock(nil, HTupleBaseCell.self, "leftItem", true) as! HTupleBaseCell
