@@ -13,6 +13,21 @@ class HMainController2: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let width = self.view.width
+        let height = UIScreen.topBarHeight
+        let frame = CGRect(x: 0, y: 100, width: width, height: height)
+        let naviBar = HNavigationBar2(frame: frame)
+        naviBar.backgroundColor = .red
+        
+        naviBar.leftItem.text = "leftItem"
+        naviBar.titleItem.text = "title"
+        naviBar.rightItem.text = "rightItem"
+        
+        self.view.addSubview(naviBar)
+        
+        
+        return
+        
         HUserDefaults.setUserCoreKey("23234")
         
         HUserDefaults.defaults.set("ff", forKey: "ee")
