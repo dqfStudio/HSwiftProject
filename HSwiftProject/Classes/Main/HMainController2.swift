@@ -16,8 +16,10 @@ class HMainController2: HViewController {
         let width = self.view.width
         let height = UIScreen.topBarHeight
         let frame = CGRect(x: 0, y: 100, width: width, height: height)
-        let naviBar = HNavigationBar2(frame: frame)
+        let naviBar = HNavigationBar(frame: frame)
         naviBar.backgroundColor = .yellow
+        
+//        naviBar.lineBarColor = .green
         
         self.view.addSubview(naviBar)
         

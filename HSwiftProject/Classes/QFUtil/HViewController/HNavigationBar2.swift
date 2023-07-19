@@ -1,25 +1,33 @@
 //
-//  HNavigationBar2.swift
+//  HNavigationBar.swift
 //  HSwiftProject
 //
-//  Created by owner on 2023/5/10.
+//  Created by owner on 2023/5/2.
 //  Copyright © 2023 wind. All rights reserved.
 //
 
 import UIKit
 
-class HNavigationBar2: UIStackView, HTupleViewDelegate {
+class HNavigationBar2: UIStackView {
 
     // Spacing between left and right buttons of the navigation bar and the screen
-    private var edgeSpace: CGFloat = UIScreen.width > 414 ? 20.0 : 16.0
+    var edgeSpace: CGFloat = UIScreen.width > 414 ? 20.0 : 16.0
     // Spacing between left button and middle title of the navigation bar
-    private var titleSpace: CGFloat = 5.0
+    var titleSpace: CGFloat = 5.0
+
+
+    // Width of the left button of the navigation bar
+    var leftItemWidth: CGFloat = 60.0
+    // Width of the right button of the navigation bar
+    var rightItemWidth: CGFloat = 60.0
+    
+    // Has it been loaded
+    private var isLoaded: Bool = false
+
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .white
-        self.tupleView.delegate = self
-        self.addArrangedSubview(self.tupleView)
+        reloadData()
     }
 
     @available(*, unavailable)
@@ -27,34 +35,74 @@ class HNavigationBar2: UIStackView, HTupleViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // Status bar
+    lazy var statusBar: UIView = {
+        let view = UIView()
+        view.heightAnchor.constraint(equalToConstant: UIScreen.statusBarHeight).isActive = true
+        return view
+    }()
+
     // Navigation bar
-    private lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView(frame: .zero)
-        tupleView.backgroundColor = .clear
-        tupleView.isScrollEnabled = false
-        tupleView.tupleStatus = .block
-        tupleView.disableBounce()
-        return tupleView
+    private lazy var navigationBar: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        return stackView
+    }()
+
+    // Separator line
+    lazy var lineBar: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(hex: 0xe5e5e5)
+        view.heightAnchor.constraint(equalToConstant: UIScreen.onePixel).isActive = true
+        view.isHidden = true
+        return view
+    }()
+
+    // Left edge
+    private lazy var leftEdge: UIView = {
+        return UIView()
+    }()
+
+    // Right edge
+    private lazy var rightEdge: UIView = {
+        return UIView()
+    }()
+    
+    private lazy var leftLayoutView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
     }()
 
     // Left button of the navigation bar
-    lazy var leftItem: HNavigationItem2 = {
-        let buttonView = HNavigationItem2(frame: .zero)
-        buttonView.titleLabel?.font = UIFont.font(ofSize: 16, weight: .regular)
-        buttonView.titleLabel?.adjustsFontSizeToFitWidth = true
-        buttonView.imageView?.contentMode = .scaleAspectFit
-        buttonView.contentHorizontalAlignment = .left
-        buttonView.backgroundColor = UIColor.clear
-        buttonView.textColor = .black
-        buttonView.refreshBlock = {
-            self.tupleView.reloadTupleData()
+    private var _leftItem: HNavigationItem2?
+    var leftItem: HNavigationItem2 {
+        if _leftItem == nil {
+            let buttonView = HNavigationItem2(frame: .zero)
+            buttonView.titleLabel?.font = UIFont.font(ofSize: 16, weight: .regular)
+            buttonView.titleLabel?.adjustsFontSizeToFitWidth = true
+            buttonView.imageView?.contentMode = .scaleAspectFit
+            buttonView.contentHorizontalAlignment = .left
+            buttonView.backgroundColor = UIColor.clear
+            buttonView.textColor = .black
+            buttonView.hiddenBlock = {
+                if self.isLoaded {
+                    self.reloadData()
+                }
+            }
+            buttonView.addTarget(self, action: #selector(leftItemPressed))
+            _leftItem = buttonView
+            if self.isLoaded {
+                DispatchQueue.main.async {
+                    self.reloadData()
+                }
+            }
         }
-        buttonView.addTarget(self, action: #selector(leftItemPressed))
-        return buttonView
-    }()
-    
-    private var leftItemWidth: CGFloat {
-        return max(self.leftItem.intrinsicContentSize.width, 44)
+        return _leftItem!
     }
 
     @objc
@@ -72,131 +120,159 @@ class HNavigationBar2: UIStackView, HTupleViewDelegate {
         return labelView
     }()
     
+    private lazy var rightLayoutView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .center
+        return stackView
+    }()
 
     // Right button of the navigation bar
-    lazy var rightItem: HNavigationItem2 = {
-        let buttonView = HNavigationItem2(frame: .zero)
-        buttonView.titleLabel?.font = UIFont.font(ofSize: 16, weight: .regular)
-        buttonView.titleLabel?.adjustsFontSizeToFitWidth = true
-        buttonView.imageView?.contentMode = .scaleAspectFit
-        buttonView.contentHorizontalAlignment = .right
-        buttonView.backgroundColor = UIColor.clear
-        buttonView.textColor = .black
-        buttonView.refreshBlock = {
-            self.tupleView.reloadTupleData()
+    private var _rightItem: HNavigationItem2?
+    var rightItem: HNavigationItem2 {
+        if _rightItem == nil {
+            let buttonView = HNavigationItem2(frame: .zero)
+            buttonView.titleLabel?.font = UIFont.font(ofSize: 16, weight: .regular)
+            buttonView.titleLabel?.adjustsFontSizeToFitWidth = true
+            buttonView.imageView?.contentMode = .scaleAspectFit
+            buttonView.contentHorizontalAlignment = .right
+            buttonView.backgroundColor = UIColor.clear
+            buttonView.textColor = .black
+            buttonView.hiddenBlock = {
+                if self.isLoaded {
+                    self.reloadData()
+                }
+            }
+            buttonView.addTarget(self, action: #selector(rightItemPressed))
+            _rightItem = buttonView
+            if self.isLoaded {
+                DispatchQueue.main.async {
+                    self.reloadData()
+                }
+            }
         }
-        buttonView.addTarget(self, action: #selector(rightItemPressed))
-        return buttonView
-    }()
-    
-    private var rightItemWidth: CGFloat {
-        return max(self.rightItem.intrinsicContentSize.width, 44)
+        return _rightItem!
     }
 
     @objc
     private func rightItemPressed() {
         rightItem.pressedBlock?()
     }
-    
-    deinit {
-        self.leftItem.refreshBlock = nil
-        self.leftItem.pressedBlock = nil
+
+    func reloadData() {
         
-        self.rightItem.refreshBlock = nil
-        self.rightItem.pressedBlock = nil
+        self.isLoaded = true
 
-        self.tupleView.releaseTupleBlock()
-    }
+        self.axis = .vertical
+        self.distribution = .fill
+        self.alignment = .fill
 
-}
+        // Adjust the spacing and width of navigation bar items based on the visibility and width of navigation bar items.
+        if _leftItem != nil, _rightItem != nil {
 
-extension HNavigationBar2 {
+            // Add the leftmost spacing
+            navigationBar.addArrangedSubview(leftEdge)
+            leftEdge.widthAnchor.constraint(equalToConstant: edgeSpace).isActive = true
 
-    func numberOfItemsInSection(_ section: Any) -> Any {
-        return 5
-    }
-    
-    func minimumHeaderSpacingForSectionAt(_ section: Any) -> Any {
-        return UIScreen.statusBarHeight
-    }
-    
-//    func minimumFooterSpacingForSectionAt(_ section: Any) -> Any {
-//        return UIScreen.onePixel
-//    }
-    
-    func insetForSection(_ section: Any) -> Any {
-        return UIEdgeInsets(top: 0, left: edgeSpace, bottom: 0, right: edgeSpace)
-    }
-    
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        //let naviBarHeight = UIScreen.naviBarHeight - UIScreen.onePixel
-        let naviBarHeight = UIScreen.naviBarHeight
-        switch indexPath.row {
-        case 0:
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-            cell.sizeBlock = {
-                let itemWidth = max(self.leftItemWidth, self.rightItemWidth)
-                return CGSize(width: itemWidth, height: naviBarHeight)
+            let itemWidth = leftItemWidth - rightItemWidth
+            if itemWidth > 0 {// If the left item is wider than the right item
+
+                // Add the left button
+                leftLayoutView.addArrangedSubview(leftItem)
+                navigationBar.addArrangedSubview(leftLayoutView)
+                leftLayoutView.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // Set the width of the left item
+                navigationBar.setCustomSpacing(titleSpace, after: leftLayoutView) // Add spacing after the left item
+
+                // Add the middle title
+                navigationBar.addArrangedSubview(titleItem)
+                navigationBar.setCustomSpacing(abs(itemWidth) + titleSpace, after: titleItem) // Add spacing after the title item
+
+                // Add the right button
+                rightLayoutView.addArrangedSubview(rightItem)
+                navigationBar.addArrangedSubview(rightLayoutView)
+                rightLayoutView.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // Set the width of the right item
+
+            } else {// If the right item is wider than the left item
+
+                // Add the left button
+                leftLayoutView.addArrangedSubview(leftItem)
+                navigationBar.addArrangedSubview(leftLayoutView)
+                leftLayoutView.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // Set the width of the left item
+                navigationBar.setCustomSpacing(abs(itemWidth) + titleSpace, after: leftLayoutView) // Add spacing after the left item
+
+                // Add the middle title
+                navigationBar.addArrangedSubview(titleItem)
+                navigationBar.setCustomSpacing(titleSpace, after: titleItem) // Add spacing after the title item
+
+                // Add the right button
+                rightLayoutView.addArrangedSubview(rightItem)
+                navigationBar.addArrangedSubview(rightLayoutView)
+                rightLayoutView.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // Set the width of the right item
             }
-            cell.cellBlock = {
-                if self.leftItem.superview == nil {
-                    cell.layoutView.addSubview(self.leftItem)
-                }
-                // Reset frame
-                var frame = CGRect(origin: .zero, size: cell.sizeBlock!())
-                frame.width = self.leftItemWidth
-                self.leftItem.frame = frame
-            }
-            break
-        case 1:
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-            cell.sizeBlock = {
-                return CGSize(width: self.titleSpace, height: naviBarHeight)
-            }
-            break
-        case 2:
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-            cell.sizeBlock = {
-                let itemWidth = max(self.leftItemWidth, self.rightItemWidth)
-                var titleWidth = self.width - self.edgeSpace * 2 - self.titleSpace * 2 - itemWidth * 2
-                titleWidth = max(titleWidth, 1)
-                return CGSize(width: titleWidth, height: naviBarHeight)
-            }
-            cell.cellBlock = {
-                if self.titleItem.superview == nil {
-                    cell.layoutView.addSubview(self.titleItem)
-                }
-                // Reset frame
-                self.titleItem.frame = CGRect(origin: .zero, size: cell.sizeBlock!())
-            }
-            break
-        case 3:
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-            cell.sizeBlock = {
-                return CGSize(width: self.titleSpace, height: naviBarHeight)
-            }
-            break
-        case 4:
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-            cell.sizeBlock = {
-                let itemWidth = max(self.leftItemWidth, self.rightItemWidth)
-                return CGSize(width: itemWidth, height: naviBarHeight)
-            }
-            cell.cellBlock = {
-                if self.rightItem.superview == nil {
-                    cell.layoutView.addSubview(self.rightItem)
-                }
-                // Reset frame
-                var frame = CGRect(origin: .zero, size: cell.sizeBlock!())
-                frame.x = frame.width - self.rightItemWidth
-                frame.width = self.rightItemWidth
-                self.rightItem.frame = frame
-            }
-            break
-        default:
-            break
+
+            // Add the rightmost spacing
+            rightEdge.widthAnchor.constraint(equalToConstant: edgeSpace).isActive = true
+            navigationBar.addArrangedSubview(rightEdge)
+
+        } else if _leftItem != nil {// If only the left item is visible
+
+            // Add the leftmost spacing
+            navigationBar.addArrangedSubview(leftEdge)
+            leftEdge.widthAnchor.constraint(equalToConstant: edgeSpace).isActive = true
+
+            // Add the left button
+            leftLayoutView.addArrangedSubview(leftItem)
+            navigationBar.addArrangedSubview(leftLayoutView)
+            leftLayoutView.widthAnchor.constraint(equalToConstant: leftItemWidth).isActive = true // Set the width of the left item
+            navigationBar.setCustomSpacing(titleSpace, after: leftLayoutView) // Add spacing after the left item
+
+            // Add the middle title
+            navigationBar.addArrangedSubview(titleItem)
+
+            // Add the rightmost spacing
+            navigationBar.addArrangedSubview(rightEdge)
+            rightEdge.widthAnchor.constraint(equalToConstant: leftItemWidth + titleSpace + edgeSpace).isActive = true
+
+        } else if _rightItem != nil {// If only the right item is visible
+
+            // Add the leftmost spacing
+            navigationBar.addArrangedSubview(leftEdge)
+            leftEdge.widthAnchor.constraint(equalToConstant: rightItemWidth + titleSpace + edgeSpace).isActive = true
+
+            // Add the middle title
+            navigationBar.addArrangedSubview(titleItem)
+            navigationBar.setCustomSpacing(titleSpace, after: titleItem) // Add spacing after the title item
+
+            // Add the right button
+            rightLayoutView.addArrangedSubview(rightItem)
+            navigationBar.addArrangedSubview(rightLayoutView)
+            rightLayoutView.widthAnchor.constraint(equalToConstant: rightItemWidth).isActive = true // Set the width of the right item
+
+            // Add the rightmost spacing
+            navigationBar.addArrangedSubview(rightEdge)
+            rightEdge.widthAnchor.constraint(equalToConstant: edgeSpace).isActive = true
+
+        } else {
+
+            // Add the leftmost spacing
+            navigationBar.addArrangedSubview(leftEdge)
+            leftEdge.widthAnchor.constraint(equalToConstant: edgeSpace).isActive = true
+
+            // Add the middle title
+            navigationBar.addArrangedSubview(titleItem)
+
+            // Add the rightmost spacing
+            navigationBar.addArrangedSubview(rightEdge)
+            rightEdge.widthAnchor.constraint(equalToConstant: edgeSpace).isActive = true
         }
+
+        // Add the status bar
+        self.addArrangedSubview(statusBar)
+        // Add the navigation bar
+        self.addArrangedSubview(navigationBar)
+        // Add the spacing line
+        self.addArrangedSubview(lineBar)
 
     }
 
@@ -212,7 +288,7 @@ typealias HNavigationItemBlock2 = () -> Void
 // This is a custom UIButton class that is used as a navigation item
 class HNavigationItem2: UIButton {
     // It has two blocks that can be set to be executed when the button is pressed or hidden
-    var refreshBlock: HNavigationItemBlock2?
+    var hiddenBlock: HNavigationItemBlock2?
     var pressedBlock: HNavigationItemBlock2?
 
     // It also has a disableColor property that can be set to change the background color when the button is disabled
@@ -245,15 +321,11 @@ class HNavigationItem2: UIButton {
             isUserInteractionEnabled = isEnabled
         }
     }
-    
-    override func setTitle(_ title: String?, for state: UIControl.State) {
-        super.setTitle(title, for: state)
-        refreshBlock?()
-    }
-    
-    override func setImage(_ image: UIImage?, for state: UIControl.State) {
-        super.setImage(image, for: state)
-        refreshBlock?()
-    }
 
+    // If the button is hidden, execute the hiddenBlock
+    override var isHidden: Bool {
+        didSet {
+            hiddenBlock?()
+        }
+    }
 }

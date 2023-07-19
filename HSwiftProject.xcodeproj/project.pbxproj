@@ -169,10 +169,9 @@
 		A2CC441323B3691D00DB095F /* HTableRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CC441223B3691D00DB095F /* HTableRefresh.swift */; };
 		EB05976B2A09F02B0016ACD8 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05976A2A09F02B0016ACD8 /* CGRect.swift */; };
 		EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */; };
-		EB0597712A0B6B990016ACD8 /* HNavigationBar2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0597702A0B6B990016ACD8 /* HNavigationBar2.swift */; };
+		EB0597712A0B6B990016ACD8 /* HNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0597702A0B6B990016ACD8 /* HNavigationBar.swift */; };
 		EB05977C2A0DF18F0016ACD8 /* HChatTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05977B2A0DF18F0016ACD8 /* HChatTableView.swift */; };
 		EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23D99529DFC6F800C96CAC /* HTextView.swift */; };
-		EB23DAC32A00A4EC00C96CAC /* HNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC22A00A4EB00C96CAC /* HNavigationBar.swift */; };
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
 		EB23DAC72A02187700C96CAC /* HAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC62A02187600C96CAC /* HAlertAction.swift */; };
 		EB23DACD2A027D6C00C96CAC /* HSheetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */; };
@@ -307,6 +306,7 @@
 		EBD0FBB229DBEE4800808EDA /* HNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */; };
 		EBD213CF2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */; };
 		EBD213D72A655FB800C31E2D /* HViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213D62A655FB800C31E2D /* HViewController3.swift */; };
+		EBD213D92A67783700C31E2D /* HNavigationBar2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213D82A67783700C31E2D /* HNavigationBar2.swift */; };
 		EBED9CA52A4C3C8600E590DE /* HTupleBannerApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */; };
 		EBED9CA62A4C3C8600E590DE /* HTupleBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CA42A4C3C8500E590DE /* HTupleBannerCell.swift */; };
 		EBED9CCA2A4D339700E590DE /* HDotIndicatorBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CC92A4D339700E590DE /* HDotIndicatorBar.swift */; };
@@ -481,10 +481,9 @@
 		D6FA5573A6AEBBEE3FA9646A /* Pods-HSwiftProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSwiftProject.debug.xcconfig"; path = "Target Support Files/Pods-HSwiftProject/Pods-HSwiftProject.debug.xcconfig"; sourceTree = "<group>"; };
 		EB05976A2A09F02B0016ACD8 /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCellApexSeparator.swift; sourceTree = "<group>"; };
-		EB0597702A0B6B990016ACD8 /* HNavigationBar2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar2.swift; sourceTree = "<group>"; };
+		EB0597702A0B6B990016ACD8 /* HNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar.swift; sourceTree = "<group>"; };
 		EB05977B2A0DF18F0016ACD8 /* HChatTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatTableView.swift; sourceTree = "<group>"; };
 		EB23D99529DFC6F800C96CAC /* HTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
-		EB23DAC22A00A4EB00C96CAC /* HNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar.swift; sourceTree = "<group>"; };
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
 		EB23DAC62A02187600C96CAC /* HAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertAction.swift; sourceTree = "<group>"; };
 		EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSheetAction.swift; sourceTree = "<group>"; };
@@ -619,6 +618,7 @@
 		EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNumberFormatter.swift; sourceTree = "<group>"; };
 		EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+HNaviBar.swift"; sourceTree = "<group>"; };
 		EBD213D62A655FB800C31E2D /* HViewController3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController3.swift; sourceTree = "<group>"; };
+		EBD213D82A67783700C31E2D /* HNavigationBar2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HNavigationBar2.swift; sourceTree = "<group>"; };
 		EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleBannerApex.swift; sourceTree = "<group>"; };
 		EBED9CA42A4C3C8500E590DE /* HTupleBannerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleBannerCell.swift; sourceTree = "<group>"; };
 		EBED9CC92A4D339700E590DE /* HDotIndicatorBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDotIndicatorBar.swift; sourceTree = "<group>"; };
@@ -1192,8 +1192,8 @@
 			children = (
 				A26D43312386914500F457AE /* hvc_back_icon@2x.png */,
 				A26D43302386914500F457AE /* hvc_back_icon@3x.png */,
-				EB23DAC22A00A4EB00C96CAC /* HNavigationBar.swift */,
-				EB0597702A0B6B990016ACD8 /* HNavigationBar2.swift */,
+				EBD213D82A67783700C31E2D /* HNavigationBar2.swift */,
+				EB0597702A0B6B990016ACD8 /* HNavigationBar.swift */,
 				A2B4307F237FF57C00795605 /* HViewController.swift */,
 				EB23DAC42A00D69300C96CAC /* HViewController2.swift */,
 				EBD213D62A655FB800C31E2D /* HViewController3.swift */,
@@ -1802,7 +1802,6 @@
 				A2294891239756770058B939 /* HTableView.swift in Sources */,
 				EBC8140D29AA528D00A81431 /* HAnchorLiveVC.swift in Sources */,
 				EB43241629C34BB800EDDB64 /* HFormCell.swift in Sources */,
-				EB23DAC32A00A4EC00C96CAC /* HNavigationBar.swift in Sources */,
 				EBC8146329AA53D100A81431 /* HAcceptVideoVC.swift in Sources */,
 				EBC8147329AA541800A81431 /* HSendVideoVC+HStatus3.swift in Sources */,
 				A26D432123842C9400F457AE /* UIGestureRecognizer+HUtil.swift in Sources */,
@@ -1886,6 +1885,7 @@
 				EBC8140929AA48C000A81431 /* HUserLiveCell+HSection1.swift in Sources */,
 				A2B4307C237FF2B100795605 /* HGameCategoryVC.swift in Sources */,
 				EB43241429C3163900EDDB64 /* HUserRegion.swift in Sources */,
+				EBD213D92A67783700C31E2D /* HNavigationBar2.swift in Sources */,
 				EBED9CCA2A4D339700E590DE /* HDotIndicatorBar.swift in Sources */,
 				EBD0FB6B29D02B1000808EDA /* HUserStore.swift in Sources */,
 				EBD0FB3629CCA34800808EDA /* HLocalNotification.swift in Sources */,
@@ -1919,7 +1919,7 @@
 				EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */,
 				A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */,
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,
-				EB0597712A0B6B990016ACD8 /* HNavigationBar2.swift in Sources */,
+				EB0597712A0B6B990016ACD8 /* HNavigationBar.swift in Sources */,
 				A229489923975BA80058B939 /* HTupleViewApexVertValue.swift in Sources */,
 				EBD0FB0B29CA938900808EDA /* HAssetModel.swift in Sources */,
 				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue.swift in Sources */,

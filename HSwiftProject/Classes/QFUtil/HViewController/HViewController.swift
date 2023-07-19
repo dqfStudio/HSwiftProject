@@ -171,7 +171,7 @@ class HViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: false)
         self.navigationBar.isHidden = self.prefersNavigationBarHidden
         self.navigationBar.backgroundColor = self.preferredNavigationBarColor
-        self.navigationBar.lineBar.backgroundColor = self.preferredNavigationLineBarColor
+        self.navigationBar.lineBarColor = self.preferredNavigationLineBarColor
         self.navigationBar.leftItem.image = UIImage(named: "hvc_back_icon")
     }
 
@@ -197,7 +197,8 @@ class HViewController: UIViewController {
 
     // Set navigation line bar color to light gray
     var preferredNavigationLineBarColor: UIColor {
-        return UIColor(hex: 0xe5e5e5)
+        //return UIColor(hex: 0xe5e5e5)
+        return UIColor.clear
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
