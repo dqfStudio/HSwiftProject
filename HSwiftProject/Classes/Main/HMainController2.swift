@@ -17,13 +17,38 @@ class HMainController2: HViewController {
         let height = UIScreen.topBarHeight
         let frame = CGRect(x: 0, y: 100, width: width, height: height)
         let naviBar = HNavigationBar2(frame: frame)
-        naviBar.backgroundColor = .red
-        
-        naviBar.leftItem.text = "leftItem"
-        naviBar.titleItem.text = "title"
-        naviBar.rightItem.text = "rightItem"
+        naviBar.backgroundColor = .yellow
         
         self.view.addSubview(naviBar)
+        
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+////            naviBar.leftItem.text = "leftItem"
+//            naviBar.leftItem.backgroundColor = .red
+//            naviBar.leftItem.image = UIImage(named: "hvc_back_icon")
+//
+//            naviBar.titleItem.text = "title"
+//            naviBar.titleItem.backgroundColor = .blue
+//
+////            naviBar.rightItem.text = "rightItem"
+////            naviBar.rightItem.backgroundColor = .green
+//
+//
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0, execute: {
+//                naviBar.rightItem.text = "rightItem"
+//                naviBar.rightItem.backgroundColor = .green
+//            })
+//        })
+        
+        naviBar.leftItem.text = "leftItem"
+        naviBar.leftItem.backgroundColor = .red
+
+        naviBar.titleItem.text = "title"
+        naviBar.titleItem.backgroundColor = .red
+
+        naviBar.rightItem.text = "rightItem"
+        naviBar.rightItem.backgroundColor = .red
+        
+//        self.view.addSubview(naviBar)
         
         
         return
