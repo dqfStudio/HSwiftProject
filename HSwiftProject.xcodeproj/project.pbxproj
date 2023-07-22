@@ -307,6 +307,7 @@
 		EBD213CF2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */; };
 		EBD213D72A655FB800C31E2D /* HViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213D62A655FB800C31E2D /* HViewController3.swift */; };
 		EBD213D92A67783700C31E2D /* HNavigationBar2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213D82A67783700C31E2D /* HNavigationBar2.swift */; };
+		EBD213E72A6B859500C31E2D /* HSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213E62A6B859500C31E2D /* HSkeletonView.swift */; };
 		EBED9CA52A4C3C8600E590DE /* HTupleBannerApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */; };
 		EBED9CA62A4C3C8600E590DE /* HTupleBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CA42A4C3C8500E590DE /* HTupleBannerCell.swift */; };
 		EBED9CCA2A4D339700E590DE /* HDotIndicatorBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CC92A4D339700E590DE /* HDotIndicatorBar.swift */; };
@@ -619,6 +620,7 @@
 		EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+HNaviBar.swift"; sourceTree = "<group>"; };
 		EBD213D62A655FB800C31E2D /* HViewController3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController3.swift; sourceTree = "<group>"; };
 		EBD213D82A67783700C31E2D /* HNavigationBar2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HNavigationBar2.swift; sourceTree = "<group>"; };
+		EBD213E62A6B859500C31E2D /* HSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSkeletonView.swift; sourceTree = "<group>"; };
 		EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleBannerApex.swift; sourceTree = "<group>"; };
 		EBED9CA42A4C3C8500E590DE /* HTupleBannerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleBannerCell.swift; sourceTree = "<group>"; };
 		EBED9CC92A4D339700E590DE /* HDotIndicatorBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDotIndicatorBar.swift; sourceTree = "<group>"; };
@@ -823,6 +825,7 @@
 				EB80B6952A20BEEC0016648A /* HTextImageView.swift */,
 				EBA53C2D2A308BF00077158D /* HWebActionView.swift */,
 				EBA53C312A3210FA0077158D /* HMultiButtonView.swift */,
+				EBD213E62A6B859500C31E2D /* HSkeletonView.swift */,
 			);
 			path = HTupleCommon;
 			sourceTree = "<group>";
@@ -1783,6 +1786,7 @@
 				A265D9FD23910309001F39B0 /* HTabBar.swift in Sources */,
 				EB5042892A2C31E2007E9FC7 /* HTupleTextImageCell.swift in Sources */,
 				A250DF1023FFC05C009F5E47 /* HTupleViewBannerCell.swift in Sources */,
+				EBD213E72A6B859500C31E2D /* HSkeletonView.swift in Sources */,
 				EB23DAC72A02187700C96CAC /* HAlertAction.swift in Sources */,
 				EBD0FB6E29D02B1000808EDA /* HUserDefaults.swift in Sources */,
 				A28923AB238B733500E4AB75 /* HTupleViewCell.swift in Sources */,
