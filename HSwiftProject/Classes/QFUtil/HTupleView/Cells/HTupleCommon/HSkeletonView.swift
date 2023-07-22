@@ -25,7 +25,7 @@
 //
 //    // Navigation bar
 //    private lazy var tupleView: HTupleView = {
-//        let tupleView = HTupleView(frame: .zero)
+//        let tupleView = HTupleView(frame: self.bounds)
 //        tupleView.backgroundColor = .clear
 //        tupleView.isScrollEnabled = false
 //        tupleView.tupleStatus = .block
@@ -33,7 +33,8 @@
 //        return tupleView
 //    }()
 //
-//    deinit {
+//    override func removeFromSuperview() {
+//        super.removeFromSuperview()
 //        self.tupleView.signalToAllHeader(nil, {
 //            self.tupleView.signalToAllItems(nil, { })
 //        })
@@ -44,12 +45,8 @@
 //
 //extension HSkeletonView {
 //
-//    func insetForSection(_ section: Any) -> Any {
-//        return UIEdgeInsets(top: 15, left: 16, bottom: 15, right: 16)
-//    }
-//
 //    func numberOfItemsInSection(_ section: Any) -> Any {
-//        return 5
+//        return 8
 //    }
 //
 //    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
@@ -60,21 +57,20 @@
 //        let itemBlock = itemBlock as! HTupleItem
 //        let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
 //
-//        let frame = cell.layoutViewBounds
-//
-//        cell.imageView.frame = CGRect(x: 0, y: 0, width: 60, height: 60)
+//        cell.imageView.frame = CGRect(x: 16, y: 0, width: 60, height: 60)
 //        cell.imageView.cornerRadius = 8
 //        cell.imageView.setImage(StandardUI.set_avatar_placeholder)
 //
-//        cell.label.frame = CGRect(x: 80, y: 0, width: frame.width - 80, height: 25)
-//        cell.detailLabel.frame = CGRect(x: 80, y: 35, width: frame.width - 80, height: 25)
+//        cell.label.frame = CGRect(x: 16 + 60 + 20, y: 5, width: self.width - 32 - 80, height: 25)
+//        cell.detailLabel.frame = CGRect(x: 16 + 60 + 20, y: 35, width: self.width - 32 - 80, height: 25)
 //
 //        // 开始骨架动画
-//        cell.tabAnimated = TABViewAnimated(viewHeight: 90)
-//        cell.tab_startAnimation()
+//        cell.layoutView.tabAnimated = TABViewAnimated(viewHeight: 90)
+//        cell.layoutView.tab_startAnimation()
+//
 //        //接收信号
 //        cell.signalBlock = { (target, signal) in
-//            cell.tab_endAnimation()
+//            cell.layoutView.tab_endAnimation()
 //        }
 //
 //    }
