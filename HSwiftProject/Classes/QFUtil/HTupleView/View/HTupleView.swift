@@ -214,6 +214,9 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     // Set the ratio of marginTop
     var marginRatio: CGFloat = 0.0
     
+    // 是否已加载过数据
+    var isLoadData: Bool = false
+    
     var verticalCenter: Bool = false
     var horizontalCenter: Bool = true
 
@@ -640,6 +643,11 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
 
     /// The following are UICollectionView delegate methods
     internal func numberOfSections(in collectionView: UICollectionView) -> Int {
+        // 是否已加载过数据
+        if isLoadData == false {
+            isLoadData = true
+        }
+        
         if self.allSectionInsets.count > 0 {
             self.allSectionInsets.removeAllObjects()
         }
