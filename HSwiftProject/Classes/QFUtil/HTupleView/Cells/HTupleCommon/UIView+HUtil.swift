@@ -357,10 +357,10 @@ extension UIView {
     
     ///设置指定角的角幅度
     func setGivenCorner(_ corners: UIRectCorner, radii: CGFloat) {
-        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.bounds,
-                                                       byRoundingCorners: corners,
-                                                       cornerRadii: CGSize(width: radii, height: radii))
-        let maskLayer: CAShapeLayer = CAShapeLayer()
+        let maskPath = UIBezierPath(roundedRect: self.bounds,
+                                    byRoundingCorners: corners,
+                                    cornerRadii: CGSize(width: radii, height: radii))
+        let maskLayer = CAShapeLayer()
         maskLayer.frame = self.bounds
         maskLayer.path = maskPath.cgPath
         self.layer.mask = maskLayer
@@ -368,9 +368,9 @@ extension UIView {
 
     ///设置视图所有角幅度
     func setAllCornerRadii(_ radii: CGFloat) {
-        let maskPath: UIBezierPath = UIBezierPath(roundedRect: self.bounds,
-                                                       cornerRadius: radii)
-        let maskLayer: CAShapeLayer = CAShapeLayer()
+        let maskPath = UIBezierPath(roundedRect: self.bounds,
+                                    cornerRadius: radii)
+        let maskLayer = CAShapeLayer()
         maskLayer.frame = self.bounds
         maskLayer.path = maskPath.cgPath
         self.layer.mask = maskLayer
