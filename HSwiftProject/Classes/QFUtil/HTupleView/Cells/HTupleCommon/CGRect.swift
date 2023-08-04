@@ -12,6 +12,16 @@ private var kRectEdgeInsetsKey = "kRectEdgeInsetsKey"
 
 extension CGRect {
     
+    public init(origin: CGPoint) {
+        self.init()
+        self.origin = origin
+    }
+    
+    public init(size: CGSize) {
+        self.init()
+        self.size = size
+    }
+    
     var x: CGFloat {
         get { return self.origin.x }
         set { self.origin.x = newValue }

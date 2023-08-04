@@ -64,17 +64,13 @@ class HAlertController : HViewController, HTupleViewDelegate {
     private lazy var visualView: UIVisualEffectView = {
         let blur = UIBlurEffect(style: .light)
         let visualView = UIVisualEffectView(effect: blur)
-        var frame = CGRect.zero
-        frame.size = self.containerSize
-        visualView.frame = frame
+        visualView.frame = CGRect(size: self.containerSize)
         return visualView
     }()
 
     lazy var tupleView: HTupleView = {
         let tupleView = HTupleView.tupleFrame({
-            var frame = CGRect.zero
-            frame.size = self.containerSize
-            return frame
+            return CGRect(size: self.containerSize)
         }, exclusiveSections: {
             return []
         })
