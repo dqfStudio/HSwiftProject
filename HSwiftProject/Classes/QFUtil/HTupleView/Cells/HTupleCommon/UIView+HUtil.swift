@@ -202,7 +202,7 @@ extension UIView {
      */
     @discardableResult
     func addSubLayer(withFrame frame: CGRect, color: UIColor) -> CALayer {
-        let layer: CALayer = CALayer()
+        let layer = CALayer()
         layer.frame = frame
         layer.backgroundColor = color.cgColor
         self.layer.addSublayer(layer)
@@ -261,40 +261,6 @@ extension UIView {
         self.setBottomLine(withColor: color)
     }
 
-    /**
-    *  设置UIView的顶部和底部边线，一般用在设置界面，当界面采用AutoLayout时使用
-    */
-    @discardableResult
-    func setTopLineView(withColor color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) -> UIView {
-        var frame: CGRect = self.frame
-        frame.origin = CGPoint(x: 0, y: 0)
-        frame.x += paddingLeft
-        frame.width -= paddingLeft + paddingRight
-        frame.y = frame.height - 1
-        frame.height = 1
-        return self.addSubview(withColor: color, frame: frame)
-    }
-
-    @discardableResult
-    func setBottomLineView(withColor color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) -> UIView {
-        var frame: CGRect = self.frame
-        frame.origin = CGPoint(x: 0, y: 0)
-        frame.x += paddingLeft
-        frame.width -= paddingLeft + paddingRight
-        frame.y = frame.height - 1
-        frame.height = 1
-        return self.addSubview(withColor: color, frame: frame)
-    }
-
-    @discardableResult
-    func addSubview(withColor color: UIColor, frame: CGRect) -> UIView {
-        let line: UIView = UIView()
-        line.frame = frame
-        line.backgroundColor = color
-        self.addSubview(line)
-        return line
-    }
-
 
     /**
     *  返回它所在的ViewController
@@ -317,14 +283,22 @@ extension UIView {
     /**
     *  设置边框宽度和颜色
     */
-    func setBoarderWith(_ width: CGFloat, color: UIColor) {
-        self.layer.borderWidth = width
-        self.layer.borderColor = color.cgColor
+    var borderWidth: CGFloat {
+        get { return self.layer.borderWidth }
+        set { self.layer.borderWidth = newValue }
     }
-
-    func setCornerRadius(_ cornerRadius: CGFloat) {
-        self.clipsToBounds = true
-        self.layer.cornerRadius = cornerRadius
+    
+    var borderColor: UIColor? {
+        get {
+            if let borderColor = self.layer.borderColor {
+                return UIColor(cgColor: borderColor)
+            }
+            return nil
+        }
+        set {
+            self.layer.borderColor = newValue?.cgColor
+            self.layer.masksToBounds = true
+        }
     }
 
     /**

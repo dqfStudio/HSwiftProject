@@ -103,12 +103,15 @@ class HInputBoxView: UIView, HTupleViewDelegate {
         cell.cornerRadius = 8
         //设置边框
         if self.textField.isFirstResponder, indexPath.section == string.length {
-            cell.setBoarderWith(borderWidth, color: UIColor(hex: 0x3879FC))
+            cell.borderWidth = borderWidth
+            cell.borderColor = UIColor(hex: 0x3879FC)
         }else if self.textField.isFirstResponder, string.length == 6, indexPath.section == 5 {
-            cell.setBoarderWith(borderWidth, color: UIColor(hex: 0x3879FC))
+            cell.borderWidth = borderWidth
+            cell.borderColor = UIColor(hex: 0x3879FC)
             cell.backgroundColor = .clear
         }else {
-            cell.setBoarderWith(borderWidth, color: UIColor(hex: 0xF2F3F5))
+            cell.borderWidth = borderWidth
+            cell.borderColor = UIColor(hex: 0xF2F3F5)
         }
         //设置值
         if indexPath.section < string.length {
