@@ -28,6 +28,8 @@ class HAlertController : HViewController, HTupleViewDelegate {
             case .style0, .style1, .style2, .style3:
                 containerHeight = 150
             }
+            //设置tuple view state
+            self.tupleView.tupleState = alertStyle.rawValue
         }
     }
     // 动作类型
