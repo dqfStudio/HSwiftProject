@@ -346,20 +346,20 @@ extension UIView {
 
 
     ///设置视图上边角幅度
-    func setCornerRadiiOnTop(_ radii: CGFloat) {
-        self.setGivenCorner([.topLeft, .topRight], radii: radii)
+    func setCornerRadiiOnTop(_ radius: CGFloat) {
+        self.setGivenCorner([.topLeft, .topRight], radius: radius)
     }
 
     ///设置视图下边角幅度
-    func setCornerRadiiOnBottom(_ radii: CGFloat) {
-        self.setGivenCorner([.bottomLeft, .bottomRight], radii: radii)
+    func setCornerRadiiOnBottom(_ radius: CGFloat) {
+        self.setGivenCorner([.bottomLeft, .bottomRight], radius: radius)
     }
     
     ///设置指定角的角幅度
-    func setGivenCorner(_ corners: UIRectCorner, radii: CGFloat) {
+    func setGivenCorner(_ corners: UIRectCorner, radius: CGFloat) {
         let maskPath = UIBezierPath(roundedRect: self.bounds,
                                     byRoundingCorners: corners,
-                                    cornerRadii: CGSize(width: radii, height: radii))
+                                    cornerRadii: CGSize(width: radius, height: radius))
         let maskLayer = CAShapeLayer()
         maskLayer.frame = self.bounds
         maskLayer.path = maskPath.cgPath
@@ -367,9 +367,9 @@ extension UIView {
     }
 
     ///设置视图所有角幅度
-    func setAllCornerRadii(_ radii: CGFloat) {
+    func setAllCornerRadii(_ radius: CGFloat) {
         let maskPath = UIBezierPath(roundedRect: self.bounds,
-                                    cornerRadius: radii)
+                                    cornerRadius: radius)
         let maskLayer = CAShapeLayer()
         maskLayer.frame = self.bounds
         maskLayer.path = maskPath.cgPath
