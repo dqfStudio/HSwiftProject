@@ -171,6 +171,7 @@
 		EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */; };
 		EB0597712A0B6B990016ACD8 /* HNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0597702A0B6B990016ACD8 /* HNavigationBar.swift */; };
 		EB05977C2A0DF18F0016ACD8 /* HChatTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05977B2A0DF18F0016ACD8 /* HChatTableView.swift */; };
+		EB1209712A7CD45500E5F045 /* HGroupAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */; };
 		EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23D99529DFC6F800C96CAC /* HTextView.swift */; };
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
 		EB23DAC72A02187700C96CAC /* HAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC62A02187600C96CAC /* HAlertAction.swift */; };
@@ -484,6 +485,7 @@
 		EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCellApexSeparator.swift; sourceTree = "<group>"; };
 		EB0597702A0B6B990016ACD8 /* HNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar.swift; sourceTree = "<group>"; };
 		EB05977B2A0DF18F0016ACD8 /* HChatTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatTableView.swift; sourceTree = "<group>"; };
+		EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupAvatarView.swift; sourceTree = "<group>"; };
 		EB23D99529DFC6F800C96CAC /* HTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
 		EB23DAC62A02187600C96CAC /* HAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertAction.swift; sourceTree = "<group>"; };
@@ -826,6 +828,7 @@
 				EBA53C2D2A308BF00077158D /* HWebActionView.swift */,
 				EBA53C312A3210FA0077158D /* HMultiButtonView.swift */,
 				EBD213E62A6B859500C31E2D /* HSkeletonView.swift */,
+				EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */,
 			);
 			path = HTupleCommon;
 			sourceTree = "<group>";
@@ -1773,6 +1776,7 @@
 				EBA53C2E2A308BF00077158D /* HWebActionView.swift in Sources */,
 				EB4323F029B988C100EDDB64 /* HAlertFormatter.swift in Sources */,
 				A26D434323877F0A00F457AE /* UIControl+HSafeUtil.swift in Sources */,
+				EB1209712A7CD45500E5F045 /* HGroupAvatarView.swift in Sources */,
 				A229489523975A900058B939 /* HTableViewApex.swift in Sources */,
 				A28923A7238B72F800E4AB75 /* HTupleView.swift in Sources */,
 				EBD0FB4029CD4E4400808EDA /* AppDelegate+RotateService.swift in Sources */,
