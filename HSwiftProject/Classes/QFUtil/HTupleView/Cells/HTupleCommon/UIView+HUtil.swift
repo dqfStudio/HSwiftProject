@@ -311,7 +311,24 @@ extension UIView {
             self.layer.masksToBounds = true
         }
     }
-        
+    
+    ///设置视图上边角幅度
+    func setCornerRadiiOnTop(_ radius: CGFloat) {
+        self.setGivenCorner([.layerMinXMinYCorner, .layerMaxXMinYCorner], radius: radius)
+    }
+
+    ///设置视图下边角幅度
+    func setCornerRadiiOnBottom(_ radius: CGFloat) {
+        self.setGivenCorner([.layerMinXMaxYCorner, .layerMaxXMaxYCorner], radius: radius)
+    }
+    
+    ///设置指定角的角幅度
+    func setGivenCorner(_ corners: CACornerMask, radius: CGFloat) {
+        self.layer.cornerRadius = radius
+        self.layer.maskedCorners = corners
+        self.layer.masksToBounds = true
+    }
+    
 
     /**
     *  主要用于UITableView，UIScrollView，UICollectionView等列表类的View，
@@ -342,43 +359,6 @@ extension UIView {
     func removeTipsView() {
         self.viewWithTag(TIPS_IMAGE_VIEW_TAG)?.removeFromSuperview()
         self.viewWithTag(TIPS_LABEL_TAG)?.removeFromSuperview()
-    }
-
-
-    ///设置视图上边角幅度
-    func setCornerRadiiOnTop(_ radius: CGFloat) {
-        self.setGivenCorner([.topLeft, .topRight], radius: radius)
-    }
-
-    ///设置视图下边角幅度
-    func setCornerRadiiOnBottom(_ radius: CGFloat) {
-        self.setGivenCorner([.bottomLeft, .bottomRight], radius: radius)
-    }
-    
-    ///设置指定角的角幅度
-    func setGivenCorner(_ corners: UIRectCorner, radius: CGFloat) {
-        let maskPath = UIBezierPath(roundedRect: self.bounds,
-                                    byRoundingCorners: corners,
-                                    cornerRadii: CGSize(width: radius, height: radius))
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = self.bounds
-        maskLayer.path = maskPath.cgPath
-        self.layer.mask = maskLayer
-    }
-
-    ///设置视图所有角幅度
-    func setAllCornerRadii(_ radius: CGFloat) {
-        let maskPath = UIBezierPath(roundedRect: self.bounds,
-                                    cornerRadius: radius)
-        let maskLayer = CAShapeLayer()
-        maskLayer.frame = self.bounds
-        maskLayer.path = maskPath.cgPath
-        self.layer.mask = maskLayer
-    }
-    
-    ///去掉视图所有角幅度
-    func setNoneCorner() {
-        self.layer.mask = nil
     }
 
     /**
