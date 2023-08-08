@@ -120,8 +120,7 @@ class HPostCell: HTupleBaseCell, HTupleViewDelegate {
         let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
         let frame = cell.layoutViewBounds
 
-        cell.label.frame = CGRect(x: cell.imageView.maxX + 4, y: 0, width: 100, height: frame.height)
-
+        cell.label.frame = frame
         cell.label.textColor = .black
         cell.label.font = UIFont.font(ofSize: 12.0, weight: .regular)
     }
