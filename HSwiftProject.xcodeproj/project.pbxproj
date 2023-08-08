@@ -172,6 +172,7 @@
 		EB0597712A0B6B990016ACD8 /* HNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0597702A0B6B990016ACD8 /* HNavigationBar.swift */; };
 		EB05977C2A0DF18F0016ACD8 /* HChatTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05977B2A0DF18F0016ACD8 /* HChatTableView.swift */; };
 		EB1209712A7CD45500E5F045 /* HGroupAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */; };
+		EB12097F2A827AF200E5F045 /* HPostFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB12097E2A827AF200E5F045 /* HPostFooterView.swift */; };
 		EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23D99529DFC6F800C96CAC /* HTextView.swift */; };
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
 		EB23DAC72A02187700C96CAC /* HAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC62A02187600C96CAC /* HAlertAction.swift */; };
@@ -486,6 +487,7 @@
 		EB0597702A0B6B990016ACD8 /* HNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar.swift; sourceTree = "<group>"; };
 		EB05977B2A0DF18F0016ACD8 /* HChatTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatTableView.swift; sourceTree = "<group>"; };
 		EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupAvatarView.swift; sourceTree = "<group>"; };
+		EB12097E2A827AF200E5F045 /* HPostFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostFooterView.swift; sourceTree = "<group>"; };
 		EB23D99529DFC6F800C96CAC /* HTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
 		EB23DAC62A02187600C96CAC /* HAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertAction.swift; sourceTree = "<group>"; };
@@ -827,6 +829,7 @@
 				EB80B6952A20BEEC0016648A /* HTextImageView.swift */,
 				EBA53C2D2A308BF00077158D /* HWebActionView.swift */,
 				EBA53C312A3210FA0077158D /* HMultiButtonView.swift */,
+				EB12097E2A827AF200E5F045 /* HPostFooterView.swift */,
 				EBD213E62A6B859500C31E2D /* HSkeletonView.swift */,
 				EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */,
 			);
@@ -1911,6 +1914,7 @@
 				A229489F23975D850058B939 /* HTableViewCellHoriValue.swift in Sources */,
 				A2A814B4274C0E2000FAB929 /* HTupleHeader.swift in Sources */,
 				EBA53C3A2A3B47240077158D /* HWebImageView2.swift in Sources */,
+				EB12097F2A827AF200E5F045 /* HPostFooterView.swift in Sources */,
 				A26D43192383E23300F457AE /* NSString+HUtil.swift in Sources */,
 				A22948A5239798000058B939 /* HMainController1.swift in Sources */,
 				A2188797238FD3D6005C20BF /* HGameCategoryVC+HSection1.swift in Sources */,
