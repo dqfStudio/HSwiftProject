@@ -33,6 +33,13 @@ extension CALayer {
         return self
     }
     @discardableResult
+    func applyGivenCorner(_ corners: CACornerMask, radius: CGFloat) -> CALayer {
+        cornerRadius = radius
+        maskedCorners = corners
+        masksToBounds = true
+        return self
+    }
+    @discardableResult
     func applyBorder(width: CGFloat, color: UIColor) -> CALayer {
         borderWidth = width
         borderColor = color.cgColor
