@@ -24,6 +24,10 @@ class HPostCell: HTupleBaseCell, HTupleViewDelegate {
         self.addSubview(self.tupleView)
     }
     
+    deinit {
+        self.tupleView.releaseTupleBlock()
+    }
+    
     //用于子类更新子视图布局
     override func relayoutSubviews() {
         HLayoutTupleCell(self.tupleView)
