@@ -31,24 +31,65 @@ class HPostViewController: HTupleController {
 
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTuplePostCell.self, nil, true) as! HTuplePostCell
+        let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
         cell.backgroundColor = .yellow
+        
+        var postCell = cell.viewWithTag(131214) as? HTuplePostCell
+        if postCell == nil {
+            postCell = HTuplePostCell(frame: .zero)
+            postCell!.tag = 131214
+            postCell!.postBlock = {
+                self.tupleView.reloadTupleData()
+            }
+            cell.addSubview(postCell!)
+        }
         
         guard indexPath.row < sourceData.count else { return }
         
-        cell.content = sourceData[indexPath.row]
-        cell.imageUrls = ["11", "22", "33", "44"]
-        //cell.videoUrl = "2"
+        postCell!.content = sourceData[indexPath.row]
+        postCell!.imageUrls = ["11", "22", "33", "44"]
+        //postCell!.videoUrl = "2"
         
         // cell高度
-        let cellHeight = cell.cellHeight + 72 + 65
+        let cellHeight = postCell!.cellHeight + 72 + 65
+        
+        if postCell!.height != cellHeight {
+            postCell!.frame = CGRect(x: 0, y: 0, width: self.tupleView.width, height: cellHeight)
+            postCell!.tupleView.reloadTupleData()
+        }
+        
         
         cell.sizeBlock = {
             return CGSize(width: self.tupleView.width, height: cellHeight)
         }
         
+        cell.cellBlock = {
+//            postCell!.tupleView.reloadTupleData()
+        }
+        
+//        cell.selectBlock = {
+//            NSLog("")
+//        }
+        
+        
+//        guard indexPath.row < sourceData.count else { return }
+//
+//        cell.content = sourceData[indexPath.row]
+//        cell.imageUrls = ["11", "22", "33", "44"]
+//        //cell.videoUrl = "2"
+//
+//        // cell高度
+//        let cellHeight = cell.cellHeight + 72 + 65
+//
+//        cell.sizeBlock = {
+//            return CGSize(width: self.tupleView.width, height: cellHeight)
+//        }
+//
 //        cell.cellBlock = {
-//            cell.backgroundColor = .yellow
+//            cell.postBlock = {
+//                // 刷新改cell
+//                self.tupleView.reloadItems(at: [indexPath])
+//            }
 //        }
         
     }
