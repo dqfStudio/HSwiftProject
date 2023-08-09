@@ -174,7 +174,7 @@
 		EB1209712A7CD45500E5F045 /* HGroupAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */; };
 		EB12097F2A827AF200E5F045 /* HPostFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB12097E2A827AF200E5F045 /* HPostFooterView.swift */; };
 		EB1209812A827E1900E5F045 /* HPostHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209802A827E1900E5F045 /* HPostHeaderView.swift */; };
-		EB1209832A8280E400E5F045 /* HPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209822A8280E400E5F045 /* HPostCell.swift */; };
+		EB1209832A8280E400E5F045 /* HTuplePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209822A8280E400E5F045 /* HTuplePostCell.swift */; };
 		EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23D99529DFC6F800C96CAC /* HTextView.swift */; };
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
 		EB23DAC72A02187700C96CAC /* HAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC62A02187600C96CAC /* HAlertAction.swift */; };
@@ -491,7 +491,7 @@
 		EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupAvatarView.swift; sourceTree = "<group>"; };
 		EB12097E2A827AF200E5F045 /* HPostFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostFooterView.swift; sourceTree = "<group>"; };
 		EB1209802A827E1900E5F045 /* HPostHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostHeaderView.swift; sourceTree = "<group>"; };
-		EB1209822A8280E400E5F045 /* HPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostCell.swift; sourceTree = "<group>"; };
+		EB1209822A8280E400E5F045 /* HTuplePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTuplePostCell.swift; sourceTree = "<group>"; };
 		EB23D99529DFC6F800C96CAC /* HTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
 		EB23DAC62A02187600C96CAC /* HAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertAction.swift; sourceTree = "<group>"; };
@@ -833,7 +833,7 @@
 				EB80B6952A20BEEC0016648A /* HTextImageView.swift */,
 				EBA53C2D2A308BF00077158D /* HWebActionView.swift */,
 				EBA53C312A3210FA0077158D /* HMultiButtonView.swift */,
-				EB1209822A8280E400E5F045 /* HPostCell.swift */,
+				EB1209822A8280E400E5F045 /* HTuplePostCell.swift */,
 				EB1209802A827E1900E5F045 /* HPostHeaderView.swift */,
 				EB12097E2A827AF200E5F045 /* HPostFooterView.swift */,
 				EBD213E62A6B859500C31E2D /* HSkeletonView.swift */,
@@ -1796,7 +1796,7 @@
 				EBC8140729AA48C000A81431 /* HUserLiveCell.swift in Sources */,
 				EB43244929C5B8E700EDDB64 /* UIImage+HUtil.swift in Sources */,
 				A28923A2238B72F800E4AB75 /* HTupleBaseApex.swift in Sources */,
-				EB1209832A8280E400E5F045 /* HPostCell.swift in Sources */,
+				EB1209832A8280E400E5F045 /* HTuplePostCell.swift in Sources */,
 				A265D9FD23910309001F39B0 /* HTabBar.swift in Sources */,
 				EB5042892A2C31E2007E9FC7 /* HTupleTextImageCell.swift in Sources */,
 				A250DF1023FFC05C009F5E47 /* HTupleViewBannerCell.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  HPostCell.swift
+//  HTuplePostCell.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/8/8.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HPostCell: HTupleBaseCell, HTupleViewDelegate {
+class HTuplePostCell: HTupleBaseCell, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
         let tupleView = HTupleView(frame: self.bounds)
