@@ -12,38 +12,40 @@ class HPostFooterView: UIStackView {
     
     lazy var likeButton: HWebButtonView = {
         let button = HWebButtonView(frame: .zero)
-        button.imagePosition = .left
-        button.imageSpace = 4.0
-        button.textColor = .black
+        //button.imagePosition = .left
+        //button.imageSpace = 4.0
+        button.textColor = UIColor(hex: "#727781")
         button.textFont = UIFont.font(ofSize: 12.0, weight: .medium)
-        button.setImage(UIImage(named: "square_post_like"), for: .normal)
-        button.setImage(UIImage(named: "square_post_like_sel"), for: .selected)
+        //button.setImage(UIImage(named: "square_post_like"), for: .normal)
+        //button.setImage(UIImage(named: "square_post_like_sel"), for: .selected)
         return button
     }()
     
     lazy var commentButton: HWebButtonView = {
         let button = HWebButtonView(frame: .zero)
-        button.imagePosition = .left
-        button.imageSpace = 4.0
-        button.textColor = .black
+        //button.imagePosition = .left
+        //button.imageSpace = 4.0
+        button.textColor = UIColor(hex: "#727781")
         button.textFont = UIFont.font(ofSize: 12.0, weight: .medium)
-        button.setImage(UIImage(named: "square_post_comment"), for: .normal)
+        //button.setImage(UIImage(named: "square_post_comment"), for: .normal)
         return button
     }()
     
     lazy var shareButton: HWebButtonView = {
         let button = HWebButtonView(frame: .zero)
-        button.imagePosition = .left
-        button.imageSpace = 4.0
-        button.textColor = .black
+        //button.imagePosition = .left
+        //button.imageSpace = 4.0
+        button.textColor = UIColor(hex: "#727781")
         button.textFont = UIFont.font(ofSize: 12.0, weight: .medium)
-        button.setImage(UIImage(named: "square_post_share"), for: .normal)
+        //button.setImage(UIImage(named: "square_post_share"), for: .normal)
         return button
     }()
     
     lazy var moreButton: HWebButtonView = {
         let button = HWebButtonView(frame: .zero)
-        button.setImage(UIImage(named: "square_post_more"), for: .normal)
+        button.textColor = UIColor(hex: "#727781")
+        button.textFont = UIFont.font(ofSize: 12.0, weight: .medium)
+        //button.setImage(UIImage(named: "square_post_more"), for: .normal)
         return button
     }()
     
