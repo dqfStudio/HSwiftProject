@@ -18,12 +18,10 @@ private var videoSize = 90.0
 private var extendSpace = 28.0
 private var translateSpace = 28.0
 
-typealias HTuplePostBlock = () -> Void
-
 class HTuplePostCell: UIStackView, HTupleViewDelegate {
     
-    // 回调block
-    var postBlock: HTuplePostBlock?
+    // 父类tuple view
+    weak var tuple: HTupleView?
     
     // 文字内容
     var content: String? {
@@ -96,7 +94,7 @@ class HTuplePostCell: UIStackView, HTupleViewDelegate {
         return tmpHeight
     }
     
-    lazy var tupleView: HTupleView = {
+    private lazy var tupleView: HTupleView = {
         let tupleView = HTupleView.tupleFrame({
             return self.bounds
         }, exclusiveSections: {
@@ -117,6 +115,10 @@ class HTuplePostCell: UIStackView, HTupleViewDelegate {
     @available(*, unavailable)
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func reloadTupleData() {
+        self.tupleView.reloadTupleData()
     }
     
     deinit {
@@ -248,8 +250,7 @@ extension HTuplePostCell {
             cell.buttonView.textColor = UIColor(hex: "#3879FC")
             cell.buttonView.text = "显示更多"
             cell.buttonView.pressed = { (sender, data) in
-                // 回调block
-                self.postBlock?()
+                
             }
         default:
             break
@@ -316,8 +317,10 @@ extension HTuplePostCell {
                 // 是否已经翻译过了
                 self.isTranslated = true
                 self.translate = false
-                // 回调block
-                self.postBlock?()
+                // 刷新tuple view
+                UIView.performWithoutAnimation {
+                    self.tuple?.reloadData()
+                }
             }
         }
 

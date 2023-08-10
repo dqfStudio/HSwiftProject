@@ -38,16 +38,12 @@ class HPostViewController: HTupleController {
         if postCell == nil {
             postCell = HTuplePostCell(frame: .zero)
             postCell!.tag = 131214
-            postCell!.postBlock = {
-                UIView.performWithoutAnimation {
-                    self.tupleView.reloadData()
-                }
-            }
             cell.addSubview(postCell!)
         }
         
         guard indexPath.row < sourceData.count else { return }
         
+        postCell!.tuple = self.tupleView
         postCell!.content = sourceData[indexPath.row]
         postCell!.imageUrls = ["11", "22", "33", "44"]
         //postCell!.videoUrl = "2"
@@ -57,7 +53,7 @@ class HPostViewController: HTupleController {
         
         if postCell!.height != cellHeight {
             postCell!.frame = CGRect(x: 0, y: 0, width: self.tupleView.width, height: cellHeight)
-            postCell!.tupleView.reloadTupleData()
+            postCell!.reloadTupleData()
         }
         
         
@@ -88,10 +84,7 @@ class HPostViewController: HTupleController {
 //        }
 //
 //        cell.cellBlock = {
-//            cell.postBlock = {
-//                // 刷新改cell
-//                self.tupleView.reloadItems(at: [indexPath])
-//            }
+
 //        }
         
     }
