@@ -8,24 +8,33 @@
 
 import UIKit
 
+// 左右间距
 var postEdgeSpace = 16.0
+// 行间距
 var postLineSpace = 16.0
-
+// 图片间距
 var postImageSpace = 8.0
+// 图片大小
 var postImageSize = 60.0
+// 视频大小
 var postVideoSize = 90.0
 
+// 更多按钮高度
 var postExtendSpace = 28.0
+// 翻译按钮高度
 var postTranslateSpace = 28.0
 
+// 默认帖子内容高度，超过此高度就显示省略
 var postTextHeightOmit = 60.0
 
+// 更多状态定义
 enum HPostExtend: Int {
     case undefine = 0  // 未定义
     case extend = 1  // 需要加载更多
     case isExtended = 2  // 已加载了更多
 }
 
+// 翻译状态定义
 enum HPostTranslate: Int {
     case undefine = 0  // 未定义
     case translate = 1  // 需要翻译
@@ -34,10 +43,14 @@ enum HPostTranslate: Int {
 
 class HTuplePostVM: NSObject {
     
+    // 头像
     var avatar: String?
+    // 名称
     var name: String?
+    // 日期
     var date: String?
     
+    // 帖子内容
     var post: String? {
         didSet {
             if let ct = post, ct.count > 0 {
