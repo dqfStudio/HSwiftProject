@@ -8,25 +8,11 @@
 
 import UIKit
 
-private var edgeSpace = 16.0
-private var lineSpace = 16.0
-
-private var imageSpace = 8.0
-private var imageSize = 60.0
-private var videoSize = 90.0
-
-private var extendSpace = 28.0
-private var translateSpace = 28.0
-
-private var textHeightOmit = 60.0
-
 class HTuplePostCell: UIStackView, HTupleViewDelegate {
     
     private var _postVM: HTuplePostVM?
     var postVM: HTuplePostVM! {
-        get {
-            return _postVM
-        }
+        get { return _postVM }
         set {
             if _postVM?.post != newValue.post {
                 _postVM = newValue
@@ -84,7 +70,7 @@ extension HTuplePostCell {
     
     @objc
     func tupleExa0_insetForSection(_ section: Any) -> Any {
-        return UIEdgeInsets(top: 24, left: edgeSpace, bottom: 0, right: edgeSpace)
+        return UIEdgeInsets(top: 24, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
     }
     
     @objc
@@ -137,9 +123,9 @@ extension HTuplePostCell {
     @objc
     func tupleExa1_insetForSection(_ section: Any) -> Any {
         if postVM.post?.count ?? 0 > 0 {
-            return UIEdgeInsets(top: lineSpace, left: edgeSpace, bottom: 0, right: edgeSpace)
+            return UIEdgeInsets(top: postLineSpace, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
         } else {
-            return UIEdgeInsets(top: 0, left: edgeSpace, bottom: 0, right: edgeSpace)
+            return UIEdgeInsets(top: 0, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
         }
     }
     
@@ -155,12 +141,12 @@ extension HTuplePostCell {
         switch row {
         case 0:
             if postVM.postExtend == .extend {
-                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: textHeightOmit)
+                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postTextHeightOmit)
             } else {
                 return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postVM.textHeight)
             }
         case 1:
-            return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: extendSpace)
+            return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postExtendSpace)
         default:
             break
         }
@@ -197,7 +183,7 @@ extension HTuplePostCell {
             cell.edgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
             
             let frame = cell.layoutViewBounds
-            let width = "显示更多".widthWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToHeight: extendSpace - 8.0)
+            let width = "显示更多".widthWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToHeight: postExtendSpace - 8.0)
 
             cell.buttonView.frame = CGRect(x: 0, y: 0, width: width, height: frame.height)
             cell.buttonView.textFont = UIFont.font(ofSize: 14, weight: .regular)
@@ -234,9 +220,9 @@ extension HTuplePostCell {
     func tupleExa2_insetForSection(_ section: Any) -> Any {
         // 是否需要翻译
         if postVM.postExtend != .extend, postVM.postTranslate != .undefine {
-            return UIEdgeInsets(top: 8, left: edgeSpace, bottom: 0, right: edgeSpace)
+            return UIEdgeInsets(top: 8, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
         }
-        return UIEdgeInsets(top: 0, left: edgeSpace, bottom: 0, right: edgeSpace)
+        return UIEdgeInsets(top: 0, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
     }
     
     @objc
@@ -246,10 +232,10 @@ extension HTuplePostCell {
             if postVM.postTranslate == .isTranslated {
                 return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postVM.textHeight)
             } else if postVM.postTranslate == .translate {
-                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: translateSpace - 8.0)
+                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postTranslateSpace - 8.0)
             }
         }
-        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: translateSpace - 8.0)
+        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postTranslateSpace - 8.0)
     }
     
     @objc
@@ -266,7 +252,7 @@ extension HTuplePostCell {
             let cell = itemBlock(nil, HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
             
             let frame = cell.layoutViewBounds
-            let width = "翻译内容".widthWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToHeight: translateSpace - 8.0)
+            let width = "翻译内容".widthWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToHeight: postTranslateSpace - 8.0)
             
             cell.buttonView.frame = CGRect(x: 0, y: 0, width: width, height: frame.height)
             cell.buttonView.textFont = UIFont.font(ofSize: 14, weight: .regular)
@@ -306,26 +292,26 @@ extension HTuplePostCell {
     @objc
     func tupleExa3_insetForSection(_ section: Any) -> Any {
         if postVM.imageUrls?.count ?? 0 > 0 {
-            return UIEdgeInsets(top: lineSpace, left: edgeSpace, bottom: 0, right: edgeSpace)
+            return UIEdgeInsets(top: postLineSpace, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
         } else {
-            return UIEdgeInsets(top: 0, left: edgeSpace, bottom: 0, right: edgeSpace)
+            return UIEdgeInsets(top: 0, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
         }
     }
     
     @objc
     func tupleExa3_minimumLineSpacingForSectionAt(_ section: Any) -> Any {
-        return imageSpace
+        return postImageSpace
     }
     
     @objc
     func tupleExa3_minimumInteritemSpacingForSectionAt(_ section: Any) -> Any {
-        return imageSpace
+        return postImageSpace
     }
     
     @objc
     func tupleExa3_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        let width = (self.tupleView.width(forSection: indexPath.section) - 2 * imageSpace) / 3
-        return CGSize(width: width, height: imageSize)
+        let width = (self.tupleView.width(forSection: indexPath.section) - 2 * postImageSpace) / 3
+        return CGSize(width: width, height: postImageSize)
     }
     
     @objc
@@ -414,15 +400,15 @@ extension HTuplePostCell {
     @objc
     func tupleExa4_insetForSection(_ section: Any) -> Any {
         if postVM.videoUrl?.count ?? 0 > 0 {
-            return UIEdgeInsets(top: lineSpace, left: edgeSpace, bottom: 0, right: edgeSpace)
+            return UIEdgeInsets(top: postLineSpace, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
         } else {
-            return UIEdgeInsets(top: 0, left: edgeSpace, bottom: 0, right: edgeSpace)
+            return UIEdgeInsets(top: 0, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
         }
     }
     
     @objc
     func tupleExa4_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: videoSize)
+        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postVideoSize)
     }
     
     @objc
@@ -448,7 +434,7 @@ extension HTuplePostCell {
     
     @objc
     func tupleExa5_insetForSection(_ section: Any) -> Any {
-        return UIEdgeInsets(top: lineSpace, left: edgeSpace, bottom: 25, right: edgeSpace)
+        return UIEdgeInsets(top: postLineSpace, left: postEdgeSpace, bottom: 25, right: postEdgeSpace)
     }
     
     @objc

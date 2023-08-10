@@ -8,17 +8,17 @@
 
 import UIKit
 
-private var edgeSpace = 16.0
-private var lineSpace = 16.0
+var postEdgeSpace = 16.0
+var postLineSpace = 16.0
 
-private var imageSpace = 8.0
-private var imageSize = 60.0
-private var videoSize = 90.0
+var postImageSpace = 8.0
+var postImageSize = 60.0
+var postVideoSize = 90.0
 
-private var extendSpace = 28.0
-private var translateSpace = 28.0
+var postExtendSpace = 28.0
+var postTranslateSpace = 28.0
 
-private var textHeightOmit = 60.0
+var postTextHeightOmit = 60.0
 
 enum HPostExtend: Int {
     case undefine = 0  // 未定义
@@ -43,7 +43,7 @@ class HTuplePostVM: NSObject {
             if let ct = post, ct.count > 0 {
                 textHeight = ct.heightWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToWidth: UIScreen.width - 32)
                 // 是否显示更多信息
-                if textHeight > textHeightOmit {
+                if textHeight > postTextHeightOmit {
                     postExtend = .extend
                 } else {
                     postExtend = .undefine
@@ -80,25 +80,25 @@ class HTuplePostVM: NSObject {
         var tmpHeight = 0.0
         // text高度
         if postExtend == .extend {
-            tmpHeight += textHeightOmit + lineSpace
+            tmpHeight += postTextHeightOmit + postLineSpace
         } else {
-            tmpHeight += textHeight + lineSpace
+            tmpHeight += textHeight + postLineSpace
         }
         // 是否需要翻译
         if postTranslate == .isTranslated {
             tmpHeight += textHeight
         } else if postTranslate == .translate {
-            tmpHeight += translateSpace
+            tmpHeight += postTranslateSpace
         }
         // 视频
         if let count = imageUrls?.count, count > 0 {
             let cc = ceil(CGFloat((count - 1) / 2))
-            let height = (cc + 1) * imageSize + cc * imageSpace
-            tmpHeight += height + lineSpace
+            let height = (cc + 1) * postImageSize + cc * postImageSpace
+            tmpHeight += height + postLineSpace
         }
         // 视频
         if videoUrl?.count ?? 0 > 0 {
-            tmpHeight += videoSize + lineSpace
+            tmpHeight += postVideoSize + postLineSpace
         }
         return tmpHeight
     }
