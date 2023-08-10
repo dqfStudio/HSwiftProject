@@ -1,5 +1,5 @@
 //
-//  HTuplePostCell.swift
+//  HPostView.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/8/8.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-class HTuplePostCell: UIStackView, HTupleViewDelegate {
+class HPostView: UIStackView, HTupleViewDelegate {
     
     // 帖子model
-    private var _postVM: HTuplePostVM?
-    var postVM: HTuplePostVM! {
+    private var _postVM: HPostVM?
+    var postVM: HPostVM! {
         get { return _postVM }
         set {
             if _postVM?.post != newValue.post {
@@ -62,7 +62,7 @@ class HTuplePostCell: UIStackView, HTupleViewDelegate {
 
 }
 
-extension HTuplePostCell {
+extension HPostView {
     
     @objc
     func tupleExa0_numberOfItemsInSection(_ section: Any) -> Any {
@@ -85,9 +85,9 @@ extension HTuplePostCell {
         let cell = itemBlock(nil, HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
         let frame = cell.layoutViewBounds
         
-        var headerView = cell.layoutView.viewWithTag(121314) as? HPostHeaderView
+        var headerView = cell.layoutView.viewWithTag(121314) as? HPostHeader
         if headerView == nil {
-            headerView = HPostHeaderView(frame: frame)
+            headerView = HPostHeader(frame: frame)
             headerView!.tag = 121314
             headerView!.avatarButton.pressed = { (sender, data) in
                 NSLog("")
@@ -105,7 +105,7 @@ extension HTuplePostCell {
     
 }
 
-extension HTuplePostCell {
+extension HPostView {
     
     @objc
     func tupleExa1_numberOfItemsInSection(_ section: Any) -> Any {
@@ -191,7 +191,7 @@ extension HTuplePostCell {
     
 }
 
-extension HTuplePostCell {
+extension HPostView {
     
     @objc
     func tupleExa2_numberOfItemsInSection(_ section: Any) -> Any {
@@ -256,7 +256,7 @@ extension HTuplePostCell {
     
 }
 
-extension HTuplePostCell {
+extension HPostView {
     
     @objc
     func tupleExa3_numberOfItemsInSection(_ section: Any) -> Any {
@@ -369,7 +369,7 @@ extension HTuplePostCell {
     
 }
 
-extension HTuplePostCell {
+extension HPostView {
     
     @objc
     func tupleExa4_numberOfItemsInSection(_ section: Any) -> Any {
@@ -408,7 +408,7 @@ extension HTuplePostCell {
     
 }
 
-extension HTuplePostCell {
+extension HPostView {
     
     @objc
     func tupleExa5_numberOfItemsInSection(_ section: Any) -> Any {
@@ -431,9 +431,9 @@ extension HTuplePostCell {
         let cell = itemBlock(nil, HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
         let frame = cell.layoutViewBounds
         
-        var footerView = cell.layoutView.viewWithTag(131415) as? HPostFooterView
+        var footerView = cell.layoutView.viewWithTag(131415) as? HPostFooter
         if footerView == nil {
-            footerView = HPostFooterView(frame: frame)
+            footerView = HPostFooter(frame: frame)
             footerView!.tag = 131415
             footerView!.likeButton.pressed = { (sender, data) in
                 NSLog("")

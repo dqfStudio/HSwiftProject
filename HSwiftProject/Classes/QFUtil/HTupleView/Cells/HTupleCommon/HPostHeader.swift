@@ -1,5 +1,5 @@
 //
-//  HPostHeaderView.swift
+//  HPostHeader.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/8/8.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HPostHeaderView: UIView {
+class HPostHeader: UIView {
     
     lazy var avatarButton: HWebButtonView = {
         let frame = CGRect(x: 0, y: 0, width: 48, height: 48)

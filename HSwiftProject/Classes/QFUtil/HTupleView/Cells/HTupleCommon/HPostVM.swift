@@ -1,5 +1,5 @@
 //
-//  HTuplePostVM.swift
+//  HPostVM.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/8/10.
@@ -41,7 +41,7 @@ enum HPostTranslate: Int {
     case isTranslated = 2  // 已经翻译过了
 }
 
-class HTuplePostVM: NSObject {
+class HPostVM: NSObject {
     
     // 头像
     var avatar: String?

@@ -1,5 +1,5 @@
 //
-//  HPostViewController.swift
+//  HPostVC.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/8/9.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HPostViewController: HTupleController {
+class HPostVC: HTupleController {
     
     var sourceData: [String] = ["放假啦束带结发拉屎会计法拉数据发来的撒放假了打撒发给垃圾粉了",
                                 "我饿付了款静电纺丝啦",
@@ -17,7 +17,7 @@ class HPostViewController: HTupleController {
                                 "weejeffljfljl",
                                 "jdflsakjfljsaflkjsal"]
     
-    var postList: [HTuplePostVM] = [HTuplePostVM]()
+    var postList: [HPostVM] = [HPostVM]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,7 @@ class HPostViewController: HTupleController {
         self.tupleView.tupleStatus = .block
         
         sourceData.forEach { item in
-            let postVM = HTuplePostVM()
+            let postVM = HPostVM()
             postVM.post = item
             postVM.imageUrls = ["11", "22", "33", "44"]
             postList.append(postVM)
@@ -44,9 +44,9 @@ class HPostViewController: HTupleController {
         let cell = itemBlock(nil, HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
         cell.backgroundColor = .yellow
         
-        var postCell = cell.viewWithTag(131214) as? HTuplePostCell
+        var postCell = cell.viewWithTag(131214) as? HPostView
         if postCell == nil {
-            postCell = HTuplePostCell(frame: .zero)
+            postCell = HPostView(frame: .zero)
             postCell!.tag = 131214
             cell.addSubview(postCell!)
         }

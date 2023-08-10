@@ -1,5 +1,5 @@
 //
-//  HPostFooterView.swift
+//  HPostFooter.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/8/8.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HPostFooterView: UIStackView {
+class HPostFooter: UIStackView {
     
     lazy var likeButton: HWebButtonView = {
         let button = HWebButtonView(frame: .zero)
