@@ -132,14 +132,7 @@ extension HTuplePostCell {
     
     @objc
     func tupleExa1_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        
-        var row = indexPath.row
-        //更多不显示、翻译显示
-        if row > 0, postVM.postExtend == .undefine, postVM.postTranslate == .translate {
-            row += 1
-        }
-        
-        switch row {
+        switch indexPath.row {
         case 0:
             if postVM.postExtend == .extend {
                 return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postTextHeightOmit)
@@ -151,20 +144,13 @@ extension HTuplePostCell {
         default:
             break
         }
-        return CGSize(width: self.tupleView.width, height: self.tupleView.height)
+        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postExtendSpace)
     }
     
     @objc
     func tupleExa1_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        
-        var row = indexPath.row
-        //更多不显示、翻译显示
-        if row > 0, postVM.postExtend == .undefine, postVM.postTranslate == .translate {
-            row += 1
-        }
-        
-        switch row {
+        switch indexPath.row {
         case 0: //内容
             if postVM.postExtend == .extend {
                 let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue + "notExtended", true) as! HTupleLabelCell
@@ -229,12 +215,8 @@ extension HTuplePostCell {
     @objc
     func tupleExa2_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         // 是否已经翻译过了
-        if postVM.postExtend != .extend {
-            if postVM.postTranslate == .isTranslated {
-                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postVM.textHeight)
-            } else if postVM.postTranslate == .translate {
-                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postTranslateSpace - 8.0)
-            }
+        if postVM.postTranslate == .isTranslated {
+            return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postVM.textHeight)
         }
         return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postTranslateSpace - 8.0)
     }
