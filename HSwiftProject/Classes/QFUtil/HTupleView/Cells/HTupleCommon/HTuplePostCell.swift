@@ -22,87 +22,81 @@ private var textHeightOmit = 60.0
 
 class HTuplePostCell: UIStackView, HTupleViewDelegate {
     
+    var postVM: HTuplePostVM!
+    
     // 父类tuple view
     weak var tuple: HTupleView?
     
     // 文字内容
-    var content: String? {
-        didSet {
-            if let ct = content, ct.count > 0 {
-                textHeight = ct.heightWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToWidth: UIScreen.width - 32)
-                // 是否显示更多信息
-                extend = (textHeight > textHeightOmit)
-                // 是否需要翻译
-                translate = true
-                
-            } else {
-                // 是否显示更多信息
-                extend = false
-                // 是否需要翻译
-                translate = false
-            }
-        }
-    }
+//    var content: String? {
+//        didSet {
+//            if let ct = content, ct.count > 0 {
+//                postVM.textHeight = ct.heightWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToWidth: UIScreen.width - 32)
+//                // 是否显示更多信息
+//                postVM.extend = (postVM.textHeight > textHeightOmit)
+//                // 是否需要翻译
+//                postVM.translate = true
+//
+//            } else {
+//                // 是否显示更多信息
+//                postVM.extend = false
+//                // 是否需要翻译
+//                postVM.translate = false
+//            }
+//        }
+//    }
     
     // 是否显示更多信息
-    var extend: Bool = false
-    
-    // 是否显示更多信息
-    var isExtended: Bool = false
-    
-    // 是否需要翻译
-    var translate: Bool = false
-    
-    // 是否已经翻译过了
-    var isTranslated: Bool = false
-    
-    // 图片
-    var imageUrls: [String]?
-    
-    // 视频
-    var videoUrl: String?
-    
-    // text高度
-    var textHeight: CGFloat = 0.0
+//    var extend: Bool = false
+//
+//    // 是否显示更多信息
+//    var isExtended: Bool = false
+//
+//    // 是否需要翻译
+//    var translate: Bool = false
+//
+//    // 是否已经翻译过了
+//    var isTranslated: Bool = false
+//
+//    // 图片
+//    var imageUrls: [String]?
+//
+//    // 视频
+//    var videoUrl: String?
+//
+//    // text高度
+//    var textHeight: CGFloat = 0.0
     
     // cell高度
-    var cellHeight: CGFloat {
-        var tmpHeight = 0.0
-        // text高度
-        if extend, !isExtended {
-            tmpHeight += textHeightOmit + lineSpace
-        } else {
-            tmpHeight += textHeight + lineSpace
-        }
-        // 是否显示更多信息
-        if extend, !isExtended {
-            if !isExtended {
-                tmpHeight += extendSpace
-            } else {
-                tmpHeight -= extendSpace
-            }
-        }
-        // 是否需要翻译
-        if translate {
-            // 是否已经翻译过了
-            if isTranslated {
-                tmpHeight += textHeight
-            } else {
-                tmpHeight += translateSpace
-            }
-        }
-        // 视频
-        if let count = imageUrls?.count, count > 0 {
-            let cc = ceil(CGFloat((count - 1) / 2))
-            let height = (cc + 1) * imageSize + cc * imageSpace
-            tmpHeight += height + lineSpace
-        }
-        // 视频
-        if videoUrl?.count ?? 0 > 0 {
-            tmpHeight += videoSize + lineSpace
-        }
-        return tmpHeight
-    }
+//    var cellHeight: CGFloat {
+//        var tmpHeight = 0.0
+//        // text高度
+//        if postVM.extend, !postVM.isExtended {
+//            tmpHeight += textHeightOmit + lineSpace
+//        } else {
+//            tmpHeight += postVM.textHeight + lineSpace
+//        }
+//        // 是否需要翻译
+//        if postVM.translate {
+//            // 是否已经翻译过了
+//            if postVM.isTranslated {
+//                tmpHeight += postVM.textHeight
+//            } else {
+//                tmpHeight += translateSpace
+//            }
+//        }
+//        // 视频
+//        if let count = postVM.imageUrls?.count, count > 0 {
+//            let cc = ceil(CGFloat((count - 1) / 2))
+//            let height = (cc + 1) * imageSize + cc * imageSpace
+//            tmpHeight += height + lineSpace
+//        }
+//        // 视频
+//        if postVM.videoUrl?.count ?? 0 > 0 {
+//            tmpHeight += videoSize + lineSpace
+//        }
+//        return tmpHeight
+//    }
     
     private lazy var tupleView: HTupleView = {
         let tupleView = HTupleView.tupleFrame({
@@ -191,10 +185,17 @@ extension HTuplePostCell {
     func tupleExa1_numberOfItemsInSection(_ section: Any) -> Any {
         var items = 0
         // 文字内容
-        if content?.count ?? 0 > 0 {
+//        if content?.count ?? 0 > 0 {
+//            items += 1
+//            // 是否显示更多信息
+//            if extend, !isExtended {
+//                items += 1
+//            }
+//        }
+        if postVM.post?.count ?? 0 > 0 {
             items += 1
             // 是否显示更多信息
-            if extend, !isExtended {
+            if postVM.extend, !postVM.isExtended {
                 items += 1
             }
         }
@@ -203,7 +204,12 @@ extension HTuplePostCell {
     
     @objc
     func tupleExa1_insetForSection(_ section: Any) -> Any {
-        if content?.count ?? 0 > 0 {
+//        if content?.count ?? 0 > 0 {
+//            return UIEdgeInsets(top: lineSpace, left: edgeSpace, bottom: 0, right: edgeSpace)
+//        } else {
+//            return UIEdgeInsets(top: 0, left: edgeSpace, bottom: 0, right: edgeSpace)
+//        }
+        if postVM.post?.count ?? 0 > 0 {
             return UIEdgeInsets(top: lineSpace, left: edgeSpace, bottom: 0, right: edgeSpace)
         } else {
             return UIEdgeInsets(top: 0, left: edgeSpace, bottom: 0, right: edgeSpace)
@@ -215,18 +221,18 @@ extension HTuplePostCell {
         
         var row = indexPath.row
         //更多不显示、翻译显示
-        if row > 0, !extend, translate {
-            if !isExtended {
+        if row > 0, !postVM.extend, postVM.translate {
+            if !postVM.isExtended {
                 row += 1
             }
         }
         
         switch row {
         case 0:
-            if extend, !isExtended {
+            if postVM.extend, !postVM.isExtended {
                 return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: textHeightOmit)
             } else {
-                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: textHeight)
+                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postVM.textHeight)
             }
         case 1:
             return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: extendSpace)
@@ -242,26 +248,26 @@ extension HTuplePostCell {
         
         var row = indexPath.row
         //更多不显示、翻译显示
-        if row > 0, !extend, translate {
-            if !isExtended {
+        if row > 0, !postVM.extend, postVM.translate {
+            if !postVM.isExtended {
                 row += 1
             }
         }
         
         switch row {
         case 0: //内容
-            if extend, !isExtended {
+            if postVM.extend, !postVM.isExtended {
                 let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue + "notExtended", true) as! HTupleLabelCell
                 cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
                 cell.label.textColor = UIColor(hex: "#17191E")
                 cell.label.numberOfLines = 3
-                cell.label.text = content
+                cell.label.text = postVM.post
             } else {
                 let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue + "isExtended", true) as! HTupleLabelCell
                 cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
                 cell.label.textColor = UIColor(hex: "#17191E")
                 cell.label.numberOfLines = 0
-                cell.label.text = content
+                cell.label.text = postVM.post
             }
         case 1: //更多
             let cell = itemBlock(nil, HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
@@ -275,7 +281,7 @@ extension HTuplePostCell {
             cell.buttonView.textColor = UIColor(hex: "#3879FC")
             cell.buttonView.text = "显示更多"
             cell.buttonView.pressed = { (sender, data) in
-                self.isExtended = true
+                self.postVM.isExtended = true
                 // 刷新tuple view
                 UIView.performWithoutAnimation {
                     self.tuple?.reloadData()
@@ -295,42 +301,124 @@ extension HTuplePostCell {
     func tupleExa2_numberOfItemsInSection(_ section: Any) -> Any {
         var items = 0
         // 是否需要翻译
-        if translate {
-            items += 1
+        if postVM.extend, postVM.isExtended {
+            if postVM.translate {
+                items += 1
+            }
+        } else if !postVM.extend {
+            if postVM.translate {
+                items += 1
+            }
         }
+        
+//        if !extend || isExtended {
+//            if translate {
+//                items += 1
+//            }
+//        }
+        
+//        if !extend, translate {
+//            items += 1
+//        }
         return items
     }
     
     @objc
     func tupleExa2_insetForSection(_ section: Any) -> Any {
         // 是否需要翻译
-        if translate {
-            return UIEdgeInsets(top: 8, left: edgeSpace, bottom: 0, right: edgeSpace)
-        } else {
-            return UIEdgeInsets(top: 0, left: edgeSpace, bottom: 0, right: edgeSpace)
+//        if !extend, translate {
+//            return UIEdgeInsets(top: 8, left: edgeSpace, bottom: 0, right: edgeSpace)
+//        } else {
+//            return UIEdgeInsets(top: 0, left: edgeSpace, bottom: 0, right: edgeSpace)
+//        }
+        if postVM.extend, postVM.isExtended {
+            if postVM.translate {
+                return UIEdgeInsets(top: 8, left: edgeSpace, bottom: 0, right: edgeSpace)
+            }
+        } else if !postVM.extend {
+            if postVM.translate {
+                return UIEdgeInsets(top: 8, left: edgeSpace, bottom: 0, right: edgeSpace)
+            }
         }
+//        if !extend || isExtended {
+//            if translate {
+//                return UIEdgeInsets(top: 8, left: edgeSpace, bottom: 0, right: edgeSpace)
+//            }
+//        }
+        return UIEdgeInsets(top: 0, left: edgeSpace, bottom: 0, right: edgeSpace)
     }
     
     @objc
     func tupleExa2_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         // 是否已经翻译过了
-        if isTranslated {
-            return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: textHeight)
-        } else {
-            return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: translateSpace - 8.0)
+//        if isTranslated {
+//            return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: textHeight)
+//        } else {
+//            return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: translateSpace - 8.0)
+//        }
+        
+//        if extend, isExtended {
+//            if isTranslated {
+//                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: textHeight)
+//            } else {
+//                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: translateSpace - 8.0)
+//            }
+//        } else if !extend {
+//            if isTranslated {
+//                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: textHeight)
+//            } else {
+//                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: translateSpace - 8.0)
+//            }
+//        } else {
+//            if isTranslated {
+//                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: textHeight)
+//            } else {
+//                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: translateSpace - 8.0)
+//            }
+//        }
+        
+        if postVM.extend, postVM.isExtended {
+            if postVM.translate {
+                if postVM.isTranslated {
+                    return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postVM.textHeight)
+                } else {
+                    return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: translateSpace - 8.0)
+                }
+            }
+        } else if !postVM.extend {
+            if postVM.translate {
+                if postVM.isTranslated {
+                    return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postVM.textHeight)
+                } else {
+                    return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: translateSpace - 8.0)
+                }
+            }
         }
+        
+        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: translateSpace - 8.0)
+        
+//        if !extend || isExtended {
+//            if isTranslated {
+//                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: textHeight)
+//            } else {
+//                return CGSize.zero
+//            }
+//        } else {
+//            return CGSize.zero
+//        }
+        
     }
     
     @objc
     func tupleExa2_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         // 是否已经翻译过了
-        if isTranslated {
+        if postVM.isTranslated {
             let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue, true) as! HTupleLabelCell
             cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
             cell.label.textColor = UIColor(hex: "#17191E")
             cell.label.numberOfLines = 0
-            cell.label.text = content
+            cell.label.text = postVM.post
         } else {
             let cell = itemBlock(nil, HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
             
@@ -344,8 +432,8 @@ extension HTuplePostCell {
             
             cell.buttonView.pressed = { (sender, data) in
                 // 是否已经翻译过了
-                self.isTranslated = true
-                self.translate = false
+                self.postVM.isTranslated = true
+//                self.postVM.translate = false
                 // 刷新tuple view
                 UIView.performWithoutAnimation {
                     self.tuple?.reloadData()
@@ -363,7 +451,7 @@ extension HTuplePostCell {
     func tupleExa3_numberOfItemsInSection(_ section: Any) -> Any {
         var items = 0
         // 图片
-        if let count = imageUrls?.count, count > 0 {
+        if let count = postVM.imageUrls?.count, count > 0 {
             items += count
             //四张图片时由于布局的特殊性，多添加一个item
             if count == 4 {
@@ -375,7 +463,7 @@ extension HTuplePostCell {
     
     @objc
     func tupleExa3_insetForSection(_ section: Any) -> Any {
-        if imageUrls?.count ?? 0 > 0 {
+        if postVM.imageUrls?.count ?? 0 > 0 {
             return UIEdgeInsets(top: lineSpace, left: edgeSpace, bottom: 0, right: edgeSpace)
         } else {
             return UIEdgeInsets(top: 0, left: edgeSpace, bottom: 0, right: edgeSpace)
@@ -430,7 +518,7 @@ extension HTuplePostCell {
             let cell = itemBlock(nil, HTupleButtonCell.self, indexPath.stringValue, true) as! HTupleButtonCell
             
             //四张图片时由于布局的特殊性，多添加了一个item
-            if let count = imageUrls?.count, count == 4 {
+            if let count = postVM.imageUrls?.count, count == 4 {
                 cell.buttonView.isUserInteractionEnabled = false
             } else {
                 cell.buttonView.backgroundColor = .red
@@ -451,7 +539,7 @@ extension HTuplePostCell {
             cell.buttonView.cornerRadius = 8.0
             
             //四张图片时由于布局的特殊性，多添加了一个item
-            if let count = imageUrls?.count, count == 4 {
+            if let count = postVM.imageUrls?.count, count == 4 {
                 
                 cell.buttonView.pressed = { (sender, data) in
                     //let row = indexPath.row - 1
@@ -475,7 +563,7 @@ extension HTuplePostCell {
     @objc
     func tupleExa4_numberOfItemsInSection(_ section: Any) -> Any {
         var items = 0
-        if videoUrl?.count ?? 0 > 0 {
+        if postVM.videoUrl?.count ?? 0 > 0 {
             items += 1
         }
         return items
@@ -483,7 +571,7 @@ extension HTuplePostCell {
     
     @objc
     func tupleExa4_insetForSection(_ section: Any) -> Any {
-        if videoUrl?.count ?? 0 > 0 {
+        if postVM.videoUrl?.count ?? 0 > 0 {
             return UIEdgeInsets(top: lineSpace, left: edgeSpace, bottom: 0, right: edgeSpace)
         } else {
             return UIEdgeInsets(top: 0, left: edgeSpace, bottom: 0, right: edgeSpace)

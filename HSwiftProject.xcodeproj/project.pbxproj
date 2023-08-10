@@ -176,6 +176,7 @@
 		EB1209812A827E1900E5F045 /* HPostHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209802A827E1900E5F045 /* HPostHeaderView.swift */; };
 		EB1209832A8280E400E5F045 /* HTuplePostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209822A8280E400E5F045 /* HTuplePostCell.swift */; };
 		EB1209852A8365E500E5F045 /* HPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209842A8365E400E5F045 /* HPostViewController.swift */; };
+		EB1209872A84CC8300E5F045 /* HTuplePostVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209862A84CC8300E5F045 /* HTuplePostVM.swift */; };
 		EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23D99529DFC6F800C96CAC /* HTextView.swift */; };
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
 		EB23DAC72A02187700C96CAC /* HAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC62A02187600C96CAC /* HAlertAction.swift */; };
@@ -494,6 +495,7 @@
 		EB1209802A827E1900E5F045 /* HPostHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostHeaderView.swift; sourceTree = "<group>"; };
 		EB1209822A8280E400E5F045 /* HTuplePostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTuplePostCell.swift; sourceTree = "<group>"; };
 		EB1209842A8365E400E5F045 /* HPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostViewController.swift; sourceTree = "<group>"; };
+		EB1209862A84CC8300E5F045 /* HTuplePostVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTuplePostVM.swift; sourceTree = "<group>"; };
 		EB23D99529DFC6F800C96CAC /* HTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
 		EB23DAC62A02187600C96CAC /* HAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertAction.swift; sourceTree = "<group>"; };
@@ -837,6 +839,7 @@
 				EBA53C312A3210FA0077158D /* HMultiButtonView.swift */,
 				EB1209842A8365E400E5F045 /* HPostViewController.swift */,
 				EB1209822A8280E400E5F045 /* HTuplePostCell.swift */,
+				EB1209862A84CC8300E5F045 /* HTuplePostVM.swift */,
 				EB1209802A827E1900E5F045 /* HPostHeaderView.swift */,
 				EB12097E2A827AF200E5F045 /* HPostFooterView.swift */,
 				EBD213E62A6B859500C31E2D /* HSkeletonView.swift */,
@@ -1925,6 +1928,7 @@
 				A229489F23975D850058B939 /* HTableViewCellHoriValue.swift in Sources */,
 				A2A814B4274C0E2000FAB929 /* HTupleHeader.swift in Sources */,
 				EBA53C3A2A3B47240077158D /* HWebImageView2.swift in Sources */,
+				EB1209872A84CC8300E5F045 /* HTuplePostVM.swift in Sources */,
 				EB12097F2A827AF200E5F045 /* HPostFooterView.swift in Sources */,
 				A26D43192383E23300F457AE /* NSString+HUtil.swift in Sources */,
 				A22948A5239798000058B939 /* HMainController1.swift in Sources */,
