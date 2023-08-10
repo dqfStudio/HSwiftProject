@@ -18,6 +18,8 @@ private var videoSize = 90.0
 private var extendSpace = 28.0
 private var translateSpace = 28.0
 
+private var textHeightOmit = 60.0
+
 class HTuplePostCell: UIStackView, HTupleViewDelegate {
     
     // 父类tuple view
@@ -28,11 +30,8 @@ class HTuplePostCell: UIStackView, HTupleViewDelegate {
         didSet {
             if let ct = content, ct.count > 0 {
                 textHeight = ct.heightWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToWidth: UIScreen.width - 32)
-                let tmpHeight = extendSpace - 8.0
-                // 超过4行就显示更多
-                let rows = 4
                 // 是否显示更多信息
-                extend = (CGFloat(textHeight / tmpHeight) > CGFloat(rows))
+                extend = (textHeight > textHeightOmit)
                 // 是否需要翻译
                 translate = true
                 
@@ -47,6 +46,9 @@ class HTuplePostCell: UIStackView, HTupleViewDelegate {
     
     // 是否显示更多信息
     var extend: Bool = false
+    
+    // 是否显示更多信息
+    var isExtended: Bool = false
     
     // 是否需要翻译
     var translate: Bool = false
@@ -67,10 +69,18 @@ class HTuplePostCell: UIStackView, HTupleViewDelegate {
     var cellHeight: CGFloat {
         var tmpHeight = 0.0
         // text高度
-        tmpHeight += textHeight + lineSpace
+        if extend, !isExtended {
+            tmpHeight += textHeightOmit + lineSpace
+        } else {
+            tmpHeight += textHeight + lineSpace
+        }
         // 是否显示更多信息
-        if extend {
-            tmpHeight += extendSpace
+        if extend, !isExtended {
+            if !isExtended {
+                tmpHeight += extendSpace
+            } else {
+                tmpHeight -= extendSpace
+            }
         }
         // 是否需要翻译
         if translate {
@@ -184,7 +194,7 @@ extension HTuplePostCell {
         if content?.count ?? 0 > 0 {
             items += 1
             // 是否显示更多信息
-            if extend {
+            if extend, !isExtended {
                 items += 1
             }
         }
@@ -206,12 +216,18 @@ extension HTuplePostCell {
         var row = indexPath.row
         //更多不显示、翻译显示
         if row > 0, !extend, translate {
-            row += 1
+            if !isExtended {
+                row += 1
+            }
         }
         
         switch row {
         case 0:
-            return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: textHeight)
+            if extend, !isExtended {
+                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: textHeightOmit)
+            } else {
+                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: textHeight)
+            }
         case 1:
             return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: extendSpace)
         default:
@@ -227,20 +243,29 @@ extension HTuplePostCell {
         var row = indexPath.row
         //更多不显示、翻译显示
         if row > 0, !extend, translate {
-            row += 1
+            if !isExtended {
+                row += 1
+            }
         }
         
         switch row {
         case 0: //内容
-            let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue, true) as! HTupleLabelCell
-            cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
-            cell.label.textColor = UIColor(hex: "#17191E")
-            cell.label.numberOfLines = 0
-            cell.label.text = content
+            if extend, !isExtended {
+                let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue + "notExtended", true) as! HTupleLabelCell
+                cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
+                cell.label.textColor = UIColor(hex: "#17191E")
+                cell.label.numberOfLines = 3
+                cell.label.text = content
+            } else {
+                let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue + "isExtended", true) as! HTupleLabelCell
+                cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
+                cell.label.textColor = UIColor(hex: "#17191E")
+                cell.label.numberOfLines = 0
+                cell.label.text = content
+            }
         case 1: //更多
             let cell = itemBlock(nil, HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
             cell.edgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
-            cell.backgroundColor = .gray
             
             let frame = cell.layoutViewBounds
             let width = "显示更多".widthWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToHeight: extendSpace - 8.0)
@@ -250,6 +275,7 @@ extension HTuplePostCell {
             cell.buttonView.textColor = UIColor(hex: "#3879FC")
             cell.buttonView.text = "显示更多"
             cell.buttonView.pressed = { (sender, data) in
+                self.isExtended = true
                 // 刷新tuple view
                 UIView.performWithoutAnimation {
                     self.tuple?.reloadData()
