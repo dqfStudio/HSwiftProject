@@ -31,7 +31,7 @@ class HPostViewController: HTupleController {
 
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+        let cell = itemBlock(nil, HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
         cell.backgroundColor = .yellow
         
         var postCell = cell.viewWithTag(131214) as? HTuplePostCell
@@ -39,7 +39,9 @@ class HPostViewController: HTupleController {
             postCell = HTuplePostCell(frame: .zero)
             postCell!.tag = 131214
             postCell!.postBlock = {
-                self.tupleView.reloadTupleData()
+                UIView.performWithoutAnimation {
+                    self.tupleView.reloadData()
+                }
             }
             cell.addSubview(postCell!)
         }
