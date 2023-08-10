@@ -10,6 +10,7 @@ import UIKit
 
 class HTuplePostCell: UIStackView, HTupleViewDelegate {
     
+    // 帖子model
     private var _postVM: HTuplePostVM?
     var postVM: HTuplePostVM! {
         get { return _postVM }
