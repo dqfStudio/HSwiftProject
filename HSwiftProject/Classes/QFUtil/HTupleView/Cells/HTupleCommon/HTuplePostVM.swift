@@ -43,15 +43,19 @@ class HTuplePostVM: NSObject {
             if let ct = post, ct.count > 0 {
                 textHeight = ct.heightWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToWidth: UIScreen.width - 32)
                 // 是否显示更多信息
-                extend = (textHeight > textHeightOmit)
+                if textHeight > textHeightOmit {
+                    postExtend = .extend
+                } else {
+                    postExtend = .undefine
+                }
                 // 是否需要翻译
-                translate = true
+                postTranslate = .translate
                 
             } else {
                 // 是否显示更多信息
-                extend = false
+                postExtend = .undefine
                 // 是否需要翻译
-                translate = false
+                postTranslate = .undefine
             }
         }
     }
@@ -61,18 +65,6 @@ class HTuplePostVM: NSObject {
     
     // 是否需要翻译
     var postTranslate: HPostTranslate = .undefine
-    
-    // 是否显示更多信息
-    var extend: Bool = false
-    
-    // 是否显示更多信息
-    var isExtended: Bool = false
-    
-    // 是否需要翻译
-    var translate: Bool = false
-    
-    // 是否已经翻译过了
-    var isTranslated: Bool = false
     
     // 图片
     var imageUrls: [String]?
@@ -87,19 +79,16 @@ class HTuplePostVM: NSObject {
     var cellHeight: CGFloat {
         var tmpHeight = 0.0
         // text高度
-        if extend, !isExtended {
+        if postExtend == .extend {
             tmpHeight += textHeightOmit + lineSpace
         } else {
             tmpHeight += textHeight + lineSpace
         }
         // 是否需要翻译
-        if translate {
-            // 是否已经翻译过了
-            if isTranslated {
-                tmpHeight += textHeight
-            } else {
-                tmpHeight += translateSpace
-            }
+        if postTranslate == .isTranslated {
+            tmpHeight += textHeight
+        } else if postTranslate == .translate {
+            tmpHeight += translateSpace
         }
         // 视频
         if let count = imageUrls?.count, count > 0 {

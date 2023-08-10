@@ -31,37 +31,11 @@ class HPostViewController: HTupleController {
             postVM.post = item
             postVM.imageUrls = ["11", "22", "33", "44"]
             postList.append(postVM)
-            
-//            var avatar: String?
-//            var name: String?
-//            var date: String?
-//
-//            var post: String?
-//
-//            // 是否显示更多信息
-//            var extend: Bool = false
-//
-//            // 是否显示更多信息
-//            var isExtended: Bool = false
-//
-//            // 是否需要翻译
-//            var translate: Bool = false
-//
-//            // 是否已经翻译过了
-//            var isTranslated: Bool = false
-//
-//            // 图片
-//            var imageUrls: [String]?
-//
-//            // 视频
-//            var videoUrl: String?
-            
         }
         
     }
 
     func numberOfItemsInSection(_ section: Any) -> Any {
-//        return sourceData.count
         return postList.count
     }
 
@@ -77,16 +51,12 @@ class HPostViewController: HTupleController {
             cell.addSubview(postCell!)
         }
         
-//        guard indexPath.row < sourceData.count else { return }
         guard indexPath.row < postList.count else { return }
         
         let postVM = postList[indexPath.row]
         
         postCell!.postVM = postVM
         postCell!.tuple = self.tupleView
-//        postCell!.content = sourceData[indexPath.row]
-//        postCell!.imageUrls = ["11", "22", "33", "44"]
-        //postCell!.videoUrl = "2"
         
         // cell高度
         let cellHeight = postCell!.postVM.cellHeight + 72 + 65
@@ -107,24 +77,6 @@ class HPostViewController: HTupleController {
         
 //        cell.selectBlock = {
 //            NSLog("")
-//        }
-        
-        
-//        guard indexPath.row < sourceData.count else { return }
-//
-//        cell.content = sourceData[indexPath.row]
-//        cell.imageUrls = ["11", "22", "33", "44"]
-//        //cell.videoUrl = "2"
-//
-//        // cell高度
-//        let cellHeight = cell.cellHeight + 72 + 65
-//
-//        cell.sizeBlock = {
-//            return CGSize(width: self.tupleView.width, height: cellHeight)
-//        }
-//
-//        cell.cellBlock = {
-
 //        }
         
     }
