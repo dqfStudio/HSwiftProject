@@ -250,7 +250,10 @@ extension HTuplePostCell {
             cell.buttonView.textColor = UIColor(hex: "#3879FC")
             cell.buttonView.text = "显示更多"
             cell.buttonView.pressed = { (sender, data) in
-                
+                // 刷新tuple view
+                UIView.performWithoutAnimation {
+                    self.tuple?.reloadData()
+                }
             }
         default:
             break
