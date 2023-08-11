@@ -294,6 +294,8 @@ extension HPostCommentView {
             cell.buttonView.pressed = { (sender, data) in
                 // 刷新tuple view
                 UIView.performWithoutAnimation {
+                    // 更多按钮高度
+                    self.postVM.postExtend = .undefine
                     self.tuple?.reloadData()
                 }
             }
