@@ -117,6 +117,12 @@ class HPostVM: NSObject {
         if videoUrl?.count ?? 0 > 0 {
             tmpHeight += postVideoSize + postLineSpace
         }
+        
+        // header高度
+        tmpHeight += 72
+        // footer高度
+        tmpHeight += 65
+        
         return tmpHeight
     }
     

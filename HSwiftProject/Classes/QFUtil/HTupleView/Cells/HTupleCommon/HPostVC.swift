@@ -60,7 +60,7 @@ class HPostVC: HTupleController {
         postCell!.tuple = self.tupleView
         
         // 获取cell高度
-        let cellHeight = postCell!.postVM.cellHeight + 72 + 65
+        let cellHeight = postCell!.postVM.cellHeight
         
         // 重设postCell frame
         if postCell!.height != cellHeight {
