@@ -451,10 +451,10 @@ extension HPostView {
             }
             cell.layoutView.addSubview(footerView!)
         }
-        footerView!.likeButton.text = "22"
-        footerView!.commentButton.text = "33"
-        footerView!.shareButton.text = "44"
-        footerView!.moreButton.text = "55"
+        footerView!.likeButton.text = "喜欢"
+        footerView!.commentButton.text = "评论"
+        footerView!.shareButton.text = "分享"
+        footerView!.moreButton.text = "更多"
     }
     
 }
