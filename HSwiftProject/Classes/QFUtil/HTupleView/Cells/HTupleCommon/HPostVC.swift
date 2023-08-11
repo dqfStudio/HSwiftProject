@@ -43,7 +43,9 @@ class HPostVC: HTupleController {
         let itemBlock = itemBlock as! HTupleItem
         let cell = itemBlock(nil, HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
         cell.backgroundColor = .yellow
+        guard indexPath.row < postList.count else { return }
         
+        // 添加postCell
         var postCell = cell.viewWithTag(131214) as? HPostView
         if postCell == nil {
             postCell = HPostView(frame: .zero)
@@ -51,37 +53,28 @@ class HPostVC: HTupleController {
             cell.addSubview(postCell!)
         }
         
-        guard indexPath.row < postList.count else { return }
-        
+        // 赋值model
         let postVM = postList[indexPath.row]
-        
         postCell!.postVM = postVM
         postCell!.tuple = self.tupleView
         
-        // cell高度
+        // 获取cell高度
         let cellHeight = postCell!.postVM.cellHeight + 72 + 65
         
+        // 重设postCell frame
         if postCell!.height != cellHeight {
             postCell!.frame = CGRect(x: 0, y: 0, width: self.tupleView.width, height: cellHeight)
             postCell!.reloadTupleData()
         }
         
-        
+        // 设置cell大小
         cell.sizeBlock = {
             return CGSize(width: self.tupleView.width, height: cellHeight)
         }
-        
-        cell.cellBlock = {
-//            postCell!.tupleView.reloadTupleData()
-        }
-        
-//        cell.selectBlock = {
-//            NSLog("")
-//        }
-        
     }
     
     func willDisplayCell(_ cell: UICollectionViewCell, atIndexPath indexPath: IndexPath) {
+        // 添加间隔线
         if indexPath.row != sourceData.count - 1 {
             cell.setBottomLine(withColor: .red, paddingLeft: 16, paddingRight: 16)
         } else {
