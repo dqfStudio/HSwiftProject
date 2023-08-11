@@ -30,6 +30,7 @@ class HPostVC: HTupleController {
             let postVM = HPostVM()
             postVM.post = item
             postVM.imageUrls = ["11", "22", "33", "44"]
+            postVM.videoUrl = "11"
             postList.append(postVM)
         }
         

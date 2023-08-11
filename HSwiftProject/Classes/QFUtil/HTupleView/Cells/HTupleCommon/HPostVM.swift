@@ -15,9 +15,13 @@ var postLineSpace = 16.0
 // 图片间距
 var postImageSpace = 8.0
 // 图片大小
-var postImageSize = 60.0
+var postImageSize: CGFloat {
+    return (UIScreen.width - 32 - 2 * postImageSpace) / 3
+}
 // 视频大小
-var postVideoSize = 90.0
+var postVideoSize: CGFloat {
+    return (UIScreen.width - 32) * 180.0 / 343.0
+}
 
 // 更多按钮高度
 var postExtendSpace = 28.0

@@ -293,8 +293,7 @@ extension HPostView {
     
     @objc
     func tupleExa3_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        let width = (self.tupleView.width(forSection: indexPath.section) - 2 * postImageSpace) / 3
-        return CGSize(width: width, height: postImageSize)
+        return CGSize(width: postImageSize, height: postImageSize)
     }
     
     @objc
