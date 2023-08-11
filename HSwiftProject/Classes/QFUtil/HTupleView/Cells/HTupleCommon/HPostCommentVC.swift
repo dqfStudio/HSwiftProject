@@ -46,9 +46,9 @@ class HPostCommentVC: HTupleController {
         guard indexPath.row < postList.count else { return }
         
         // 添加postCell
-        var postCell = cell.viewWithTag(131214) as? HPostView
+        var postCell = cell.viewWithTag(131214) as? HPostCommentView
         if postCell == nil {
-            postCell = HPostView(frame: .zero)
+            postCell = HPostCommentView(frame: .zero)
             postCell!.tag = 131214
             cell.addSubview(postCell!)
         }

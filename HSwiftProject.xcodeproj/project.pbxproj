@@ -178,6 +178,9 @@
 		EB1209852A8365E500E5F045 /* HPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209842A8365E400E5F045 /* HPostVC.swift */; };
 		EB1209872A84CC8300E5F045 /* HPostVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209862A84CC8300E5F045 /* HPostVM.swift */; };
 		EB1209892A85D87700E5F045 /* HPostCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209882A85D87700E5F045 /* HPostCommentVC.swift */; };
+		EB12098B2A85DA1A00E5F045 /* HPostCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB12098A2A85DA1A00E5F045 /* HPostCommentView.swift */; };
+		EB12098D2A85DA2A00E5F045 /* HPostCommentHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB12098C2A85DA2A00E5F045 /* HPostCommentHeader.swift */; };
+		EB12098F2A85DA3C00E5F045 /* HPostCommentFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB12098E2A85DA3C00E5F045 /* HPostCommentFooter.swift */; };
 		EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23D99529DFC6F800C96CAC /* HTextView.swift */; };
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
 		EB23DAC72A02187700C96CAC /* HAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC62A02187600C96CAC /* HAlertAction.swift */; };
@@ -498,6 +501,9 @@
 		EB1209842A8365E400E5F045 /* HPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostVC.swift; sourceTree = "<group>"; };
 		EB1209862A84CC8300E5F045 /* HPostVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostVM.swift; sourceTree = "<group>"; };
 		EB1209882A85D87700E5F045 /* HPostCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostCommentVC.swift; sourceTree = "<group>"; };
+		EB12098A2A85DA1A00E5F045 /* HPostCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostCommentView.swift; sourceTree = "<group>"; };
+		EB12098C2A85DA2A00E5F045 /* HPostCommentHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostCommentHeader.swift; sourceTree = "<group>"; };
+		EB12098E2A85DA3C00E5F045 /* HPostCommentFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostCommentFooter.swift; sourceTree = "<group>"; };
 		EB23D99529DFC6F800C96CAC /* HTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
 		EB23DAC62A02187600C96CAC /* HAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertAction.swift; sourceTree = "<group>"; };
@@ -845,6 +851,9 @@
 				EB1209802A827E1900E5F045 /* HPostHeader.swift */,
 				EB12097E2A827AF200E5F045 /* HPostFooter.swift */,
 				EB1209882A85D87700E5F045 /* HPostCommentVC.swift */,
+				EB12098A2A85DA1A00E5F045 /* HPostCommentView.swift */,
+				EB12098C2A85DA2A00E5F045 /* HPostCommentHeader.swift */,
+				EB12098E2A85DA3C00E5F045 /* HPostCommentFooter.swift */,
 				EBD213E62A6B859500C31E2D /* HSkeletonView.swift */,
 				EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */,
 			);
@@ -1790,6 +1799,7 @@
 				A22948A123975F500058B939 /* HTableViewApexVertValue.swift in Sources */,
 				A28B652323FD26CE00B6B638 /* HNetworkManager.swift in Sources */,
 				EBD0FB3829CCA8D800808EDA /* HRemoteNotification.swift in Sources */,
+				EB12098B2A85DA1A00E5F045 /* HPostCommentView.swift in Sources */,
 				EBA53C382A38AF000077158D /* HWebButtonView2.swift in Sources */,
 				EBA53C2E2A308BF00077158D /* HWebActionView.swift in Sources */,
 				EB4323F029B988C100EDDB64 /* HAlertFormatter.swift in Sources */,
@@ -1897,6 +1907,7 @@
 				A2B4308523823B9000795605 /* HCommonBlock.swift in Sources */,
 				A2A814C5274F56C400FAB929 /* UIView+HUtil.swift in Sources */,
 				EBD0FB7829D02B9600808EDA /* HUserDefaults+Property.swift in Sources */,
+				EB12098F2A85DA3C00E5F045 /* HPostCommentFooter.swift in Sources */,
 				A28C314923EBB4D80050CDA1 /* HVerifyCodeView.swift in Sources */,
 				EB1209812A827E1900E5F045 /* HPostHeader.swift in Sources */,
 				A28923A8238B72F800E4AB75 /* HCollectionViewFlowLayout.swift in Sources */,
@@ -2005,6 +2016,7 @@
 				A2B43075237FF2B100795605 /* HPrinterManager.swift in Sources */,
 				A22948A323975FB10058B939 /* HTableViewApexHoriValue.swift in Sources */,
 				A2A7A94923FE8A400090EFD3 /* HCycleScrollView.swift in Sources */,
+				EB12098D2A85DA2A00E5F045 /* HPostCommentHeader.swift in Sources */,
 				EBC8145729AA538B00A81431 /* HAcceptAudioVC.swift in Sources */,
 				EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */,
 				EB23DAD12A029F0300C96CAC /* HAlertController+Style0.swift in Sources */,
