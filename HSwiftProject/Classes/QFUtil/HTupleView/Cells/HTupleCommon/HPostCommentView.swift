@@ -11,8 +11,8 @@ import UIKit
 class HPostCommentView: UIStackView, HTupleViewDelegate {
     
     // 帖子model
-    private var _postVM: HPostVM?
-    var postVM: HPostVM! {
+    private var _postVM: HPostCommentVM?
+    var postVM: HPostCommentVM! {
         get { return _postVM }
         set {
             if _postVM?.post != newValue.post {
@@ -28,7 +28,7 @@ class HPostCommentView: UIStackView, HTupleViewDelegate {
         let tupleView = HTupleView.tupleFrame({
             return self.bounds
         }, exclusiveSections: {
-            return [0, 1, 2, 3, 4]
+            return [0, 1, 2, 3, 4, 5]
         })
         tupleView.isScrollEnabled = false
         tupleView.disableBounce()
@@ -57,7 +57,7 @@ class HPostCommentView: UIStackView, HTupleViewDelegate {
     
     @objc
     func tuple0_numberOfSectionsInTupleView() -> Any {
-        return 5
+        return 6
     }
 
 }
@@ -71,7 +71,7 @@ extension HPostCommentView {
     
     @objc
     func tupleExa0_insetForSection(_ section: Any) -> Any {
-        return UIEdgeInsets(top: 24, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
+        return UIEdgeInsets(top: 24, left: postCommentEdgeSpace, bottom: 0, right: postCommentEdgeSpace)
     }
     
     @objc
@@ -113,80 +113,28 @@ extension HPostCommentView {
         // 文字内容
         if postVM.post?.count ?? 0 > 0 {
             items += 1
-            // 是否显示更多信息
-//            if postVM.postExtend == .extend {
-//                items += 1
-//            }
         }
         return items
     }
     
     @objc
     func tupleExa1_insetForSection(_ section: Any) -> Any {
-        if postVM.post?.count ?? 0 > 0 {
-            return UIEdgeInsets(top: postLineSpace, left: postEdgeSpace + 60, bottom: 0, right: postEdgeSpace)
-        } else {
-            return UIEdgeInsets(top: 0, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
-        }
+        return UIEdgeInsets(top: postCommentLineSpace, left: postCommentEdgeSpace + 60, bottom: 0, right: postCommentEdgeSpace)
     }
     
     @objc
     func tupleExa1_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        switch indexPath.row {
-        case 0:
-            if postVM.postExtend == .extend {
-                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postTextHeightOmit)
-            } else {
-                return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postVM.textHeight)
-            }
-//        case 1:
-//            return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postExtendSpace)
-        default:
-            break
-        }
-        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postExtendSpace)
+        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postVM.textHeight)
     }
     
     @objc
     func tupleExa1_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        switch indexPath.row {
-        case 0: //内容
-            if postVM.postExtend == .extend {
-                let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue + "notExtended", true) as! HTupleLabelCell
-                cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
-                cell.label.textColor = UIColor(hex: "#17191E")
-                cell.label.numberOfLines = 3
-                cell.label.text = postVM.post
-            } else {
-                let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue + "isExtended", true) as! HTupleLabelCell
-                cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
-                cell.label.textColor = UIColor(hex: "#17191E")
-                cell.label.numberOfLines = 0
-                cell.label.text = postVM.post
-            }
-//        case 1: //更多
-//            let cell = itemBlock(nil, HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
-//            cell.edgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
-//
-//            let frame = cell.layoutViewBounds
-//            let width = "显示更多".widthWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToHeight: postExtendSpace - 8.0)
-//
-//            cell.buttonView.frame = CGRect(x: 0, y: 0, width: width, height: frame.height)
-//            cell.buttonView.textFont = UIFont.font(ofSize: 14, weight: .regular)
-//            cell.buttonView.textColor = UIColor(hex: "#3879FC")
-//            cell.buttonView.text = "显示更多"
-//            cell.buttonView.pressed = { (sender, data) in
-//                self.postVM.postExtend = .isExtended
-//                // 刷新tuple view
-//                UIView.performWithoutAnimation {
-//                    self.tuple?.reloadData()
-//                }
-//            }
-        default:
-            break
-        }
-
+        let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue + "isExtended", true) as! HTupleLabelCell
+        cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
+        cell.label.textColor = UIColor(hex: "#17191E")
+        cell.label.numberOfLines = 0
+        cell.label.text = postVM.post
     }
     
 }
@@ -197,7 +145,7 @@ extension HPostCommentView {
     func tupleExa2_numberOfItemsInSection(_ section: Any) -> Any {
         var items = 0
         // 是否需要翻译
-        if postVM.postExtend != .extend, postVM.postTranslate != .undefine {
+        if postVM.postTranslate != .undefine {
             items += 1
         }
         return items
@@ -206,10 +154,10 @@ extension HPostCommentView {
     @objc
     func tupleExa2_insetForSection(_ section: Any) -> Any {
         // 是否需要翻译
-        if postVM.postExtend != .extend, postVM.postTranslate != .undefine {
-            return UIEdgeInsets(top: 8, left: postEdgeSpace + 60, bottom: 0, right: postEdgeSpace)
+        if postVM.postTranslate != .undefine {
+            return UIEdgeInsets(top: 8, left: postCommentEdgeSpace + 60, bottom: 0, right: postCommentEdgeSpace)
         }
-        return UIEdgeInsets(top: 0, left: postEdgeSpace + 60, bottom: 0, right: postEdgeSpace)
+        return UIEdgeInsets(top: 0, left: postCommentEdgeSpace + 60, bottom: 0, right: postCommentEdgeSpace)
     }
     
     @objc
@@ -218,7 +166,7 @@ extension HPostCommentView {
         if postVM.postTranslate == .isTranslated {
             return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postVM.textHeight)
         }
-        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postTranslateSpace - 8.0)
+        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postCommentTranslateSpace - 8.0)
     }
     
     @objc
@@ -265,12 +213,12 @@ extension HPostCommentView {
     
     @objc
     func tupleExa3_insetForSection(_ section: Any) -> Any {
-        return UIEdgeInsets(top: 8, left: postEdgeSpace + 60, bottom: 0, right: postEdgeSpace)
+        return UIEdgeInsets(top: 8, left: postCommentEdgeSpace + 60, bottom: 0, right: postCommentEdgeSpace)
     }
     
     @objc
     func tupleExa3_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postTranslateSpace - 8.0)
+        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postCommentTimeSpace - 8.0)
     }
     
     @objc
@@ -305,17 +253,26 @@ extension HPostCommentView {
     
     @objc
     func tupleExa4_numberOfItemsInSection(_ section: Any) -> Any {
-        return 1
+        var items = 0
+        // 是否显示更多信息
+        if postVM.postExtend == .extend {
+            items += 1
+        }
+        return items
     }
     
     @objc
     func tupleExa4_insetForSection(_ section: Any) -> Any {
-        return UIEdgeInsets(top: 16, left: postEdgeSpace + 60, bottom: 12, right: postEdgeSpace)
+        // 是否显示更多信息
+        if postVM.postExtend == .extend {
+            return UIEdgeInsets(top: 16, left: postCommentEdgeSpace + 60, bottom: 0, right: postCommentEdgeSpace)
+        }
+        return UIEdgeInsets(top: 0, left: postCommentEdgeSpace + 60, bottom: 0, right: postCommentEdgeSpace)
     }
     
     @objc
     func tupleExa4_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: 20 + 16.0 + 12.0 - 16.0 - 12.0)
+        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postCommentExtendSpace - 16.0)
     }
     
     @objc
@@ -364,205 +321,27 @@ extension HPostCommentView {
     
 }
 
-//extension HPostCommentView {
-//
-//    @objc
-//    func tupleExa3_numberOfItemsInSection(_ section: Any) -> Any {
-//        var items = 0
-//        // 图片
-//        if let count = postVM.imageUrls?.count, count > 0 {
-//            items += count
-//            //四张图片时由于布局的特殊性，多添加一个item
-//            if count == 4 {
-//                items += 1
-//            }
-//        }
-//        return items
-//    }
-//
-//    @objc
-//    func tupleExa3_insetForSection(_ section: Any) -> Any {
-//        if postVM.imageUrls?.count ?? 0 > 0 {
-//            return UIEdgeInsets(top: postLineSpace, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
-//        } else {
-//            return UIEdgeInsets(top: 0, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
-//        }
-//    }
-//
-//    @objc
-//    func tupleExa3_minimumLineSpacingForSectionAt(_ section: Any) -> Any {
-//        return postImageSpace
-//    }
-//
-//    @objc
-//    func tupleExa3_minimumInteritemSpacingForSectionAt(_ section: Any) -> Any {
-//        return postImageSpace
-//    }
-//
-//    @objc
-//    func tupleExa3_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-//        return CGSize(width: postImageSize, height: postImageSize)
-//    }
-//
-//    @objc
-//    func tupleExa3_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-//        let itemBlock = itemBlock as! HTupleItem
-//        if indexPath.row == 0 {
-//
-//            let cell = itemBlock(nil, HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
-//            let frame = cell.layoutViewBounds
-//            cell.buttonView.frame = frame
-//            cell.buttonView.backgroundColor = .red
-//            cell.buttonView.text = "图片"
-//            cell.buttonView.cornerRadius = 8.0
-//            cell.buttonView.isUserInteractionEnabled = true
-//            cell.buttonView.pressed = { (sender, data) in
-//                NSLog("")
-//            }
-//
-//        } else if indexPath.row == 1 {
-//
-//            let cell = itemBlock(nil, HTupleButtonCell.self, indexPath.stringValue, true) as! HTupleButtonCell
-//            cell.buttonView.backgroundColor = .red
-//            cell.buttonView.text = "图片"
-//            cell.buttonView.cornerRadius = 8.0
-//            cell.buttonView.isUserInteractionEnabled = true
-//            cell.buttonView.pressed = { (sender, data) in
-//
-//            }
-//
-//        }  else if indexPath.row == 2 {
-//
-//            let cell = itemBlock(nil, HTupleButtonCell.self, indexPath.stringValue, true) as! HTupleButtonCell
-//
-//            //四张图片时由于布局的特殊性，多添加了一个item
-//            if let count = postVM.imageUrls?.count, count == 4 {
-//                cell.buttonView.isUserInteractionEnabled = false
-//            } else {
-//                cell.buttonView.backgroundColor = .red
-//                cell.buttonView.isUserInteractionEnabled = true
-//                cell.buttonView.text = "图片"
-//                cell.buttonView.cornerRadius = 8.0
-//                cell.buttonView.pressed = { (sender, data) in
-//
-//                }
-//            }
-//
-//        } else {
-//
-//            let cell = itemBlock(nil, HTupleButtonCell.self, indexPath.stringValue, true) as! HTupleButtonCell
-//            cell.buttonView.backgroundColor = .red
-//            cell.buttonView.isUserInteractionEnabled = true
-//            cell.buttonView.text = "图片"
-//            cell.buttonView.cornerRadius = 8.0
-//
-//            //四张图片时由于布局的特殊性，多添加了一个item
-//            if let count = postVM.imageUrls?.count, count == 4 {
-//
-//                cell.buttonView.pressed = { (sender, data) in
-//                    //let row = indexPath.row - 1
-//                }
-//
-//            } else {
-//
-//                cell.buttonView.pressed = { (sender, data) in
-//                    //let row = indexPath.row
-//                }
-//            }
-//
-//        }
-//
-//    }
-//
-//}
-
-//extension HPostCommentView {
-//
-//    @objc
-//    func tupleExa4_numberOfItemsInSection(_ section: Any) -> Any {
-//        var items = 0
-//        if postVM.videoUrl?.count ?? 0 > 0 {
-//            items += 1
-//        }
-//        return items
-//    }
-//
-//    @objc
-//    func tupleExa4_insetForSection(_ section: Any) -> Any {
-//        if postVM.videoUrl?.count ?? 0 > 0 {
-//            return UIEdgeInsets(top: postLineSpace, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
-//        } else {
-//            return UIEdgeInsets(top: 0, left: postEdgeSpace, bottom: 0, right: postEdgeSpace)
-//        }
-//    }
-//
-//    @objc
-//    func tupleExa4_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-//        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: postVideoSize)
-//    }
-//
-//    @objc
-//    func tupleExa4_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-//        let itemBlock = itemBlock as! HTupleItem
-//        let cell = itemBlock(nil, HTupleButtonCell.self, indexPath.stringValue, true) as! HTupleButtonCell
-//        cell.buttonView.backgroundColor = .red
-//        cell.buttonView.text = "视频"
-//        cell.buttonView.cornerRadius = 8.0
-//        cell.buttonView.pressed = { (sender, data) in
-//
-//        }
-//    }
-//
-//}
-
-//extension HPostCommentView {
-//
-//    @objc
-//    func tupleExa5_numberOfItemsInSection(_ section: Any) -> Any {
-//        return 1
-//    }
-//
-//    @objc
-//    func tupleExa5_insetForSection(_ section: Any) -> Any {
-//        return UIEdgeInsets(top: postLineSpace, left: postEdgeSpace, bottom: 25, right: postEdgeSpace)
-//    }
-//
-//    @objc
-//    func tupleExa5_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-//        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: 24)
-//    }
-//
-//    @objc
-//    func tupleExa5_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-//        let itemBlock = itemBlock as! HTupleItem
-//        let cell = itemBlock(nil, HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
-//        let frame = cell.layoutViewBounds
-//
-//        var footerView = cell.layoutView.viewWithTag(131415) as? HPostCommentFooter
-//        if footerView == nil {
-//            footerView = HPostCommentFooter(frame: frame)
-//            footerView!.tag = 131415
-//            footerView!.likeButton.pressed = { (sender, data) in
-//                NSLog("")
-//            }
-//
-//            footerView!.commentButton.pressed = { (sender, data) in
-//                self.viewController?.navigationController?.pushViewController(HPostCommentVC(), animated: true)
-//            }
-//
-//            footerView!.shareButton.pressed = { (sender, data) in
-//                NSLog("")
-//            }
-//
-//            footerView!.moreButton.pressed = { (sender, data) in
-//                NSLog("")
-//            }
-//            cell.layoutView.addSubview(footerView!)
-//        }
-//        footerView!.likeButton.text = "喜欢"
-//        footerView!.commentButton.text = "评论"
-//        footerView!.shareButton.text = "分享"
-//        footerView!.moreButton.text = "更多"
-//    }
-//
-//}
+extension HPostCommentView {
+    
+    @objc
+    func tupleExa5_numberOfItemsInSection(_ section: Any) -> Any {
+        return 1
+    }
+    
+    @objc
+    func tupleExa5_insetForSection(_ section: Any) -> Any {
+        return UIEdgeInsets(top: 0, left: postCommentEdgeSpace, bottom: 0, right: postCommentEdgeSpace)
+    }
+    
+    @objc
+    func tupleExa5_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+        return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: 12.0)
+    }
+    
+    @objc
+    func tupleExa5_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
+        let itemBlock = itemBlock as! HTupleItem
+        _ = itemBlock(nil, HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
+    }
+    
+}

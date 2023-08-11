@@ -17,7 +17,7 @@ class HPostCommentVC: HTupleController {
                                 "weejeffljfljl",
                                 "jdflsakjfljsaflkjsal"]
     
-    var postList: [HPostVM] = [HPostVM]()
+    var postList: [HPostCommentVM] = [HPostCommentVM]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ class HPostCommentVC: HTupleController {
         self.tupleView.tupleStatus = .block
         
         sourceData.forEach { item in
-            let postVM = HPostVM()
+            let postVM = HPostCommentVM()
             postVM.post = item
             postVM.imageUrls = ["11", "22", "33", "44"]
             postVM.videoUrl = "11"
