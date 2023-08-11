@@ -177,6 +177,7 @@
 		EB1209832A8280E400E5F045 /* HPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209822A8280E400E5F045 /* HPostView.swift */; };
 		EB1209852A8365E500E5F045 /* HPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209842A8365E400E5F045 /* HPostVC.swift */; };
 		EB1209872A84CC8300E5F045 /* HPostVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209862A84CC8300E5F045 /* HPostVM.swift */; };
+		EB1209892A85D87700E5F045 /* HPostCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209882A85D87700E5F045 /* HPostCommentVC.swift */; };
 		EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23D99529DFC6F800C96CAC /* HTextView.swift */; };
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
 		EB23DAC72A02187700C96CAC /* HAlertAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC62A02187600C96CAC /* HAlertAction.swift */; };
@@ -496,6 +497,7 @@
 		EB1209822A8280E400E5F045 /* HPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostView.swift; sourceTree = "<group>"; };
 		EB1209842A8365E400E5F045 /* HPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostVC.swift; sourceTree = "<group>"; };
 		EB1209862A84CC8300E5F045 /* HPostVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostVM.swift; sourceTree = "<group>"; };
+		EB1209882A85D87700E5F045 /* HPostCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostCommentVC.swift; sourceTree = "<group>"; };
 		EB23D99529DFC6F800C96CAC /* HTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
 		EB23DAC62A02187600C96CAC /* HAlertAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertAction.swift; sourceTree = "<group>"; };
@@ -842,6 +844,7 @@
 				EB1209822A8280E400E5F045 /* HPostView.swift */,
 				EB1209802A827E1900E5F045 /* HPostHeader.swift */,
 				EB12097E2A827AF200E5F045 /* HPostFooter.swift */,
+				EB1209882A85D87700E5F045 /* HPostCommentVC.swift */,
 				EBD213E62A6B859500C31E2D /* HSkeletonView.swift */,
 				EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */,
 			);
@@ -1824,6 +1827,7 @@
 				A265DA032394B24C001F39B0 /* HTabBarController.swift in Sources */,
 				A2A814BC274D694E00FAB929 /* UIViewController+HAnimation.swift in Sources */,
 				A2294891239756770058B939 /* HTableView.swift in Sources */,
+				EB1209892A85D87700E5F045 /* HPostCommentVC.swift in Sources */,
 				EBC8140D29AA528D00A81431 /* HAnchorLiveVC.swift in Sources */,
 				EB43241629C34BB800EDDB64 /* HFormCell.swift in Sources */,
 				EBC8146329AA53D100A81431 /* HAcceptVideoVC.swift in Sources */,

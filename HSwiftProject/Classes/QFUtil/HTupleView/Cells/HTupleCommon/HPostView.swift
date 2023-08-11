@@ -439,7 +439,7 @@ extension HPostView {
             }
             
             footerView!.commentButton.pressed = { (sender, data) in
-                NSLog("")
+                self.viewController?.navigationController?.pushViewController(HPostCommentVC(), animated: true)
             }
             
             footerView!.shareButton.pressed = { (sender, data) in
