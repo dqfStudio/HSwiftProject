@@ -130,7 +130,7 @@ extension HPostCommentView {
     @objc
     func tupleExa1_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue + "isExtended", true) as! HTupleLabelCell
+        let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue, true) as! HTupleLabelCell
         cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
         cell.label.textColor = UIColor(hex: "#17191E")
         cell.label.numberOfLines = 0

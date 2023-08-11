@@ -48,7 +48,8 @@ class HPostCommentVM: NSObject {
     var post: String? {
         didSet {
             if let ct = post, ct.count > 0 {
-                textHeight = ct.heightWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToWidth: UIScreen.width - 32)
+                textHeight = ct.heightWithFont(UIFont.font(ofSize: 14, weight: .regular),
+                                               constrainedToWidth: UIScreen.width - 2 * postCommentEdgeSpace - 60)
                 // 是否显示更多信息
                 postExtend = .extend
                 // 是否需要翻译
@@ -69,12 +70,6 @@ class HPostCommentVM: NSObject {
     // 是否需要翻译
     var postTranslate: HPostTranslate = .undefine
     
-    // 图片
-    var imageUrls: [String]?
-    
-    // 视频
-    var videoUrl: String?
-    
     // text高度
     var textHeight: CGFloat = 0.0
     
@@ -82,7 +77,7 @@ class HPostCommentVM: NSObject {
     var cellHeight: CGFloat {
         var tmpHeight = 0.0
         // text高度
-        tmpHeight += textHeight + postLineSpace
+        tmpHeight += textHeight + postCommentLineSpace
         // 是否需要翻译
         if postTranslate == .isTranslated {
             tmpHeight += textHeight + 8.0

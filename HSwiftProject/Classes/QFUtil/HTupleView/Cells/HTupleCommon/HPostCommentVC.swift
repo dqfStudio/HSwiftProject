@@ -12,7 +12,7 @@ class HPostCommentVC: HTupleController {
     
     var sourceData: [String] = ["放假啦束带结发拉屎会计法拉数据发来的撒放假了打撒发给垃圾粉了",
                                 "我饿付了款静电纺丝啦",
-                                "电风扇两地分居啊射流风机撒冷风机打死了封疆大吏酸辣粉家里的撒放假了手打见风使舵附件丽都水岸就发了打撒就发了打撒开发激发来撒娇飞力达快捷方式独立开发阿萨德浪费萨拉丁发撒老大饭卡手打理发手打拉法基撒发啦",
+                                "电风扇两地分居啊射流风机撒冷风机打死了封疆大吏酸辣粉家里的撒放假了手打见风使舵附件丽都水岸就发了打撒就发了打撒开发激发来撒娇飞力达快捷方式独立开发阿萨德浪费萨拉丁发撒老大饭卡手打理发手打拉法基撒发啦啦啦啦啦啦啦啦",
                                 "sfadsklfdaslfjdslaf",
                                 "weejeffljfljl",
                                 "jdflsakjfljsaflkjsal"]
@@ -28,8 +28,6 @@ class HPostCommentVC: HTupleController {
         sourceData.forEach { item in
             let postVM = HPostCommentVM()
             postVM.post = item
-            postVM.imageUrls = ["11", "22", "33", "44"]
-            postVM.videoUrl = "11"
             postList.append(postVM)
         }
         
