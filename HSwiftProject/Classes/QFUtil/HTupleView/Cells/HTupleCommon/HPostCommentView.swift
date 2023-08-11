@@ -292,7 +292,10 @@ extension HPostCommentView {
             cell.buttonView.textColor = UIColor(hex: "#727781")
             cell.buttonView.text = string
             cell.buttonView.pressed = { (sender, data) in
-
+                // 刷新tuple view
+                UIView.performWithoutAnimation {
+                    self.tuple?.reloadData()
+                }
             }
         } else {
             let string1 = "展开更多回复"
@@ -303,7 +306,10 @@ extension HPostCommentView {
             cell.buttonView.textColor = UIColor(hex: "#727781")
             cell.buttonView.text = string1
             cell.buttonView.pressed = { (sender, data) in
-                
+                // 刷新tuple view
+                UIView.performWithoutAnimation {
+                    self.tuple?.reloadData()
+                }
             }
             
             let string2 = "收起"
@@ -314,7 +320,10 @@ extension HPostCommentView {
             cell.detailButtonView.textColor = UIColor(hex: "#727781")
             cell.detailButtonView.text = string2
             cell.detailButtonView.pressed = { (sender, data) in
-                
+                // 刷新tuple view
+                UIView.performWithoutAnimation {
+                    self.tuple?.reloadData()
+                }
             }
         }
     }
