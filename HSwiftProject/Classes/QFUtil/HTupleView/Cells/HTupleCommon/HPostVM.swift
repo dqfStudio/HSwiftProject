@@ -107,7 +107,7 @@ class HPostVM: NSObject {
         } else if postTranslate == .translate {
             tmpHeight += postTranslateSpace
         }
-        // 视频
+        // 图片
         if let count = imageUrls?.count, count > 0 {
             let cc = ceil(CGFloat((count - 1) / 2))
             let height = (cc + 1) * postImageSize + cc * postImageSpace
