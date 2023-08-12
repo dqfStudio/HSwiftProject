@@ -93,7 +93,7 @@ class HPostCommentVM: NSObject {
         }
 
         // header高度
-        tmpHeight += 72
+        tmpHeight += 60
         // footer高度
         tmpHeight += 12
         

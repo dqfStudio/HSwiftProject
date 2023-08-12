@@ -71,7 +71,7 @@ extension HPostCommentView {
     
     @objc
     func tupleExa0_insetForSection(_ section: Any) -> Any {
-        return UIEdgeInsets(top: 24, left: postCommentEdgeSpace, bottom: 0, right: postCommentEdgeSpace)
+        return UIEdgeInsets(top: 12, left: postCommentEdgeSpace, bottom: 0, right: postCommentEdgeSpace)
     }
     
     @objc
