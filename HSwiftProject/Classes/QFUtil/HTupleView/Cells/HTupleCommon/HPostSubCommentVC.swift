@@ -1,14 +1,14 @@
 //
-//  HPostCommentVC.swift
+//  HPostSubCommentVC.swift
 //  HSwiftProject
 //
-//  Created by owner on 2023/8/11.
+//  Created by owner on 2023/8/12.
 //  Copyright © 2023 wind. All rights reserved.
 //
 
 import UIKit
 
-class HPostCommentVC: HTupleController {
+class HPostSubCommentVC: HTupleController {
     
     var sourceData: [String] = ["放假啦束带结发拉屎会计法拉数据发来的撒放假了打撒发给垃圾粉了",
                                 "我饿付了款静电纺丝啦",
@@ -21,7 +21,7 @@ class HPostCommentVC: HTupleController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "评论列表"
+        self.title = "子评论列表"
         self.tupleView.delegate = self
         self.tupleView.tupleStatus = .block
         
@@ -57,8 +57,7 @@ class HPostCommentVC: HTupleController {
         postCell!.tuple = self.tupleView
         
         // 获取cell高度
-//        let cellHeight = postCell!.postVM.cellHeight
-        let cellHeight = postVM.cellHeight
+        let cellHeight = postCell!.postVM.cellHeight
         
         // 重设postCell frame
         if postCell!.height != cellHeight {
@@ -66,32 +65,8 @@ class HPostCommentVC: HTupleController {
             postCell!.reloadTupleData()
         }
         
-        
-        // 添加postSubCell
-//        var postSubCell = cell.viewWithTag(131215) as? HPostCommentView
-//        if postSubCell == nil {
-//            postSubCell = HPostCommentView(frame: .zero)
-//            postSubCell!.tag = 131215
-//            cell.addSubview(postSubCell!)
-//        }
-//
-//        // 赋值model
-////        let postVM = postList[indexPath.row]
-//        postSubCell!.postVM = postVM
-//        postSubCell!.tuple = self.tupleView
-//
-//        // 获取cell高度
-////        let cellHeight = postSubCell!.postVM.cellHeight
-//
-//        // 重设postCell frame
-//        if postSubCell!.height != cellHeight {
-//            postSubCell!.frame = CGRect(x: 60, y: cellHeight, width: self.tupleView.width - 60, height: cellHeight)
-//            postSubCell!.reloadTupleData()
-//        }
-        
         // 设置cell大小
         cell.sizeBlock = {
-//            return CGSize(width: self.tupleView.width, height: cellHeight * 2)
             return CGSize(width: self.tupleView.width, height: cellHeight)
         }
     }

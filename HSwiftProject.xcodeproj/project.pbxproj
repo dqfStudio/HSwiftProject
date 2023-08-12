@@ -248,6 +248,9 @@
 		EBA53C3C2A3BED2B0077158D /* HWebButtonView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C3B2A3BED2B0077158D /* HWebButtonView3.swift */; };
 		EBA6472B2A875D1B00897D76 /* HStackBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6472A2A875D1B00897D76 /* HStackBar.swift */; };
 		EBA6472D2A87704900897D76 /* HGroupbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6472C2A87704900897D76 /* HGroupbar.swift */; };
+		EBA6472F2A87C72900897D76 /* HPostSubCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6472E2A87C72900897D76 /* HPostSubCommentView.swift */; };
+		EBA647312A87C74C00897D76 /* HPostSubCommentHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA647302A87C74C00897D76 /* HPostSubCommentHeader.swift */; };
+		EBA647332A87C7EB00897D76 /* HPostSubCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA647322A87C7EB00897D76 /* HPostSubCommentVC.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -573,6 +576,9 @@
 		EBA53C3B2A3BED2B0077158D /* HWebButtonView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebButtonView3.swift; sourceTree = "<group>"; };
 		EBA6472A2A875D1B00897D76 /* HStackBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackBar.swift; sourceTree = "<group>"; };
 		EBA6472C2A87704900897D76 /* HGroupbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupbar.swift; sourceTree = "<group>"; };
+		EBA6472E2A87C72900897D76 /* HPostSubCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostSubCommentView.swift; sourceTree = "<group>"; };
+		EBA647302A87C74C00897D76 /* HPostSubCommentHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostSubCommentHeader.swift; sourceTree = "<group>"; };
+		EBA647322A87C7EB00897D76 /* HPostSubCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostSubCommentVC.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -860,6 +866,9 @@
 				EB1209902A86110E00E5F045 /* HPostCommentVM.swift */,
 				EB12098A2A85DA1A00E5F045 /* HPostCommentView.swift */,
 				EB12098C2A85DA2A00E5F045 /* HPostCommentHeader.swift */,
+				EBA647322A87C7EB00897D76 /* HPostSubCommentVC.swift */,
+				EBA6472E2A87C72900897D76 /* HPostSubCommentView.swift */,
+				EBA647302A87C74C00897D76 /* HPostSubCommentHeader.swift */,
 				EBD213E62A6B859500C31E2D /* HSkeletonView.swift */,
 				EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */,
 			);
@@ -1807,6 +1816,7 @@
 				EBD0FB3829CCA8D800808EDA /* HRemoteNotification.swift in Sources */,
 				EB12098B2A85DA1A00E5F045 /* HPostCommentView.swift in Sources */,
 				EBA53C382A38AF000077158D /* HWebButtonView2.swift in Sources */,
+				EBA6472F2A87C72900897D76 /* HPostSubCommentView.swift in Sources */,
 				EBA53C2E2A308BF00077158D /* HWebActionView.swift in Sources */,
 				EB4323F029B988C100EDDB64 /* HAlertFormatter.swift in Sources */,
 				A26D434323877F0A00F457AE /* UIControl+HSafeUtil.swift in Sources */,
@@ -1931,6 +1941,7 @@
 				EBC8140929AA48C000A81431 /* HUserLiveCell+HSection1.swift in Sources */,
 				A2B4307C237FF2B100795605 /* HGameCategoryVC.swift in Sources */,
 				EB43241429C3163900EDDB64 /* HUserRegion.swift in Sources */,
+				EBA647312A87C74C00897D76 /* HPostSubCommentHeader.swift in Sources */,
 				EBD213D92A67783700C31E2D /* HNavigationBar2.swift in Sources */,
 				EBED9CCA2A4D339700E590DE /* HDotIndicatorBar.swift in Sources */,
 				EBD0FB6B29D02B1000808EDA /* HUserStore.swift in Sources */,
@@ -1942,6 +1953,7 @@
 				A28A022823EE62D6000556A2 /* HTupleViewTextLoopCell.swift in Sources */,
 				A28B652123FD215500B6B638 /* HNetworkDAO.swift in Sources */,
 				A26D432B23856F8900F457AE /* NSTimer+HUtil.swift in Sources */,
+				EBA647332A87C7EB00897D76 /* HPostSubCommentVC.swift in Sources */,
 				A265DA052394B6F7001F39B0 /* UIScrollView+HTab.swift in Sources */,
 				A2B42FCE237CED5A00795605 /* SceneDelegate.swift in Sources */,
 				A26D43452387827A00F457AE /* NSObject+HForwarding.swift in Sources */,
