@@ -65,9 +65,32 @@ class HPostCommentVC: HTupleController {
             postCell!.reloadTupleData()
         }
         
+        
+        // 添加postSubCell
+        var postSubCell = cell.viewWithTag(131215) as? HPostCommentView
+        if postSubCell == nil {
+            postSubCell = HPostCommentView(frame: .zero)
+            postSubCell!.tag = 131215
+            cell.addSubview(postSubCell!)
+        }
+        
+        // 赋值model
+//        let postVM = postList[indexPath.row]
+        postSubCell!.postVM = postVM
+        postSubCell!.tuple = self.tupleView
+        
+        // 获取cell高度
+//        let cellHeight = postSubCell!.postVM.cellHeight
+        
+        // 重设postCell frame
+        if postSubCell!.height != cellHeight {
+            postSubCell!.frame = CGRect(x: 60, y: cellHeight, width: self.tupleView.width - 60, height: cellHeight)
+            postSubCell!.reloadTupleData()
+        }
+        
         // 设置cell大小
         cell.sizeBlock = {
-            return CGSize(width: self.tupleView.width, height: cellHeight)
+            return CGSize(width: self.tupleView.width, height: cellHeight * 2)
         }
     }
     
