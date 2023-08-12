@@ -32,16 +32,28 @@ class HPostCommentVC: HTupleController {
         }
         
     }
-
-    func numberOfItemsInSection(_ section: Any) -> Any {
+    
+    func numberOfSectionsInTupleView() -> Any {
         return postList.count
     }
 
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
+    func numberOfItemsInSection(_ section: Any) -> Any {
+        return 3
+    }
+    
+    func sizeForHeaderInSection(_ section: Any) -> Any {
+        let section = section as! Int
+        guard section < postList.count else { return CGSize.zero }
+        let postVM = postList[section]
+        return CGSize(width: self.tupleView.width, height: postVM.cellHeight)
+    }
+    
+    func tupleHeader(_ headerBlock: Any, inSection section: Any) {
+        let section = section as! Int
+        let headerBlock = headerBlock as! HTupleHeader
+        let cell = headerBlock(nil, HTupleBaseApex.self, "\(section)", true) as! HTupleBaseApex
         cell.backgroundColor = .yellow
-        guard indexPath.row < postList.count else { return }
+        guard section < postList.count else { return }
         
         // 添加postCell
         var postCell = cell.viewWithTag(131214) as? HPostCommentView
@@ -52,12 +64,11 @@ class HPostCommentVC: HTupleController {
         }
         
         // 赋值model
-        let postVM = postList[indexPath.row]
+        let postVM = postList[section]
         postCell!.postVM = postVM
         postCell!.tuple = self.tupleView
         
         // 获取cell高度
-//        let cellHeight = postCell!.postVM.cellHeight
         let cellHeight = postVM.cellHeight
         
         // 重设postCell frame
@@ -65,41 +76,46 @@ class HPostCommentVC: HTupleController {
             postCell!.frame = CGRect(x: 0, y: 0, width: self.tupleView.width, height: cellHeight)
             postCell!.reloadTupleData()
         }
-        
-        
-        // 添加postSubCell
-//        var postSubCell = cell.viewWithTag(131215) as? HPostCommentView
-//        if postSubCell == nil {
-//            postSubCell = HPostCommentView(frame: .zero)
-//            postSubCell!.tag = 131215
-//            cell.addSubview(postSubCell!)
-//        }
-//
-//        // 赋值model
-////        let postVM = postList[indexPath.row]
-//        postSubCell!.postVM = postVM
-//        postSubCell!.tuple = self.tupleView
-//
-//        // 获取cell高度
-////        let cellHeight = postSubCell!.postVM.cellHeight
-//
-//        // 重设postCell frame
-//        if postSubCell!.height != cellHeight {
-//            postSubCell!.frame = CGRect(x: 60, y: cellHeight, width: self.tupleView.width - 60, height: cellHeight)
-//            postSubCell!.reloadTupleData()
-//        }
-        
+    }
+
+    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
+        let itemBlock = itemBlock as! HTupleItem
+        let cell = itemBlock(nil, HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
+        cell.backgroundColor = .green
+        guard indexPath.row < postList.count else { return }
+
+        // 添加postCell
+        var postCell = cell.viewWithTag(131215) as? HPostCommentView
+        if postCell == nil {
+            postCell = HPostCommentView(frame: .zero)
+            postCell!.tag = 131215
+            cell.addSubview(postCell!)
+        }
+
+        // 赋值model
+        let postVM = postList[indexPath.row]
+        postCell!.postVM = postVM
+        postCell!.tuple = self.tupleView
+
+        // 获取cell高度
+        let cellHeight = postVM.cellHeight
+
+        // 重设postCell frame
+        if postCell!.height != cellHeight {
+            postCell!.frame = CGRect(x: 60, y: 0, width: self.tupleView.width - 60, height: cellHeight)
+            postCell!.reloadTupleData()
+        }
+
         // 设置cell大小
         cell.sizeBlock = {
-//            return CGSize(width: self.tupleView.width, height: cellHeight * 2)
             return CGSize(width: self.tupleView.width, height: cellHeight)
         }
     }
     
     func willDisplayCell(_ cell: UICollectionViewCell, atIndexPath indexPath: IndexPath) {
         // 添加间隔线
-        if indexPath.row != sourceData.count - 1 {
-            cell.setBottomLine(withColor: .red, paddingLeft: 16, paddingRight: 16)
+        if indexPath.row != 3 - 1 {
+            cell.setBottomLine(withColor: .red, paddingLeft: 76, paddingRight: 16)
         } else {
             cell.bottomLineLayer?.removeFromSuperlayer()
         }
