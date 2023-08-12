@@ -246,6 +246,8 @@
 		EBA53C382A38AF000077158D /* HWebButtonView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C372A38AF000077158D /* HWebButtonView2.swift */; };
 		EBA53C3A2A3B47240077158D /* HWebImageView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C392A3B47240077158D /* HWebImageView2.swift */; };
 		EBA53C3C2A3BED2B0077158D /* HWebButtonView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C3B2A3BED2B0077158D /* HWebButtonView3.swift */; };
+		EBA6472B2A875D1B00897D76 /* HStackBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6472A2A875D1B00897D76 /* HStackBar.swift */; };
+		EBA6472D2A87704900897D76 /* HGroupbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6472C2A87704900897D76 /* HGroupbar.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -569,6 +571,8 @@
 		EBA53C372A38AF000077158D /* HWebButtonView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebButtonView2.swift; sourceTree = "<group>"; };
 		EBA53C392A3B47240077158D /* HWebImageView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebImageView2.swift; sourceTree = "<group>"; };
 		EBA53C3B2A3BED2B0077158D /* HWebButtonView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebButtonView3.swift; sourceTree = "<group>"; };
+		EBA6472A2A875D1B00897D76 /* HStackBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackBar.swift; sourceTree = "<group>"; };
+		EBA6472C2A87704900897D76 /* HGroupbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupbar.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -840,6 +844,8 @@
 				EB80B6732A15C8ED0016648A /* HLabel.swift */,
 				EB80B66B2A1130E00016648A /* HToolbar.swift */,
 				EB80B66D2A122A940016648A /* HScrollbar.swift */,
+				EBA6472C2A87704900897D76 /* HGroupbar.swift */,
+				EBA6472A2A875D1B00897D76 /* HStackBar.swift */,
 				EB80B67B2A1779A30016648A /* HSectionView.swift */,
 				EB80B67D2A18A7430016648A /* HSearchBar.swift */,
 				EB80B6952A20BEEC0016648A /* HTextImageView.swift */,
@@ -2003,6 +2009,7 @@
 				A2B43080237FF57C00795605 /* HViewController.swift in Sources */,
 				A2294890239756770058B939 /* HTableBaseCell.swift in Sources */,
 				A229488F239756770058B939 /* HTableSignal.swift in Sources */,
+				EBA6472B2A875D1B00897D76 /* HStackBar.swift in Sources */,
 				A2B4307A237FF2B100795605 /* HMenuViewController.swift in Sources */,
 				A21887A723900832005C20BF /* HKeychainSwiftAccessOptions.swift in Sources */,
 				EBD0FB7A29D02B9600808EDA /* HUserCore.swift in Sources */,
@@ -2024,6 +2031,7 @@
 				EB4323F229B98BE300EDDB64 /* UIAlertController+HUtil.swift in Sources */,
 				A28923A6238B72F800E4AB75 /* NSIndexPath+HUtil.swift in Sources */,
 				A28923AE238B750000E4AB75 /* HTextField.swift in Sources */,
+				EBA6472D2A87704900897D76 /* HGroupbar.swift in Sources */,
 				A2418C8F2745172A005C8125 /* NSDictionary+HUtil.swift in Sources */,
 				A26D431D2384177900F457AE /* UIScreen+HUtil.swift in Sources */,
 				A28923A9238B72F800E4AB75 /* NSObject+HSelector.swift in Sources */,
