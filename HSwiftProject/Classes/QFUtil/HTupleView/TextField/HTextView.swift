@@ -29,9 +29,6 @@ class HTextView : UITextView, UITextViewDelegate {
     ///是否可编辑，默认为true
     var editEnabled: Bool = true
     
-    ///点击键盘上的return键调用
-    var returnBlock: HTextViewReturnBlock?
-    
     /// 设置占位符
     var placeholder: String = "" {
         didSet {
@@ -73,6 +70,9 @@ class HTextView : UITextView, UITextViewDelegate {
             self.setNeedsDisplay()
         }
     }
+    
+    ///点击键盘上的return键调用
+    var returnBlock: HTextViewReturnBlock?
     
     ///Did Change Block
     var didChangeBlock: HTextViewDidChangeBlock?
