@@ -44,7 +44,7 @@ class HTextView : UITextView, UITextViewDelegate {
     }
     
     /// 设置占位符颜色
-    var placeholderColor: UIColor = UIColor.gray {
+    var placeholderColor: UIColor = .gray {
         didSet {
             self.setNeedsDisplay()
         }
