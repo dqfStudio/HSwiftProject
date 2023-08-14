@@ -17,16 +17,16 @@ typealias HTextViewReturnBlock = (HTextView) -> Void
 
 class HTextView : UITextView, UITextViewDelegate {
 
-    ///最大输入限制，小于等于0表示不限制，默认为0
+    /// 最大输入限制，小于等于0表示不限制，默认为0
     var maxInput: Int = 0
     
-    ///禁止粘贴，默认为false
+    /// 禁止粘贴，默认为false
     var forbidPaste: Bool = false
     
-    ///禁止输入空格和换行符，默认为false
+    /// 禁止输入空格和换行符，默认为false
     var forbidWhitespaceAndNewline: Bool = false
     
-    ///是否可编辑，默认为true
+    /// 是否可编辑，默认为true
     var editEnabled: Bool = true
     
     /// 设置占位符
@@ -71,10 +71,10 @@ class HTextView : UITextView, UITextViewDelegate {
         }
     }
     
-    ///点击键盘上的return键调用
+    /// 点击键盘上的return键调用
     var returnBlock: HTextViewReturnBlock?
     
-    ///Did Change Block
+    /// Did Change Block
     var didChangeBlock: HTextViewDidChangeBlock?
     var didChangeSelectionBlock: HTextViewDidChangeSelectionBlock?
     
