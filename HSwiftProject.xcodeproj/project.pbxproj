@@ -248,7 +248,6 @@
 		EBA53C3C2A3BED2B0077158D /* HWebButtonView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C3B2A3BED2B0077158D /* HWebButtonView3.swift */; };
 		EBA6472B2A875D1B00897D76 /* HStackBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6472A2A875D1B00897D76 /* HStackBar.swift */; };
 		EBA6472D2A87704900897D76 /* HGroupbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6472C2A87704900897D76 /* HGroupbar.swift */; };
-		EBA647352A89DB8300897D76 /* HInputBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA647342A89DB8200897D76 /* HInputBar.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -574,7 +573,6 @@
 		EBA53C3B2A3BED2B0077158D /* HWebButtonView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebButtonView3.swift; sourceTree = "<group>"; };
 		EBA6472A2A875D1B00897D76 /* HStackBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackBar.swift; sourceTree = "<group>"; };
 		EBA6472C2A87704900897D76 /* HGroupbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupbar.swift; sourceTree = "<group>"; };
-		EBA647342A89DB8200897D76 /* HInputBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HInputBar.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -864,7 +862,6 @@
 				EB12098C2A85DA2A00E5F045 /* HPostCommentHeader.swift */,
 				EBD213E62A6B859500C31E2D /* HSkeletonView.swift */,
 				EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */,
-				EBA647342A89DB8200897D76 /* HInputBar.swift */,
 			);
 			path = HTupleCommon;
 			sourceTree = "<group>";
@@ -1862,7 +1859,6 @@
 				A2B4308F2382CC8A00795605 /* UIDevice+HUtil.swift in Sources */,
 				EBD0FB8A29D5668E00808EDA /* CALayer+HUtil.swift in Sources */,
 				EB23DACD2A027D6C00C96CAC /* HSheetAction.swift in Sources */,
-				EBA647352A89DB8300897D76 /* HInputBar.swift in Sources */,
 				EBA53C3C2A3BED2B0077158D /* HWebButtonView3.swift in Sources */,
 				EB05976B2A09F02B0016ACD8 /* CGRect.swift in Sources */,
 				EB43241229C2EB3F00EDDB64 /* NSObject+HLanguage.swift in Sources */,
