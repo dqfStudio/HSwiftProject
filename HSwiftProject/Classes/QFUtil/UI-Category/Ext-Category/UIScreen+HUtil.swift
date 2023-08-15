@@ -48,12 +48,10 @@ extension UIScreen {
     
     static var statusBarHeight: CGFloat {
         var height: CGFloat = 0.0
-        if !UIApplication.shared.statusBarOrientation.isLandscape {
-            if #available(iOS 13.0, *) {
-                height = UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.size.height ?? 0.0
-            } else {
-                height = UIApplication.shared.statusBarFrame.size.height
-            }
+        if #available(iOS 13.0, *) {
+            height = UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.size.height ?? 0.0
+        } else {
+            height = UIApplication.shared.statusBarFrame.size.height
         }
         return height
     }
