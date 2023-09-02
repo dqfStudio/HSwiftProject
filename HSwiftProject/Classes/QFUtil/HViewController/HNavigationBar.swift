@@ -109,12 +109,17 @@ class HNavigationBar: UIStackView, HTupleViewDelegate {
         }
     }
     
-    // hidden method
+    // Hidden method
     override var isHidden: Bool {
-        didSet {
-            super.isHidden = isHidden
-            if !isHidden {
-                self.tupleView.reloadTupleData()
+        get {
+            return super.isHidden
+        }
+        set {
+            if super.isHidden != newValue {
+                super.isHidden = newValue
+                if !newValue {
+                    self.tupleView.reloadTupleData()
+                }
             }
         }
     }
