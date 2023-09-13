@@ -46,7 +46,7 @@
 //extension HSkeletonView {
 //
 //    func numberOfItemsInSection(_ section: Any) -> Any {
-//        return 8
+//        return 15
 //    }
 //
 //    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
