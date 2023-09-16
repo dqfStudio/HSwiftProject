@@ -9,6 +9,7 @@
 import UIKit
 
 typealias HTextFieldReturnBlock = (HTextField) -> Void
+typealias HTextFieldDidChangeBlock = (HTextField) -> Void
 
 class HTextField : UITextField, UITextFieldDelegate {
     
@@ -166,6 +167,9 @@ class HTextField : UITextField, UITextFieldDelegate {
     ///点击键盘上的return键调用
     var returnBlock: HTextFieldReturnBlock?
     
+    ///text发生变化时的回调
+    var didChangeBlock: HTextFieldDidChangeBlock?
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setup()
@@ -251,6 +255,10 @@ class HTextField : UITextField, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.returnBlock?(textField as! HTextField)
         return true
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        self.didChangeBlock?(textField as! HTextField)
     }
 
     //移动光标
