@@ -17,13 +17,14 @@ class HGroupbar: UIStackView, HTupleViewDelegate {
     private lazy var tupleView: HTupleView = {
         let tupleView = HTupleView(frame: .zero, scrollDirection: .horizontal)
         tupleView.backgroundColor = .clear
-        tupleView.tupleStatus = .block
         return tupleView
     }()
     
     // Indicator bar
     private lazy var indicatorBar: UIView = {
-        return UIView(frame: CGRect(x: 0.0, y: self.height - indicatorBarHeight, width: indicatorBarWidth, height: indicatorBarHeight))
+        let indicatorBar = UIView(frame: CGRect(x: 0.0, y: self.height - indicatorBarHeight, width: indicatorBarWidth, height: indicatorBarHeight))
+        indicatorBar.cornerRadius = indicatorBarHeight / 2
+        return indicatorBar
     }()
     
     // Indicator bar color
@@ -54,6 +55,7 @@ class HGroupbar: UIStackView, HTupleViewDelegate {
             if indicatorBarHeight != oldValue {
                 let frame = CGRect(x: 0.0, y: self.height - indicatorBarHeight, width: indicatorBarWidth, height: indicatorBarHeight)
                 indicatorBar.frame = frame
+                indicatorBar.cornerRadius = indicatorBarHeight / 2
             }
         }
     }
@@ -134,55 +136,55 @@ class HGroupbar: UIStackView, HTupleViewDelegate {
     func numberOfItemsInSection(_ section: Any) -> Any {
         return items?.count ?? 0
     }
+    
+    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+        var itemWidth = 0.0
+        let item = self.items?[indexPath.row] ?? ""
+        if self.selectedIndex == indexPath.row {
+            itemWidth = item.widthWithFont(self.titleSelectedFont, constrainedToHeight: self.height)
+            return CGSize(width: itemWidth + 24, height: self.height)
+        } else {
+            itemWidth = item.widthWithFont(self.titleFont, constrainedToHeight: self.height)
+            return CGSize(width: itemWidth + 24, height: self.height)
+        }
+    }
 
     // Configures the tuple item at the specified index path
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
+        guard let items = self.items, indexPath.row < items.count else { return }
+        
         let itemBlock = itemBlock as! HTupleItem
         let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
-        var itemWidth = 0.0
-        cell.sizeBlock = {
-            let item = self.items?[indexPath.row] ?? ""
-            if self.selectedIndex == indexPath.row {
-                itemWidth = item.widthWithFont(self.titleSelectedFont, constrainedToHeight: self.height)
-                return CGSize(width: itemWidth + 24, height: self.height)
-            } else {
-                itemWidth = item.widthWithFont(self.titleFont, constrainedToHeight: self.height)
-                return CGSize(width: itemWidth + 24, height: self.height)
-            }
-        }
-        cell.cellBlock = {
-            let bounds = cell.layoutViewBounds
-            
-            var labelFrame = CGRect.zero
-//            if GLocalizationManager.userLang() == FCLangType.chineseSimplified.symbol {
-//                labelFrame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - self.indicatorBarHeight)
-//            } else {
-                labelFrame = CGRect(x: 1, y: 0, width: bounds.width, height: bounds.height - self.indicatorBarHeight)
-//            }
-            
-            let item = self.items?[indexPath.row]
-            cell.label.frame = labelFrame
-            cell.label.text = item
-            
-            // Set the font and color of the title based on whether it is selected or not
-            if self.selectedIndex == indexPath.row {
-                cell.label.font = self.titleSelectedFont
-                cell.label.textColor = self.titleSelectedColor
-                cell.backgroundColor = self.titleSelectedBGColor
-                // Refresh indicatorBar frame
-                self.indicatorBar.x = cell.x + (itemWidth - self.indicatorBarWidth) / 2
-            } else {
-                cell.label.font = self.titleFont
-                cell.label.textColor = self.titleColor
-                cell.backgroundColor = self.titleBGColor
-            }
+        
+        let item = items[indexPath.row]
+        let bounds = cell.layoutViewBounds
+        
+        var labelFrame = CGRect.zero
+//        if GLocalizationManager.userLang() == FCLangType.chineseSimplified.symbol {
+//            labelFrame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - self.indicatorBarHeight)
+//        } else {
+            labelFrame = CGRect(x: 1, y: 0, width: bounds.width, height: bounds.height - self.indicatorBarHeight)
+//        }
+        
+        cell.label.frame = labelFrame
+        cell.label.text = item
+        
+        // Set the font and color of the title based on whether it is selected or not
+        if self.selectedIndex == indexPath.row {
+            cell.label.font = self.titleSelectedFont
+            cell.label.textColor = self.titleSelectedColor
+            cell.backgroundColor = self.titleSelectedBGColor
+            // Refresh indicatorBar frame
+            self.indicatorBar.x = cell.x + (bounds.width - 24 - self.indicatorBarWidth) / 2
+        } else {
+            cell.label.font = self.titleFont
+            cell.label.textColor = self.titleColor
+            cell.backgroundColor = self.titleBGColor
         }
         cell.selectBlock = {
             self.selectedIndex = indexPath.row
         }
-
     }
     
 }
-
 
