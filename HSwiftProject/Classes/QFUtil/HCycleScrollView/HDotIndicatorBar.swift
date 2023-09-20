@@ -17,7 +17,6 @@ class HDotIndicatorBar: UIStackView, HTupleViewDelegate {
     private lazy var tupleView: HTupleView = {
         let tupleView = HTupleView(frame: .zero, scrollDirection: .horizontal)
         tupleView.isScrollEnabled = false
-        tupleView.tupleStatus = .block
         return tupleView
     }()
     
@@ -72,31 +71,29 @@ class HDotIndicatorBar: UIStackView, HTupleViewDelegate {
     func minimumFooterSpacingForSectionAt(_ section: Any) -> Any {
         return itemSpace
     }
+    
+    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+        if self.selectedIndex == indexPath.section {
+            return CGSize(width: self.itemSelectedWidth, height: self.height)
+        } else {
+            return CGSize(width: self.height, height: self.height)
+        }
+    }
 
     // Configures the tuple item at the specified index path
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-        cell.sizeBlock = {
-            if self.selectedIndex == indexPath.section {
-                return CGSize(width: self.itemSelectedWidth, height: self.height)
-            } else {
-                return CGSize(width: self.height, height: self.height)
-            }
-        }
-        cell.cellBlock = {
-            cell.cornerRadius = self.height / 2
-            // Set the color of the title based on whether it is selected or not
-            if self.selectedIndex == indexPath.section {
-                cell.backgroundColor = self.itemSelectedColor
-            } else {
-                cell.backgroundColor = self.itemColor
-            }
+        cell.cornerRadius = self.height / 2
+        // Set the color of the title based on whether it is selected or not
+        if self.selectedIndex == indexPath.section {
+            cell.backgroundColor = self.itemSelectedColor
+        } else {
+            cell.backgroundColor = self.itemColor
         }
         cell.selectBlock = {
             self.selectedIndex = indexPath.section
         }
-
     }
     
 }
