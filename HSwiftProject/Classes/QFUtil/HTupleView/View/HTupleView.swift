@@ -959,28 +959,25 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
 
     internal func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
-        // block status
-        if tupleStatus == .block {
-            // Call cell
-            if let cell = cell as? HTupleBaseCell {
-                // Reset edge insets
-                var edgeInsets: UIEdgeInsets = .zero
-                if let edgeInsetsBlock = cell.edgeInsetsBlock {
-                    edgeInsets = edgeInsetsBlock()
-                }else if let delegate = self.tupleDelegate {// Call delegate method
-                    let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
-                    let selector = #selector(delegate.edgeInsetsForItemAtIndexPath(_:))
-                    if delegate.responds(to: selector, withPre: prefix) {
-                        edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! UIEdgeInsets
-                    }
+        // Block status
+        if tupleStatus == .block, let cell = cell as? HTupleBaseCell {
+            // Reset edge insets
+            var edgeInsets: UIEdgeInsets = .zero
+            if let edgeInsetsBlock = cell.edgeInsetsBlock {
+                edgeInsets = edgeInsetsBlock()
+            }else {
+                let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+                let selector = #selector(delegate.edgeInsetsForItemAtIndexPath(_:))
+                if delegate.responds(to: selector, withPre: prefix) {
+                    edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! UIEdgeInsets
                 }
-                // Reset edge insets
-                cell.edgeInsets = edgeInsets
-                // Get subviews of cell
-                cell.cellBlock?()
-                // Update layout
-                cell.relayoutSubviews()
             }
+            // Reset edge insets
+            cell.edgeInsets = edgeInsets
+            // Get subviews of cell
+            cell.cellBlock?()
+            // Update layout
+            cell.relayoutSubviews()
         }
         let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
         let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
