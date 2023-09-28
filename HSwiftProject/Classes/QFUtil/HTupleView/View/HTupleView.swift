@@ -815,22 +815,24 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         //item size cannot be zero, otherwise it will crash
         var size = CGSize(width: 1.0, height: 1.0)
-        // Call cell
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
-        // Update layout
-        if let sizeBlock = cell?.sizeBlock {
-            // Get the size
-            size = sizeBlock()
-        } else if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
-            let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
+        if let delegate = self.tupleDelegate {
+            // Call cell
+            let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
+            // Update layout
+            if let sizeBlock = cell?.sizeBlock {
+                // Get the size
+                size = sizeBlock()
+            }else {
+                let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+                let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
+                if delegate.responds(to: selector, withPre: prefix) {
+                    size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
+                }
             }
+            // Prevent negative size
+            if size.width <= 0 { size.width = 1.0 }
+            if size.height <= 0 { size.height = 1.0 }
         }
-        // Prevent negative size
-        if size.width <= 0 { size.width = 1.0 }
-        if size.height <= 0 { size.height = 1.0 }
         return UISizeIntegral(size)
     }
 
