@@ -64,9 +64,7 @@ class HTupleAppearance : NSObject {
             // Execute in reverse order
             let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
             tuples.forEach { $0.reloadTupleData() }
-            DispatchQueue.main.async {
-                completion()
-            }
+            DispatchQueue.main.async { completion() }
         }
     }
     static func refreshTuple(key: String, _ completion: @escaping () -> Void) {
@@ -74,9 +72,7 @@ class HTupleAppearance : NSObject {
             // Execute in reverse order
             let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
             tuples.filter { $0.reloadTupleKey == key }.forEach { $0.reloadTupleData() }
-            DispatchQueue.main.async {
-                completion()
-            }
+            DispatchQueue.main.async { completion() }
         }
     }
     static func releaseTuple(key: String, _ completion: @escaping () -> Void) {
@@ -84,9 +80,7 @@ class HTupleAppearance : NSObject {
             // Execute in reverse order
             let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
             tuples.filter { $0.releaseTupleKey == key }.forEach { $0.releaseTupleBlock() }
-            DispatchQueue.main.async {
-                completion()
-            }
+            DispatchQueue.main.async { completion() }
         }
     }
 }
