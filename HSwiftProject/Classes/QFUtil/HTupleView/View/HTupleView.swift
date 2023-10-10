@@ -1164,7 +1164,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.scrollSplitPrefix()
         let selector = NSSelectorFromString("tupleViewWillBeginZooming:withView:")
         if delegate.responds(to: selector, withPre: prefix) {
-            delegate.perform(selector, with: scrollView, with: view, withPre: prefix)
+            delegate.perform(selector, with: scrollView, with: view as Any, withPre: prefix)
         }
     }
     internal func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
@@ -1172,7 +1172,7 @@ class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewD
         let prefix = self.scrollSplitPrefix()
         let selector = NSSelectorFromString("tupleViewDidEndZooming:atScale:")
         if delegate.responds(to: selector, withPre: prefix) {
-            delegate.perform(selector, with: view, with: scale, withPre: prefix)
+            delegate.perform(selector, with: view as Any, with: scale, withPre: prefix)
         }
     }
 
