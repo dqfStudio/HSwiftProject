@@ -196,10 +196,10 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     private var flowLayout: UICollectionViewFlowLayout?
 
-    // tuple style
+    // Tuple style
     private var tupleStyle: HTupleStyle = .default
 
-    // tuple status
+    // Tuple status
     var tupleStatus: HTupleStatus = .delegate
     
     // Set the value of marginTop
@@ -208,7 +208,10 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     // Set the ratio of marginTop
     var marginRatio: CGFloat = 0.0
     
+    // Vertical center
     var verticalCenter: Bool = false
+    
+    // Horizontally
     var horizontalCenter: Bool = true
 
     private var allReuseIdentifiers: NSMutableSet = NSMutableSet()
@@ -219,18 +222,17 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     private var sectionPaths: NSArray?
 
-    /// Default layout is HCollectionViewFlowLayout
-    /// Default scrolling direction is vertical
-
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
 
+    /// Default scrolling direction is vertical
     convenience init(frame: CGRect) {
         self.init(frame: frame, scrollDirection: .vertical)
     }
 
+    /// Default layout is HCollectionViewFlowLayout
     convenience init(frame: CGRect, scrollDirection direction: HTupleDirection) {
         self.init(frame: frame, collectionViewLayout: HCollectionViewFlowLayout(direction))
     }
