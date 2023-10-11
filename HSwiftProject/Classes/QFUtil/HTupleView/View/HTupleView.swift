@@ -192,7 +192,7 @@ class HTupleAppearance : NSObject {
     optional func tupleViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView)
 }
 
-class HTupleView : UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, HCollectionViewDelegateFlowLayout {
+class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, HCollectionViewDelegateFlowLayout {
 
     private var flowLayout: UICollectionViewFlowLayout?
 
