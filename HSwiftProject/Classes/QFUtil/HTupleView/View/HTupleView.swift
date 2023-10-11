@@ -214,7 +214,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     // Horizontally
     var horizontalCenter: Bool = true
 
-    private var allReuseIdentifiers: NSMutableSet = NSMutableSet()
+    private var allReuseIdentifiers = NSMutableSet()
     private var allSectionInsets = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
     private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
