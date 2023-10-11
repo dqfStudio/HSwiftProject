@@ -13,7 +13,7 @@
 //
 //    override init(frame: CGRect) {
 //        super.init(frame: frame)
-//        self.backgroundColor = .clear
+//        self.backgroundColor = .white
 //        self.tupleView.delegate = self
 //        self.addArrangedSubview(self.tupleView)
 //    }
@@ -26,19 +26,20 @@
 //    // Navigation bar
 //    private lazy var tupleView: HTupleView = {
 //        let tupleView = HTupleView(frame: self.bounds)
-//        tupleView.backgroundColor = .clear
+//        tupleView.backgroundColor = .white
 //        tupleView.isScrollEnabled = false
-//        tupleView.tupleStatus = .block
 //        tupleView.disableBounce()
 //        return tupleView
 //    }()
 //
 //    override func removeFromSuperview() {
-//        super.removeFromSuperview()
-//        self.tupleView.signalToAllHeader(nil, {
-//            self.tupleView.signalToAllItems(nil, { })
-//        })
-//        self.tupleView.releaseTupleBlock()
+//        if self.superview != nil {
+//            super.removeFromSuperview()
+//            self.tupleView.signalToAllHeader(nil, {
+//                self.tupleView.signalToAllItems(nil, { })
+//            })
+//            self.tupleView.releaseTupleBlock()
+//        }
 //    }
 //
 //}
