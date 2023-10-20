@@ -13,25 +13,32 @@ import UIKit
     func heightForItemAtIndexPath(_ indexPath: IndexPath, itemWidth: CGFloat) -> CGFloat
   
     /// 每个section 列数（默认2列）
-    @objc optional func numberOfColumnsInSection( _ section: Int) -> Int
+    @objc
+    optional func numberOfColumnsInSection( _ section: Int) -> Int
 
     /// header高度（默认为0）
-    @objc optional func referenceSizeForHeaderInSection(_ section: Int) -> CGSize
+    @objc
+    optional func referenceSizeForHeaderInSection(_ section: Int) -> CGSize
 
     /// footer高度（默认为0）
-    @objc optional func referenceSizeForFooterInSection(_ section: Int) -> CGSize
+    @objc
+    optional func referenceSizeForFooterInSection(_ section: Int) -> CGSize
 
     /// 每个section 边距（默认为0）
-    @objc optional func insetForSection( _ section: Int) -> UIEdgeInsets
+    @objc
+    optional func insetForSection( _ section: Int) -> UIEdgeInsets
 
     /// 每个section item上下间距（默认为0）
-    @objc optional func lineSpacingForSection( _ section: Int) -> CGFloat
+    @objc
+    optional func lineSpacingForSection( _ section: Int) -> CGFloat
 
     /// 每个section item左右间距（默认为0）
-    @objc optional func interitemSpacingForSection( _ section: Int) -> CGFloat
+    @objc
+    optional func interitemSpacingForSection( _ section: Int) -> CGFloat
 
     /// section头部header与上个section尾部footer间距（默认为0）
-    @objc optional func spacingForLastSection( _ section: Int) -> CGFloat
+    @objc
+    optional func spacingForLastSection( _ section: Int) -> CGFloat
 }
 
 class HWaterfallMutiSectionFlowLayout: UICollectionViewFlowLayout {

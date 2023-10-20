@@ -14,7 +14,7 @@ private class HCollectionViewLayoutAttributes : UICollectionViewLayoutAttributes
     var backgroundColor: UIColor?
 }
 
-private class HCollectionReusableView : UICollectionReusableView {
+private class HCollectionReusableView: UICollectionReusableView {
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
         super.apply(layoutAttributes)
         guard let attr = layoutAttributes as? HCollectionViewLayoutAttributes,
@@ -25,11 +25,11 @@ private class HCollectionReusableView : UICollectionReusableView {
 }
 
 /// Extend the background color of the section
-@objc protocol HCollectionViewDelegateFlowLayout : UICollectionViewDelegateFlowLayout {
+@objc protocol HCollectionViewDelegateFlowLayout: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, colorForSectionAt section: NSInteger) -> UIColor
 }
 
-class HCollectionViewFlowLayout : UICollectionViewFlowLayout {
+class HCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
     private var decorationViewAttrs: [UICollectionViewLayoutAttributes] = [UICollectionViewLayoutAttributes]()
     
