@@ -851,9 +851,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
                 cell.relayoutSubviews()
             }
-
-            // Prevent crashes
-            return cell ?? UICollectionViewCell()
+            return cell!
 
         } else {// block status
 
@@ -874,9 +872,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 // Call cell
                 cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
             }
-
-            // Prevent crashes
-            return cell ?? UICollectionViewCell()
+            return cell!
         }
 
     }
@@ -899,8 +895,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                     }else {
                         cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath) as? HTupleBaseApex
                     }
-                    // Prevent crashes
-                    return cell ?? UICollectionReusableView()
+                    return cell!
                 } else {
                     let selector: Selector = #selector(delegate.tupleHeader(_:inSection:))
                     let headerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
@@ -929,8 +924,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                     }else {
                         cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath) as? HTupleBaseApex
                     }
-                    // Prevent crashes
-                    return cell ?? UICollectionReusableView()
+                    return cell!
                 } else {
                     let selector: Selector = #selector(delegate.tupleFooter(_:inSection:))
                     let footerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
@@ -948,8 +942,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
             cell.relayoutSubviews()
         }
-        // Prevent crashes
-        return cell ?? UICollectionReusableView()
+        return cell!
     }
 
     internal func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
