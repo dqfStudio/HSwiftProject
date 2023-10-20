@@ -36,9 +36,6 @@ private var KTupleStateKey = "tupleStateKey"
 private var KTupleSignalKey = "tupleSignalKey"
 private var KTupleStateSourceKey = "tupleStateSourceKey"
 
-private var UICollectionElementKindSectionHeader = "UICollectionElementKindSectionHeader"
-private var UICollectionElementKindSectionFooter = "UICollectionElementKindSectionFooter"
-
 /// Refresh & LoadMore block
 typealias HTupleRefreshBlock = () -> Void
 typealias HTupleLoadMoreBlock = () -> Void
@@ -490,8 +487,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Determine whether it has been loaded
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
-            self.register(cls, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier)
-            cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
+            self.register(cls, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier)
+            cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
             cell.tuple = self
             cell.indexPath = idxPath
             cell.isHeader = true
@@ -500,7 +497,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 iblk(cell)
             }
         }else {
-            cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
+            cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
         }
         // Save cell
         self.allReuseHeaders.setObject(cell, forKey: IndexPath.nsStringValue(0, idxPath.section))
@@ -534,8 +531,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Determine whether it has been loaded
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
-            self.register(cls, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: identifier)
-            cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
+            self.register(cls, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier)
+            cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
             cell.tuple = self
             cell.indexPath = idxPath
             cell.isHeader = true
@@ -544,7 +541,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 iblk(cell)
             }
         }else {
-            cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
+            cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
         }
         // Save cell
         self.allReuseFooters.setObject(cell, forKey: IndexPath.nsStringValue(0, idxPath.section))
@@ -886,7 +883,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     internal func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         var cell: HTupleBaseApex?
-        if kind == UICollectionElementKindSectionHeader {
+        if kind == UICollectionView.elementKindSectionHeader {
             // Call delegate method
             if let delegate = self.tupleDelegate {
                 let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
@@ -897,10 +894,10 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                     // Determine whether it has been loaded
                     if !self.allReuseIdentifiers.contains(identifier) {
                         self.allReuseIdentifiers.add(identifier)
-                        self.register(HTupleBaseApex.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier)
-                        cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath) as? HTupleBaseApex
+                        self.register(HTupleBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier)
+                        cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath) as? HTupleBaseApex
                     }else {
-                        cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath) as? HTupleBaseApex
+                        cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath) as? HTupleBaseApex
                     }
                     // Prevent crashes
                     return cell ?? UICollectionReusableView()
@@ -916,7 +913,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             }
             // Call cell
             cell = self.allReuseHeaders.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
-        }else if (kind == UICollectionElementKindSectionFooter) {
+        }else if (kind == UICollectionView.elementKindSectionFooter) {
             // Call delegate method
             if let delegate = self.tupleDelegate {
                 let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
@@ -927,10 +924,10 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                     // Determine whether it has been loaded
                     if !self.allReuseIdentifiers.contains(identifier) {
                         self.allReuseIdentifiers.add(identifier)
-                        self.register(HTupleBaseApex.self, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: identifier)
-                        cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath) as? HTupleBaseApex
+                        self.register(HTupleBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier)
+                        cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath) as? HTupleBaseApex
                     }else {
-                        cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath) as? HTupleBaseApex
+                        cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath) as? HTupleBaseApex
                     }
                     // Prevent crashes
                     return cell ?? UICollectionReusableView()

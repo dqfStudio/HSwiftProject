@@ -5,95 +5,79 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
-            uuid = "FCB17862-E5D7-412B-8C67-5BA3A3EC5D26"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HSwiftProject/Classes/Main/HMainController1.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "404"
-            endingLineNumber = "404">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "389EEF7B-C436-4794-AEE5-DF4BB751E6A9"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HSwiftProject/Classes/Main/HMainController1.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "483"
-            endingLineNumber = "483">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "09A35DFF-0971-4DC6-B030-875ABD5C634A"
+            uuid = "9AA8A1F1-BEE6-4B3A-8506-F662226BE87E"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "HSwiftProject/Classes/QFUtil/HUserDefaults/HUserStore/HKeyChainStore.swift"
+            breakpointStackSelectionBehavior = "1"
+            scope = "1"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4B451F94-C9ED-4982-9650-9C20E84DB4CC"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HSwiftProject/Classes/QFUtil/HTupleView/View/HTupleView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "490"
-            endingLineNumber = "490"
-            landmarkName = "stringForKey(_:error:)"
+            startingLineNumber = "1219"
+            endingLineNumber = "1219"
+            landmarkName = "signalToTupleView(_:_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1A4B432D-30AE-40E7-A590-62744BABA534"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "HSwiftProject/Classes/QFUtil/HTupleView/View/HTupleView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1164"
+            endingLineNumber = "1164"
+            landmarkName = "scrollViewWillBeginZooming(_:with:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "09A35DFF-0971-4DC6-B030-875ABD5C634A - 5d8be7c396a2e5a8"
+                  uuid = "1A4B432D-30AE-40E7-A590-62744BABA534 - b8b1778b3745fc0"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "HSwiftProject.HKeyChainStore.stringForKey(_: Swift.Optional&lt;Swift.String&gt;, error: inout Swift.Optional&lt;Swift.Error&gt;) -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  symbolName = "HSwiftProject.HTupleView.scrollViewWillBeginZooming(_: __C.UIScrollView, with: Swift.Optional&lt;__C.UIView&gt;) -&gt; ()"
                   moduleName = "HSwiftProject"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/owner/Documents/Github/HSwiftProject/HSwiftProject/Classes/QFUtil/HUserDefaults/HUserStore/HKeyChainStore.swift"
+                  urlString = "file:///Users/owner/Documents/Github/HSwiftProject/HSwiftProject/Classes/QFUtil/HTupleView/View/HTupleView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "490"
-                  endingLineNumber = "490"
-                  offsetFromSymbolStart = "148">
+                  startingLineNumber = "1165"
+                  endingLineNumber = "1165"
+                  offsetFromSymbolStart = "72">
                </Location>
                <Location
-                  uuid = "09A35DFF-0971-4DC6-B030-875ABD5C634A - 5d8be7c396a2e5a8"
+                  uuid = "1A4B432D-30AE-40E7-A590-62744BABA534 - b8b1778b3745f3f"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "HSwiftProject.HKeyChainStore.stringForKey(_: Swift.Optional&lt;Swift.String&gt;, error: inout Swift.Optional&lt;Swift.Error&gt;) -&gt; Swift.Optional&lt;Swift.String&gt;"
+                  symbolName = "HSwiftProject.HTupleView.scrollViewWillBeginZooming(_: __C.UIScrollView, with: Swift.Optional&lt;__C.UIView&gt;) -&gt; ()"
                   moduleName = "HSwiftProject"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/owner/Documents/Github/HSwiftProject/HSwiftProject/Classes/QFUtil/HUserDefaults/HUserStore/HKeyChainStore.swift"
+                  urlString = "file:///Users/owner/Documents/Github/HSwiftProject/HSwiftProject/Classes/QFUtil/HTupleView/View/HTupleView.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "490"
-                  endingLineNumber = "490"
-                  offsetFromSymbolStart = "224">
+                  startingLineNumber = "1164"
+                  endingLineNumber = "1164"
+                  offsetFromSymbolStart = "168">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "8D8442B3-F007-4A52-B605-DEDF7AB03D6D"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "HSwiftProject/Classes/QFUtil/HUserDefaults/HUserStore/HKeyChainStore.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "566"
-            endingLineNumber = "566"
-            landmarkName = "dataForKey(_:error:)"
-            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
