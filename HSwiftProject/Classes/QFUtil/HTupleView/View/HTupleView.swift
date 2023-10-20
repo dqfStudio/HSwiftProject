@@ -49,7 +49,7 @@ typealias HTupleItem = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ i
 typealias HTupleSectionExclusiveBlock = () -> NSArray
 
 /// This class is used for refreshing tupleView throughout the project.
-class HTupleAppearance : NSObject {
+class HTupleAppearance: NSObject {
 
     private static var hashTuples = NSHashTable<AnyObject>.weakObjects()
 
@@ -82,7 +82,7 @@ class HTupleAppearance : NSObject {
     }
 }
 
-@objc protocol HTupleViewDelegate : UICollectionViewDelegate {
+@objc protocol HTupleViewDelegate: UICollectionViewDelegate {
     @objc
     optional func numberOfSectionsInTupleView() -> Any
     @objc
