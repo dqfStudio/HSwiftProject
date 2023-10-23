@@ -23,18 +23,18 @@ enum HTupleStatus: Int {
     case block = 1  // Block design
 }
 
-var KTupleDefaultTag = 1213141516
+var kTupleDefaultTag = 1213141516
 
-private var KTuplePageNo = 1
-private var KTuplePageSize = 20
-private var KTupleTotalPageNo = 10000
+private var kTuplePageNo = 1
+private var kTuplePageSize = 20
+private var kTupleTotalPageNo = 10000
 
-private var KTupleDesignKey = "tuple"
-private var KTupleExaDesignKey = "tupleExa"
+private var kTupleDesignKey = "tuple"
+private var kTupleExaDesignKey = "tupleExa"
 
-private var KTupleStateKey = "tupleStateKey"
-private var KTupleSignalKey = "tupleSignalKey"
-private var KTupleStateSourceKey = "tupleStateSourceKey"
+private var kTupleStateKey = "tupleStateKey"
+private var kTupleSignalKey = "tupleSignalKey"
+private var kTupleStateSourceKey = "tupleStateSourceKey"
 
 /// Refresh & LoadMore block
 typealias HTupleRefreshBlock = () -> Void
@@ -303,7 +303,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         HTupleAppearance.addTuple(self)
 
         // Set default tag
-        self.tag = KTupleDefaultTag
+        self.tag = kTupleDefaultTag
 
         if self.flowLayout?.scrollDirection == .vertical {
             self.enableVerticalBounce()
@@ -323,28 +323,28 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     /// Page number, Default 1
-    var pageNo: Int = KTuplePageNo {
+    var pageNo: Int = kTuplePageNo {
         didSet {
             if pageNo <= 0 {
-                pageNo = KTuplePageNo
+                pageNo = kTuplePageNo
             }
         }
     }
 
     /// Page size, Default 20
-    var pageSize: Int = KTuplePageSize {
+    var pageSize: Int = kTuplePageSize {
         didSet {
             if pageSize <= 0 {
-                pageSize = KTuplePageSize
+                pageSize = kTuplePageSize
             }
         }
     }
 
     /// Total number. Default 10000
-    var totalNo: Int = KTupleTotalPageNo {
+    var totalNo: Int = kTupleTotalPageNo {
         didSet {
             if totalNo <= 0 {
-                totalNo = KTupleTotalPageNo
+                totalNo = kTupleTotalPageNo
             }
         }
     }
@@ -613,7 +613,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         var prefix = ""
         if self.tupleStyle == .split {
             if let sectionPaths = self.sectionPaths, sectionPaths.contains(self.tupleState) {
-                prefix = KTupleDesignKey + "\(self.tupleState)" + "_"
+                prefix = kTupleDesignKey + "\(self.tupleState)" + "_"
             }
         }
         return prefix
@@ -623,9 +623,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         if self.tupleStyle == .split {
             if let sectionPaths = self.sectionPaths, sectionPaths.contains(section) {
                 let idx: Int = sectionPaths.index(of: section)
-                prefix = KTupleExaDesignKey + "\(idx)" + "_"
+                prefix = kTupleExaDesignKey + "\(idx)" + "_"
             }else {
-                prefix = KTupleDesignKey + "\(self.tupleState)" + "_"
+                prefix = kTupleDesignKey + "\(self.tupleState)" + "_"
             }
         }
         return prefix
@@ -652,7 +652,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         case .split:
             var sections = 1
             if let delegate = self.tupleDelegate {
-                let prefix = KTupleDesignKey + "\(self.tupleState)" + "_"
+                let prefix = kTupleDesignKey + "\(self.tupleState)" + "_"
                 let selector = #selector(delegate.numberOfSectionsInTupleView)
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
@@ -1203,8 +1203,8 @@ extension HTupleView {
 
     /// The signal block held by tupleView
     var signalBlock: HTupleCellSignalBlock? {
-        get { return self.getAssociatedValueForKey(&KTupleSignalKey) as? HTupleCellSignalBlock }
-        set { self.setAssociateCopyValue(newValue, key: &KTupleSignalKey) }
+        get { return self.getAssociatedValueForKey(&kTupleSignalKey) as? HTupleCellSignalBlock }
+        set { self.setAssociateCopyValue(newValue, key: &kTupleSignalKey) }
     }
 
     /// Send signal to tupleView
@@ -1398,11 +1398,11 @@ extension HTupleView {
 
     private var tupleStateSource: NSMutableDictionary {
         get {
-            if let dict = self.getAssociatedValueForKey(&KTupleStateSourceKey) as? NSMutableDictionary {
+            if let dict = self.getAssociatedValueForKey(&kTupleStateSourceKey) as? NSMutableDictionary {
                 return dict
             } else {
                 let dict = NSMutableDictionary()
-                self.setAssociateValue(dict, key: &KTupleStateSourceKey)
+                self.setAssociateValue(dict, key: &kTupleStateSourceKey)
                 return dict
             }
         }
@@ -1411,12 +1411,12 @@ extension HTupleView {
     /// The state represented by the tupleView split design
     var tupleState: Int {
         get {
-            let value = self.getAssociatedValueForKey(&KTupleStateKey) as? NSNumber ?? NSNumber(value: 0)
+            let value = self.getAssociatedValueForKey(&kTupleStateKey) as? NSNumber ?? NSNumber(value: 0)
             return value.intValue
         }
         set {
             if newValue != self.tupleState {
-                self.setAssociateValue(NSNumber(value: newValue), key: &KTupleStateKey)
+                self.setAssociateValue(NSNumber(value: newValue), key: &kTupleStateKey)
                 self.reloadData()
             }
         }

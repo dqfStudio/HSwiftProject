@@ -18,18 +18,18 @@ enum HTableStatus: Int {
     case block = 1  // Block design
 }
 
-var KTableDefaultTag = 1615141312
+var kTableDefaultTag = 1615141312
 
-private var KTablePageNo = 1
-private var KTablePageSize = 20
-private var KTableTotalPageNo = 10000
+private var kTablePageNo = 1
+private var kTablePageSize = 20
+private var kTableTotalPageNo = 10000
 
-private var KTableDesignKey = "table"
-private var KTableExaDesignKey = "tableExa"
+private var kTableDesignKey = "table"
+private var kTableExaDesignKey = "tableExa"
 
-private var KTableStateKey = "tableStateKey"
-private var KTableSignalKey = "tableSignalKey"
-private var KTableStateSourceKey = "tableStateSourceKey"
+private var kTableStateKey = "tableStateKey"
+private var kTableSignalKey = "tableSignalKey"
+private var kTableStateSourceKey = "tableStateSourceKey"
 
 /// Refresh & LoadMore block
 typealias HTableRefreshBlock = () -> Void
@@ -223,7 +223,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         HTableAppearance.addTable(self)
         
         // Set default tag
-        self.tag = KTableDefaultTag
+        self.tag = kTableDefaultTag
         
         self.backgroundColor = .clear
         self.alwaysBounceVertical = true
@@ -248,28 +248,28 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// Page number, Default 1
-    var pageNo: Int = KTablePageNo {
+    var pageNo: Int = kTablePageNo {
         didSet {
             if pageNo <= 0 {
-                pageNo = KTablePageNo
+                pageNo = kTablePageNo
             }
         }
     }
     
     /// Page size, Default 20
-    var pageSize: Int = KTablePageSize {
+    var pageSize: Int = kTablePageSize {
         didSet {
             if pageSize <= 0 {
-                pageSize = KTablePageSize
+                pageSize = kTablePageSize
             }
         }
     }
     
     /// Total number. Default 10000
-    var totalNo: Int = KTableTotalPageNo {
+    var totalNo: Int = kTableTotalPageNo {
         didSet {
             if totalNo <= 0 {
-                totalNo = KTableTotalPageNo
+                totalNo = kTableTotalPageNo
             }
         }
     }
@@ -532,9 +532,9 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         if self.tableStyle == .split {
             if let sectionPaths = self.sectionPaths, sectionPaths.contains(section) {
                 let idx: Int = sectionPaths.index(of: section)
-                prefix = KTableExaDesignKey + "\(idx)" + "_"
+                prefix = kTableExaDesignKey + "\(idx)" + "_"
             }else {
-                prefix = KTableDesignKey + "\(self.tableState)" + "_"
+                prefix = kTableDesignKey + "\(self.tableState)" + "_"
             }
         }
         return prefix
@@ -558,7 +558,7 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
         case .split:
             var sections = 1
             if let delegate = self.tableDelegate {
-                let prefix = KTableDesignKey + "\(self.tableState)" + "_"
+                let prefix = kTableDesignKey + "\(self.tableState)" + "_"
                 let selector = #selector(delegate.numberOfSectionsInTableView)
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
@@ -873,8 +873,8 @@ extension HTableView {
 
     /// Signal block held by tableView
     var signalBlock: HTableCellSignalBlock? {
-        get { return self.getAssociatedValueForKey(&KTableSignalKey) as? HTableCellSignalBlock }
-        set { self.setAssociateCopyValue(newValue, key: &KTableSignalKey) }
+        get { return self.getAssociatedValueForKey(&kTableSignalKey) as? HTableCellSignalBlock }
+        set { self.setAssociateCopyValue(newValue, key: &kTableSignalKey) }
     }
     
     /// Send a signal to the tableView
@@ -1021,11 +1021,11 @@ extension HTableView {
 
     private var tableStateSource: NSMutableDictionary {
         get {
-            if let dict = self.getAssociatedValueForKey(&KTableStateSourceKey) as? NSMutableDictionary {
+            if let dict = self.getAssociatedValueForKey(&kTableStateSourceKey) as? NSMutableDictionary {
                 return dict
             } else {
                 let dict = NSMutableDictionary()
-                self.setAssociateValue(dict, key: &KTableStateSourceKey)
+                self.setAssociateValue(dict, key: &kTableStateSourceKey)
                 return dict
             }
         }
@@ -1034,12 +1034,12 @@ extension HTableView {
     /// The state represented by tableView split design
     var tableState: Int {
         get {
-            let value = self.getAssociatedValueForKey(&KTableStateKey) as? NSNumber ?? NSNumber(value: 0)
+            let value = self.getAssociatedValueForKey(&kTableStateKey) as? NSNumber ?? NSNumber(value: 0)
             return value.intValue
         }
         set {
             if newValue != self.tableState {
-                self.setAssociateValue(NSNumber(value: newValue), key: &KTableStateKey)
+                self.setAssociateValue(NSNumber(value: newValue), key: &kTableStateKey)
                 self.reloadData()
             }
         }

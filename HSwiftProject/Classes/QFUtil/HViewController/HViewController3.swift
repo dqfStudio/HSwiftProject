@@ -63,7 +63,7 @@ class HViewController3: UIViewController {
     override func vcWillDisappear(_ type: HVCDisappearType) {
         if type == .pop || type == .dismiss {
             //tupleView default tag 1213141516
-            if let tupleView = self.view.viewWithTag(KTupleDefaultTag) as? HTupleView {
+            if let tupleView = self.view.viewWithTag(kTupleDefaultTag) as? HTupleView {
                 tupleView.releaseTupleBlock()
             }
         }
