@@ -9,8 +9,8 @@
 import UIKit
 import Photos
 
-private var KInOperationKey = "inOperation"
-private var KExecutingKey = "executing"
+private var kInOperationKey = "inOperation"
+private var kExecutingKey = "executing"
 
 class HAssetManager: NSObject {
     
@@ -36,15 +36,15 @@ class HAssetManager: NSObject {
     }
     
     private func createAlbums() {
-        self.exclusive(exc: KInOperationKey) {
+        self.exclusive(exc: kInOperationKey) {
             if !self.isExistAlbums() {
                 PHPhotoLibrary.shared().performChanges({
-                    self.exclusive(exc: KExecutingKey) {
+                    self.exclusive(exc: kExecutingKey) {
                         PHAssetCollectionChangeRequest.creationRequestForAssetCollection(withTitle: self.albumsName)
                     }
                 }) { (success, error) in
-                    self.removeExclusive(exc: KExecutingKey)
-                    self.removeExclusive(exc: KInOperationKey)
+                    self.removeExclusive(exc: kExecutingKey)
+                    self.removeExclusive(exc: kInOperationKey)
                 }
             }
         }
@@ -116,14 +116,14 @@ class HAssetManager: NSObject {
 
     func saveImageToDefaultAlbum(_ image: UIImage?, completionHandler: ((Bool, Error?) -> Void)?) {
         if let _ = image {
-            self.exclusive(exc: KInOperationKey) {
+            self.exclusive(exc: kInOperationKey) {
                 PHPhotoLibrary.shared().performChanges({
-                    self.exclusive(exc: KExecutingKey) {
+                    self.exclusive(exc: kExecutingKey) {
                         PHAssetChangeRequest.creationRequestForAsset(from: image!)
                     }
                 }, completionHandler: { (success, error) in
-                    self.removeExclusive(exc: KExecutingKey)
-                    self.removeExclusive(exc: KInOperationKey)
+                    self.removeExclusive(exc: kExecutingKey)
+                    self.removeExclusive(exc: kInOperationKey)
                     if let completionHandler = completionHandler {
                         completionHandler(success, error)
                     }
@@ -212,13 +212,13 @@ class HAssetManager: NSObject {
     }
     
     func saveFile(isImage: Bool, image: UIImage?, videoPathURL: URL?, semaphore: DispatchSemaphore?, completionHandler: ((Bool, Error?) -> Void)?) {
-        self.exclusive(exc: KInOperationKey) {
+        self.exclusive(exc: kInOperationKey) {
             let collectonResuts = PHCollectionList.fetchTopLevelUserCollections(with: nil)
             collectonResuts.enumerateObjects { (obj, idx, stop) in
                 if let assetCollection = obj as? PHAssetCollection, assetCollection.localizedTitle == self.albumsName {
                     stop.pointee = true
                     PHPhotoLibrary.shared().performChanges({
-                        self.exclusive(exc: KExecutingKey) {
+                        self.exclusive(exc: kExecutingKey) {
                             var assetRequest: PHAssetChangeRequest
                             if isImage {
                                 assetRequest = PHAssetChangeRequest.creationRequestForAsset(from: image!)
@@ -230,8 +230,8 @@ class HAssetManager: NSObject {
                             collectonRequest?.insertAssets([placeHolder!] as NSArray, at: IndexSet(integer: 0))
                         }
                     }, completionHandler: { (success, error) in
-                        self.removeExclusive(exc: KExecutingKey)
-                        self.removeExclusive(exc: KInOperationKey)
+                        self.removeExclusive(exc: kExecutingKey)
+                        self.removeExclusive(exc: kInOperationKey)
                         semaphore?.signal()
                         completionHandler?(success, error)
                     })
@@ -269,13 +269,13 @@ class HAssetManager: NSObject {
             return
         }
         
-        self.exclusive(exc: KInOperationKey) {
+        self.exclusive(exc: kInOperationKey) {
             let collectonResuts = PHCollectionList.fetchTopLevelUserCollections(with: nil)
             collectonResuts.enumerateObjects { (obj, idx, stop) in
                 guard let assetCollection = obj as? PHAssetCollection else { return }
                 stop.pointee = true
                 PHPhotoLibrary.shared().performChanges({
-                    self.exclusive(exc: KExecutingKey) {
+                    self.exclusive(exc: kExecutingKey) {
                         let url = URL(fileURLWithPath: path)
                         let assetRequest = PHAssetChangeRequest.creationRequestForAssetFromImage(atFileURL: url)
                         
@@ -287,8 +287,8 @@ class HAssetManager: NSObject {
                         collectonRequest?.addAssets([placeHolder] as NSFastEnumeration)
                     }
                 }) { (success, error) in
-                    self.removeExclusive(exc: KExecutingKey)
-                    self.removeExclusive(exc: KInOperationKey)
+                    self.removeExclusive(exc: kExecutingKey)
+                    self.removeExclusive(exc: kInOperationKey)
                     completion?(success, error)
                 }
             }

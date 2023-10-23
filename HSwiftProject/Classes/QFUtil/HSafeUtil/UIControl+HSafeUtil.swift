@@ -8,7 +8,7 @@
 
 //import UIKit
 //
-//private var KDefaultInterval = 0.5  //默认时间间隔
+//private var kDefaultInterval = 0.5  //默认时间间隔
 //private var isIgnoreEventKey = "isIgnoreEventKey"
 //private var timeIntervalKey = "timeIntervalKey"
 //
@@ -32,7 +32,7 @@
 //    @objc
 //    private func safe_sendAction(_ action: Selector, to target: Any?, for event: UIEvent?) {
 //
-//        timeInterval = timeInterval == 0 ? KDefaultInterval : timeInterval
+//        timeInterval = timeInterval == 0 ? kDefaultInterval : timeInterval
 //
 //        if isIgnoreEvent { return }
 //        else if timeInterval > 0 {

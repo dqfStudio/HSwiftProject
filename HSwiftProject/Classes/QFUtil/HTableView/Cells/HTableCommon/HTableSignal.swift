@@ -8,7 +8,7 @@
 
 import UIKit
 
-var KTableSkinNotify = "tableSkinNotify"
+var kTableSkinNotify = "tableSkinNotify"
 
 typealias HTableCellInitBlock = (_ target: AnyObject) -> Void
 typealias HTableCellSignalBlock = (_ target: AnyObject, _ signal: HTableSignal?) -> Void

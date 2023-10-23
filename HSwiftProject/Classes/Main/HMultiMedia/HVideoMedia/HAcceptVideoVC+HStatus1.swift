@@ -17,12 +17,12 @@ extension HAcceptVideoVC {
     func tupleExa0_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         switch (indexPath.row) {
         case 0: return CGSize(width: self.tupleView.width, height: UIScreen.naviBarHeight + 65)
-        case 1: return CGSize(width: self.tupleView.width, height: UIScreen.height - UIScreen.naviBarHeight - 65 - 30 - 70 - (KAcceptVideoHeight1 + 25) - 40 - (KAcceptVideoHeight2 + 25) - 30)
+        case 1: return CGSize(width: self.tupleView.width, height: UIScreen.height - UIScreen.naviBarHeight - 65 - 30 - 70 - (kAcceptVideoHeight1 + 25) - 40 - (kAcceptVideoHeight2 + 25) - 30)
         case 2: return CGSize(width: self.tupleView.width, height: 30)
         case 3: return CGSize(width: self.tupleView.width, height: 70)
-        case 4: return CGSize(width: self.tupleView.width, height: KAcceptVideoHeight1 + 25)
+        case 4: return CGSize(width: self.tupleView.width, height: kAcceptVideoHeight1 + 25)
         case 5: return CGSize(width: self.tupleView.width, height: 40)
-        case 6: return CGSize(width: self.tupleView.width, height: KAcceptVideoHeight2 + 25)
+        case 6: return CGSize(width: self.tupleView.width, height: kAcceptVideoHeight2 + 25)
         case 7: return CGSize(width: self.tupleView.width, height: 30)
         default:break
         }
@@ -45,14 +45,14 @@ extension HAcceptVideoVC {
             let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
             let bounds: CGRect = cell.layoutViewBounds
 
-            let frame1 = CGRect(x: bounds.size.width / 2 - 40 / 2, y: 0, width: KAcceptVideoHeight2, height: KAcceptVideoHeight2)
+            let frame1 = CGRect(x: bounds.size.width / 2 - 40 / 2, y: 0, width: kAcceptVideoHeight2, height: kAcceptVideoHeight2)
             cell.buttonView.frame = frame1
             cell.buttonView.setImage(WithName: "mdeia-button")
             cell.buttonView.pressed = { (sender, data) in
                 self.dismiss(animated: true)
             }
             
-            let frame2 = CGRect(x: bounds.size.width / 2 - 40 / 2, y: KAcceptVideoHeight2, width: KAcceptVideoHeight2, height: 25)
+            let frame2 = CGRect(x: bounds.size.width / 2 - 40 / 2, y: kAcceptVideoHeight2, width: kAcceptVideoHeight2, height: 25)
             cell.label.frame = frame2
             cell.label.text = "昵称"
             cell.label.textColor = UIColor.white
@@ -74,14 +74,14 @@ extension HAcceptVideoVC {
             let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
             let bounds: CGRect = cell.layoutViewBounds
 
-            let frame1 = CGRect(x: bounds.size.width / 2 - 40 - KAcceptVideoHeight1, y: 0, width: KAcceptVideoHeight1, height: KAcceptVideoHeight1)
+            let frame1 = CGRect(x: bounds.size.width / 2 - 40 - kAcceptVideoHeight1, y: 0, width: kAcceptVideoHeight1, height: kAcceptVideoHeight1)
             cell.buttonView.frame = frame1
             cell.buttonView.setImage(WithName: "mdeia-button")
             cell.buttonView.pressed = { (sender, data) in
                 
             }
             
-            let frame2 = CGRect(x: bounds.size.width / 2 - 40 - KAcceptVideoHeight1, y: KAcceptVideoHeight1, width: KAcceptVideoHeight1, height: 25)
+            let frame2 = CGRect(x: bounds.size.width / 2 - 40 - kAcceptVideoHeight1, y: kAcceptVideoHeight1, width: kAcceptVideoHeight1, height: 25)
             cell.label.frame = frame2
             cell.label.text = "翻转"
             cell.label.textColor = UIColor.white
@@ -89,14 +89,14 @@ extension HAcceptVideoVC {
             cell.label.textAlignment = .center
             
             
-            let frame3 = CGRect(x: bounds.size.width / 2 + 40, y: 0, width: KAcceptVideoHeight1, height: KAcceptVideoHeight1)
+            let frame3 = CGRect(x: bounds.size.width / 2 + 40, y: 0, width: kAcceptVideoHeight1, height: kAcceptVideoHeight1)
             cell.detailButtonView.frame = frame3
             cell.detailButtonView.setImage(WithName: "mdeia-button")
             cell.detailButtonView.pressed = { (sender, data) in
                 
             }
             
-            let frame4 = CGRect(x: bounds.size.width / 2 + 32, y: KAcceptVideoHeight1, width: KAcceptVideoHeight1 + 20, height: 25)
+            let frame4 = CGRect(x: bounds.size.width / 2 + 32, y: kAcceptVideoHeight1, width: kAcceptVideoHeight1 + 20, height: 25)
             cell.detailLabel.frame = frame4
             cell.detailLabel.text = "摄像头已开"
             cell.detailLabel.textColor = UIColor.white
@@ -110,14 +110,14 @@ extension HAcceptVideoVC {
             let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
             let bounds: CGRect = cell.layoutViewBounds
 
-            let frame1 = CGRect(x: 40, y: 0, width: KAcceptVideoHeight2, height: KAcceptVideoHeight2)
+            let frame1 = CGRect(x: 40, y: 0, width: kAcceptVideoHeight2, height: kAcceptVideoHeight2)
             cell.buttonView.frame = frame1
             cell.buttonView.setImage(WithName: "mdeia-button")
             cell.buttonView.pressed = { (sender, data) in
                 
             }
             
-            let frame2 = CGRect(x: 40, y: KAcceptVideoHeight2, width: KAcceptVideoHeight2, height: 25)
+            let frame2 = CGRect(x: 40, y: kAcceptVideoHeight2, width: kAcceptVideoHeight2, height: 25)
             cell.label.frame = frame2
             cell.label.text = "拒绝"
             cell.label.textColor = UIColor.white
@@ -125,14 +125,14 @@ extension HAcceptVideoVC {
             cell.label.textAlignment = .center
             
             
-            let frame3 = CGRect(x: bounds.size.width - 40 - KAcceptVideoHeight2, y: 0, width: KAcceptVideoHeight2, height: KAcceptVideoHeight2)
+            let frame3 = CGRect(x: bounds.size.width - 40 - kAcceptVideoHeight2, y: 0, width: kAcceptVideoHeight2, height: kAcceptVideoHeight2)
             cell.detailButtonView.frame = frame3
             cell.detailButtonView.setImage(WithName: "mdeia-button")
             cell.detailButtonView.pressed = { (sender, data) in
                 
             }
             
-            let frame4 = CGRect(x: bounds.size.width - 30 - (KAcceptVideoHeight2 + 20), y: KAcceptVideoHeight2, width: KAcceptVideoHeight2 + 20, height: 25)
+            let frame4 = CGRect(x: bounds.size.width - 30 - (kAcceptVideoHeight2 + 20), y: kAcceptVideoHeight2, width: kAcceptVideoHeight2 + 20, height: 25)
             cell.detailLabel.frame = frame4
             cell.detailLabel.text = "接受"
             cell.detailLabel.textColor = UIColor.white

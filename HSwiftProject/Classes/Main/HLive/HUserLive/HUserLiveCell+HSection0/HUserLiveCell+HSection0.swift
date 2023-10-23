@@ -22,7 +22,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
         self.tupleView.delegate = self
         self.addSubview(self.tupleView)
         //设置tupleView release key
-        self.tupleView.releaseTupleKey = KLiveRoomReleaseTupleKey
+        self.tupleView.releaseTupleKey = kLiveRoomReleaseTupleKey
     }
     
     required init?(coder: NSCoder) {
@@ -216,7 +216,7 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
         self.tupleView.delegate = self
         self.addSubview(self.tupleView)
         //设置tupleView release key
-        self.tupleView.releaseTupleKey = KLiveRoomReleaseTupleKey
+        self.tupleView.releaseTupleKey = kLiveRoomReleaseTupleKey
     }
     
     required init?(coder: NSCoder) {

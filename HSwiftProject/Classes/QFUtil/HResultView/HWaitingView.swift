@@ -14,8 +14,8 @@ enum HWaitingType: Int {
     case gray = 2
 }
 
-var KWaitingImageSize = CGSize(width: 130, height: 33)
-var KWaitingTextSize = CGSize(width: 130, height: 24)
+var kWaitingImageSize = CGSize(width: 130, height: 33)
+var kWaitingTextSize = CGSize(width: 130, height: 24)
 
 class HWaitingView: UIView, HTupleViewDelegate {
     
@@ -36,12 +36,12 @@ class HWaitingView: UIView, HTupleViewDelegate {
     
     private func wakeup() {
         //添加view
-        var height = KWaitingImageSize.height
+        var height = kWaitingImageSize.height
         if let make = make, let desc = make.desc, desc.count > 0 {
-            height += KWaitingTextSize.height
+            height += kWaitingTextSize.height
         }
         
-        self.tupleView.frame = CGRect(x: 0, y: 0, width: KWaitingImageSize.width, height: height)
+        self.tupleView.frame = CGRect(x: 0, y: 0, width: kWaitingImageSize.width, height: height)
         self.tupleView.center = CGPoint(x: self.center.x, y: self.center.y - (make?.marginTop ?? 0))
         
         self.tupleView.delegate = self
@@ -55,7 +55,7 @@ class HWaitingView: UIView, HTupleViewDelegate {
         return 1
     }
     func sizeForHeaderInSection(_ section: Any) -> Any {
-        return KWaitingImageSize
+        return kWaitingImageSize
     }
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         return CGSize(width: self.tupleView.width, height: self.tupleView.height)

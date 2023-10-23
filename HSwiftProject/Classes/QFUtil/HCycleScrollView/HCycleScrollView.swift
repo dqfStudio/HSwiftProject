@@ -21,7 +21,7 @@ enum HCycleScrollViewPageContolStyle: Int {
 }
 
 private let kCycleScrollViewInitialPageControlDotSize = CGSize(width: 10, height: 10)
-private var KCycleID = "HCycleScrollViewCell"
+private var kCycleID = "HCycleScrollViewCell"
 
 typealias HClickItemOperationBlock = (_ currentIndex: Int) -> Void
 typealias HItemDidScrollOperationBlock = (_ currentIndex: Int) -> Void
@@ -196,10 +196,10 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
             if let delegate = _delegate {
                 if delegate.responds(to: #selector(delegate.customCollectionViewCellClassForCycleScrollView(_:))) {
                     let nib: AnyClass? = delegate.customCollectionViewCellClassForCycleScrollView?(self)
-                    self.mainView?.register(nib, forCellWithReuseIdentifier: KCycleID)
+                    self.mainView?.register(nib, forCellWithReuseIdentifier: kCycleID)
                 }else if delegate.responds(to: #selector(delegate.customCollectionViewCellNibForCycleScrollView(_:))) {
                     let nib: UINib? = delegate.customCollectionViewCellNibForCycleScrollView?(self)
-                    self.mainView?.register(nib, forCellWithReuseIdentifier: KCycleID)
+                    self.mainView?.register(nib, forCellWithReuseIdentifier: kCycleID)
                 }
             }
         }
@@ -431,7 +431,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
         mainView.isPagingEnabled = true
         mainView.showsHorizontalScrollIndicator = false
         mainView.showsVerticalScrollIndicator = false
-        mainView.register(HCollectionViewCell.self, forCellWithReuseIdentifier: KCycleID)
+        mainView.register(HCollectionViewCell.self, forCellWithReuseIdentifier: kCycleID)
 
         mainView.dataSource = self
         mainView.delegate = self
@@ -635,7 +635,7 @@ class HCycleScrollView : UIView, UICollectionViewDataSource, UICollectionViewDel
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: KCycleID, for: indexPath) as! HCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kCycleID, for: indexPath) as! HCollectionViewCell
 
         let itemIndex = self.pageControlIndexWithCurrentCellIndex(indexPath.item)
 

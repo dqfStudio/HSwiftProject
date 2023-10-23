@@ -8,7 +8,7 @@
 
 import Foundation
 
-private var KHistoryVersionsKey = "HistoryVersionsKey"
+private var kHistoryVersionsKey = "HistoryVersionsKey"
 
 class HVersionManager: NSObject {
     
@@ -29,13 +29,13 @@ class HVersionManager: NSObject {
     //保存当前版本号，不会重复保存
     func saveVersion() {
         guard var historys = self.historyVersion else {
-            UserDefaults.standard.set([self.currentVersion], forKey: KHistoryVersionsKey)
+            UserDefaults.standard.set([self.currentVersion], forKey: kHistoryVersionsKey)
             UserDefaults.standard.synchronize()
             return
         }
         if !historys.contains(self.currentVersion) {
             historys.append(self.currentVersion)
-            UserDefaults.standard.set(historys, forKey: KHistoryVersionsKey)
+            UserDefaults.standard.set(historys, forKey: kHistoryVersionsKey)
             UserDefaults.standard.synchronize()
         }
     }
@@ -99,7 +99,7 @@ class HVersionManager: NSObject {
     }
     
     private var historyVersion: [String]? {
-        return UserDefaults.standard.object(forKey: KHistoryVersionsKey) as? [String]
+        return UserDefaults.standard.object(forKey: kHistoryVersionsKey) as? [String]
     }
     
 }

@@ -26,12 +26,12 @@ class HUserLiveMiddleBarView : UIView, HTupleViewDelegate {
         self.tupleView.delegate = self
         self.addSubview(self.tupleView)
         //设置tupleView release key
-        self.tupleView.releaseTupleKey = KLiveRoomReleaseTupleKey
+        self.tupleView.releaseTupleKey = kLiveRoomReleaseTupleKey
         for i in 0..<5 {
             let string = "黑客帝国".appendingFormat("%d", i)
             self.mutableArr.add(string)
         }
-        NotificationCenter.default.addObserver(self, selector: #selector(liveRoomReleaseTuple), name: NSNotification.Name(KLiveRoomReleaseTupleKey), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(liveRoomReleaseTuple), name: NSNotification.Name(kLiveRoomReleaseTupleKey), object: nil)
         self.timer = Timer(timeInterval: 2, repeats: true) { timer in
             let string = "黑客帝国".appendingFormat("%lu", self.mutableArr.count)
             self.mutableArr.add(string)

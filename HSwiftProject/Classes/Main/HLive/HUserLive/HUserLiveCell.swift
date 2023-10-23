@@ -79,7 +79,7 @@ class HUserLiveCell : HUserLiveBgCell, HTupleViewDelegate {
         self.effectView.isHidden = true
         
         //设置liveRightView release key
-        self.liveRightView.releaseTupleKey = KLiveRoomReleaseTupleKey
+        self.liveRightView.releaseTupleKey = kLiveRoomReleaseTupleKey
         
         let swipeGesture = UISwipeGestureRecognizer(target: self, action:  #selector(rightSwipped))
         swipeGesture.direction = .right

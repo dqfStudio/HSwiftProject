@@ -8,7 +8,7 @@
 
 import UIKit
 
-private var KOrientationStyleKey = "KOrientationStyleKey"
+private var kOrientationStyleKey = "kOrientationStyleKey"
 
 enum UIDeviceOrientationStyle: Int {
     case all // 横竖屏
@@ -20,8 +20,8 @@ enum UIDeviceOrientationStyle: Int {
 
 extension AppDelegate {
     static var orientationStyle: UIDeviceOrientationStyle {
-        get { return objc_getAssociatedObject(self, &KOrientationStyleKey) as! UIDeviceOrientationStyle }
-        set { objc_setAssociatedObject(self, &KOrientationStyleKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+        get { return objc_getAssociatedObject(self, &kOrientationStyleKey) as! UIDeviceOrientationStyle }
+        set { objc_setAssociatedObject(self, &kOrientationStyleKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
     @available(iOS 12.0, *)

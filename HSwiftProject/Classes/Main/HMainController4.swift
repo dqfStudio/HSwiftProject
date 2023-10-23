@@ -8,7 +8,7 @@
 
 import UIKit
 
-var KSidebar: CGFloat = 80
+var kSidebar: CGFloat = 80
 
 class HMainController4: HTabBarController {
 
@@ -20,8 +20,8 @@ class HMainController4: HTabBarController {
         self.navigationBar.leftItem.isHidden = true
         
         let screenSize: CGSize = UIScreen.main.bounds.size
-        self.setTabBarFrame(CGRect(x: 0, y: 0, width: KSidebar, height: screenSize.height),
-                            contentViewFrame:CGRect(x: KSidebar, y: 0, width: screenSize.width - KSidebar, height: screenSize.height))
+        self.setTabBarFrame(CGRect(x: 0, y: 0, width: kSidebar, height: screenSize.height),
+                            contentViewFrame:CGRect(x: kSidebar, y: 0, width: screenSize.width - kSidebar, height: screenSize.height))
         
         self.tabBar.itemTitleColor = UIColor(hex: "#535353")
         self.tabBar.itemTitleSelectedColor = UIColor(hex: "#CFA359")

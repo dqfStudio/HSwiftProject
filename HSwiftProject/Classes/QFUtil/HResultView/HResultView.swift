@@ -14,9 +14,9 @@ enum HResultType: Int {
     case noNetwork = 2 // 无网络
 }
 
-private var KResultImageSize = CGSize(width: 200, height: 140)
-private var KResultTextSize = CGSize(width: 200, height: 25)
-private var KResultDetlTextSize = CGSize(width: 200, height: 20)
+private var kResultImageSize = CGSize(width: 200, height: 140)
+private var kResultTextSize = CGSize(width: 200, height: 25)
+private var kResultDetlTextSize = CGSize(width: 200, height: 20)
 
 class HResultView: UIView, HTupleViewDelegate {
     
@@ -36,17 +36,17 @@ class HResultView: UIView, HTupleViewDelegate {
     
     private func wakeup() {
         //添加view
-        var height = KResultTextSize.height
+        var height = kResultTextSize.height
         guard let make = make, make.hideImage else {
-            height += KResultImageSize.height
+            height += kResultImageSize.height
             return
         }
         guard let detlDesc = make.detlDesc, detlDesc.count > 0 else {
-            height += KResultDetlTextSize.height
+            height += kResultDetlTextSize.height
             return
         }
         
-        self.tupleView.frame = CGRect(x: 0, y: 0, width: KResultImageSize.width, height: height)
+        self.tupleView.frame = CGRect(x: 0, y: 0, width: kResultImageSize.width, height: height)
         self.tupleView.center = CGPoint(x: self.center.x, y: self.center.y - make.marginTop)
         
         self.tupleView.delegate = self
@@ -67,14 +67,14 @@ class HResultView: UIView, HTupleViewDelegate {
     }
     func sizeForHeaderInSection(_ section: Any) -> Any {
         guard let make = make, !make.hideImage else {
-            return KResultImageSize
+            return kResultImageSize
         }
         return CGSize.zero
     }
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         switch (indexPath.row) {
-        case 0: return KResultTextSize
-        case 1: return KResultDetlTextSize
+        case 0: return kResultTextSize
+        case 1: return kResultDetlTextSize
         default:break
         }
         return CGSize.zero

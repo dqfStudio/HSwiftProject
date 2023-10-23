@@ -22,7 +22,7 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
         self.tupleView.delegate = self
         self.addSubview(self.tupleView)
         //设置tupleView release key
-        self.tupleView.releaseTupleKey = KLiveRoomReleaseTupleKey
+        self.tupleView.releaseTupleKey = kLiveRoomReleaseTupleKey
     }
     
     required init?(coder: NSCoder) {
@@ -78,7 +78,7 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
             cell.buttonView.cornerRadius = cell.layoutViewBounds.height / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
             cell.buttonView.pressed = { (sender, data) in
-                NotificationCenter.default.post(name: NSNotification.Name(KShowKeyboardNotify), object: nil)
+                NotificationCenter.default.post(name: NSNotification.Name(kShowKeyboardNotify), object: nil)
             }
             break
         case 1:

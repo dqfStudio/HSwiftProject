@@ -59,7 +59,7 @@ class HUserLiveVC : HTupleController {
         //添加键盘
         self.addKeyboardObserver()
         self.hideKeyboardWhenTapBackground()
-        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboardNotifyAction), name: NSNotification.Name(KShowKeyboardNotify), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboardNotifyAction), name: NSNotification.Name(kShowKeyboardNotify), object: nil)
     }
     
     override func viewWillLayoutSubviews() {
@@ -99,9 +99,9 @@ class HUserLiveVC : HTupleController {
                 NotificationCenter.default.removeObserver(self, name: UIScreen.capturedDidChangeNotification, object: nil)
             }
             NotificationCenter.default.removeObserver(self, name: UIApplication.userDidTakeScreenshotNotification, object: nil)
-            NotificationCenter.default.removeObserver(self, name: NSNotification.Name(KShowKeyboardNotify), object: nil)
+            NotificationCenter.default.removeObserver(self, name: NSNotification.Name(kShowKeyboardNotify), object: nil)
             //通知释放跟直播相关的tupleView
-            NotificationCenter.default.post(name: NSNotification.Name(KLiveRoomReleaseTupleKey), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(kLiveRoomReleaseTupleKey), object: nil)
         }
     }
 

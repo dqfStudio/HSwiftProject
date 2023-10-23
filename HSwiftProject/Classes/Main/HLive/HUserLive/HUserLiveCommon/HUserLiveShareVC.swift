@@ -8,8 +8,8 @@
 
 import UIKit
 
-private var KItemHeight = 80.0
-private var KFooterHeight = 50.0
+private var kItemHeight = 80.0
+private var kFooterHeight = 50.0
 
 class HUserLiveShareVC : HViewController, HTupleViewDelegate {
 
@@ -35,7 +35,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     private var rowItems: Int = 0
 
     override var containerSize: CGSize {
-        return CGSize(width: UIScreen.width, height: KItemHeight * 2 + KFooterHeight + UIScreen.bottomBarHeight)
+        return CGSize(width: UIScreen.width, height: kItemHeight * 2 + kFooterHeight + UIScreen.bottomBarHeight)
     }
 
     override var presetType: HTransitionStyle {
@@ -81,14 +81,14 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
         return self.rowItems
     }
     func sizeForFooterInSection(_ section: Any) -> Any {
-        var height = KFooterHeight
+        var height = kFooterHeight
         if UIScreen.isIPhoneX {
             height += UIScreen.bottomBarHeight
         }
         return CGSize(width: self.tupleView.width, height: height)
     }
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return CGSize(width: self.tupleView.width / 4.0, height: KItemHeight)
+        return CGSize(width: self.tupleView.width / 4.0, height: kItemHeight)
     }
 
     func edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {

@@ -8,8 +8,8 @@
 
 import UIKit
 
-private var KRegionCodeKey = "KRegionCodeKey"
-private var KLanguageCodeKey = "KLanguageCodeKey"
+private var kRegionCodeKey = "kRegionCodeKey"
+private var kLanguageCodeKey = "kLanguageCodeKey"
 
 /*
  根据项目实际情况作出如下更改：
@@ -32,7 +32,7 @@ class HUserRegion: NSObject {
             }
 
             // 2、如果数据库里有值直接返回
-            _regionCode = UserDefaults.standard.object(forKey: KRegionCodeKey) as? String
+            _regionCode = UserDefaults.standard.object(forKey: kRegionCodeKey) as? String
             if let regionCode = _regionCode {
                 return regionCode
             }
@@ -46,7 +46,7 @@ class HUserRegion: NSObject {
             }
 
             // 5、保存新的值
-            UserDefaults.standard.set(_regionCode, forKey: KRegionCodeKey)
+            UserDefaults.standard.set(_regionCode, forKey: kRegionCodeKey)
             UserDefaults.standard.synchronize()
 
             return _regionCode!
@@ -73,7 +73,7 @@ class HUserRegion: NSObject {
             }
 
             // 6、保存新的值
-            UserDefaults.standard.set(_regionCode, forKey: KRegionCodeKey)
+            UserDefaults.standard.set(_regionCode, forKey: kRegionCodeKey)
             UserDefaults.standard.synchronize()
 
         }
@@ -119,7 +119,7 @@ class HUserRegion: NSObject {
             }
 
             // 2、如果数据库里有值直接返回
-            _languageCode = UserDefaults.standard.object(forKey: KLanguageCodeKey) as? String
+            _languageCode = UserDefaults.standard.object(forKey: kLanguageCodeKey) as? String
             if let languageCode = _languageCode {
                 return languageCode
             }
@@ -133,7 +133,7 @@ class HUserRegion: NSObject {
             }
 
             // 5、保存新的值
-            UserDefaults.standard.set(_languageCode, forKey: KLanguageCodeKey)
+            UserDefaults.standard.set(_languageCode, forKey: kLanguageCodeKey)
             UserDefaults.standard.synchronize()
 
             return _languageCode!
@@ -160,7 +160,7 @@ class HUserRegion: NSObject {
             }
 
             // 6、保存新的值
-            UserDefaults.standard.set(_languageCode, forKey: KLanguageCodeKey)
+            UserDefaults.standard.set(_languageCode, forKey: kLanguageCodeKey)
             UserDefaults.standard.synchronize()
 
         }

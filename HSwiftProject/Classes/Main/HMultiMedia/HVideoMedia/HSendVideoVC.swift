@@ -17,8 +17,8 @@ enum HSendVideoStatus: Int {
     case sendVideoStatus6 = 5
 }
 
-var KSendVideoHeight1: CGFloat = 55.0
-var KSendVideoHeight2: CGFloat = 65.0
+var kSendVideoHeight1: CGFloat = 55.0
+var kSendVideoHeight2: CGFloat = 65.0
 
 class HSendVideoVC: HViewController, HTupleViewDelegate {
     

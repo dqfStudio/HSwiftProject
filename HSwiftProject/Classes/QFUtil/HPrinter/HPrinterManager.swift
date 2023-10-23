@@ -10,21 +10,21 @@ import UIKit
 
 #if DEBUG
 
-private var KPrinterManagerKey = "KPrinterManagerKey"
+private var kPrinterManagerKey = "kPrinterManagerKey"
 
 class HPrinterManager: NSObject {
     
     var printerDict: NSMutableDictionary {
         get {
-            var dict: NSMutableDictionary? = objc_getAssociatedObject(self, &KPrinterManagerKey) as? NSMutableDictionary
+            var dict: NSMutableDictionary? = objc_getAssociatedObject(self, &kPrinterManagerKey) as? NSMutableDictionary
             if dict == nil {
                 dict = NSMutableDictionary()
-                objc_setAssociatedObject(self, &KPrinterManagerKey, dict, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+                objc_setAssociatedObject(self, &kPrinterManagerKey, dict, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             }
             return dict!
         }
         set {
-            objc_setAssociatedObject(self, &KPrinterManagerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            objc_setAssociatedObject(self, &kPrinterManagerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
     

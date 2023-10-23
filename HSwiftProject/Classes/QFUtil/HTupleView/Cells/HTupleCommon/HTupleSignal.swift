@@ -8,7 +8,7 @@
 
 import UIKit
 
-var KTupleSkinNotify = "tupleSkinNotify"
+var kTupleSkinNotify = "tupleSkinNotify"
 
 typealias HTupleCellInitBlock = (_ target: AnyObject) -> Void
 typealias HTupleCellSignalBlock = (_ target: AnyObject, _ signal: HTupleSignal?) -> Void

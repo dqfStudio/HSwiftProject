@@ -8,8 +8,8 @@
 
 import UIKit
 
-private var KItemHeight: CGFloat = 80
-private var KFooterHeight: CGFloat = 50
+private var kItemHeight: CGFloat = 80
+private var kFooterHeight: CGFloat = 50
 
 class HFormController: NSObject, HTupleViewDelegate {
     
@@ -49,21 +49,21 @@ class HFormController: NSObject, HTupleViewDelegate {
     }
     
     func sizeForHeaderInSection(_ section: Any) -> Any {
-        var height = KFooterHeight
+        var height = kFooterHeight
         if UIScreen.isIPhoneX {
             height += UIScreen.bottomBarHeight
         }
-        return CGSize(width: self.tupleView.width, height: self.tupleView.height - KItemHeight * CGFloat(self.numberOfRows) - height)
+        return CGSize(width: self.tupleView.width, height: self.tupleView.height - kItemHeight * CGFloat(self.numberOfRows) - height)
     }
     func sizeForFooterInSection(_ section: Any) -> Any {
-        var height = KFooterHeight
+        var height = kFooterHeight
         if UIScreen.isIPhoneX {
             height += UIScreen.bottomBarHeight
         }
         return CGSize(width: self.tupleView.width, height: height)
     }
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return CGSize(width: self.tupleView.width, height: KItemHeight * CGFloat(self.numberOfRows))
+        return CGSize(width: self.tupleView.width, height: kItemHeight * CGFloat(self.numberOfRows))
     }
     
     func edgeInsetsForFooterInSection(_ section: Any) -> Any {

@@ -9,8 +9,8 @@
 import Foundation
 
 // User Defaults Key
-private var KUserKey = "ud_user_id"
-private var KDefaultsKey = "ud_defaults_id"
+private var kUserKey = "ud_user_id"
+private var kDefaultsKey = "ud_defaults_id"
 
 class HUserDefaults: NSObject {
     
@@ -30,7 +30,7 @@ class HUserDefaults: NSObject {
 
     // Get User Core Key
     private static var userCoreKey: String {
-        return HUserDefaults.defaults.string(forKey: KDefaultsKey) ?? KUserKey
+        return HUserDefaults.defaults.string(forKey: kDefaultsKey) ?? kUserKey
     }
     // Set User Core Key
     static func setUserCoreKey(_ key: String) {
@@ -38,13 +38,13 @@ class HUserDefaults: NSObject {
         HUserDefaults.clearUserCoreKey()
         // Save User Core Key
         HUserDefaults.defaults.isUserLogin = true
-        HUserDefaults.defaults.set(key, forKey: KDefaultsKey)
+        HUserDefaults.defaults.set(key, forKey: kDefaultsKey)
         HUserDefaults.defaults.synchronize()
     }
     // Clear User Core Key
     static func clearUserCoreKey() {
         HUserDefaults.defaults.isUserLogin = false
-        HUserDefaults.defaults.removeObject(forKey: KDefaultsKey)
+        HUserDefaults.defaults.removeObject(forKey: kDefaultsKey)
         HUserDefaults.defaults.synchronize()
         //清除之前用户数据
         HUserDefaults._user = nil
