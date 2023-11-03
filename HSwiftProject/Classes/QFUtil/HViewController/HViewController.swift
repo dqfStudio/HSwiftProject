@@ -71,6 +71,7 @@ class HViewController: UIViewController {
         super.viewWillDisappear(animated)
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.setNeedsStatusBarAppearanceUpdate()
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func viewWillLayoutSubviews() {
