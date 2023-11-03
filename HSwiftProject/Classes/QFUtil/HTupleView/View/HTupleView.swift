@@ -534,7 +534,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: idxPath) as! HTupleBaseApex
             cell.tuple = self
             cell.indexPath = idxPath
-            cell.isHeader = true
+            cell.isHeader = false
             //init method
             if let iblk = iblk as? HTupleCellInitBlock {
                 iblk(cell)
