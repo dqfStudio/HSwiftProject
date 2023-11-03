@@ -276,7 +276,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         let contentSize = super.contentSize
         if contentSize != .zero {
             let inset = self.contentInset
-            var originX: CGFloat = inset.left
+            var originX = inset.left
             if horizontalCenter {
                 originX = (self.width - contentSize.width) / 2
                 originX = max(originX, 0)
