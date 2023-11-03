@@ -246,8 +246,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     private convenience init(_ frame: CGRect, exclusiveSections sectionPaths: NSArray) {
         self.init(frame: UIRectIntegral(frame), collectionViewLayout: HCollectionViewFlowLayout(.vertical))
-        self.tupleStyle = .split
         self.sectionPaths = sectionPaths
+        self.tupleStyle = .split
         self.setup()
     }
 
