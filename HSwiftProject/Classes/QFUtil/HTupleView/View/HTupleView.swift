@@ -1275,7 +1275,6 @@ extension HTupleView {
         }
     }
 
-
     func signal(_ signal: HTupleSignal?, headerSection section: Int, _ completion: @escaping () -> Void) {
         let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section)) as? HTupleBaseApex
         if let header = header, let signalBlock = header.signalBlock {
@@ -1334,12 +1333,9 @@ extension HTupleView {
         }
     }
 
-    /// Get cell or indexPath based on the given row and section
+    /// Get cell based on the given row and section
     func cell(_ row: Int, _ section: Int) -> AnyObject? {
         return self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section))
-    }
-    func indexPath(_ row: Int, _ section: Int) -> IndexPath {
-        return IndexPath(row: row, section: section)
     }
 
     /// Get the width, height, and size of a certain section
