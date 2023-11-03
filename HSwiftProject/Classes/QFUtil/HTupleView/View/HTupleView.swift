@@ -998,6 +998,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }
         return true
     }
+    
     internal func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
@@ -1006,6 +1007,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             delegate.perform(selector, with: indexPath, withPre: prefix)
         }
     }
+    
     internal func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
@@ -1014,6 +1016,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             delegate.perform(selector, with: indexPath, withPre: prefix)
         }
     }
+    
     internal func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         if let delegate = self.tupleDelegate {
             let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
@@ -1024,6 +1027,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }
         return true
     }
+    
     internal func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
         if let delegate = self.tupleDelegate {
             let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
@@ -1034,6 +1038,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }
         return false
     }
+    
     internal func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
@@ -1051,6 +1056,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             delegate.perform(selector, with: elementKind, with: indexPath, withPre: prefix)
         }
     }
+    
     internal func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
@@ -1059,6 +1065,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
         }
     }
+    
     internal func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
@@ -1077,6 +1084,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
+    
     internal func scrollViewDidZoom(_ scrollView: UIScrollView) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.scrollSplitPrefix()
@@ -1122,6 +1130,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
+    
     internal func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.scrollSplitPrefix()
@@ -1150,6 +1159,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }
         return nil
     }
+    
     internal func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.scrollSplitPrefix()
@@ -1158,6 +1168,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             delegate.perform(selector, with: scrollView, with: view as Any, withPre: prefix)
         }
     }
+    
     internal func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.scrollSplitPrefix()
@@ -1177,6 +1188,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }
         return true
     }
+    
     internal func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
         guard let delegate = self.tupleDelegate else { return }
         let prefix = self.scrollSplitPrefix()
