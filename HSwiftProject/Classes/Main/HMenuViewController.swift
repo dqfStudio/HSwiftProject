@@ -46,6 +46,11 @@ class HMenuViewController: HTabBarController {
         mainVC4.h_tabItemImage = UIImage(named: "di_index")
         mainVC4.h_tabItemSelectedImage = UIImage(named: "di_index_h")
         
+        let mainVC5 = HMainController7()
+        mainVC5.h_tabItemTitle = "第五页"
+        mainVC5.h_tabItemImage = UIImage(named: "di_index")
+        mainVC5.h_tabItemSelectedImage = UIImage(named: "di_index_h")
+        
         let loginVC = HLoginController()
         loginVC.h_tabItemTitle = "登录"
         loginVC.h_tabItemImage = UIImage(named: "di_index")
@@ -56,7 +61,7 @@ class HMenuViewController: HTabBarController {
         registerVC.h_tabItemImage = UIImage(named: "di_index")
         registerVC.h_tabItemSelectedImage = UIImage(named: "di_index_h")
         
-        self.viewControllers = [mainVC1, mainVC2, mainVC3, mainVC4, loginVC, registerVC]
+        self.viewControllers = [mainVC1, mainVC2, mainVC3, mainVC4, mainVC5, loginVC, registerVC]
     }
     
     func setupFrameOfTabBarAndContentView() {
