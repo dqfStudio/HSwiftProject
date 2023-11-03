@@ -26,8 +26,8 @@
             filePath = "HSwiftProject/Classes/QFUtil/HTupleView/View/HTupleView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1212"
-            endingLineNumber = "1212"
+            startingLineNumber = "1211"
+            endingLineNumber = "1211"
             landmarkName = "signalToTupleView(_:_:)"
             landmarkType = "7">
             <Locations>
@@ -74,8 +74,8 @@
             filePath = "HSwiftProject/Classes/QFUtil/HTupleView/View/HTupleView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1157"
-            endingLineNumber = "1157"
+            startingLineNumber = "1156"
+            endingLineNumber = "1156"
             landmarkName = "scrollViewWillBeginZooming(_:with:)"
             landmarkType = "7">
             <Locations>
