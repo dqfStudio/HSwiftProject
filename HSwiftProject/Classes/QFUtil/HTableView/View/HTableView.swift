@@ -136,7 +136,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     var horizontalCenter: Bool = true
 
     private var sectionPaths: NSArray?
-    private var allReuseIdentifiers: NSMutableSet = NSMutableSet()
+    private var allReuseIdentifiers = NSMutableSet()
     private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allReuseFooters = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
