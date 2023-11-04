@@ -44,7 +44,7 @@ typealias HTableRow = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ id
 typealias HTableSectionExclusiveBlock = () -> NSArray
 
 /// This class is used for refreshing tableView throughout the project.
-class HTableAppearance : NSObject {
+class HTableAppearance: NSObject {
     
     private static var hashTables = NSHashTable<AnyObject>.weakObjects()
     
@@ -56,9 +56,7 @@ class HTableAppearance : NSObject {
             // Execute in reverse order
             let tables = self.hashTables.allObjects.reversed().compactMap { $0 as? HTableView }
             tables.forEach { $0.reloadTableData() }
-            DispatchQueue.main.async {
-                completion()
-            }
+            DispatchQueue.main.async { completion() }
         }
     }
     static func refreshTable(key: String, _ completion: @escaping () -> Void) {
@@ -66,9 +64,7 @@ class HTableAppearance : NSObject {
             // Execute in reverse order
             let tables = self.hashTables.allObjects.reversed().compactMap { $0 as? HTableView }
             tables.filter { $0.reloadTableKey == key }.forEach { $0.reloadTableData() }
-            DispatchQueue.main.async {
-                completion()
-            }
+            DispatchQueue.main.async { completion() }
         }
     }
     static func releaseTable(key: String, _ completion: @escaping () -> Void) {
@@ -76,14 +72,12 @@ class HTableAppearance : NSObject {
             // Execute in reverse order
             let tables = self.hashTables.allObjects.reversed().compactMap { $0 as? HTableView }
             tables.filter { $0.releaseTableKey == key }.forEach { $0.releaseTableBlock() }
-            DispatchQueue.main.async {
-                completion()
-            }
+            DispatchQueue.main.async { completion() }
         }
     }
 }
 
-@objc protocol HTableViewDelegate : UITableViewDelegate {
+@objc protocol HTableViewDelegate: UITableViewDelegate {
     @objc
     optional func numberOfSectionsInTableView() -> Any
     @objc
@@ -121,7 +115,7 @@ class HTableAppearance : NSObject {
     optional func didSelectRowAtIndexPath(_ indexPath: IndexPath)
 }
 
-class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
+class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     // table style
     private var tableStyle: HTableStyle = .default
@@ -135,15 +129,17 @@ class HTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
     // Set the ratio of marginTop
     var marginRatio: CGFloat = 0.0
     
+    // Vertical center
     var verticalCenter: Bool = false
+    
+    // Horizontally
     var horizontalCenter: Bool = true
 
-     private var allReuseIdentifiers: NSMutableSet = NSMutableSet()
-     private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-     private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-     private var allReuseFooters = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-
-     private var sectionPaths: NSArray?
+    private var sectionPaths: NSArray?
+    private var allReuseIdentifiers: NSMutableSet = NSMutableSet()
+    private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    private var allReuseFooters = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
