@@ -1000,12 +1000,9 @@ extension HTableView {
         }
     }
 
-    /// Get cell or indexPath based on the given row and section
+    /// Get cell based on the given row and section
     func cell(_ row: Int, _ section: Int) -> AnyObject? {
         return self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section))
-    }
-    func indexPath(_ row: Int, _ section: Int) -> IndexPath {
-        return IndexPath(row: row, section: section)
     }
 
 }
