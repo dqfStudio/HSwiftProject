@@ -27,9 +27,9 @@ private var kTableTotalPageNo = 10000
 private var kTableDesignKey = "table"
 private var kTableExaDesignKey = "tableExa"
 
-private var kTableStateKey = "tableStateKey"
-private var kTableSignalKey = "tableSignalKey"
-private var kTableStateSourceKey = "tableStateSourceKey"
+private var kTableStateKey: Void?
+private var kTableSignalKey: Void?
+private var kTableStateSourceKey: Void?
 
 /// Refresh & LoadMore block
 typealias HTableRefreshBlock = () -> Void

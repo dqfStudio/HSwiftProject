@@ -26,7 +26,7 @@ enum HVCDisappearType : Int {
 }
 
 // Define the private variable kHVCAppearTypeKey
-private var kHVCAppearTypeKey = "kHVCAppearTypeKey"
+private var kHVCAppearTypeKey: Void?
 
 extension UIViewController {
 

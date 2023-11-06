@@ -8,7 +8,7 @@
 
 import UIKit
 
-private var kExclusiveSetKey = "kExclusiveSetKey"
+private var kExclusiveSetKey: Void?
 
 extension NSObject {
     

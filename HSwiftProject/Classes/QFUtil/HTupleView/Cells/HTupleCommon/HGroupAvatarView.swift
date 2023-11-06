@@ -9,7 +9,7 @@
 import UIKit
 import Kingfisher
 
-private var kAvatarUrlsKey = "kAvatarUrlsKey"
+private var kAvatarUrlsKey: Void?
 
 extension HWebImageView {
     

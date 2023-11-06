@@ -8,7 +8,7 @@
 
 import UIKit
 
-private var kOrientationStyleKey = "kOrientationStyleKey"
+private var kOrientationStyleKey: Void?
 
 enum UIDeviceOrientationStyle: Int {
     case all // 横竖屏

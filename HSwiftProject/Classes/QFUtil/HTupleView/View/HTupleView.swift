@@ -32,9 +32,9 @@ private var kTupleTotalPageNo = 10000
 private var kTupleDesignKey = "tuple"
 private var kTupleExaDesignKey = "tupleExa"
 
-private var kTupleStateKey = "tupleStateKey"
-private var kTupleSignalKey = "tupleSignalKey"
-private var kTupleStateSourceKey = "tupleStateSourceKey"
+private var kTupleStateKey: Void?
+private var kTupleSignalKey: Void?
+private var kTupleStateSourceKey: Void?
 
 /// Refresh & LoadMore block
 typealias HTupleRefreshBlock = () -> Void

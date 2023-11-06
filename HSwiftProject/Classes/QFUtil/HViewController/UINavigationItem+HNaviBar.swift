@@ -8,9 +8,9 @@
 
 import UIKit
 
-private var kHVCNaviLeftItemKey = "kHVCNaviLeftItemKey"
-private var kHVCNaviTitleItemKey = "kHVCNaviTitleItemKey"
-private var kHVCNaviRightItemKey = "kHVCNaviRightItemKey"
+private var kHVCNaviLeftItemKey: Void?
+private var kHVCNaviTitleItemKey: Void?
+private var kHVCNaviRightItemKey: Void?
 
 extension UINavigationItem {
     
