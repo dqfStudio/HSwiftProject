@@ -162,8 +162,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     private convenience init(_ frame: CGRect, exclusiveSections sectionPaths: NSArray) {
         self.init(frame: UIRectIntegral(frame), style: UITableView.Style.plain)
-        self.tableStyle = .split
         self.sectionPaths = sectionPaths
+        self.tableStyle = .split
         self.setup()
     }
     
@@ -450,7 +450,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
             cell.table = self
             cell.section = section
-            cell.isHeader = true
+            cell.isHeader = false
             //init method
             if let iblk = iblk as? HTableCellInitBlock {
                 iblk(cell)
