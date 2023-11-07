@@ -277,6 +277,10 @@ class HMainController1: HTupleController {
                 cell.label.textAlignment = .center
                 cell.label.text = "黑客帝国"
             }
+            cell.selectBlock = {
+                let navi = HNavigationController(rootViewController: HUserLiveVC())
+                self.present(navi, animated: true)
+            }
         default:
             break
         }
