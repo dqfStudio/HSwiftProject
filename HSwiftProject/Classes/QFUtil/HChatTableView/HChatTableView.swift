@@ -192,7 +192,7 @@ class HChatTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         // Call cell
         let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? UITableViewCell
         // Prevent crashes
-        return cell ?? UITableViewCell()
+        return cell!
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
