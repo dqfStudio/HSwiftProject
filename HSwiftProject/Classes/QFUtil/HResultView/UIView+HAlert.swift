@@ -8,14 +8,14 @@
 
 import UIKit
 
-private var hWaitingViewKey = "hWaitingViewKey"
-private var hResultViewKey = "hResultViewKey"
+private var kWaitingViewKey: Void?
+private var kResultViewKey: Void?
 
 extension UIView {
    
     private var hWaitingView: HWaitingView {
         get {
-            var waitingView = self.getAssociatedValueForKey(&hWaitingViewKey) as? HWaitingView
+            var waitingView = self.getAssociatedValueForKey(&kWaitingViewKey) as? HWaitingView
             if waitingView == nil {
                 waitingView = HWaitingView(frame: self.bounds)
                 waitingView!.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
@@ -26,14 +26,14 @@ extension UIView {
         }
         set {
             if newValue != self.hWaitingView {
-                self.setAssociateValue(newValue, key: &hWaitingViewKey)
+                self.setAssociateValue(newValue, key: &kWaitingViewKey)
             }
         }
     }
     
     private var hResultView: HResultView {
         get {
-            var resultView = self.getAssociatedValueForKey(&hResultViewKey) as? HResultView
+            var resultView = self.getAssociatedValueForKey(&kResultViewKey) as? HResultView
             if resultView == nil {
                 resultView = HResultView(frame: self.bounds)
                 resultView!.autoresizingMask = [.flexibleLeftMargin, .flexibleRightMargin]
@@ -44,7 +44,7 @@ extension UIView {
         }
         set {
             if newValue != self.hResultView {
-                self.setAssociateValue(newValue, key: &hResultViewKey)
+                self.setAssociateValue(newValue, key: &kResultViewKey)
             }
         }
     }
