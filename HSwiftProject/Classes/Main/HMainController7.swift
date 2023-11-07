@@ -14,7 +14,9 @@ class HMainController7: HViewController {
         let layout = HWaterfallMutiSectionFlowLayout()
         layout.delegate = self
         var frame = self.view.bounds
+        frame.x = 16
         frame.y = UIScreen.topBarHeight
+        frame.width -= 32
         frame.height -= frame.y + 50
         let collection = UICollectionView(frame: frame, collectionViewLayout: layout)
         collection.alwaysBounceVertical = true
