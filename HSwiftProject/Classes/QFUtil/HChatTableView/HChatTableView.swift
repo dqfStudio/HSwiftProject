@@ -11,7 +11,7 @@ import UIKit
 /// Table header & Footer & Item block
 typealias HChatTableRow = (_ cls: AnyClass, _ idx: Bool) -> AnyObject
 
-@objc protocol HChatTableViewDelegate : UITableViewDelegate {
+@objc protocol HChatTableViewDelegate: UITableViewDelegate {
     @objc
     optional func numberOfSectionsInTableView() -> Any
     @objc
@@ -25,9 +25,9 @@ typealias HChatTableRow = (_ cls: AnyClass, _ idx: Bool) -> AnyObject
     optional func didSelectRowAtIndexPath(_ indexPath: IndexPath)
 }
 
-class HChatTableView : UITableView, UITableViewDelegate, UITableViewDataSource {
+class HChatTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
-    private var allReuseIdentifiers: NSMutableSet = NSMutableSet()
+    private var allReuseIdentifiers = NSMutableSet()
     private var allReuseCells = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allCellHeightTable = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
     
