@@ -603,7 +603,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         var prefix = ""
         if self.tupleStyle == .split {
             if let sectionPaths = self.sectionPaths, sectionPaths.contains(section) {
-                let idx: Int = sectionPaths.index(of: section)
+                let idx = sectionPaths.index(of: section)
                 prefix = kTupleExaDesignKey + "\(idx)" + "_"
             }else {
                 prefix = kTupleDesignKey + "\(self.tupleState)" + "_"
