@@ -391,7 +391,6 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     /// Register class
     func dequeueReusableHeaderWithClass(_ cls: AnyClass, pre: String?, idx: Bool, section: Int) -> AnyObject {
-        var cell: HTableBaseApex
         // Unique identifier
         var identifier = (pre ?? "") + "HeaderCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
@@ -400,17 +399,16 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         if self.tableStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(section) {
             identifier += "\(self.tableState)"
         }
-        // Determine whether it has been loaded
+        // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
-            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
-            cell.table = self
-            cell.section = section
-            cell.isHeader = true
-        }else {
-            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
         }
+        // Dequeue cell
+        let cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
+        cell.table = self
+        cell.isHeader = true
+        cell.section = section
         // Save cell
         self.allReuseHeaders.setObject(cell, forKey: "\(section)" as NSString)
         // Call delegate method
@@ -430,7 +428,6 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func dequeueReusableFooterWithClass(_ cls: AnyClass, pre: String?, idx: Bool, section: Int) -> AnyObject {
-        var cell: HTableBaseApex
         // Unique identifier
         var identifier = (pre ?? "") + "FooterCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
@@ -439,17 +436,16 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         if self.tableStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(section) {
             identifier += "\(self.tableState)"
         }
-        // Determine whether it has been loaded
+        // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
-            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
-            cell.table = self
-            cell.section = section
-            cell.isHeader = false
-        }else {
-            cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
         }
+        // Dequeue cell
+        let cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
+        cell.table = self
+        cell.isHeader = false
+        cell.section = section
         // Save cell
         self.allReuseFooters.setObject(cell, forKey: "\(section)" as NSString)
         // Call delegate method
@@ -468,37 +464,35 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-    func dequeueReusableCellWithClass(_ cls: AnyClass, pre: String?, idx: Bool, idxPath: IndexPath) -> AnyObject {
-        var cell: HTableBaseCell
+    func dequeueReusableCellWithClass(_ cls: AnyClass, pre: String?, idx: Bool, indexPath: IndexPath) -> AnyObject {
         // Unique identifier
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
-        identifier += idx ? idxPath.stringValue : ""
+        identifier += idx ? indexPath.stringValue : ""
         // Determine if there is a table state value
-        if self.tableStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(idxPath.section) {
+        if self.tableStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(indexPath.section) {
             identifier += "\(self.tableState)"
         }
-        // Determine whether it has been loaded
+        // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forCellReuseIdentifier: identifier)
-            cell = self.dequeueReusableCell(withIdentifier: identifier, for: idxPath) as! HTableBaseCell
-            cell.table = self
-            cell.indexPath = idxPath
-        }else {
-            cell = self.dequeueReusableCell(withIdentifier: identifier, for: idxPath) as! HTableBaseCell
         }
+        // Dequeue cell
+        let cell = self.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! HTableBaseCell
+        cell.table = self
+        cell.indexPath = indexPath
         // Save cell
-        self.allReuseCells.setObject(cell, forKey: idxPath.nsStringValue)
+        self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
         // delegate status
         if tableStatus == .delegate {
             // Call delegate method
             var edgeInsets: UIEdgeInsets = .zero
             if let delegate = self.tableDelegate {
-                let prefix = self.tableSplitPrefix(withSection: idxPath.section)
+                let prefix = self.tableSplitPrefix(withSection: indexPath.section)
                 let selector = #selector(delegate.edgeInsetsForRowAtIndexPath(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
-                    edgeInsets = delegate.performWithUnretainedValue(selector, with: idxPath, withPre: prefix) as! UIEdgeInsets
+                    edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! UIEdgeInsets
                 }
             }
             // Set properties
@@ -580,7 +574,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                     // Call cell delegate method
                     let itemSelector = #selector(delegate.tableRow(_:atIndexPath:))
                     let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
-                        return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, idxPath: indexPath)
+                        return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
                     }
                     if delegate.responds(to: itemSelector, withPre: prefix) {
                         delegate.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
@@ -690,7 +684,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                 let prefix = self.tableSplitPrefix(withSection: indexPath.section)
                 let selector = #selector(delegate.tableRow(_:atIndexPath:))
                 let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
-                    return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, idxPath: indexPath)
+                    return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
                 }
                 if delegate.responds(to: selector, withPre: prefix) {
                     delegate.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
@@ -715,7 +709,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                     let prefix = self.tableSplitPrefix(withSection: indexPath.section)
                     let selector = #selector(delegate.tableRow(_:atIndexPath:))
                     let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
-                        return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, idxPath: indexPath)
+                        return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
                     }
                     if delegate.responds(to: selector, withPre: prefix) {
                         delegate.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
@@ -732,7 +726,6 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        var cell: HTableBaseApex?
         // Call delegate method
         if let delegate = self.tableDelegate {
             let prefix = self.tableSplitPrefix(withSection: section)
@@ -740,16 +733,13 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             if delegate.responds(to: selector, withPre: prefix) {
                 // Unique identifier
                 let identifier = "HeaderSpaceCell" + self.addressValue + "\(section)" + "\(self.tableState)"
-                // Determine whether it has been loaded
+                // Register cell if not already registered
                 if !self.allReuseIdentifiers.contains(identifier) {
                     self.allReuseIdentifiers.add(identifier)
                     self.register(HTableBaseApex.self, forHeaderFooterViewReuseIdentifier: identifier)
-                    cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as? HTableBaseApex
-                }else {
-                    cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as? HTableBaseApex
                 }
-                // Prevent crashes
-                return cell
+                // Dequeue cell
+                return self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
             } else {
                 let selector = #selector(delegate.tableHeader(_:inSection:))
                 let headerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
@@ -761,14 +751,13 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             }
         }
         // Update layout
-        cell = self.allReuseHeaders.object(forKey: "\(section)" as NSString) as? HTableBaseApex
+        let cell = self.allReuseHeaders.object(forKey: "\(section)" as NSString) as? HTableBaseApex
         if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
             cell.relayoutSubviews()
         }
         return cell
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        var cell: HTableBaseApex?
         // Call delegate method
         if let delegate = self.tableDelegate {
             let prefix = self.tableSplitPrefix(withSection: section)
@@ -776,16 +765,13 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             if delegate.responds(to: selector, withPre: prefix) {
                 // Unique identifier
                 let identifier = "FooterSpaceCell" + self.addressValue + "\(section)" + "\(self.tableState)"
-                // Determine whether it has been loaded
+                // Register cell if not already registered
                 if !self.allReuseIdentifiers.contains(identifier) {
                     self.allReuseIdentifiers.add(identifier)
                     self.register(HTableBaseApex.self, forHeaderFooterViewReuseIdentifier: identifier)
-                    cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as? HTableBaseApex
-                }else {
-                    cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as? HTableBaseApex
                 }
-                // Prevent crashes
-                return cell
+                // Dequeue cell
+                return self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
             } else {
                 let selector = #selector(delegate.tableFooter(_:inSection:))
                 let footerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
@@ -797,7 +783,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             }
         }
         // Update layout
-        cell = self.allReuseFooters.object(forKey: "\(section)" as NSString) as? HTableBaseApex
+        let cell = self.allReuseFooters.object(forKey: "\(section)" as NSString) as? HTableBaseApex
         if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
             cell.relayoutSubviews()
         }
