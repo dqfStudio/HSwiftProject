@@ -57,7 +57,7 @@ class HTupleAppearance: NSObject {
         self.hashTuples.add(anTuple)
     }
     static func refreshTuples(_ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
             let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
             tuples.forEach { $0.reloadTupleData() }
@@ -65,7 +65,7 @@ class HTupleAppearance: NSObject {
         }
     }
     static func refreshTuple(key: String, _ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
             let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
             tuples.filter { $0.reloadTupleKey == key }.forEach { $0.reloadTupleData() }
@@ -73,7 +73,7 @@ class HTupleAppearance: NSObject {
         }
     }
     static func releaseTuple(key: String, _ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
             let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
             tuples.filter { $0.releaseTupleKey == key }.forEach { $0.releaseTupleBlock() }
@@ -1227,7 +1227,7 @@ extension HTupleView {
 
     /// Send signals to all items, items under a certain section, or a single item individually
     func signalToAllItems(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             let tuples = self.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HTupleBaseCell }
             tuples?.forEach { cell in
                 DispatchQueue.main.async {

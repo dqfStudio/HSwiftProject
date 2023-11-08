@@ -52,7 +52,7 @@ class HTableAppearance: NSObject {
         self.hashTables.add(anTable)
     }
     static func refreshTables(_ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
             let tables = self.hashTables.allObjects.reversed().compactMap { $0 as? HTableView }
             tables.forEach { $0.reloadTableData() }
@@ -60,7 +60,7 @@ class HTableAppearance: NSObject {
         }
     }
     static func refreshTable(key: String, _ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
             let tables = self.hashTables.allObjects.reversed().compactMap { $0 as? HTableView }
             tables.filter { $0.reloadTableKey == key }.forEach { $0.reloadTableData() }
@@ -68,7 +68,7 @@ class HTableAppearance: NSObject {
         }
     }
     static func releaseTable(key: String, _ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
             let tables = self.hashTables.allObjects.reversed().compactMap { $0 as? HTableView }
             tables.filter { $0.releaseTableKey == key }.forEach { $0.releaseTableBlock() }
@@ -882,7 +882,7 @@ extension HTableView {
 
     /// Send signals to all items, items under a certain section, or a single item individually
     func signalToAllItems(_ signal: HTableSignal?, _ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInteractive).async {
             let tables = self.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HTableBaseCell }
             tables?.forEach { cell in
                 DispatchQueue.main.async {
