@@ -36,9 +36,9 @@ typealias HTableRefreshBlock = () -> Void
 typealias HTableLoadMoreBlock = () -> Void
 
 /// Table header & Footer & Item block
-typealias HTableHeader = (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
-typealias HTableFooter = (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
-typealias HTableRow = (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
+typealias HTableHeader = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject
+typealias HTableFooter = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject
+typealias HTableRow = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject
 
 /// Split design exclusive sections block
 typealias HTableSectionExclusiveBlock = () -> NSArray
@@ -573,7 +573,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
                     // Call cell delegate method
                     let itemSelector = #selector(delegate.tableRow(_:atIndexPath:))
-                    let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
+                    let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) in
                         return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
                     }
                     if delegate.responds(to: itemSelector, withPre: prefix) {
@@ -683,7 +683,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             if let delegate = self.tableDelegate {
                 let prefix = self.tableSplitPrefix(withSection: indexPath.section)
                 let selector = #selector(delegate.tableRow(_:atIndexPath:))
-                let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
+                let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) in
                     return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
                 }
                 if delegate.responds(to: selector, withPre: prefix) {
@@ -708,7 +708,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                 if let delegate = self.tableDelegate {
                     let prefix = self.tableSplitPrefix(withSection: indexPath.section)
                     let selector = #selector(delegate.tableRow(_:atIndexPath:))
-                    let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
+                    let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) in
                         return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
                     }
                     if delegate.responds(to: selector, withPre: prefix) {
@@ -742,7 +742,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                 return self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
             } else {
                 let selector = #selector(delegate.tableHeader(_:inSection:))
-                let headerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
+                let headerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject in
                     return self.dequeueReusableHeaderWithClass(cls, pre: pre, idx: idx, section: section)
                 }
                 if delegate.responds(to: selector, withPre: prefix) {
@@ -774,7 +774,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                 return self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
             } else {
                 let selector = #selector(delegate.tableFooter(_:inSection:))
-                let footerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
+                let footerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject in
                     return self.dequeueReusableFooterWithClass(cls, pre: pre, idx: idx, section: section)
                 }
                 if delegate.responds(to: selector, withPre: prefix) {

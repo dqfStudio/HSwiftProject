@@ -41,9 +41,9 @@ typealias HTupleRefreshBlock = () -> Void
 typealias HTupleLoadMoreBlock = () -> Void
 
 /// Tuple header & Footer & Item block
-typealias HTupleHeader = (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
-typealias HTupleFooter = (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
-typealias HTupleItem = (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
+typealias HTupleHeader = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject
+typealias HTupleFooter = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject
+typealias HTupleItem = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject
 
 /// Split design exclusive sections block
 typealias HTupleSectionExclusiveBlock = () -> NSArray
@@ -678,7 +678,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
                     // Call cell delegate method
                     let itemSelector = #selector(delegate.tupleItem(_:atIndexPath:))
-                    let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
+                    let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) in
                         return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
                     }
                     if delegate.responds(to: itemSelector, withPre: prefix) {
@@ -819,7 +819,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             if let delegate = self.tupleDelegate {
                 let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
                 let selector: Selector = #selector(delegate.tupleItem(_:atIndexPath:))
-                let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
+                let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) in
                     return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
                 }
                 if delegate.responds(to: selector, withPre: prefix) {
@@ -843,7 +843,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 if let delegate = self.tupleDelegate {
                     let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
                     let selector: Selector = #selector(delegate.tupleItem(_:atIndexPath:))
-                    let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
+                    let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) in
                         return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
                     }
                     if delegate.responds(to: selector, withPre: prefix) {
@@ -877,7 +877,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                     return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath)
                 } else {
                     let selector: Selector = #selector(delegate.tupleHeader(_:inSection:))
-                    let headerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
+                    let headerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject in
                         return self.dequeueReusableHeaderWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
                     }
                     if delegate.responds(to: selector, withPre: prefix) {
@@ -904,7 +904,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                     return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath)
                 } else {
                     let selector: Selector = #selector(delegate.tupleFooter(_:inSection:))
-                    let footerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
+                    let footerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject in
                         return self.dequeueReusableFooterWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
                     }
                     if delegate.responds(to: selector, withPre: prefix) {
