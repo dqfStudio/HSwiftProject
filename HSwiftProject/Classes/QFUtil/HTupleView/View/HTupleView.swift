@@ -489,9 +489,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }
         // Dequeue cell
         let cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath) as! HTupleBaseApex
-        cell.tuple = self
-        cell.isHeader = true
         cell.indexPath = indexPath
+        cell.isHeader = true
+        cell.tuple = self
         // Save cell
         self.allReuseHeaders.setObject(cell, forKey: IndexPath.nsStringValue(0, indexPath.section))
         // Call delegate method
@@ -527,9 +527,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }
         // Dequeue cell
         let cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath) as! HTupleBaseApex
-        cell.tuple = self
-        cell.isHeader = false
         cell.indexPath = indexPath
+        cell.isHeader = false
+        cell.tuple = self
         // Save cell
         self.allReuseFooters.setObject(cell, forKey: IndexPath.nsStringValue(0, indexPath.section))
         // Call delegate method
@@ -565,8 +565,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }
         // Dequeue cell
         let cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! HTupleBaseCell
-        cell.tuple = self
         cell.indexPath = indexPath
+        cell.tuple = self
         // Save cell
         self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
         // delegate status

@@ -406,9 +406,9 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         }
         // Dequeue cell
         let cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
-        cell.table = self
-        cell.isHeader = true
         cell.section = section
+        cell.isHeader = true
+        cell.table = self
         // Save cell
         self.allReuseHeaders.setObject(cell, forKey: "\(section)" as NSString)
         // Call delegate method
@@ -443,9 +443,9 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         }
         // Dequeue cell
         let cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
-        cell.table = self
-        cell.isHeader = false
         cell.section = section
+        cell.isHeader = false
+        cell.table = self
         // Save cell
         self.allReuseFooters.setObject(cell, forKey: "\(section)" as NSString)
         // Call delegate method
@@ -480,8 +480,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         }
         // Dequeue cell
         let cell = self.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! HTableBaseCell
-        cell.table = self
         cell.indexPath = indexPath
+        cell.table = self
         // Save cell
         self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
         // delegate status
