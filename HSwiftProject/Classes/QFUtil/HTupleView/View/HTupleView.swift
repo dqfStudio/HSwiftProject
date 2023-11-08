@@ -51,15 +51,15 @@ typealias HTupleSectionExclusiveBlock = () -> NSArray
 /// This class is used for refreshing tupleView throughout the project.
 class HTupleAppearance: NSObject {
 
-    private static var hashTuples = NSHashTable<AnyObject>.weakObjects()
+    private static var hashTuples = NSHashTable<HTupleView>.weakObjects()
 
-    static func addTuple(_ anTuple: AnyObject) {
+    static func addTuple(_ anTuple: HTupleView) {
         self.hashTuples.add(anTuple)
     }
     static func refreshTuples(_ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
-            let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
+            let tuples = self.hashTuples.allObjects.reversed()
             tuples.forEach { $0.reloadTupleData() }
             DispatchQueue.main.async { completion() }
         }
@@ -67,16 +67,16 @@ class HTupleAppearance: NSObject {
     static func refreshTuple(key: String, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
-            let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
-            tuples.filter { $0.reloadTupleKey == key }.forEach { $0.reloadTupleData() }
+            let tuples = self.hashTuples.allObjects.filter { $0.reloadTupleKey == key }.reversed()
+            tuples.forEach { $0.reloadTupleData() }
             DispatchQueue.main.async { completion() }
         }
     }
     static func releaseTuple(key: String, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
-            let tuples = self.hashTuples.allObjects.reversed().compactMap { $0 as? HTupleView }
-            tuples.filter { $0.releaseTupleKey == key }.forEach { $0.releaseTupleBlock() }
+            let tuples = self.hashTuples.allObjects.filter { $0.releaseTupleKey == key }.reversed()
+            tuples.forEach { $0.releaseTupleBlock() }
             DispatchQueue.main.async { completion() }
         }
     }
