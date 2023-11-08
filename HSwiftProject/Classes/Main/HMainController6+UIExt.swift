@@ -14,7 +14,7 @@ extension HMainController6 {
         let itemBlock = itemBlock as! HTableRow
         switch (indexPath.row) {
         case 3:
-            let cell = itemBlock(nil, HTableViewCellHoriValue1.self, nil, true) as! HTableViewCellHoriValue1
+            let cell = itemBlock(HTableViewCellHoriValue1.self, nil, true) as! HTableViewCellHoriValue1
             cell.backgroundColor = UIColor.gray
             cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
@@ -31,7 +31,7 @@ extension HMainController6 {
             cell.accessoryLabel.textAlignment = .center
             break
         case 4:
-            let cell = itemBlock(nil, HTableTextFieldCell.self, nil, true) as! HTableTextFieldCell
+            let cell = itemBlock(HTableTextFieldCell.self, nil, true) as! HTableTextFieldCell
             cell.backgroundColor = UIColor.gray
             cell.textField.backgroundColor = UIColor.red
             
@@ -52,7 +52,7 @@ extension HMainController6 {
             }
             break
         case 5:
-            let cell = itemBlock(nil, HTableCellValue1.self, nil, true) as! HTableCellValue1
+            let cell = itemBlock(HTableCellValue1.self, nil, true) as! HTableCellValue1
             cell.backgroundColor = UIColor.gray
             cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
@@ -65,7 +65,7 @@ extension HMainController6 {
             cell.detailTextLabel?.textAlignment = .center
             break
         case 6:
-            let cell = itemBlock(nil, HTableCellValue2.self, nil, true) as! HTableCellValue2
+            let cell = itemBlock(HTableCellValue2.self, nil, true) as! HTableCellValue2
             cell.backgroundColor = UIColor.gray
             cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
@@ -78,7 +78,7 @@ extension HMainController6 {
             cell.detailTextLabel?.textAlignment = .center
             break
         case 7:
-            let cell = itemBlock(nil, HTableCellSubtitle.self, nil, true) as! HTableCellSubtitle
+            let cell = itemBlock(HTableCellSubtitle.self, nil, true) as! HTableCellSubtitle
             cell.backgroundColor = UIColor.gray
             cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             

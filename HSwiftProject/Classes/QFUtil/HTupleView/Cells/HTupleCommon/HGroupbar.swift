@@ -154,7 +154,7 @@ class HGroupbar: UIStackView, HTupleViewDelegate {
         guard let items = self.items, indexPath.row < items.count else { return }
         
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
+        let cell = itemBlock(HTupleViewCell.self, nil, true) as! HTupleViewCell
         
         let item = items[indexPath.row]
         let bounds = cell.layoutViewBounds

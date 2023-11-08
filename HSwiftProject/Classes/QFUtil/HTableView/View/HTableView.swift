@@ -36,9 +36,9 @@ typealias HTableRefreshBlock = () -> Void
 typealias HTableLoadMoreBlock = () -> Void
 
 /// Table header & Footer & Item block
-typealias HTableHeader = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
-typealias HTableFooter = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
-typealias HTableRow = (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
+typealias HTableHeader = (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
+typealias HTableFooter = (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
+typealias HTableRow = (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject
 
 /// Split design exclusive sections block
 typealias HTableSectionExclusiveBlock = () -> NSArray
@@ -390,7 +390,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// Register class
-    func dequeueReusableHeaderWithClass(_ cls: AnyClass, iblk: AnyObject?, pre: String?, idx: Bool, section: Int) -> AnyObject {
+    func dequeueReusableHeaderWithClass(_ cls: AnyClass, pre: String?, idx: Bool, section: Int) -> AnyObject {
         var cell: HTableBaseApex
         // Unique identifier
         var identifier = (pre ?? "") + "HeaderCell" + NSStringFromClass(cls) + self.addressValue
@@ -408,10 +408,6 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             cell.table = self
             cell.section = section
             cell.isHeader = true
-            //init method
-            if let iblk = iblk as? HTableCellInitBlock {
-                iblk(cell)
-            }
         }else {
             cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
         }
@@ -433,7 +429,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func dequeueReusableFooterWithClass(_ cls: AnyClass, iblk: AnyObject?, pre: String?, idx: Bool, section: Int) -> AnyObject {
+    func dequeueReusableFooterWithClass(_ cls: AnyClass, pre: String?, idx: Bool, section: Int) -> AnyObject {
         var cell: HTableBaseApex
         // Unique identifier
         var identifier = (pre ?? "") + "FooterCell" + NSStringFromClass(cls) + self.addressValue
@@ -451,10 +447,6 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             cell.table = self
             cell.section = section
             cell.isHeader = false
-            //init method
-            if let iblk = iblk as? HTableCellInitBlock {
-                iblk(cell)
-            }
         }else {
             cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
         }
@@ -476,7 +468,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-    func dequeueReusableCellWithClass(_ cls: AnyClass, iblk: AnyObject?, pre: String?, idx: Bool, idxPath: IndexPath) -> AnyObject {
+    func dequeueReusableCellWithClass(_ cls: AnyClass, pre: String?, idx: Bool, idxPath: IndexPath) -> AnyObject {
         var cell: HTableBaseCell
         // Unique identifier
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
@@ -493,10 +485,6 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             cell = self.dequeueReusableCell(withIdentifier: identifier, for: idxPath) as! HTableBaseCell
             cell.table = self
             cell.indexPath = idxPath
-            //init method
-            if let iblk = iblk as? HTableCellInitBlock {
-                iblk(cell)
-            }
         }else {
             cell = self.dequeueReusableCell(withIdentifier: identifier, for: idxPath) as! HTableBaseCell
         }
@@ -591,8 +579,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
                     // Call cell delegate method
                     let itemSelector = #selector(delegate.tableRow(_:atIndexPath:))
-                    let itemBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
-                        return self.dequeueReusableCellWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
+                    let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
+                        return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, idxPath: indexPath)
                     }
                     if delegate.responds(to: itemSelector, withPre: prefix) {
                         delegate.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
@@ -701,8 +689,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             if let delegate = self.tableDelegate {
                 let prefix = self.tableSplitPrefix(withSection: indexPath.section)
                 let selector = #selector(delegate.tableRow(_:atIndexPath:))
-                let itemBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
-                    return self.dequeueReusableCellWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
+                let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
+                    return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, idxPath: indexPath)
                 }
                 if delegate.responds(to: selector, withPre: prefix) {
                     delegate.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
@@ -726,8 +714,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                 if let delegate = self.tableDelegate {
                     let prefix = self.tableSplitPrefix(withSection: indexPath.section)
                     let selector = #selector(delegate.tableRow(_:atIndexPath:))
-                    let itemBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
-                        return self.dequeueReusableCellWithClass(cls, iblk: iblk, pre: pre, idx: idx, idxPath: indexPath)
+                    let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) in
+                        return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, idxPath: indexPath)
                     }
                     if delegate.responds(to: selector, withPre: prefix) {
                         delegate.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
@@ -764,8 +752,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                 return cell
             } else {
                 let selector = #selector(delegate.tableHeader(_:inSection:))
-                let headerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
-                    return self.dequeueReusableHeaderWithClass(cls, iblk: iblk, pre: pre, idx: idx, section: section)
+                let headerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
+                    return self.dequeueReusableHeaderWithClass(cls, pre: pre, idx: idx, section: section)
                 }
                 if delegate.responds(to: selector, withPre: prefix) {
                     delegate.perform(selector, with: headerBlock, with: section, withPre: prefix)
@@ -800,8 +788,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                 return cell
             } else {
                 let selector = #selector(delegate.tableFooter(_:inSection:))
-                let footerBlock = { (_ iblk: AnyObject?, _ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
-                    return self.dequeueReusableFooterWithClass(cls, iblk: iblk, pre: pre, idx: idx, section: section)
+                let footerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool ) -> AnyObject in
+                    return self.dequeueReusableFooterWithClass(cls, pre: pre, idx: idx, section: section)
                 }
                 if delegate.responds(to: selector, withPre: prefix) {
                     delegate.perform(selector, with: footerBlock, with: section, withPre: prefix)

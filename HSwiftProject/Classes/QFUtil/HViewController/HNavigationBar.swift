@@ -171,7 +171,7 @@ extension HNavigationBar {
         let itemBlock = itemBlock as! HTupleItem
         switch indexPath.row {
         case 0: //左边返回按钮
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             if self.leftItem.superview == nil {
                 cell.layoutView.addSubview(self.leftItem)
             }
@@ -180,18 +180,18 @@ extension HNavigationBar {
             frame.width = self.leftItemWidth
             self.leftItem.frame = frame
         case 1: //左边间隔
-            _ = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            _ = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
         case 2: //中间标题按钮
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             if self.titleItem.superview == nil {
                 cell.layoutView.addSubview(self.titleItem)
             }
             // Reset frame
             self.titleItem.frame = cell.layoutViewBounds
         case 3: //右边间隔
-            _ = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            _ = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
         case 4: //右边按钮
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             if self.rightItem.superview == nil {
                 cell.layoutView.addSubview(self.rightItem)
             }

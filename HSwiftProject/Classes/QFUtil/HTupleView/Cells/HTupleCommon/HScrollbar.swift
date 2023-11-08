@@ -132,7 +132,7 @@ class HScrollbar: UIStackView, HTupleViewDelegate {
     // Configures the tuple item at the specified index path
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
+        let cell = itemBlock(HTupleViewCell.self, nil, true) as! HTupleViewCell
         cell.sizeBlock = {
             return CGSize(width: self.itemWidth, height: self.height)
         }

@@ -51,7 +51,7 @@ class HPostCommentVC: HTupleController {
     func tupleHeader(_ headerBlock: Any, inSection section: Any) {
         let section = section as! Int
         let headerBlock = headerBlock as! HTupleHeader
-        let cell = headerBlock(nil, HTupleBaseApex.self, "\(section)", true) as! HTupleBaseApex
+        let cell = headerBlock(HTupleBaseApex.self, "\(section)", true) as! HTupleBaseApex
         cell.backgroundColor = .yellow
         guard section < postList.count else { return }
         
@@ -80,7 +80,7 @@ class HPostCommentVC: HTupleController {
 
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
+        let cell = itemBlock(HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
         cell.backgroundColor = .green
         guard indexPath.row < postList.count else { return }
 

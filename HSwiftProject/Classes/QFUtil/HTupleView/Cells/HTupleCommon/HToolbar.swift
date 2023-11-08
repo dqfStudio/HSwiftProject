@@ -66,7 +66,7 @@ class HToolbar: UIStackView, HTupleViewDelegate {
     // Configures the tuple item at the specified index path
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+        let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
         cell.sizeBlock = {
             return CGSize(width: self.width / CGFloat((self.items?.count ?? 1)), height: self.height)
         }

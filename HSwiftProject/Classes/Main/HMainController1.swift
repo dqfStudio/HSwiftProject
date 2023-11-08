@@ -61,7 +61,7 @@ class HMainController1: HTupleController {
         case 0:
             switch indexPath.row {
             case 0:
-                let cell = itemBlock(nil, HTupleBannerCell.self, nil, true) as! HTupleBannerCell
+                let cell = itemBlock(HTupleBannerCell.self, nil, true) as! HTupleBannerCell
                 cell.sizeBlock = {
                     //return CGSize(width: self.tupleView.width(forSection: indexPath.section), height: 130)
                     return CGSize(width: self.tupleView.width, height: 130)
@@ -101,7 +101,7 @@ class HMainController1: HTupleController {
                 }
                 break
             case 1:
-                let cell = itemBlock(nil, HTupleTextImageCell.self, nil, true) as! HTupleTextImageCell
+                let cell = itemBlock(HTupleTextImageCell.self, nil, true) as! HTupleTextImageCell
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
@@ -137,7 +137,7 @@ class HMainController1: HTupleController {
                 }
                 break
             case 2:
-                let cell = itemBlock(nil, HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
+                let cell = itemBlock(HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
@@ -172,7 +172,7 @@ class HMainController1: HTupleController {
                 }
                 break
             case 3:
-                let cell = itemBlock(nil, HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
+                let cell = itemBlock(HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
@@ -207,7 +207,7 @@ class HMainController1: HTupleController {
                 }
                 break
             case 4:
-                let cell = itemBlock(nil, HTupleTextFieldCell.self, nil, true) as! HTupleTextFieldCell
+                let cell = itemBlock(HTupleTextFieldCell.self, nil, true) as! HTupleTextFieldCell
                 cell.sizeBlock = {
                     let width = self.tupleView.width(forSection: indexPath.section)
                     return CGSize(width: width, height: 65)
@@ -259,7 +259,7 @@ class HMainController1: HTupleController {
                 break
             }
         case 1:
-            let cell = itemBlock(nil, HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
+            let cell = itemBlock(HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
             cell.sizeBlock = {
                 let width = (self.tupleView.width(forSection: indexPath.section) - 16) / 3
                 //width = self.tupleView.fixSlit(withWidth: width, colCount: 3, index: indexPath.row - 3)

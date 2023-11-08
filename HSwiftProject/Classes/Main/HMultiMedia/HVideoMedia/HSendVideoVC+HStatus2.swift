@@ -33,7 +33,7 @@ extension HSendVideoVC {
         let itemBlock = itemBlock as! HTupleItem
         switch (indexPath.row) {
         case 0:
-            let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
+            let cell = itemBlock(HTupleViewCell.self, nil, true) as! HTupleViewCell
             let frame = CGRect(x: 20, y: UIScreen.naviBarHeight + 15, width: 30, height: 30)
             cell.buttonView.frame = frame
             cell.buttonView.setImage(WithName: "mdeia-reduce")
@@ -42,10 +42,10 @@ extension HSendVideoVC {
             }
             break
         case 1:
-            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
+            _ = itemBlock(HTupleBaseCell.self, nil, true)
             break
         case 2:
-            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             cell.label.text = "等待对方接受邀请"
             cell.label.textColor = UIColor.white
             cell.label.font = .systemFont(ofSize: 14.0)
@@ -53,10 +53,10 @@ extension HSendVideoVC {
             cell.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             break
         case 3:
-            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
+            _ = itemBlock(HTupleBaseCell.self, nil, true)
             break
         case 4:
-            let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
+            let cell = itemBlock(HTupleViewCell.self, nil, true) as! HTupleViewCell
             let bounds: CGRect = cell.layoutViewBounds
 
             let frame1 = CGRect(x: bounds.size.width / 2 - 40 - kSendVideoHeight1, y: 0, width: kSendVideoHeight1, height: kSendVideoHeight1)
@@ -89,10 +89,10 @@ extension HSendVideoVC {
             cell.detailLabel.textAlignment = .center
             break
         case 5:
-            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
+            _ = itemBlock(HTupleBaseCell.self, nil, true)
             break
         case 6:
-            let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
+            let cell = itemBlock(HTupleViewCell.self, nil, true) as! HTupleViewCell
             let bounds: CGRect = cell.layoutViewBounds
 
             let frame1 = CGRect(x: bounds.size.width / 2 - kSendVideoHeight2 / 2, y: 0, width: kSendVideoHeight2, height: kSendVideoHeight2)
@@ -110,7 +110,7 @@ extension HSendVideoVC {
             cell.label.textAlignment = .center
             break
         case 7:
-            _ = itemBlock(nil, HTupleBaseCell.self, nil, true)
+            _ = itemBlock(HTupleBaseCell.self, nil, true)
             break
 
         default:

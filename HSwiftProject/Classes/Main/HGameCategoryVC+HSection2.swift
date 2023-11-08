@@ -25,7 +25,7 @@ extension HGameCategoryVC {
     @objc
     func tupleExa2_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
+        let cell = itemBlock(HTupleViewCell.self, nil, true) as! HTupleViewCell
         cell.backgroundColor = UIColor.gray
         cell.separatorView.separatorInset = UILREdgeInsets(left: 0, right: 10)
         

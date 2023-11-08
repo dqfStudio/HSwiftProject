@@ -61,8 +61,8 @@ class HUserLiveMiddleBarView : UIView, HTupleViewDelegate {
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         
-//        let cell = itemBlock(nil, HTupleNoteCell.self, nil, true) as! HTupleNoteCell
-        let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+//        let cell = itemBlock(HTupleNoteCell.self, nil, true) as! HTupleNoteCell
+        let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
         //将cell.contentView倒置
         cell.layoutView.transform = CGAffineTransform (scaleX: 1, y: -1)
         cell.setTopLine(withColor: UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 20)
@@ -125,7 +125,7 @@ extension HUserLiveCell {
         let itemBlock = itemBlock as! HTupleItem
         switch (indexPath.row) {
         case 0:
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             var buttonView = cell.viewWithTag(123456) as? HWebButtonView
             if (buttonView == nil) {
                 var tmpFrame = cell.layoutViewBounds
@@ -171,7 +171,7 @@ extension HUserLiveCell {
             }
             break
         case 1:
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             var buttonView = cell.viewWithTag(123456) as? HWebButtonView
             if (buttonView == nil) {
                 var tmpFrame = cell.layoutViewBounds
@@ -191,7 +191,7 @@ extension HUserLiveCell {
             }
             break
         case 2:
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             var bottomBarView = cell.viewWithTag(123456) as? HUserLiveMiddleBarView
             if bottomBarView == nil {
                 bottomBarView = HUserLiveMiddleBarView(frame: cell.bounds)

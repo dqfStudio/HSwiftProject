@@ -56,7 +56,7 @@
 //
 //    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
 //        let itemBlock = itemBlock as! HTupleItem
-//        let cell = itemBlock(nil, HTupleViewCell.self, nil, true) as! HTupleViewCell
+//        let cell = itemBlock(HTupleViewCell.self, nil, true) as! HTupleViewCell
 //
 //        cell.imageView.frame = CGRect(x: 16, y: 0, width: 60, height: 60)
 //        cell.imageView.cornerRadius = 8

@@ -133,7 +133,7 @@ extension HSheetController {
         if let title = _title, !title.isEmpty {
             switch (indexPath.row) {
             case HCell0:
-                let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+                let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
                 cell.sizeBlock = {
                     return CGSize(width: self.tupleView.width, height: 35)
                 }
@@ -146,7 +146,7 @@ extension HSheetController {
                 }
                 break
             case HCell1:
-                let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+                let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
                 cell.backgroundColor = UIColor(hex: 0xF7F8FA)
                 cell.sizeBlock = {
                     return CGSize(width: self.tupleView.width, height: 1)
@@ -156,7 +156,7 @@ extension HSheetController {
                 break
             }
         } else {
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             cell.backgroundColor = UIColor.white
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 1)
@@ -179,7 +179,7 @@ extension HSheetController {
         let row = indexPath.row % 2
         switch row {
         case HCell0:
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 56)
             }
@@ -215,7 +215,7 @@ extension HSheetController {
                 self.back()
             }
         case HCell1:
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             cell.backgroundColor = UIColor(hex: 0xF7F8FA)
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 1)
@@ -239,14 +239,14 @@ extension HSheetController {
         let itemBlock = itemBlock as! HTupleItem
         switch (indexPath.row) {
         case HCell0:
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             cell.backgroundColor = UIColor(hex: 0xF7F8FA)
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 8)
             }
             break
         case HCell1:
-            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 56)
             }
@@ -263,7 +263,7 @@ extension HSheetController {
             }
             break
         case HCell2:
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             cell.backgroundColor = UIColor.white
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 1 + UIScreen.bottomBarHeight)

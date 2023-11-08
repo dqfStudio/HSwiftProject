@@ -85,7 +85,7 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
         let itemBlock = itemBlock as! HTupleItem
         let index = indexPath.section * self.rows * self.rowItems + indexPath.row
         if let modelArr = self.modelArr, index < modelArr.count {
-            let cell = itemBlock(nil, HTupleButtonCell.self, nil, true) as! HTupleButtonCell
+            let cell = itemBlock(HTupleButtonCell.self, nil, true) as! HTupleButtonCell
             cell.buttonView.textColor = .black
             
             let model = modelArr[index]
@@ -99,7 +99,7 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
                 self.formCellBlock?(indexPath, model)
             }
         }else {
-            _ = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            _ = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
         }
     }
     

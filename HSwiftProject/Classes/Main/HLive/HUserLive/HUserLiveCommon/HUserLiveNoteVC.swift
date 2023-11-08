@@ -110,8 +110,8 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
         
         switch (indexPath.row) {
         case HCell0:
-            //HTupleNoteCell *cell = itemBlock(nil, HTupleNoteCell.class, nil, YES)
-            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            //HTupleNoteCell *cell = itemBlock(HTupleNoteCell.class, nil, YES)
+            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             cell.label.font = UIFont.boldSystemFont(ofSize: 17)
             cell.label.textAlignment = .center
             //cell.label.textVerticalAlignment = HTextVerticalAlignmentBottom
@@ -119,8 +119,8 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
             cell.label.text = "公告通知"
             break
         case HCell1:
-            //HTupleNoteCell *cell = itemBlock(nil, HTupleNoteCell.class, nil, YES)
-            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            //HTupleNoteCell *cell = itemBlock(HTupleNoteCell.class, nil, YES)
+            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             cell.label.font = UIFont.systemFont(ofSize: 12)
             cell.label.textAlignment = .left
             //cell.label.textVerticalAlignment = HTextVerticalAlignmentTop
@@ -129,11 +129,11 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
             cell.label.text = self.note
             break
         case HCell2:
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             cell.backgroundColor = UIColor(white: 0.1, alpha: 0.2)
             break
         case HCell3:
-            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             cell.label.font = UIFont.boldSystemFont(ofSize: 17)
             cell.label.textAlignment = .center
             cell.label.textColor = UIColor(hex: 0x3184DD)

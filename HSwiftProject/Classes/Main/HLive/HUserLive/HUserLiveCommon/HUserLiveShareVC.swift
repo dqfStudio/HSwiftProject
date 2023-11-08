@@ -103,7 +103,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     }
     func tupleFooter(_ footerBlock: Any, inSection section: Any) {
         let footerBlock = footerBlock as! HTupleFooter
-        let cell = footerBlock(nil, HTupleButtonApex.self, nil, true) as! HTupleButtonApex
+        let cell = footerBlock(HTupleButtonApex.self, nil, true) as! HTupleButtonApex
         cell.setTopLine(withColor: UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
         cell.buttonView.backgroundColor = UIColor.white
         cell.buttonView.textColor = UIColor.black
@@ -114,7 +114,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     }
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
+        let cell = itemBlock(HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
         cell.imageView.backgroundColor = UIColor.red
         cell.imageView.setImage(WithName: "icon_no_server")
         cell.labelHeight = 25

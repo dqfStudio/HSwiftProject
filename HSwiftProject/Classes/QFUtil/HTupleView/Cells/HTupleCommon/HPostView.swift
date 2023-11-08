@@ -82,7 +82,7 @@ extension HPostView {
     @objc
     func tupleExa0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
+        let cell = itemBlock(HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
         let frame = cell.layoutViewBounds
         
         var headerView = cell.layoutView.viewWithTag(121314) as? HPostHeader
@@ -153,20 +153,20 @@ extension HPostView {
         switch indexPath.row {
         case 0: //内容
             if postVM.postExtend == .extend {
-                let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue + "notExtended", true) as! HTupleLabelCell
+                let cell = itemBlock(HTupleLabelCell.self, indexPath.stringValue + "notExtended", true) as! HTupleLabelCell
                 cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
                 cell.label.textColor = UIColor(hex: "#17191E")
                 cell.label.numberOfLines = 3
                 cell.label.text = postVM.post
             } else {
-                let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue + "isExtended", true) as! HTupleLabelCell
+                let cell = itemBlock(HTupleLabelCell.self, indexPath.stringValue + "isExtended", true) as! HTupleLabelCell
                 cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
                 cell.label.textColor = UIColor(hex: "#17191E")
                 cell.label.numberOfLines = 0
                 cell.label.text = postVM.post
             }
         case 1: //更多
-            let cell = itemBlock(nil, HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
+            let cell = itemBlock(HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
             cell.edgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
             
             let frame = cell.layoutViewBounds
@@ -226,13 +226,13 @@ extension HPostView {
         let itemBlock = itemBlock as! HTupleItem
         // 是否已经翻译过了
         if postVM.postTranslate == .isTranslated {
-            let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue, true) as! HTupleLabelCell
+            let cell = itemBlock(HTupleLabelCell.self, indexPath.stringValue, true) as! HTupleLabelCell
             cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
             cell.label.textColor = UIColor(hex: "#17191E")
             cell.label.numberOfLines = 0
             cell.label.text = postVM.post
         } else {
-            let cell = itemBlock(nil, HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
+            let cell = itemBlock(HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
             
             let frame = cell.layoutViewBounds
             let width = "翻译内容".widthWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToHeight: postTranslateSpace - 8.0)
@@ -301,7 +301,7 @@ extension HPostView {
         let itemBlock = itemBlock as! HTupleItem
         if indexPath.row == 0 {
             
-            let cell = itemBlock(nil, HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
+            let cell = itemBlock(HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
             let frame = cell.layoutViewBounds
             cell.buttonView.frame = frame
             cell.buttonView.backgroundColor = .red
@@ -314,7 +314,7 @@ extension HPostView {
             
         } else if indexPath.row == 1 {
             
-            let cell = itemBlock(nil, HTupleButtonCell.self, indexPath.stringValue, true) as! HTupleButtonCell
+            let cell = itemBlock(HTupleButtonCell.self, indexPath.stringValue, true) as! HTupleButtonCell
             cell.buttonView.backgroundColor = .red
             cell.buttonView.text = "图片"
             cell.buttonView.cornerRadius = 8.0
@@ -325,7 +325,7 @@ extension HPostView {
 
         }  else if indexPath.row == 2 {
             
-            let cell = itemBlock(nil, HTupleButtonCell.self, indexPath.stringValue, true) as! HTupleButtonCell
+            let cell = itemBlock(HTupleButtonCell.self, indexPath.stringValue, true) as! HTupleButtonCell
             
             //四张图片时由于布局的特殊性，多添加了一个item
             if let count = postVM.imageUrls?.count, count == 4 {
@@ -342,7 +342,7 @@ extension HPostView {
             
         } else {
             
-            let cell = itemBlock(nil, HTupleButtonCell.self, indexPath.stringValue, true) as! HTupleButtonCell
+            let cell = itemBlock(HTupleButtonCell.self, indexPath.stringValue, true) as! HTupleButtonCell
             cell.buttonView.backgroundColor = .red
             cell.buttonView.isUserInteractionEnabled = true
             cell.buttonView.text = "图片"
@@ -396,7 +396,7 @@ extension HPostView {
     @objc
     func tupleExa4_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleButtonCell.self, indexPath.stringValue, true) as! HTupleButtonCell
+        let cell = itemBlock(HTupleButtonCell.self, indexPath.stringValue, true) as! HTupleButtonCell
         cell.buttonView.backgroundColor = .red
         cell.buttonView.text = "视频"
         cell.buttonView.cornerRadius = 8.0
@@ -427,7 +427,7 @@ extension HPostView {
     @objc
     func tupleExa5_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
+        let cell = itemBlock(HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
         let frame = cell.layoutViewBounds
         
         var footerView = cell.layoutView.viewWithTag(131415) as? HPostFooter

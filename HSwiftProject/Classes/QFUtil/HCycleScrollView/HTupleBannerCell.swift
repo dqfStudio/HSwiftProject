@@ -145,7 +145,7 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleButtonCell.self, "banner", true) as! HTupleButtonCell
+        let cell = itemBlock(HTupleButtonCell.self, "banner", true) as! HTupleButtonCell
         if let imageUrlArr = imageUrlArr {
             let index = indexPath.section % imageUrlArr.count
             let imageUrlString = imageUrlArr[index]

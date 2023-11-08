@@ -26,7 +26,7 @@ extension HMainController6 {
         let itemBlock = itemBlock as! HTableRow
         switch (indexPath.row) {
         case 0:
-            let cell = itemBlock(nil, HTableViewCellHoriValue2.self, nil, true) as! HTableViewCellHoriValue2
+            let cell = itemBlock(HTableViewCellHoriValue2.self, nil, true) as! HTableViewCellHoriValue2
             cell.backgroundColor = UIColor.gray
             
             cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
@@ -63,7 +63,7 @@ extension HMainController6 {
             }
             break
         case 1:
-            let cell = itemBlock(nil, HTableViewCellHoriValue2.self, nil, true) as! HTableViewCellHoriValue2
+            let cell = itemBlock(HTableViewCellHoriValue2.self, nil, true) as! HTableViewCellHoriValue2
             cell.backgroundColor = UIColor.gray
             
             cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
@@ -84,7 +84,7 @@ extension HMainController6 {
             }
             break
         case 2:
-            let cell = itemBlock(nil, HTableViewCellHoriValue2.self, nil, true) as! HTableViewCellHoriValue2
+            let cell = itemBlock(HTableViewCellHoriValue2.self, nil, true) as! HTableViewCellHoriValue2
             cell.backgroundColor = UIColor.gray
             
             cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)

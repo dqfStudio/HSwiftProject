@@ -168,23 +168,23 @@
 //
 //        switch row {
 //        case HCell0:
-//            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+//            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
 //            cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
 //            cell.label.textAlignment = .center
 //            cell.label.textColor = HColorHex("#17191E")
 //            cell.label.text = _title
 //        case HCell1:
-//            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+//            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
 //            cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
 //            cell.label.textAlignment = .center
 //            cell.label.numberOfLines = 0
 //            cell.label.textColor = HColorHex("#17191E")
 //            cell.label.text = _message
 //        case HCell2:
-//            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+//            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
 //            cell.backgroundColor = HColorHex("#F7F8FA")
 //        case HCell3:
-//            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+//            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
 //            cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
 //            cell.label.textAlignment = .center
 //            var bounds = cell.layoutViewBounds
@@ -195,7 +195,7 @@
 //                cell.label.text = cancelAction.title
 //            }
 //        case HCell4:
-//            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+//            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
 //            cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
 //            cell.label.textAlignment = .center
 //            cell.label.textColor = HColorHex("#3879FC")

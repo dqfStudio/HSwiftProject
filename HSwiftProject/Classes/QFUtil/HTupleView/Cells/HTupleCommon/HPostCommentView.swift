@@ -82,7 +82,7 @@ extension HPostCommentView {
     @objc
     func tupleExa0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
+        let cell = itemBlock(HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
         let frame = cell.layoutViewBounds
         
         var headerView = cell.layoutView.viewWithTag(121314) as? HPostCommentHeader
@@ -130,7 +130,7 @@ extension HPostCommentView {
     @objc
     func tupleExa1_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue, true) as! HTupleLabelCell
+        let cell = itemBlock(HTupleLabelCell.self, indexPath.stringValue, true) as! HTupleLabelCell
         cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
         cell.label.textColor = UIColor(hex: "#17191E")
         cell.label.numberOfLines = 0
@@ -174,13 +174,13 @@ extension HPostCommentView {
         let itemBlock = itemBlock as! HTupleItem
         // 是否已经翻译过了
         if postVM.postTranslate == .isTranslated {
-            let cell = itemBlock(nil, HTupleLabelCell.self, indexPath.stringValue, true) as! HTupleLabelCell
+            let cell = itemBlock(HTupleLabelCell.self, indexPath.stringValue, true) as! HTupleLabelCell
             cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
             cell.label.textColor = UIColor(hex: "#17191E")
             cell.label.numberOfLines = 0
             cell.label.text = postVM.post
         } else {
-            let cell = itemBlock(nil, HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
+            let cell = itemBlock(HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
             
             let frame = cell.layoutViewBounds
             let width = "翻译内容".widthWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToHeight: postTranslateSpace - 8.0)
@@ -224,7 +224,7 @@ extension HPostCommentView {
     @objc
     func tupleExa3_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
+        let cell = itemBlock(HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
         let frame = cell.layoutViewBounds
         
         let string1 = "14小时前"
@@ -278,7 +278,7 @@ extension HPostCommentView {
     @objc
     func tupleExa4_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(nil, HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
+        let cell = itemBlock(HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
         let frame = cell.layoutViewBounds
         
         let ff = true
@@ -352,7 +352,7 @@ extension HPostCommentView {
     @objc
     func tupleExa5_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        _ = itemBlock(nil, HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
+        _ = itemBlock(HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
     }
     
 }

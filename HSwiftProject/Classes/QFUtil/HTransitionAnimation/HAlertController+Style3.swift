@@ -22,7 +22,7 @@ extension HAlertController {
         let itemBlock = itemBlock as! HTupleItem
         switch indexPath.row {
         case HCell0:
-            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 60)
             }
@@ -36,7 +36,7 @@ extension HAlertController {
                 cell.label.text = self.alertModel.title
             }
         case HCell1:
-            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 60)
             }
@@ -51,13 +51,13 @@ extension HAlertController {
                 cell.label.text = self.alertModel.message
             }
         case HCell2:
-            let cell = itemBlock(nil, HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
             cell.backgroundColor = HColorHex("#F7F8FA")
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width, height: 1)
             }
         case HCell3:
-            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width / 2, height: 48)
             }
@@ -74,7 +74,7 @@ extension HAlertController {
                 self.cancelBlock?()
             }
         case HCell4:
-            let cell = itemBlock(nil, HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
             cell.sizeBlock = {
                 return CGSize(width: self.tupleView.width / 2, height: 48)
             }
