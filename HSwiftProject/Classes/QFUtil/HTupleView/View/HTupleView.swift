@@ -211,7 +211,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     // Horizontally
     var horizontalCenter: Bool = true
 
-    private var sectionPaths: NSArray?
+    private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
     private var allSectionInsets = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
     private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
@@ -479,7 +479,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Determine whether it contains an index
         identifier += idx ? indexPath.stringValue : ""
         // Determine if there is a tuple state value
-        if self.tupleStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(indexPath.section) {
+        if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
             identifier += "\(self.tupleState)"
         }
         // Register cell if not already registered
@@ -517,7 +517,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Determine whether it contains an index
         identifier += idx ? indexPath.stringValue : ""
         // Determine if there is a tuple state value
-        if self.tupleStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(indexPath.section) {
+        if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
             identifier += "\(self.tupleState)"
         }
         // Register cell if not already registered
@@ -555,7 +555,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Determine whether it contains an index
         identifier += idx ? indexPath.stringValue : ""
         // Determine if there is a tuple state value
-        if self.tupleStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(indexPath.section) {
+        if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
             identifier += "\(self.tupleState)"
         }
         // Register cell if not already registered
@@ -593,7 +593,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     private func scrollSplitPrefix() -> String {
         var prefix = ""
         if self.tupleStyle == .split {
-            if let sectionPaths = self.sectionPaths, sectionPaths.contains(self.tupleState) {
+            if self.sectionPaths.contains(self.tupleState) {
                 prefix = kTupleDesignKey + "\(self.tupleState)" + "_"
             }
         }
@@ -602,8 +602,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     private func tupleSplitPrefix(withSection section: Int) -> String {
         var prefix = ""
         if self.tupleStyle == .split {
-            if let sectionPaths = self.sectionPaths, sectionPaths.contains(section) {
-                let idx = sectionPaths.index(of: section)
+            if self.sectionPaths.contains(section) {
+                let idx = self.sectionPaths.index(of: section)
                 prefix = kTupleExaDesignKey + "\(idx)" + "_"
             }else {
                 prefix = kTupleDesignKey + "\(self.tupleState)" + "_"

@@ -135,7 +135,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     // Horizontally
     var horizontalCenter: Bool = true
 
-    private var sectionPaths: NSArray?
+    private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
     private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
@@ -396,7 +396,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         // Determine whether it contains an index
         identifier += idx ? "\(section)" : ""
         // Determine if there is a table state value
-        if self.tableStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(section) {
+        if self.tableStyle == .split, !self.sectionPaths.contains(section) {
             identifier += "\(self.tableState)"
         }
         // Register cell if not already registered
@@ -433,7 +433,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         // Determine whether it contains an index
         identifier += idx ? "\(section)" : ""
         // Determine if there is a table state value
-        if self.tableStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(section) {
+        if self.tableStyle == .split, !self.sectionPaths.contains(section) {
             identifier += "\(self.tableState)"
         }
         // Register cell if not already registered
@@ -470,7 +470,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         // Determine whether it contains an index
         identifier += idx ? indexPath.stringValue : ""
         // Determine if there is a table state value
-        if self.tableStyle == .split, let sectionPaths = self.sectionPaths, !sectionPaths.contains(indexPath.section) {
+        if self.tableStyle == .split, !self.sectionPaths.contains(indexPath.section) {
             identifier += "\(self.tableState)"
         }
         // Register cell if not already registered
@@ -508,8 +508,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     private func tableSplitPrefix(withSection section: Int) -> String {
         var prefix = ""
         if self.tableStyle == .split {
-            if let sectionPaths = self.sectionPaths, sectionPaths.contains(section) {
-                let idx: Int = sectionPaths.index(of: section)
+            if self.sectionPaths.contains(section) {
+                let idx: Int = self.sectionPaths.index(of: section)
                 prefix = kTableExaDesignKey + "\(idx)" + "_"
             }else {
                 prefix = kTableDesignKey + "\(self.tableState)" + "_"
