@@ -110,8 +110,12 @@ func UISizeIntegral(_ size: CGSize) -> CGSize {
     return CGSize(width: floor(size.width), height: floor(size.height))
 }
 
-public func NSStringFromUIEdgeInsets(_ edgeInsets: UIEdgeInsets) -> String {
+public func StringFromUIEdgeInsets(_ edgeInsets: UIEdgeInsets) -> String {
     return NSCoder.string(for: edgeInsets)
+}
+
+public func NSStringFromUIEdgeInsets(_ edgeInsets: UIEdgeInsets) -> NSString {
+    return NSCoder.string(for: edgeInsets) as NSString
 }
 
 public func UIEdgeInsetsFromString(_ namestr: String) -> UIEdgeInsets {

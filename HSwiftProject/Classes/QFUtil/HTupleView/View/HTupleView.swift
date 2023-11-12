@@ -213,7 +213,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
-    private var allSectionInsets = NSMapTable<NSString, AnyObject>.strongToStrongObjects()
+    private var allSectionInsets = NSMapTable<NSString, NSString>.strongToStrongObjects()
     private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allReuseFooters = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
@@ -662,7 +662,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             if delegate.responds(to: selector2, withPre: prefix) {
                 edgeInsets = delegate.performWithUnretainedValue(selector2, with: section, withPre: prefix) as! UIEdgeInsets
             }
-            self.allSectionInsets.setObject(NSStringFromUIEdgeInsets(edgeInsets) as AnyObject, forKey: "\(section)" as NSString)
+            self.allSectionInsets.setObject(NSStringFromUIEdgeInsets(edgeInsets), forKey: "\(section)" as NSString)
 
             // Prevents quantity from being less than 0
             items = max(items, 0)
