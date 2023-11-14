@@ -1,14 +1,14 @@
 //
-//  HSheetController.swift
+//  HPullController.swift
 //  HSwiftProject
 //
-//  Created by Wind on 23/11/2021.
-//  Copyright © 2021 wind. All rights reserved.
+//  Created by owner on 2023/11/14.
+//  Copyright © 2023 wind. All rights reserved.
 //
 
 import UIKit
 
-class HSheetController: HViewController, HTupleViewDelegate {
+class HPullController: HViewController, HTupleViewDelegate {
 
     // 标题
     private var _title: String?
@@ -30,6 +30,10 @@ class HSheetController: HViewController, HTupleViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override var verticalOffset: CGFloat {
+        return UIScreen.topBarHeight
+    }
+    
     override var containerSize: CGSize {
         var height = 0.0
         height += Double(actions.count * 56 + (actions.count - 1) * 1)
@@ -38,7 +42,7 @@ class HSheetController: HViewController, HTupleViewDelegate {
     }
     
     override var presentType: HTransitionStyle {
-        return .sheet
+        return .pull
     }
     
     override var isShadowDismiss: Bool {
@@ -117,7 +121,7 @@ class HSheetController: HViewController, HTupleViewDelegate {
 
 }
 
-extension HSheetController {
+extension HPullController {
 
     @objc
     func tupleExa0_numberOfItemsInSection(_ section: Any) -> Any {
@@ -167,7 +171,7 @@ extension HSheetController {
 }
 
 
-extension HSheetController {
+extension HPullController {
 
     @objc
     func tupleExa1_numberOfItemsInSection(_ section: Any) -> Any {
@@ -228,7 +232,7 @@ extension HSheetController {
 }
 
 
-extension HSheetController {
+extension HPullController {
 
     @objc
     func tupleExa2_numberOfItemsInSection(_ section: Any) -> Any {
@@ -275,3 +279,4 @@ extension HSheetController {
     }
 
 }
+

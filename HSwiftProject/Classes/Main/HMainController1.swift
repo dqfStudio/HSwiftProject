@@ -278,8 +278,13 @@ class HMainController1: HTupleController {
                 cell.label.text = "黑客帝国"
             }
             cell.selectBlock = {
-                let navi = HNavigationController(rootViewController: HUserLiveVC())
-                self.present(navi, animated: true)
+                if indexPath.row == 0 {
+                    let navi = HNavigationController(rootViewController: HUserLiveVC())
+                    self.present(navi, animated: true)
+                }else {
+                    let alertVC = HPullController.showVideoAlert { index in }
+                    self.presentController(alertVC, completion: nil)
+                }
             }
         default:
             break

@@ -57,7 +57,7 @@ class HAlertController : HViewController, HTupleViewDelegate {
         return CGSize(width: 291, height: containerHeight)
     }
     
-    override var presetType: HTransitionStyle {
+    override var presentType: HTransitionStyle {
         return .alert
     }
     

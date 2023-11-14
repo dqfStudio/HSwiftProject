@@ -38,7 +38,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
         return CGSize(width: UIScreen.width, height: kItemHeight * 2 + kFooterHeight + UIScreen.bottomBarHeight)
     }
 
-    override var presetType: HTransitionStyle {
+    override var presentType: HTransitionStyle {
         return .sheet
     }
 

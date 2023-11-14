@@ -51,7 +51,7 @@
 //        return CGSize(width: 291, height: titleHeight + Int(messageHeight) + 1 + 48)
 //    }
 //
-//    override var presetType: HTransitionStyle {
+//    override var presentType: HTransitionStyle {
 //        return .alert
 //    }
 //

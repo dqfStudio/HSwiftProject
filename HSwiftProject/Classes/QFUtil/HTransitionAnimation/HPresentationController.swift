@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HPresentationController : UIPresentationController {
+class HPresentationController: UIPresentationController {
     //蒙层
     lazy var contentCoverView: UIView = {
         let contentCoverView = UIView(frame: self.containerView?.bounds ?? CGRect.zero)
@@ -25,7 +25,10 @@ class HPresentationController : UIPresentationController {
     }
     
     //弹出框类型
-    var presentType: HTransitionStyle = .alert
+    @objc var presentType: HTransitionStyle = .alert
+    
+    //垂直距离上的偏移量
+    @objc var verticalOffset: CGFloat = 0.0
     
     //内容层大小
     @objc var contentSize: CGSize = CGSize.zero
@@ -84,13 +87,25 @@ class HPresentationController : UIPresentationController {
     override var frameOfPresentedViewInContainerView: CGRect {
         var makeRect = CGRect.zero
         if let containerView = self.containerView {
-            if self.presentType == HTransitionStyle.alert {
+            if self.presentType == .pull {
+                if self.contentSize.equalTo(CGSize.zero) {
+                    self.contentSize = containerView.size
+                }
+                if self.contentSize.width == 0, self.contentSize.height > 0 {
+                    self.contentSize = CGSize(width: containerView.bounds.width, height: self.contentSize.height)
+                }
+                makeRect = CGRect(x: containerView.bounds.size.width - self.contentSize.width,
+                                        y: self.verticalOffset,
+                                        width: self.contentSize.width,
+                                        height: self.contentSize.height)
+                
+            } else if self.presentType == .alert {
                 makeRect = CGRect(x: containerView.center.x - self.contentSize.width * 0.5,
                                     y: containerView.center.y - self.contentSize.height * 0.5,
                                     width: self.contentSize.width,
                                     height: self.contentSize.height)
                 
-            }else if self.presentType == HTransitionStyle.sheet {
+            } else if self.presentType == .sheet {
                 if self.contentSize.equalTo(CGSize.zero) {
                     self.contentSize = containerView.size
                 }

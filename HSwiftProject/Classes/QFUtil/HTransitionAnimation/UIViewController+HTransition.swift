@@ -10,6 +10,10 @@ import UIKit
 
 extension UIViewController {
     
+    //垂直距离上的偏移量
+    @objc var verticalOffset: CGFloat {
+        return 0.0
+    }
     //转场动画内容视图的大小
     @objc var containerSize: CGSize {
         return CGSize.zero
@@ -31,7 +35,7 @@ extension UIViewController {
         return false
     }
     //转场类型
-    @objc var presetType: HTransitionStyle {
+    @objc var presentType: HTransitionStyle {
         return .alert
     }
     //push转场动画具体类型

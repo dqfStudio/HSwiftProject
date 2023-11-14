@@ -47,8 +47,9 @@ extension UIViewController {
     */
     func presentController(_ viewController: UIViewController, completion: HTransitionCompletion?) {
         let animation = HPresentAnimation()
-        animation.presetType = viewController.presetType
+        animation.presentType = viewController.presentType
         animation.contentSize = viewController.containerSize
+        animation.verticalOffset = viewController.verticalOffset
         animation.transitionDuration = viewController.animationDuration
         animation.shadowColor = viewController.shadowColor
         animation.isShadowDismiss = viewController.isShadowDismiss

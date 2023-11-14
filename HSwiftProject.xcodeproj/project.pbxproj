@@ -243,6 +243,7 @@
 		EB80B67E2A18A7430016648A /* HSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B67D2A18A7430016648A /* HSearchBar.swift */; };
 		EB80B6962A20BEEC0016648A /* HTextImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6952A20BEEC0016648A /* HTextImageView.swift */; };
 		EB9358F52AF4E5FC00716728 /* HMainController7.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9358F42AF4E5FC00716728 /* HMainController7.swift */; };
+		EB9D332B2B038F97000B8F48 /* HPullController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9D332A2B038F97000B8F48 /* HPullController.swift */; };
 		EBA53C2E2A308BF00077158D /* HWebActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C2D2A308BF00077158D /* HWebActionView.swift */; };
 		EBA53C322A3210FB0077158D /* HMultiButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C312A3210FA0077158D /* HMultiButtonView.swift */; };
 		EBA53C382A38AF000077158D /* HWebButtonView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C372A38AF000077158D /* HWebButtonView2.swift */; };
@@ -570,6 +571,7 @@
 		EB80B67D2A18A7430016648A /* HSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSearchBar.swift; sourceTree = "<group>"; };
 		EB80B6952A20BEEC0016648A /* HTextImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextImageView.swift; sourceTree = "<group>"; };
 		EB9358F42AF4E5FC00716728 /* HMainController7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMainController7.swift; sourceTree = "<group>"; };
+		EB9D332A2B038F97000B8F48 /* HPullController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPullController.swift; sourceTree = "<group>"; };
 		EBA53C2D2A308BF00077158D /* HWebActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebActionView.swift; sourceTree = "<group>"; };
 		EBA53C312A3210FA0077158D /* HMultiButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMultiButtonView.swift; sourceTree = "<group>"; };
 		EBA53C372A38AF000077158D /* HWebButtonView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebButtonView2.swift; sourceTree = "<group>"; };
@@ -989,6 +991,7 @@
 				A2A814B7274CCA7200FAB929 /* HPresentAnimation.swift */,
 				A2A814B9274CCC1800FAB929 /* HPresentationController.swift */,
 				A2A814BD274D6C3000FAB929 /* HPushAnimation.swift */,
+				EB9D332A2B038F97000B8F48 /* HPullController.swift */,
 				A2A814BF274E030100FAB929 /* HSheetController.swift */,
 				A2A814B5274CC23C00FAB929 /* HTransitionAnimation.swift */,
 				A2A814B1274C081B00FAB929 /* HTransitionHeader.swift */,
@@ -1910,6 +1913,7 @@
 				EBD0FB3C29CD4C2400808EDA /* AppDelegate+SoundService.swift in Sources */,
 				EBC8146B29AA53F400A81431 /* HAcceptVideoVC+HStatus4.swift in Sources */,
 				EB23DAD72A02A02F00C96CAC /* HAlertController+Style3.swift in Sources */,
+				EB9D332B2B038F97000B8F48 /* HPullController.swift in Sources */,
 				EBA53C322A3210FB0077158D /* HMultiButtonView.swift in Sources */,
 				A2B43074237FF2B100795605 /* UIView+HPrinter.swift in Sources */,
 				A250DF1223FFC2AB009F5E47 /* HTupleViewBannerApex.swift in Sources */,

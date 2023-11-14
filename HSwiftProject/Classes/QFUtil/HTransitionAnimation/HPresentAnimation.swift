@@ -8,13 +8,16 @@
 
 import UIKit
 
-class HPresentAnimation : HTransitionAnimation, UIViewControllerTransitioningDelegate {
+class HPresentAnimation: HTransitionAnimation, UIViewControllerTransitioningDelegate {
+    
+    //垂直距离上的偏移量
+    @objc var verticalOffset: CGFloat = 0.0
 
     //转场视图尺寸大小
     @objc var contentSize: CGSize = CGSize.zero
 
     //转场动画类型(默认Alert)
-    var presetType: HTransitionStyle = .alert
+    @objc var presentType: HTransitionStyle = .alert
 
     //转场视图点击背景是否dismiss (消失）默认NO
     @objc var isShadowDismiss: Bool = false
@@ -74,7 +77,18 @@ class HPresentAnimation : HTransitionAnimation, UIViewControllerTransitioningDel
         //动画时间
         let duration = self.transitionDuration(using: transitionContext)
         
-        if self.presetType == .alert {
+        if self.presentType == .pull {
+            presentedView.alpha = 0.0
+            presentedView.frame = CGRect(x: 0, y: -self.contentSize.height, width: self.contentSize.width, height: self.contentSize.height)
+            UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut) {
+                presentedView.alpha = 1.0
+                presentedView.frame = CGRect(x: 0, y: self.verticalOffset, width: self.contentSize.width, height: self.contentSize.height)
+            } completion: { finished in
+                if finished {
+                    transitionContext.completeTransition(true)
+                }
+            }
+        } else if self.presentType == .alert {
             presentedView.alpha = 0.0
             presentedView.transform = CGAffineTransform(scaleX: 1.2, y: 1.2)
             UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 50, options: .curveEaseInOut) {
@@ -85,7 +99,7 @@ class HPresentAnimation : HTransitionAnimation, UIViewControllerTransitioningDel
                     transitionContext.completeTransition(true)
                 }
             }
-        } else if self.presetType == .sheet {
+        } else if self.presentType == .sheet {
             presentedView.alpha = 0.0
             let screenHeight = UIScreen.main.bounds.height
             presentedView.frame = CGRect(x: 0, y: screenHeight, width: self.contentSize.width, height: self.contentSize.height)
@@ -105,14 +119,23 @@ class HPresentAnimation : HTransitionAnimation, UIViewControllerTransitioningDel
         //动画时间
         let duration = self.transitionDuration(using: transitionContext)
         
-        if self.presetType == .alert {
+        if self.presentType == .pull {
+            UIView.animate(withDuration: duration) {
+                presentedView.transform = CGAffineTransform(translationX: 0, y: -self.contentSize.height)
+            } completion: { finished in
+                if finished {
+                    presentedView.removeFromSuperview()
+                    transitionContext.completeTransition(true)
+                }
+            }
+        } else if self.presentType == .alert {
             UIView.animate(withDuration: duration, delay: 0, options: .curveEaseIn) {
                 presentedView.removeFromSuperview()
                 transitionContext.completeTransition(true)
             } completion: { finished in
                 
             }
-        }else if self.presetType == .sheet {
+        } else if self.presentType == .sheet {
             UIView.animate(withDuration: duration) {
                 presentedView.transform = CGAffineTransform(translationX: 0, y: self.contentSize.height)
             } completion: { finished in
@@ -130,8 +153,9 @@ extension HPresentAnimation {
     // UIViewControllerTransitioningDelegate
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         let presentationVC = HPresentationController(presentedViewController: presented, presenting: presenting)
-        presentationVC.presentType = self.presetType
+        presentationVC.presentType = self.presentType
         presentationVC.contentSize = self.contentSize
+        presentationVC.verticalOffset = self.verticalOffset
         presentationVC.isShadowDismiss = self.isShadowDismiss
         presentationVC.shadowColor = self.shadowColor
         self.presentationVC = presentationVC
