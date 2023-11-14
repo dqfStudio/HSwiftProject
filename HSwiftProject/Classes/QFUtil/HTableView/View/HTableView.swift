@@ -196,20 +196,29 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             var originX: CGFloat = inset.left
             if horizontalCenter {
                 originX = (self.width - contentSize.width) / 2
-                originX = max(originX, 0)
             }
             if marginTop > 0 {
-                self.contentInset = UIEdgeInsets(top: marginTop, left: originX, bottom: inset.bottom, right: inset.right)
-            } else if marginRatio > 0 {
-                var originY = (self.height - contentSize.height) * marginRatio
-                originY = max(originY, 0)
-                self.contentInset = UIEdgeInsets(top: originY, left: originX, bottom: inset.bottom, right: inset.right)
-            } else if verticalCenter {
-                var originY = (self.height - contentSize.height) / 2
-                originY = max(originY, 0)
-                self.contentInset = UIEdgeInsets(top: originY, left: originX, bottom: inset.bottom, right: inset.right)
-            } else {
-                self.contentInset = UIEdgeInsets(top: inset.top, left: originX, bottom: inset.bottom, right: inset.right)
+                self.contentInset = UIEdgeInsets(top: marginTop,
+                                                 left: max(originX, 0),
+                                                 bottom: inset.bottom,
+                                                 right: inset.right)
+            }else if marginRatio > 0 {
+                let originY = (self.height - contentSize.height) * marginRatio
+                self.contentInset = UIEdgeInsets(top: max(originY, 0),
+                                                 left: max(originX, 0),
+                                                 bottom: inset.bottom,
+                                                 right: inset.right)
+            }else if verticalCenter {
+                let originY = (self.height - contentSize.height) / 2
+                self.contentInset = UIEdgeInsets(top: max(originY, 0),
+                                                 left: max(originX, 0),
+                                                 bottom: inset.bottom,
+                                                 right: inset.right)
+            }else {
+                self.contentInset = UIEdgeInsets(top: inset.top,
+                                                 left: max(originX, 0),
+                                                 bottom: inset.bottom,
+                                                 right: inset.right)
             }
         }
     }
