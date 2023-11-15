@@ -9,9 +9,6 @@
 import UIKit
 
 class HPresentAnimation: HTransitionAnimation, UIViewControllerTransitioningDelegate {
-    
-    //垂直距离上的偏移量
-    @objc var verticalOffset: CGFloat = 0.0
 
     //转场视图尺寸大小
     @objc var contentSize: CGSize = CGSize.zero
@@ -82,7 +79,7 @@ class HPresentAnimation: HTransitionAnimation, UIViewControllerTransitioningDele
             presentedView.frame = CGRect(x: 0, y: -self.contentSize.height, width: self.contentSize.width, height: self.contentSize.height)
             UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut) {
                 presentedView.alpha = 1.0
-                presentedView.frame = CGRect(x: 0, y: self.verticalOffset, width: self.contentSize.width, height: self.contentSize.height)
+                presentedView.frame = CGRect(x: 0, y: 0, width: self.contentSize.width, height: self.contentSize.height)
             } completion: { finished in
                 if finished {
                     transitionContext.completeTransition(true)
@@ -155,7 +152,6 @@ extension HPresentAnimation {
         let presentationVC = HPresentationController(presentedViewController: presented, presenting: presenting)
         presentationVC.presentType = self.presentType
         presentationVC.contentSize = self.contentSize
-        presentationVC.verticalOffset = self.verticalOffset
         presentationVC.isShadowDismiss = self.isShadowDismiss
         presentationVC.shadowColor = self.shadowColor
         self.presentationVC = presentationVC

@@ -10,10 +10,6 @@ import UIKit
 
 extension UIViewController {
     
-    //垂直距离上的偏移量
-    @objc var verticalOffset: CGFloat {
-        return 0.0
-    }
     //转场动画内容视图的大小
     @objc var containerSize: CGSize {
         return CGSize.zero

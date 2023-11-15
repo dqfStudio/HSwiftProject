@@ -8,21 +8,21 @@
 
 import UIKit
 
-private var pushAnimationKey = "pushAnimationKey"
-private var presentAnimationKey = "presentAnimationKey"
+private var kPushAnimationKey: Void?
+private var kPresentAnimationKey: Void?
 
 extension UIViewController {
 
     //动画管理类(Present、Dismiss)
     var presentAnimation: HPresentAnimation? {
-        get { return objc_getAssociatedObject(self, &presentAnimationKey) as? HPresentAnimation }
-        set { objc_setAssociatedObject(self, &presentAnimationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+        get { return objc_getAssociatedObject(self, &kPresentAnimationKey) as? HPresentAnimation }
+        set { objc_setAssociatedObject(self, &kPresentAnimationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
     //动画管理类(Push、Pop)
     var pushAnimation: HPushAnimation? {
-        get { return objc_getAssociatedObject(self, &pushAnimationKey) as? HPushAnimation }
-        set { objc_setAssociatedObject(self, &pushAnimationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
+        get { return objc_getAssociatedObject(self, &kPushAnimationKey) as? HPushAnimation }
+        set { objc_setAssociatedObject(self, &kPushAnimationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
 
     // UINavigationControllerDelegate
@@ -49,7 +49,6 @@ extension UIViewController {
         let animation = HPresentAnimation()
         animation.presentType = viewController.presentType
         animation.contentSize = viewController.containerSize
-        animation.verticalOffset = viewController.verticalOffset
         animation.transitionDuration = viewController.animationDuration
         animation.shadowColor = viewController.shadowColor
         animation.isShadowDismiss = viewController.isShadowDismiss

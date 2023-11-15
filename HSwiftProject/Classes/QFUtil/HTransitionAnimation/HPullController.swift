@@ -30,10 +30,6 @@ class HPullController: HViewController, HTupleViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override var verticalOffset: CGFloat {
-        return UIScreen.topBarHeight
-    }
-    
     override var containerSize: CGSize {
         var height = 0.0
         height += Double(actions.count * 56 + (actions.count - 1) * 1)

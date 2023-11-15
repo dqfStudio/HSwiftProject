@@ -27,9 +27,6 @@ class HPresentationController: UIPresentationController {
     //弹出框类型
     @objc var presentType: HTransitionStyle = .alert
     
-    //垂直距离上的偏移量
-    @objc var verticalOffset: CGFloat = 0.0
-    
     //内容层大小
     @objc var contentSize: CGSize = CGSize.zero
     
@@ -95,7 +92,7 @@ class HPresentationController: UIPresentationController {
                     self.contentSize = CGSize(width: containerView.bounds.width, height: self.contentSize.height)
                 }
                 makeRect = CGRect(x: containerView.bounds.size.width - self.contentSize.width,
-                                        y: self.verticalOffset,
+                                        y: 0,
                                         width: self.contentSize.width,
                                         height: self.contentSize.height)
                 
