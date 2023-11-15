@@ -45,7 +45,7 @@ extension UIViewController {
      viewController 要显示的控制器
      completion     动画结束后的回调
     */
-    func presentController(_ viewController: UIViewController, completion: HTransitionCompletion?) {
+    func presentController(_ viewController: UIViewController, modalStyle: UIModalPresentationStyle = .custom, completion: HTransitionCompletion?) {
         let animation = HPresentAnimation()
         animation.presentType = viewController.presentType
         animation.contentSize = viewController.containerSize
@@ -55,7 +55,7 @@ extension UIViewController {
         animation.isShadowDismiss = viewController.isShadowDismiss
         animation.transitionCompletion = completion
         self.presentAnimation = animation
-        viewController.modalPresentationStyle = .custom //设置目标vc的动画为自定义
+        viewController.modalPresentationStyle = modalStyle //设置目标vc的动画为自定义
         viewController.transitioningDelegate = animation //设置动画管理代理类
         self.present(viewController, animated: true, completion: nil)
     }
