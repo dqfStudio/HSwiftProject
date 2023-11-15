@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HPushAnimation : HTransitionAnimation {
+class HPushAnimation: HTransitionAnimation {
     
     var pushAnimationType: HPushAnimationType = .ocdoor
 

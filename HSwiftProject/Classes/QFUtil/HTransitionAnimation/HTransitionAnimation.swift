@@ -8,10 +8,10 @@
 
 import UIKit
 
-class HTransitionAnimation : NSObject, UIViewControllerAnimatedTransitioning {
+class HTransitionAnimation: NSObject, UIViewControllerAnimatedTransitioning {
 
     //转场动画类型
-    var transitionType : HTransitionType = .push
+    var transitionType: HTransitionType = .push
 
     //动画时间, 默认0.25秒
     var transitionDuration: TimeInterval = 0.25

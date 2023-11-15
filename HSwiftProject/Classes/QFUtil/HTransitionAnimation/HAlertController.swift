@@ -17,7 +17,7 @@ enum HAlertControllerStyle: Int {
 
 typealias HAlertActionBlock = () -> Void
 
-class HAlertController : HViewController, HTupleViewDelegate {
+class HAlertController: HViewController, HTupleViewDelegate {
     
     // container高度
     private var containerHeight: CGFloat = 0.0

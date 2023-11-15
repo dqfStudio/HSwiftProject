@@ -13,7 +13,7 @@
 //    case actionSheet = 1
 //}
 //
-//class HAlertController : HViewController, HTupleViewDelegate {
+//class HAlertController: HViewController, HTupleViewDelegate {
 //
 //    // 标题
 //    private var _title: String?
