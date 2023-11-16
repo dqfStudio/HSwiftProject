@@ -191,24 +191,26 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     override func layoutSubviews() {
         super.layoutSubviews()
         let contentSize = super.contentSize
+        // 内容需要大于零
         if contentSize != .zero {
             let inset = self.contentInset
             var originX: CGFloat = inset.left
+            // 水平居中
             if horizontalCenter {
                 originX = (self.width - contentSize.width) / 2
             }
-            if marginTop > 0 {
+            if marginTop > 0 { //距离顶部的距离
                 self.contentInset = UIEdgeInsets(top: marginTop,
                                                  left: max(originX, 0),
                                                  bottom: inset.bottom,
                                                  right: inset.right)
-            }else if marginRatio > 0 {
+            }else if marginRatio > 0 { //距离顶部的比例
                 let originY = (self.height - contentSize.height) * marginRatio
                 self.contentInset = UIEdgeInsets(top: max(originY, 0),
                                                  left: max(originX, 0),
                                                  bottom: inset.bottom,
                                                  right: inset.right)
-            }else if verticalCenter {
+            }else if verticalCenter { //垂直居中
                 let originY = (self.height - contentSize.height) / 2
                 self.contentInset = UIEdgeInsets(top: max(originY, 0),
                                                  left: max(originX, 0),
