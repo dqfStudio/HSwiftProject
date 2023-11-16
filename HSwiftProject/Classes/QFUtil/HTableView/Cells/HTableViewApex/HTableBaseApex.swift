@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTableBaseApex : UITableViewHeaderFooterView {
+class HTableBaseApex: UITableViewHeaderFooterView {
     
     ///cell所在的table view
     weak var table: UITableView?

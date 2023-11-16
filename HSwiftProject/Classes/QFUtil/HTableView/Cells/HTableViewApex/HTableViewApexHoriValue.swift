@@ -9,7 +9,7 @@
 import UIKit
 
 ///三个label横向从左向右抱紧显示
-class HTableViewApexHoriValue1 : HTableBaseApex {
+class HTableViewApexHoriValue1: HTableBaseApex {
     
     // 用于imageView布局
     private lazy var imageLayoutView: UIStackView = {
@@ -223,7 +223,7 @@ class HTableViewApexHoriValue1 : HTableBaseApex {
 }
 
 ///三个label横向从右向左抱紧显示
-class HTableViewApexHoriValue2 : HTableBaseApex {
+class HTableViewApexHoriValue2: HTableBaseApex {
     
     // 用于imageView布局
     private lazy var imageLayoutView: UIStackView = {
@@ -436,7 +436,7 @@ class HTableViewApexHoriValue2 : HTableBaseApex {
 }
 
 ///三个label纵向显示
-class HTableViewApexHoriValue3 : HTableBaseApex {
+class HTableViewApexHoriValue3: HTableBaseApex {
     
     // 用于imageView布局
     private lazy var imageLayoutView: UIStackView = {

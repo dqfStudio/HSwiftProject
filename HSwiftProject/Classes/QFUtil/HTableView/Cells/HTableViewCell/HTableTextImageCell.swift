@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTableTextImageCell : HTableBaseCell {
+class HTableTextImageCell: HTableBaseCell {
     
     /// 左边布局View
     private lazy var leftView: UIView = {

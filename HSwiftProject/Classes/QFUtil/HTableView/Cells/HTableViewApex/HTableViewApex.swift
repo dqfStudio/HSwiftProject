@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTableLabelApex : HTableBaseApex {
+class HTableLabelApex: HTableBaseApex {
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
@@ -21,7 +21,7 @@ class HTableLabelApex : HTableBaseApex {
     }
 }
 
-class HTableTextApex : HTableBaseApex {
+class HTableTextApex: HTableBaseApex {
     lazy var textView: HTextView = {
         let textView = HTextView()
         textView.font = .systemFont(ofSize: 14.0)
@@ -34,7 +34,7 @@ class HTableTextApex : HTableBaseApex {
     }
 }
 
-class HTableButtonApex : HTableBaseApex {
+class HTableButtonApex: HTableBaseApex {
     lazy var buttonView: HWebButtonView = {
         let buttonView = HWebButtonView()
         self.layoutView.addSubview(buttonView)
@@ -46,7 +46,7 @@ class HTableButtonApex : HTableBaseApex {
     }
 }
 
-class HTableImageApex : HTableBaseApex {
+class HTableImageApex: HTableBaseApex {
     lazy var imageView: HWebImageView = {
         let imageView = HWebImageView()
         self.layoutView.addSubview(imageView)
@@ -58,7 +58,7 @@ class HTableImageApex : HTableBaseApex {
     }
 }
 
-class HTableTextFieldApex : HTableBaseApex {
+class HTableTextFieldApex: HTableBaseApex {
     lazy var textField: HTextField = {
         let textField = HTextField()
         HLayoutTableApex(textField)
@@ -71,7 +71,7 @@ class HTableTextFieldApex : HTableBaseApex {
     }
 }
 
-class HTableViewApex : HTableBaseApex {
+class HTableViewApex: HTableBaseApex {
 
     ///label
     lazy var label: UILabel = {

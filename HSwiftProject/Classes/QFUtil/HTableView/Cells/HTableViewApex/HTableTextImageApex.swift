@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTableTextImageApex : HTableBaseApex {
+class HTableTextImageApex: HTableBaseApex {
     
     /// 左边布局View
     private lazy var leftView: UIView = {

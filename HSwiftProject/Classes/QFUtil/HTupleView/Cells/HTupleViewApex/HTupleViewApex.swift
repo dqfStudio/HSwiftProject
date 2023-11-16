@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTupleLabelApex : HTupleBaseApex {
+class HTupleLabelApex: HTupleBaseApex {
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
@@ -21,7 +21,7 @@ class HTupleLabelApex : HTupleBaseApex {
     }
 }
 
-class HTupleTextApex : HTupleBaseApex {
+class HTupleTextApex: HTupleBaseApex {
     lazy var textView: HTextView = {
         let textView = HTextView()
         textView.font = .systemFont(ofSize: 14.0)
@@ -34,7 +34,7 @@ class HTupleTextApex : HTupleBaseApex {
     }
 }
 
-class HTupleButtonApex : HTupleBaseApex {
+class HTupleButtonApex: HTupleBaseApex {
     lazy var buttonView: HWebButtonView = {
         let buttonView = HWebButtonView()
         self.layoutView.addSubview(buttonView)
@@ -46,7 +46,7 @@ class HTupleButtonApex : HTupleBaseApex {
     }
 }
 
-class HTupleImageApex : HTupleBaseApex {
+class HTupleImageApex: HTupleBaseApex {
     lazy var imageView: HWebImageView = {
         let imageView = HWebImageView()
         self.layoutView.addSubview(imageView)
@@ -58,7 +58,7 @@ class HTupleImageApex : HTupleBaseApex {
     }
 }
 
-class HTupleAnimatedImageApex : HTupleBaseApex {
+class HTupleAnimatedImageApex: HTupleBaseApex {
     lazy var imageView: HAnimatedImageView = {
         let imageView = HAnimatedImageView()
         self.layoutView.addSubview(imageView)
@@ -70,7 +70,7 @@ class HTupleAnimatedImageApex : HTupleBaseApex {
     }
 }
 
-class HTupleTextFieldApex : HTupleBaseApex {
+class HTupleTextFieldApex: HTupleBaseApex {
     lazy var textField: HTextField = {
         let textField = HTextField()
         HLayoutTupleApex(textField)
@@ -83,7 +83,7 @@ class HTupleTextFieldApex : HTupleBaseApex {
     }
 }
 
-class HTupleViewApex : HTupleBaseApex {
+class HTupleViewApex: HTupleBaseApex {
 
     ///label
     lazy var label: UILabel = {

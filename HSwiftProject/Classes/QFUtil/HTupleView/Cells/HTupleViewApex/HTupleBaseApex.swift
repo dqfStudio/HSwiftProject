@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTupleBaseApex : UICollectionReusableView {
+class HTupleBaseApex: UICollectionReusableView {
     
     /// Tuple view where the cell is located
     weak var tuple: UICollectionView?

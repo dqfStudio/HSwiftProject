@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTupleTextImageApex : HTupleBaseApex {
+class HTupleTextImageApex: HTupleBaseApex {
     
     /// 左边布局View
     private lazy var leftView: UIView = {

@@ -9,7 +9,7 @@
 import UIKit
 
 /// 三个label在imageView后依次排列
-class HTableViewCellVertValue1 : HTableBaseCell {
+class HTableViewCellVertValue1: HTableBaseCell {
 
     ///labelLabel的高度
     var labelHeight: CGFloat = 0.0
@@ -180,7 +180,7 @@ class HTableViewCellVertValue1 : HTableBaseCell {
 }
 
 /// 两个label在imageView后依次排列，一个在imageView之上
-class HTableViewCellVertValue2 : HTableBaseCell {
+class HTableViewCellVertValue2: HTableBaseCell {
 
     ///labelLabel的高度
     var labelHeight: CGFloat = 0.0

@@ -13,7 +13,7 @@ typealias HTupleCellEdgeInsetsBlock = () -> UIEdgeInsets
 typealias HTupleCellBlock = () -> Void
 typealias HTupleCellSelectBlock = () -> Void
 
-class HTupleBaseCell : UICollectionViewCell {
+class HTupleBaseCell: UICollectionViewCell {
     
     /// Tuple view where the cell is located
     weak var tuple: UICollectionView?

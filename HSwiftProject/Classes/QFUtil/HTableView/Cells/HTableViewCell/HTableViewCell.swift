@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTableCellValue1 : HTableBaseCell {
+class HTableCellValue1: HTableBaseCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
     }
@@ -20,7 +20,7 @@ class HTableCellValue1 : HTableBaseCell {
     }
 }
 
-class HTableCellValue2 : HTableBaseCell {
+class HTableCellValue2: HTableBaseCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .value2, reuseIdentifier: reuseIdentifier)
     }
@@ -32,7 +32,7 @@ class HTableCellValue2 : HTableBaseCell {
     }
 }
 
-class HTableCellSubtitle : HTableBaseCell {
+class HTableCellSubtitle: HTableBaseCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
     }
@@ -44,7 +44,7 @@ class HTableCellSubtitle : HTableBaseCell {
     }
 }
 
-class HTableLabelCell : HTableBaseCell {
+class HTableLabelCell: HTableBaseCell {
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
@@ -57,7 +57,7 @@ class HTableLabelCell : HTableBaseCell {
     }
 }
 
-class HTableTextCell : HTableBaseCell {
+class HTableTextCell: HTableBaseCell {
     lazy var textView: UITextView = {
         let textView = UITextView()
         textView.font = .systemFont(ofSize: 14.0)
@@ -70,7 +70,7 @@ class HTableTextCell : HTableBaseCell {
     }
 }
 
-class HTableButtonCell : HTableBaseCell {
+class HTableButtonCell: HTableBaseCell {
     lazy var buttonView: HWebButtonView = {
         let buttonView = HWebButtonView()
         self.layoutView.addSubview(buttonView)
@@ -82,7 +82,7 @@ class HTableButtonCell : HTableBaseCell {
     }
 }
 
-class HTableImageCell : HTableBaseCell {
+class HTableImageCell: HTableBaseCell {
     private var _imageView: HWebImageView?
     override var imageView: HWebImageView {
         if _imageView == nil {
@@ -97,7 +97,7 @@ class HTableImageCell : HTableBaseCell {
     }
 }
 
-class HTableTextFieldCell : HTableBaseCell {
+class HTableTextFieldCell: HTableBaseCell {
     lazy var textField: HTextField = {
         let textField = HTextField()
         HLayoutTableCell(textField)
@@ -110,7 +110,7 @@ class HTableTextFieldCell : HTableBaseCell {
     }
 }
 
-class HTableViewCell : HTableBaseCell {
+class HTableViewCell: HTableBaseCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)

@@ -13,7 +13,7 @@ typealias HTableCellEdgeInsetsBlock = () -> UIEdgeInsets
 typealias HTableCellBlock = () -> Void
 typealias HTableCellSelectBlock = () -> Void
 
-class HTableBaseCell : UITableViewCell {
+class HTableBaseCell: UITableViewCell {
     
     ///cell所在的table view
     weak var table: UITableView?

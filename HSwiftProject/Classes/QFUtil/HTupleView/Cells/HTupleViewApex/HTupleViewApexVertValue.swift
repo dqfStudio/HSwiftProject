@@ -9,7 +9,7 @@
 import UIKit
 
 /// 三个label在imageView后依次排列
-class HTupleViewApexVertValue1 : HTupleBaseApex {
+class HTupleViewApexVertValue1: HTupleBaseApex {
 
     ///labelLabel的高度
     var labelHeight: CGFloat = 0.0
@@ -176,7 +176,7 @@ class HTupleViewApexVertValue1 : HTupleBaseApex {
 }
 
 /// 两个label在imageView后依次排列，一个在imageView之上
-class HTupleViewApexVertValue2 : HTupleBaseApex {
+class HTupleViewApexVertValue2: HTupleBaseApex {
 
     ///labelLabel的高度
     var labelHeight: CGFloat = 0.0
