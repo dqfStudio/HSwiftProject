@@ -127,8 +127,7 @@ class HTabContentView : UIView, UIScrollViewDelegate, HTabBarDelegate, _HTabCont
 
             // 更新scrollView的content size
             if let viewControllers = _viewControllers, self.contentScrollEnabled {
-                self.contentScrollView.h_contentSize = CGSize(width: self.contentScrollView.bounds.size.width * CGFloat(viewControllers.count),
-                                                              height: self.contentScrollView.bounds.size.height)
+                self.contentScrollView.h_contentSize = CGSize(width: self.contentScrollView.bounds.size.width * CGFloat(viewControllers.count), height: self.contentScrollView.bounds.size.height)
             }
             
             if _isDefaultSelectedTabIndexSetuped {
