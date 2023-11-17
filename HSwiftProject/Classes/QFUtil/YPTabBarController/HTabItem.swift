@@ -190,9 +190,9 @@ class HTabItem : UIButton {
     *  @param spacing          Image与Title的间距
     */
     func setContentHorizontalCenterWithVerticalOffset(_ verticalOffset: CGFloat, spacing: CGFloat) {
+        self.isContentHorizontalCenter = true
         self.verticalOffset = verticalOffset
         self.spacing = spacing
-        self.isContentHorizontalCenter = true
     }
     
     /**
