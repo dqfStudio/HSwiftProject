@@ -212,9 +212,7 @@ class HTabItem : UIButton {
 
     @objc
     private func doubleTapped(_ recognizer: UITapGestureRecognizer) {
-        if let doubleTapHandler = self.doubleTapHandler {
-            doubleTapHandler()
-        }
+        self.doubleTapHandler?()
     }
     
     /**
@@ -241,9 +239,9 @@ class HTabItem : UIButton {
     *  @param sideLength           小圆点的边长
     */
     func setDotBadgeMarginTop(_ marginTop: CGFloat, centerMarginRight: CGFloat, sideLength: CGFloat) {
-        self.dotBadgeMarginTop = marginTop
         self.dotBadgeCenterMarginRight = centerMarginRight
         self.dotBadgeSideLength = sideLength
+        self.dotBadgeMarginTop = marginTop
         self.updateBadge()
     }
     
