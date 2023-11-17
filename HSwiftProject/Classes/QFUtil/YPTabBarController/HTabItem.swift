@@ -303,9 +303,7 @@ class HTabItem : UIButton {
         get { super.isSelected }
         set {
             super.isSelected = newValue
-            if let doubleTapView = self.doubleTapView {
-                doubleTapView.isHidden = !newValue
-            }
+            self.doubleTapView?.isHidden = !newValue
         }
     }
 
