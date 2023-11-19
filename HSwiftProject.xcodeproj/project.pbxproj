@@ -155,7 +155,6 @@
 		A2B43076237FF2B100795605 /* UIWindow+HPrinter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B43063237FF2B100795605 /* UIWindow+HPrinter.swift */; };
 		A2B43077237FF2B100795605 /* NSObject+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B43066237FF2B100795605 /* NSObject+HUtil.swift */; };
 		A2B43078237FF2B100795605 /* NSObject+HExclusive.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B43067237FF2B100795605 /* NSObject+HExclusive.swift */; };
-		A2B43079237FF2B100795605 /* HCenterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B4306C237FF2B100795605 /* HCenterViewController.swift */; };
 		A2B4307A237FF2B100795605 /* HMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B4306D237FF2B100795605 /* HMenuViewController.swift */; };
 		A2B4307B237FF2B100795605 /* HCServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B4306E237FF2B100795605 /* HCServiceViewController.swift */; };
 		A2B4307C237FF2B100795605 /* HGameCategoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B4306F237FF2B100795605 /* HGameCategoryVC.swift */; };
@@ -482,7 +481,6 @@
 		A2B43063237FF2B100795605 /* UIWindow+HPrinter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+HPrinter.swift"; sourceTree = "<group>"; };
 		A2B43066237FF2B100795605 /* NSObject+HUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+HUtil.swift"; sourceTree = "<group>"; };
 		A2B43067237FF2B100795605 /* NSObject+HExclusive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+HExclusive.swift"; sourceTree = "<group>"; };
-		A2B4306C237FF2B100795605 /* HCenterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCenterViewController.swift; sourceTree = "<group>"; };
 		A2B4306D237FF2B100795605 /* HMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HMenuViewController.swift; sourceTree = "<group>"; };
 		A2B4306E237FF2B100795605 /* HCServiceViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCServiceViewController.swift; sourceTree = "<group>"; };
 		A2B4306F237FF2B100795605 /* HGameCategoryVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HGameCategoryVC.swift; sourceTree = "<group>"; };
@@ -1208,7 +1206,6 @@
 		A2B4306B237FF2B100795605 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				A2B4306C237FF2B100795605 /* HCenterViewController.swift */,
 				A2B4306E237FF2B100795605 /* HCServiceViewController.swift */,
 				A2B4306F237FF2B100795605 /* HGameCategoryVC.swift */,
 				A2188794238FD3CC005C20BF /* HGameCategoryVC+HSection0.swift */,
@@ -1882,7 +1879,6 @@
 				A2A814AE274C05BB00FAB929 /* HAlertController.swift in Sources */,
 				A21887A923900832005C20BF /* HTegKeychainConstants.swift in Sources */,
 				A2B43078237FF2B100795605 /* NSObject+HExclusive.swift in Sources */,
-				A2B43079237FF2B100795605 /* HCenterViewController.swift in Sources */,
 				A265D9FF239250F6001F39B0 /* HTabContentView.swift in Sources */,
 				EBD0FB1D29CC3E2000808EDA /* NSFileManager+HUtil.swift in Sources */,
 				EBC8147929AA543300A81431 /* HSendVideoVC+HStatus6.swift in Sources */,
