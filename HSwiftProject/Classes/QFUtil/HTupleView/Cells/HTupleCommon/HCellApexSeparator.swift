@@ -26,8 +26,9 @@ class HCellApexSeparator: UIView {
     
     private var separatorFrame: CGRect {
         let width = self.width - separatorInset.left - separatorInset.right
+        let size = CGSize(width: width, height: UIScreen.onePixel)
         let origin = CGPoint(x: separatorInset.left, y: self.y)
-        return CGRect(origin: origin, size: CGSize(width: width, height: UIScreen.onePixel))
+        return CGRect(origin: origin, size: size)
     }
     
     required override init(frame: CGRect) {
