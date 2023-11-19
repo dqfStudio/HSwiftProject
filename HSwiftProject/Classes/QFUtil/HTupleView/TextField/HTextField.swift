@@ -11,6 +11,11 @@ import UIKit
 typealias HTextFieldReturnBlock = (HTextField) -> Void
 typealias HTextFieldDidChangeBlock = (HTextField) -> Void
 
+extension UIView {
+    // 扩展一个空方法，用于加载UITextField的leftView或rightView
+    func loadEmpty() { }
+}
+
 class HTextField : UITextField, UITextFieldDelegate {
     
     lazy var leftLabel: UILabel = {
