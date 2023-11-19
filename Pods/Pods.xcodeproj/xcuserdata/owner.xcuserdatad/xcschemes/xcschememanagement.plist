@@ -49,12 +49,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SwiftyLoad.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>SwizzleSwift.xcscheme</key>
+		<key>TABAnimated.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
