@@ -29,7 +29,6 @@ class HSearchBar: UIStackView {
     }
     
     private func setup() {
-            
         // leftView
         if let leftView = leftView {
             leftView.widthAnchor.constraint(equalToConstant: leftWidth).isActive = true
@@ -38,10 +37,8 @@ class HSearchBar: UIStackView {
                 self.setCustomSpacing(leftSpace, after: leftView)
             }
         }
-        
         // item
         self.addArrangedSubview(textField)
-        
         // rightView
         if let rightView = rightView {
             rightView.widthAnchor.constraint(equalToConstant: rightWidth).isActive = true
@@ -49,9 +46,7 @@ class HSearchBar: UIStackView {
             if rightSpace > 0 {
                 self.setCustomSpacing(rightSpace, after: textField)
             }
-            
         }
-        
     }
     
 }
