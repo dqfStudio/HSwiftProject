@@ -17,7 +17,6 @@ class HToolbar: UIStackView, HTupleViewDelegate {
     private lazy var tupleView: HTupleView = {
         let tupleView = HTupleView(frame: .zero, scrollDirection: .horizontal)
         tupleView.isScrollEnabled = false
-        tupleView.tupleStatus = .block
         return tupleView
     }()
     
@@ -62,36 +61,34 @@ class HToolbar: UIStackView, HTupleViewDelegate {
     func numberOfItemsInSection(_ section: Any) -> Any {
         return items?.count ?? 0
     }
+    
+    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+        return CGSize(width: self.width / CGFloat((self.items?.count ?? 1)), height: self.height)
+    }
 
     // Configures the tuple item at the specified index path
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
-        cell.sizeBlock = {
-            return CGSize(width: self.width / CGFloat((self.items?.count ?? 1)), height: self.height)
-        }
-        cell.cellBlock = {
-            let item = self.items?[indexPath.row]
-            cell.label.textAlignment = .center
-            cell.label.text = item
-            
-            // Set the font and color of the title based on whether it is selected or not
-            if self.selectedIndex == indexPath.row {
-                cell.label.font = self.titleSelectedFont
-                cell.label.textColor = self.titleSelectedColor
-                cell.label.backgroundColor = self.titleSelectedBGColor
-            } else {
-                cell.label.font = self.titleFont
-                cell.label.textColor = self.titleColor
-                cell.label.backgroundColor = self.titleBGColor
-            }
+        let item = self.items?[indexPath.row]
+        cell.label.textAlignment = .center
+        cell.label.text = item
+        
+        // Set the font and color of the title based on whether it is selected or not
+        if self.selectedIndex == indexPath.row {
+            cell.label.font = self.titleSelectedFont
+            cell.label.textColor = self.titleSelectedColor
+            cell.label.backgroundColor = self.titleSelectedBGColor
+        } else {
+            cell.label.font = self.titleFont
+            cell.label.textColor = self.titleColor
+            cell.label.backgroundColor = self.titleBGColor
         }
         cell.selectBlock = {
             self.selectedIndex = indexPath.row
             self.selectedBlock?(indexPath.row)
             self.tupleView.reloadTupleData()
         }
-
     }
     
 }

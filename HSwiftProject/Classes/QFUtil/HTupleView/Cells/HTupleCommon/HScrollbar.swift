@@ -15,9 +15,7 @@ class HScrollbar: UIStackView, HTupleViewDelegate {
     
     // A lazy-loaded HTupleView instance
     private lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView(frame: .zero, scrollDirection: .horizontal)
-        tupleView.tupleStatus = .block
-        return tupleView
+        return HTupleView(frame: .zero, scrollDirection: .horizontal)
     }()
     
     // Indicator bar
@@ -128,33 +126,32 @@ class HScrollbar: UIStackView, HTupleViewDelegate {
     func numberOfItemsInSection(_ section: Any) -> Any {
         return items?.count ?? 0
     }
+    
+    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+        return CGSize(width: self.itemWidth, height: self.height)
+    }
 
     // Configures the tuple item at the specified index path
     func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
         let cell = itemBlock(HTupleViewCell.self, nil, true) as! HTupleViewCell
-        cell.sizeBlock = {
-            return CGSize(width: self.itemWidth, height: self.height)
-        }
-        cell.cellBlock = {
-            let bounds = cell.layoutViewBounds
-            let labelFrame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - self.indicatorBarHeight)
-            
-            let item = self.items?[indexPath.row]
-            cell.label.frame = labelFrame
-            cell.label.textAlignment = .center
-            cell.label.text = item
-            
-            // Set the font and color of the title based on whether it is selected or not
-            if self.selectedIndex == indexPath.row {
-                cell.label.font = self.titleSelectedFont
-                cell.label.textColor = self.titleSelectedColor
-                cell.backgroundColor = self.titleSelectedBGColor
-            } else {
-                cell.label.font = self.titleFont
-                cell.label.textColor = self.titleColor
-                cell.backgroundColor = self.titleBGColor
-            }
+        let bounds = cell.layoutViewBounds
+        let labelFrame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - self.indicatorBarHeight)
+        
+        let item = self.items?[indexPath.row]
+        cell.label.frame = labelFrame
+        cell.label.textAlignment = .center
+        cell.label.text = item
+        
+        // Set the font and color of the title based on whether it is selected or not
+        if self.selectedIndex == indexPath.row {
+            cell.label.font = self.titleSelectedFont
+            cell.label.textColor = self.titleSelectedColor
+            cell.backgroundColor = self.titleSelectedBGColor
+        } else {
+            cell.label.font = self.titleFont
+            cell.label.textColor = self.titleColor
+            cell.backgroundColor = self.titleBGColor
         }
         cell.selectBlock = {
             self.selectedIndex = indexPath.row
@@ -167,7 +164,6 @@ class HScrollbar: UIStackView, HTupleViewDelegate {
             let indexPath = IndexPath(row: row, section: indexPath.section)
             self.tupleView.scrollToItem(at: indexPath, at: .right, animated: true)
         }
-
     }
     
 }
