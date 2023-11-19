@@ -8,25 +8,18 @@
 
 import UIKit
 
-private var TIPS_IMAGE_VIEW_TAG = 10000
-private var TIPS_LABEL_TAG = 10001
-
-private var topLineLayerKey = "topLineLayerKey"
-private var bottomLineLayerKey = "bottomLineLayerKey"
-var kViewEdgeInsetsKey = "kViewEdgeInsetsKey"
+private var topLineLayerKey: Void?
+private var bottomLineLayerKey: Void?
+var kViewEdgeInsetsKey: Void?
 
 extension UIView {
     
-    /**
-    *  根据nib name返回UIView
-    */
+    ///根据nib name返回UIView
     static func view(withNibName nibName: String) -> UIView? {
         return Bundle.main.loadNibNamed(nibName, owner: nil, options: nil)?.first as? UIView
     }
     
-    /**
-    *  根据nib创建一个view，nib name为ClassName
-    */
+    ///根据nib创建一个view，nib name为ClassName
     static func viewFromNib() -> UIView? {
         return Bundle.main.loadNibNamed(NSStringFromClass(self.classForCoder()), owner: nil, options: nil)?.first as? UIView
     }
@@ -96,16 +89,12 @@ extension UIView {
         return self.frame.maxY
     }
 
-    /**
-    *  根据传入的width来水平居中
-    */
+    ///根据传入的width来水平居中
     func horizontalCenter(withWidth width: CGFloat) {
         self.x = (width - self.width) / 2
     }
 
-    /**
-    *  根据传入的height来竖直居中
-    */
+    ///根据传入的height来竖直居中
     func verticalCenter(withHeight height: CGFloat) {
         self.y = (height - self.height) / 2
     }
@@ -126,7 +115,7 @@ extension UIView {
         self.verticalCenter(withHeight: superview.height)
     }
     
-    // 根据UIEdgeInsets调整frame
+    ///根据UIEdgeInsets调整frame
     @objc var edgeInsets: UIEdgeInsets {
         get {
             let edgeInsetsString = self.getAssociatedValueForKey(&kViewEdgeInsetsKey) as? String ?? NSCoder.string(for: UIEdgeInsets.zero)
@@ -140,9 +129,7 @@ extension UIView {
         }
     }
     
-    /**
-    *  添加双击事件
-    */
+    ///添加双击事件
     @discardableResult
     func addDoubleTapGesture(withBlock block: @escaping HGestureBlock) -> UITapGestureRecognizer {
         self.addTapGesture(withNumberOfTapsRequired: 2, block: block)
@@ -157,9 +144,7 @@ extension UIView {
         return recognizer
     }
     
-    /**
-    *  添加单击事件，多次调用只会持有一个UITapGestureRecognizer对象，之前的会被清除
-    */
+    ///添加单击事件，多次调用只会持有一个UITapGestureRecognizer对象，之前的会被清除
     @discardableResult
     func addSingleTapGesture(withBlock block: @escaping HGestureBlock) -> UITapGestureRecognizer {
         if let gestureRecognizers = self.gestureRecognizers {
@@ -184,9 +169,7 @@ extension UIView {
     }
 
 
-    /**
-    *  设置UIView的顶部和底部边线，一般用在设置界面
-    */
+    ///设置UIView的顶部和底部边线，一般用在设置界面
     var topLineLayer: CALayer? {
         get { objc_getAssociatedObject(self, &topLineLayerKey) as? CALayer }
         set { objc_setAssociatedObject(self, &topLineLayerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
@@ -197,9 +180,7 @@ extension UIView {
         set { objc_setAssociatedObject(self, &bottomLineLayerKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
 
-    /**
-     *  添加一个SubLayer
-     */
+    ///添加一个SubLayer
     @discardableResult
     func addSubLayer(withFrame frame: CGRect, color: UIColor) -> CALayer {
         let layer = CALayer()
@@ -256,15 +237,8 @@ extension UIView {
         }
     }
 
-    func setTopAndBottomLine(withColor color: UIColor) {
-        self.setTopLine(withColor: color)
-        self.setBottomLine(withColor: color)
-    }
 
-
-    /**
-    *  返回它所在的ViewController
-    */
+    ///返回它所在的ViewController
     var viewController: UIViewController? {
         var next = self.next
         var controller: UIViewController?
@@ -280,9 +254,7 @@ extension UIView {
         return controller
     }
 
-    /**
-    *  设置边框宽度和颜色
-    */
+    ///设置边框宽度和颜色
     var borderWidth: CGFloat {
         get { return self.layer.borderWidth }
         set { self.layer.borderWidth = newValue }
@@ -301,9 +273,7 @@ extension UIView {
         }
     }
 
-    /**
-    *  设置圆角
-    */
+    ///设置圆角
     var cornerRadius: CGFloat {
         get { return self.layer.cornerRadius }
         set {
@@ -328,42 +298,8 @@ extension UIView {
         self.layer.maskedCorners = corners
         self.layer.masksToBounds = true
     }
-    
 
-    /**
-    *  主要用于UITableView，UIScrollView，UICollectionView等列表类的View，
-    *  在数据为空时，显示一个提示性的图像和文字
-    */
-    func setTipsView(withImageName imageName: String, text: String, textColor: UIColor) {
-        var imageView: UIImageView? = self.viewWithTag(TIPS_IMAGE_VIEW_TAG) as? UIImageView
-        if imageView == nil {
-            imageView = UIImageView(image: UIImage(named: imageName))
-        }
-        imageView?.center = CGPoint(x: self.width / 2, y: self.height / 2 - 40)
-        imageView?.contentMode = .center
-        imageView?.tag = TIPS_IMAGE_VIEW_TAG
-        self.addSubview(imageView!)
-        
-        var label: UILabel? = self.viewWithTag(TIPS_IMAGE_VIEW_TAG) as? UILabel
-        if label == nil {
-            label = UILabel(frame: CGRect(x: 0, y: imageView!.maxY + 10, width: UIScreen.width, height: 20))
-        }
-        label?.font = UIFont.systemFont(ofSize: 16)
-        label?.textColor = textColor
-        label?.text = text
-        label?.textAlignment = .center
-        label?.tag = TIPS_LABEL_TAG
-        self.addSubview(label!)
-    }
-
-    func removeTipsView() {
-        self.viewWithTag(TIPS_IMAGE_VIEW_TAG)?.removeFromSuperview()
-        self.viewWithTag(TIPS_LABEL_TAG)?.removeFromSuperview()
-    }
-
-    /**
-    *  生成快照图像
-    */
+    ///生成快照图像
     func snapshotImage() -> UIImage? {
         UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0)
         if let context = UIGraphicsGetCurrentContext() {
