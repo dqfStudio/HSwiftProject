@@ -22,10 +22,6 @@ extension NSIndexPath {
     static func nsStringValue(_ row: Int, _ section: Int) -> NSString {
         return "\(row)" + "\(section)" as NSString
     }
-    
-    static func instanceValue(_ row: Int, _ section: Int) -> NSIndexPath {
-        return NSIndexPath(row: row, section: section)
-    }
 }
 
 extension IndexPath {
@@ -41,9 +37,5 @@ extension IndexPath {
     }
     static func nsStringValue(_ row: Int, _ section: Int) -> NSString {
         return "\(row)" + "\(section)" as NSString
-    }
-    
-    static func instanceValue(_ row: Int, _ section: Int) -> IndexPath {
-        return IndexPath(row: row, section: section)
     }
 }
