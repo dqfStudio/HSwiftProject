@@ -23,7 +23,8 @@ class HUserLiveVC : HTupleController {
         inputField.placeholder = "请输入内容..."
         
         inputField.leftWidth = 10
-        inputField.leftLabel.text = ""
+        //inputField.leftLabel.text = ""
+        inputField.leftLabel.loadEmpty()
         
         // 去掉键盘上的toolBar
         inputField.inputAccessoryView = UIView()
