@@ -41,12 +41,12 @@ extension UIGestureRecognizer {
     private func addActionBlock(_ block: @escaping (_ sender: AnyObject) -> Void) {
         let target: UIGestureRecognizerBlockTarget = UIGestureRecognizerBlockTarget(block: block)
         self.addTarget(target, action: NSSelectorFromString("invoke:"))
-        let targets: NSMutableArray = self.allGestureRecognizerBlockTargets()
+        let targets = self.allGestureRecognizerBlockTargets()
         targets.add(target)
     }
     
     func removeAllActionBlocks() {
-        let targets: NSMutableArray = self.allGestureRecognizerBlockTargets()
+        let targets = self.allGestureRecognizerBlockTargets()
         targets.enumerateObjects { (target, idx, stop) in
             self.removeTarget(targets, action: NSSelectorFromString("invoke:"))
         }
