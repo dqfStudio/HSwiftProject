@@ -8,7 +8,7 @@
 
 import UIKit
 
-typealias HBlockInvoke = (_ timer: Timer) -> Void
+private typealias HBlockInvoke = (_ timer: Timer) -> Void
 
 extension Timer {
 
