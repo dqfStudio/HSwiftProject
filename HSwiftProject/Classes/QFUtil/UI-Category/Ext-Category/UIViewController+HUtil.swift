@@ -81,7 +81,7 @@ extension UIViewController {
     *  点击背景self.view的时候，关闭键盘
     */
     func hideKeyboardWhenTapBackground() {
-        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewTapped(_:)))
         self.view.addGestureRecognizer(tapGesture)
     }
 
