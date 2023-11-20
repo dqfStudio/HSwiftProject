@@ -237,4 +237,9 @@ extension UIApplication {
 //        }
 //    }
     
+    ///结束编辑
+    static func endEditing() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
 }
