@@ -8,9 +8,6 @@
 
 import UIKit
 import Alamofire
-
-typealias HRequestSuccessBlock = (_ response: AnyObject) -> Void
-typealias HRequestFailureBlock = (_ error: AnyObject) -> Void
  
 class HNetworkDAO: NSObject {
     
@@ -18,10 +15,9 @@ class HNetworkDAO: NSObject {
     static let hostName = ""
     
     ///网络请求
-    func sendGetWith(url: String,
-                     parameters:[String: Any]?,
-                        success:@escaping HRequestSuccessBlock,
-                        failure:@escaping HRequestFailureBlock) {
+    func getData(url: String, parameters:[String: Any]?,
+                 success: @escaping (_ result: Any?) -> Void,
+                 failure: @escaping (_ error: Error?) -> Void) {
         var urlString = url
         let baseUrl = HNetworkDAO.hostName
         if baseUrl.length > 0, url.length > 0 {
@@ -42,10 +38,9 @@ class HNetworkDAO: NSObject {
         }
     }
     
-    func sendPostWith(url: String,
-                      parameters:[String: Any]?,
-                         success:@escaping HRequestSuccessBlock,
-                         failure:@escaping HRequestFailureBlock) {
+    func postData(url: String, parameters:[String: Any]?,
+                  success: @escaping (_ result: Any?) -> Void,
+                  failure: @escaping (_ error: Error?) -> Void) {
         var urlString = url
         let baseUrl = HNetworkDAO.hostName
         if baseUrl.length > 0, url.length > 0 {
@@ -67,10 +62,9 @@ class HNetworkDAO: NSObject {
     }
     
     ///默认三次重试的网络请求
-    func retryGetWithUrl(url: String,
-                         parameters:[String: Any]?,
-                            success:@escaping HRequestSuccessBlock,
-                            failure:@escaping HRequestFailureBlock) {
+    func retryGetData(url: String, parameters:[String: Any]?,
+                      success: @escaping (_ result: Any?) -> Void,
+                      failure: @escaping (_ error: Error?) -> Void) {
         var urlString = url
         let baseUrl = HNetworkDAO.hostName
         if baseUrl.length > 0, url.length > 0 {
@@ -91,10 +85,9 @@ class HNetworkDAO: NSObject {
         }
     }
     
-    func retryPostWithUrl(url: String,
-                          parameters:[String: Any]?,
-                             success:@escaping HRequestSuccessBlock,
-                             failure:@escaping HRequestFailureBlock) {
+    func retryPostData(url: String, parameters:[String: Any]?,
+                       success: @escaping (_ result: Any?) -> Void,
+                       failure: @escaping (_ error: Error?) -> Void) {
         var urlString = url
         let baseUrl = HNetworkDAO.hostName
         if baseUrl.length > 0, url.length > 0 {
@@ -115,14 +108,12 @@ class HNetworkDAO: NSObject {
         }
     }
     
-    private func successWithResponse(_ response: DataResponse<Any>, block: @escaping HRequestSuccessBlock) {
-        if let value = response.result.value as? [String: Any] {
-            block(value as AnyObject)
-        }
+    private func successWithResponse(_ response: DataResponse<Any>, block: @escaping (_ result: Any?) -> Void) {
+        block(response.result.value)
     }
     
-    private func failureWithResponse(_ response: DataResponse<Any>, block: @escaping HRequestFailureBlock) {
-        block(response.error as AnyObject)
+    private func failureWithResponse(_ response: DataResponse<Any>, block: @escaping (_ error: Error?) -> Void) {
+        block(response.error)
     }
 }
 

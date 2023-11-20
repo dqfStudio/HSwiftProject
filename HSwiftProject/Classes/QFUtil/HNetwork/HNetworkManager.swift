@@ -9,8 +9,6 @@
 import UIKit
 import Alamofire
 
-typealias HNetworkStatus = (_ KNetworkStatus: Int) -> Void
-
 @objc
 enum KNetworkStatus: Int {
     case  Unknow    = -1  // 未知
@@ -29,40 +27,36 @@ class HNetworkManager: NSObject {
     var networkStatus: KNetworkStatus = .Unknow
     
     ///网络请求
-    func sendGetWith(url: String,
-                     parameters:[String: Any]?,
-                        success:@escaping HRequestSuccessBlock,
-                        failure:@escaping HRequestFailureBlock) {
-        HNetworkDAO().sendPostWith(url: url, parameters: parameters, success: success, failure: failure)
+    func getData(url: String, parameters:[String: Any]?,
+                 success: @escaping (_ result: Any?) -> Void,
+                 failure: @escaping (_ error: Error?) -> Void) {
+        HNetworkDAO().getData(url: url, parameters: parameters, success: success, failure: failure)
     }
     
-    func sendPostWith(url: String,
-                      parameters:[String: Any]?,
-                         success:@escaping HRequestSuccessBlock,
-                         failure:@escaping HRequestFailureBlock) {
-        HNetworkDAO().sendPostWith(url: url, parameters: parameters, success: success, failure: failure)
+    func postData(url: String, parameters:[String: Any]?,
+                  success: @escaping (_ result: Any?) -> Void,
+                  failure: @escaping (_ error: Error?) -> Void) {
+        HNetworkDAO().postData(url: url, parameters: parameters, success: success, failure: failure)
     }
     
     ///默认三次重试的网络请求
-    func retryGetWithUrl(url: String,
-                         parameters:[String: Any]?,
-                            success:@escaping HRequestSuccessBlock,
-                            failure:@escaping HRequestFailureBlock) {
-        HNetworkDAO().retryGetWithUrl(url: url, parameters: parameters, success: success, failure: failure)
+    func retryGetData(url: String, parameters:[String: Any]?,
+                      success: @escaping (_ result: Any?) -> Void,
+                      failure: @escaping (_ error: Error?) -> Void) {
+        HNetworkDAO().retryGetData(url: url, parameters: parameters, success: success, failure: failure)
     }
     
-    func retryPostWithUrl(url: String,
-                          parameters:[String: Any]?,
-                             success:@escaping HRequestSuccessBlock,
-                             failure:@escaping HRequestFailureBlock) {
-        HNetworkDAO().retryPostWithUrl(url: url, parameters: parameters, success: success, failure: failure)
+    func retryPostData(url: String, parameters:[String: Any]?,
+                       success: @escaping (_ result: Any?) -> Void,
+                       failure: @escaping (_ error: Error?) -> Void) {
+        HNetworkDAO().retryPostData(url: url, parameters: parameters, success: success, failure: failure)
     }
 }
 
 // 网络状态监听
 extension HNetworkManager {
-    
-    func monitoringNetwork (networkStatus:@escaping HNetworkStatus) {
+
+    func monitoringNetwork (networkStatus: @escaping (_ KNetworkStatus: Int) -> Void) {
         let reachability = NetworkReachabilityManager()
         reachability?.startListening()
         reachability?.listener = { [weak self] status in
@@ -86,8 +80,8 @@ extension HNetworkManager {
     }
     
 //    public func monitoringDataFormLocalWhenNetChanged() {
-//        self.monitoringNetwork{ (_) in
-//
+//        self.monitoringNetwork { status in
+//            
 //        }
 //    }
  
