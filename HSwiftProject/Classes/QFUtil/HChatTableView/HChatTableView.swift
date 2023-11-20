@@ -119,22 +119,20 @@ class HChatTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         NotificationCenter.default.removeObserver(self)
     }
 
-    func dequeueReusableCellWithClass(_ cls: AnyClass, _ idx: Bool, idxPath: IndexPath) -> AnyObject {
-        var cell: UITableViewCell
+    func dequeueReusableCellWithClass(_ cls: AnyClass, _ idx: Bool, indexPath: IndexPath) -> AnyObject {
         // Unique identifier
         var identifier = "ItemCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
-        identifier += idx ? idxPath.stringValue : ""
-        // Determine whether it has been loaded
+        identifier += idx ? indexPath.stringValue : ""
+        // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
             self.register(cls, forCellReuseIdentifier: identifier)
-            cell = self.dequeueReusableCell(withIdentifier: identifier, for: idxPath)
-            // Save cell
-            self.allReuseCells.setObject(cell, forKey: idxPath.nsStringValue)
-        }else {
-            cell = self.dequeueReusableCell(withIdentifier: identifier, for: idxPath)
         }
+        // Dequeue cell
+        let cell = self.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
+        // Save cell
+        self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
         return cell
     }
     
@@ -183,7 +181,7 @@ class HChatTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         if let delegate = self.tableDelegate {
             let selector = #selector(delegate.tableRow(_:atIndexPath:))
             let itemBlock = { (_ cls: AnyClass, _ idx: Bool) in
-                return self.dequeueReusableCellWithClass(cls, idx, idxPath: indexPath)
+                return self.dequeueReusableCellWithClass(cls, idx, indexPath: indexPath)
             }
             if delegate.responds(to: selector) {
                 delegate.perform(selector, with: itemBlock, with: indexPath)
