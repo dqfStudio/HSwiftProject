@@ -237,9 +237,14 @@ extension UIApplication {
 //        }
 //    }
     
-    ///结束编辑
+    ///结束第一响应者
     static func endEditing() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+    }
+    
+    ///屏幕是否常亮
+    static func disableIdleTimer(_ isEnabled: Bool) {
+        UIApplication.shared.isIdleTimerDisabled = isEnabled
     }
     
 }
