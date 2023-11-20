@@ -8,11 +8,11 @@
 
 import UIKit
 
-private var gesture_block_key = "gesture_block_key"
+private var gesture_block_key: Void?
 
-typealias HGestureBlock = (_ sender: AnyObject) -> Void
+private typealias HGestureBlock = (_ sender: AnyObject) -> Void
 
-class UIGestureRecognizerBlockTarget : NSObject {
+class UIGestureRecognizerBlockTarget: NSObject {
 
     private var block: HGestureBlock?
     
@@ -21,7 +21,7 @@ class UIGestureRecognizerBlockTarget : NSObject {
         self.block?(sender)
     }
 
-    convenience init(block: @escaping HGestureBlock) {
+    convenience init(block: @escaping (_ sender: AnyObject) -> Void) {
         self.init()
         self.block = block
     }
@@ -33,12 +33,12 @@ class UIGestureRecognizerBlockTarget : NSObject {
 
 extension UIGestureRecognizer {
     
-    convenience init(block: @escaping HGestureBlock) {
+    convenience init(block: @escaping (_ sender: AnyObject) -> Void) {
         self.init()
         self.addActionBlock(block)
     }
 
-    private func addActionBlock(_ block: @escaping HGestureBlock) {
+    private func addActionBlock(_ block: @escaping (_ sender: AnyObject) -> Void) {
         let target: UIGestureRecognizerBlockTarget = UIGestureRecognizerBlockTarget(block: block)
         self.addTarget(target, action: NSSelectorFromString("invoke:"))
         let targets: NSMutableArray = self.allGestureRecognizerBlockTargets()

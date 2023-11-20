@@ -131,12 +131,12 @@ extension UIView {
     
     ///添加双击事件
     @discardableResult
-    func addDoubleTapGesture(withBlock block: @escaping HGestureBlock) -> UITapGestureRecognizer {
+    func addDoubleTapGesture(withBlock block: @escaping (_ sender: AnyObject) -> Void) -> UITapGestureRecognizer {
         self.addTapGesture(withNumberOfTapsRequired: 2, block: block)
     }
 
     @discardableResult
-    private func addTapGesture(withNumberOfTapsRequired numberOfTapsRequired: Int, block: @escaping HGestureBlock) -> UITapGestureRecognizer {
+    private func addTapGesture(withNumberOfTapsRequired numberOfTapsRequired: Int, block: @escaping (_ sender: AnyObject) -> Void) -> UITapGestureRecognizer {
         let recognizer = UITapGestureRecognizer(block: block)
         recognizer.numberOfTapsRequired = numberOfTapsRequired
         addGestureRecognizer(recognizer)
@@ -146,7 +146,7 @@ extension UIView {
     
     ///添加单击事件，多次调用只会持有一个UITapGestureRecognizer对象，之前的会被清除
     @discardableResult
-    func addSingleTapGesture(withBlock block: @escaping HGestureBlock) -> UITapGestureRecognizer {
+    func addSingleTapGesture(withBlock block: @escaping (_ sender: AnyObject) -> Void) -> UITapGestureRecognizer {
         if let gestureRecognizers = self.gestureRecognizers {
             for gesture in gestureRecognizers where gesture is UITapGestureRecognizer {
                 self.removeGestureRecognizer(gesture)
