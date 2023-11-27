@@ -176,19 +176,19 @@ extension HWebImageView {
         if urlString.count == 0 {
             self._setImage(placeholder)
             self.lastURL = ""
-            didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
+            self.didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
             return
         }
         
         if urlString.hasPrefix("http") == false {
             let image = UIImage(named: urlString)
             self._setImage(image)
-            didGetImage?(self, self.image)
+            self.didGetImage?(self, self.image)
             return
         }
         
         if self.image != nil && lastURL.isEqual(urlString) {
-            didGetImage?(self, self.image)
+            self.didGetImage?(self, self.image)
             return
         }
         

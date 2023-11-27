@@ -242,7 +242,7 @@ extension HWebButtonView {
         if urlString.count == 0 {
             self._setImage(placeholder)
             self.lastURL = ""
-            didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
+            self.didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
             return
         }
 
@@ -250,13 +250,13 @@ extension HWebButtonView {
             let image = UIImage(named: urlString)
             self._setImage(image)
             self.webImageView.alpha = 1.0
-            didGetImage?(self, webImageView.image)
+            self.didGetImage?(self, self.webImageView.image)
             return
         }
         
         if self.webImageView.image != nil && lastURL.isEqual(urlString) {
             self.webImageView.alpha = 1.0
-            didGetImage?(self, webImageView.image)
+            self.didGetImage?(self, self.webImageView.image)
             return
         }
 
