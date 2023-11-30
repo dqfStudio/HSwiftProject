@@ -254,7 +254,7 @@ extension HWebButtonView {
             return
         }
         
-        if self.webImageView.image != nil && lastURL.isEqual(urlString) {
+        if self.webImageView.image != nil && self.lastURL.isEqual(urlString) {
             self.webImageView.alpha = 1.0
             self.didGetImage?(self, self.webImageView.image)
             return
