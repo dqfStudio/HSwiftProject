@@ -351,6 +351,18 @@ extension UIButton {
             self.adjustsImageWhenHighlighted = false
         }
     }
+    
+    func setBackgroundColor(_ color: UIColor, for state: UIControl.State) {
+        let size = CGSize(width: 1, height: 1)
+        let rect = CGRect(origin: .zero, size: size)
+        let renderer = UIGraphicsImageRenderer(size: size)
+        let image = renderer.image { ctx in
+            color.setFill()
+            ctx.fill(rect)
+        }
+        self.imageView?.contentMode = .scaleToFill
+        self.setBackgroundImage(image, for: state)
+    }
 
     public func addTarget(_ target: Any?, action: Selector) {
         self.addTarget(target, action: action, for: .touchUpInside)
