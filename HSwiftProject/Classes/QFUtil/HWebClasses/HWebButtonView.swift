@@ -272,14 +272,14 @@ extension HWebButtonView {
         }
 
         if cache {
-            KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { result in
+            KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { [weak self] result in
                 switch result {
                 case.success(let value):
                     if value.image != nil {
-                        self._setImage(value.image)
-                        self.webImageView.alpha = 1.0
-                        self.lastURL = url.absoluteString
-                        self.didGetImage?(self, value.image)
+                        self?._setImage(value.image)
+                        self?.webImageView.alpha = 1.0
+                        self?.lastURL = url.absoluteString
+                        self?.didGetImage?(self, value.image)
                     }
                 case .failure(_): break
                 }
@@ -287,21 +287,21 @@ extension HWebButtonView {
         }
         
         //self.webImageView.kf.indicatorType = .activity
-        self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
+        self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { [weak self] result in
             switch result {
             case .success(let value):
-                self._setImage(value.image)
-                self.lastURL = url.absoluteString
+                self?._setImage(value.image)
+                self?.lastURL = url.absoluteString
                 if value.cacheType == .none {
                     UIView.animate(withDuration: 0.5) {
-                        self.webImageView.alpha = 1.0
+                        self?.webImageView.alpha = 1.0
                     }
                 }else {
-                    self.webImageView.alpha = 1.0
+                    self?.webImageView.alpha = 1.0
                 }
-                self.didGetImage?(self, value.image)
+                self?.didGetImage?(self, value.image)
             case .failure(let value):
-                self.didGetError?(self, value as AnyObject)
+                self?.didGetError?(self, value as AnyObject)
             }
         }
     }

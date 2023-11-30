@@ -200,13 +200,13 @@ extension HWebImageView {
         }
         
         if cache {
-            KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { result in
+            KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { [weak self] result in
                 switch result {
                 case.success(let value):
                     if value.image != nil {
-                        self._setImage(value.image)
-                        self.lastURL = url.absoluteString
-                        self.didGetImage?(self, value.image)
+                        self?._setImage(value.image)
+                        self?.lastURL = url.absoluteString
+                        self?.didGetImage?(self, value.image)
                     }
                 case .failure(_): break
                 }
@@ -214,14 +214,14 @@ extension HWebImageView {
         }
         
         //self.kf.indicatorType = .activity
-        self.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { result in
+        self.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { [weak self] result in
             switch result {
             case .success(let value):
-                self._setImage(value.image)
-                self.lastURL = url.absoluteString
-                self.didGetImage?(self, value.image)
+                self?._setImage(value.image)
+                self?.lastURL = url.absoluteString
+                self?.didGetImage?(self, value.image)
             case .failure(let value):
-                self.didGetError?(self, value as AnyObject)
+                self?.didGetError?(self, value as AnyObject)
             }
         }
     }
