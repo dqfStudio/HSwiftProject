@@ -187,7 +187,7 @@ extension HWebImageView {
             return
         }
         
-        if self.image != nil && self.lastURL.isEqual(urlString) {
+        if self.image != nil && self.lastURL == urlString {
             self.didGetImage?(self, self.image)
             return
         }
