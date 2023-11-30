@@ -45,9 +45,6 @@ typealias HTupleHeader = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyOb
 typealias HTupleFooter = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject
 typealias HTupleItem = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject
 
-/// Split design exclusive sections block
-typealias HTupleSectionExclusiveBlock = () -> NSArray
-
 /// This class is used for refreshing tupleView throughout the project.
 class HTupleAppearance: NSObject {
 
@@ -240,7 +237,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     /// Initialization method for split
-    static func tupleFrame(_ frame: () -> CGRect, exclusiveSections sections: HTupleSectionExclusiveBlock) -> HTupleView {
+    static func tupleFrame(_ frame: () -> CGRect, exclusiveSections sections: () -> NSArray) -> HTupleView {
         return HTupleView(frame(), exclusiveSections: sections())
     }
 
