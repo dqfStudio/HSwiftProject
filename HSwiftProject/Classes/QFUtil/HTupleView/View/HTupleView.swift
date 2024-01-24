@@ -366,7 +366,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     var refreshBlock: HTupleRefreshBlock? {
         didSet {
             if let refreshBlock = refreshBlock {
-                self.mj_header = HTupleRefresh.refreshHeaderWithStyle(refreshHeaderStyle) {
+                self.mj_header = HTupleRefresh.refreshHeaderWithStyle(refreshHeaderStyle) { [weak self] in
+                    guard let self = self else { return }
                     self.pageNo = 1
                     refreshBlock()
                 }
@@ -462,13 +463,13 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     /// Release method
     @objc
     func releaseTupleBlock() {
-        DispatchQueue.global().async {
-            self.releaseAllSignal()
-            self.clearTupleState()
+        DispatchQueue.global().async { [weak self] in
+            self?.releaseAllSignal()
+            self?.clearTupleState()
 
-            self.tupleDelegate = nil
-            self.refreshBlock = nil
-            self.loadMoreBlock = nil
+            self?.tupleDelegate = nil
+            self?.refreshBlock = nil
+            self?.loadMoreBlock = nil
         }
     }
 
@@ -1213,8 +1214,8 @@ extension HTupleView {
 
     /// Send signals to all items, items under a certain section, or a single item individually
     func signalToAllItems(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInteractive).async {
-            let tuples = self.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HTupleBaseCell }
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
+            let tuples = self?.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HTupleBaseCell }
             tuples?.forEach { cell in
                 DispatchQueue.main.async {
                     cell.signalBlock?(cell, signal)
@@ -1230,8 +1231,8 @@ extension HTupleView {
         let items = self.numberOfItems(inSection: section)
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
-            DispatchQueue.concurrentPerform(iterations: items) { i in
-                let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HTupleBaseCell
+            DispatchQueue.concurrentPerform(iterations: items) { [weak self] i in
+                let cell = self?.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HTupleBaseCell
                 if let cell = cell, let signalBlock = cell.signalBlock {
                     DispatchQueue.main.async(group: group) {
                         signalBlock(cell, signal)
@@ -1258,8 +1259,8 @@ extension HTupleView {
         let sections = self.numberOfSections
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
-            DispatchQueue.concurrentPerform(iterations: sections) { i in
-                let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HTupleBaseApex
+            DispatchQueue.concurrentPerform(iterations: sections) { [weak self] i in
+                let header = self?.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HTupleBaseApex
                 if let header = header, let signalBlock = header.signalBlock {
                     DispatchQueue.main.async(group: group) {
                         signalBlock(header, signal)
@@ -1286,8 +1287,8 @@ extension HTupleView {
         let sections = self.numberOfSections
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
-            DispatchQueue.concurrentPerform(iterations: sections) { i in
-                let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HTupleBaseApex
+            DispatchQueue.concurrentPerform(iterations: sections) { [weak self] i in
+                let footer = self?.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HTupleBaseApex
                 if let footer = footer, let signalBlock = footer.signalBlock {
                     DispatchQueue.main.async(group: group) {
                         signalBlock(footer, signal)
@@ -1311,21 +1312,21 @@ extension HTupleView {
 
     /// Release all signal blocks
     func releaseAllSignal() {
-        DispatchQueue.global().async {
-            self.signalBlock = nil
+        DispatchQueue.global().async { [weak self] in
+            self?.signalBlock = nil
             //release all cell
-            self.allReuseCells.objectEnumerator()?.allObjects.forEach {
+            self?.allReuseCells.objectEnumerator()?.allObjects.forEach {
                 ($0 as? HTupleBaseCell)?.sizeBlock = nil
                 ($0 as? HTupleBaseCell)?.cellBlock = nil
                 ($0 as? HTupleBaseCell)?.signalBlock = nil
                 ($0 as? HTupleBaseCell)?.edgeInsetsBlock = nil
             }
             //release all header
-            self.allReuseHeaders.objectEnumerator()?.allObjects.forEach {
+            self?.allReuseHeaders.objectEnumerator()?.allObjects.forEach {
                 ($0 as? HTupleBaseApex)?.signalBlock = nil
             }
             //release all footer
-            self.allReuseFooters.objectEnumerator()?.allObjects.forEach {
+            self?.allReuseFooters.objectEnumerator()?.allObjects.forEach {
                 ($0 as? HTupleBaseApex)?.signalBlock = nil
             }
         }
