@@ -122,7 +122,7 @@ class HTupleAppearance: NSObject {
     optional func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath)
 
     @objc
-    optional func willDisplayCell(_ cell: UICollectionViewCell, atIndexPath indexPath: IndexPath)
+    optional func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath)
     @objc
     optional func didSelectItemAtIndexPath(_ indexPath: IndexPath)
 

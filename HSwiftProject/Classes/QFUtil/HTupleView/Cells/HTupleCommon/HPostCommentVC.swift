@@ -112,7 +112,7 @@ class HPostCommentVC: HTupleController {
         }
     }
     
-    func willDisplayCell(_ cell: UICollectionViewCell, atIndexPath indexPath: IndexPath) {
+    func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
         // 添加间隔线
         if indexPath.row != 3 - 1 {
             cell.setBottomLine(withColor: .red, paddingLeft: 76, paddingRight: 16)

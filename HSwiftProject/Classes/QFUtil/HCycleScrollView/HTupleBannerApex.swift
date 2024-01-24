@@ -157,7 +157,7 @@ class HTupleBannerApex : HTupleBaseApex, HTupleViewDelegate {
         }
     }
     
-    func willDisplayCell(_ cell: UICollectionViewCell, atIndexPath indexPath: IndexPath) {
+    func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
         if let imageUrlArr = imageUrlArr, imageUrlArr.count > 1 {
             if indexPath.section == 0 || indexPath.section == imageUrlArr.count * kBannerSize - 1 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
