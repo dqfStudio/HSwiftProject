@@ -452,6 +452,12 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     func disableBounce() {
         self.bounces = false
     }
+    
+    /// Scroll to top
+    func scrollToTop(_ animated: Bool) {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        self.scrollRectToVisible(rect, animated: animated)
+    }
 
     @objc
     func reloadTupleData() {
