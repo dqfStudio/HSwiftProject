@@ -713,7 +713,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             // Prevents quantity from being less than 0
             items = max(items, 0)
             
-            // blcok status
+            // Blcok status
             if self.tupleStatus == .block {
 
                 // Traverse to obtain the cell of the section
