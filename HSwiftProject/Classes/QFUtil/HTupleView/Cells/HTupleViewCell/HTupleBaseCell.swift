@@ -8,9 +8,6 @@
 
 import UIKit
 
-typealias HTupleCellSizeBlock = () -> CGSize
-typealias HTupleCellEdgeInsetsBlock = () -> UIEdgeInsets
-typealias HTupleCellBlock = () -> Void
 typealias HTupleCellSelectBlock = () -> Void
 
 class HTupleBaseCell: UICollectionViewCell {
@@ -20,15 +17,9 @@ class HTupleBaseCell: UICollectionViewCell {
 
     /// IndexPath where the cell is located
     var indexPath: IndexPath?
-
-    /// Callback for getting size.
-    var sizeBlock: HTupleCellSizeBlock?
     
-    /// Callback for obtaining edgeInsets
-    var edgeInsetsBlock: HTupleCellEdgeInsetsBlock?
-    
-    /// Callback for getting a cell
-    var cellBlock: HTupleCellBlock?
+    /// Callback when a cell is clicked
+    var willDisplayBlock: HTupleCellSelectBlock?
     
     /// Callback when a cell is clicked
     var selectBlock: HTupleCellSelectBlock?

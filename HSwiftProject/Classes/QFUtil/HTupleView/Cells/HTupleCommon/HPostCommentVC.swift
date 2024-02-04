@@ -23,7 +23,6 @@ class HPostCommentVC: HTupleController {
         super.viewDidLoad()
         self.title = "评论列表"
         self.tupleView.delegate = self
-        self.tupleView.tupleStatus = .block
         
         sourceData.forEach { item in
             let postVM = HPostCommentVM()
@@ -107,9 +106,9 @@ class HPostCommentVC: HTupleController {
         }
 
         // 设置cell大小
-        cell.sizeBlock = {
-            return CGSize(width: self.tupleView.width, height: cellHeight)
-        }
+//        cell.sizeBlock = {
+//            return CGSize(width: self.tupleView.width, height: cellHeight)
+//        }
     }
     
     func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {

@@ -24,7 +24,6 @@ class HPostVC: HTupleController {
         self.navigationBar.leftItem.isHidden = true
         self.title = "推荐列表"
         self.tupleView.delegate = self
-        self.tupleView.tupleStatus = .block
         
         sourceData.forEach { item in
             let postVM = HPostVM()
@@ -69,9 +68,9 @@ class HPostVC: HTupleController {
         }
         
         // 设置cell大小
-        cell.sizeBlock = {
-            return CGSize(width: self.tupleView.width, height: cellHeight)
-        }
+//        cell.sizeBlock = {
+//            return CGSize(width: self.tupleView.width, height: cellHeight)
+//        }
     }
     
     func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {

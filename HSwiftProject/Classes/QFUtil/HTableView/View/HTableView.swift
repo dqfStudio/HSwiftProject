@@ -13,11 +13,6 @@ private enum HTableStyle: Int {
     case split //Split design
 }
 
-enum HTableStatus: Int {
-    case delegate = 0  // Delegate design
-    case block = 1  // Block design
-}
-
 var kTableDefaultTag = 1615141312
 
 private var kTablePageNo = 1
@@ -119,9 +114,6 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     // table style
     private var tableStyle: HTableStyle = .default
-
-    // table status
-    var tableStatus: HTableStatus = .delegate
     
     // Set the value of marginTop
     var marginTop: CGFloat = 0.0
@@ -495,21 +487,18 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         cell.table = self
         // Save cell
         self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
-        // delegate status
-        if tableStatus == .delegate {
-            // Call delegate method
-            var edgeInsets: UIEdgeInsets = .zero
-            if let delegate = self.tableDelegate {
-                let prefix = self.tableSplitPrefix(withSection: indexPath.section)
-                let selector = #selector(delegate.edgeInsetsForRowAtIndexPath(_:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! UIEdgeInsets
-                }
+        // Call delegate method
+        var edgeInsets: UIEdgeInsets = .zero
+        if let delegate = self.tableDelegate {
+            let prefix = self.tableSplitPrefix(withSection: indexPath.section)
+            let selector = #selector(delegate.edgeInsetsForRowAtIndexPath(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! UIEdgeInsets
             }
-            // Set properties
-            if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-                cell.edgeInsets = edgeInsets
-            }
+        }
+        // Set properties
+        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
+            cell.edgeInsets = edgeInsets
         }
         // Return cell
         return cell
@@ -562,7 +551,6 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var items = 0
         if let delegate = self.tableDelegate {
-            
             // Get the number of items
             let prefix = self.tableSplitPrefix(withSection: section)
             let selector = #selector(delegate.numberOfRowsInSection(_:))
@@ -572,28 +560,6 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             
             // Prevents quantity from being less than 0
             items = max(items, 0)
-            
-            // blcok status
-            if tableStatus == .block {
-
-                // Traverse to obtain the cell of the section
-                for item in 0...items {
-
-                    let indexPath = IndexPath(row: item, section: section)
-                    let prefix = self.tableSplitPrefix(withSection: indexPath.section)
-
-                    // Call cell delegate method
-                    let itemSelector = #selector(delegate.tableRow(_:atIndexPath:))
-                    let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) in
-                        return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
-                    }
-                    if delegate.responds(to: itemSelector, withPre: prefix) {
-                        delegate.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
-                    }
-                }
-
-            }
-            
         }
         return items
     }
@@ -637,103 +603,40 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
         // The row height cannot be 0, otherwise it will crash.
         var height: CGFloat = 1.0
-            
-        // delegate status
-        if tableStatus == .delegate {
-        
-            if let delegate = self.tableDelegate {
-                let prefix = self.tableSplitPrefix(withSection: indexPath.section)
-                let selector = #selector(delegate.heightForRowAtIndexPath(_:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    height = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGFloat
-                }
-                // Prevent negative size
-                if height <= 0 { height = 1.0 }
+        if let delegate = self.tableDelegate {
+            let prefix = self.tableSplitPrefix(withSection: indexPath.section)
+            let selector = #selector(delegate.heightForRowAtIndexPath(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                height = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGFloat
             }
-            
-        } else {// block status
-            
-            // Call cell
-            let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTableBaseCell
-
-            // Update layout
-            if let cell = cell, let heightBlock = cell.heightBlock {
-
-                // Get the size
-                height = heightBlock()
-
-                // Prevent negative size
-                if height <= 0 { height = 1.0 }
-
-            } else if let delegate = self.tableDelegate {
-                
-                let prefix = self.tableSplitPrefix(withSection: indexPath.section)
-                let selector = #selector(delegate.heightForRowAtIndexPath(_:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    height = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGFloat
-                }
-                // Prevent negative size
-                if height <= 0 { height = 1.0 }
-                
-            }
-            
+            // Prevent negative size
+            if height <= 0 { height = 1.0 }
         }
-
         return height
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        // delegate status
-        if tableStatus == .delegate {
-          
-            // Call delegate method
-            if let delegate = self.tableDelegate {
-                let prefix = self.tableSplitPrefix(withSection: indexPath.section)
-                let selector = #selector(delegate.tableRow(_:atIndexPath:))
-                let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) in
-                    return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
-                }
-                if delegate.responds(to: selector, withPre: prefix) {
-                    delegate.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
-                }
+        // Call delegate method
+        if let delegate = self.tableDelegate {
+            let prefix = self.tableSplitPrefix(withSection: indexPath.section)
+            let selector = #selector(delegate.tableRow(_:atIndexPath:))
+            let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) in
+                return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
             }
-            // Call cell
-            let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTableBaseCell
-            // Update layout
-            if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-                cell.relayoutSubviews()
+            if delegate.responds(to: selector, withPre: prefix) {
+                delegate.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
             }
-            // Prevent crashes
-            return cell ?? UITableViewCell()
-            
-        } else {// block status
-            
-            // Call cell
-            var cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTableBaseCell
-            if cell == nil {
-                // Call delegate method
-                if let delegate = self.tableDelegate {
-                    let prefix = self.tableSplitPrefix(withSection: indexPath.section)
-                    let selector = #selector(delegate.tableRow(_:atIndexPath:))
-                    let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) in
-                        return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
-                    }
-                    if delegate.responds(to: selector, withPre: prefix) {
-                        delegate.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
-                    }
-                }
-                // Call cell
-                cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTableBaseCell
-            }
-
-            // Prevent crashes
-            return cell ?? UITableViewCell()
         }
-
+        // Call cell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTableBaseCell
+        // Update layout
+        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
+            cell.relayoutSubviews()
+        }
+        // Prevent crashes
+        return cell ?? UITableViewCell()
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -803,29 +706,6 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let delegate = self.tableDelegate else { return }
-        // block status
-        if tableStatus == .block {
-            // Call cell
-            if let cell = cell as? HTableBaseCell {
-                // Reset edge insets
-                var edgeInsets: UIEdgeInsets = .zero
-                if let edgeInsetsBlock = cell.edgeInsetsBlock {
-                    edgeInsets = edgeInsetsBlock()
-                }else if let delegate = self.tableDelegate {// Call delegate method
-                    let prefix = self.tableSplitPrefix(withSection: indexPath.section)
-                    let selector = #selector(delegate.edgeInsetsForRowAtIndexPath(_:))
-                    if delegate.responds(to: selector, withPre: prefix) {
-                        edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! UIEdgeInsets
-                    }
-                }
-                // Reset edge insets
-                cell.edgeInsets = edgeInsets
-                // Get subviews of cell
-                cell.cellBlock?()
-                // Update layout
-                cell.relayoutSubviews()
-            }
-        }
         let prefix = self.tableSplitPrefix(withSection: indexPath.section)
         let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
         if delegate.responds(to: selector, withPre: prefix) {
@@ -969,10 +849,8 @@ extension HTableView {
             self.signalBlock = nil
             //release all cell
             self.allReuseCells.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HTableBaseCell)?.cellBlock = nil
                 ($0 as? HTableBaseCell)?.signalBlock = nil
-                ($0 as? HTableBaseCell)?.heightBlock = nil
-                ($0 as? HTableBaseCell)?.edgeInsetsBlock = nil
+                ($0 as? HTableBaseCell)?.selectBlock = nil
             }
             //release all header
             self.allReuseHeaders.objectEnumerator()?.allObjects.forEach {
