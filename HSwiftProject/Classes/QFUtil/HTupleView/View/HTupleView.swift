@@ -883,7 +883,6 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             let attributes = self.allAttributes.object(forKey: attributeKey)
             let identifier = attributes?.identifier ?? ""
             let cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! HTupleBaseCell
-            attributes?.cellBlock?(self, cell)
             if let attributes = attributes {
                 // Dequeue cell
                 cell.indexPath = indexPath
@@ -898,6 +897,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 if cell.responds(to: #selector(cell.relayoutSubviews)) {
                     cell.relayoutSubviews()
                 }
+                // Call cell
+                attributes.cellBlock?(self, cell)
             }
             return cell
         }
