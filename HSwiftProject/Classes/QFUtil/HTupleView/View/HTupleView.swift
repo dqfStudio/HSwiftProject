@@ -481,7 +481,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     /// Release method
     @objc
     func releaseTupleBlock() {
-        DispatchQueue.global().async { [weak self] in
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             self?.releaseAllSignal()
             self?.clearTupleState()
 
@@ -1346,7 +1346,7 @@ extension HTupleView {
 
     /// Release all signal blocks
     func releaseAllSignal() {
-        DispatchQueue.global().async { [weak self] in
+        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
             self.signalBlock = nil
             //release all cell
