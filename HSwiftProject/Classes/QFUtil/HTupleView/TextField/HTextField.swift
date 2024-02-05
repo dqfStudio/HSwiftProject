@@ -193,8 +193,9 @@ class HTextField : UITextField, UITextFieldDelegate {
 
     private func setLeftViewFrame() {
         guard let leftView = super.leftView, leftWidth > 0 else { return }
-        bounds.size.width = leftWidth
-        let frame = bounds.inset(by: leftInsets)
+        var leftBounds = self.bounds
+        leftBounds.width = leftWidth
+        let frame = leftBounds.inset(by: leftInsets)
         if frame != leftView.frame {
             leftView.frame = frame
         }
@@ -202,8 +203,9 @@ class HTextField : UITextField, UITextFieldDelegate {
     
     private func setRightViewFrame() {
         guard let rightView = super.rightView, rightWidth > 0 else { return }
-        bounds.size.width = rightWidth
-        let frame = bounds.inset(by: rightInsets)
+        var rightBounds = self.bounds
+        rightBounds.width = rightWidth
+        let frame = rightBounds.inset(by: rightInsets)
         if frame != rightView.frame {
             rightView.frame = frame
         }
