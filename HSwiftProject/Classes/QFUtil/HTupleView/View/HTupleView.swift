@@ -871,7 +871,11 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 }
             }
             // Call cell
-            let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
+            var cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
+            // 防止业务层使用不当，导致cell为空，此处自动初始化一个值，防止崩溃
+            if cell == nil {
+                cell = self.dequeueReusableCellWithClass(HTupleBaseCell.self, pre: nil, idx: true, indexPath: indexPath) as? HTupleBaseCell
+            }
             // Update layout
             if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
                 cell.relayoutSubviews()
