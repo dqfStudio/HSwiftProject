@@ -485,9 +485,11 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             self?.releaseAllSignal()
             self?.clearTupleState()
 
-            self?.tupleDelegate = nil
-            self?.refreshBlock = nil
-            self?.loadMoreBlock = nil
+            DispatchQueue.main.async { [weak self] in
+                self?.tupleDelegate = nil
+                self?.refreshBlock = nil
+                self?.loadMoreBlock = nil
+            }
         }
     }
 
