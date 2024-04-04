@@ -10,6 +10,13 @@ import UIKit
 
 extension UIScreen {
     
+    static var safeArea: CGRect {
+        var bounds = UIScreen.main.bounds
+        bounds.origin.y = UIScreen.topBarHeight
+        bounds.size.height -= bounds.origin.y + UIScreen.bottomBarHeight
+        return bounds
+    }
+    
     static var bound: CGRect {
         return UIScreen.main.bounds
     }
