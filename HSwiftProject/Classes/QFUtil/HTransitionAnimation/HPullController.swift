@@ -142,25 +142,24 @@ extension HPullController {
         }
     }
     @objc
-    func tupleExa0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
+    func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         if let title = _title, !title.isEmpty {
             switch (indexPath.row) {
             case HCell0:
-                let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+                let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
                 cell.backgroundColor = UIColor.white
                 cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
                 cell.label.textColor = UIColor.black
                 cell.label.textAlignment = .center
                 cell.label.text = title
             case HCell1:
-                let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+                let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
                 cell.backgroundColor = UIColor(hex: 0xF7F8FA)
             default:
                 break
             }
         } else {
-            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor.white
         }
     }
@@ -187,12 +186,11 @@ extension HPullController {
         }
     }
     @objc
-    func tupleExa1_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
+    func tupleExa1_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         let row = indexPath.row % 2
         switch row {
         case HCell0:
-            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor.white
             var button = cell.viewWithTag(12345) as? HWebButtonView
             if button == nil {
@@ -223,7 +221,7 @@ extension HPullController {
                 self.back()
             }
         case HCell1:
-            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor(hex: 0xF7F8FA)
         default:
             break
@@ -253,14 +251,13 @@ extension HPullController {
         }
     }
     @objc
-    func tupleExa2_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
+    func tupleExa2_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {      
         switch (indexPath.row) {
         case HCell0:
-            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor(hex: 0xF7F8FA)
         case HCell1:
-            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.backgroundColor = UIColor.white
             cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
             cell.label.textColor = UIColor.black
@@ -272,7 +269,7 @@ extension HPullController {
             }
             break
         case HCell2:
-            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor.white
         default:
             break

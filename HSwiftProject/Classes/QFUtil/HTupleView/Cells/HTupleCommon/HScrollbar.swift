@@ -132,9 +132,8 @@ class HScrollbar: UIStackView, HTupleViewDelegate {
     }
 
     // Configures the tuple item at the specified index path
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HTupleViewCell.self, nil, true) as! HTupleViewCell
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
+        let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
         let bounds = cell.layoutViewBounds
         let labelFrame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - self.indicatorBarHeight)
         

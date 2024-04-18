@@ -23,9 +23,8 @@ extension HGameCategoryVC {
         return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
     @objc
-    func tupleExa2_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HTupleViewCell.self, nil, true) as! HTupleViewCell
+    func tupleExa2_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
         cell.backgroundColor = UIColor.gray
         cell.separatorView.separatorInset = UILREdgeInsets(left: 0, right: 10)
         
@@ -61,7 +60,6 @@ extension HGameCategoryVC {
         tmpFrame5.origin.y += tmpFrame4.maxY
         cell.detailLabel.frame = tmpFrame5
         cell.detailLabel.backgroundColor = UIColor.yellow
-
     }
     
 }

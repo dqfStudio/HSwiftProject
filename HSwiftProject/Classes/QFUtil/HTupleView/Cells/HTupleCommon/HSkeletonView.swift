@@ -54,9 +54,8 @@ extension HSkeletonView {
         return CGSize(width: self.width, height: 90)
     }
 
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HTupleViewCell.self, nil, true) as! HTupleViewCell
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
+        let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
 
         cell.imageView.frame = CGRect(x: 16, y: 0, width: 60, height: 60)
         cell.imageView.cornerRadius = 8

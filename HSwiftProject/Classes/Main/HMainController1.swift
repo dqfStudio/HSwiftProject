@@ -84,13 +84,12 @@ class HMainController1: HTupleController {
             return UIEdgeInsets.zero
         }
     }
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
             switch indexPath.row {
             case 0:
-                let cell = itemBlock(HTupleBannerCell.self, nil, true) as! HTupleBannerCell
+                let cell = tuple.cell(HTupleBannerCell.self, nil, true, indexPath) as! HTupleBannerCell
                 if cell.imageUrlArr == nil {
                     cell.imageUrlArr = ["https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png",
                                         "https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png",
@@ -123,7 +122,7 @@ class HMainController1: HTupleController {
                     NSLog("选中%d", cell.label)
                 }
             case 1:
-                let cell = itemBlock(HTupleTextImageCell.self, nil, true) as! HTupleTextImageCell
+                let cell = tuple.cell(HTupleTextImageCell.self, nil, true, indexPath) as! HTupleTextImageCell
                 cell.backgroundColor = UIColor.gray
 
                 cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
@@ -152,7 +151,7 @@ class HMainController1: HTupleController {
                 cell.detailSpacing = 5.0
                 cell.accsrySpacing = 10.0
             case 2:
-                let cell = itemBlock(HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
+                let cell = tuple.cell(HTupleViewCellHoriValue1.self, nil, true, indexPath) as! HTupleViewCellHoriValue1
                 cell.backgroundColor = UIColor.gray
 
                 cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
@@ -180,7 +179,7 @@ class HMainController1: HTupleController {
                 
                 cell.isShowAccsryArrow = true
             case 3:
-                let cell = itemBlock(HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
+                let cell = tuple.cell(HTupleViewCellHoriValue2.self, nil, true, indexPath) as! HTupleViewCellHoriValue2
                 cell.backgroundColor = UIColor.gray
 
                 cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
@@ -208,7 +207,7 @@ class HMainController1: HTupleController {
                 
                 cell.isShowAccsryArrow = true
             case 4:
-                let cell = itemBlock(HTupleFieldCell.self, nil, true) as! HTupleFieldCell
+                let cell = tuple.cell(HTupleFieldCell.self, nil, true, indexPath) as! HTupleFieldCell
                 cell.backgroundColor = UIColor.gray
                 cell.textField.backgroundColor = UIColor.red
 
@@ -253,7 +252,7 @@ class HMainController1: HTupleController {
                 break
             }
         case 1:
-            let cell = itemBlock(HTupleViewCellVertValue1.self, nil, true) as! HTupleViewCellVertValue1
+            let cell = tuple.cell(HTupleViewCellVertValue1.self, nil, true, indexPath) as! HTupleViewCellVertValue1
             cell.backgroundColor = UIColor.gray
             cell.layoutFirstSpacing = 5
             

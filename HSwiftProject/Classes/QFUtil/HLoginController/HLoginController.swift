@@ -43,12 +43,10 @@ class HLoginController: HTupleController {
         default:return UIEdgeInsets.zero
         }
     }
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {    
         switch (indexPath.row) {
         case 0:
-            let cell = itemBlock(HTupleFieldCell.self, nil, true) as! HTupleFieldCell
+            let cell = tuple.cell(HTupleFieldCell.self, nil, true, indexPath) as! HTupleFieldCell
             cell.textField.backgroundColor = UIColor(hex:"#F2F2F2")
 
             cell.textField.leftWidth = 80
@@ -65,7 +63,7 @@ class HLoginController: HTupleController {
                 NSLog("选中%d", cell)
             }
         case 1:
-            let cell = itemBlock(HTupleFieldCell.self, nil, true) as! HTupleFieldCell
+            let cell = tuple.cell(HTupleFieldCell.self, nil, true, indexPath) as! HTupleFieldCell
             cell.textField.backgroundColor = UIColor(hex:"#F2F2F2")
 
             cell.textField.leftWidth = 80
@@ -81,7 +79,7 @@ class HLoginController: HTupleController {
                 NSLog("选中%d", cell)
             }
         case 2:
-            let cell = itemBlock(HTupleFieldCell.self, nil, true) as! HTupleFieldCell
+            let cell = tuple.cell(HTupleFieldCell.self, nil, true, indexPath) as! HTupleFieldCell
             cell.textField.backgroundColor = UIColor(hex:"#F2F2F2")
 
             cell.textField.leftWidth = 80
@@ -105,9 +103,9 @@ class HLoginController: HTupleController {
                 NSLog("选中%d", cell)
             }
         case 3:
-            _ = itemBlock(HTupleBaseCell.self, nil, true)
+            _ = tuple.cell(HTupleBaseCell.self, nil, true, indexPath)
         case 4:
-            let cell = itemBlock(HTupleButtonCell.self, nil, true) as! HTupleButtonCell
+            let cell = tuple.cell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor(hex:"#CCCCCC")
             cell.buttonView.text = "登录"
             cell.buttonView.pressed = { (sender, data) in

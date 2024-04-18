@@ -40,11 +40,6 @@ private var kTupleStateSourceKey: Void?
 typealias HTupleRefreshBlock = () -> Void
 typealias HTupleLoadMoreBlock = () -> Void
 
-/// Tuple header & Footer & Item block
-typealias HTupleHeader = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject
-typealias HTupleFooter = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject
-typealias HTupleItem = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject
-
 /// This class is used for refreshing tupleView throughout the project.
 class HTupleAppearance: NSObject {
 
@@ -113,13 +108,13 @@ class HTupleAppearance: NSObject {
 
     @objc
     optional func insetForSection(_ section: Any) -> Any
-
+    
     @objc
-    optional func tupleHeader(_ headerBlock: Any, inSection section: Any)
+    optional func tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
     @objc
-    optional func tupleFooter(_ footerBlock: Any, inSection section: Any)
+    optional func tupleFooter(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
     @objc
-    optional func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath)
+    optional func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
     
     @objc
     optional func attributesForItemAtIndexPath(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
@@ -502,7 +497,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     /// Register class
-    func dequeueReusableHeaderWithClass(_ cls: AnyClass, pre: String?, idx: Bool, indexPath: IndexPath) -> AnyObject {
+    func header(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
         var identifier = (pre ?? "") + "HeaderCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
@@ -540,7 +535,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
 
-    func dequeueReusableFooterWithClass(_ cls: AnyClass, pre: String?, idx: Bool, indexPath: IndexPath) -> AnyObject {
+    func footer(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
         var identifier = (pre ?? "") + "FooterCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
@@ -577,8 +572,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Return cell
         return cell
     }
-
-    func dequeueReusableCellWithClass(_ cls: AnyClass, pre: String?, idx: Bool, indexPath: IndexPath) -> AnyObject {
+    
+    func cell(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
@@ -865,19 +860,12 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             if let delegate = self.tupleDelegate {
                 let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
                 let selector: Selector = #selector(delegate.tupleItem(_:atIndexPath:))
-                let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) in
-                    return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
-                }
                 if delegate.responds(to: selector, withPre: prefix) {
-                    delegate.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
+                    delegate.performWithUnretainedValue(selector, with: self, with: indexPath, withPre: prefix)
                 }
             }
             // Call cell
-            var cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
-            // 防止业务层使用不当，导致cell为空，此处自动初始化一个值，防止崩溃
-            if cell == nil {
-                cell = self.dequeueReusableCellWithClass(HTupleBaseCell.self, pre: nil, idx: true, indexPath: indexPath) as? HTupleBaseCell
-            }
+            let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
             // Update layout
             if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
                 cell.relayoutSubviews()
@@ -928,12 +916,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                     // Dequeue cell
                     return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath)
                 } else {
-                    let selector: Selector = #selector(delegate.tupleHeader(_:inSection:))
-                    let headerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject in
-                        return self.dequeueReusableHeaderWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
-                    }
+                    let selector: Selector = #selector(delegate.tupleHeader(_:atIndexPath:))
                     if delegate.responds(to: selector, withPre: prefix) {
-                        delegate.perform(selector, with: headerBlock, with: indexPath.section, withPre: prefix)
+                        delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
                     }
                 }
             }
@@ -955,12 +940,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                     // Dequeue cell
                     return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath)
                 } else {
-                    let selector: Selector = #selector(delegate.tupleFooter(_:inSection:))
-                    let footerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject in
-                        return self.dequeueReusableFooterWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
-                    }
+                    let selector: Selector = #selector(delegate.tupleFooter(_:atIndexPath:))
                     if delegate.responds(to: selector, withPre: prefix) {
-                        delegate.perform(selector, with: footerBlock, with: indexPath.section, withPre: prefix)
+                        delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
                     }
                 }
             }

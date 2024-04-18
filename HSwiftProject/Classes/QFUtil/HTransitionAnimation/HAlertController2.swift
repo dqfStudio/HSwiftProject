@@ -153,9 +153,8 @@
 //        }
 //        return UIEdgeInsets.zero
 //    }
-//    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-//        let itemBlock = itemBlock as! HTupleItem
-//
+//    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+//        //
 //        // 判断执行Cell顺序
 //        var row = indexPath.row
 //        if row == HCell3, actions.count == 1, let action = actions.first {
@@ -168,23 +167,23 @@
 //
 //        switch row {
 //        case HCell0:
-//            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+//            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
 //            cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
 //            cell.label.textAlignment = .center
 //            cell.label.textColor = HColorHex("#17191E")
 //            cell.label.text = _title
 //        case HCell1:
-//            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+//            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
 //            cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
 //            cell.label.textAlignment = .center
 //            cell.label.numberOfLines = 0
 //            cell.label.textColor = HColorHex("#17191E")
 //            cell.label.text = _message
 //        case HCell2:
-//            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+//            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
 //            cell.backgroundColor = HColorHex("#F7F8FA")
 //        case HCell3:
-//            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+//            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
 //            cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
 //            cell.label.textAlignment = .center
 //            var bounds = cell.layoutViewBounds
@@ -195,7 +194,7 @@
 //                cell.label.text = cancelAction.title
 //            }
 //        case HCell4:
-//            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+//            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
 //            cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
 //            cell.label.textAlignment = .center
 //            cell.label.textColor = HColorHex("#3879FC")

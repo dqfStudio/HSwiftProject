@@ -74,18 +74,15 @@ class HFormController: NSObject, HTupleViewDelegate {
         return UIEdgeInsets(top: 10, left: 0, bottom: height, right: 0)
     }
     
-    func tupleHeader(_ headerBlock: Any, inSection section: Any) {
-        _ = headerBlock as! HTupleItem
-//        let headerBlock = headerBlock as! HTupleItem
-//        let cell = itemBlock(HTupleButtonApex.self, nil, true) as! HTupleButtonApex
+    func tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+//        let cell = tuple.header(HTupleButtonApex.self, nil, true, indexPath) as! HTupleButtonApex
 //        cell.buttonView.pressed = { (sender, data) in
 //            //销毁对象
 //            self.destroy()
 //        }
     }
-    func tupleFooter(_ footerBlock: Any, inSection section: Any) {
-        let footerBlock = footerBlock as! HTupleFooter
-        let cell = footerBlock(HTupleButtonApex.self, nil, true) as! HTupleButtonApex
+    func tupleFooter(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.footer(HTupleButtonApex.self, nil, true, indexPath) as! HTupleButtonApex
         cell.buttonView.backgroundColor = UIColor.white
         cell.buttonView.textColor = UIColor.black
         cell.buttonView.text = "取消"
@@ -94,9 +91,8 @@ class HFormController: NSObject, HTupleViewDelegate {
             self.destroy()
         }
     }
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HFormCell.self, nil, true) as! HFormCell
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {        
+        let cell = tuple.cell(HFormCell.self, nil, true, indexPath) as! HFormCell
         cell.modelArr = self.sourceArr
         
         //配置参数

@@ -80,9 +80,8 @@ extension HPostCommentView {
     }
     
     @objc
-    func tupleExa0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
+    func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.cell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
         let frame = cell.layoutViewBounds
         
         var headerView = cell.layoutView.viewWithTag(121314) as? HPostCommentHeader
@@ -128,9 +127,8 @@ extension HPostCommentView {
     }
     
     @objc
-    func tupleExa1_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HTupleLabelCell.self, indexPath.stringValue, true) as! HTupleLabelCell
+    func tupleExa1_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.cell(HTupleLabelCell.self, indexPath.stringValue, true, indexPath) as! HTupleLabelCell
         cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
         cell.label.textColor = UIColor(hex: "#17191E")
         cell.label.numberOfLines = 0
@@ -170,17 +168,16 @@ extension HPostCommentView {
     }
     
     @objc
-    func tupleExa2_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
+    func tupleExa2_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         // 是否已经翻译过了
         if postVM.postTranslate == .isTranslated {
-            let cell = itemBlock(HTupleLabelCell.self, indexPath.stringValue, true) as! HTupleLabelCell
+            let cell = tuple.cell(HTupleLabelCell.self, indexPath.stringValue, true, indexPath) as! HTupleLabelCell
             cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
             cell.label.textColor = UIColor(hex: "#17191E")
             cell.label.numberOfLines = 0
             cell.label.text = postVM.post
         } else {
-            let cell = itemBlock(HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
+            let cell = tuple.cell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
             
             let frame = cell.layoutViewBounds
             let width = "翻译内容".widthWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToHeight: postTranslateSpace - 8.0)
@@ -222,9 +219,8 @@ extension HPostCommentView {
     }
     
     @objc
-    func tupleExa3_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
+    func tupleExa3_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.cell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
         let frame = cell.layoutViewBounds
         
         let string1 = "14小时前"
@@ -276,9 +272,8 @@ extension HPostCommentView {
     }
     
     @objc
-    func tupleExa4_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HTupleViewCell.self, indexPath.stringValue, true) as! HTupleViewCell
+    func tupleExa4_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.cell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
         let frame = cell.layoutViewBounds
         
         let ff = true
@@ -350,9 +345,8 @@ extension HPostCommentView {
     }
     
     @objc
-    func tupleExa5_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        _ = itemBlock(HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
+    func tupleExa5_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
+        _ = tuple.cell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
     }
     
 }

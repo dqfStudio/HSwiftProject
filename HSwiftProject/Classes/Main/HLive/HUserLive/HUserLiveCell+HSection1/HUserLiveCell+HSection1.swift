@@ -58,11 +58,8 @@ class HUserLiveMiddleBarView : UIView, HTupleViewDelegate {
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         return CGSize(width: self.tupleView.width, height: 25)
     }
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        
-//        let cell = itemBlock(HTupleNoteCell.self, nil, true) as! HTupleNoteCell
-        let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
         //将cell.contentView倒置
         cell.layoutView.transform = CGAffineTransform (scaleX: 1, y: -1)
         cell.setTopLine(withColor: UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 20)
@@ -121,11 +118,10 @@ extension HUserLiveCell {
         return UIEdgeInsets.zero
     }
     @objc
-    func tupleExa1_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
+    func tupleExa1_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         switch (indexPath.row) {
         case 0:
-            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             var buttonView = cell.viewWithTag(123456) as? HWebButtonView
             if (buttonView == nil) {
                 var tmpFrame = cell.layoutViewBounds
@@ -171,7 +167,7 @@ extension HUserLiveCell {
             }
             break
         case 1:
-            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             var buttonView = cell.viewWithTag(123456) as? HWebButtonView
             if (buttonView == nil) {
                 var tmpFrame = cell.layoutViewBounds
@@ -191,7 +187,7 @@ extension HUserLiveCell {
             }
             break
         case 2:
-            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             var bottomBarView = cell.viewWithTag(123456) as? HUserLiveMiddleBarView
             if bottomBarView == nil {
                 bottomBarView = HUserLiveMiddleBarView(frame: cell.bounds)

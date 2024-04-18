@@ -130,9 +130,8 @@ class HRegisterController: HViewController, HTupleViewDelegate {
         return CGSize(width: self.tupleView.width, height: 55)
     }
     @objc
-    func tupleExa0_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+    func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
+        let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
 //        let tabBar = cell.viewWithTag(12345) as? HTabBar
 //        if tabBar == nil {
 //            cell.addSubview(self.tabBarView)

@@ -150,11 +150,9 @@ class HGroupbar: UIStackView, HTupleViewDelegate {
     }
 
     // Configures the tuple item at the specified index path
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        guard let items = self.items, indexPath.row < items.count else { return }
-        
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HTupleViewCell.self, nil, true) as! HTupleViewCell
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        guard let items = self.items, indexPath.row < items.count else { return }        
+        let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
         
         let item = items[indexPath.row]
         let bounds = cell.layoutViewBounds

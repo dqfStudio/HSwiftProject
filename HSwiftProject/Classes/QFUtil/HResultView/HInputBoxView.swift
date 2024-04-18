@@ -90,9 +90,8 @@ class HInputBoxView: UIView, HTupleViewDelegate {
         }
     }
 
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {        
+        let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
         let string = self.textField.text ?? ""
         if textField.isFirstResponder, indexPath.section == string.length {
             cell.backgroundColor = .clear
@@ -128,9 +127,8 @@ class HInputBoxView: UIView, HTupleViewDelegate {
         cell.label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
     }
     
-    func tupleFooter(_ footerBlock: Any, inSection section: Any) {
-        let footerBlock = footerBlock as! HTupleFooter
-        let cell = footerBlock(HTupleBaseApex.self, nil, true) as! HTupleBaseApex
+    func tupleFooter(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.footer(HTupleBaseApex.self, nil, true, indexPath) as! HTupleBaseApex
         cell.backgroundColor = .clear
     }
     

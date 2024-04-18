@@ -91,15 +91,14 @@ extension HGroupAuthBar {
         return self.spacing
     }
     
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
         if indexPath.row == 0 {
-            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.label.textColor = self.nameColor
             cell.label.font = self.nameFont
             cell.label.text = self.nameString
         }else {
-            let cell = itemBlock(HTupleImageCell.self, nil, true) as! HTupleImageCell
+            let cell = tuple.cell(HTupleImageCell.self, nil, true, indexPath) as! HTupleImageCell
             if indexPath.row <= self.auths.count {
                 let authIndex = indexPath.row - 1
                 let auth = self.auths[authIndex]

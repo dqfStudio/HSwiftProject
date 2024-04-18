@@ -47,12 +47,10 @@ class HPostCommentVC: HTupleController {
         return CGSize(width: self.tupleView.width, height: postVM.cellHeight)
     }
     
-    func tupleHeader(_ headerBlock: Any, inSection section: Any) {
-        let section = section as! Int
-        let headerBlock = headerBlock as! HTupleHeader
-        let cell = headerBlock(HTupleBaseApex.self, "\(section)", true) as! HTupleBaseApex
+    func tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.header(HTupleBaseApex.self, "\(indexPath.section)", true, indexPath) as! HTupleBaseApex
         cell.backgroundColor = .yellow
-        guard section < postList.count else { return }
+        guard indexPath.section < postList.count else { return }
         
         // 添加postCell
         var postCell = cell.viewWithTag(131214) as? HPostCommentView
@@ -63,7 +61,7 @@ class HPostCommentVC: HTupleController {
         }
         
         // 赋值model
-        let postVM = postList[section]
+        let postVM = postList[indexPath.section]
         postCell!.postVM = postVM
         postCell!.tuple = self.tupleView
         
@@ -77,9 +75,8 @@ class HPostCommentVC: HTupleController {
         }
     }
 
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HTupleBaseCell.self, indexPath.stringValue, true) as! HTupleBaseCell
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
+        let cell = tuple.cell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
         cell.backgroundColor = .green
         guard indexPath.row < postList.count else { return }
 

@@ -61,9 +61,8 @@ class HWaitingView: UIView, HTupleViewDelegate {
         return CGSize(width: self.tupleView.width, height: self.tupleView.height)
     }
 
-    func tupleHeader(_ headerBlock: Any, inSection section: Any) {
-        let headerBlock = headerBlock as! HTupleHeader
-        let cell = headerBlock(HTupleAnimatedImageApex.self, nil, true) as! HTupleAnimatedImageApex
+    func tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.header(HTupleAnimatedImageApex.self, nil, true, indexPath) as! HTupleAnimatedImageApex
         
         if let make = make {
             if let bgColor = make.bgColor {
@@ -83,9 +82,8 @@ class HWaitingView: UIView, HTupleViewDelegate {
         }
     }
     
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
+        let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
         
         cell.label.backgroundColor = UIColor.white
         cell.label.font = .systemFont(ofSize: 14.0)

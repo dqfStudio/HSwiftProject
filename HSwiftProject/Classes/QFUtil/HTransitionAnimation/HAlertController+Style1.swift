@@ -33,11 +33,10 @@ extension HAlertController {
         }
     }
     @objc
-    func tuple1_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
+    func tuple1_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
         switch indexPath.row {
         case HCell0:
-            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.edgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
             cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
             cell.label.textAlignment = .center
@@ -45,10 +44,10 @@ extension HAlertController {
             cell.label.textColor = HColorHex("#17191E")
             cell.label.text = self.alertModel.message
         case HCell1:
-            let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = HColorHex("#F7F8FA")
         case HCell2:
-            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
             cell.label.textAlignment = .center
             cell.label.textColor = HColorHex("#17191E")
@@ -61,7 +60,7 @@ extension HAlertController {
                 self.cancelBlock?()
             }
         case HCell3:
-            let cell = itemBlock(HTupleLabelCell.self, nil, true) as! HTupleLabelCell
+            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
             cell.label.textAlignment = .center
             cell.label.textColor = HColorHex("#3879FC")

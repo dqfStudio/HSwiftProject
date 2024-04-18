@@ -81,11 +81,10 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
         return CGSize(width: Int(self.tupleView.width) / self.rowItems - 1, height: Int(self.tupleView.height) / self.rows - 1)
     }
     
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {        
         let index = indexPath.section * self.rows * self.rowItems + indexPath.row
         if let modelArr = self.modelArr, index < modelArr.count {
-            let cell = itemBlock(HTupleButtonCell.self, nil, true) as! HTupleButtonCell
+            let cell = tuple.cell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.textColor = .black
             
             let model = modelArr[index]
@@ -99,7 +98,7 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
                 self.formCellBlock?(indexPath, model)
             }
         }else {
-            _ = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
+            _ = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
         }
     }
     

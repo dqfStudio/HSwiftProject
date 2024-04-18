@@ -168,20 +168,17 @@ class HUserLiveVC : HTupleController {
         return self.tupleView.size
     }
 
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        
-        let itemBlock = itemBlock as! HTupleItem
-        
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            _ = itemBlock(HUserLiveBgCell.self, nil, true)
+            _ = tuple.cell(HUserLiveBgCell.self, nil, true, indexPath)
             break
         case 2:
-            _ = itemBlock(HUserLiveBgCell.self, nil, true)
+            _ = tuple.cell(HUserLiveBgCell.self, nil, true, indexPath)
             break
         case 1:
             if self.liveStatus == .loading {
-                let cell = itemBlock(HUserLiveBgCell.self, nil, true) as! HUserLiveBgCell
+                let cell = tuple.cell(HUserLiveBgCell.self, nil, true, indexPath) as! HUserLiveBgCell
                 // 禁止滚动
                 self.tupleView.isScrollEnabled = false
                 // 开始旋转
@@ -198,14 +195,13 @@ class HUserLiveVC : HTupleController {
                     }
                 }
             }else if self.liveStatus == .liveing {
-                _ = itemBlock(HUserLiveCell.self, nil, true)
+                _ = tuple.cell(HUserLiveCell.self, nil, true, indexPath)
             }
             break
 
         default:
             break
         }
-
     }
 
     //向上滚动

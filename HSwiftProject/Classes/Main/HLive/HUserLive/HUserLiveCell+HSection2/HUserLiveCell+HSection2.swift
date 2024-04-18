@@ -69,11 +69,10 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
         }
         return CGSize(width: self.tupleView.width, height: self.tupleView.height)
     }
-    func tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         switch (indexPath.row) {
         case 0:
-            let cell = itemBlock(HTupleButtonCell.self, nil, true) as! HTupleButtonCell
+            let cell = tuple.cell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.layoutViewBounds.height / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
@@ -82,10 +81,10 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
             }
             break
         case 1:
-            _ = itemBlock(HTupleBaseCell.self, nil, true)
+            _ = tuple.cell(HTupleBaseCell.self, nil, true, indexPath)
             break
         case 2:
-            let cell = itemBlock(HTupleButtonCell.self, nil, true) as! HTupleButtonCell
+            let cell = tuple.cell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.layoutViewBounds.height / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
@@ -96,7 +95,7 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
             }
             break
         case 3:
-            let cell = itemBlock(HTupleButtonCell.self, nil, true) as! HTupleButtonCell
+            let cell = tuple.cell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.layoutViewBounds.height / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
@@ -107,7 +106,7 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
             }
             break
         case 4:
-            let cell = itemBlock(HTupleButtonCell.self, nil, true) as! HTupleButtonCell
+            let cell = tuple.cell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.layoutViewBounds.height / 2
             cell.buttonView.text = "✕"
@@ -137,16 +136,13 @@ extension HUserLiveCell {
         return CGSize(width: self.liveRightView.width, height: 40)
     }
     @objc
-    func tupleExa2_tupleFooter(_ footerBlock: Any, inSection section: Any) {
-        let footerBlock = footerBlock as! HTupleFooter
-        let cell = footerBlock(HTupleBaseApex.self, nil, true) as! HTupleBaseApex
+    func tupleExa2_tupleFooter(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.footer(HTupleBaseApex.self, nil, true, indexPath) as! HTupleBaseApex
         cell.backgroundColor = UIColor.clear
     }
     @objc
-    func tupleExa2_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
-        let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HTupleBaseCell.self, nil, true) as! HTupleBaseCell
-        
+    func tupleExa2_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
         var bottomBarView = cell.viewWithTag(123456) as? HUserLiveBottomBarView
         if bottomBarView == nil {
             bottomBarView = HUserLiveBottomBarView(frame: cell.bounds)
