@@ -135,7 +135,7 @@ class HTableViewCell: HTableBaseCell {
         self.layoutView.addSubview(label)
         return label
     }()
-    lazy var accessoryLabel: UILabel = {
+    lazy var accsryLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
         self.layoutView.addSubview(label)
@@ -150,17 +150,17 @@ class HTableViewCell: HTableBaseCell {
         self.layoutView.addSubview(textView)
         return textView
     }()
-    lazy var detailTextView: HTextView = {
-        let detailTextView = HTextView()
-        detailTextView.font = .systemFont(ofSize: 14.0)
-        self.layoutView.addSubview(detailTextView)
-        return detailTextView
+    lazy var detailText: HTextView = {
+        let textView = HTextView()
+        textView.font = .systemFont(ofSize: 14.0)
+        self.layoutView.addSubview(textView)
+        return textView
     }()
-    lazy var accessoryTextView: HTextView = {
-        let accessoryTextView = HTextView()
-        accessoryTextView.font = .systemFont(ofSize: 14.0)
-        self.layoutView.addSubview(accessoryTextView)
-        return accessoryTextView
+    lazy var accsryText: HTextView = {
+        let textView = HTextView()
+        textView.font = .systemFont(ofSize: 14.0)
+        self.layoutView.addSubview(textView)
+        return textView
     }()
 
     
@@ -170,15 +170,15 @@ class HTableViewCell: HTableBaseCell {
         self.layoutView.addSubview(buttonView)
         return buttonView
     }()
-    lazy var detailButtonView: HWebButtonView = {
-        let detailButtonView = HWebButtonView()
-        self.layoutView.addSubview(detailButtonView)
-        return detailButtonView
+    lazy var detailButton: HWebButtonView = {
+        let buttonView = HWebButtonView()
+        self.layoutView.addSubview(buttonView)
+        return buttonView
     }()
-    lazy var accessoryButtonView: HWebButtonView = {
-        let accessoryButtonView = HWebButtonView()
-        self.layoutView.addSubview(accessoryButtonView)
-        return accessoryButtonView
+    lazy var accsryButton: HWebButtonView = {
+        let buttonView = HWebButtonView()
+        self.layoutView.addSubview(buttonView)
+        return buttonView
     }()
 
     
@@ -191,15 +191,15 @@ class HTableViewCell: HTableBaseCell {
         }
         return _imageView!
     }
-    lazy var detailImageView: HWebImageView = {
-        let detailImageView = HWebImageView()
-        self.layoutView.addSubview(detailImageView)
-        return detailImageView
+    lazy var detailView: HWebImageView = {
+        let _imageView = HWebImageView()
+        self.layoutView.addSubview(_imageView)
+        return _imageView
     }()
-    lazy var accessoryImageView: HWebImageView = {
-        let accessoryImageView = HWebImageView()
-        self.layoutView.addSubview(accessoryImageView)
-        return accessoryImageView
+    lazy var accsryView: HWebImageView = {
+        let _imageView = HWebImageView()
+        self.layoutView.addSubview(_imageView)
+        return _imageView
     }()
 
     
@@ -210,17 +210,17 @@ class HTableViewCell: HTableBaseCell {
         self.layoutView.addSubview(textField)
         return textField
     }()
-    lazy var detailTextField: HTextField = {
-        let detailTextField = HTextField()
-        HLayoutTableCell(detailTextField)
-        self.layoutView.addSubview(detailTextField)
-        return detailTextField
+    lazy var detailField: HTextField = {
+        let textField = HTextField()
+        HLayoutTableCell(textField)
+        self.layoutView.addSubview(textField)
+        return textField
     }()
-    lazy var accessoryTextField: HTextField = {
-        let accessoryTextField = HTextField()
-        HLayoutTableCell(accessoryTextField)
-        self.layoutView.addSubview(accessoryTextField)
-        return accessoryTextField
+    lazy var accsryField: HTextField = {
+        let textField = HTextField()
+        HLayoutTableCell(textField)
+        self.layoutView.addSubview(textField)
+        return textField
     }()
 
 }

@@ -98,7 +98,7 @@ class HTupleViewApex: HTupleBaseApex {
         self.layoutView.addSubview(label)
         return label
     }()
-    lazy var accessoryLabel: UILabel = {
+    lazy var accsryLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
         self.layoutView.addSubview(label)
@@ -113,13 +113,13 @@ class HTupleViewApex: HTupleBaseApex {
         self.layoutView.addSubview(textView)
         return textView
     }()
-    lazy var detailTextView: HTextView = {
+    lazy var detailText: HTextView = {
         let textView = HTextView()
         textView.font = .systemFont(ofSize: 14.0)
         self.layoutView.addSubview(textView)
         return textView
     }()
-    lazy var accessoryTextView: HTextView = {
+    lazy var accsryText: HTextView = {
         let textView = HTextView()
         textView.font = .systemFont(ofSize: 14.0)
         self.layoutView.addSubview(textView)
@@ -133,12 +133,12 @@ class HTupleViewApex: HTupleBaseApex {
         self.layoutView.addSubview(buttonView)
         return buttonView
     }()
-    lazy var detailButtonView: HWebButtonView = {
+    lazy var detailButton: HWebButtonView = {
         let buttonView = HWebButtonView()
         self.layoutView.addSubview(buttonView)
         return buttonView
     }()
-    lazy var accessoryButtonView: HWebButtonView = {
+    lazy var accsryButton: HWebButtonView = {
         let buttonView = HWebButtonView()
         self.layoutView.addSubview(buttonView)
         return buttonView
@@ -151,12 +151,12 @@ class HTupleViewApex: HTupleBaseApex {
         self.layoutView.addSubview(imageView)
         return imageView
     }()
-    lazy var detailImageView: HWebImageView = {
+    lazy var detailView: HWebImageView = {
         let imageView = HWebImageView()
         self.layoutView.addSubview(imageView)
         return imageView
     }()
-    lazy var accessoryImageView: HWebImageView = {
+    lazy var accsryView: HWebImageView = {
         let imageView = HWebImageView()
         self.layoutView.addSubview(imageView)
         return imageView
@@ -170,13 +170,13 @@ class HTupleViewApex: HTupleBaseApex {
         self.layoutView.addSubview(textField)
         return textField
     }()
-    lazy var detailTextField: HTextField = {
+    lazy var detailField: HTextField = {
         let textField = HTextField()
         HLayoutTupleApex(textField)
         self.layoutView.addSubview(textField)
         return textField
     }()
-    lazy var accessoryTextField: HTextField = {
+    lazy var accsryField: HTextField = {
         let textField = HTextField()
         HLayoutTupleApex(textField)
         self.layoutView.addSubview(textField)

@@ -15,8 +15,8 @@ class HTableViewCellVertValue1: HTableBaseCell {
     var labelHeight: CGFloat = 0.0
     ///detailLabel的高度
     var detailHeight: CGFloat = 0.0
-    ///accessoryLabel的高度
-    var accessoryHeight: CGFloat = 0.0
+    ///accsryLabel的高度
+    var accsryHeight: CGFloat = 0.0
 
     private var _imageView: HWebImageView?
     ///显示图片
@@ -47,14 +47,14 @@ class HTableViewCellVertValue1: HTableBaseCell {
         return _detailLabel!
     }
 
-    private var _accessoryLabel: UILabel?
+    private var _accsryLabel: UILabel?
     ///显示文字内容附加信息
-    var accessoryLabel: UILabel {
-        if _accessoryLabel == nil {
-            _accessoryLabel = UILabel()
-            _accessoryLabel!.font = .systemFont(ofSize: 14.0)
+    var accsryLabel: UILabel {
+        if _accsryLabel == nil {
+            _accsryLabel = UILabel()
+            _accsryLabel!.font = .systemFont(ofSize: 14.0)
         }
-        return _accessoryLabel!
+        return _accsryLabel!
     }
     
     private var _topView: HWebImageView?
@@ -170,9 +170,9 @@ class HTableViewCellVertValue1: HTableBaseCell {
                 layoutView.setCustomSpacing(layoutThirdSpacing, after: detailLabel)
             }
         }
-        if let accessoryLabel = _accessoryLabel, accessoryHeight > 0 {
-            accessoryLabel.heightAnchor.constraint(equalToConstant: accessoryHeight).isActive = true
-            layoutView.addArrangedSubview(accessoryLabel)
+        if let accsryLabel = _accsryLabel, accsryHeight > 0 {
+            accsryLabel.heightAnchor.constraint(equalToConstant: accsryHeight).isActive = true
+            layoutView.addArrangedSubview(accsryLabel)
         }
         
     }
@@ -186,8 +186,8 @@ class HTableViewCellVertValue2: HTableBaseCell {
     var labelHeight: CGFloat = 0.0
     ///detailLabel的高度
     var detailHeight: CGFloat = 0.0
-    ///accessoryLabel的高度
-    var accessoryHeight: CGFloat = 0.0
+    ///accsryLabel的高度
+    var accsryHeight: CGFloat = 0.0
 
     private var _imageView: HWebImageView?
     ///显示图片
@@ -218,14 +218,14 @@ class HTableViewCellVertValue2: HTableBaseCell {
         return _detailLabel!
     }
 
-    private var _accessoryLabel: UILabel?
+    private var _accsryLabel: UILabel?
     ///显示文字内容附加信息
-    var accessoryLabel: UILabel {
-        if _accessoryLabel == nil {
-            _accessoryLabel = UILabel()
-            _accessoryLabel!.font = .systemFont(ofSize: 14.0)
+    var accsryLabel: UILabel {
+        if _accsryLabel == nil {
+            _accsryLabel = UILabel()
+            _accsryLabel!.font = .systemFont(ofSize: 14.0)
         }
-        return _accessoryLabel!
+        return _accsryLabel!
     }
     
     private var _topView: HWebImageView?
@@ -279,7 +279,7 @@ class HTableViewCellVertValue2: HTableBaseCell {
     // 设置layoutView通用间隔
     var layoutSpacing: CGFloat = 10.0
     
-    // 在accessoryLabel后面添加自定义间隔
+    // 在accsryLabel后面添加自定义间隔
     var layoutFirstSpacing: CGFloat = 0.0
     
     // 在imageView后面添加自定义间隔
@@ -301,11 +301,11 @@ class HTableViewCellVertValue2: HTableBaseCell {
         layoutView.frame = frame
         layoutView.spacing = layoutSpacing
         
-        if let accessoryLabel = _accessoryLabel, accessoryHeight > 0 {
-            accessoryLabel.heightAnchor.constraint(equalToConstant: accessoryHeight).isActive = true
-            layoutView.addArrangedSubview(accessoryLabel)
+        if let accsryLabel = _accsryLabel, accsryHeight > 0 {
+            accsryLabel.heightAnchor.constraint(equalToConstant: accsryHeight).isActive = true
+            layoutView.addArrangedSubview(accsryLabel)
             if layoutFirstSpacing > 0 {
-                layoutView.setCustomSpacing(layoutFirstSpacing, after: accessoryLabel)
+                layoutView.setCustomSpacing(layoutFirstSpacing, after: accsryLabel)
             }
         }
 
