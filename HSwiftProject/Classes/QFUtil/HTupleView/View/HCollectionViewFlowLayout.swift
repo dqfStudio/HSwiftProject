@@ -46,10 +46,8 @@ class HCollectionViewFlowLayout: UICollectionViewFlowLayout {
         super.prepare()
 
         guard let collectionView = self.collectionView else { return }
-        let sections: Int = collectionView.numberOfSections
+        let sections = collectionView.numberOfSections
         guard let delegate = collectionView.delegate as? HCollectionViewDelegateFlowLayout else { return }
-        let selector = #selector(delegate.collectionView(_:layout:colorForSectionAt:))
-        guard delegate.responds(to: selector) else { return }
 
         // 1. Initialization
         self.register(HCollectionReusableView.self, forDecorationViewOfKind: HCollectionViewSectionColor)
@@ -62,12 +60,8 @@ class HCollectionViewFlowLayout: UICollectionViewFlowLayout {
                   let lastAttr = self.layoutAttributesForItem(at: IndexPath(row: numberOfItems - 1, section: section)) else { continue }
 
             var sectionInset = self.sectionInset
-            if delegate.responds(to: selector) {
-                let inset: UIEdgeInsets = delegate.collectionView!(collectionView, layout: self, insetForSectionAt: section)
-                if inset != sectionInset {
-                    sectionInset = inset
-                }
-            }
+            let inset = delegate.collectionView!(collectionView, layout: self, insetForSectionAt: section)
+            if inset != sectionInset { sectionInset = inset }
 
             var sectionFrame: CGRect = firstAttr.frame.union(lastAttr.frame)
             sectionFrame.origin.x -= sectionInset.left
