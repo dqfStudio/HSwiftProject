@@ -58,7 +58,7 @@ class HTableImageApex: HTableBaseApex {
     }
 }
 
-class HTableTextFieldApex: HTableBaseApex {
+class HTableFieldApex: HTableBaseApex {
     lazy var textField: HTextField = {
         let textField = HTextField()
         HLayoutTableApex(textField)

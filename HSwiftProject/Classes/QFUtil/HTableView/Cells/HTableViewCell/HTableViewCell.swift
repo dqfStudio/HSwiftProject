@@ -97,7 +97,7 @@ class HTableImageCell: HTableBaseCell {
     }
 }
 
-class HTableTextFieldCell: HTableBaseCell {
+class HTableFieldCell: HTableBaseCell {
     lazy var textField: HTextField = {
         let textField = HTextField()
         HLayoutTableCell(textField)

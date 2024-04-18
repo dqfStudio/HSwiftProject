@@ -26,7 +26,7 @@ extension HRegisterController {
     @objc
     func tuple1_tupleItem(_ itemBlock: Any, atIndexPath indexPath: IndexPath) {
         let itemBlock = itemBlock as! HTupleItem
-        let cell = itemBlock(HTupleTextFieldCell.self, "tuple1", true) as! HTupleTextFieldCell
+        let cell = itemBlock(HTupleFieldCell.self, "tuple1", true) as! HTupleFieldCell
         cell.textField.backgroundColor = UIColor(hex: "#F2F2F2")
 
         cell.textField.leftWidth = 80
@@ -39,7 +39,7 @@ extension HRegisterController {
         cell.textField.text = self.tupleView.object(forKey: "state", state: 1) as? String
 
         cell.signalBlock = { (target, signal) in
-            let cell = target as! HTupleTextFieldCell
+            let cell = target as! HTupleFieldCell
             NSLog("选中%d", cell)
         }
     }

@@ -415,12 +415,12 @@ extension HMainController2 {
                     }
                 }
             case 4:
-                let attributes = tuple.attributes(with: HTupleTextFieldCell.self, nil, true, indexPath)
+                let attributes = tuple.attributes(with: HTupleFieldCell.self, nil, true, indexPath)
                 let width = tuple.width(forSection: indexPath.section)
                 attributes.size = CGSize(width: width, height: 65)
                 attributes.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
                 attributes.cellBlock = { (tuple, baseCell) in
-                    let cell = baseCell as! HTupleTextFieldCell
+                    let cell = baseCell as! HTupleFieldCell
                     cell.backgroundColor = UIColor.gray
                     cell.textField.backgroundColor = UIColor.red
 

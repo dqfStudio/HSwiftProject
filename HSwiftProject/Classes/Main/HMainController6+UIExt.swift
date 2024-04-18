@@ -31,7 +31,7 @@ extension HMainController6 {
             cell.accsryLabel.textAlignment = .center
             break
         case 4:
-            let cell = itemBlock(HTableTextFieldCell.self, nil, true) as! HTableTextFieldCell
+            let cell = itemBlock(HTableFieldCell.self, nil, true) as! HTableFieldCell
             cell.backgroundColor = UIColor.gray
             cell.textField.backgroundColor = UIColor.red
             

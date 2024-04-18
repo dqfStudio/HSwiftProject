@@ -208,7 +208,7 @@ class HMainController1: HTupleController {
                 
                 cell.isShowAccsryArrow = true
             case 4:
-                let cell = itemBlock(HTupleTextFieldCell.self, nil, true) as! HTupleTextFieldCell
+                let cell = itemBlock(HTupleFieldCell.self, nil, true) as! HTupleFieldCell
                 cell.backgroundColor = UIColor.gray
                 cell.textField.backgroundColor = UIColor.red
 

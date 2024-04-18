@@ -70,7 +70,7 @@ class HTupleAnimatedImageApex: HTupleBaseApex {
     }
 }
 
-class HTupleTextFieldApex: HTupleBaseApex {
+class HTupleFieldApex: HTupleBaseApex {
     lazy var textField: HTextField = {
         let textField = HTextField()
         HLayoutTupleApex(textField)

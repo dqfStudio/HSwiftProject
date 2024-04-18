@@ -58,7 +58,7 @@ class HTupleImageCell: HTupleBaseCell {
     }
 }
 
-class HTupleTextFieldCell: HTupleBaseCell {
+class HTupleFieldCell: HTupleBaseCell {
     lazy var textField: HTextField = {
         let textField = HTextField()
         HLayoutTupleCell(textField)

@@ -48,7 +48,7 @@ class HLoginController: HTupleController {
         
         switch (indexPath.row) {
         case 0:
-            let cell = itemBlock(HTupleTextFieldCell.self, nil, true) as! HTupleTextFieldCell
+            let cell = itemBlock(HTupleFieldCell.self, nil, true) as! HTupleFieldCell
             cell.textField.backgroundColor = UIColor(hex:"#F2F2F2")
 
             cell.textField.leftWidth = 80
@@ -61,11 +61,11 @@ class HLoginController: HTupleController {
             //cell.textField.inputValidator = HPhoneValidator.new
 
             cell.signalBlock = { (target, signal) in
-                let cell = target as! HTupleTextFieldCell
+                let cell = target as! HTupleFieldCell
                 NSLog("选中%d", cell)
             }
         case 1:
-            let cell = itemBlock(HTupleTextFieldCell.self, nil, true) as! HTupleTextFieldCell
+            let cell = itemBlock(HTupleFieldCell.self, nil, true) as! HTupleFieldCell
             cell.textField.backgroundColor = UIColor(hex:"#F2F2F2")
 
             cell.textField.leftWidth = 80
@@ -77,11 +77,11 @@ class HLoginController: HTupleController {
             cell.textField.font = .systemFont(ofSize: 14.0)
 
             cell.signalBlock = { (target, signal) in
-                let cell = target as! HTupleTextFieldCell
+                let cell = target as! HTupleFieldCell
                 NSLog("选中%d", cell)
             }
         case 2:
-            let cell = itemBlock(HTupleTextFieldCell.self, nil, true) as! HTupleTextFieldCell
+            let cell = itemBlock(HTupleFieldCell.self, nil, true) as! HTupleFieldCell
             cell.textField.backgroundColor = UIColor(hex:"#F2F2F2")
 
             cell.textField.leftWidth = 80
@@ -101,7 +101,7 @@ class HLoginController: HTupleController {
             }
 
             cell.signalBlock = { (target, signal) in
-                let cell = target as! HTupleTextFieldCell
+                let cell = target as! HTupleFieldCell
                 NSLog("选中%d", cell)
             }
         case 3:
