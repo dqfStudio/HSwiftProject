@@ -40,7 +40,7 @@ extension HMainController6 {
 //            cell.detailWidth = 100
 //            cell.accessoryWidth = 100
             
-            cell.isShowAccessoryArrow = true
+            cell.isShowAccsryArrow = true
             
 //            cell.labelInterval = 0
             
@@ -54,7 +54,7 @@ extension HMainController6 {
             cell.detailLabel.text = "qqqqqqqqqqqqq"
 //            cell.detailLabel.text = "qqqqqqqqqqqqqqqqqqqqqqqq"
 
-//            cell.accessoryLabel.backgroundColor = UIColor.green
+//            cell.accsryLabel.backgroundColor = UIColor.green
             
             //接收信
             cell.signalBlock = { (target, signal) in
@@ -89,7 +89,7 @@ extension HMainController6 {
             
             cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
-//            cell.isShowAccessoryArrow = true
+//            cell.isShowAccsryArrow = true
 
             cell.imageView.backgroundColor = UIColor.red
             cell.imageView.setImage(WithName: "icon_no_server")

@@ -40,8 +40,8 @@ extension HGameCategoryVC {
         var tmpFrame2: CGRect = CGRect(x: 0, y: 0, width: 7, height: 13)
         tmpFrame2.origin.x = frame.width - tmpFrame2.width
         tmpFrame2.origin.y = frame.height / 2 - tmpFrame2.height / 2
-        cell.accessoryImageView.frame = tmpFrame2
-        cell.accessoryImageView.setImage(WithName: "icon_tuple_arrow_right")
+        cell.accsryView.frame = tmpFrame2
+        cell.accsryView.setImage(WithName: "icon_tuple_arrow_right")
         
         var tmpFrame3: CGRect = frame
         tmpFrame3.origin.x += tmpFrame.maxY + 10

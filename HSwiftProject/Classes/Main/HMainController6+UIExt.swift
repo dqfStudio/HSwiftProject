@@ -26,9 +26,9 @@ extension HMainController6 {
             cell.detailLabel.text = "detailLabel"
             cell.detailLabel.textAlignment = .center
             
-            cell.accessoryLabel.backgroundColor = UIColor.yellow
-            cell.accessoryLabel.text = "accessoryLabel"
-            cell.accessoryLabel.textAlignment = .center
+            cell.accsryLabel.backgroundColor = UIColor.yellow
+            cell.accsryLabel.text = "accessoryLabel"
+            cell.accsryLabel.textAlignment = .center
             break
         case 4:
             let cell = itemBlock(HTableTextFieldCell.self, nil, true) as! HTableTextFieldCell

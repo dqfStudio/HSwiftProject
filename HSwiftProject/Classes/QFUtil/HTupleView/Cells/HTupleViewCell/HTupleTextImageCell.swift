@@ -20,7 +20,7 @@ class HTupleTextImageCell: HTupleBaseCell {
         return UIView()
     }()
     
-    /// 中间label、detailLabel和accessoryLabel布局View
+    /// 中间label、detailLabel和accsryLabel布局View
     private lazy var textLayoutView: UIStackView = {
         return UIStackView()
     }()
@@ -63,14 +63,14 @@ class HTupleTextImageCell: HTupleBaseCell {
         return _detailLabel!
     }
     
-    /// accessoryLabel
-    private var _accessoryLabel: UILabel?
-    var accessoryLabel: UILabel {
-        if _accessoryLabel == nil {
-            _accessoryLabel = UILabel()
-            _accessoryLabel!.font = .systemFont(ofSize: 14.0)
+    /// accsryLabel
+    private var _accsryLabel: UILabel?
+    var accsryLabel: UILabel {
+        if _accsryLabel == nil {
+            _accsryLabel = UILabel()
+            _accsryLabel!.font = .systemFont(ofSize: 14.0)
         }
-        return _accessoryLabel!
+        return _accsryLabel!
     }
     
     // 用于imageView布局
@@ -100,8 +100,8 @@ class HTupleTextImageCell: HTupleBaseCell {
     // 在detailLabel后面添加自定义间隔
     var detailSpacing: CGFloat = 0.0
     
-    // 在accessoryLabel后面添加自定义间隔
-    var accessorySpacing: CGFloat = 0.0
+    // 在accsryLabel后面添加自定义间隔
+    var accsrySpacing: CGFloat = 0.0
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -113,7 +113,7 @@ class HTupleTextImageCell: HTupleBaseCell {
         /// 左边布局View
         self.layoutView.addArrangedSubview(leftView)
         
-        /// 中间label、detailLabel和accessoryLabel布局View
+        /// 中间label、detailLabel和accsryLabel布局View
         self.layoutView.addArrangedSubview(textLayoutView)
          
         /// imageView
@@ -132,10 +132,10 @@ class HTupleTextImageCell: HTupleBaseCell {
             textLayoutView.addArrangedSubview(detailLabel)
             textLayoutView.setCustomSpacing(detailSpacing, after: detailLabel)
         }
-        /// accessoryLabel
-        if let accessoryLabel = _accessoryLabel {
-            textLayoutView.addArrangedSubview(accessoryLabel)
-            textLayoutView.setCustomSpacing(accessorySpacing, after: accessoryLabel)
+        /// accsryLabel
+        if let accsryLabel = _accsryLabel {
+            textLayoutView.addArrangedSubview(accsryLabel)
+            textLayoutView.setCustomSpacing(accsrySpacing, after: accsryLabel)
         }
         
         /// detailView
@@ -144,7 +144,7 @@ class HTupleTextImageCell: HTupleBaseCell {
             textLayoutView.addArrangedSubview(detailLayoutView)
         }
         
-        /// 根据label、detailLabel和accessoryLabel的实际大小进行约束布局
+        /// 根据label、detailLabel和accsryLabel的实际大小进行约束布局
         var textWidth = 0.0
         if let label = _label {
             textWidth += label.intrinsicContentSize.width
@@ -152,8 +152,8 @@ class HTupleTextImageCell: HTupleBaseCell {
         if let detailLabel = _detailLabel {
             textWidth += detailLabel.intrinsicContentSize.width
         }
-        if let accessoryLabel = _accessoryLabel {
-            textWidth += accessoryLabel.intrinsicContentSize.width
+        if let accsryLabel = _accsryLabel {
+            textWidth += accsryLabel.intrinsicContentSize.width
         }
         if let imageView = _imageView {
             textWidth += imageView.intrinsicContentSize.width
@@ -161,7 +161,7 @@ class HTupleTextImageCell: HTupleBaseCell {
         if let detailView = _detailView {
             textWidth += detailView.intrinsicContentSize.width
         }
-        textWidth += imageSpacing + labelSpacing + detailSpacing + accessorySpacing
+        textWidth += imageSpacing + labelSpacing + detailSpacing + accsrySpacing
         textWidth = ceil(textWidth)//向上取整
         
         /// 右边布局View

@@ -139,8 +139,8 @@ class HMainController1: HTupleController {
                 cell.detailLabel.backgroundColor = UIColor.red
                 cell.detailLabel.text = "detailLabel"
 
-                cell.accessoryLabel.backgroundColor = UIColor.yellow
-                cell.accessoryLabel.text = "accessoryLabel"
+                cell.accsryLabel.backgroundColor = UIColor.yellow
+                cell.accsryLabel.text = "accessoryLabel"
                 
                 cell.detailView.backgroundColor = UIColor.red
                 cell.detailView.imageSize = CGSize(width: 25, height: 25)
@@ -150,7 +150,7 @@ class HMainController1: HTupleController {
                 cell.imageSpacing = 10.0
                 cell.labelSpacing = 5.0
                 cell.detailSpacing = 5.0
-                cell.accessorySpacing = 10.0
+                cell.accsrySpacing = 10.0
             case 2:
                 let cell = itemBlock(HTupleViewCellHoriValue1.self, nil, true) as! HTupleViewCellHoriValue1
                 cell.backgroundColor = UIColor.gray
@@ -169,8 +169,8 @@ class HMainController1: HTupleController {
                 cell.detailLabel.backgroundColor = UIColor.red
                 cell.detailLabel.text = "detailLabel"
 
-                cell.accessoryLabel.backgroundColor = UIColor.yellow
-                cell.accessoryLabel.text = "accessoryLabel"
+                cell.accsryLabel.backgroundColor = UIColor.yellow
+                cell.accsryLabel.text = "accessoryLabel"
                 
                 //cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                 cell.detailView.imageSize = CGSize(width: 25, height: 25)
@@ -178,7 +178,7 @@ class HMainController1: HTupleController {
                 cell.detailView.setImage(WithName: "icon_no_server")
                 cell.detailView.cornerRadius = 25 / 2
                 
-                cell.isShowAccessoryArrow = true
+                cell.isShowAccsryArrow = true
             case 3:
                 let cell = itemBlock(HTupleViewCellHoriValue2.self, nil, true) as! HTupleViewCellHoriValue2
                 cell.backgroundColor = UIColor.gray
@@ -197,8 +197,8 @@ class HMainController1: HTupleController {
                 cell.detailLabel.backgroundColor = UIColor.red
                 cell.detailLabel.text = "detailLabel"
 
-                cell.accessoryLabel.backgroundColor = UIColor.yellow
-                cell.accessoryLabel.text = "accessoryLabel"
+                cell.accsryLabel.backgroundColor = UIColor.yellow
+                cell.accsryLabel.text = "accessoryLabel"
                 
                 //cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                 cell.detailView.imageSize = CGSize(width: 25, height: 25)
@@ -206,7 +206,7 @@ class HMainController1: HTupleController {
                 cell.detailView.setImage(WithName: "icon_no_server")
                 cell.detailView.cornerRadius = 25 / 2
                 
-                cell.isShowAccessoryArrow = true
+                cell.isShowAccsryArrow = true
             case 4:
                 let cell = itemBlock(HTupleTextFieldCell.self, nil, true) as! HTupleTextFieldCell
                 cell.backgroundColor = UIColor.gray

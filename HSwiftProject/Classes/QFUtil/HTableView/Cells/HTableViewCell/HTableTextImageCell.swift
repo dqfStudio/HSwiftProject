@@ -101,7 +101,7 @@ class HTableTextImageCell: HTableBaseCell {
     var detailSpacing: CGFloat = 0.0
     
     // 在accessoryLabel后面添加自定义间隔
-    var accessorySpacing: CGFloat = 0.0
+    var accsrySpacing: CGFloat = 0.0
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -135,7 +135,7 @@ class HTableTextImageCell: HTableBaseCell {
         /// accessoryLabel
         if let accessoryLabel = _accessoryLabel {
             textLayoutView.addArrangedSubview(accessoryLabel)
-            textLayoutView.setCustomSpacing(accessorySpacing, after: accessoryLabel)
+            textLayoutView.setCustomSpacing(accsrySpacing, after: accessoryLabel)
         }
         
         /// detailView
@@ -161,7 +161,7 @@ class HTableTextImageCell: HTableBaseCell {
         if let detailView = _detailView {
             textWidth += detailView.intrinsicContentSize.width
         }
-        textWidth += imageSpacing + labelSpacing + detailSpacing + accessorySpacing
+        textWidth += imageSpacing + labelSpacing + detailSpacing + accsrySpacing
         textWidth = ceil(textWidth)//向上取整
         
         /// 右边布局View

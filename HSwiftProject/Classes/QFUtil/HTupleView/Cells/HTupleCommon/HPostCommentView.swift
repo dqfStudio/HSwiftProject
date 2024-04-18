@@ -317,11 +317,11 @@ extension HPostCommentView {
             let string2 = "收起"
             let width2 = string2.widthWithFont(UIFont.font(ofSize: 14, weight: .medium), constrainedToHeight: 20)
             
-            cell.detailButtonView.frame = CGRect(x: cell.buttonView.maxX + 24, y: 0, width: width2, height: frame.height)
-            cell.detailButtonView.textFont = UIFont.font(ofSize: 14, weight: .medium)
-            cell.detailButtonView.textColor = UIColor(hex: "#727781")
-            cell.detailButtonView.text = string2
-            cell.detailButtonView.pressed = { (sender, data) in
+            cell.detailButton.frame = CGRect(x: cell.buttonView.maxX + 24, y: 0, width: width2, height: frame.height)
+            cell.detailButton.textFont = UIFont.font(ofSize: 14, weight: .medium)
+            cell.detailButton.textColor = UIColor(hex: "#727781")
+            cell.detailButton.text = string2
+            cell.detailButton.pressed = { (sender, data) in
                 // 刷新tuple view
                 UIView.performWithoutAnimation {
                     self.tuple?.reloadData()

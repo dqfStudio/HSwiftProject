@@ -90,9 +90,9 @@ extension HAcceptVideoVC {
             
             
             let frame3 = CGRect(x: bounds.size.width / 2 + 40, y: 0, width: kAcceptVideoHeight1, height: kAcceptVideoHeight1)
-            cell.detailButtonView.frame = frame3
-            cell.detailButtonView.setImage(WithName: "mdeia-button")
-            cell.detailButtonView.pressed = { (sender, data) in
+            cell.detailButton.frame = frame3
+            cell.detailButton.setImage(WithName: "mdeia-button")
+            cell.detailButton.pressed = { (sender, data) in
                 
             }
             
@@ -126,9 +126,9 @@ extension HAcceptVideoVC {
             
             
             let frame3 = CGRect(x: bounds.size.width - 40 - kAcceptVideoHeight2, y: 0, width: kAcceptVideoHeight2, height: kAcceptVideoHeight2)
-            cell.detailButtonView.frame = frame3
-            cell.detailButtonView.setImage(WithName: "mdeia-button")
-            cell.detailButtonView.pressed = { (sender, data) in
+            cell.detailButton.frame = frame3
+            cell.detailButton.setImage(WithName: "mdeia-button")
+            cell.detailButton.pressed = { (sender, data) in
                 
             }
             

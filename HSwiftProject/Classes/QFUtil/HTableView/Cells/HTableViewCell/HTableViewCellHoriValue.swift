@@ -62,14 +62,14 @@ class HTableViewCellHoriValue1: HTableBaseCell {
         return _detailLabel!
     }
     
-    private var _accessoryLabel: UILabel?
+    private var _accsryLabel: UILabel?
     ///显示文字内容附加信息
-    var accessoryLabel: UILabel {
-        if _accessoryLabel == nil {
-            _accessoryLabel = UILabel()
-            _accessoryLabel!.font = .systemFont(ofSize: 14.0)
+    var accsryLabel: UILabel {
+        if _accsryLabel == nil {
+            _accsryLabel = UILabel()
+            _accsryLabel!.font = .systemFont(ofSize: 14.0)
         }
-        return _accessoryLabel!
+        return _accsryLabel!
     }
     
     // 用于detailView布局
@@ -100,15 +100,15 @@ class HTableViewCellHoriValue1: HTableBaseCell {
     }()
     
     // arrow
-    private lazy var accessoryViewExa: UIImageView = {
-        let accessoryView = UIImageView()
-        accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
-        accessoryView.contentMode = .scaleAspectFill
-        return accessoryView
+    private lazy var accsryViewExa: UIImageView = {
+        let accsryView = UIImageView()
+        accsryView.image = UIImage(named: "icon_tuple_arrow_right")
+        accsryView.contentMode = .scaleAspectFill
+        return accsryView
     }()
     
     ///是否显示右边箭头
-    var isShowAccessoryArrow: Bool = false
+    var isShowAccsryArrow: Bool = false
     
     // 设置layoutView通用间隔
     var layoutSpacing: CGFloat = 10.0
@@ -175,7 +175,7 @@ class HTableViewCellHoriValue1: HTableBaseCell {
             textLayoutView.setCustomSpacing(firstTextSpacing, after: label)
         }
         
-        if let accessoryLabel = _accessoryLabel {
+        if let accsryLabel = _accsryLabel {
             if detailWidth == 0 { detailWidth = detailLabel.intrinsicContentSize.width }
             detailLabel.widthAnchor.constraint(equalToConstant: detailWidth).isActive = true
             textLayoutView.addArrangedSubview(detailLabel)
@@ -183,7 +183,7 @@ class HTableViewCellHoriValue1: HTableBaseCell {
                 textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
             }
             
-            textLayoutView.addArrangedSubview(accessoryLabel)
+            textLayoutView.addArrangedSubview(accsryLabel)
         } else {
             if let detailLabel = _detailLabel {
                 textLayoutView.addArrangedSubview(detailLabel)
@@ -211,12 +211,12 @@ class HTableViewCellHoriValue1: HTableBaseCell {
             }
         }
 
-        // accessoryView
-        if isShowAccessoryArrow {
+        // accsryView
+        if isShowAccsryArrow {
             layoutView.addArrangedSubview(arrowLayoutView)
-            accessoryViewExa.widthAnchor.constraint(equalToConstant: 7).isActive = true
-            accessoryViewExa.heightAnchor.constraint(equalToConstant: 13).isActive = true
-            arrowLayoutView.addArrangedSubview(accessoryViewExa)
+            accsryViewExa.widthAnchor.constraint(equalToConstant: 7).isActive = true
+            accsryViewExa.heightAnchor.constraint(equalToConstant: 13).isActive = true
+            arrowLayoutView.addArrangedSubview(accsryViewExa)
         }
         
     }
@@ -256,8 +256,8 @@ class HTableViewCellHoriValue2: HTableBaseCell {
     ///detailLabel的宽度
     var detailWidth: CGFloat = 0.0
     
-    ///accessoryLabel的宽度
-    var accessoryWidth: CGFloat = 0.0
+    ///accsryLabel的宽度
+    var accsryWidth: CGFloat = 0.0
     
     ///显示文字内容
     lazy var label: UILabel = {
@@ -276,14 +276,14 @@ class HTableViewCellHoriValue2: HTableBaseCell {
         return _detailLabel!
     }
     
-    private var _accessoryLabel: UILabel?
+    private var _accsryLabel: UILabel?
     ///显示文字内容附加信息
-    var accessoryLabel: UILabel {
-        if _accessoryLabel == nil {
-            _accessoryLabel = UILabel()
-            _accessoryLabel!.font = .systemFont(ofSize: 14.0)
+    var accsryLabel: UILabel {
+        if _accsryLabel == nil {
+            _accsryLabel = UILabel()
+            _accsryLabel!.font = .systemFont(ofSize: 14.0)
         }
-        return _accessoryLabel!
+        return _accsryLabel!
     }
     
     // 用于detailView布局
@@ -314,15 +314,15 @@ class HTableViewCellHoriValue2: HTableBaseCell {
     }()
     
     // arrow
-    private lazy var accessoryViewExa: UIImageView = {
-        let accessoryView = UIImageView()
-        accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
-        accessoryView.contentMode = .scaleAspectFill
-        return accessoryView
+    private lazy var accsryViewExa: UIImageView = {
+        let accsryView = UIImageView()
+        accsryView.image = UIImage(named: "icon_tuple_arrow_right")
+        accsryView.contentMode = .scaleAspectFill
+        return accsryView
     }()
     
     ///是否显示右边箭头
-    var isShowAccessoryArrow: Bool = false
+    var isShowAccsryArrow: Bool = false
     
     // 设置layoutView通用间隔
     var layoutSpacing: CGFloat = 10.0
@@ -396,11 +396,11 @@ class HTableViewCellHoriValue2: HTableBaseCell {
                 textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
             }
         }
-        if let accessoryLabel = _accessoryLabel {
-            if accessoryWidth > 0 {
-                accessoryLabel.widthAnchor.constraint(equalToConstant: accessoryWidth).isActive = true
+        if let accsryLabel = _accsryLabel {
+            if accsryWidth > 0 {
+                accsryLabel.widthAnchor.constraint(equalToConstant: accsryWidth).isActive = true
             }
-            textLayoutView.addArrangedSubview(accessoryLabel)
+            textLayoutView.addArrangedSubview(accsryLabel)
         }
         
         // detailView
@@ -424,12 +424,12 @@ class HTableViewCellHoriValue2: HTableBaseCell {
             }
         }
 
-        // accessoryView
-        if isShowAccessoryArrow {
+        // accsryView
+        if isShowAccsryArrow {
             layoutView.addArrangedSubview(arrowLayoutView)
-            accessoryViewExa.widthAnchor.constraint(equalToConstant: 7).isActive = true
-            accessoryViewExa.heightAnchor.constraint(equalToConstant: 13).isActive = true
-            arrowLayoutView.addArrangedSubview(accessoryViewExa)
+            accsryViewExa.widthAnchor.constraint(equalToConstant: 7).isActive = true
+            accsryViewExa.heightAnchor.constraint(equalToConstant: 13).isActive = true
+            arrowLayoutView.addArrangedSubview(accsryViewExa)
         }
         
     }
@@ -482,14 +482,14 @@ class HTableViewCellHoriValue3: HTableBaseCell {
         return _detailLabel!
     }
     
-    private var _accessoryLabel: UILabel?
+    private var _accsryLabel: UILabel?
     ///显示文字内容附加信息
-    var accessoryLabel: UILabel {
-        if _accessoryLabel == nil {
-            _accessoryLabel = UILabel()
-            _accessoryLabel!.font = .systemFont(ofSize: 14.0)
+    var accsryLabel: UILabel {
+        if _accsryLabel == nil {
+            _accsryLabel = UILabel()
+            _accsryLabel!.font = .systemFont(ofSize: 14.0)
         }
-        return _accessoryLabel!
+        return _accsryLabel!
     }
     
     // 用于detailView布局
@@ -520,15 +520,15 @@ class HTableViewCellHoriValue3: HTableBaseCell {
     }()
     
     // arrow
-    private lazy var accessoryViewExa: UIImageView = {
-        let accessoryView = UIImageView()
-        accessoryView.image = UIImage(named: "icon_tuple_arrow_right")
-        accessoryView.contentMode = .scaleAspectFill
-        return accessoryView
+    private lazy var accsryViewExa: UIImageView = {
+        let accsryView = UIImageView()
+        accsryView.image = UIImage(named: "icon_tuple_arrow_right")
+        accsryView.contentMode = .scaleAspectFill
+        return accsryView
     }()
     
     ///是否显示右边箭头
-    var isShowAccessoryArrow: Bool = false
+    var isShowAccsryArrow: Bool = false
     
     // 设置layoutView通用间隔
     var layoutSpacing: CGFloat = 10.0
@@ -599,8 +599,8 @@ class HTableViewCellHoriValue3: HTableBaseCell {
                 textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
             }
         }
-        if let accessoryLabel = _accessoryLabel {
-            textLayoutView.addArrangedSubview(accessoryLabel)
+        if let accsryLabel = _accsryLabel {
+            textLayoutView.addArrangedSubview(accsryLabel)
         }
         
         // detailView
@@ -624,12 +624,12 @@ class HTableViewCellHoriValue3: HTableBaseCell {
             }
         }
 
-        // accessoryView
-        if isShowAccessoryArrow {
+        // accsryView
+        if isShowAccsryArrow {
             layoutView.addArrangedSubview(arrowLayoutView)
-            accessoryViewExa.widthAnchor.constraint(equalToConstant: 7).isActive = true
-            accessoryViewExa.heightAnchor.constraint(equalToConstant: 13).isActive = true
-            arrowLayoutView.addArrangedSubview(accessoryViewExa)
+            accsryViewExa.widthAnchor.constraint(equalToConstant: 7).isActive = true
+            accsryViewExa.heightAnchor.constraint(equalToConstant: 13).isActive = true
+            arrowLayoutView.addArrangedSubview(accsryViewExa)
         }
 
     }

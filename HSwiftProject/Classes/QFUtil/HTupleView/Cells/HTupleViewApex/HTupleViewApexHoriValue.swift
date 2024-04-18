@@ -108,7 +108,7 @@ class HTupleViewApexHoriValue1: HTupleBaseApex {
     }()
     
     ///是否显示右边箭头
-    var isShowAccessoryArrow: Bool = false
+    var isShowAccsryArrow: Bool = false
     
     // 设置layoutView通用间隔
     var layoutSpacing: CGFloat = 10.0
@@ -212,7 +212,7 @@ class HTupleViewApexHoriValue1: HTupleBaseApex {
         }
 
         // accessoryView
-        if isShowAccessoryArrow {
+        if isShowAccsryArrow {
             layoutView.addArrangedSubview(arrowLayoutView)
             accessoryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
             accessoryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
@@ -322,7 +322,7 @@ class HTupleViewApexHoriValue2: HTupleBaseApex {
     }()
     
     ///是否显示右边箭头
-    var isShowAccessoryArrow: Bool = false
+    var isShowAccsryArrow: Bool = false
     
     // 设置layoutView通用间隔
     var layoutSpacing: CGFloat = 10.0
@@ -425,7 +425,7 @@ class HTupleViewApexHoriValue2: HTupleBaseApex {
         }
 
         // accessoryView
-        if isShowAccessoryArrow {
+        if isShowAccsryArrow {
             layoutView.addArrangedSubview(arrowLayoutView)
             accessoryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
             accessoryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
@@ -528,7 +528,7 @@ class HTupleViewApexHoriValue3: HTupleBaseApex {
     }()
     
     ///是否显示右边箭头
-    var isShowAccessoryArrow: Bool = false
+    var isShowAccsryArrow: Bool = false
     
     // 设置layoutView通用间隔
     var layoutSpacing: CGFloat = 10.0
@@ -625,7 +625,7 @@ class HTupleViewApexHoriValue3: HTupleBaseApex {
         }
 
         // accessoryView
-        if isShowAccessoryArrow {
+        if isShowAccsryArrow {
             layoutView.addArrangedSubview(arrowLayoutView)
             accessoryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
             accessoryView.heightAnchor.constraint(equalToConstant: 13).isActive = true

@@ -51,8 +51,8 @@ extension HGameCategoryVC {
         
         var tmpFrame4 = tmpFrame2
         tmpFrame4.origin.y += tmpFrame3.maxY
-        cell.accessoryLabel.frame = tmpFrame4
-        cell.accessoryLabel.backgroundColor = UIColor.green
+        cell.accsryLabel.frame = tmpFrame4
+        cell.accsryLabel.backgroundColor = UIColor.green
 
     }
     

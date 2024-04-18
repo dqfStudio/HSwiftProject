@@ -282,8 +282,8 @@ extension HMainController2 {
                     cell.detailLabel.backgroundColor = UIColor.red
                     cell.detailLabel.text = "detailLabel"
 
-                    cell.accessoryLabel.backgroundColor = UIColor.yellow
-                    cell.accessoryLabel.text = "accessoryLabel"
+                    cell.accsryLabel.backgroundColor = UIColor.yellow
+                    cell.accsryLabel.text = "accessoryLabel"
                     
                     cell.detailView.backgroundColor = UIColor.red
                     cell.detailView.imageSize = CGSize(width: 25, height: 25)
@@ -293,7 +293,7 @@ extension HMainController2 {
                     cell.imageSpacing = 10.0
                     cell.labelSpacing = 5.0
                     cell.detailSpacing = 5.0
-                    cell.accessorySpacing = 10.0
+                    cell.accsrySpacing = 10.0
                     
                     cell.selectBlock = {
 
@@ -321,8 +321,8 @@ extension HMainController2 {
                     cell.detailLabel.backgroundColor = UIColor.red
                     cell.detailLabel.text = "detailLabel"
 
-                    cell.accessoryLabel.backgroundColor = UIColor.yellow
-                    cell.accessoryLabel.text = "accessoryLabel"
+                    cell.accsryLabel.backgroundColor = UIColor.yellow
+                    cell.accsryLabel.text = "accessoryLabel"
                     
                     cell.detailView.backgroundColor = UIColor.red
                     cell.detailView.imageSize = CGSize(width: 25, height: 25)
@@ -332,7 +332,7 @@ extension HMainController2 {
                     cell.imageSpacing = 10.0
                     cell.labelSpacing = 5.0
                     cell.detailSpacing = 5.0
-                    cell.accessorySpacing = 10.0
+                    cell.accsrySpacing = 10.0
                     
                     cell.selectBlock = {
 
@@ -361,8 +361,8 @@ extension HMainController2 {
                     cell.detailLabel.backgroundColor = UIColor.red
                     cell.detailLabel.text = "detailLabel"
 
-                    cell.accessoryLabel.backgroundColor = UIColor.yellow
-                    cell.accessoryLabel.text = "accessoryLabel"
+                    cell.accsryLabel.backgroundColor = UIColor.yellow
+                    cell.accsryLabel.text = "accessoryLabel"
                     
                     //cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.detailView.imageSize = CGSize(width: 25, height: 25)
@@ -370,7 +370,7 @@ extension HMainController2 {
                     cell.detailView.setImage(WithName: "icon_no_server")
                     cell.detailView.cornerRadius = 25 / 2
                     
-                    cell.isShowAccessoryArrow = true
+                    cell.isShowAccsryArrow = true
                     
                     cell.selectBlock = {
 
@@ -399,8 +399,8 @@ extension HMainController2 {
                     cell.detailLabel.backgroundColor = UIColor.red
                     cell.detailLabel.text = "detailLabel"
 
-                    cell.accessoryLabel.backgroundColor = UIColor.yellow
-                    cell.accessoryLabel.text = "accessoryLabel"
+                    cell.accsryLabel.backgroundColor = UIColor.yellow
+                    cell.accsryLabel.text = "accessoryLabel"
                     
                     //cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                     cell.detailView.imageSize = CGSize(width: 25, height: 25)
@@ -408,7 +408,7 @@ extension HMainController2 {
                     cell.detailView.setImage(WithName: "icon_no_server")
                     cell.detailView.cornerRadius = 25 / 2
                     
-                    cell.isShowAccessoryArrow = true
+                    cell.isShowAccsryArrow = true
                     
                     cell.selectBlock = {
 

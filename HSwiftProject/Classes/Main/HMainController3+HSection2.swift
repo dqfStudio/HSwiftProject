@@ -40,14 +40,14 @@ extension HMainController3 {
         var tmpFrame2: CGRect = CGRect(x: 0, y: 0, width: 7, height: 13)
         tmpFrame2.origin.x = frame.width - tmpFrame2.width
         tmpFrame2.origin.y = frame.height / 2 - tmpFrame2.height / 2
-        cell.accessoryImageView.frame = tmpFrame2
-        cell.accessoryImageView.setImage(WithName: "icon_tuple_arrow_right")
+        cell.accsryView.frame = tmpFrame2
+        cell.accsryView.setImage(WithName: "icon_tuple_arrow_right")
         
         var tmpFrame3: CGRect = tmpFrame
         tmpFrame3.origin.x = tmpFrame2.minX - tmpFrame3.width - 10
-        cell.detailImageView.frame = tmpFrame3
-        cell.detailImageView.backgroundColor = UIColor.red
-        cell.detailImageView.setImage(WithName: "icon_no_server")
+        cell.detailView.frame = tmpFrame3
+        cell.detailView.backgroundColor = UIColor.red
+        cell.detailView.setImage(WithName: "icon_no_server")
         
         var tmpFrame4: CGRect = frame
         tmpFrame4.origin.x += tmpFrame.maxX + 10

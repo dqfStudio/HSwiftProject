@@ -94,9 +94,9 @@ extension HAcceptVideoVC {
             
             
             let frame3 = CGRect(x: bounds.size.width / 2 + 40, y: 0, width: kAcceptVideoHeight1, height: kAcceptVideoHeight1)
-            cell.detailButtonView.frame = frame3
-            cell.detailButtonView.setImage(WithName: "mdeia-button")
-            cell.detailButtonView.pressed = { (sender, data) in
+            cell.detailButton.frame = frame3
+            cell.detailButton.setImage(WithName: "mdeia-button")
+            cell.detailButton.pressed = { (sender, data) in
                 
             }
             
@@ -130,9 +130,9 @@ extension HAcceptVideoVC {
             
             
             let frame3 = CGRect(x: bounds.size.width / 2 - kAcceptVideoHeight2 / 2, y: 0, width: kAcceptVideoHeight2, height: kAcceptVideoHeight2)
-            cell.detailButtonView.frame = frame3
-            cell.detailButtonView.setImage(WithName: "mdeia-button")
-            cell.detailButtonView.pressed = { (sender, data) in
+            cell.detailButton.frame = frame3
+            cell.detailButton.setImage(WithName: "mdeia-button")
+            cell.detailButton.pressed = { (sender, data) in
                 
             }
             
@@ -144,18 +144,18 @@ extension HAcceptVideoVC {
             cell.detailLabel.textAlignment = .center
             
             let frame5 = CGRect(x: bounds.size.width - 40 - kAcceptVideoHeight1, y: 5, width: kAcceptVideoHeight1, height: kAcceptVideoHeight1)
-            cell.accessoryButtonView.frame = frame5
-            cell.accessoryButtonView.setImage(WithName: "mdeia-button")
-            cell.accessoryButtonView.pressed = { (sender, data) in
+            cell.accsryButton.frame = frame5
+            cell.accsryButton.setImage(WithName: "mdeia-button")
+            cell.accsryButton.pressed = { (sender, data) in
                 
             }
             
             let frame6 = CGRect(x: bounds.size.width - 38 - kAcceptVideoHeight1, y: kAcceptVideoHeight1 + 5, width: kAcceptVideoHeight1, height: 25)
-            cell.accessoryLabel.frame = frame6
-            cell.accessoryLabel.text = "摄像头已开"
-            cell.accessoryLabel.textColor = UIColor.white
-            cell.accessoryLabel.font = UIFont.systemFont(ofSize: 12)
-            cell.accessoryLabel.textAlignment = .center
+            cell.accsryLabel.frame = frame6
+            cell.accsryLabel.text = "摄像头已开"
+            cell.accsryLabel.textColor = UIColor.white
+            cell.accsryLabel.font = UIFont.systemFont(ofSize: 12)
+            cell.accsryLabel.textAlignment = .center
             break
         case 7:
             _ = itemBlock(HTupleBaseCell.self, nil, true)
