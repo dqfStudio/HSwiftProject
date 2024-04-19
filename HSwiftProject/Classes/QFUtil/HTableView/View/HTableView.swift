@@ -13,6 +13,13 @@ private enum HTableStyle: Int {
     case split //Split design
 }
 
+enum HTableAlign {
+    case other // 垂直居上，水平居左
+    case center // 垂直居中，水平居中
+    case top(CGFloat) // 垂直距离顶部的距离，水平居中
+    case ratio(CGFloat) // 垂直距离顶部的比例，水平居中
+}
+
 var kTableDefaultTag = 1615141312
 
 private var kTablePageNo = 1
@@ -115,17 +122,38 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     // table style
     private var tableStyle: HTableStyle = .default
     
-    // Set the value of marginTop
-    var marginTop: CGFloat = 0.0
-    
-    // Set the ratio of marginTop
-    var marginRatio: CGFloat = 0.0
-    
-    // Vertical center
-    var verticalCenter: Bool = false
-    
-    // Horizontally
-    var horizontalCenter: Bool = true
+    // table align
+    var tableAlign: HTableAlign = .other {
+        didSet {
+            let cntSize = self.contentSize
+            let cntInset = self.contentInset
+            guard cntSize != .zero else { return }
+            switch tableAlign {
+            case .other:
+                self.contentInset = UIEdgeInsets.zero
+            case .center:
+                let originX = (self.width - cntSize.width) / 2
+                let originY = (self.height - cntSize.height) / 2
+                self.contentInset = UIEdgeInsets(top: max(originY, 0),
+                                                 left: max(originX, 0),
+                                                 bottom: cntInset.bottom,
+                                                 right: cntInset.right)
+            case .top(let top):
+                let originX = (self.width - cntSize.width) / 2
+                self.contentInset = UIEdgeInsets(top: top,
+                                                 left: max(originX, 0),
+                                                 bottom: cntInset.bottom,
+                                                 right: cntInset.right)
+            case .ratio(let ratio):
+                let originX = (self.width - cntSize.width) / 2
+                let originY = (self.height - cntSize.height) * ratio
+                self.contentInset = UIEdgeInsets(top: max(originY, 0),
+                                                 left: max(originX, 0),
+                                                 bottom: cntInset.bottom,
+                                                 right: cntInset.right)
+            }
+        }
+    }
 
     private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
@@ -176,43 +204,6 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             if frame != super.frame {
                 super.frame = frame
                 self.reloadData()
-            }
-        }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        let contentSize = super.contentSize
-        // 内容需要大于零
-        if contentSize != .zero {
-            let inset = self.contentInset
-            var originX: CGFloat = inset.left
-            // 水平居中
-            if horizontalCenter {
-                originX = (self.width - contentSize.width) / 2
-            }
-            if marginTop > 0 { //距离顶部的距离
-                self.contentInset = UIEdgeInsets(top: marginTop,
-                                                 left: max(originX, 0),
-                                                 bottom: inset.bottom,
-                                                 right: inset.right)
-            }else if marginRatio > 0 { //距离顶部的比例
-                let originY = (self.height - contentSize.height) * marginRatio
-                self.contentInset = UIEdgeInsets(top: max(originY, 0),
-                                                 left: max(originX, 0),
-                                                 bottom: inset.bottom,
-                                                 right: inset.right)
-            }else if verticalCenter { //垂直居中
-                let originY = (self.height - contentSize.height) / 2
-                self.contentInset = UIEdgeInsets(top: max(originY, 0),
-                                                 left: max(originX, 0),
-                                                 bottom: inset.bottom,
-                                                 right: inset.right)
-            }else {
-                self.contentInset = UIEdgeInsets(top: inset.top,
-                                                 left: max(originX, 0),
-                                                 bottom: inset.bottom,
-                                                 right: inset.right)
             }
         }
     }
