@@ -612,16 +612,16 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }
         // Register cell if not already registered
         let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
-        guard let attributes = self.allAttributes.object(forKey: attributeKey) else {
+        guard let attribute = self.allAttributes.object(forKey: attributeKey) else {
             if !self.allReuseIdentifiers.contains(identifier) {
                 self.allReuseIdentifiers.add(identifier)
                 self.register(cls, forCellWithReuseIdentifier: identifier)
             }
-            let attributes = HTupleAttributes(identifier)
-            self.allAttributes.setObject(attributes, forKey: attributeKey)
-            return attributes
+            let attribute = HTupleAttributes(identifier)
+            self.allAttributes.setObject(attribute, forKey: attributeKey)
+            return attribute
         }
-        return attributes
+        return attribute
     }
 
     /// UICollectionViewDatasource  & delegate
@@ -835,8 +835,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         } else {// block status
             // Call cell
             let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
-            let attributes = self.allAttributes.object(forKey: attributeKey)
-            var size = attributes?.size ?? .zero
+            let attribute = self.allAttributes.object(forKey: attributeKey)
+            var size = attribute?.size ?? .zero
             // Prevent negative size
             if size.width <= 0 { size.width = 1.0 }
             if size.height <= 0 { size.height = 1.0 }
@@ -865,10 +865,10 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }else {
             // Call cell
             let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
-            let attributes = self.allAttributes.object(forKey: attributeKey)
-            let identifier = attributes?.identifier ?? ""
+            let attribute = self.allAttributes.object(forKey: attributeKey)
+            let identifier = attribute?.identifier ?? ""
             let cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! HTupleBaseCell
-            if let attributes = attributes {
+            if let attribute = attribute {
                 // Dequeue cell
                 cell.indexPath = indexPath
                 cell.tuple = self
@@ -876,14 +876,14 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
                 // Set properties
                 if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-                    cell.edgeInsets = attributes.edgeInsets
+                    cell.edgeInsets = attribute.edgeInsets
                 }
                 // Update layout
                 if cell.responds(to: #selector(cell.relayoutSubviews)) {
                     cell.relayoutSubviews()
                 }
                 // Call cell
-                attributes.cellBlock?(self, cell)
+                attribute.cellBlock?(self, cell)
             }
             return cell
         }
