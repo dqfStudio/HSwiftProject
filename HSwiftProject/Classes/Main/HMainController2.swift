@@ -219,7 +219,7 @@ extension HMainController2 {
         case 0:
             switch indexPath.row {
             case 10:
-                let attributes = tuple.attributes(with: HTupleBannerCell.self, nil, true, indexPath)
+                let attributes = tuple.attributes(HTupleBannerCell.self, nil, true, indexPath)
                 attributes.size = CGSize(width: tuple.width, height: 130)
                 attributes.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
                 attributes.cellBlock = { (tuple, baseCell) in
@@ -261,7 +261,7 @@ extension HMainController2 {
                     }
                 }
             case 0:
-                let attributes = tuple.attributes(with: HTupleTextImageCell.self, nil, true, indexPath)
+                let attributes = tuple.attributes(HTupleTextImageCell.self, nil, true, indexPath)
                 let width = tuple.width(forSection: indexPath.section)
                 attributes.size = CGSize(width: width, height: 65)
                 attributes.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -300,7 +300,7 @@ extension HMainController2 {
                     }
                 }
             case 1:
-                let attributes = tuple.attributes(with: HTupleTextImageCell.self, nil, true, indexPath)
+                let attributes = tuple.attributes(HTupleTextImageCell.self, nil, true, indexPath)
                 let width = tuple.width(forSection: indexPath.section)
                 attributes.size = CGSize(width: width, height: 65)
                 attributes.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -339,7 +339,7 @@ extension HMainController2 {
                     }
                 }
             case 2:
-                let attributes = tuple.attributes(with: HTupleViewCellHoriValue1.self, nil, true, indexPath)
+                let attributes = tuple.attributes(HTupleViewCellHoriValue1.self, nil, true, indexPath)
                 let width = tuple.width(forSection: indexPath.section)
                 attributes.size = CGSize(width: width, height: 65)
                 attributes.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -377,7 +377,7 @@ extension HMainController2 {
                     }
                 }
             case 3:
-                let attributes = tuple.attributes(with: HTupleViewCellHoriValue2.self, nil, true, indexPath)
+                let attributes = tuple.attributes(HTupleViewCellHoriValue2.self, nil, true, indexPath)
                 let width = tuple.width(forSection: indexPath.section)
                 attributes.size = CGSize(width: width, height: 65)
                 attributes.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -415,7 +415,7 @@ extension HMainController2 {
                     }
                 }
             case 4:
-                let attributes = tuple.attributes(with: HTupleFieldCell.self, nil, true, indexPath)
+                let attributes = tuple.attributes(HTupleFieldCell.self, nil, true, indexPath)
                 let width = tuple.width(forSection: indexPath.section)
                 attributes.size = CGSize(width: width, height: 65)
                 attributes.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -463,7 +463,7 @@ extension HMainController2 {
                 break
             }
         case 1:
-            let attributes = tuple.attributes(with: HTupleViewCellVertValue1.self, nil, true, indexPath)
+            let attributes = tuple.attributes(HTupleViewCellVertValue1.self, nil, true, indexPath)
             let width = (tuple.width(forSection: indexPath.section) - 16) / 3
             attributes.size = CGSize(width: width, height: width + 5 + 25)
             attributes.edgeInsets = UIEdgeInsets.zero

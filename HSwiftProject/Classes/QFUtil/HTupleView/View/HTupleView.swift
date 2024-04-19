@@ -601,7 +601,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     
-    func attributes(with cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> HTupleAttributes {
+    func attributes(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> HTupleAttributes {
         // Unique identifier
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
