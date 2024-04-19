@@ -18,7 +18,7 @@ typealias HChatTableRow = (_ cls: AnyClass, _ idx: Bool) -> AnyObject
     optional func numberOfRowsInSection(_ section: Any) -> Any
 
     @objc
-    optional func tableRow(_ itemBlock: Any, atIndexPath indexPath: IndexPath)
+    optional func tableRow(_ table: HChatTableView, atIndexPath indexPath: IndexPath)
     @objc
     optional func willDisplayCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
     @objc
@@ -119,7 +119,7 @@ class HChatTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         NotificationCenter.default.removeObserver(self)
     }
 
-    func dequeueReusableCellWithClass(_ cls: AnyClass, _ idx: Bool, indexPath: IndexPath) -> AnyObject {
+    func cell(_ cls: AnyClass, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
         var identifier = "ItemCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
@@ -180,11 +180,8 @@ class HChatTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         // Call delegate method
         if let delegate = self.tableDelegate {
             let selector = #selector(delegate.tableRow(_:atIndexPath:))
-            let itemBlock = { (_ cls: AnyClass, _ idx: Bool) in
-                return self.dequeueReusableCellWithClass(cls, idx, indexPath: indexPath)
-            }
             if delegate.responds(to: selector) {
-                delegate.perform(selector, with: itemBlock, with: indexPath)
+                delegate.perform(selector, with: self, with: indexPath)
             }
         }
         // Call cell

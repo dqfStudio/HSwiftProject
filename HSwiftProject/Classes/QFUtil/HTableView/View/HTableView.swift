@@ -9,8 +9,8 @@
 import UIKit
 
 private enum HTableStyle: Int {
-    case `default`  //Singleton design
-    case split //Split design
+    case `default`  // Singleton design
+    case split // Split design
 }
 
 enum HTableAlign {
@@ -36,11 +36,6 @@ private var kTableStateSourceKey: Void?
 /// Refresh & LoadMore block
 typealias HTableRefreshBlock = () -> Void
 typealias HTableLoadMoreBlock = () -> Void
-
-/// Table header & Footer & Item block
-typealias HTableHeader = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject
-typealias HTableFooter = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject
-typealias HTableRow = (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject
 
 /// Split design exclusive sections block
 typealias HTableSectionExclusiveBlock = () -> NSArray
@@ -103,13 +98,13 @@ class HTableAppearance: NSObject {
     optional func minimumHeaderSpacingForSectionAt(_ section: Any) -> Any
     @objc
     optional func minimumFooterSpacingForSectionAt(_ section: Any) -> Any
-
+    
     @objc
-    optional func tableHeader(_ headerBlock: Any, inSection section: Any)
+    optional func tableHeader(_ table: HTableView, inSection section: Any)
     @objc
-    optional func tableFooter(_ footerBlock: Any, inSection section: Any)
+    optional func tableFooter(_ table: HTableView, inSection section: Any)
     @objc
-    optional func tableRow(_ itemBlock: Any, atIndexPath indexPath: IndexPath)
+    optional func tableRow(_ table: HTableView, atIndexPath indexPath: IndexPath)
 
     @objc
     optional func willDisplayCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
@@ -384,7 +379,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// Register class
-    func dequeueReusableHeaderWithClass(_ cls: AnyClass, pre: String?, idx: Bool, section: Int) -> AnyObject {
+    func header(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ section: Any) -> AnyObject {
         // Unique identifier
         var identifier = (pre ?? "") + "HeaderCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
@@ -421,7 +416,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func dequeueReusableFooterWithClass(_ cls: AnyClass, pre: String?, idx: Bool, section: Int) -> AnyObject {
+    func footer(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ section: Any) -> AnyObject {
         // Unique identifier
         var identifier = (pre ?? "") + "FooterCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
@@ -458,7 +453,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-    func dequeueReusableCellWithClass(_ cls: AnyClass, pre: String?, idx: Bool, indexPath: IndexPath) -> AnyObject {
+    func cell(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
@@ -496,7 +491,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// UITableViewDatasource  & delegate
-    private func tableSplitPrefix(withSection section: Int) -> String {
+    private func tableSplitPrefix(withSection section: Any) -> String {
         var prefix = ""
         if self.tableStyle == .split {
             if self.sectionPaths.contains(section) {
@@ -613,11 +608,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         if let delegate = self.tableDelegate {
             let prefix = self.tableSplitPrefix(withSection: indexPath.section)
             let selector = #selector(delegate.tableRow(_:atIndexPath:))
-            let itemBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) in
-                return self.dequeueReusableCellWithClass(cls, pre: pre, idx: idx, indexPath: indexPath)
-            }
             if delegate.responds(to: selector, withPre: prefix) {
-                delegate.perform(selector, with: itemBlock, with: indexPath, withPre: prefix)
+                delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
             }
         }
         // Call cell
@@ -647,11 +639,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                 return self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
             } else {
                 let selector = #selector(delegate.tableHeader(_:inSection:))
-                let headerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject in
-                    return self.dequeueReusableHeaderWithClass(cls, pre: pre, idx: idx, section: section)
-                }
                 if delegate.responds(to: selector, withPre: prefix) {
-                    delegate.perform(selector, with: headerBlock, with: section, withPre: prefix)
+                    delegate.perform(selector, with: self, with: section, withPre: prefix)
                 }
             }
         }
@@ -679,11 +668,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                 return self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
             } else {
                 let selector = #selector(delegate.tableFooter(_:inSection:))
-                let footerBlock = { (_ cls: AnyClass, _ pre: String?, _ idx: Bool) -> AnyObject in
-                    return self.dequeueReusableFooterWithClass(cls, pre: pre, idx: idx, section: section)
-                }
                 if delegate.responds(to: selector, withPre: prefix) {
-                    delegate.perform(selector, with: footerBlock, with: section, withPre: prefix)
+                    delegate.perform(selector, with: self, with: section, withPre: prefix)
                 }
             }
         }

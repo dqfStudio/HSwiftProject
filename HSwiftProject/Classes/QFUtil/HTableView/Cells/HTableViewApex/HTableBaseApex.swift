@@ -17,7 +17,7 @@ class HTableBaseApex: UITableViewHeaderFooterView {
     var isHeader: Bool = false
     
     ///cell所在的section
-    var section: Int?
+    var section: Any?
     
     ///信号block
     var signalBlock: HTableCellSignalBlock?
