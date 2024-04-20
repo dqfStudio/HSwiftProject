@@ -190,8 +190,7 @@
 		EB23DAD52A02A02600C96CAC /* HAlertController+Style2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAD42A02A02600C96CAC /* HAlertController+Style2.swift */; };
 		EB23DAD72A02A02F00C96CAC /* HAlertController+Style3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAD62A02A02F00C96CAC /* HAlertController+Style3.swift */; };
 		EB23DAD92A02AA7A00C96CAC /* HAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAD82A02AA7A00C96CAC /* HAlertModel.swift */; };
-		EB3541822BCFBB92003B1D69 /* HPersonAuthBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541812BCFBB92003B1D69 /* HPersonAuthBar.swift */; };
-		EB3541842BCFBBAB003B1D69 /* HGroupAuthBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541832BCFBBAB003B1D69 /* HGroupAuthBar.swift */; };
+		EB3541822BCFBB92003B1D69 /* HAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541812BCFBB92003B1D69 /* HAuthView.swift */; };
 		EB4323CF29B988A400EDDB64 /* icon_no_network@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */; };
 		EB4323D029B988A400EDDB64 /* icon_no_network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */; };
 		EB4323D129B988A400EDDB64 /* icon_no_server@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */; };
@@ -520,8 +519,7 @@
 		EB23DAD42A02A02600C96CAC /* HAlertController+Style2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HAlertController+Style2.swift"; sourceTree = "<group>"; };
 		EB23DAD62A02A02F00C96CAC /* HAlertController+Style3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HAlertController+Style3.swift"; sourceTree = "<group>"; };
 		EB23DAD82A02AA7A00C96CAC /* HAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertModel.swift; sourceTree = "<group>"; };
-		EB3541812BCFBB92003B1D69 /* HPersonAuthBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPersonAuthBar.swift; sourceTree = "<group>"; };
-		EB3541832BCFBBAB003B1D69 /* HGroupAuthBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupAuthBar.swift; sourceTree = "<group>"; };
+		EB3541812BCFBB92003B1D69 /* HAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAuthView.swift; sourceTree = "<group>"; };
 		EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@3x.png"; sourceTree = "<group>"; };
 		EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@2x.png"; sourceTree = "<group>"; };
 		EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_server@3x.png"; sourceTree = "<group>"; };
@@ -1246,8 +1244,7 @@
 				A26D43302386914500F457AE /* hvc_back_icon@3x.png */,
 				EBD213D82A67783700C31E2D /* HNavigationBar2.swift */,
 				EB0597702A0B6B990016ACD8 /* HNavigationBar.swift */,
-				EB3541832BCFBBAB003B1D69 /* HGroupAuthBar.swift */,
-				EB3541812BCFBB92003B1D69 /* HPersonAuthBar.swift */,
+				EB3541812BCFBB92003B1D69 /* HAuthView.swift */,
 				A2B4307F237FF57C00795605 /* HViewController.swift */,
 				EB23DAC42A00D69300C96CAC /* HViewController2.swift */,
 				EBD213D62A655FB800C31E2D /* HViewController3.swift */,
@@ -1961,7 +1958,6 @@
 				A26D432B23856F8900F457AE /* NSTimer+HUtil.swift in Sources */,
 				A265DA052394B6F7001F39B0 /* UIScrollView+HTab.swift in Sources */,
 				A2B42FCE237CED5A00795605 /* SceneDelegate.swift in Sources */,
-				EB3541842BCFBBAB003B1D69 /* HGroupAuthBar.swift in Sources */,
 				A26D43452387827A00F457AE /* NSObject+HForwarding.swift in Sources */,
 				A26D432723853F2900F457AE /* NSObject+HMessy.swift in Sources */,
 				A229489F23975D850058B939 /* HTableViewCellHoriValue.swift in Sources */,
@@ -1981,7 +1977,7 @@
 				EB80B67C2A1779A30016648A /* HSectionView.swift in Sources */,
 				A2B43076237FF2B100795605 /* UIWindow+HPrinter.swift in Sources */,
 				EBD0FB9229DA97C000808EDA /* HMainController6+UIExt.swift in Sources */,
-				EB3541822BCFBB92003B1D69 /* HPersonAuthBar.swift in Sources */,
+				EB3541822BCFBB92003B1D69 /* HAuthView.swift in Sources */,
 				A26D432523852DB700F457AE /* NSDate+HUtil.swift in Sources */,
 				EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */,
 				A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */,

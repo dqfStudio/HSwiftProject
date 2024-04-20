@@ -1,5 +1,5 @@
 //
-//  HGroupAuthBar.swift
+//  HAuthView.swift
 //  HSwiftProject
 //
 //  Created by owner on 2024/4/17.
@@ -8,13 +8,13 @@
 
 import UIKit
 
-typealias HGroupAuthBarBlock = (_ auth: String) -> Void
+typealias HAuthViewBlock = (_ auth: String) -> Void
 
-class HGroupAuthBar: UIStackView, HTupleViewDelegate {
+class HAuthView: UIStackView, HTupleViewDelegate {
 
     var nameString: String?
     var nameColor = UIColor.white
-    var nameFont = UIFont.font(ofSize: 14, weight: .regular)
+    var nameFont = UIFont.font(ofSize: 16, weight: .regular)
     
     var authString: String = "" {
         didSet {
@@ -25,8 +25,8 @@ class HGroupAuthBar: UIStackView, HTupleViewDelegate {
         }
     }
     private var auths: [String] = []
-    private var authSize: CGFloat = 17.0
-    var selectBlock: HGroupAuthBarBlock?
+    private var authSize: CGFloat = 16.0
+    var selectBlock: HAuthViewBlock?
     
     private lazy var tupleView: HTupleView = {
         let tupleView = HTupleView(frame: .zero)
@@ -64,7 +64,11 @@ class HGroupAuthBar: UIStackView, HTupleViewDelegate {
     
 }
 
-extension HGroupAuthBar {
+extension HAuthView {
+    
+    func numberOfSectionsInTupleView() -> Any {
+        return self.auths.isEmpty ? 0 : 1
+    }
     
     func numberOfItemsInSection(_ section: Any) -> Any {
         return self.auths.count + 1
@@ -81,9 +85,9 @@ extension HGroupAuthBar {
             authWidth = max(authWidth, 0) //取最大值
             // 取名称与授权字符长度的最小值
             nameWidth = min(nameWidth, authWidth) //取最小值
-            return nameWidth
+            return CGSize(width: nameWidth, height: self.height)
         }else {
-            return CGSize(width: self.authSize, height: self.authSize)
+            return CGSize(width: self.authSize, height: self.height)
         }
     }
     
