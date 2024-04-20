@@ -14,7 +14,7 @@ class HPersonAuthBar: UIStackView, HTupleViewDelegate {
 
     var nameString: String?
     var nameColor = UIColor.white
-    var nameFont = UIFont.font(ofSize: 14, weight: .regular)
+    var nameFont = UIFont.font(ofSize: 16, weight: .regular)
     
     var authString: String = "" {
         didSet {
@@ -25,7 +25,7 @@ class HPersonAuthBar: UIStackView, HTupleViewDelegate {
         }
     }
     private var auths: [String] = []
-    private var authSize: CGFloat = 17.0
+    private var authSize: CGFloat = 16.0
     var selectBlock: HPersonAuthBarBlock?
     
     private lazy var tupleView: HTupleView = {
@@ -68,6 +68,10 @@ class HPersonAuthBar: UIStackView, HTupleViewDelegate {
 
 extension HPersonAuthBar {
     
+    func numberOfSectionsInTupleView() -> Any {
+        return self.auths.isEmpty ? 0 : 1
+    }
+    
     func numberOfItemsInSection(_ section: Any) -> Any {
         return self.auths.count + 1
     }
@@ -83,9 +87,9 @@ extension HPersonAuthBar {
             authWidth = max(authWidth, 0) //取最大值
             // 取名称与授权字符长度的最小值
             nameWidth = min(nameWidth, authWidth) //取最小值
-            return nameWidth
+            return CGSize(width: nameWidth, height: self.height)
         }else {
-            return CGSize(width: self.authSize, height: self.authSize)
+            return CGSize(width: self.authSize, height: self.height)
         }
     }
     
