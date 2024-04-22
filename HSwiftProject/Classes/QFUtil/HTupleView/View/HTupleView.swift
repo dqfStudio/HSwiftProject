@@ -821,9 +821,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 var attribute = self.allAttributes.object(forKey: attributeKey)
                 if attribute == nil {
                     // Call cell delegate method
-                    let itemSelector = #selector(delegate.attributeForItemAtIndexPath(_:atIndexPath:))
-                    if delegate.responds(to: itemSelector, withPre: prefix) {
-                        delegate.performWithUnretainedValue(itemSelector, with: self, with: indexPath, withPre: prefix)
+                    let selector = #selector(delegate.attributeForItemAtIndexPath(_:atIndexPath:))
+                    if delegate.responds(to: selector, withPre: prefix) {
+                        delegate.performWithUnretainedValue(selector, with: self, with: indexPath, withPre: prefix)
                     }
                     attribute = self.allAttributes.object(forKey: attributeKey)
                 }
