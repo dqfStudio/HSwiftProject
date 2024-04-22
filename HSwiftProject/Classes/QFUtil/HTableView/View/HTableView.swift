@@ -506,6 +506,9 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     /// The following are the delegate methods for UITableView.
     func numberOfSections(in tableView: UITableView) -> Int {
+        // remove cache data
+        self.allReuseIdentifiers.removeAllObjects()
+        // table Style
         switch self.tableStyle {
         case .default:
             var sections = 1
@@ -619,7 +622,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             cell.relayoutSubviews()
         }
         // Prevent crashes
-        return cell ?? UITableViewCell()
+        return cell!
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
