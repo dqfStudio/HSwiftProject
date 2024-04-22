@@ -14,6 +14,7 @@ class HMainController2: HViewController, HTupleViewDelegate {
         var frame = UIScreen.bound
         frame.origin.y += UIScreen.topBarHeight
         frame.size.height -= UIScreen.topBarHeight
+        frame.size.height -= UIScreen.bottomBarHeight + 50
         let tupleView = HTupleView(frame: frame)
         return tupleView
     }()
