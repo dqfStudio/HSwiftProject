@@ -191,6 +191,7 @@
 		EB23DAD72A02A02F00C96CAC /* HAlertController+Style3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAD62A02A02F00C96CAC /* HAlertController+Style3.swift */; };
 		EB23DAD92A02AA7A00C96CAC /* HAlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAD82A02AA7A00C96CAC /* HAlertModel.swift */; };
 		EB3541822BCFBB92003B1D69 /* HAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541812BCFBB92003B1D69 /* HAuthView.swift */; };
+		EB3541962BD61A75003B1D69 /* HBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541952BD61A75003B1D69 /* HBaseController.swift */; };
 		EB4323CF29B988A400EDDB64 /* icon_no_network@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */; };
 		EB4323D029B988A400EDDB64 /* icon_no_network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */; };
 		EB4323D129B988A400EDDB64 /* icon_no_server@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */; };
@@ -321,7 +322,7 @@
 		EBD0FBA229DB00DE00808EDA /* HMainController6+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */; };
 		EBD0FBB229DBEE4800808EDA /* HNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */; };
 		EBD213CF2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */; };
-		EBD213D72A655FB800C31E2D /* HViewController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213D62A655FB800C31E2D /* HViewController3.swift */; };
+		EBD213D72A655FB800C31E2D /* HActiveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213D62A655FB800C31E2D /* HActiveController.swift */; };
 		EBD213D92A67783700C31E2D /* HNavigationBar2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213D82A67783700C31E2D /* HNavigationBar2.swift */; };
 		EBD213E72A6B859500C31E2D /* HSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213E62A6B859500C31E2D /* HSkeletonView.swift */; };
 		EBED9CA52A4C3C8600E590DE /* HTupleBannerApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */; };
@@ -520,6 +521,7 @@
 		EB23DAD62A02A02F00C96CAC /* HAlertController+Style3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HAlertController+Style3.swift"; sourceTree = "<group>"; };
 		EB23DAD82A02AA7A00C96CAC /* HAlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAlertModel.swift; sourceTree = "<group>"; };
 		EB3541812BCFBB92003B1D69 /* HAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAuthView.swift; sourceTree = "<group>"; };
+		EB3541952BD61A75003B1D69 /* HBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseController.swift; sourceTree = "<group>"; };
 		EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@3x.png"; sourceTree = "<group>"; };
 		EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@2x.png"; sourceTree = "<group>"; };
 		EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_server@3x.png"; sourceTree = "<group>"; };
@@ -650,7 +652,7 @@
 		EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+Cell.swift"; sourceTree = "<group>"; };
 		EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNumberFormatter.swift; sourceTree = "<group>"; };
 		EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+HNaviBar.swift"; sourceTree = "<group>"; };
-		EBD213D62A655FB800C31E2D /* HViewController3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController3.swift; sourceTree = "<group>"; };
+		EBD213D62A655FB800C31E2D /* HActiveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveController.swift; sourceTree = "<group>"; };
 		EBD213D82A67783700C31E2D /* HNavigationBar2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HNavigationBar2.swift; sourceTree = "<group>"; };
 		EBD213E62A6B859500C31E2D /* HSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSkeletonView.swift; sourceTree = "<group>"; };
 		EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleBannerApex.swift; sourceTree = "<group>"; };
@@ -1245,9 +1247,10 @@
 				EBD213D82A67783700C31E2D /* HNavigationBar2.swift */,
 				EB0597702A0B6B990016ACD8 /* HNavigationBar.swift */,
 				EB3541812BCFBB92003B1D69 /* HAuthView.swift */,
+				EB3541952BD61A75003B1D69 /* HBaseController.swift */,
 				A2B4307F237FF57C00795605 /* HViewController.swift */,
+				EBD213D62A655FB800C31E2D /* HActiveController.swift */,
 				EB23DAC42A00D69300C96CAC /* HViewController2.swift */,
-				EBD213D62A655FB800C31E2D /* HViewController3.swift */,
 				A258395823B4E70F00881941 /* HTableController.swift */,
 				A28923C4238CDE8400E4AB75 /* HTupleController.swift */,
 				EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */,
@@ -1877,6 +1880,7 @@
 				EB05976B2A09F02B0016ACD8 /* CGRect.swift in Sources */,
 				EB43241229C2EB3F00EDDB64 /* NSObject+HLanguage.swift in Sources */,
 				A229488E239756770058B939 /* HTableBaseApex.swift in Sources */,
+				EB3541962BD61A75003B1D69 /* HBaseController.swift in Sources */,
 				EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */,
 				A22948B1239798960058B939 /* HMainController4.swift in Sources */,
 				EBD213CF2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift in Sources */,
@@ -2008,7 +2012,7 @@
 				A21887A823900832005C20BF /* HKeychainSwift.swift in Sources */,
 				EBC8145B29AA53AD00A81431 /* HSendAudioVC+HStatus2.swift in Sources */,
 				EBC8145329AA530B00A81431 /* HMultiMediaVC.swift in Sources */,
-				EBD213D72A655FB800C31E2D /* HViewController3.swift in Sources */,
+				EBD213D72A655FB800C31E2D /* HActiveController.swift in Sources */,
 				A22948B8239798EC0058B939 /* HLoginController.swift in Sources */,
 				EBD0FB6F29D02B1000808EDA /* HUserCore+Extern.swift in Sources */,
 				A28A022A23EE65B7000556A2 /* HTupleViewTextLoopApex.swift in Sources */,
