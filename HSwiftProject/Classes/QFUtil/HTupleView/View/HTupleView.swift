@@ -649,9 +649,11 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     /// The following are UICollectionView delegate methods
     internal func numberOfSections(in collectionView: UICollectionView) -> Int {
-        if self.allSectionInsets.count > 0 {
-            self.allSectionInsets.removeAllObjects()
-        }
+        // remove cache data
+        self.allReuseIdentifiers.removeAllObjects()
+        self.allSectionInsets.removeAllObjects()
+        self.allAttributes.removeAllObjects()
+        // tuple Style
         switch self.tupleStyle {
         case .default:
             var sections = 1
@@ -685,39 +687,21 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         if let delegate = self.tupleDelegate {
             // Get the number of items
             let prefix = self.tupleSplitPrefix(withSection: section)
-            let selector: Selector = #selector(delegate.numberOfItemsInSection(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                items = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! Int
+            let itemSelector: Selector = #selector(delegate.numberOfItemsInSection(_:))
+            if delegate.responds(to: itemSelector, withPre: prefix) {
+                items = delegate.performWithUnretainedValue(itemSelector, with: section, withPre: prefix) as! Int
             }
 
             // Get the edgeInsets of the section
             var edgeInsets: UIEdgeInsets = .zero
-            let selector2 = #selector(delegate.insetForSection(_:))
-            if delegate.responds(to: selector2, withPre: prefix) {
-                edgeInsets = delegate.performWithUnretainedValue(selector2, with: section, withPre: prefix) as! UIEdgeInsets
+            let insetSelector = #selector(delegate.insetForSection(_:))
+            if delegate.responds(to: insetSelector, withPre: prefix) {
+                edgeInsets = delegate.performWithUnretainedValue(insetSelector, with: section, withPre: prefix) as! UIEdgeInsets
             }
             self.allSectionInsets.setObject(NSStringFromUIEdgeInsets(edgeInsets), forKey: "\(section)" as NSString)
 
             // Prevents quantity from being less than 0
             items = max(items, 0)
-            
-            // Blcok status
-            if self.tupleStatus == .block {
-
-                // Traverse to obtain the cell of the section
-                for item in 0...items {
-
-                    let indexPath = IndexPath(row: item, section: section)
-                    let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
-
-                    // Call cell delegate method
-                    let itemSelector = #selector(delegate.attributeForItemAtIndexPath(_:atIndexPath:))
-                    if delegate.responds(to: itemSelector, withPre: prefix) {
-                        delegate.performWithUnretainedValue(itemSelector, with: self, with: indexPath, withPre: prefix)
-                    }
-                }
-
-            }
         }
         return items
     }
@@ -819,29 +803,37 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         //item size cannot be zero, otherwise it will crash
         var size = CGSize(width: 1.0, height: 1.0)
-        // Delegate status
-        if self.tupleStatus == .delegate {
-            if let delegate = self.tupleDelegate {
-                let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
-                let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
+        if let delegate = self.tupleDelegate {
+            let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+            // Delegate status
+            if self.tupleStatus == .delegate {
+                if let delegate = self.tupleDelegate {
+                    let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
+                    if delegate.responds(to: selector, withPre: prefix) {
+                        size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
+                    }
+                    // Prevent negative size
+                    if size.width <= 0 { size.width = 1.0 }
+                    if size.height <= 0 { size.height = 1.0 }
                 }
+            } else {// block status
+                let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
+                var attribute = self.allAttributes.object(forKey: attributeKey)
+                if attribute == nil {
+                    // Call cell delegate method
+                    let itemSelector = #selector(delegate.attributeForItemAtIndexPath(_:atIndexPath:))
+                    if delegate.responds(to: itemSelector, withPre: prefix) {
+                        delegate.performWithUnretainedValue(itemSelector, with: self, with: indexPath, withPre: prefix)
+                    }
+                    attribute = self.allAttributes.object(forKey: attributeKey)
+                }
+                size = attribute?.size ?? .zero
                 // Prevent negative size
                 if size.width <= 0 { size.width = 1.0 }
                 if size.height <= 0 { size.height = 1.0 }
             }
-            return UISizeIntegral(size)
-        } else {// block status
-            // Call cell
-            let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
-            let attribute = self.allAttributes.object(forKey: attributeKey)
-            var size = attribute?.size ?? .zero
-            // Prevent negative size
-            if size.width <= 0 { size.width = 1.0 }
-            if size.height <= 0 { size.height = 1.0 }
-            return UISizeIntegral(size)
         }
+        return UISizeIntegral(size)
     }
 
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
