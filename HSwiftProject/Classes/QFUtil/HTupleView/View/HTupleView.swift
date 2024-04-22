@@ -866,6 +866,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 cell.tuple = self
                 // Save cell
                 self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
+                // Call cell
+                attribute.cellBlock?(self, cell)
                 // Set properties
                 if cell.responds(to: #selector(setter: cell.edgeInsets)) {
                     cell.edgeInsets = attribute.edgeInsets
@@ -874,8 +876,6 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 if cell.responds(to: #selector(cell.relayoutSubviews)) {
                     cell.relayoutSubviews()
                 }
-                // Call cell
-                attribute.cellBlock?(self, cell)
             }
             return cell
         }
