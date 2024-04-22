@@ -66,6 +66,10 @@ class HViewController3: UIViewController {
             if let tupleView = self.view.viewWithTag(kTupleDefaultTag) as? HTupleView {
                 tupleView.releaseTupleBlock()
             }
+            //tableView default tag 1615141312
+            if let tableView = self.view.viewWithTag(kTableDefaultTag) as? HTableView {
+                tableView.releaseTableBlock()
+            }
         }
     }
 
