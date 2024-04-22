@@ -124,7 +124,7 @@ class HTupleAppearance: NSObject {
     optional func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
     
     @objc
-    optional func attributesForItemAtIndexPath(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
+    optional func attributeForItemAtIndexPath(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
 
     @objc
     optional func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath)
@@ -601,7 +601,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     
-    func attributes(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> HTupleAttributes {
+    func attribute(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> HTupleAttributes {
         // Unique identifier
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
@@ -711,7 +711,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                     let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
 
                     // Call cell delegate method
-                    let itemSelector = #selector(delegate.attributesForItemAtIndexPath(_:atIndexPath:))
+                    let itemSelector = #selector(delegate.attributeForItemAtIndexPath(_:atIndexPath:))
                     if delegate.responds(to: itemSelector, withPre: prefix) {
                         delegate.performWithUnretainedValue(itemSelector, with: self, with: indexPath, withPre: prefix)
                     }

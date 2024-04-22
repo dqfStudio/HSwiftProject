@@ -32,6 +32,7 @@ class HNavigationBar: UIStackView, HTupleViewDelegate {
         let tupleView = HTupleView(frame: .zero)
         tupleView.backgroundColor = .clear
         tupleView.isScrollEnabled = false
+        tupleView.tupleStatus = .block
         tupleView.disableBounce()
         return tupleView
     }()
@@ -145,60 +146,54 @@ extension HNavigationBar {
         return 5
     }
     
-    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+    func attributeForItemAtIndexPath(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         switch indexPath.row {
         case 0: //左边返回按钮
+            let attribute = tuple.attribute(HTupleBaseCell.self, nil, true, indexPath)
             let itemWidth = max(self.leftItemWidth, self.rightItemWidth)
-            return CGSize(width: itemWidth, height: UIScreen.naviBarHeight)
+            attribute.size = CGSize(width: itemWidth, height: UIScreen.naviBarHeight)
+            attribute.cellBlock = { (tuple, baseCell) in
+                if self.leftItem.superview == nil {
+                    baseCell.layoutView.addSubview(self.leftItem)
+                }
+                // Reset frame
+                var frame = baseCell.layoutViewBounds
+                frame.width = self.leftItemWidth
+                self.leftItem.frame = frame
+            }
         case 1: //左边间隔
-            return CGSize(width: self.titleSpace, height: UIScreen.naviBarHeight)
+            let attribute = tuple.attribute(HTupleBaseCell.self, nil, true, indexPath)
+            attribute.size = CGSize(width: self.titleSpace, height: UIScreen.naviBarHeight)
         case 2: //中间标题按钮
+            let attribute = tuple.attribute(HTupleBaseCell.self, nil, true, indexPath)
             let itemWidth = max(self.leftItemWidth, self.rightItemWidth)
             var titleWidth = self.width - self.edgeSpace * 2 - self.titleSpace * 2 - itemWidth * 2
             titleWidth = max(titleWidth, 1)
-            return CGSize(width: titleWidth, height: UIScreen.naviBarHeight)
+            attribute.size = CGSize(width: titleWidth, height: UIScreen.naviBarHeight)
+            attribute.cellBlock = { (tuple, baseCell) in
+                if self.titleItem.superview == nil {
+                    baseCell.layoutView.addSubview(self.titleItem)
+                }
+                // Reset frame
+                self.titleItem.frame = baseCell.layoutViewBounds
+            }
         case 3: //右边间隔
-            return CGSize(width: self.titleSpace, height: UIScreen.naviBarHeight)
+            let attribute = tuple.attribute(HTupleBaseCell.self, nil, true, indexPath)
+            attribute.size = CGSize(width: self.titleSpace, height: UIScreen.naviBarHeight)
         case 4: //右边按钮
+            let attribute = tuple.attribute(HTupleBaseCell.self, nil, true, indexPath)
             let itemWidth = max(self.leftItemWidth, self.rightItemWidth)
-            return CGSize(width: itemWidth, height: UIScreen.naviBarHeight)
-        default:
-            return CGSize.zero
-        }
-    }
-    
-    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        switch indexPath.row {
-        case 0: //左边返回按钮
-            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
-            if self.leftItem.superview == nil {
-                cell.layoutView.addSubview(self.leftItem)
+            attribute.size = CGSize(width: itemWidth, height: UIScreen.naviBarHeight)
+            attribute.cellBlock = { (tuple, baseCell) in
+                if self.rightItem.superview == nil {
+                    baseCell.layoutView.addSubview(self.rightItem)
+                }
+                // Reset frame
+                var frame = baseCell.layoutViewBounds
+                frame.x = frame.width - self.rightItemWidth
+                frame.width = self.rightItemWidth
+                self.rightItem.frame = frame
             }
-            // Reset frame
-            var frame = cell.layoutViewBounds
-            frame.width = self.leftItemWidth
-            self.leftItem.frame = frame
-        case 1: //左边间隔
-            _ = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
-        case 2: //中间标题按钮
-            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
-            if self.titleItem.superview == nil {
-                cell.layoutView.addSubview(self.titleItem)
-            }
-            // Reset frame
-            self.titleItem.frame = cell.layoutViewBounds
-        case 3: //右边间隔
-            _ = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
-        case 4: //右边按钮
-            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
-            if self.rightItem.superview == nil {
-                cell.layoutView.addSubview(self.rightItem)
-            }
-            // Reset frame
-            var frame = cell.layoutViewBounds
-            frame.x = frame.width - self.rightItemWidth
-            frame.width = self.rightItemWidth
-            self.rightItem.frame = frame
         default:
             break
         }

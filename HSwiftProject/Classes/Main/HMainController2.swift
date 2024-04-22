@@ -214,15 +214,15 @@ extension HMainController2 {
             return 0
         }
     }
-    func attributesForItemAtIndexPath(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+    func attributeForItemAtIndexPath(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         switch indexPath.section {
         case 0:
             switch indexPath.row {
             case 10:
-                let attributes = tuple.attributes(HTupleBannerCell.self, nil, true, indexPath)
-                attributes.size = CGSize(width: tuple.width, height: 130)
-                attributes.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                attributes.cellBlock = { (tuple, baseCell) in
+                let attribute = tuple.attribute(HTupleBannerCell.self, nil, true, indexPath)
+                attribute.size = CGSize(width: tuple.width, height: 130)
+                attribute.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+                attribute.cellBlock = { (tuple, baseCell) in
                     let cell = baseCell as! HTupleBannerCell
                     if cell.imageUrlArr == nil {
                         cell.imageUrlArr = ["https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png",
@@ -261,11 +261,11 @@ extension HMainController2 {
                     }
                 }
             case 0:
-                let attributes = tuple.attributes(HTupleTextImageCell.self, nil, true, indexPath)
+                let attribute = tuple.attribute(HTupleTextImageCell.self, nil, true, indexPath)
                 let width = tuple.width(forSection: indexPath.section)
-                attributes.size = CGSize(width: width, height: 65)
-                attributes.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                attributes.cellBlock = { (tuple, baseCell) in
+                attribute.size = CGSize(width: width, height: 65)
+                attribute.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+                attribute.cellBlock = { (tuple, baseCell) in
                     let cell = baseCell as! HTupleTextImageCell
                     cell.backgroundColor = UIColor.gray
 
@@ -300,11 +300,11 @@ extension HMainController2 {
                     }
                 }
             case 1:
-                let attributes = tuple.attributes(HTupleTextImageCell.self, nil, true, indexPath)
+                let attribute = tuple.attribute(HTupleTextImageCell.self, nil, true, indexPath)
                 let width = tuple.width(forSection: indexPath.section)
-                attributes.size = CGSize(width: width, height: 65)
-                attributes.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                attributes.cellBlock = { (tuple, baseCell) in
+                attribute.size = CGSize(width: width, height: 65)
+                attribute.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+                attribute.cellBlock = { (tuple, baseCell) in
                     let cell = baseCell as! HTupleTextImageCell
                     cell.backgroundColor = UIColor.gray
 
@@ -339,11 +339,11 @@ extension HMainController2 {
                     }
                 }
             case 2:
-                let attributes = tuple.attributes(HTupleViewCellHoriValue1.self, nil, true, indexPath)
+                let attribute = tuple.attribute(HTupleViewCellHoriValue1.self, nil, true, indexPath)
                 let width = tuple.width(forSection: indexPath.section)
-                attributes.size = CGSize(width: width, height: 65)
-                attributes.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                attributes.cellBlock = { (tuple, baseCell) in
+                attribute.size = CGSize(width: width, height: 65)
+                attribute.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+                attribute.cellBlock = { (tuple, baseCell) in
                     let cell = baseCell as! HTupleViewCellHoriValue1
                     cell.backgroundColor = UIColor.gray
 
@@ -377,11 +377,11 @@ extension HMainController2 {
                     }
                 }
             case 3:
-                let attributes = tuple.attributes(HTupleViewCellHoriValue2.self, nil, true, indexPath)
+                let attribute = tuple.attribute(HTupleViewCellHoriValue2.self, nil, true, indexPath)
                 let width = tuple.width(forSection: indexPath.section)
-                attributes.size = CGSize(width: width, height: 65)
-                attributes.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                attributes.cellBlock = { (tuple, baseCell) in
+                attribute.size = CGSize(width: width, height: 65)
+                attribute.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+                attribute.cellBlock = { (tuple, baseCell) in
                     let cell = baseCell as! HTupleViewCellHoriValue2
                     cell.backgroundColor = UIColor.gray
 
@@ -415,11 +415,11 @@ extension HMainController2 {
                     }
                 }
             case 4:
-                let attributes = tuple.attributes(HTupleFieldCell.self, nil, true, indexPath)
+                let attribute = tuple.attribute(HTupleFieldCell.self, nil, true, indexPath)
                 let width = tuple.width(forSection: indexPath.section)
-                attributes.size = CGSize(width: width, height: 65)
-                attributes.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                attributes.cellBlock = { (tuple, baseCell) in
+                attribute.size = CGSize(width: width, height: 65)
+                attribute.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+                attribute.cellBlock = { (tuple, baseCell) in
                     let cell = baseCell as! HTupleFieldCell
                     cell.backgroundColor = UIColor.gray
                     cell.textField.backgroundColor = UIColor.red
@@ -463,11 +463,11 @@ extension HMainController2 {
                 break
             }
         case 1:
-            let attributes = tuple.attributes(HTupleViewCellVertValue1.self, nil, true, indexPath)
+            let attribute = tuple.attribute(HTupleViewCellVertValue1.self, nil, true, indexPath)
             let width = (tuple.width(forSection: indexPath.section) - 16) / 3
-            attributes.size = CGSize(width: width, height: width + 5 + 25)
-            attributes.edgeInsets = UIEdgeInsets.zero
-            attributes.cellBlock = { (tuple, baseCell) in
+            attribute.size = CGSize(width: width, height: width + 5 + 25)
+            attribute.edgeInsets = UIEdgeInsets.zero
+            attribute.cellBlock = { (tuple, baseCell) in
                 let cell = baseCell as! HTupleViewCellVertValue1
                 cell.backgroundColor = UIColor.gray
                 cell.layoutFirstSpacing = 5
