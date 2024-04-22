@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HNavigationController : UINavigationController, UIGestureRecognizerDelegate {
+class HNavigationController: UINavigationController, UIGestureRecognizerDelegate {
 
     /// Lazy load
     private var blackList = [UIViewController]()

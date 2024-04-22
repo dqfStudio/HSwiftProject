@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTupleController : HViewController, HTupleViewDelegate {
+class HTupleController: HViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
         return HTupleView(frame: .zero)
