@@ -8,9 +8,6 @@
 
 import UIKit
 
-/// Table header & Footer & Item block
-typealias HChatTableRow = (_ cls: AnyClass, _ idx: Bool) -> AnyObject
-
 @objc protocol HChatTableViewDelegate: UITableViewDelegate {
     @objc
     optional func numberOfSectionsInTableView() -> Any
@@ -67,7 +64,6 @@ class HChatTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     private func setup() {
-        
         self.backgroundColor = .clear
         self.alwaysBounceVertical = true
         self.keyboardDismissMode = .onDrag
