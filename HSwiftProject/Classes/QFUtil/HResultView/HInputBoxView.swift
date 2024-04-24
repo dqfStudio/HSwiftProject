@@ -132,7 +132,7 @@ class HInputBoxView: UIView, HTupleViewDelegate {
         cell.backgroundColor = .clear
     }
     
-    func didSelectItemAtIndexPath(_ indexPath: IndexPath) {
+    func didSelectItem(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
         if !textField.isFirstResponder {
             textField.becomeFirstResponder()
         }

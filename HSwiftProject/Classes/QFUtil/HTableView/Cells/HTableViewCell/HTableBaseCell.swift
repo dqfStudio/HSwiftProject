@@ -18,6 +18,9 @@ class HTableBaseCell: UITableViewCell {
     ///cell所在的indexPath
     var indexPath: IndexPath?
     
+    /// Callback when a cell is clicked
+    var willDisplayBlock: HTableCellSelectBlock?
+    
     ///选中item的block
     var selectBlock: HTableCellSelectBlock?
     

@@ -174,7 +174,7 @@ class HResultView: UIView, HTupleViewDelegate {
         }
     }
     
-    func didSelectItemAtIndexPath(_ indexPath: IndexPath) {
+    func didSelectItem(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
         if let make = make, let clickedBlock = make.clickedBlock {
             clickedBlock()
         }

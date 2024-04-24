@@ -14,7 +14,7 @@ private enum HTableStyle: Int {
 }
 
 enum HTableAlign {
-    case other // 垂直居上，水平居左
+    case `default` // 垂直居上，水平居左
     case center // 垂直居中，水平居中
     case top(CGFloat) // 垂直距离顶部的距离，水平居中
     case ratio(CGFloat) // 垂直距离顶部的比例，水平居中
@@ -118,13 +118,12 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     private var tableStyle: HTableStyle = .default
     
     // table align
-    var tableAlign: HTableAlign = .other {
+    var tableAlign: HTableAlign = .default {
         didSet {
             let cntSize = self.contentSize
             let cntInset = self.contentInset
-            guard cntSize != .zero else { return }
             switch tableAlign {
-            case .other:
+            case .default:
                 self.contentInset = UIEdgeInsets.zero
             case .center:
                 let originX = (self.width - cntSize.width) / 2
@@ -403,7 +402,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         // Call delegate method
         var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(withSection: section)
+            let prefix = self.tableSplitPrefix(section)
             let selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 edgeInsets = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
@@ -440,7 +439,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         // Call delegate method
         var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(withSection: section)
+            let prefix = self.tableSplitPrefix(section)
             let selector = #selector(delegate.edgeInsetsForFooterInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 edgeInsets = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
@@ -476,7 +475,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         // Call delegate method
         var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(withSection: indexPath.section)
+            let prefix = self.tableSplitPrefix(indexPath.section)
             let selector = #selector(delegate.edgeInsetsForRowAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! UIEdgeInsets
@@ -491,7 +490,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// UITableViewDatasource  & delegate
-    private func tableSplitPrefix(withSection section: Any) -> String {
+    private func tableSplitPrefix(_ section: Any) -> String {
         var prefix = ""
         if self.tableStyle == .split {
             if self.sectionPaths.contains(section) {
@@ -509,9 +508,9 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         // remove cache data
         self.allReuseIdentifiers.removeAllObjects()
         // table Style
+        var sections = 1
         switch self.tableStyle {
         case .default:
-            var sections = 1
             if let delegate = self.tableDelegate {
                 let prefix = ""
                 let selector = #selector(delegate.numberOfSectionsInTableView)
@@ -521,9 +520,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                 // Prevents quantity from being less than 1
                 sections = max(sections, 1)
             }
-            return sections
         case .split:
-            var sections = 1
             if let delegate = self.tableDelegate {
                 let prefix = kTableDesignKey + "\(self.tableState)" + "_"
                 let selector = #selector(delegate.numberOfSectionsInTableView)
@@ -533,15 +530,15 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                 // Prevents quantity from being less than 1
                 sections = max(sections, 1)
             }
-            return sections
         }
+        return sections
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var items = 0
         if let delegate = self.tableDelegate {
             // Get the number of items
-            let prefix = self.tableSplitPrefix(withSection: section)
+            let prefix = self.tableSplitPrefix(section)
             let selector = #selector(delegate.numberOfRowsInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 items = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! Int
@@ -556,7 +553,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         var height: CGFloat = 0.0
         if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(withSection: section)
+            let prefix = self.tableSplitPrefix(section)
             let selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 height = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -575,7 +572,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         var height: CGFloat = 0.0
         if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(withSection: section)
+            let prefix = self.tableSplitPrefix(section)
             let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 height = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -595,7 +592,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         // The row height cannot be 0, otherwise it will crash.
         var height: CGFloat = 1.0
         if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(withSection: indexPath.section)
+            let prefix = self.tableSplitPrefix(indexPath.section)
             let selector = #selector(delegate.heightForRowAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 height = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGFloat
@@ -609,7 +606,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Call delegate method
         if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(withSection: indexPath.section)
+            let prefix = self.tableSplitPrefix(indexPath.section)
             let selector = #selector(delegate.tableRow(_:atIndexPath:))
             if delegate.responds(to: selector, withPre: prefix) {
                 delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
@@ -628,7 +625,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         // Call delegate method
         if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(withSection: section)
+            let prefix = self.tableSplitPrefix(section)
             let selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 // Unique identifier
@@ -657,7 +654,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         // Call delegate method
         if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(withSection: section)
+            let prefix = self.tableSplitPrefix(section)
             let selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 // Unique identifier
@@ -685,21 +682,24 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard let delegate = self.tableDelegate else { return }
-        let prefix = self.tableSplitPrefix(withSection: indexPath.section)
-        let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
-        if delegate.responds(to: selector, withPre: prefix) {
-            delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTableBaseCell
+        if let willDisplayBlock = cell?.willDisplayBlock {
+            willDisplayBlock()
+        }else if let delegate = self.tableDelegate, let cell = cell {
+            let prefix = self.tableSplitPrefix(indexPath.section)
+            let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
+            }
         }
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let delegate = self.tableDelegate else { return }
         let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTableBaseCell
         if let selectBlock = cell?.selectBlock {
             selectBlock()
-        }else {
-            let prefix = self.tableSplitPrefix(withSection: indexPath.section)
+        }else if let delegate = self.tableDelegate {
+            let prefix = self.tableSplitPrefix(indexPath.section)
             let selector = #selector(delegate.didSelectRowAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 delegate.perform(selector, with: indexPath, withPre: prefix)
