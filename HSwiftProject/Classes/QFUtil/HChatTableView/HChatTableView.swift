@@ -22,7 +22,7 @@ typealias HChatTableRow = (_ cls: AnyClass, _ idx: Bool) -> AnyObject
     @objc
     optional func willDisplayCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
     @objc
-    optional func didSelectRowAtIndexPath(_ indexPath: IndexPath)
+    optional func didSelectCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
 }
 
 class HChatTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
@@ -204,9 +204,12 @@ class HChatTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let delegate = self.tableDelegate else { return }
-        let selector = #selector(delegate.didSelectRowAtIndexPath(_:))
-        if delegate.responds(to: selector) {
-            delegate.perform(selector, with: indexPath)
+        // Call cell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? UITableViewCell
+        // Call delegate method
+        let selector = #selector(delegate.didSelectCell(_:atIndexPath:))
+        if delegate.responds(to: selector), let cell = cell {
+            delegate.perform(selector, with: cell, with: indexPath)
         }
     }
     
