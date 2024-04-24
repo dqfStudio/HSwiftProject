@@ -10,43 +10,13 @@ import UIKit
 
 @objc protocol HFlowBarDelegate: NSObjectProtocol {
     @objc
-    optional func numberOfItemsForBar() -> Any
+    optional func numberOfItemsForBar() -> Int
     
     @objc
-    optional func sizeForItemAt(_ index: Int) -> Any
+    optional func widthForItemAt(_ index: Int) -> CGFloat
     
     @objc
     optional func cellForBar(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
-    
-    @objc
-    optional func headerSpacingForBar() -> CGFloat
-    
-    @objc
-    optional func footerSpacingForBar() -> CGFloat
-    
-    @objc
-    optional func leftSpacingForBar() -> CGFloat
-    
-    @objc
-    optional func rightSpacingForBar() -> CGFloat
-    
-    @objc
-    optional func itemSpacingForBar() -> CGFloat
-    
-    @objc
-    optional func indicatorWidthForBar() -> CGFloat
-    
-    @objc
-    optional func indicatorHeightForBar() -> CGFloat
-    
-    @objc
-    optional func indicatorColorForBar() -> UIColor
-    
-    @objc
-    optional func showSeparatorForBar() -> Bool
-    
-    @objc
-    optional func separatorColorForBar() -> UIColor
 }
 
 // A custom UIStackView that displays a horizontal list of items with a selected item indicator
@@ -59,25 +29,37 @@ class HFlowBar: UIStackView, HTupleViewDelegate {
         return HTupleView(frame: .zero)
     }()
     
-    // Indicator bar
-    private lazy var indicatorBar: UIView = {
-        return UIView()
-    }()
     
-    // Indicator bar color
-    private var indicatorColor: UIColor {
-        return delegate?.indicatorColorForBar?() ?? UIColor.clear
-    }
+    //***********header和footer的间隔************//
     
-    // Indicator bar width
-    private var indicatorWidth: CGFloat {
-        return delegate?.indicatorWidthForBar?() ?? 0.0
-    }
+    var headerSpacing: CGFloat = 0.0 //sectionHeader间隔
+    var footerSpacing: CGFloat = 1.0 //sectionFooter间隔
     
-    // Indicator bar height
-    private var indicatorHeight: CGFloat {
-        return delegate?.indicatorHeightForBar?() ?? 0.0
-    }
+    
+    //************最左边和最右边的间隔*************//
+    
+    var leftSpacing: CGFloat = 0.0 //最左边间隔
+    var rightSpacing: CGFloat = 0.0 //最右边间隔
+    
+    
+    //**************item之间的间隔**************//
+    
+    var itemSpacing: CGFloat = 0.0 //item之间的间隔
+    
+    
+    //******************指示器******************//
+    
+    var indicatorBar = UIView() //指示器
+    var showIndicator: Bool = false //是否显示指示器
+    var indicatorColor = UIColor.clear //指示器颜色
+    var indicatorWidth: CGFloat = 0.0 //指示器宽度
+    var indicatorHeight: CGFloat = 0.0 //指示器高度
+    
+    
+    //******************间隔线******************//
+    
+    var showSeparator: Bool = false //是否显示间隔线
+    var separatorColor = UIColor.clear //间隔线颜色
     
     // The index of the currently selected item
     var selectedIndex: Int = 0 {
@@ -94,6 +76,7 @@ class HFlowBar: UIStackView, HTupleViewDelegate {
         }
     }
     
+    // 是否可以滚动
     var isScrollEnabled: Bool = true {
         didSet {
             tupleView.isScrollEnabled = isScrollEnabled
@@ -121,43 +104,40 @@ class HFlowBar: UIStackView, HTupleViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // 刷新指示器
-    func reloadIndicatorBar(_ index: Int) {
-        self.selectedIndex = index
+    // 刷新列表
+    func reloadData() {
+        self.tupleView.reloadTupleData()
     }
     
-    // Returns the number of items in the section
     func numberOfItemsInSection(_ section: Any) -> Any {
         return delegate?.numberOfItemsForBar?() ?? 0
     }
     
     func insetForSection(_ section: Any) -> Any {
-        let left = delegate?.leftSpacingForBar?() ?? 0.0
-        let right = delegate?.rightSpacingForBar?() ?? 0.0
-        return UIEdgeInsets(top: 0, left: left, bottom: 0, right: right)
+        return UIEdgeInsets(top: 0, left: leftSpacing, bottom: 0, right: rightSpacing)
     }
     
     func sizeForHeaderInSection(_ section: Any) -> Any {
-        let height = delegate?.headerSpacingForBar?() ?? 0.0
-        return CGSize(width: self.width, height: height)
+        return CGSize(width: self.width, height: headerSpacing)
     }
     
     func sizeForFooterInSection(_ section: Any) -> Any {
-        let showSeparator = delegate?.showSeparatorForBar?() ?? false
         if showSeparator {
-            return CGSize(width: self.width, height: 0)
+            return CGSize(width: self.width, height: footerSpacing)
         }else {
-            let height = delegate?.footerSpacingForBar?() ?? 1.0
-            return CGSize(width: self.width, height: height)
+            return CGSize(width: self.width, height: 0)
         }
     }
     
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return delegate?.sizeForItemAt?(indexPath.row) ?? CGSize.zero
+        let width = delegate?.widthForItemAt?(indexPath.row) ?? 1.0
+        var height = self.height - headerSpacing
+        if showSeparator { height -= footerSpacing }
+        return CGSize(width: width, height: height)
     }
     
     func minimumInteritemSpacingForSectionAt(_ section: Any) -> Any {
-        return delegate?.itemSpacingForBar?() ?? 0.0
+        return itemSpacing
     }
     
     func tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
@@ -166,12 +146,10 @@ class HFlowBar: UIStackView, HTupleViewDelegate {
     
     func tupleFooter(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         let cell = tuple.footer(HTupleViewApex.self, nil, false, indexPath) as! HTupleViewApex
-        let showSeparator = delegate?.showSeparatorForBar?() ?? false
-        let separatorColor = delegate?.separatorColorForBar?() ?? UIColor.clear
         let frame = cell.layoutViewBounds
         cell.label.frame = CGRect(x: 0, y: 0, width: frame.width, height: 1)
-        cell.label.backgroundColor = separatorColor
-        cell.label.isHidden = showSeparator
+        cell.label.backgroundColor = separatorColor //分割线颜色
+        cell.label.isHidden = !showSeparator //是否显示分割线
     }
     
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
@@ -185,12 +163,15 @@ class HFlowBar: UIStackView, HTupleViewDelegate {
         if self.selectedIndex == indexPath.row {
             // Refresh indicatorBar frame
             let indicatorX = cell.x + (bounds.width - indicatorWidth) / 2
+            var indicatorY = bounds.height - indicatorHeight
+            indicatorY += showSeparator ? footerSpacing : 0 //是否显示分割线
             self.indicatorBar.frame = CGRect(x: indicatorX,
-                                             y: bounds.height - indicatorHeight + 1,
+                                             y: indicatorY,
                                              width: indicatorWidth,
                                              height: indicatorHeight)
             self.indicatorBar.cornerRadius = indicatorHeight / 2
-            self.indicatorBar.backgroundColor = indicatorColor
+            self.indicatorBar.backgroundColor = indicatorColor //指示器颜色
+            self.indicatorBar.isHidden = !showIndicator //是否显示指示器
         }
 
         cell.selectBlock = {
