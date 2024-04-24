@@ -109,7 +109,7 @@ class HTableAppearance: NSObject {
     @objc
     optional func willDisplayCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
     @objc
-    optional func didSelectRowAtIndexPath(_ indexPath: IndexPath)
+    optional func didSelectCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
 }
 
 class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
@@ -698,11 +698,11 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTableBaseCell
         if let selectBlock = cell?.selectBlock {
             selectBlock()
-        }else if let delegate = self.tableDelegate {
+        }else if let delegate = self.tableDelegate, let cell = cell {
             let prefix = self.tableSplitPrefix(indexPath.section)
-            let selector = #selector(delegate.didSelectRowAtIndexPath(_:))
+            let selector = #selector(delegate.didSelectCell(_:atIndexPath:))
             if delegate.responds(to: selector, withPre: prefix) {
-                delegate.perform(selector, with: indexPath, withPre: prefix)
+                delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
             }
         }
     }
