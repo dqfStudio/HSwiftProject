@@ -206,7 +206,6 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         didSet {
             let cntSize = self.contentSize
             let cntInset = self.contentInset
-            guard cntSize != .zero else { return }
             switch tupleAlign {
             case .other:
                 self.contentInset = UIEdgeInsets.zero
