@@ -138,6 +138,10 @@ class HChatTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     /// The following are the delegate methods for UITableView.
     func numberOfSections(in tableView: UITableView) -> Int {
+        // remove cache data
+        self.allReuseIdentifiers.removeAllObjects()
+        self.allCellHeightTable.removeAllObjects()
+        // delegate
         var sections = 1
         if let delegate = self.tableDelegate {
             let selector = #selector(delegate.numberOfSectionsInTableView)
