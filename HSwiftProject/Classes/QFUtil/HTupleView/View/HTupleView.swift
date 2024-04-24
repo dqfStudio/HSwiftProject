@@ -511,7 +511,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Call delegate method
         var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+            let prefix = self.tupleSplitPrefix(indexPath.section)
             let selector: Selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath.section, withPre: prefix) as! UIEdgeInsets
@@ -549,7 +549,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Call delegate method
         var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+            let prefix = self.tupleSplitPrefix(indexPath.section)
             let selector = #selector(delegate.edgeInsetsForFooterInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath.section, withPre: prefix) as! UIEdgeInsets
@@ -586,7 +586,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Call delegate method
         var edgeInsets: UIEdgeInsets = .zero
         if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+            let prefix = self.tupleSplitPrefix(indexPath.section)
             let selector = #selector(delegate.edgeInsetsForItemAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! UIEdgeInsets
@@ -633,7 +633,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }
         return prefix
     }
-    private func tupleSplitPrefix(withSection section: Int) -> String {
+    private func tupleSplitPrefix(_ section: Int) -> String {
         var prefix = ""
         if self.tupleStyle == .split {
             if self.sectionPaths.contains(section) {
@@ -653,9 +653,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         self.allSectionInsets.removeAllObjects()
         self.allAttributes.removeAllObjects()
         // tuple Style
+        var sections = 1
         switch self.tupleStyle {
         case .default:
-            var sections = 1
             if let delegate = self.tupleDelegate {
                 let prefix = ""
                 let selector = #selector(delegate.numberOfSectionsInTupleView)
@@ -665,9 +665,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 // Prevents quantity from being less than 1
                 sections = max(sections, 1)
             }
-            return sections
         case .split:
-            var sections = 1
             if let delegate = self.tupleDelegate {
                 let prefix = kTupleDesignKey + "\(self.tupleState)" + "_"
                 let selector = #selector(delegate.numberOfSectionsInTupleView)
@@ -677,15 +675,15 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 // Prevents quantity from being less than 1
                 sections = max(sections, 1)
             }
-            return sections
         }
+        return sections
     }
 
     internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var items = 0
         if let delegate = self.tupleDelegate {
             // Get the number of items
-            let prefix = self.tupleSplitPrefix(withSection: section)
+            let prefix = self.tupleSplitPrefix(section)
             let itemSelector: Selector = #selector(delegate.numberOfItemsInSection(_:))
             if delegate.responds(to: itemSelector, withPre: prefix) {
                 items = delegate.performWithUnretainedValue(itemSelector, with: section, withPre: prefix) as! Int
@@ -708,7 +706,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     /// layout == HCollectionViewFlowLayout
     internal func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, colorForSectionAt section: NSInteger) -> UIColor {
         if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(withSection: section)
+            let prefix = self.tupleSplitPrefix(section)
             let selector = #selector(delegate.colorForSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIColor
@@ -719,7 +717,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(withSection: section)
+            let prefix = self.tupleSplitPrefix(section)
             let selector = #selector(delegate.minimumLineSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -730,7 +728,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(withSection: section)
+            let prefix = self.tupleSplitPrefix(section)
             let selector = #selector(delegate.minimumInteritemSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -752,7 +750,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         var size = CGSize.zero
         if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(withSection: section)
+            let prefix = self.tupleSplitPrefix(section)
             let selector: Selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 let spacing: CGFloat = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -777,7 +775,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         var size = CGSize.zero
         if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(withSection: section)
+            let prefix = self.tupleSplitPrefix(section)
             let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 let spacing: CGFloat = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -803,7 +801,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         //item size cannot be zero, otherwise it will crash
         var size = CGSize(width: 1.0, height: 1.0)
         if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+            let prefix = self.tupleSplitPrefix(indexPath.section)
             // Delegate status
             if self.tupleStatus == .delegate {
                 if let delegate = self.tupleDelegate {
@@ -837,7 +835,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         if self.tupleStatus == .delegate {
             // Call delegate method
             if let delegate = self.tupleDelegate {
-                let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+                let prefix = self.tupleSplitPrefix(indexPath.section)
                 let selector: Selector = #selector(delegate.tupleItem(_:atIndexPath:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     delegate.performWithUnretainedValue(selector, with: self, with: indexPath, withPre: prefix)
@@ -882,7 +880,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         if kind == UICollectionView.elementKindSectionHeader {
             // Call delegate method
             if let delegate = self.tupleDelegate {
-                let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+                let prefix = self.tupleSplitPrefix(indexPath.section)
                 let selector: Selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     // Unique identifier
@@ -906,7 +904,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }else if (kind == UICollectionView.elementKindSectionFooter) {
             // Call delegate method
             if let delegate = self.tupleDelegate {
-                let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+                let prefix = self.tupleSplitPrefix(indexPath.section)
                 let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     // Unique identifier
@@ -939,7 +937,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Delegate status
         if self.tupleStatus == .delegate {
             guard let delegate = self.tupleDelegate else { return }
-            let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+            let prefix = self.tupleSplitPrefix(indexPath.section)
             let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
             if delegate.responds(to: selector, withPre: prefix) {
                 delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
@@ -961,7 +959,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             if let selectBlock = cell?.selectBlock {
                 selectBlock()
             }else {
-                let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+                let prefix = self.tupleSplitPrefix(indexPath.section)
                 let selector = #selector(delegate.didSelectItemAtIndexPath(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     delegate.perform(selector, with: indexPath, withPre: prefix)
@@ -979,7 +977,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     /// UICollectionViewDelegate
     internal func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
         if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+            let prefix = self.tupleSplitPrefix(indexPath.section)
             let selector = #selector(delegate.shouldHighlightItemAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
@@ -990,7 +988,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     internal func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+        let prefix = self.tupleSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didHighlightItemAtIndexPath(_:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: indexPath, withPre: prefix)
@@ -999,7 +997,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     internal func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+        let prefix = self.tupleSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didUnhighlightItemAtIndexPath(_:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: indexPath, withPre: prefix)
@@ -1008,7 +1006,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     internal func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
         if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+            let prefix = self.tupleSplitPrefix(indexPath.section)
             let selector = #selector(delegate.shouldSelectItemAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
@@ -1019,7 +1017,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     internal func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
         if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+            let prefix = self.tupleSplitPrefix(indexPath.section)
             let selector = #selector(delegate.shouldDeselectItemAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
@@ -1030,7 +1028,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     internal func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+        let prefix = self.tupleSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didDeselectItemAtIndexPath(_:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: indexPath, withPre: prefix)
@@ -1039,7 +1037,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     internal func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+        let prefix = self.tupleSplitPrefix(indexPath.section)
         let selector = #selector(delegate.willDisplayElementKind(_:atIndexPath:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: elementKind, with: indexPath, withPre: prefix)
@@ -1048,7 +1046,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     internal func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+        let prefix = self.tupleSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didEndDisplayingCell(_:forItemAtIndexPath:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
@@ -1057,7 +1055,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     internal func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
         guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(withSection: indexPath.section)
+        let prefix = self.tupleSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didEndDisplayingElementOfKind(_:atIndexPath:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: elementKind, with: indexPath, withPre: prefix)
