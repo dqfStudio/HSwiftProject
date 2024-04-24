@@ -936,11 +936,15 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     internal func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         // Delegate status
         if self.tupleStatus == .delegate {
-            guard let delegate = self.tupleDelegate else { return }
-            let prefix = self.tupleSplitPrefix(indexPath.section)
-            let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
+            let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
+            if let willDisplayBlock = cell?.willDisplayBlock {
+                willDisplayBlock()
+            }else if let delegate = self.tupleDelegate, let cell = cell {
+                let prefix = self.tupleSplitPrefix(indexPath.section)
+                let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
+                if delegate.responds(to: selector, withPre: prefix) {
+                    delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
+                }
             }
         }else {
             // Call cell
@@ -954,11 +958,10 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // Delegate status
         if self.tupleStatus == .delegate {
-            guard let delegate = self.tupleDelegate else { return }
             let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
             if let selectBlock = cell?.selectBlock {
                 selectBlock()
-            }else {
+            }else if let delegate = self.tupleDelegate {
                 let prefix = self.tupleSplitPrefix(indexPath.section)
                 let selector = #selector(delegate.didSelectItemAtIndexPath(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
@@ -968,7 +971,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }else {
             // Call cell
             let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
-            if let cell = cell, let selectBlock = cell.selectBlock {
+            if let selectBlock = cell?.selectBlock {
                 selectBlock()
             }
         }
