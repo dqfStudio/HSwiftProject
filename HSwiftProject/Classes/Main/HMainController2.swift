@@ -219,7 +219,7 @@ extension HMainController2 {
         switch indexPath.section {
         case 0:
             switch indexPath.row {
-            case 10:
+            case 0:
                 let attribute = tuple.attribute(HTupleBannerCell.self, nil, true, indexPath)
                 attribute.size = CGSize(width: tuple.width, height: 130)
                 attribute.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -256,45 +256,6 @@ extension HMainController2 {
                         let cell = target as! HTupleViewCellHoriValue3
                         NSLog("选中%d", cell.label)
                     }
-                    
-                    cell.selectBlock = {
-
-                    }
-                }
-            case 0:
-                let attribute = tuple.attribute(HTupleTextImageCell.self, nil, true, indexPath)
-                let width = tuple.width(forSection: indexPath.section)
-                attribute.size = CGSize(width: width, height: 65)
-                attribute.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                attribute.cellBlock = { (tuple, baseCell) in
-                    let cell = baseCell as! HTupleTextImageCell
-                    cell.backgroundColor = UIColor.gray
-
-                    cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
-                    
-                    cell.imageView.backgroundColor = UIColor.red
-                    cell.imageView.image = UIImage(named: "icon_no_server")
-                    cell.imageView.imageSize = CGSize(width: 25, height: 25)
-                    cell.imageView.cornerRadius = 25 / 2
-
-                    cell.label.backgroundColor = UIColor.green
-                    cell.label.text = "label"
-
-                    cell.detailLabel.backgroundColor = UIColor.red
-                    cell.detailLabel.text = "detailLabel"
-
-                    cell.accsryLabel.backgroundColor = UIColor.yellow
-                    cell.accsryLabel.text = "accessoryLabel"
-                    
-                    cell.detailView.backgroundColor = UIColor.red
-                    cell.detailView.imageSize = CGSize(width: 25, height: 25)
-                    cell.detailView.setImage(WithName: "icon_no_server")
-                    cell.detailView.cornerRadius = 25 / 2
-                    
-                    cell.imageSpacing = 10.0
-                    cell.labelSpacing = 5.0
-                    cell.detailSpacing = 5.0
-                    cell.accsrySpacing = 10.0
                     
                     cell.selectBlock = {
 
