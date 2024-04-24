@@ -143,27 +143,35 @@ class HWebButtonView: UIButton {
     }
 
     private func updatePosition() {
+        var imageWidth  = imageView?.bounds.width ?? 0
+        let imageHeight = imageView?.bounds.height ?? 0
+        var titleWidth  = titleLabel?.bounds.width ?? 0
+        let titleHeight = titleLabel?.bounds.height ?? 0
         switch imagePosition {
         case .top:
-            let imageWidth = imageView?.bounds.width ?? 0
-            let titleWidth = titleLabel?.bounds.width ?? 0
-            let titleHeight = titleLabel?.bounds.height ?? 0
-            let imageHeight = imageView?.bounds.height ?? 0
-            titleEdgeInsets = UIEdgeInsets(top: (titleHeight + imageSpace) * 0.5, left: -imageWidth * 0.5, bottom: -imageSpace, right: imageWidth * 0.5)
-            imageEdgeInsets = UIEdgeInsets(top: 0, left: titleWidth * 0.5, bottom: imageHeight + imageSpace, right: -titleWidth * 0.5)
+            titleEdgeInsets = UIEdgeInsets(top: (titleHeight + imageSpace) * 0.5,
+                                           left: -imageWidth * 0.5,
+                                           bottom: -imageSpace,
+                                           right: imageWidth * 0.5)
+            imageEdgeInsets = UIEdgeInsets(top: 0,
+                                           left: titleWidth * 0.5,
+                                           bottom: imageHeight + imageSpace,
+                                           right: -titleWidth * 0.5)
         case .left:
             titleEdgeInsets = UIEdgeInsets(top: 0, left: imageSpace, bottom: 0, right: 0)
             imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: imageSpace)
         case .bottom:
-            let imageWidth = imageView?.bounds.width ?? 0
-            let titleWidth = titleLabel?.bounds.width ?? 0
-            let titleHeight = titleLabel?.bounds.height ?? 0
-            let imageHeight = imageView?.bounds.height ?? 0
-            titleEdgeInsets = UIEdgeInsets(top: -(titleHeight + imageSpace) * 0.5, left: -imageWidth * 0.5, bottom: imageSpace, right: imageWidth * 0.5)
-            imageEdgeInsets = UIEdgeInsets(top: imageHeight + imageSpace, left: titleWidth * 0.5, bottom: 0, right: -titleWidth * 0.5)
+            titleEdgeInsets = UIEdgeInsets(top: -(titleHeight + imageSpace) * 0.5,
+                                           left: -imageWidth * 0.5,
+                                           bottom: imageSpace,
+                                           right: imageWidth * 0.5)
+            imageEdgeInsets = UIEdgeInsets(top: imageHeight + imageSpace,
+                                           left: titleWidth * 0.5,
+                                           bottom: 0,
+                                           right: -titleWidth * 0.5)
         case .right:
-            let imageWidth = (imageView?.bounds.width ?? 0) + imageSpace * 0.5
-            let titleWidth = (titleLabel?.bounds.width ?? 0) + imageSpace * 0.5
+            imageWidth += imageSpace * 0.5
+            titleWidth += imageSpace * 0.5
             titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageWidth, bottom: 0, right: imageWidth)
             imageEdgeInsets = UIEdgeInsets(top: 0, left: titleWidth, bottom: 0, right: -titleWidth)
         }
