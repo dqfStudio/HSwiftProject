@@ -817,16 +817,13 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                     if size.height <= 0 { size.height = 1.0 }
                 }
             } else {// block status
-                let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
-                var attribute = self.allAttributes.object(forKey: attributeKey)
-                if attribute == nil {
-                    // Call cell delegate method
-                    let selector = #selector(delegate.attributeForItemAtIndexPath(_:atIndexPath:))
-                    if delegate.responds(to: selector, withPre: prefix) {
-                        delegate.performWithUnretainedValue(selector, with: self, with: indexPath, withPre: prefix)
-                    }
-                    attribute = self.allAttributes.object(forKey: attributeKey)
+                // Call cell delegate method
+                let selector = #selector(delegate.attributeForItemAtIndexPath(_:atIndexPath:))
+                if delegate.responds(to: selector, withPre: prefix) {
+                    delegate.performWithUnretainedValue(selector, with: self, with: indexPath, withPre: prefix)
                 }
+                let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
+                let attribute = self.allAttributes.object(forKey: attributeKey)
                 size = attribute?.size ?? .zero
                 // Prevent negative size
                 if size.width <= 0 { size.width = 1.0 }
