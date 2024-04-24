@@ -24,7 +24,7 @@ enum HTupleStatus: Int {
 }
 
 enum HTupleAlign {
-    case other // 垂直居上，水平居左
+    case zero // 垂直居上，水平居左
     case center // 垂直居中，水平居中
     case top(CGFloat) // 垂直距离顶部的距离，水平居中
     case ratio(CGFloat) // 垂直距离顶部的比例，水平居中
@@ -202,12 +202,12 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     var tupleStatus: HTupleStatus = .delegate
     
     // tuple align
-    var tupleAlign: HTupleAlign = .other {
+    var tupleAlign: HTupleAlign = .zero {
         didSet {
             let cntSize = self.contentSize
             let cntInset = self.contentInset
             switch tupleAlign {
-            case .other:
+            case .zero:
                 self.contentInset = UIEdgeInsets.zero
             case .center:
                 let originX = (self.width - cntSize.width) / 2
