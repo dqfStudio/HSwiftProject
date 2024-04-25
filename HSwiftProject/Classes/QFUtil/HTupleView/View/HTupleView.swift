@@ -265,11 +265,15 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     /// Initialization method for split
     static func tupleFrame(_ frame: () -> CGRect, exclusiveSections sections: () -> NSArray) -> HTupleView {
-        return HTupleView(frame(), exclusiveSections: sections())
+        return HTupleView(frame(), exclusiveSections: sections(), scrollDirection: .vertical)
+    }
+    
+    static func tupleFrame(_ frame: () -> CGRect, scrollDirection direction: () -> HTupleDirection, exclusiveSections sections: () -> NSArray) -> HTupleView {
+        return HTupleView(frame(), exclusiveSections: sections(), scrollDirection: direction())
     }
 
-    private convenience init(_ frame: CGRect, exclusiveSections sectionPaths: NSArray) {
-        self.init(frame: UIRectIntegral(frame), collectionViewLayout: HCollectionViewFlowLayout(.vertical))
+    private convenience init(_ frame: CGRect, exclusiveSections sectionPaths: NSArray, scrollDirection direction: HTupleDirection) {
+        self.init(frame: UIRectIntegral(frame), collectionViewLayout: HCollectionViewFlowLayout(direction))
         self.sectionPaths = sectionPaths
         self.tupleStyle = .split
         self.setup()

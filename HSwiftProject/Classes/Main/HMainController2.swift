@@ -39,19 +39,39 @@ class HMainController2: HViewController, HTupleViewDelegate, HFlowBarDelegate {
         
         let width = self.view.width
 //        let height = UIScreen.topBarHeight
-        let frame = CGRect(x: 0, y: 100, width: width, height: 50)
-        let naviBar = HFlowBar(frame: frame)
+        
+        let frame = CGRect(x: 10, y: 100, width: width - 20, height: 50)
+        let naviBar = HFlowBar(frame: frame, direction: .horizontal)
+        
+//        let frame = CGRect(x: 20, y: 100, width: 50, height: width)
+//        let naviBar = HFlowBar(frame: frame, direction: .vertical)
         naviBar.backgroundColor = .yellow
         
-        naviBar.leftSpacing = 16
-        naviBar.rightSpacing = 16
+        naviBar.headerSpacing = 16
+        naviBar.footerSpacing = 16
         naviBar.itemSpacing = 10
         naviBar.indicatorWidth = 20
         naviBar.indicatorHeight = 3
         naviBar.indicatorColor = UIColor.blue
         naviBar.showIndicator = true
-        naviBar.showSeparator = true
-        naviBar.separatorColor = UIColor.red
+//        naviBar.showBottomSeparator = true
+//        naviBar.separatorColor = UIColor.red
+        naviBar.tupleView.tupleAlign = .center
+        
+//        naviBar.showTopBar = true
+//        naviBar.spacing = 5
+//        naviBar.topBarSize = 5
+//        naviBar.topBarColor = .green
+//        naviBar.addArrangedSubview(naviBar.topBar)
+        naviBar.showTopSeparator = true
+        naviBar.topSeparatorColor = .red
+        
+//        naviBar.showBottomBar = true
+//        naviBar.bottomBarSize = 10
+//        naviBar.bottomBarColor = .blue
+//        naviBar.addArrangedSubview(naviBar.bottomBar)
+        naviBar.showBottomSeparator = true
+        naviBar.bottomSeparatorColor = .red
         
         naviBar.delegate = self
         self.view.addSubview(naviBar)
@@ -480,10 +500,10 @@ extension HMainController2 {
 
 extension HMainController2 {
     func numberOfItemsForBar() -> Int {
-        return 3
+        return 8
     }
     
-    func widthForItemAt(_ index: Int) -> CGFloat {
+    func sizeForItemAt(_ index: Int) -> CGFloat {
         return 70
     }
     
