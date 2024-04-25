@@ -186,18 +186,18 @@ class HFlowBar: UIStackView, HTupleViewDelegate {
         self.distribution = .fill
         self.alignment = .fill
         
-        // 顶部间隔线
-        if direction == .horizontal {
-            tupleView.addSubview(topSeparator)
-        }
-        
         // 添加列表
         tupleView.delegate = self
         self.addArrangedSubview(tupleView)
         
+        // 顶部间隔线
+        if direction == .horizontal {
+            self.insertSubview(topSeparator, belowSubview: tupleView)
+        }
+        
         // 底部间隔线
         if direction == .horizontal {
-            tupleView.addSubview(bottomSeparator)
+            self.insertSubview(bottomSeparator, belowSubview: tupleView)
         }
         
         // 指示器

@@ -509,7 +509,6 @@ extension HMainController2 {
     
     func cellForBar(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
-        cell.label.backgroundColor = .gray
         cell.label.text = "\(indexPath.row)"
         cell.label.textColor = UIColor.red
         cell.label.textAlignment = .center
