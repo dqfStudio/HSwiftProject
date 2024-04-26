@@ -203,36 +203,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     var tupleStatus: HTupleStatus = .delegate
     
     // tuple align
-    var tupleAlign: HTupleAlign = .default {
-        didSet {
-            let cntSize = self.contentSize
-            let cntInset = self.contentInset
-            switch tupleAlign {
-            case .default:
-                self.contentInset = UIEdgeInsets.zero
-            case .center:
-                let originX = (self.width - cntSize.width) / 2
-                let originY = (self.height - cntSize.height) / 2
-                self.contentInset = UIEdgeInsets(top: max(originY, 0),
-                                                 left: max(originX, 0),
-                                                 bottom: cntInset.bottom,
-                                                 right: cntInset.right)
-            case .top(let top):
-                let originX = (self.width - cntSize.width) / 2
-                self.contentInset = UIEdgeInsets(top: top,
-                                                 left: max(originX, 0),
-                                                 bottom: cntInset.bottom,
-                                                 right: cntInset.right)
-            case .ratio(let ratio):
-                let originX = (self.width - cntSize.width) / 2
-                let originY = (self.height - cntSize.height) * ratio
-                self.contentInset = UIEdgeInsets(top: max(originY, 0),
-                                                 left: max(originX, 0),
-                                                 bottom: cntInset.bottom,
-                                                 right: cntInset.right)
-            }
-        }
-    }
+    var tupleAlign: HTupleAlign = .default
 
     private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
@@ -296,6 +267,42 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             guard frame != super.frame else { return }
             super.frame = frame
             self.reloadData()
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // 更新对齐方式
+        self.updateAlign()
+    }
+    
+    // 更新对齐方式
+    private func updateAlign() {
+        let cntSize = self.contentSize
+        let cntInset = self.contentInset
+        switch tupleAlign {
+        case .default:
+            self.contentInset = UIEdgeInsets.zero
+        case .center:
+            let originX = (self.width - cntSize.width) / 2
+            let originY = (self.height - cntSize.height) / 2
+            self.contentInset = UIEdgeInsets(top: max(originY, 0),
+                                             left: max(originX, 0),
+                                             bottom: cntInset.bottom,
+                                             right: cntInset.right)
+        case .top(let top):
+            let originX = (self.width - cntSize.width) / 2
+            self.contentInset = UIEdgeInsets(top: top,
+                                             left: max(originX, 0),
+                                             bottom: cntInset.bottom,
+                                             right: cntInset.right)
+        case .ratio(let ratio):
+            let originX = (self.width - cntSize.width) / 2
+            let originY = (self.height - cntSize.height) * ratio
+            self.contentInset = UIEdgeInsets(top: max(originY, 0),
+                                             left: max(originX, 0),
+                                             bottom: cntInset.bottom,
+                                             right: cntInset.right)
         }
     }
 
@@ -865,12 +872,12 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 cell.tuple = self
                 // Save cell
                 self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
-                // Call cell
-                attribute.cellBlock?(self, cell)
                 // Set properties
                 if cell.responds(to: #selector(setter: cell.edgeInsets)) {
                     cell.edgeInsets = attribute.edgeInsets
                 }
+                // Call cell
+                attribute.cellBlock?(self, cell)
                 // Update layout
                 if cell.responds(to: #selector(cell.relayoutSubviews)) {
                     cell.relayoutSubviews()

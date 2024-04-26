@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HMainController2: HViewController, HTupleViewDelegate, HFlowBarDelegate {
+class HMainController2: HViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
         var frame = UIScreen.bound
@@ -73,7 +73,22 @@ class HMainController2: HViewController, HTupleViewDelegate, HFlowBarDelegate {
         naviBar.showBottomSeparator = true
         naviBar.bottomSeparatorColor = .red
         
-        naviBar.delegate = self
+        naviBar.numberBlock = {
+            return 3
+        }
+        naviBar.sizeBlock = { index in
+            return 70
+        }
+        naviBar.itemBlock = { (tuple: HTupleView, indexPath: IndexPath) in
+            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+            cell.label.text = "\(indexPath.row)"
+            cell.label.textColor = UIColor.red
+            cell.label.textAlignment = .center
+        }
+        naviBar.selectBlock = { index in
+            
+        }
+        
         self.view.addSubview(naviBar)
         
         return
@@ -496,22 +511,4 @@ extension HMainController2 {
             break
         }
     }
-}
-
-extension HMainController2 {
-    func numberOfItemsForBar() -> Int {
-        return 8
-    }
-    
-    func sizeForItemAt(_ index: Int) -> CGFloat {
-        return 70
-    }
-    
-    func cellForBar(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
-        cell.label.text = "\(indexPath.row)"
-        cell.label.textColor = UIColor.red
-        cell.label.textAlignment = .center
-    }
-    
 }

@@ -193,6 +193,11 @@
 		EB3541822BCFBB92003B1D69 /* HAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541812BCFBB92003B1D69 /* HAuthView.swift */; };
 		EB3541962BD61A75003B1D69 /* HBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541952BD61A75003B1D69 /* HBaseController.swift */; };
 		EB35419E2BD90E39003B1D69 /* HFlowBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB35419D2BD90E39003B1D69 /* HFlowBar.swift */; };
+		EB3541A02BDA2CFA003B1D69 /* HFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB35419F2BDA2CFA003B1D69 /* HFlowView.swift */; };
+		EB3541AC2BDB37C5003B1D69 /* HFlowSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541AB2BDB37C5003B1D69 /* HFlowSheetVC.swift */; };
+		EB3541AE2BDB37D7003B1D69 /* HFlowSheetVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541AD2BDB37D7003B1D69 /* HFlowSheetVC+Extern.swift */; };
+		EB3541B02BDB37E7003B1D69 /* HFlowAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541AF2BDB37E7003B1D69 /* HFlowAlertVC.swift */; };
+		EB3541B22BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B12BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift */; };
 		EB4323CF29B988A400EDDB64 /* icon_no_network@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */; };
 		EB4323D029B988A400EDDB64 /* icon_no_network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */; };
 		EB4323D129B988A400EDDB64 /* icon_no_server@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */; };
@@ -524,6 +529,11 @@
 		EB3541812BCFBB92003B1D69 /* HAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAuthView.swift; sourceTree = "<group>"; };
 		EB3541952BD61A75003B1D69 /* HBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseController.swift; sourceTree = "<group>"; };
 		EB35419D2BD90E39003B1D69 /* HFlowBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowBar.swift; sourceTree = "<group>"; };
+		EB35419F2BDA2CFA003B1D69 /* HFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowView.swift; sourceTree = "<group>"; };
+		EB3541AB2BDB37C5003B1D69 /* HFlowSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowSheetVC.swift; sourceTree = "<group>"; };
+		EB3541AD2BDB37D7003B1D69 /* HFlowSheetVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowSheetVC+Extern.swift"; sourceTree = "<group>"; };
+		EB3541AF2BDB37E7003B1D69 /* HFlowAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowAlertVC.swift; sourceTree = "<group>"; };
+		EB3541B12BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowAlertVC+Extern.swift"; sourceTree = "<group>"; };
 		EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@3x.png"; sourceTree = "<group>"; };
 		EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@2x.png"; sourceTree = "<group>"; };
 		EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_server@3x.png"; sourceTree = "<group>"; };
@@ -790,6 +800,7 @@
 				A265DA022394B24C001F39B0 /* HTabBarController.swift */,
 				A265D9FE239250F6001F39B0 /* HTabContentView.swift */,
 				EB35419D2BD90E39003B1D69 /* HFlowBar.swift */,
+				EB35419F2BDA2CFA003B1D69 /* HFlowView.swift */,
 				A265D9FA2390B8EB001F39B0 /* HTabItem.swift */,
 				A265DA042394B6F7001F39B0 /* UIScrollView+HTab.swift */,
 				A265DA002392A2B3001F39B0 /* UIViewController+HTab.swift */,
@@ -856,6 +867,10 @@
 				A2A814C4274F56C400FAB929 /* UIView+HUtil.swift */,
 				EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */,
 				EB80B6732A15C8ED0016648A /* HLabel.swift */,
+				EB3541AB2BDB37C5003B1D69 /* HFlowSheetVC.swift */,
+				EB3541AD2BDB37D7003B1D69 /* HFlowSheetVC+Extern.swift */,
+				EB3541AF2BDB37E7003B1D69 /* HFlowAlertVC.swift */,
+				EB3541B12BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift */,
 				EB80B66B2A1130E00016648A /* HToolbar.swift */,
 				EB80B66D2A122A940016648A /* HScrollbar.swift */,
 				EBA6472C2A87704900897D76 /* HGroupbar.swift */,
@@ -1868,6 +1883,7 @@
 				EB43241629C34BB800EDDB64 /* HFormCell.swift in Sources */,
 				EBC8146329AA53D100A81431 /* HAcceptVideoVC.swift in Sources */,
 				EBC8147329AA541800A81431 /* HSendVideoVC+HStatus3.swift in Sources */,
+				EB3541AE2BDB37D7003B1D69 /* HFlowSheetVC+Extern.swift in Sources */,
 				A26D432123842C9400F457AE /* UIGestureRecognizer+HUtil.swift in Sources */,
 				EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */,
 				A22948BA239798FC0058B939 /* HRegisterController.swift in Sources */,
@@ -1885,6 +1901,7 @@
 				A229488E239756770058B939 /* HTableBaseApex.swift in Sources */,
 				EB3541962BD61A75003B1D69 /* HBaseController.swift in Sources */,
 				EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */,
+				EB3541AC2BDB37C5003B1D69 /* HFlowSheetVC.swift in Sources */,
 				A22948B1239798960058B939 /* HMainController4.swift in Sources */,
 				EBD213CF2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift in Sources */,
 				A229489D23975CE40058B939 /* HTableViewCellVertValue.swift in Sources */,
@@ -1902,6 +1919,7 @@
 				EBED9CA52A4C3C8600E590DE /* HTupleBannerApex.swift in Sources */,
 				A2A814BE274D6C3000FAB929 /* HPushAnimation.swift in Sources */,
 				A2A814C0274E030100FAB929 /* HSheetController.swift in Sources */,
+				EB3541B02BDB37E7003B1D69 /* HFlowAlertVC.swift in Sources */,
 				EBED9CA62A4C3C8600E590DE /* HTupleBannerCell.swift in Sources */,
 				EBC8140829AA48C000A81431 /* HLRDManager.swift in Sources */,
 				EBC8147729AA542500A81431 /* HSendVideoVC+HStatus5.swift in Sources */,
@@ -2034,6 +2052,7 @@
 				A2294890239756770058B939 /* HTableBaseCell.swift in Sources */,
 				A229488F239756770058B939 /* HTableSignal.swift in Sources */,
 				EBA6472B2A875D1B00897D76 /* HStackBar.swift in Sources */,
+				EB3541A02BDA2CFA003B1D69 /* HFlowView.swift in Sources */,
 				A2B4307A237FF2B100795605 /* HMenuViewController.swift in Sources */,
 				A21887A723900832005C20BF /* HKeychainSwiftAccessOptions.swift in Sources */,
 				EBD0FB7A29D02B9600808EDA /* HUserCore.swift in Sources */,
@@ -2050,6 +2069,7 @@
 				EB12098D2A85DA2A00E5F045 /* HPostCommentHeader.swift in Sources */,
 				EBC8145729AA538B00A81431 /* HAcceptAudioVC.swift in Sources */,
 				EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */,
+				EB3541B22BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift in Sources */,
 				EB23DAD12A029F0300C96CAC /* HAlertController+Style0.swift in Sources */,
 				EBD0FB2829CC91AF00808EDA /* UIImage+QRCode.swift in Sources */,
 				EB4323F229B98BE300EDDB64 /* UIAlertController+HUtil.swift in Sources */,

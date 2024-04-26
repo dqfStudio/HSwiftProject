@@ -8,22 +8,20 @@
 
 import UIKit
 
-@objc protocol HFlowBarDelegate: NSObjectProtocol {
-    @objc
-    optional func numberOfItemsForBar() -> Int
-    
-    @objc
-    optional func sizeForItemAt(_ index: Int) -> CGFloat
-    
-    @objc
-    optional func cellForBar(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
-}
+typealias HFlowBarNumberBlock = () -> Int
+typealias HFlowBarSizeBlock = (_ index: Int) -> CGFloat
+typealias HFlowBarItemBlock = (_ tuple: HTupleView, _ indexPath: IndexPath) -> Void
+typealias HFlowBarSelectBlock = (_ index: Int) -> Void
 
-// A custom UIStackView that displays a horizontal list of items with a selected item indicator
 class HFlowBar: UIStackView, HTupleViewDelegate {
     
-    weak var delegate: HFlowBarDelegate?
-    var direction: HTupleDirection = .vertical
+    var numberBlock: HFlowBarNumberBlock?
+    var sizeBlock: HFlowBarSizeBlock?
+    var itemBlock: HFlowBarItemBlock?
+    var selectBlock: HFlowBarSelectBlock?
+    
+    // 垂直或水平方向
+    private var direction: HTupleDirection = .vertical
     
     // A lazy-loaded HTupleView instance
     lazy var tupleView: HTupleView = {
@@ -221,7 +219,7 @@ extension HFlowBar {
 
     @objc
     func tuple0_numberOfItemsInSection(_ section: Any) -> Any {
-        return delegate?.numberOfItemsForBar?() ?? 0
+        return self.numberBlock?() ?? 0
     }
     
     @objc
@@ -231,7 +229,7 @@ extension HFlowBar {
     
     @objc
     func tuple0_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        let size = delegate?.sizeForItemAt?(indexPath.row) ?? 1.0
+        let size = self.sizeBlock?(indexPath.row) ?? 1.0
         return CGSize(width: self.width, height: size)
     }
     
@@ -243,7 +241,7 @@ extension HFlowBar {
     @objc
     func tuple0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         // cell回调
-        delegate?.cellForBar?(tuple, atIndexPath: indexPath)
+        self.itemBlock?(tuple, indexPath)
         
         let cell = tuple.cell(indexPath.row, indexPath.section) as! HTupleBaseCell
         let bounds = cell.layoutViewBounds
@@ -259,8 +257,9 @@ extension HFlowBar {
                                              height: indicatorHeight)
         }
 
-        cell.selectBlock = {
-            self.selectedIndex = indexPath.row
+        cell.selectBlock = { [weak self]  in
+            self?.selectedIndex = indexPath.row
+            self?.selectBlock?(indexPath.row)
         }
     }
 
@@ -271,7 +270,7 @@ extension HFlowBar {
 
     @objc
     func tuple1_numberOfItemsInSection(_ section: Any) -> Any {
-        return delegate?.numberOfItemsForBar?() ?? 0
+        return self.numberBlock?() ?? 0
     }
     
     @objc
@@ -281,7 +280,7 @@ extension HFlowBar {
     
     @objc
     func tuple1_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        let size = delegate?.sizeForItemAt?(indexPath.row) ?? 1.0
+        let size = self.sizeBlock?(indexPath.row) ?? 1.0
         return CGSize(width: size, height: self.height)
     }
     
@@ -293,7 +292,7 @@ extension HFlowBar {
     @objc
     func tuple1_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         // cell回调
-        delegate?.cellForBar?(tuple, atIndexPath: indexPath)
+        self.itemBlock?(tuple, indexPath)
         
         let cell = tuple.cell(indexPath.row, indexPath.section) as! HTupleBaseCell
         let bounds = cell.layoutViewBounds
@@ -309,8 +308,9 @@ extension HFlowBar {
                                              height: indicatorHeight)
         }
 
-        cell.selectBlock = {
-            self.selectedIndex = indexPath.row
+        cell.selectBlock = { [weak self]  in
+            self?.selectedIndex = indexPath.row
+            self?.selectBlock?(indexPath.row)
         }
     }
 
