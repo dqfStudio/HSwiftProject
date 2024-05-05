@@ -108,7 +108,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
         cell.buttonView.textColor = UIColor.black
         cell.buttonView.text = "取消"
         cell.buttonView.pressed = { (sender, data) in
-            self.back()
+            self.naviBack()
         }
     }
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {        
@@ -122,7 +122,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
         //[cell.label setTextAlignment:NSTextAlignmentCenter]
     }
     func didSelectCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
-        self.back()
+        self.naviBack()
     }
 
 }

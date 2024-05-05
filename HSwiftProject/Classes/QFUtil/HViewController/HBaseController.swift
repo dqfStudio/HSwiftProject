@@ -26,7 +26,7 @@ class HBaseController: UIViewController {
 
     private func pvc_initialize() {
         // modalPresentationStyle sets the default style to UIModalPresentationFullScreen
-        self.modalPresentationStyle = .fullScreen
+        self.modalPresentationStyle = self.preferredPresentationStyle
     }
     
     deinit {
@@ -89,7 +89,7 @@ class HBaseController: UIViewController {
 
     // This function is called when the left item is pressed
     func leftNaviItemPressed() {
-        self.back()
+        self.naviBack()
     }
 
     // This function is called when the right item is pressed
@@ -97,38 +97,13 @@ class HBaseController: UIViewController {
         
     }
     
-    /// Return event processing
-    func back() {
-        if let navi = self.navigationController {
-            if navi.isKind(of: HNavigationController.self), self.isKind(of: HBaseController.self) {
-                switch (self.appearType) {
-                case .undefine, .present:
-                    // dismiss with present animation
-                    self.dismiss(animated: true, completion: nil)
-                    return
-                case .push:
-                    // pop view controller with push animation
-                    navi.popViewController(animated: true)
-                    return
-                default:
-                    break
-                }
-            } else {
-                let viewcontrollers = navi.viewControllers
-                let topViewController = navi.topViewController
-                if viewcontrollers.count > 1 && topViewController == self {
-                    // pop view controller with push animation
-                    navi.popViewController(animated: true)
-                    return
-                }
-            }
-        }
-        // dismiss with present animation
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     /// Navigation bar status control
     func setNeedsNavigationBarAppearanceUpdate() { }
+    
+    // Set modalPresentationStyle
+    var preferredPresentationStyle: UIModalPresentationStyle {
+        return .fullScreen
+    }
 
     // Auto adjust status bar style
     var autoAdjustStatusBarStyle: Bool {
@@ -212,6 +187,46 @@ extension HBaseController {
 //        return UIInterfaceOrientation.landscapeRight
 //    }
     
+}
+
+extension UIViewController {
+    @objc
+    func addNaviLeftItem(_ color: UIColor = UIColor.white) {
+        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "hvc_back_icon"), style: .plain, target: self, action: #selector(naviBack))
+        leftBarButtonItem.tintColor = color
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+    }
+    
+    /// Return event processing
+    @objc
+    func naviBack() {
+        if let navi = self.navigationController {
+            if navi.isKind(of: HNavigationController.self), self.isKind(of: HBaseController.self) {
+                switch (self.appearType) {
+                case .undefine, .present:
+                    // dismiss with present animation
+                    self.dismiss(animated: true, completion: nil)
+                    return
+                case .push:
+                    // pop view controller with push animation
+                    navi.popViewController(animated: true)
+                    return
+                default:
+                    break
+                }
+            } else {
+                let viewcontrollers = navi.viewControllers
+                let topViewController = navi.topViewController
+                if viewcontrollers.count > 1 && topViewController == self {
+                    // pop view controller with push animation
+                    navi.popViewController(animated: true)
+                    return
+                }
+            }
+        }
+        // dismiss with present animation
+        self.dismiss(animated: true, completion: nil)
+    }
 }
 
 extension UIViewController {

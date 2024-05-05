@@ -218,7 +218,7 @@ extension HPullController {
                 let action: HSheetAction = self.actions[index]
                 // 回调
                 action.handler?(index)
-                self.back()
+                self.naviBack()
             }
         case 1:
             let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
@@ -265,7 +265,7 @@ extension HPullController {
             cell.label.text = self.cancelAction.title
             cell.selectBlock = {
                 self.cancelAction.handler?(-1)
-                self.back()
+                self.naviBack()
             }
             break
         case 2:

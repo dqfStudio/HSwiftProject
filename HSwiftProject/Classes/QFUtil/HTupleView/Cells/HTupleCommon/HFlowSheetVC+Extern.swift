@@ -49,7 +49,7 @@ extension HFlowSheetVC {
                 }
                 
                 cell.selectBlock = {
-                    sheetVC.back()
+                    sheetVC.naviBack()
                     completion(indexPath.row - 1)
                 }
             }

@@ -198,6 +198,8 @@
 		EB3541AE2BDB37D7003B1D69 /* HFlowSheetVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541AD2BDB37D7003B1D69 /* HFlowSheetVC+Extern.swift */; };
 		EB3541B02BDB37E7003B1D69 /* HFlowAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541AF2BDB37E7003B1D69 /* HFlowAlertVC.swift */; };
 		EB3541B22BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B12BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift */; };
+		EB3541B62BE7C760003B1D69 /* HActiveNaviController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B52BE7C75F003B1D69 /* HActiveNaviController.swift */; };
+		EB3541B82BE7D052003B1D69 /* HBaseNaviController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B72BE7D052003B1D69 /* HBaseNaviController.swift */; };
 		EB4323CF29B988A400EDDB64 /* icon_no_network@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */; };
 		EB4323D029B988A400EDDB64 /* icon_no_network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */; };
 		EB4323D129B988A400EDDB64 /* icon_no_server@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */; };
@@ -534,6 +536,8 @@
 		EB3541AD2BDB37D7003B1D69 /* HFlowSheetVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowSheetVC+Extern.swift"; sourceTree = "<group>"; };
 		EB3541AF2BDB37E7003B1D69 /* HFlowAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowAlertVC.swift; sourceTree = "<group>"; };
 		EB3541B12BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowAlertVC+Extern.swift"; sourceTree = "<group>"; };
+		EB3541B52BE7C75F003B1D69 /* HActiveNaviController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveNaviController.swift; sourceTree = "<group>"; };
+		EB3541B72BE7D052003B1D69 /* HBaseNaviController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseNaviController.swift; sourceTree = "<group>"; };
 		EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@3x.png"; sourceTree = "<group>"; };
 		EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@2x.png"; sourceTree = "<group>"; };
 		EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_server@3x.png"; sourceTree = "<group>"; };
@@ -1273,7 +1277,9 @@
 				A28923C4238CDE8400E4AB75 /* HTupleController.swift */,
 				EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */,
 				A26D432E23868AFE00F457AE /* UIViewController+HDisappear.swift */,
+				EB3541B72BE7D052003B1D69 /* HBaseNaviController.swift */,
 				A26D432C238682D200F457AE /* HNavigationController.swift */,
+				EB3541B52BE7C75F003B1D69 /* HActiveNaviController.swift */,
 			);
 			path = HViewController;
 			sourceTree = "<group>";
@@ -1965,6 +1971,7 @@
 				EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */,
 				A22948AB2397986C0058B939 /* HMainController3+HSection0.swift in Sources */,
 				EBD0FBA229DB00DE00808EDA /* HMainController6+Cell.swift in Sources */,
+				EB3541B62BE7C760003B1D69 /* HActiveNaviController.swift in Sources */,
 				A28A022623EE55EB000556A2 /* HTextLoopView.swift in Sources */,
 				A2B43073237FF2B100795605 /* HCommonDefine.swift in Sources */,
 				A2B42FCC237CED5A00795605 /* AppDelegate.swift in Sources */,
@@ -2072,6 +2079,7 @@
 				EB3541B22BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift in Sources */,
 				EB23DAD12A029F0300C96CAC /* HAlertController+Style0.swift in Sources */,
 				EBD0FB2829CC91AF00808EDA /* UIImage+QRCode.swift in Sources */,
+				EB3541B82BE7D052003B1D69 /* HBaseNaviController.swift in Sources */,
 				EB4323F229B98BE300EDDB64 /* UIAlertController+HUtil.swift in Sources */,
 				A28923A6238B72F800E4AB75 /* NSIndexPath+HUtil.swift in Sources */,
 				A28923AE238B750000E4AB75 /* HTextField.swift in Sources */,

@@ -143,7 +143,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
     }
     func didSelectCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
         if indexPath.row == 3 {
-            self.back()
+            self.naviBack()
         }
     }
 

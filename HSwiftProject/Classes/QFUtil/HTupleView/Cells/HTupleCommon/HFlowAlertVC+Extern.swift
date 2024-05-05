@@ -43,7 +43,7 @@ extension HFlowAlertVC {
                 cell.label.textColor = UIColor.white
                 cell.label.text = "完成并登出Freechat".localized()
                 cell.selectBlock = {
-                    alertVC.back()
+                    alertVC.naviBack()
                     completion(indexPath.row)
                 }
             }
@@ -87,7 +87,7 @@ extension HFlowAlertVC {
                 cell.buttonView.textColor = UIColor.white
                 cell.buttonView.text = "取消".localized()
                 cell.buttonView.pressed = { (sender, data) in
-                    alertVC.back()
+                    alertVC.naviBack()
                 }
                 
                 cell.label.frame = CGRect(x: halfWidth - 0.5, y: 0, width: 0.5, height: frame.height)
@@ -98,7 +98,7 @@ extension HFlowAlertVC {
                 cell.detailButton.textColor = UIColor.white
                 cell.detailButton.text = "确定".localized()
                 cell.detailButton.pressed = { (sender, data) in
-                    alertVC.back()
+                    alertVC.naviBack()
                     completion(indexPath.row)
                 }
             }
@@ -142,7 +142,7 @@ extension HFlowAlertVC {
                 cell.buttonView.textColor = UIColor.white
                 cell.buttonView.text = "忘记密码".localized()
                 cell.buttonView.pressed = { (sender, data) in
-                    alertVC.back()
+                    alertVC.naviBack()
                     completion(indexPath.row)
                 }
                 
@@ -154,7 +154,7 @@ extension HFlowAlertVC {
                 cell.detailButton.textColor = UIColor.white
                 cell.detailButton.text = "去重试".localized()
                 cell.detailButton.pressed = { (sender, data) in
-                    alertVC.back()
+                    alertVC.naviBack()
                 }
             }
         }
