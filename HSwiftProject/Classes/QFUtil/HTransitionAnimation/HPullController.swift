@@ -130,9 +130,9 @@ extension HPullController {
     func tupleExa0_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         if let title = _title, !title.isEmpty {
             switch (indexPath.row) {
-            case HCell0:
+            case 0:
                 return CGSize(width: self.tupleView.width, height: 35)
-            case HCell1:
+            case 1:
                 return CGSize(width: self.tupleView.width, height: 1)
             default:
                 return CGSize(width: self.tupleView.width, height: 50)
@@ -145,14 +145,14 @@ extension HPullController {
     func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         if let title = _title, !title.isEmpty {
             switch (indexPath.row) {
-            case HCell0:
+            case 0:
                 let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
                 cell.backgroundColor = UIColor.white
                 cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
                 cell.label.textColor = UIColor.black
                 cell.label.textAlignment = .center
                 cell.label.text = title
-            case HCell1:
+            case 1:
                 let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
                 cell.backgroundColor = UIColor(hex: 0xF7F8FA)
             default:
@@ -177,9 +177,9 @@ extension HPullController {
     func tupleExa1_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         let row = indexPath.row % 2
         switch row {
-        case HCell0:
+        case 0:
             return CGSize(width: self.tupleView.width, height: 56)
-        case HCell1:
+        case 1:
             return CGSize(width: self.tupleView.width, height: 1)
         default:
             return CGSize(width: self.tupleView.width, height: 50)
@@ -189,7 +189,7 @@ extension HPullController {
     func tupleExa1_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         let row = indexPath.row % 2
         switch row {
-        case HCell0:
+        case 0:
             let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor.white
             var button = cell.viewWithTag(12345) as? HWebButtonView
@@ -220,7 +220,7 @@ extension HPullController {
                 action.handler?(index)
                 self.back()
             }
-        case HCell1:
+        case 1:
             let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor(hex: 0xF7F8FA)
         default:
@@ -240,11 +240,11 @@ extension HPullController {
     @objc
     func tupleExa2_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         switch (indexPath.row) {
-        case HCell0:
+        case 0:
             return CGSize(width: self.tupleView.width, height: 8)
-        case HCell1:
+        case 1:
             return CGSize(width: self.tupleView.width, height: 56)
-        case HCell2:
+        case 2:
             return CGSize(width: self.tupleView.width, height: 1 + UIScreen.bottomBarHeight)
         default:
             return CGSize(width: self.tupleView.width, height: 50)
@@ -253,10 +253,10 @@ extension HPullController {
     @objc
     func tupleExa2_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {      
         switch (indexPath.row) {
-        case HCell0:
+        case 0:
             let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor(hex: 0xF7F8FA)
-        case HCell1:
+        case 1:
             let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.backgroundColor = UIColor.white
             cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
@@ -268,7 +268,7 @@ extension HPullController {
                 self.back()
             }
             break
-        case HCell2:
+        case 2:
             let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor.white
         default:

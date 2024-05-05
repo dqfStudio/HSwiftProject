@@ -76,13 +76,13 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
     }
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         switch (indexPath.row) {
-        case HCell0:
+        case 0:
             return CGSize(width: self.tupleView.width, height: 42.5)
-        case HCell1:
+        case 1:
             return CGSize(width: self.tupleView.width, height: self.noteSize.height)
-        case HCell2:
+        case 2:
             return CGSize(width: self.tupleView.width, height: 1)
-        case HCell3:
+        case 3:
             return CGSize(width: self.tupleView.width, height: 42.5)
         default:
             break
@@ -91,13 +91,13 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
     }
     func edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         switch (indexPath.row) {
-        case HCell0:
+        case 0:
             return UIEdgeInsets(top: 0, left: 15, bottom: 2.5, right: 15)
-        case HCell1:
+        case 1:
             return UIEdgeInsets(top: 2.5, left: 15, bottom: 0, right: 15)
-        case HCell2:
+        case 2:
             return UIEdgeInsets.zero
-        case HCell3:
+        case 3:
             return UIEdgeInsets.zero
 
         default:
@@ -107,7 +107,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
     }
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         switch (indexPath.row) {
-        case HCell0:
+        case 0:
             //HTupleNoteCell *cell = tuple.cell(HTupleNoteCell.class, nil, YES)
             let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.label.font = UIFont.boldSystemFont(ofSize: 17)
@@ -116,7 +116,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
             cell.label.textColor = UIColor(hex: 0x0B0A0C)
             cell.label.text = "公告通知"
             break
-        case HCell1:
+        case 1:
             let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.label.font = UIFont.systemFont(ofSize: 12)
             cell.label.textAlignment = .left
@@ -125,11 +125,11 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
             cell.label.textColor = UIColor(hex: 0x070507)
             cell.label.text = self.note
             break
-        case HCell2:
+        case 2:
             let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor(white: 0.1, alpha: 0.2)
             break
-        case HCell3:
+        case 3:
             let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.label.font = UIFont.boldSystemFont(ofSize: 17)
             cell.label.textAlignment = .center
@@ -142,7 +142,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
 
     }
     func didSelectCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
-        if indexPath.row == HCell3 {
+        if indexPath.row == 3 {
             self.back()
         }
     }
