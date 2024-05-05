@@ -28,13 +28,13 @@ class HMultiButtonView: UIStackView {
         return _detailButton!
     }
     
-    private var _accessoryButton: HWebButtonView?
-    var accessoryButton: HWebButtonView {
-        if _accessoryButton == nil {
-            _accessoryButton = HWebButtonView(frame: .zero)
-            self.addArrangedSubview(_accessoryButton!)
+    private var _accsryButton: HWebButtonView?
+    var accsryButton: HWebButtonView {
+        if _accsryButton == nil {
+            _accsryButton = HWebButtonView(frame: .zero)
+            self.addArrangedSubview(_accsryButton!)
         }
-        return _accessoryButton!
+        return _accsryButton!
     }
     
     required init() {
