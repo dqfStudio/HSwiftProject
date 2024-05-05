@@ -27,6 +27,8 @@ enum HVCDisappearType : Int {
 
 // Define the private variable kHVCAppearTypeKey
 private var kHVCAppearTypeKey: Void?
+//private var kNaviLeftItemKey:  Void?
+//private var kNaviRightItemKey: Void?
 
 extension UIViewController {
 
@@ -45,6 +47,74 @@ extension UIViewController {
     // The view controller is about to disappear
     @objc
     func vcWillDisappear(_ type: HVCDisappearType) { }
+    
+    @objc
+    func addNaviLeftItem(_ color: UIColor = UIColor.white) {
+        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "hvc_back_icon"), style: .plain, target: self, action: #selector(naviBack))
+        leftBarButtonItem.tintColor = color
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+    }
+    
+    /// Return event processing
+    @objc
+    func naviBack() {
+        if let navi = self.navigationController {
+            if navi.isKind(of: HNavigationController.self), self.isKind(of: HBaseController.self) {
+                switch (self.appearType) {
+                case .undefine, .present:
+                    // dismiss with present animation
+                    self.dismiss(animated: true, completion: nil)
+                    return
+                case .push:
+                    // pop view controller with push animation
+                    navi.popViewController(animated: true)
+                    return
+                default:
+                    break
+                }
+            } else {
+                let viewcontrollers = navi.viewControllers
+                let topViewController = navi.topViewController
+                if viewcontrollers.count > 1 && topViewController == self {
+                    // pop view controller with push animation
+                    navi.popViewController(animated: true)
+                    return
+                }
+            }
+        }
+        // dismiss with present animation
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    /*
+    var leftBarButtonItem: UIBarButtonItem? {
+        get { return self.getAssociatedValueForKey(&kNaviLeftItemKey) as? UIBarButtonItem }
+        set {
+            if let view = newValue?.customView, view.isKind(of: UIButton.self) {
+                let button = view as! UIButton
+                button.contentEdgeInsets = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 0)
+            }else {
+                newValue?.imageInsets = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 0)
+            }
+            self.navigationItem.leftBarButtonItem = newValue
+            self.setAssociateValue(newValue, key: &kNaviLeftItemKey)
+        }
+    }
+    
+    var rightBarButtonItem: UIBarButtonItem? {
+        get { return self.getAssociatedValueForKey(&kNaviRightItemKey) as? UIBarButtonItem }
+        set {
+            if let view = newValue?.customView, view.isKind(of: UIButton.self) {
+                let button = view as! UIButton
+                button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -8)
+            }else {
+                newValue?.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -8)
+            }
+            self.navigationItem.rightBarButtonItem = newValue
+            self.setAssociateValue(newValue, key: &kNaviRightItemKey)
+        }
+    }
+     */
 
 }
 

@@ -190,46 +190,6 @@ extension HBaseController {
 }
 
 extension UIViewController {
-    @objc
-    func addNaviLeftItem(_ color: UIColor = UIColor.white) {
-        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "hvc_back_icon"), style: .plain, target: self, action: #selector(naviBack))
-        leftBarButtonItem.tintColor = color
-        self.navigationItem.leftBarButtonItem = leftBarButtonItem
-    }
-    
-    /// Return event processing
-    @objc
-    func naviBack() {
-        if let navi = self.navigationController {
-            if navi.isKind(of: HNavigationController.self), self.isKind(of: HBaseController.self) {
-                switch (self.appearType) {
-                case .undefine, .present:
-                    // dismiss with present animation
-                    self.dismiss(animated: true, completion: nil)
-                    return
-                case .push:
-                    // pop view controller with push animation
-                    navi.popViewController(animated: true)
-                    return
-                default:
-                    break
-                }
-            } else {
-                let viewcontrollers = navi.viewControllers
-                let topViewController = navi.topViewController
-                if viewcontrollers.count > 1 && topViewController == self {
-                    // pop view controller with push animation
-                    navi.popViewController(animated: true)
-                    return
-                }
-            }
-        }
-        // dismiss with present animation
-        self.dismiss(animated: true, completion: nil)
-    }
-}
-
-extension UIViewController {
     func transitionChildViewControllerWithIndex(_ index: Int) {
         guard index >= 0 && index < children.count else { return }
         
