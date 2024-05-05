@@ -91,9 +91,10 @@ class HMainController1: HTupleController {
             case 0:
                 let cell = tuple.cell(HTupleBannerCell.self, nil, true, indexPath) as! HTupleBannerCell
                 if cell.imageUrlArr == nil {
-                    cell.imageUrlArr = ["https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png",
-                                        "https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png",
-                                        "https://freechatoss.s3.ap-southeast-1.amazonaws.com/face/default/102.png"]
+                    cell.imageUrlArr = [
+                        "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500",
+                        "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500",
+                        "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500"]
                     
 //                    if cell.imageUrlArr == nil {
 //                    var imageUrlArr: [String] = []
