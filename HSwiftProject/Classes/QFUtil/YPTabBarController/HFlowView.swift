@@ -170,9 +170,14 @@
 //
 //    deinit {
 //        if let viewControllers = self.viewControllers {
+////            for vc in viewControllers where vc.h_hasAddedContentOffsetObserver {
+////                // 如果vc注册了contentOffset的观察者，需移除
+////                vc.h_displayView.removeObserver(self, forKeyPath: kContentOffset)
+////                vc.h_hasAddedContentOffsetObserver = false
+////            }
 //            for vc in viewControllers where vc.h_hasAddedContentOffsetObserver {
 //                // 如果vc注册了contentOffset的观察者，需移除
-//                vc.h_displayView.removeObserver(self, forKeyPath: kContentOffset)
+//                vc.view.removeObserver(self, forKeyPath: kContentOffset)
 //                vc.h_hasAddedContentOffsetObserver = false
 //            }
 //        }
@@ -181,19 +186,31 @@
 //    private func updateContentViewsFrame() {
 //        if self.contentScrollEnabled {
 //            if let viewControllers = self.viewControllers, viewControllers.count > 0 {
-//                self.h_contentSize = CGSize(width: self.bounds.size.width * CGFloat(viewControllers.count), height: self.bounds.size.height)
+////                self.h_contentSize = CGSize(width: self.bounds.size.width * CGFloat(viewControllers.count), height: self.bounds.size.height)
+////                viewControllers.enumerated().forEach({ (idx, vc) in
+////                    if vc.isViewLoaded {
+////                        vc.h_displayView.frame = self.frameForControllerAtIndex(idx)
+////                    }
+////                })
+////                if let selectedController = self.selectedController {
+////                    self.scrollRectToVisible(selectedController.h_displayView.frame, animated: false)
+////                }
+//                
+//                self.contentSize = CGSize(width: self.bounds.size.width * CGFloat(viewControllers.count), height: self.bounds.size.height)
 //                viewControllers.enumerated().forEach({ (idx, vc) in
 //                    if vc.isViewLoaded {
-//                        vc.h_displayView.frame = self.frameForControllerAtIndex(idx)
+//                        vc.view.frame = self.frameForControllerAtIndex(idx)
 //                    }
 //                })
 //                if let selectedController = self.selectedController {
-//                    self.scrollRectToVisible(selectedController.h_displayView.frame, animated: false)
+//                    self.scrollRectToVisible(selectedController.view.frame, animated: false)
 //                }
 //            }
 //        } else {
-//            self.h_contentSize = self.bounds.size
-//            self.selectedController?.h_displayView.frame = self.bounds
+////            self.h_contentSize = self.bounds.size
+////            self.selectedController?.h_displayView.frame = self.bounds
+//            self.contentSize = self.bounds.size
+//            self.selectedController?.view.frame = self.bounds
 //        }
 //    }
 //
@@ -436,13 +453,17 @@
 //    func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //
 //        // 如果不是手势拖动导致的此方法被调用，不处理
-//        if !(scrollView.isDragging || scrollView.isDecelerating) {
-//            if scrollView.contentOffset.x == 0 {
-//                // 解决有时候滑动冲突后scrollView跳动导致的item颜色显示错乱的问题
-//                self.tabBar.updateSubViewsWhenParentScrollViewScroll(self)
-//            }
+////        if !(scrollView.isDragging || scrollView.isDecelerating) {
+////            if scrollView.contentOffset.x == 0 {
+////                // 解决有时候滑动冲突后scrollView跳动导致的item颜色显示错乱的问题
+////                self.tabBar.updateSubViewsWhenParentScrollViewScroll(self)
+////            }
+////            return
+////        }
+//        guard scrollView.isDragging || scrollView.isDecelerating else {
 //            return
 //        }
+//
 //
 //        // 滑动越界不处理
 //        let offsetX: CGFloat = scrollView.contentOffset.x
@@ -456,42 +477,49 @@
 //        var rightIndex = leftIndex + 1
 //
 //        // 这里处理shouldSelectItemAtIndex方法
-//        if let delegate = self.delegate {
-//            let selector = #selector(delegate.tabContentView(_:shouldSelectTabAtIndex:))
-//            if delegate.responds(to: selector), !scrollView.isDecelerating {
-//                var targetIndex: Int = 0
-//                if _lastContentScrollViewOffsetX < offsetX {
-//                    // 向左
-//                    targetIndex = rightIndex
-//                } else {
-//                    // 向右
-//                    targetIndex = leftIndex
-//                }
-//                if targetIndex != self.selectedTabIndex {
-//                    if !self.shouldSelectItemAtIndex(targetIndex) {
-//                        scrollView.setContentOffset(CGPoint(x: CGFloat(self.selectedTabIndex) * scrollViewWidth, y: 0), animated: false)
-//                    }
-//                }
-//            }
-//        }
+////        if let delegate = self.delegate {
+////            let selector = #selector(delegate.tabContentView(_:shouldSelectTabAtIndex:))
+////            if delegate.responds(to: selector), !scrollView.isDecelerating {
+////                var targetIndex: Int = 0
+////                if _lastContentScrollViewOffsetX < offsetX {
+////                    // 向左
+////                    targetIndex = rightIndex
+////                } else {
+////                    // 向右
+////                    targetIndex = leftIndex
+////                }
+////                if targetIndex != self.selectedTabIndex {
+////                    if !self.shouldSelectItemAtIndex(targetIndex) {
+////                        scrollView.setContentOffset(CGPoint(x: CGFloat(self.selectedTabIndex) * scrollViewWidth, y: 0), animated: false)
+////                    }
+////                }
+////            }
+////        }
 //        _lastContentScrollViewOffsetX = offsetX
 //
 //        // 刚好处于能完整显示一个child view的位置
-//        if leftIndex == Int(offsetX / scrollViewWidth) {
-//            rightIndex = leftIndex
-//        }
+////        if leftIndex == Int(offsetX / scrollViewWidth) {
+////            rightIndex = leftIndex
+////        }
 //        // 将需要显示的child view放到scrollView上
-//        for index in leftIndex..<rightIndex + 1 {
+////        for index in leftIndex..<rightIndex + 1 {
+//        for index in leftIndex..<rightIndex {
 //
 //            let controller = self.viewControllers![index]
 //
 //            if !controller.isViewLoaded, self.loadViewOfChildContollerWhileAppear {
+////                let frame: CGRect = self.frameForControllerAtIndex(index)
+////                if controller.view != controller.h_displayView {
+////                    controller.view.frame = frame
+////                }
+////                controller.h_displayView.removeFromSuperview()
+////                controller.h_displayView.frame = frame
 //                let frame: CGRect = self.frameForControllerAtIndex(index)
-//                if controller.view != controller.h_displayView {
+//                if controller.view != frame {
 //                    controller.view.frame = frame
 //                }
-//                controller.h_displayView.removeFromSuperview()
-//                controller.h_displayView.frame = frame
+//                controller.view.removeFromSuperview()
+//                controller.view.frame = frame
 //            }
 ////            if controller.isViewLoaded, controller.h_displayView.superview == nil {
 //            if controller.isViewLoaded, controller.view.superview == nil {
