@@ -816,15 +816,13 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             let prefix = self.tupleSplitPrefix(indexPath.section)
             // Delegate status
             if self.tupleStatus == .delegate {
-                if let delegate = self.tupleDelegate {
-                    let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
-                    if delegate.responds(to: selector, withPre: prefix) {
-                        size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
-                    }
-                    // Prevent negative size
-                    if size.width <= 0 { size.width = 1.0 }
-                    if size.height <= 0 { size.height = 1.0 }
+                let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
+                if delegate.responds(to: selector, withPre: prefix) {
+                    size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
                 }
+                // Prevent negative size
+                if size.width <= 0 { size.width = 1.0 }
+                if size.height <= 0 { size.height = 1.0 }
             } else {// block status
                 // Call cell delegate method
                 let selector = #selector(delegate.attributeForItemAtIndexPath(_:atIndexPath:))
