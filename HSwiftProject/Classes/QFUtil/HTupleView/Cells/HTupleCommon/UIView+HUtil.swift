@@ -90,29 +90,29 @@ extension UIView {
     }
 
     ///根据传入的width来水平居中
-    func horizontalCenter(withWidth width: CGFloat) {
+    func horiCenter(_ width: CGFloat) {
         self.x = (width - self.width) / 2
     }
 
     ///根据传入的height来竖直居中
-    func verticalCenter(withHeight height: CGFloat) {
+    func vertCenter(_ height: CGFloat) {
         self.y = (height - self.height) / 2
     }
     
-    func horizontalCenterInSuperView() {
+    func horiCenterInSuperView() {
         guard let superview = self.superview else { return }
-        self.horizontalCenter(withWidth: superview.width)
+        self.horiCenter(superview.width)
     }
     
-    func verticalCenterInSuperView() {
+    func vertCenterInSuperView() {
         guard let superview = self.superview else { return }
-        self.verticalCenter(withHeight: superview.height)
+        self.vertCenter(superview.height)
     }
     
     func centerInSuperView() {
         guard let superview = self.superview else { return }
-        self.horizontalCenter(withWidth: superview.width)
-        self.verticalCenter(withHeight: superview.height)
+        self.horiCenter(superview.width)
+        self.vertCenter(superview.height)
     }
     
     ///根据UIEdgeInsets调整frame
