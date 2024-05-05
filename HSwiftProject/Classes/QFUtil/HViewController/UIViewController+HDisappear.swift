@@ -125,11 +125,6 @@ extension HViewController {
     open override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
         // Set the appearance of the view controller to present
         viewControllerToPresent.appearType = .present
-//        guard viewControllerToPresent.navigationController != nil else {
-//            let navi = HNavigationController(rootViewController: viewControllerToPresent)
-//            super.present(navi, animated: flag, completion: completion)
-//            return
-//        }
         super.present(viewControllerToPresent, animated: flag, completion: completion)
     }
     
