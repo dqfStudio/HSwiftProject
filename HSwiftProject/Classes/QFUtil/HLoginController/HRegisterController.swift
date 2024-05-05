@@ -96,8 +96,7 @@ class HRegisterController: HViewController, HTupleViewDelegate {
     }
     
     lazy var toolbar: HToolbar = {
-        var frame: CGRect = CGRect.zero
-        frame = CGSize(width: 200, height: 35).frame
+        let frame = CGRect(size: CGSize(width: 200, height: 35))
         
         let toolbar = HToolbar(frame: frame)
         toolbar.cornerRadius = 35 / 2
