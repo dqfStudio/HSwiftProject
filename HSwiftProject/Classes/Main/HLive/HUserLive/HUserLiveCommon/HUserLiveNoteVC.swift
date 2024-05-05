@@ -141,7 +141,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
         }
 
     }
-    func didSelectItem(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
+    func didSelectCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
         if indexPath.row == HCell3 {
             self.back()
         }

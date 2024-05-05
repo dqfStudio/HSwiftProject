@@ -205,7 +205,7 @@
 //            break
 //        }
 //    }
-//    func didSelectItem(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
+//    func didSelectCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
 //
 //        // 判断执行Cell顺序
 //        var row = indexPath.row

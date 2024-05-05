@@ -121,7 +121,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
         cell.label.textAlignment = .center
         //[cell.label setTextAlignment:NSTextAlignmentCenter]
     }
-    func didSelectItem(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
+    func didSelectCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
         self.back()
     }
 
