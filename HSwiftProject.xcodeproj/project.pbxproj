@@ -200,6 +200,7 @@
 		EB3541B22BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B12BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift */; };
 		EB3541B62BE7C760003B1D69 /* HActiveNaviController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B52BE7C75F003B1D69 /* HActiveNaviController.swift */; };
 		EB3541B82BE7D052003B1D69 /* HBaseNaviController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B72BE7D052003B1D69 /* HBaseNaviController.swift */; };
+		EB3541BC2BE86152003B1D69 /* HActiveTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541BB2BE86151003B1D69 /* HActiveTabbarVC.swift */; };
 		EB4323CF29B988A400EDDB64 /* icon_no_network@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */; };
 		EB4323D029B988A400EDDB64 /* icon_no_network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */; };
 		EB4323D129B988A400EDDB64 /* icon_no_server@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */; };
@@ -538,6 +539,7 @@
 		EB3541B12BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowAlertVC+Extern.swift"; sourceTree = "<group>"; };
 		EB3541B52BE7C75F003B1D69 /* HActiveNaviController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveNaviController.swift; sourceTree = "<group>"; };
 		EB3541B72BE7D052003B1D69 /* HBaseNaviController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseNaviController.swift; sourceTree = "<group>"; };
+		EB3541BB2BE86151003B1D69 /* HActiveTabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveTabbarVC.swift; sourceTree = "<group>"; };
 		EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@3x.png"; sourceTree = "<group>"; };
 		EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@2x.png"; sourceTree = "<group>"; };
 		EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_server@3x.png"; sourceTree = "<group>"; };
@@ -1268,6 +1270,7 @@
 				A26D43302386914500F457AE /* hvc_back_icon@3x.png */,
 				EBD213D82A67783700C31E2D /* HNavigationBar2.swift */,
 				EB0597702A0B6B990016ACD8 /* HNavigationBar.swift */,
+				EB3541BB2BE86151003B1D69 /* HActiveTabbarVC.swift */,
 				EB3541812BCFBB92003B1D69 /* HAuthView.swift */,
 				EB3541952BD61A75003B1D69 /* HBaseController.swift */,
 				A2B4307F237FF57C00795605 /* HViewController.swift */,
@@ -1948,6 +1951,7 @@
 				EB23DAD72A02A02F00C96CAC /* HAlertController+Style3.swift in Sources */,
 				EB9D332B2B038F97000B8F48 /* HPullController.swift in Sources */,
 				EBA53C322A3210FB0077158D /* HMultiButtonView.swift in Sources */,
+				EB3541BC2BE86152003B1D69 /* HActiveTabbarVC.swift in Sources */,
 				EB35419E2BD90E39003B1D69 /* HFlowBar.swift in Sources */,
 				A2B43074237FF2B100795605 /* UIView+HPrinter.swift in Sources */,
 				A250DF1223FFC2AB009F5E47 /* HTupleViewBannerApex.swift in Sources */,
