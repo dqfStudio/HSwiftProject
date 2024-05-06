@@ -271,7 +271,7 @@ class HMainController1: HTupleController {
 //            cell.label.text = "黑客帝国"
 //            cell.selectBlock = {
 //                if indexPath.row == 0 {
-//                    let navi = HNavigationController(rootViewController: HUserLiveVC())
+//                    let navi = HNavigationController.fullScreenModalNavi(rootVC: HUserLiveVC())
 //                    self.present(navi, animated: true)
 //                }else {
 //                    let alertVC = HPullController.showVideoAlert { index in }
@@ -542,7 +542,7 @@ extension HMainController1 {
                 cell.label.text = "黑客帝国"
                 cell.selectBlock = {
                     if indexPath.row == 0 {
-                        let navi = HNavigationController(rootViewController: HUserLiveVC())
+                        let navi = HNavigationController.fullScreenModalNavi(rootVC: HUserLiveVC())
                         self.present(navi, animated: true)
                     }else {
                         let alertVC = HPullController.showVideoAlert { index in }

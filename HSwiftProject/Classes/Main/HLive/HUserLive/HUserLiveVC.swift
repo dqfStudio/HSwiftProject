@@ -170,12 +170,8 @@ class HUserLiveVC : HTupleController {
 
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         switch indexPath.row {
-        case 0:
+        case 0, 2:
             _ = tuple.cell(HUserLiveBgCell.self, nil, true, indexPath)
-            break
-        case 2:
-            _ = tuple.cell(HUserLiveBgCell.self, nil, true, indexPath)
-            break
         case 1:
             if self.liveStatus == .loading {
                 let cell = tuple.cell(HUserLiveBgCell.self, nil, true, indexPath) as! HUserLiveBgCell
