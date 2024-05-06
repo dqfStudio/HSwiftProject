@@ -20,7 +20,6 @@ class HTupleStackView: UIStackView, HTupleViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // Navigation bar
     private lazy var tupleView: HTupleView = {
         let tupleView = HTupleView(frame: self.bounds)
         tupleView.backgroundColor = .clear
