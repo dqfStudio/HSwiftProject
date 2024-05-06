@@ -31,6 +31,17 @@ class HBaseNaviController: UINavigationController, UIGestureRecognizerDelegate {
     
     // Set related properties
     private func pvc_initialize() {
+        // Set the default style to UIModalPresentationFullScreen
+        //self.modalPresentationStyle = .fullScreen
+        // Turn off dark mode
+        if #available(iOS 13.0, *) {
+            self.overrideUserInterfaceStyle = .light
+        }
+    }
+    
+    // 全屏手势返回功能
+    // 实现类似系统自带的边缘触发手势返回的效果
+    func handleNaviTransition() {
         //  This line is very core
         guard let target = self.interactivePopGestureRecognizer?.delegate else { return }
         //  This line is very core
@@ -45,13 +56,6 @@ class HBaseNaviController: UINavigationController, UIGestureRecognizerDelegate {
         
         // Turn off the edge trigger gesture to prevent conflicts with the original edge gesture
         self.interactivePopGestureRecognizer?.isEnabled = false
-        
-        // Set the default style to UIModalPresentationFullScreen
-        //self.modalPresentationStyle = .fullScreen
-        // Turn off dark mode
-        if #available(iOS 13.0, *) {
-            self.overrideUserInterfaceStyle = .light
-        }
     }
 
     /// UIGestureRecognizerDelegate
