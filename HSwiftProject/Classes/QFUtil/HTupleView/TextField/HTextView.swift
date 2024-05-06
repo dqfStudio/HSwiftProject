@@ -15,66 +15,24 @@ typealias HTextViewDidChangeBlock = (HTextView) -> Void
 typealias HTextViewDidChangeSelectionBlock = (HTextView) -> Void
 typealias HTextViewReturnBlock = (HTextView) -> Void
 
-class HTextView : UITextView, UITextViewDelegate {
+class HTextView: UITextView, UITextViewDelegate {
 
-    /// 最大输入限制，小于等于0表示不限制，默认为0
+    ///最大输入限制，小于等于0表示不限制，默认为0
     var maxInput: Int = 0
     
-    /// 禁止粘贴，默认为false
+    ///禁止粘贴，默认为false
     var forbidPaste: Bool = false
     
-    /// 禁止输入空格和换行符，默认为false
+    ///禁止输入空格和换行符，默认为false
     var forbidWhitespaceAndNewline: Bool = false
     
-    /// 是否可编辑，默认为true
+    ///是否可编辑，默认为true
     var editEnabled: Bool = true
     
-    /// 设置占位符
-    var placeholder: String = "" {
-        didSet {
-            self.setNeedsDisplay()
-        }
-    }
-    
-    /// 设置占位符字体
-    var placeholderFont: UIFont? {
-        didSet {
-            self.setNeedsDisplay()
-        }
-    }
-    
-    /// 设置占位符颜色
-    var placeholderColor: UIColor = .gray {
-        didSet {
-            self.setNeedsDisplay()
-        }
-    }
-    
-    /// 设置内容
-    override var text: String! {
-        didSet {
-            self.setNeedsDisplay()
-        }
-    }
-    
-    /// 设置内容字体
-    override var font: UIFont? {
-        didSet {
-            self.setNeedsDisplay()
-        }
-    }
-    
-    /// 设置属性内容
-    override var attributedText: NSAttributedString! {
-        didSet {
-            self.setNeedsDisplay()
-        }
-    }
-    
-    /// 点击键盘上的return键调用
+    ///点击键盘上的return键调用
     var returnBlock: HTextViewReturnBlock?
     
-    /// Did Change Block
+    ///Did Change Block
     var didChangeBlock: HTextViewDidChangeBlock?
     var didChangeSelectionBlock: HTextViewDidChangeSelectionBlock?
     
@@ -94,8 +52,7 @@ class HTextView : UITextView, UITextViewDelegate {
     private func setup() {
         self.delegate = self
         self.backgroundColor = .clear
-        self.font = UIFont.systemFont(ofSize: 14.0)
-        self.placeholderFont = UIFont.systemFont(ofSize: 14.0)
+        self.font = .systemFont(ofSize: 14.0)
     }
     
     private var trimmingWhitespaceAndNewline: String? {
@@ -107,7 +64,6 @@ class HTextView : UITextView, UITextViewDelegate {
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        self.setNeedsDisplay()
         didChangeBlock?(textView as! HTextView)
     }
     
@@ -184,35 +140,7 @@ class HTextView : UITextView, UITextViewDelegate {
         }
         return super.canPerformAction(action, withSender: sender)
     }
-    
-    override func draw(_ rect: CGRect) {
-        if self.hasText { return }
-        var newRect = CGRect.zero
-        newRect.origin.x = 5.0
-        newRect.origin.y = 8.0
-        let tmpFont = self.placeholderFont ?? UIFont.systemFont(ofSize: 14.0)
-        let size = self.placeholder.getStringSize(rectSize: rect.size, font: tmpFont)
-        newRect.size.width = size.width
-        newRect.size.height = size.height
-        /// 将placeHolder画在textView上
-        (self.placeholder as NSString).draw(in: newRect, withAttributes: [NSAttributedString.Key.font: tmpFont,
-                                                                          NSAttributedString.Key.foregroundColor: self.placeholderColor])
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        self.setNeedsDisplay()
-    }
-    
-}
 
-private extension String {
-    /// 计算字符串的尺寸
-    func getStringSize(rectSize: CGSize, font: UIFont) -> CGSize {
-        let string = self as NSString
-        let rect = string.boundingRect(with: rectSize, options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: font], context: nil)
-        return CGSize(width: ceil(rect.width), height: ceil(rect.height))
-    }
 }
 
 extension HTextView {

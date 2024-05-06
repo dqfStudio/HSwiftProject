@@ -11,12 +11,15 @@ import UIKit
 typealias HTextFieldReturnBlock = (HTextField) -> Void
 typealias HTextFieldDidChangeBlock = (HTextField) -> Void
 
+typealias HTextFieldShouldBeginEditingBlock = (HTextField) -> Void
+typealias HTextFieldDidEndEditingBlock = (HTextField) -> Void
+
 extension UIView {
     // 扩展一个空方法，用于加载UITextField的leftView或rightView
     func loadEmpty() { }
 }
 
-class HTextField : UITextField, UITextFieldDelegate {
+class HTextField: UITextField, UITextFieldDelegate {
     
     lazy var leftLabel: UILabel = {
         let label = UILabel()
@@ -175,6 +178,10 @@ class HTextField : UITextField, UITextFieldDelegate {
     ///text发生变化时的回调
     var didChangeBlock: HTextFieldDidChangeBlock?
     
+    ///输入结束时的回调
+    var didEndEditingBlock: HTextFieldDidEndEditingBlock?
+    var shouldBeginEditingBlock: HTextFieldShouldBeginEditingBlock?
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.setup()
@@ -249,6 +256,7 @@ class HTextField : UITextField, UITextFieldDelegate {
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.shouldBeginEditingBlock?(textField as! HTextField)
         return self.editEnabled
     }
 
@@ -257,6 +265,7 @@ class HTextField : UITextField, UITextFieldDelegate {
             self.text = self.trimmingAllWhitespaceAndNewline
         }
         self.text = self.trimmingWhitespaceAndNewline
+        self.didEndEditingBlock?(textField as! HTextField)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
