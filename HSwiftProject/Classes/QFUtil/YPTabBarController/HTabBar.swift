@@ -190,18 +190,14 @@ class HTabBar : UIView {
     /// 标题颜色
     var itemTitleColor: UIColor = .white {
         didSet {
-            self.items?.forEach({ item in
-                item.titleColor = itemTitleColor
-            })
+            self.items?.forEach { $0.titleColor = itemTitleColor }
         }
     }
     
     /// 选中时标题的颜色
     var itemTitleSelectedColor: UIColor = .black {
         didSet {
-            self.items?.forEach({ item in
-                item.titleSelectedColor = itemTitleSelectedColor
-            })
+            self.items?.forEach { $0.titleSelectedColor = itemTitleSelectedColor }
         }
     }
     
@@ -251,36 +247,28 @@ class HTabBar : UIView {
     /// Badge背景颜色
     var badgeBackgroundColor: UIColor? {
         didSet {
-            self.items?.forEach({ item in
-                item.badgeBackgroundColor = badgeBackgroundColor
-            })
+            self.items?.forEach { $0.badgeBackgroundColor = badgeBackgroundColor }
         }
     }
     
     /// Badge背景图像
     var badgeBackgroundImage: UIImage? {
         didSet {
-            self.items?.forEach({ item in
-                item.badgeBackgroundImage = badgeBackgroundImage
-            })
+            self.items?.forEach { $0.badgeBackgroundImage = badgeBackgroundImage }
         }
     }
     
     /// Badge标题颜色
     var badgeTitleColor: UIColor = .white {
         didSet {
-            self.items?.forEach({ item in
-                item.badgeTitleColor = badgeTitleColor
-            })
+            self.items?.forEach { $0.badgeTitleColor = badgeTitleColor }
         }
     }
     
     /// Badge标题字体
     var badgeTitleFont: UIFont = .systemFont(ofSize: 10.0) {
         didSet {
-            self.items?.forEach({ item in
-                item.badgeTitleFont = badgeTitleFont
-            })
+            self.items?.forEach { $0.badgeTitleFont = badgeTitleFont }
         }
     }
     
@@ -418,9 +406,7 @@ class HTabBar : UIView {
             } else {
                 self.itemContentHorizontalCenterVerticalOffset = 0
                 self.itemContentHorizontalCenterSpacing = 0
-                self.items?.forEach({ item in
-                    item.isContentHorizontalCenter = false
-                })
+                self.items?.forEach { $0.isContentHorizontalCenter = false }
             }
         }
     }
