@@ -1,29 +1,29 @@
 //
-//  HFlowSheetVC.swift
+//  HFlowDropVC.swift
 //  HSwiftProject
 //
-//  Created by owner on 2024/4/26.
+//  Created by owner on 2024/5/6.
 //  Copyright © 2024 wind. All rights reserved.
 //
 
 import UIKit
 
-typealias HFlowSheetNumberBlock = () -> Int
-typealias HFlowSheetInsetBlock = () -> UIEdgeInsets
-typealias HFlowSheetHeightBlock = (_ index: Int) -> CGFloat
-typealias HFlowSheetItemBlock = (_ tuple: HTupleView, _ indexPath: IndexPath) -> Void
+typealias HFlowDropNumberBlock = () -> Int
+typealias HFlowDropInsetBlock = () -> UIEdgeInsets
+typealias HFlowDropHeightBlock = (_ index: Int) -> CGFloat
+typealias HFlowDropItemBlock = (_ tuple: HTupleView, _ indexPath: IndexPath) -> Void
 
-class HFlowSheetVC: HViewController, HTupleViewDelegate {
+class HFlowDropVC: HViewController, HTupleViewDelegate {
     
     let itemsHeight = NSMutableDictionary()
-    var numberBlock: HFlowSheetNumberBlock?
-    var insetBlock: HFlowSheetInsetBlock?
-    var heightBlock: HFlowSheetHeightBlock?
-    var itemBlock: HFlowSheetItemBlock?
-    var bottomHeight: CGFloat = UIScreen.bottomBarHeight
+    var numberBlock: HFlowDropNumberBlock?
+    var insetBlock: HFlowDropInsetBlock?
+    var heightBlock: HFlowDropHeightBlock?
+    var itemBlock: HFlowDropItemBlock?
+    var topHeight = UIScreen.statusBarHeight
 
-    init(bottomSpacing: CGFloat) {
-        self.bottomHeight += bottomSpacing
+    init(topSpacing: CGFloat) {
+        self.topHeight += topSpacing
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -38,12 +38,12 @@ class HFlowSheetVC: HViewController, HTupleViewDelegate {
         // 计算高度
         var height = self.itemsHeight.allValues.reduce(0, { $0 + ($1 as! CGFloat) })
         // 加上底部间隔
-        height += self.bottomHeight
+        height += self.topHeight
         return CGSize(width: UIScreen.width, height: height)
     }
     
     override var presentType: HTransitionStyle {
-        return .sheet
+        return .drop
     }
     
     override var isShadowDismiss: Bool {
@@ -56,7 +56,7 @@ class HFlowSheetVC: HViewController, HTupleViewDelegate {
         let tupleView = HTupleView(frame: frame)
         tupleView.backgroundColor = UIColor.black
         tupleView.isScrollEnabled = false
-        tupleView.setCornerRadiiOnTop(16)
+        tupleView.setCornerRadiiOnBottom(16)
         tupleView.disableBounce()
         return tupleView
     }()
@@ -89,7 +89,7 @@ class HFlowSheetVC: HViewController, HTupleViewDelegate {
 
 }
 
-extension HFlowSheetVC {
+extension HFlowDropVC {
 
     func numberOfItemsInSection(_ section: Any) -> Any {
         return self.numberBlock?() ?? 0
@@ -97,6 +97,10 @@ extension HFlowSheetVC {
     
     func insetForSection(_ section: Any) -> Any {
         return self.insetBlock?() ?? UIEdgeInsets.zero
+    }
+    
+    func minimumHeaderSpacingForSectionAt(_ section: Any) -> Any {
+        return self.topHeight
     }
     
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
@@ -110,3 +114,4 @@ extension HFlowSheetVC {
     }
 
 }
+

@@ -13,7 +13,7 @@ import Foundation
  */
 @objc
 enum HTransitionStyle: Int {
-    case pull = -1 //顶部弹出
+    case drop = -1 //顶部弹出
     case alert = 0 //中间弹出
     case sheet = 1 //底部弹出
 }

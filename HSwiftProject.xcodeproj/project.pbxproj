@@ -185,10 +185,6 @@
 		EB3541962BD61A75003B1D69 /* HBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541952BD61A75003B1D69 /* HBaseController.swift */; };
 		EB35419E2BD90E39003B1D69 /* HFlowBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB35419D2BD90E39003B1D69 /* HFlowBar.swift */; };
 		EB3541A02BDA2CFA003B1D69 /* HFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB35419F2BDA2CFA003B1D69 /* HFlowView.swift */; };
-		EB3541AC2BDB37C5003B1D69 /* HFlowSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541AB2BDB37C5003B1D69 /* HFlowSheetVC.swift */; };
-		EB3541AE2BDB37D7003B1D69 /* HFlowSheetVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541AD2BDB37D7003B1D69 /* HFlowSheetVC+Extern.swift */; };
-		EB3541B02BDB37E7003B1D69 /* HFlowAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541AF2BDB37E7003B1D69 /* HFlowAlertVC.swift */; };
-		EB3541B22BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B12BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift */; };
 		EB3541B62BE7C760003B1D69 /* HActiveNaviController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B52BE7C75F003B1D69 /* HActiveNaviController.swift */; };
 		EB3541B82BE7D052003B1D69 /* HBaseNaviController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B72BE7D052003B1D69 /* HBaseNaviController.swift */; };
 		EB3541BC2BE86152003B1D69 /* HActiveTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541BB2BE86151003B1D69 /* HActiveTabbarVC.swift */; };
@@ -200,6 +196,12 @@
 		EB3541C92BE8C895003B1D69 /* MessageCellAble.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541C82BE8C895003B1D69 /* MessageCellAble.swift */; };
 		EB3541CB2BE8CBEF003B1D69 /* MessageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541CA2BE8CBEF003B1D69 /* MessageInfo.swift */; };
 		EB3541CD2BE8D53D003B1D69 /* MessageBaseRightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541CC2BE8D53D003B1D69 /* MessageBaseRightTableViewCell.swift */; };
+		EB3541D22BE91212003B1D69 /* HFlowAlertVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541CE2BE91210003B1D69 /* HFlowAlertVC+Extern.swift */; };
+		EB3541D32BE91212003B1D69 /* HFlowSheetVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541CF2BE91211003B1D69 /* HFlowSheetVC+Extern.swift */; };
+		EB3541D42BE91212003B1D69 /* HFlowAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541D02BE91211003B1D69 /* HFlowAlertVC.swift */; };
+		EB3541D52BE91212003B1D69 /* HFlowSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541D12BE91211003B1D69 /* HFlowSheetVC.swift */; };
+		EB3541D92BE914D9003B1D69 /* HFlowDropVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541D82BE914D9003B1D69 /* HFlowDropVC.swift */; };
+		EB3541DB2BE91732003B1D69 /* HFlowDropVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541DA2BE91732003B1D69 /* HFlowDropVC+Extern.swift */; };
 		EB4323CF29B988A400EDDB64 /* icon_no_network@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */; };
 		EB4323D029B988A400EDDB64 /* icon_no_network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */; };
 		EB4323D129B988A400EDDB64 /* icon_no_server@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */; };
@@ -523,10 +525,6 @@
 		EB3541952BD61A75003B1D69 /* HBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseController.swift; sourceTree = "<group>"; };
 		EB35419D2BD90E39003B1D69 /* HFlowBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowBar.swift; sourceTree = "<group>"; };
 		EB35419F2BDA2CFA003B1D69 /* HFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowView.swift; sourceTree = "<group>"; };
-		EB3541AB2BDB37C5003B1D69 /* HFlowSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowSheetVC.swift; sourceTree = "<group>"; };
-		EB3541AD2BDB37D7003B1D69 /* HFlowSheetVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowSheetVC+Extern.swift"; sourceTree = "<group>"; };
-		EB3541AF2BDB37E7003B1D69 /* HFlowAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowAlertVC.swift; sourceTree = "<group>"; };
-		EB3541B12BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowAlertVC+Extern.swift"; sourceTree = "<group>"; };
 		EB3541B52BE7C75F003B1D69 /* HActiveNaviController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveNaviController.swift; sourceTree = "<group>"; };
 		EB3541B72BE7D052003B1D69 /* HBaseNaviController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseNaviController.swift; sourceTree = "<group>"; };
 		EB3541BB2BE86151003B1D69 /* HActiveTabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveTabbarVC.swift; sourceTree = "<group>"; };
@@ -538,6 +536,12 @@
 		EB3541C82BE8C895003B1D69 /* MessageCellAble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellAble.swift; sourceTree = "<group>"; };
 		EB3541CA2BE8CBEF003B1D69 /* MessageInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInfo.swift; sourceTree = "<group>"; };
 		EB3541CC2BE8D53D003B1D69 /* MessageBaseRightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBaseRightTableViewCell.swift; sourceTree = "<group>"; };
+		EB3541CE2BE91210003B1D69 /* HFlowAlertVC+Extern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HFlowAlertVC+Extern.swift"; sourceTree = "<group>"; };
+		EB3541CF2BE91211003B1D69 /* HFlowSheetVC+Extern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HFlowSheetVC+Extern.swift"; sourceTree = "<group>"; };
+		EB3541D02BE91211003B1D69 /* HFlowAlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowAlertVC.swift; sourceTree = "<group>"; };
+		EB3541D12BE91211003B1D69 /* HFlowSheetVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowSheetVC.swift; sourceTree = "<group>"; };
+		EB3541D82BE914D9003B1D69 /* HFlowDropVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowDropVC.swift; sourceTree = "<group>"; };
+		EB3541DA2BE91732003B1D69 /* HFlowDropVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowDropVC+Extern.swift"; sourceTree = "<group>"; };
 		EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@3x.png"; sourceTree = "<group>"; };
 		EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@2x.png"; sourceTree = "<group>"; };
 		EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_server@3x.png"; sourceTree = "<group>"; };
@@ -871,10 +875,6 @@
 				A2A814C4274F56C400FAB929 /* UIView+HUtil.swift */,
 				EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */,
 				EB80B6732A15C8ED0016648A /* HLabel.swift */,
-				EB3541AB2BDB37C5003B1D69 /* HFlowSheetVC.swift */,
-				EB3541AD2BDB37D7003B1D69 /* HFlowSheetVC+Extern.swift */,
-				EB3541AF2BDB37E7003B1D69 /* HFlowAlertVC.swift */,
-				EB3541B12BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift */,
 				EB80B66B2A1130E00016648A /* HToolbar.swift */,
 				EB80B66D2A122A940016648A /* HScrollbar.swift */,
 				EBA6472C2A87704900897D76 /* HGroupbar.swift */,
@@ -1016,6 +1016,12 @@
 				A2A814BD274D6C3000FAB929 /* HPushAnimation.swift */,
 				EB9D332A2B038F97000B8F48 /* HPullController.swift */,
 				A2A814BF274E030100FAB929 /* HSheetController.swift */,
+				EB3541D82BE914D9003B1D69 /* HFlowDropVC.swift */,
+				EB3541DA2BE91732003B1D69 /* HFlowDropVC+Extern.swift */,
+				EB3541D02BE91211003B1D69 /* HFlowAlertVC.swift */,
+				EB3541CE2BE91210003B1D69 /* HFlowAlertVC+Extern.swift */,
+				EB3541D12BE91211003B1D69 /* HFlowSheetVC.swift */,
+				EB3541CF2BE91211003B1D69 /* HFlowSheetVC+Extern.swift */,
 				A2A814B5274CC23C00FAB929 /* HTransitionAnimation.swift */,
 				A2A814B1274C081B00FAB929 /* HTransitionHeader.swift */,
 				A2A814BB274D694E00FAB929 /* UIViewController+HAnimation.swift */,
@@ -1831,6 +1837,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB3541D32BE91212003B1D69 /* HFlowSheetVC+Extern.swift in Sources */,
 				A2B4308323801C4E00795605 /* HWebButtonView.swift in Sources */,
 				A26D43172383DE5800F457AE /* UIColor+HUtil.swift in Sources */,
 				EB80B66E2A122A940016648A /* HScrollbar.swift in Sources */,
@@ -1877,6 +1884,7 @@
 				EBD213E72A6B859500C31E2D /* HSkeletonView.swift in Sources */,
 				EBD0FB6E29D02B1000808EDA /* HUserDefaults.swift in Sources */,
 				A28923AB238B733500E4AB75 /* HTupleViewCell.swift in Sources */,
+				EB3541D22BE91212003B1D69 /* HFlowAlertVC+Extern.swift in Sources */,
 				A2188799238FD3E0005C20BF /* HGameCategoryVC+HSection2.swift in Sources */,
 				A2A7A93523FE2CBF0090EFD3 /* HTupleViewMarqueeApex.swift in Sources */,
 				A258395923B4E70F00881941 /* HTableController.swift in Sources */,
@@ -1897,13 +1905,13 @@
 				EB43241629C34BB800EDDB64 /* HFormCell.swift in Sources */,
 				EBC8146329AA53D100A81431 /* HAcceptVideoVC.swift in Sources */,
 				EBC8147329AA541800A81431 /* HSendVideoVC+HStatus3.swift in Sources */,
-				EB3541AE2BDB37D7003B1D69 /* HFlowSheetVC+Extern.swift in Sources */,
 				A26D432123842C9400F457AE /* UIGestureRecognizer+HUtil.swift in Sources */,
 				EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */,
 				EB3541C42BE86B53003B1D69 /* HBottomButtonView.swift in Sources */,
 				A22948BA239798FC0058B939 /* HRegisterController.swift in Sources */,
 				A26D432D238682D200F457AE /* HNavigationController.swift in Sources */,
 				A22948B3239798A30058B939 /* HMainController5.swift in Sources */,
+				EB3541D92BE914D9003B1D69 /* HFlowDropVC.swift in Sources */,
 				EBD0FB2629CC8CF100808EDA /* HFPickerView.swift in Sources */,
 				EBD0FB7929D02B9600808EDA /* HDefaultsCore.swift in Sources */,
 				A2A814BA274CCC1800FAB929 /* HPresentationController.swift in Sources */,
@@ -1916,7 +1924,6 @@
 				A229488E239756770058B939 /* HTableBaseApex.swift in Sources */,
 				EB3541962BD61A75003B1D69 /* HBaseController.swift in Sources */,
 				EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */,
-				EB3541AC2BDB37C5003B1D69 /* HFlowSheetVC.swift in Sources */,
 				A22948B1239798960058B939 /* HMainController4.swift in Sources */,
 				EBD213CF2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift in Sources */,
 				A229489D23975CE40058B939 /* HTableViewCellVertValue.swift in Sources */,
@@ -1933,7 +1940,6 @@
 				EBED9CA52A4C3C8600E590DE /* HTupleBannerApex.swift in Sources */,
 				A2A814BE274D6C3000FAB929 /* HPushAnimation.swift in Sources */,
 				A2A814C0274E030100FAB929 /* HSheetController.swift in Sources */,
-				EB3541B02BDB37E7003B1D69 /* HFlowAlertVC.swift in Sources */,
 				EBED9CA62A4C3C8600E590DE /* HTupleBannerCell.swift in Sources */,
 				EBC8140829AA48C000A81431 /* HLRDManager.swift in Sources */,
 				EBC8147729AA542500A81431 /* HSendVideoVC+HStatus5.swift in Sources */,
@@ -1987,6 +1993,7 @@
 				A2B4307C237FF2B100795605 /* HGameCategoryVC.swift in Sources */,
 				EB43241429C3163900EDDB64 /* HUserRegion.swift in Sources */,
 				EBD213D92A67783700C31E2D /* HNavigationBar2.swift in Sources */,
+				EB3541DB2BE91732003B1D69 /* HFlowDropVC+Extern.swift in Sources */,
 				EBED9CCA2A4D339700E590DE /* HDotIndicatorBar.swift in Sources */,
 				EBD0FB6B29D02B1000808EDA /* HUserStore.swift in Sources */,
 				EBD0FB3629CCA34800808EDA /* HLocalNotification.swift in Sources */,
@@ -2024,6 +2031,7 @@
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,
 				EB0597712A0B6B990016ACD8 /* HNavigationBar.swift in Sources */,
 				A229489923975BA80058B939 /* HTupleViewApexVertValue.swift in Sources */,
+				EB3541D52BE91212003B1D69 /* HFlowSheetVC.swift in Sources */,
 				EBD0FB0B29CA938900808EDA /* HAssetModel.swift in Sources */,
 				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue.swift in Sources */,
 				EB50428F2A2C348D007E9FC7 /* HTableTextImageApex.swift in Sources */,
@@ -2063,6 +2071,7 @@
 				A2A7A93323FE29470090EFD3 /* HTupleViewMarqueeCell.swift in Sources */,
 				A229489723975AE80058B939 /* HTupleViewApex.swift in Sources */,
 				EB1209852A8365E500E5F045 /* HPostVC.swift in Sources */,
+				EB3541D42BE91212003B1D69 /* HFlowAlertVC.swift in Sources */,
 				A2B43080237FF57C00795605 /* HViewController.swift in Sources */,
 				A2294890239756770058B939 /* HTableBaseCell.swift in Sources */,
 				A229488F239756770058B939 /* HTableSignal.swift in Sources */,
@@ -2084,7 +2093,6 @@
 				EB12098D2A85DA2A00E5F045 /* HPostCommentHeader.swift in Sources */,
 				EBC8145729AA538B00A81431 /* HAcceptAudioVC.swift in Sources */,
 				EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */,
-				EB3541B22BDB37F6003B1D69 /* HFlowAlertVC+Extern.swift in Sources */,
 				EBD0FB2829CC91AF00808EDA /* UIImage+QRCode.swift in Sources */,
 				EB3541B82BE7D052003B1D69 /* HBaseNaviController.swift in Sources */,
 				EB3541C02BE865AA003B1D69 /* HTupleStackView.swift in Sources */,

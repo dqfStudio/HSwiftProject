@@ -38,7 +38,7 @@ class HPullController: HViewController, HTupleViewDelegate {
     }
     
     override var presentType: HTransitionStyle {
-        return .pull
+        return .drop
     }
     
     override var isShadowDismiss: Bool {

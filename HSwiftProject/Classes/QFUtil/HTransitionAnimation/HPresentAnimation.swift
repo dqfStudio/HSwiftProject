@@ -74,7 +74,7 @@ class HPresentAnimation: HTransitionAnimation, UIViewControllerTransitioningDele
         //动画时间
         let duration = self.transitionDuration(using: transitionContext)
         
-        if self.presentType == .pull {
+        if self.presentType == .drop {
             presentedView.alpha = 0.0
             presentedView.frame = CGRect(x: 0, y: -self.contentSize.height, width: self.contentSize.width, height: self.contentSize.height)
             UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut) {
@@ -116,7 +116,7 @@ class HPresentAnimation: HTransitionAnimation, UIViewControllerTransitioningDele
         //动画时间
         let duration = self.transitionDuration(using: transitionContext)
         
-        if self.presentType == .pull {
+        if self.presentType == .drop {
             UIView.animate(withDuration: duration) {
                 presentedView.transform = CGAffineTransform(translationX: 0, y: -self.contentSize.height)
             } completion: { finished in

@@ -545,8 +545,8 @@ extension HMainController1 {
                         let navi = HNavigationController.fullScreenModalNavi(rootVC: HUserLiveVC())
                         self.present(navi, animated: true)
                     }else {
-                        let alertVC = HPullController.showVideoAlert { index in }
-                        self.presentController(alertVC, completion: nil)
+                        let dropVC = HFlowDropVC.showPacketSheet(true) { index in }
+                        self.presentController(dropVC, completion: nil)
                     }
                 }
             }

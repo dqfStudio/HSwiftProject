@@ -84,7 +84,7 @@ class HPresentationController: UIPresentationController {
     override var frameOfPresentedViewInContainerView: CGRect {
         var makeRect = CGRect.zero
         if let containerView = self.containerView {
-            if self.presentType == .pull {
+            if self.presentType == .drop {
                 if self.contentSize.equalTo(CGSize.zero) {
                     self.contentSize = containerView.size
                 }
