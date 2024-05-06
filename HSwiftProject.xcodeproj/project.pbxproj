@@ -203,6 +203,7 @@
 		EB3541BE2BE86484003B1D69 /* HSkeletonView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541BD2BE86484003B1D69 /* HSkeletonView2.swift */; };
 		EB3541C02BE865AA003B1D69 /* HTupleStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541BF2BE865AA003B1D69 /* HTupleStackView.swift */; };
 		EB3541C22BE86912003B1D69 /* HAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541C12BE86912003B1D69 /* HAuthView.swift */; };
+		EB3541C42BE86B53003B1D69 /* HBottomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541C32BE86B53003B1D69 /* HBottomButtonView.swift */; };
 		EB4323CF29B988A400EDDB64 /* icon_no_network@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */; };
 		EB4323D029B988A400EDDB64 /* icon_no_network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */; };
 		EB4323D129B988A400EDDB64 /* icon_no_server@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */; };
@@ -544,6 +545,7 @@
 		EB3541BD2BE86484003B1D69 /* HSkeletonView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSkeletonView2.swift; sourceTree = "<group>"; };
 		EB3541BF2BE865AA003B1D69 /* HTupleStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleStackView.swift; sourceTree = "<group>"; };
 		EB3541C12BE86912003B1D69 /* HAuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAuthView.swift; sourceTree = "<group>"; };
+		EB3541C32BE86B53003B1D69 /* HBottomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBottomButtonView.swift; sourceTree = "<group>"; };
 		EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@3x.png"; sourceTree = "<group>"; };
 		EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@2x.png"; sourceTree = "<group>"; };
 		EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_server@3x.png"; sourceTree = "<group>"; };
@@ -892,6 +894,7 @@
 				EBA53C312A3210FA0077158D /* HMultiButtonView.swift */,
 				EB3541BF2BE865AA003B1D69 /* HTupleStackView.swift */,
 				EB3541C12BE86912003B1D69 /* HAuthView.swift */,
+				EB3541C32BE86B53003B1D69 /* HBottomButtonView.swift */,
 				EB1209842A8365E400E5F045 /* HPostVC.swift */,
 				EB1209862A84CC8300E5F045 /* HPostVM.swift */,
 				EB1209822A8280E400E5F045 /* HPostView.swift */,
@@ -1902,6 +1905,7 @@
 				EB3541AE2BDB37D7003B1D69 /* HFlowSheetVC+Extern.swift in Sources */,
 				A26D432123842C9400F457AE /* UIGestureRecognizer+HUtil.swift in Sources */,
 				EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */,
+				EB3541C42BE86B53003B1D69 /* HBottomButtonView.swift in Sources */,
 				A22948BA239798FC0058B939 /* HRegisterController.swift in Sources */,
 				A26D432D238682D200F457AE /* HNavigationController.swift in Sources */,
 				A22948B3239798A30058B939 /* HMainController5.swift in Sources */,
