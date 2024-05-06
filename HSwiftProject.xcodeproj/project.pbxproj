@@ -196,6 +196,10 @@
 		EB3541C02BE865AA003B1D69 /* HTupleStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541BF2BE865AA003B1D69 /* HTupleStackView.swift */; };
 		EB3541C22BE86912003B1D69 /* HAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541C12BE86912003B1D69 /* HAuthView.swift */; };
 		EB3541C42BE86B53003B1D69 /* HBottomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541C32BE86B53003B1D69 /* HBottomButtonView.swift */; };
+		EB3541C72BE8C7F3003B1D69 /* HChatsMsgVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541C62BE8C7F3003B1D69 /* HChatsMsgVC.swift */; };
+		EB3541C92BE8C895003B1D69 /* MessageCellAble.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541C82BE8C895003B1D69 /* MessageCellAble.swift */; };
+		EB3541CB2BE8CBEF003B1D69 /* MessageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541CA2BE8CBEF003B1D69 /* MessageInfo.swift */; };
+		EB3541CD2BE8D53D003B1D69 /* MessageBaseRightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541CC2BE8D53D003B1D69 /* MessageBaseRightTableViewCell.swift */; };
 		EB4323CF29B988A400EDDB64 /* icon_no_network@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */; };
 		EB4323D029B988A400EDDB64 /* icon_no_network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */; };
 		EB4323D129B988A400EDDB64 /* icon_no_server@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */; };
@@ -530,6 +534,10 @@
 		EB3541BF2BE865AA003B1D69 /* HTupleStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleStackView.swift; sourceTree = "<group>"; };
 		EB3541C12BE86912003B1D69 /* HAuthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HAuthView.swift; sourceTree = "<group>"; };
 		EB3541C32BE86B53003B1D69 /* HBottomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBottomButtonView.swift; sourceTree = "<group>"; };
+		EB3541C62BE8C7F3003B1D69 /* HChatsMsgVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatsMsgVC.swift; sourceTree = "<group>"; };
+		EB3541C82BE8C895003B1D69 /* MessageCellAble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellAble.swift; sourceTree = "<group>"; };
+		EB3541CA2BE8CBEF003B1D69 /* MessageInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInfo.swift; sourceTree = "<group>"; };
+		EB3541CC2BE8D53D003B1D69 /* MessageBaseRightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBaseRightTableViewCell.swift; sourceTree = "<group>"; };
 		EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@3x.png"; sourceTree = "<group>"; };
 		EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@2x.png"; sourceTree = "<group>"; };
 		EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_server@3x.png"; sourceTree = "<group>"; };
@@ -1093,6 +1101,7 @@
 		A2B43058237FF2B100795605 /* QFUtil */ = {
 			isa = PBXGroup;
 			children = (
+				EB3541C52BE8C7D3003B1D69 /* HChat */,
 				EB05977A2A0DF1820016ACD8 /* HChatTableView */,
 				EBD0FB3429CCA33E00808EDA /* HNotification */,
 				EBD0FB2429CC8CEB00808EDA /* HFPickerView */,
@@ -1300,6 +1309,17 @@
 				EB05977B2A0DF18F0016ACD8 /* HChatTableView.swift */,
 			);
 			path = HChatTableView;
+			sourceTree = "<group>";
+		};
+		EB3541C52BE8C7D3003B1D69 /* HChat */ = {
+			isa = PBXGroup;
+			children = (
+				EB3541C62BE8C7F3003B1D69 /* HChatsMsgVC.swift */,
+				EB3541C82BE8C895003B1D69 /* MessageCellAble.swift */,
+				EB3541CC2BE8D53D003B1D69 /* MessageBaseRightTableViewCell.swift */,
+				EB3541CA2BE8CBEF003B1D69 /* MessageInfo.swift */,
+			);
+			path = HChat;
 			sourceTree = "<group>";
 		};
 		EB43239E29B988A300EDDB64 /* HResultView */ = {
@@ -1864,12 +1884,14 @@
 				A286251623EAB8DD00E81781 /* HCountDownButton.swift in Sources */,
 				EBD0FB6C29D02B1000808EDA /* HDefaultsCore+Extern.swift in Sources */,
 				EB80B6962A20BEEC0016648A /* HTextImageView.swift in Sources */,
+				EB3541CB2BE8CBEF003B1D69 /* MessageInfo.swift in Sources */,
 				EBD0FB9E29DB00B300808EDA /* HMainController6+UI.swift in Sources */,
 				EB80B66C2A1130E10016648A /* HToolbar.swift in Sources */,
 				A28A022D23EE6BA6000556A2 /* HMarquee.swift in Sources */,
 				A265DA032394B24C001F39B0 /* HTabBarController.swift in Sources */,
 				A2A814BC274D694E00FAB929 /* UIViewController+HAnimation.swift in Sources */,
 				A2294891239756770058B939 /* HTableView.swift in Sources */,
+				EB3541C92BE8C895003B1D69 /* MessageCellAble.swift in Sources */,
 				EB1209892A85D87700E5F045 /* HPostCommentVC.swift in Sources */,
 				EBC8140D29AA528D00A81431 /* HAnchorLiveVC.swift in Sources */,
 				EB43241629C34BB800EDDB64 /* HFormCell.swift in Sources */,
@@ -1926,6 +1948,7 @@
 				EB43243A29C588A400EDDB64 /* HTextViewer.swift in Sources */,
 				EB4323F429B98C9400EDDB64 /* HNaviToastView.swift in Sources */,
 				EBC8146129AA53C600A81431 /* HSendAudioVC+HStatus5.swift in Sources */,
+				EB3541C72BE8C7F3003B1D69 /* HChatsMsgVC.swift in Sources */,
 				EBD0FB2C29CC9AEF00808EDA /* UIColor+HSkin.swift in Sources */,
 				EBD0FBB229DBEE4800808EDA /* HNumberFormatter.swift in Sources */,
 				A2188795238FD3CC005C20BF /* HGameCategoryVC+HSection0.swift in Sources */,
@@ -2011,6 +2034,7 @@
 				EB4323F629B9AF7200EDDB64 /* HWaitingView.swift in Sources */,
 				EB43240929B9F47600EDDB64 /* HProgressHUD.swift in Sources */,
 				A26D433F2386CA0A00F457AE /* NSObject+HSwizzleUtil.swift in Sources */,
+				EB3541CD2BE8D53D003B1D69 /* MessageBaseRightTableViewCell.swift in Sources */,
 				A22948AD2397987A0058B939 /* HMainController3+HSection1.swift in Sources */,
 				EB869F612B610B4900076A5D /* HTupleAttributes.swift in Sources */,
 				A2CC441123B360AE00DB095F /* HTupleRefresh.swift in Sources */,

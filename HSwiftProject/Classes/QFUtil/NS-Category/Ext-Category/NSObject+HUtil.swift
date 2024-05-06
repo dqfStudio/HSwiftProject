@@ -20,6 +20,10 @@ extension NSObject {
         }
     }
     
+    class var className: String {
+        return String(describing: self)
+    }
+    
     public func isSystemClass(_ aClass: AnyClass) -> Bool {
         let bundle = Bundle(for: aClass)
         if bundle == Bundle.main {

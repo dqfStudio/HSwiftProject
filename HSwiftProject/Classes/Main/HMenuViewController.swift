@@ -30,7 +30,8 @@ class HMenuViewController: HTabBarController {
         mainVC1.h_tabItemImage = UIImage(named: "di_index")
         mainVC1.h_tabItemSelectedImage = UIImage(named: "di_index_h")
         
-        let mainVC2 = HMainController2()
+//        let mainVC2 = HMainController2()
+        let mainVC2 = HChatsMsgVC()
 //        let mainVC2 = HPostVC()
         mainVC2.h_tabItemTitle = "第二页"
         mainVC2.h_tabItemImage = UIImage(named: "di_index")
