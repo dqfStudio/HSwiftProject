@@ -21,7 +21,7 @@ class HFlowBar: UIStackView, HTupleViewDelegate {
     var selectBlock: HFlowBarSelectBlock?
     
     // 垂直或水平方向
-    private var direction: HTupleDirection = .vertical
+    private var direction: HTupleDirection = .horizontal
     
     // A lazy-loaded HTupleView instance
     lazy var tupleView: HTupleView = {
