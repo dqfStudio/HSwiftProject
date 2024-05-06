@@ -192,19 +192,23 @@ extension UIView {
     
     
     func setTopLine(withColor color: UIColor) {
-        self.setTopLine(withColor: color, paddingLeft: 0, paddingRight: 0)
+        self.setTopLine(withColor: color, lineHeight: 1.0)
     }
     
-    func setTopLine(withColor color: UIColor, width: CGFloat) {
-        self.setTopLine(withColor: color, width: width, paddingLeft: 0, paddingRight: 0)
+    func setTopLine(withColor color: UIColor, lineHeight: CGFloat = 1.0) {
+        self.setTopLine(withColor: color, lineHeight: lineHeight, width: self.width)
     }
     
-    func setTopLine(withColor color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) {
-        self.setTopLine(withColor: color, width: self.width, paddingLeft: paddingLeft, paddingRight: paddingRight)
+    func setTopLine(withColor color: UIColor, lineHeight: CGFloat = 1.0, width: CGFloat) {
+        self.setTopLine(withColor: color, lineHeight: lineHeight, width: width, paddingLeft: 0, paddingRight: 0)
+    }
+    
+    func setTopLine(withColor color: UIColor, lineHeight: CGFloat = 1.0, paddingLeft: CGFloat, paddingRight: CGFloat) {
+        self.setTopLine(withColor: color, lineHeight: lineHeight, width: self.width, paddingLeft: paddingLeft, paddingRight: paddingRight)
     }
 
-    func setTopLine(withColor color: UIColor, width: CGFloat, paddingLeft: CGFloat, paddingRight: CGFloat) {
-        let frame: CGRect = CGRect(x: paddingLeft, y: 0, width: width - paddingLeft - paddingRight, height: 1)
+    func setTopLine(withColor color: UIColor, lineHeight: CGFloat = 1.0, width: CGFloat, paddingLeft: CGFloat, paddingRight: CGFloat) {
+        let frame: CGRect = CGRect(x: paddingLeft, y: 0, width: width - paddingLeft - paddingRight, height: lineHeight)
         if self.topLineLayer == nil {
             self.topLineLayer = self.addSubLayer(withFrame: frame, color: color)
         }else {
@@ -216,25 +220,34 @@ extension UIView {
     
     
     func setBottomLine(withColor color: UIColor) {
-        self.setBottomLine(withColor: color, paddingLeft: 0, paddingRight: 0)
+        self.setBottomLine(withColor: color, lineHeight: 1.0)
     }
     
-    func setBottomLine(withColor color: UIColor, size: CGSize) {
-        self.setBottomLine(withColor: color, size: size, paddingLeft: 0, paddingRight: 0)
+    func setBottomLine(withColor color: UIColor, lineHeight: CGFloat = 1.0) {
+        self.setBottomLine(withColor: color, lineHeight: lineHeight, size: self.size)
     }
     
-    func setBottomLine(withColor color: UIColor, paddingLeft: CGFloat, paddingRight: CGFloat) {
-        self.setBottomLine(withColor: color, size: self.size, paddingLeft: paddingLeft, paddingRight: paddingRight)
+    func setBottomLine(withColor color: UIColor, lineHeight: CGFloat = 1.0, size: CGSize) {
+        self.setBottomLine(withColor: color, lineHeight: lineHeight, size: size, paddingLeft: 0, paddingRight: 0)
     }
     
-    func setBottomLine(withColor color: UIColor, size: CGSize, paddingLeft: CGFloat, paddingRight: CGFloat) {
-        let frame: CGRect = CGRect(x: paddingLeft, y: size.height - 1, width: size.width - paddingLeft - paddingRight, height: 1)
+    func setBottomLine(withColor color: UIColor, lineHeight: CGFloat = 1.0, paddingLeft: CGFloat, paddingRight: CGFloat) {
+        self.setBottomLine(withColor: color, lineHeight: lineHeight, size: self.size, paddingLeft: paddingLeft, paddingRight: paddingRight)
+    }
+    
+    func setBottomLine(withColor color: UIColor, lineHeight: CGFloat = 1.0, size: CGSize, paddingLeft: CGFloat, paddingRight: CGFloat) {
+        let frame: CGRect = CGRect(x: paddingLeft, y: size.height - lineHeight, width: size.width - paddingLeft - paddingRight, height: lineHeight)
         if self.bottomLineLayer == nil {
             self.bottomLineLayer = self.addSubLayer(withFrame: frame, color: color)
         }else {
             self.bottomLineLayer?.frame = frame
             self.bottomLineLayer?.backgroundColor = color.cgColor
         }
+    }
+
+    func setTopAndBottomLine(withColor color: UIColor) {
+        self.setTopLine(withColor: color)
+        self.setBottomLine(withColor: color)
     }
 
 
