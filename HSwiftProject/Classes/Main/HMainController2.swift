@@ -37,14 +37,10 @@ class HMainController2: HViewController, HTupleViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let width = self.view.width
-//        let height = UIScreen.topBarHeight
+        let flowWidth = self.view.width
         
-        let frame = CGRect(x: 10, y: 100, width: width - 20, height: 50)
+        let frame = CGRect(x: 0, y: UIScreen.topBarHeight, width: flowWidth, height: 50)
         let naviBar = HFlowBar(frame: frame, direction: .horizontal)
-        
-//        let frame = CGRect(x: 20, y: 100, width: 50, height: width)
-//        let naviBar = HFlowBar(frame: frame, direction: .vertical)
         naviBar.backgroundColor = .yellow
         
         naviBar.headerSpacing = 16
@@ -54,24 +50,15 @@ class HMainController2: HViewController, HTupleViewDelegate {
         naviBar.indicatorHeight = 3
         naviBar.indicatorColor = UIColor.blue
         naviBar.showIndicator = true
-//        naviBar.showBottomSeparator = true
-//        naviBar.separatorColor = UIColor.red
         naviBar.tupleView.tupleAlign = .center
         
-//        naviBar.showTopBar = true
-//        naviBar.spacing = 5
-//        naviBar.topBarSize = 5
-//        naviBar.topBarColor = .green
-//        naviBar.addArrangedSubview(naviBar.topBar)
         naviBar.showTopSeparator = true
         naviBar.topSeparatorColor = .red
         
-//        naviBar.showBottomBar = true
-//        naviBar.bottomBarSize = 10
-//        naviBar.bottomBarColor = .blue
-//        naviBar.addArrangedSubview(naviBar.bottomBar)
         naviBar.showBottomSeparator = true
         naviBar.bottomSeparatorColor = .red
+        
+        naviBar.selectedIndex = 1
         
         naviBar.numberBlock = {
             return 3
@@ -85,11 +72,25 @@ class HMainController2: HViewController, HTupleViewDelegate {
             cell.label.textColor = UIColor.red
             cell.label.textAlignment = .center
         }
-        naviBar.selectBlock = { index in
+        naviBar.didSelectBlock = { index in
             
         }
         
         self.view.addSubview(naviBar)
+        
+        
+        let flowY = UIScreen.topBarHeight + 50
+        let flowH = UIScreen.height - flowY - 50
+        let flowFrame = CGRect(x: 0, y: flowY, width: flowWidth, height: flowH)
+        let flowView = HFlowView(frame: flowFrame)
+        
+        let loginVC = HLoginController()
+        let registerVC = HRegisterController()
+        let registerVC2 = HRegisterController()
+        
+        flowView.flowBar = naviBar
+        flowView.viewControllers = [loginVC, registerVC, registerVC2]
+        self.view.addSubview(flowView)
         
         return
         

@@ -18,7 +18,13 @@ class HFlowBar: UIStackView, HTupleViewDelegate {
     var numberBlock: HFlowBarNumberBlock?
     var sizeBlock: HFlowBarSizeBlock?
     var itemBlock: HFlowBarItemBlock?
-    var selectBlock: HFlowBarSelectBlock?
+    
+    var willSelectBlock: HFlowBarSelectBlock?
+    var didSelectBlock: HFlowBarSelectBlock?
+    var reSelectBlock: HFlowBarSelectBlock?
+    
+    // 仅供HFlowView内部使用
+    var flowViewSelectBlock: HFlowBarSelectBlock?
     
     // 垂直或水平方向
     private var direction: HTupleDirection = .horizontal
@@ -258,8 +264,15 @@ extension HFlowBar {
         }
 
         cell.selectBlock = { [weak self]  in
-            self?.selectedIndex = indexPath.row
-            self?.selectBlock?(indexPath.row)
+            guard let self = self else { return }
+            if self.selectedIndex != indexPath.row {
+                self.willSelectBlock?(indexPath.row)
+                self.selectedIndex = indexPath.row
+                self.didSelectBlock?(indexPath.row)
+                self.flowViewSelectBlock?(indexPath.row)
+            }else {
+                self.reSelectBlock?(indexPath.row)
+            }
         }
     }
 
@@ -309,8 +322,15 @@ extension HFlowBar {
         }
 
         cell.selectBlock = { [weak self]  in
-            self?.selectedIndex = indexPath.row
-            self?.selectBlock?(indexPath.row)
+            guard let self = self else { return }
+            if self.selectedIndex != indexPath.row {
+                self.willSelectBlock?(indexPath.row)
+                self.selectedIndex = indexPath.row
+                self.didSelectBlock?(indexPath.row)
+                self.flowViewSelectBlock?(indexPath.row)
+            }else {
+                self.reSelectBlock?(indexPath.row)
+            }
         }
     }
 
