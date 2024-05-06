@@ -15,48 +15,37 @@ class HNetworkDAO: NSObject {
     static let hostName = ""
     
     ///网络请求
-    func getData(url: String, parameters:[String: Any]?,
+    func getData(url: String, parameters: [String: Any]?,
                  success: @escaping (_ result: Any?) -> Void,
                  failure: @escaping (_ error: Error?) -> Void) {
-        var urlString = url
+        guard !url.isEmpty else { return }
         let baseUrl = HNetworkDAO.hostName
-        if !baseUrl.isEmpty, !url.isEmpty {
-            if url.hasPrefix(baseUrl) == false {
-                urlString = baseUrl + url
-            }
-            Alamofire.SessionManager.default.retrier = nil
-            Alamofire.request(urlString, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
-                switch response.result {
-                case .success:
-                    self.successWithResponse(response, block: success)
-                    break
-                case .failure(_):
-                    self.failureWithResponse(response, block: failure)
-                    break
-                }
+        let urlString = url.hasPrefix(baseUrl) ? url : baseUrl + url
+        Alamofire.SessionManager.default.retrier = nil
+        Alamofire.request(urlString, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+            switch response.result {
+            case .success:
+                self.successWithResponse(response, block: success)
+            case .failure(_):
+                self.failureWithResponse(response, block: failure)
             }
         }
     }
+
     
     func postData(url: String, parameters:[String: Any]?,
                   success: @escaping (_ result: Any?) -> Void,
                   failure: @escaping (_ error: Error?) -> Void) {
-        var urlString = url
+        guard !url.isEmpty else { return }
         let baseUrl = HNetworkDAO.hostName
-        if !baseUrl.isEmpty, !url.isEmpty {
-            if url.hasPrefix(baseUrl) == false {
-                urlString = baseUrl + url
-            }
-            Alamofire.SessionManager.default.retrier = nil
-            Alamofire.request(urlString, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
-                switch response.result {
-                case .success:
-                    self.successWithResponse(response, block: success)
-                    break
-                case .failure(_):
-                    self.failureWithResponse(response, block: failure)
-                    break
-                }
+        let urlString = url.hasPrefix(baseUrl) ? url : baseUrl + url
+        Alamofire.SessionManager.default.retrier = nil
+        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+            switch response.result {
+            case .success:
+                self.successWithResponse(response, block: success)
+            case .failure(_):
+                self.failureWithResponse(response, block: failure)
             }
         }
     }
@@ -65,22 +54,16 @@ class HNetworkDAO: NSObject {
     func retryGetData(url: String, parameters:[String: Any]?,
                       success: @escaping (_ result: Any?) -> Void,
                       failure: @escaping (_ error: Error?) -> Void) {
-        var urlString = url
+        guard !url.isEmpty else { return }
         let baseUrl = HNetworkDAO.hostName
-        if !baseUrl.isEmpty, !url.isEmpty {
-            if url.hasPrefix(baseUrl) == false {
-                urlString = baseUrl + url
-            }
-            Alamofire.SessionManager.default.retrier = HRetrier()
-            Alamofire.request(urlString, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
-                switch response.result {
-                case .success:
-                    self.successWithResponse(response, block: success)
-                    break
-                case .failure(_):
-                    self.failureWithResponse(response, block: failure)
-                    break
-                }
+        let urlString = url.hasPrefix(baseUrl) ? url : baseUrl + url
+        Alamofire.SessionManager.default.retrier = HRetrier()
+        Alamofire.request(urlString, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+            switch response.result {
+            case .success:
+                self.successWithResponse(response, block: success)
+            case .failure(_):
+                self.failureWithResponse(response, block: failure)
             }
         }
     }
@@ -88,22 +71,16 @@ class HNetworkDAO: NSObject {
     func retryPostData(url: String, parameters:[String: Any]?,
                        success: @escaping (_ result: Any?) -> Void,
                        failure: @escaping (_ error: Error?) -> Void) {
-        var urlString = url
+        guard !url.isEmpty else { return }
         let baseUrl = HNetworkDAO.hostName
-        if !baseUrl.isEmpty, !url.isEmpty {
-            if url.hasPrefix(baseUrl) == false {
-                urlString = baseUrl + url
-            }
-            Alamofire.SessionManager.default.retrier = HRetrier()
-            Alamofire.request(urlString, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
-                switch response.result {
-                case .success:
-                    self.successWithResponse(response, block: success)
-                    break
-                case .failure(_):
-                    self.failureWithResponse(response, block: failure)
-                    break
-                }
+        let urlString = url.hasPrefix(baseUrl) ? url : baseUrl + url
+        Alamofire.SessionManager.default.retrier = HRetrier()
+        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+            switch response.result {
+            case .success:
+                self.successWithResponse(response, block: success)
+            case .failure(_):
+                self.failureWithResponse(response, block: failure)
             }
         }
     }
