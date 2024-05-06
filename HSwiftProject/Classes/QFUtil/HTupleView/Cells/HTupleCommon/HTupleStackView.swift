@@ -20,16 +20,12 @@ class HTupleStackView: UIStackView, HTupleViewDelegate {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private lazy var tupleView: HTupleView = {
+    lazy var tupleView: HTupleView = {
         let tupleView = HTupleView(frame: self.bounds)
         tupleView.backgroundColor = .clear
         tupleView.disableBounce()
         return tupleView
     }()
-    
-    func reloadTupleData() {
-        self.tupleView.reloadTupleData()
-    }
     
     override func removeFromSuperview() {
         if self.superview != nil {

@@ -10,7 +10,7 @@ import UIKit
 
 typealias HAuthViewBlock = (_ auth: String) -> Void
 
-class HAuthView: UIStackView, HTupleViewDelegate {
+class HAuthView: HTupleStackView {
 
     var nameString: String?
     var nameColor = UIColor.white
@@ -26,27 +26,15 @@ class HAuthView: UIStackView, HTupleViewDelegate {
     }
     private var auths: [String] = []
     private var authSize: CGFloat = 16.0
-    var selectBlock: HAuthViewBlock?
     
-    private lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView(frame: .zero)
-        tupleView.backgroundColor = .clear
-        tupleView.isScrollEnabled = false
-        tupleView.disableBounce()
-        return tupleView
-    }()
+    var itemSpacing: CGFloat = 4.0
+    var selectBlock: HAuthViewBlock?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor = .clear
-        self.spacing = 4.0
         self.tupleView.delegate = self
+        self.tupleView.isScrollEnabled = false
         self.addArrangedSubview(self.tupleView)
-    }
-
-    @available(*, unavailable)
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     // 将授权字符串按照GM、VIP、POP、OTC、UGC的顺序返回
@@ -81,7 +69,7 @@ extension HAuthView {
                                                            constrainedToHeight: self.height) ?? 1.0
             nameWidth = ceil(nameWidth) //向上取整
             // 授权字符长度
-            var authWidth = self.width - (self.spacing + self.authSize) * CGFloat(self.auths.count)
+            var authWidth = self.width - (self.itemSpacing + self.authSize) * CGFloat(self.auths.count)
             authWidth = max(authWidth, 0) //取最大值
             // 取名称与授权字符长度的最小值
             nameWidth = min(nameWidth, authWidth) //取最小值
@@ -92,7 +80,7 @@ extension HAuthView {
     }
     
     func minimumInteritemSpacingForSectionAt(_ section: Any) -> Any {
-        return self.spacing
+        return self.itemSpacing
     }
     
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
