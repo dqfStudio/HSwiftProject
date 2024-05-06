@@ -12,8 +12,8 @@ class HFlowView: UIScrollView, UIScrollViewDelegate {
     
     weak var flowBar: HFlowBar?
     
-    var interceptLeftSlideGuetureInLastPage: Bool = false
-    var interceptRightSlideGuetureInFirstPage: Bool = false
+//    var interceptLeftSlideGuetureInLastPage: Bool = false
+//    var interceptRightSlideGuetureInFirstPage: Bool = false
     
     // 被选中的Tab的Index
     private var selectedTabIndex: Int = 0
@@ -201,44 +201,44 @@ class HFlowView: UIScrollView, UIScrollViewDelegate {
         return view
     }
 
-    // 重写此方法，在需要的时候，拦截UIPanGestureRecognizer
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
-        
-        if !gestureRecognizer.responds(to: #selector(gestureRecognizer.translation(in:))) {
-            return true
-        }
-        // 计算可能切换到的index
-        let currentIndex = Int(self.contentOffset.x / self.frame.size.width)
-        var targetIndex = currentIndex
-        
-        let translation = gestureRecognizer.translation(in: self)
-        if translation.x > 0 {
-            targetIndex = currentIndex - 1
-        } else {
-            targetIndex = currentIndex + 1
-        }
-        
-        // 第一页往右滑动
-        if self.interceptRightSlideGuetureInFirstPage, targetIndex < 0 {
-            return false
-        }
-        
-        // 最后一页往左滑动
-        if self.interceptLeftSlideGuetureInLastPage {
-            let numberOfPage = Int(self.contentSize.width / self.frame.size.width)
-            if targetIndex >= numberOfPage {
-                return false
-            }
-        }
-        
-        return true
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if contentOffset.x <= 0 {
-            return true
-        } else {
-            return false
-        }
-    }
+//    // 重写此方法，在需要的时候，拦截UIPanGestureRecognizer
+//    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
+//        
+//        if !gestureRecognizer.responds(to: #selector(gestureRecognizer.translation(in:))) {
+//            return true
+//        }
+//        // 计算可能切换到的index
+//        let currentIndex = Int(self.contentOffset.x / self.frame.size.width)
+//        var targetIndex = currentIndex
+//        
+//        let translation = gestureRecognizer.translation(in: self)
+//        if translation.x > 0 {
+//            targetIndex = currentIndex - 1
+//        } else {
+//            targetIndex = currentIndex + 1
+//        }
+//        
+//        // 第一页往右滑动
+//        if self.interceptRightSlideGuetureInFirstPage, targetIndex < 0 {
+//            return false
+//        }
+//        
+//        // 最后一页往左滑动
+//        if self.interceptLeftSlideGuetureInLastPage {
+//            let numberOfPage = Int(self.contentSize.width / self.frame.size.width)
+//            if targetIndex >= numberOfPage {
+//                return false
+//            }
+//        }
+//        
+//        return true
+//    }
+//    
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//        if contentOffset.x <= 0 {
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
 }
