@@ -201,6 +201,7 @@
 		EB3541B62BE7C760003B1D69 /* HActiveNaviController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B52BE7C75F003B1D69 /* HActiveNaviController.swift */; };
 		EB3541B82BE7D052003B1D69 /* HBaseNaviController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B72BE7D052003B1D69 /* HBaseNaviController.swift */; };
 		EB3541BC2BE86152003B1D69 /* HActiveTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541BB2BE86151003B1D69 /* HActiveTabbarVC.swift */; };
+		EB3541BE2BE86484003B1D69 /* HSkeletonView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541BD2BE86484003B1D69 /* HSkeletonView2.swift */; };
 		EB4323CF29B988A400EDDB64 /* icon_no_network@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */; };
 		EB4323D029B988A400EDDB64 /* icon_no_network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */; };
 		EB4323D129B988A400EDDB64 /* icon_no_server@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */; };
@@ -540,6 +541,7 @@
 		EB3541B52BE7C75F003B1D69 /* HActiveNaviController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveNaviController.swift; sourceTree = "<group>"; };
 		EB3541B72BE7D052003B1D69 /* HBaseNaviController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseNaviController.swift; sourceTree = "<group>"; };
 		EB3541BB2BE86151003B1D69 /* HActiveTabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveTabbarVC.swift; sourceTree = "<group>"; };
+		EB3541BD2BE86484003B1D69 /* HSkeletonView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSkeletonView2.swift; sourceTree = "<group>"; };
 		EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@3x.png"; sourceTree = "<group>"; };
 		EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@2x.png"; sourceTree = "<group>"; };
 		EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_server@3x.png"; sourceTree = "<group>"; };
@@ -896,6 +898,7 @@
 				EB12098A2A85DA1A00E5F045 /* HPostCommentView.swift */,
 				EB12098C2A85DA2A00E5F045 /* HPostCommentHeader.swift */,
 				EBD213E62A6B859500C31E2D /* HSkeletonView.swift */,
+				EB3541BD2BE86484003B1D69 /* HSkeletonView2.swift */,
 				EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */,
 			);
 			path = HTupleCommon;
@@ -1843,6 +1846,7 @@
 				A2B4308723823F3400795605 /* Error+HUtil.swift in Sources */,
 				EBD0FB2029CC51BF00808EDA /* HFileCache.swift in Sources */,
 				EBD0FB3329CCA2CB00808EDA /* AppDelegate+ConfigerService.swift in Sources */,
+				EB3541BE2BE86484003B1D69 /* HSkeletonView2.swift in Sources */,
 				EB43241829C3569800EDDB64 /* HFormController.swift in Sources */,
 				A22948A123975F500058B939 /* HTableViewApexVertValue.swift in Sources */,
 				A28B652323FD26CE00B6B638 /* HNetworkManager.swift in Sources */,
