@@ -149,7 +149,7 @@ class HUserLiveVC : HTupleController {
         }
     }
 
-    func tupleScrollViewDidScroll(_ scrollView: UIScrollView) {
+    func tupleViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         if offsetY >= 2 * self.view.height {//向上滚动
             scrollView.setContentOffset(CGPoint(x: 0, y: self.view.height), animated: false)
