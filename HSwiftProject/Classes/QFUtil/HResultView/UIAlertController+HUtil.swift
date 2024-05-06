@@ -78,28 +78,6 @@ extension UIAlertController {
 //
 //}
 
-extension HAlertController {
-    @discardableResult
-    static func showAlert(model: HAlertModel, preferredStyle: HAlertControllerStyle, completion: ((_ actionStyle: HAlertActionStyle) -> Void)?) -> HAlertController? {
-        let alertController = HAlertController(model: model, preferredStyle: preferredStyle)
-        // 取消回调
-        alertController.cancelBlock = {
-            completion?(.cancel)
-        }
-        // 确认回调
-        alertController.confirmBlock = {
-            completion?(.confirm)
-        }
-        // 显示alert
-        DispatchQueue.main.async {
-            guard let rootController = UIApplication.shared.keyWindow?.rootViewController,
-                    rootController.isKind(of: UIViewController.self) else { return }
-            rootController.presentController(alertController, completion: nil)
-        }
-        return alertController
-    }
-}
-
 extension HPullController {
     
     @discardableResult
