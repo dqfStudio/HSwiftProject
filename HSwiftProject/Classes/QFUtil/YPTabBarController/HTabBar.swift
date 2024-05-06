@@ -988,9 +988,7 @@ class HTabBar : UIView {
 
     @objc
     private func specialItemClicked(_ item: HTabItem) {
-        if let specialItemHandler = self.specialItemHandler {
-            specialItemHandler(item)
-        }
+        self.specialItemHandler?(item)
     }
 
     private func updateItemIndicatorInsets() {
