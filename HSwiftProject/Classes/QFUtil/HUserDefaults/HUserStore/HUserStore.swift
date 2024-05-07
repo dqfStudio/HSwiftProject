@@ -10,7 +10,7 @@ import UIKit
 
 private var KUSER = "H_USER_DEFAULTS"
 
-class HUserStore : NSObject, NSCoding {
+class HUserStore: NSObject, NSCoding {
 
     /** 是否登录 */
     var isLogin: Bool = false {
