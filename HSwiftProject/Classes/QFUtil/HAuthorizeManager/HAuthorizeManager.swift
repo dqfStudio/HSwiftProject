@@ -7,12 +7,12 @@
 //
 
 import UIKit
-import AVFoundation
 import Photos
-import CoreLocation
 import Contacts
+import AVFoundation
+import CoreLocation
 
-enum AuthorizationType: Int {
+enum HAuthorizationType: Int {
     case camera //相机
     case audio //麦克风
     case location //位置
@@ -20,12 +20,12 @@ enum AuthorizationType: Int {
     case contacts //通讯录
 }
 
-enum AuthorizationStatus {
+enum HAuthorizationStatus {
     case authorized
     case denied
 }
 
-typealias AuthorizationCompletionBlock = (AuthorizationStatus) -> Void
+typealias HAuthorizationCompletionBlock = (HAuthorizationStatus) -> Void
 
 private var KCHECK_AUTH_CAMERA = "请在iPhone的“设置”-“隐私”-“相机”功能中，找到“应用名称”打开相机访问权限"
 private var KCHECK_AUTH_PHOTOLIB = "请在iPhone的“设置”-“隐私”-“照片”功能中，找到“应用名称”打开相册访问权限"
@@ -37,7 +37,7 @@ class HAuthorizeManager: NSObject, CLLocationManagerDelegate {
     
     private var locationManager: CLLocationManager
     
-    var authorizationCompletionBlock: AuthorizationCompletionBlock?
+    var authorizationCompletionBlock: HAuthorizationCompletionBlock?
     
     static var sharemanager: HAuthorizeManager = {
         return HAuthorizeManager()
@@ -65,7 +65,7 @@ class HAuthorizeManager: NSObject, CLLocationManagerDelegate {
     }
     
     //获取权限的状态
-    static func getAutorizationStatus(with authorizationType: AuthorizationType, completion: @escaping AuthorizationCompletionBlock) {
+    static func getAutorizationStatus(with authorizationType: HAuthorizationType, completion: @escaping HAuthorizationCompletionBlock) {
         switch authorizationType {
         case .camera:
             AVCaptureDevice.requestAccess(for: .video) { granted in
@@ -113,7 +113,7 @@ class HAuthorizeManager: NSObject, CLLocationManagerDelegate {
     }
     
     //没有权限的提示
-    static func showAlert(with authorizationType: AuthorizationType) {
+    static func showAlert(with authorizationType: HAuthorizationType) {
         var title: String?
         var message: String?
         let confirmTitle = "设置"
