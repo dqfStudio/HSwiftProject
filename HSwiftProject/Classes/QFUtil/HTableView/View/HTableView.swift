@@ -118,36 +118,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     private var tableStyle: HTableStyle = .default
     
     // table align
-    var tableAlign: HTableAlign = .default {
-        didSet {
-            let cntSize = self.contentSize
-            let cntInset = self.contentInset
-            switch tableAlign {
-            case .default:
-                self.contentInset = UIEdgeInsets.zero
-            case .center:
-                let originX = (self.width - cntSize.width) / 2
-                let originY = (self.height - cntSize.height) / 2
-                self.contentInset = UIEdgeInsets(top: max(originY, 0),
-                                                 left: max(originX, 0),
-                                                 bottom: cntInset.bottom,
-                                                 right: cntInset.right)
-            case .top(let top):
-                let originX = (self.width - cntSize.width) / 2
-                self.contentInset = UIEdgeInsets(top: top,
-                                                 left: max(originX, 0),
-                                                 bottom: cntInset.bottom,
-                                                 right: cntInset.right)
-            case .ratio(let ratio):
-                let originX = (self.width - cntSize.width) / 2
-                let originY = (self.height - cntSize.height) * ratio
-                self.contentInset = UIEdgeInsets(top: max(originY, 0),
-                                                 left: max(originX, 0),
-                                                 bottom: cntInset.bottom,
-                                                 right: cntInset.right)
-            }
-        }
-    }
+    var tableAlign: HTableAlign = .default
 
     private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
@@ -199,6 +170,42 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                 super.frame = frame
                 self.reloadData()
             }
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // 更新对齐方式
+        self.updateAlign()
+    }
+    
+    // 更新对齐方式
+    private func updateAlign() {
+        let cntSize = self.contentSize
+        let cntInset = self.contentInset
+        switch tableAlign {
+        case .default:
+            self.contentInset = UIEdgeInsets.zero
+        case .center:
+            let originX = (self.width - cntSize.width) / 2
+            let originY = (self.height - cntSize.height) / 2
+            self.contentInset = UIEdgeInsets(top: max(originY, 0),
+                                             left: max(originX, 0),
+                                             bottom: cntInset.bottom,
+                                             right: cntInset.right)
+        case .top(let top):
+            let originX = (self.width - cntSize.width) / 2
+            self.contentInset = UIEdgeInsets(top: top,
+                                             left: max(originX, 0),
+                                             bottom: cntInset.bottom,
+                                             right: cntInset.right)
+        case .ratio(let ratio):
+            let originX = (self.width - cntSize.width) / 2
+            let originY = (self.height - cntSize.height) * ratio
+            self.contentInset = UIEdgeInsets(top: max(originY, 0),
+                                             left: max(originX, 0),
+                                             bottom: cntInset.bottom,
+                                             right: cntInset.right)
         }
     }
     
