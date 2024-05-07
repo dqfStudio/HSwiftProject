@@ -27,7 +27,7 @@ class HNetworkDAO {
             switch dataResponse.result {
             case .success(let data):
                 guard let resData = data, !resData.isEmpty else {
-                    failure(HNetworkError(code: -1, msg: "数据为空"))
+                    self.success(withString: nil, block: success)
                     return
                 }
                 do {
@@ -74,7 +74,7 @@ class HNetworkDAO {
             switch dataResponse.result {
             case .success(let data):
                 guard let resData = data, !resData.isEmpty else {
-                    failure(HNetworkError(code: -1, msg: "数据为空"))
+                    self.success(withString: nil, block: success)
                     return
                 }
                 do {
@@ -94,7 +94,7 @@ class HNetworkDAO {
 
 fileprivate extension HNetworkDAO {
     
-    static func success(withString string: Any, block: @escaping (_ response: HNetworkResponse) -> Void) {
+    static func success(withString string: Any?, block: @escaping (_ response: HNetworkResponse) -> Void) {
         let response = HNetworkResponse()
         guard let resString = string as? String, !resString.isEmpty else {
             response.errCode = -1
