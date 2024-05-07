@@ -6,198 +6,121 @@
 //  Copyright © 2020 wind. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import Alamofire
- 
-class HNetworkDAO: NSObject {
-    
-    ///初始化域名
-    static let hostName = ""
-    
-    ///网络请求
-    func getData(url: String, parameters: [String: Any]?,
-                 success: @escaping (_ result: Any?) -> Void,
-                 failure: @escaping (_ error: Error?) -> Void) {
-        guard !url.isEmpty else { return }
-        let baseUrl = HNetworkDAO.hostName
-        let urlString = url.hasPrefix(baseUrl) ? url : baseUrl + url
-        Alamofire.SessionManager.default.retrier = nil
-        Alamofire.request(urlString, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
-            switch response.result {
-            case .success:
-                self.successWithResponse(response, block: success)
-            case .failure(_):
-                self.failureWithResponse(response, block: failure)
-            }
-        }
-    }
+import RxSwift
 
+class HNetworkDAO {
     
-    func postData(url: String, parameters:[String: Any]?,
-                  success: @escaping (_ result: Any?) -> Void,
-                  failure: @escaping (_ error: Error?) -> Void) {
-        guard !url.isEmpty else { return }
-        let baseUrl = HNetworkDAO.hostName
-        let urlString = url.hasPrefix(baseUrl) ? url : baseUrl + url
-        Alamofire.SessionManager.default.retrier = nil
-        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
-            switch response.result {
-            case .success:
-                self.successWithResponse(response, block: success)
-            case .failure(_):
-                self.failureWithResponse(response, block: failure)
-            }
-        }
-    }
-    
-    ///默认三次重试的网络请求
-    func retryGetData(url: String, parameters:[String: Any]?,
-                      success: @escaping (_ result: Any?) -> Void,
-                      failure: @escaping (_ error: Error?) -> Void) {
-        guard !url.isEmpty else { return }
-        let baseUrl = HNetworkDAO.hostName
-        let urlString = url.hasPrefix(baseUrl) ? url : baseUrl + url
-        Alamofire.SessionManager.default.retrier = HRetrier()
-        Alamofire.request(urlString, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
-            switch response.result {
-            case .success:
-                self.successWithResponse(response, block: success)
-            case .failure(_):
-                self.failureWithResponse(response, block: failure)
-            }
-        }
-    }
-    
-    func retryPostData(url: String, parameters:[String: Any]?,
-                       success: @escaping (_ result: Any?) -> Void,
-                       failure: @escaping (_ error: Error?) -> Void) {
-        guard !url.isEmpty else { return }
-        let baseUrl = HNetworkDAO.hostName
-        let urlString = url.hasPrefix(baseUrl) ? url : baseUrl + url
-        Alamofire.SessionManager.default.retrier = HRetrier()
-        Alamofire.request(urlString, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
-            switch response.result {
-            case .success:
-                self.successWithResponse(response, block: success)
-            case .failure(_):
-                self.failureWithResponse(response, block: failure)
-            }
-        }
-    }
-    
-    func uploadImage(url: String, image: UIImage,
-                     success: @escaping (_ result: Any?) -> Void,
-                     failure: @escaping (_ error: Error?) -> Void) {
-        guard !url.isEmpty else { return }
-        let baseUrl = HNetworkDAO.hostName
-        let urlString = url.hasPrefix(baseUrl) ? url : baseUrl + url
-        guard let tmpURL = URL(string: urlString) else { return }
-        guard let urlRequest = try? URLRequest(url: tmpURL, method: .post, headers: nil) else { return }
-        Alamofire.upload(multipartFormData: { multipartFormData in
-            if let imageData = image.jpegData(compressionQuality: 1.0) {
-                let fileName = "\(Int(Date().timeIntervalSince1970 * 1000)).jpg"
-                multipartFormData.append(imageData, withName: "image", fileName: fileName, mimeType: "image/jpeg")
-            }
-        }, with: urlRequest) { result in
-            switch result {
-            case .success(let upload, _, _):
-                upload.responseJSON { response in
-                    switch response.result {
-                    case .success:
-                        self.successWithResponse(response, block: success)
-                    case .failure(_):
-                        self.failureWithResponse(response, block: failure)
-                    }
+    /// 网络请求方法
+    static func request(url: URLConvertible,
+                        method: HTTPMethod,
+                        headers: HTTPHeaders,
+                        parameters: Parameters?,
+                        encoding: ParameterEncoding,
+                        interceptor: RequestInterceptor? = nil,
+                        success: @escaping (_ response: HNetworkResponse) -> Void,
+                        failure: @escaping (_ error: HNetworkError) -> Void) {
+        AF.request(url, method: method, parameters: parameters,
+                   encoding: encoding, headers: headers, interceptor: interceptor,
+                   requestModifier: { $0.timeoutInterval = 30 }).response { dataResponse in
+            switch dataResponse.result {
+            case .success(let data):
+                guard let resData = data, !resData.isEmpty else {
+                    failure(HNetworkError(code: -1, msg: "数据为空"))
+                    return
+                }
+                do {
+                    let json = try JSONSerialization.jsonObject(with: resData, options: .allowFragments)
+                    // NSLog(resData.stringValue ?? "")
+                    self.success(withString: json, block: success)
+                } catch {
+                    // NSLog(resData.stringValue ?? "")
+                    failure(HNetworkError(code: -1, msg: "数据不能格式化"))
                 }
             case .failure(let error):
-                failure(error)
+                failure(HNetworkError.requestError(with: error))
             }
         }
     }
     
-    func uploadVideo(url: String, videoURL: URL,
-                     success: @escaping (_ result: Any?) -> Void,
-                     failure: @escaping (_ error: Error?) -> Void) {
-        guard !url.isEmpty else { return }
-        let baseUrl = HNetworkDAO.hostName
-        let urlString = url.hasPrefix(baseUrl) ? url : baseUrl + url
-        guard let tmpURL = URL(string: urlString) else { return }
-        guard let urlRequest = try? URLRequest(url: tmpURL, method: .post, headers: nil) else { return }
-        Alamofire.upload(multipartFormData: { multipartFormData in
-            if FileManager.default.fileExists(atPath: videoURL.path) {
-                let fileName = "\(Int(Date().timeIntervalSince1970 * 1000)).mp4"
-                multipartFormData.append(videoURL, withName: "video", fileName: fileName, mimeType: "video/mp4")
-            }
-        }, with: urlRequest) { result in
-            switch result {
-            case .success(let upload, _, _):
-                upload.responseJSON { response in
-                    switch response.result {
-                    case .success:
-                        self.successWithResponse(response, block: success)
-                    case .failure(_):
-                        self.failureWithResponse(response, block: failure)
-                    }
-                }
-            case .failure(let error):
-                failure(error)
-            }
-        }
-    }
-    
-    func uploadMedia(url: String, image: UIImage, videoURL: URL,
-                     success: @escaping (_ result: Any?) -> Void,
-                     failure: @escaping (_ error: Error?) -> Void) {
-        guard !url.isEmpty else { return }
-        let baseUrl = HNetworkDAO.hostName
-        let urlString = url.hasPrefix(baseUrl) ? url : baseUrl + url
-        guard let tmpURL = URL(string: urlString) else { return }
-        guard let urlRequest = try? URLRequest(url: tmpURL, method: .post, headers: nil) else { return }
-        Alamofire.upload(multipartFormData: { multipartFormData in
+    /// 上传请求方法
+    static func uploadMedia(url: URLConvertible,
+                            headers: HTTPHeaders,
+                            parameters: Parameters?,
+                            image: UIImage?,
+                            videoURL: URL?,
+                            interceptor: RequestInterceptor? = nil,
+                            success: @escaping (_ response: HNetworkResponse) -> Void,
+                            failure: @escaping (_ error: HNetworkError) -> Void) {
+        AF.upload(multipartFormData: { multipartFormData in
             let timeInterval = Int(Date().timeIntervalSince1970 * 1000)
             let imageName = "\(timeInterval).jpg"
             let videoName = "\(timeInterval).mp4"
-            if let imageData = image.jpegData(compressionQuality: 1.0) {
+            if let image = image, let imageData = image.jpegData(compressionQuality: 1.0) {
                 multipartFormData.append(imageData, withName: "image", fileName: imageName, mimeType: "image/jpeg")
             }
-            if FileManager.default.fileExists(atPath: videoURL.path) {
+            if let videoURL = videoURL, FileManager.default.fileExists(atPath: videoURL.path) {
                 multipartFormData.append(videoURL, withName: "video", fileName: videoName, mimeType: "video/mp4")
             }
-        }, with: urlRequest) { result in
-            switch result {
-            case .success(let upload, _, _):
-                upload.responseJSON { response in
-                    switch response.result {
-                    case .success:
-                        self.successWithResponse(response, block: success)
-                    case .failure(_):
-                        self.failureWithResponse(response, block: failure)
+            if let parameters = parameters {
+                for (key, value) in parameters {
+                    if let val = value as? String, let data = val.data(using: .utf8) {
+                        multipartFormData.append(data, withName: key)
                     }
                 }
+            }
+        }, to: url, headers: headers, interceptor: interceptor).response { (dataResponse) in
+            switch dataResponse.result {
+            case .success(let data):
+                guard let resData = data, !resData.isEmpty else {
+                    failure(HNetworkError(code: -1, msg: "数据为空"))
+                    return
+                }
+                do {
+                    let json = try JSONSerialization.jsonObject(with: resData, options: .allowFragments)
+                    // NSLog(resData.stringValue ?? "")
+                    self.success(withString: json, block: success)
+                } catch {
+                    // NSLog(resData.stringValue ?? "")
+                    failure(HNetworkError(code: -1, msg: "数据不能格式化"))
+                }
             case .failure(let error):
-                failure(error)
+                failure(HNetworkError.requestError(with: error))
             }
         }
-    }
-    
-    private func successWithResponse(_ response: DataResponse<Any>, block: @escaping (_ result: Any?) -> Void) {
-        block(response.result.value)
-    }
-    
-    private func failureWithResponse(_ response: DataResponse<Any>, block: @escaping (_ error: Error?) -> Void) {
-        block(response.error)
     }
 }
 
-private class HRetrier: RequestRetrier {
-    private var count: Int = 0
+fileprivate extension HNetworkDAO {
     
-    func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
-        if count < 3 {
-            completion(true, 0.25)
-            count += 1
-        }else {
-            completion(false, 0.25)
+    static func success(withString string: Any, block: @escaping (_ response: HNetworkResponse) -> Void) {
+        let response = HNetworkResponse()
+        guard let resString = string as? String, !resString.isEmpty else {
+            response.errCode = -1
+            response.errMsg = "数据解析出错"
+            block(response)
+            return
         }
+        guard var dict = resString.dictionary else {
+            response.errCode = -1
+            response.errMsg = "数据序列化出错"
+            block(response)
+            return
+        }
+        if let codeValue = dict["code"] as? Int {
+            response.errCode = codeValue
+            dict.updateValue(codeValue, forKey: "errCode")
+        }
+        if let msgValue = dict["msg"] as? String {
+            response.errMsg = msgValue
+            dict.updateValue(msgValue, forKey: "errCode")
+        }
+        if let newJsonData = try? JSONSerialization.data(withJSONObject: dict, options: []),
+            let newStr = String(data: newJsonData, encoding: .utf8) {
+            response.data = newStr
+        }
+        block(response)
     }
+    
 }

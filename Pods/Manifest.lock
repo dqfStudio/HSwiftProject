@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (4.9.1)
+  - Alamofire (5.6.1)
   - Kingfisher (5.9.0):
     - Kingfisher/Core (= 5.9.0)
   - Kingfisher/Core (5.9.0)
@@ -15,7 +15,7 @@ PODS:
   - TABAnimated (2.6.3)
 
 DEPENDENCIES:
-  - Alamofire (~> 4.9.1)
+  - Alamofire (= 5.6.1)
   - Kingfisher (~> 5.9.0)
   - MJRefresh (~> 3.3.1)
   - RxCocoa (= 6.1.0)
@@ -37,7 +37,7 @@ SPEC REPOS:
     - TABAnimated
 
 SPEC CHECKSUMS:
-  Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
   Kingfisher: ff98240aebb7302bdc4f1ecd701761030ce18b16
   MJRefresh: eeda70fbf0ad277f3178cef1cd0c3532591d6237
   RxCocoa: 5c51f02d562cbd94629f6c26cf0c80fe4ab8d343
@@ -47,6 +47,6 @@ SPEC CHECKSUMS:
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   TABAnimated: 2503f43b82bfeaf4e78c4922630284a46d8108f5
 
-PODFILE CHECKSUM: 5f1690071a508507297711cd2b7908d62419311f
+PODFILE CHECKSUM: 7dd8e0054542998fe658d465aed4efbd3cb266e2
 
 COCOAPODS: 1.14.2

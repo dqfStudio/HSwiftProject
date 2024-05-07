@@ -202,6 +202,12 @@
 		EB3541D52BE91212003B1D69 /* HFlowSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541D12BE91211003B1D69 /* HFlowSheetVC.swift */; };
 		EB3541D92BE914D9003B1D69 /* HFlowDropVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541D82BE914D9003B1D69 /* HFlowDropVC.swift */; };
 		EB3541DB2BE91732003B1D69 /* HFlowDropVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541DA2BE91732003B1D69 /* HFlowDropVC+Extern.swift */; };
+		EB3541DD2BE9B8AA003B1D69 /* HNetworkHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541DC2BE9B8AA003B1D69 /* HNetworkHeader.swift */; };
+		EB3541E12BE9D6AD003B1D69 /* HNetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541E02BE9D6AD003B1D69 /* HNetworkError.swift */; };
+		EB3541E32BE9E9A8003B1D69 /* Network10008API.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541E22BE9E9A8003B1D69 /* Network10008API.swift */; };
+		EB3541E52BE9FE02003B1D69 /* IPServer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541E42BE9FE01003B1D69 /* IPServer.swift */; };
+		EB3541E72BE9FF5B003B1D69 /* HNetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541E62BE9FF5B003B1D69 /* HNetworkResponse.swift */; };
+		EB3541E92BEA0073003B1D69 /* HUserLoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541E82BEA0073003B1D69 /* HUserLoginRequest.swift */; };
 		EB4323CF29B988A400EDDB64 /* icon_no_network@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */; };
 		EB4323D029B988A400EDDB64 /* icon_no_network@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */; };
 		EB4323D129B988A400EDDB64 /* icon_no_server@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */; };
@@ -542,6 +548,12 @@
 		EB3541D12BE91211003B1D69 /* HFlowSheetVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowSheetVC.swift; sourceTree = "<group>"; };
 		EB3541D82BE914D9003B1D69 /* HFlowDropVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowDropVC.swift; sourceTree = "<group>"; };
 		EB3541DA2BE91732003B1D69 /* HFlowDropVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowDropVC+Extern.swift"; sourceTree = "<group>"; };
+		EB3541DC2BE9B8AA003B1D69 /* HNetworkHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNetworkHeader.swift; sourceTree = "<group>"; };
+		EB3541E02BE9D6AD003B1D69 /* HNetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNetworkError.swift; sourceTree = "<group>"; };
+		EB3541E22BE9E9A8003B1D69 /* Network10008API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network10008API.swift; sourceTree = "<group>"; };
+		EB3541E42BE9FE01003B1D69 /* IPServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IPServer.swift; sourceTree = "<group>"; };
+		EB3541E62BE9FF5B003B1D69 /* HNetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNetworkResponse.swift; sourceTree = "<group>"; };
+		EB3541E82BEA0073003B1D69 /* HUserLoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUserLoginRequest.swift; sourceTree = "<group>"; };
 		EB4323A529B988A300EDDB64 /* icon_no_network@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@3x.png"; sourceTree = "<group>"; };
 		EB4323A629B988A300EDDB64 /* icon_no_network@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_network@2x.png"; sourceTree = "<group>"; };
 		EB4323A729B988A300EDDB64 /* icon_no_server@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_no_server@3x.png"; sourceTree = "<group>"; };
@@ -970,8 +982,14 @@
 		A28B651D23FCEF4A00B6B638 /* HNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				EB3541E42BE9FE01003B1D69 /* IPServer.swift */,
 				A28B652023FD215500B6B638 /* HNetworkDAO.swift */,
+				EB3541E02BE9D6AD003B1D69 /* HNetworkError.swift */,
+				EB3541DC2BE9B8AA003B1D69 /* HNetworkHeader.swift */,
+				EB3541E22BE9E9A8003B1D69 /* Network10008API.swift */,
 				A28B652223FD26CE00B6B638 /* HNetworkManager.swift */,
+				EB3541E62BE9FF5B003B1D69 /* HNetworkResponse.swift */,
+				EB3541E82BEA0073003B1D69 /* HUserLoginRequest.swift */,
 			);
 			path = HNetwork;
 			sourceTree = "<group>";
@@ -1870,6 +1888,7 @@
 				A28923A7238B72F800E4AB75 /* HTupleView.swift in Sources */,
 				EBD0FB4029CD4E4400808EDA /* AppDelegate+RotateService.swift in Sources */,
 				EBD0FB0929CA90EB00808EDA /* HAssetManager.swift in Sources */,
+				EB3541E72BE9FF5B003B1D69 /* HNetworkResponse.swift in Sources */,
 				EBD0FB6929D02B1000808EDA /* HUserDefaults2.swift in Sources */,
 				A2294893239756A10058B939 /* HTableViewCell.swift in Sources */,
 				EB43240729B9DF9D00EDDB64 /* HResultView.swift in Sources */,
@@ -1947,6 +1966,7 @@
 				EB43240529B9D8D100EDDB64 /* HAnimatedImageView.swift in Sources */,
 				EB43243829C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift in Sources */,
 				A2CC441323B3691D00DB095F /* HTableRefresh.swift in Sources */,
+				EB3541E12BE9D6AD003B1D69 /* HNetworkError.swift in Sources */,
 				EBD0FB7329D02B7300808EDA /* HUserDefaults2+Extern.swift in Sources */,
 				EBC8145929AA539E00A81431 /* HSendAudioVC+HStatus1.swift in Sources */,
 				A28923A3238B72F800E4AB75 /* HTupleBaseCell.swift in Sources */,
@@ -2004,6 +2024,7 @@
 				A28A022823EE62D6000556A2 /* HTupleViewTextLoopCell.swift in Sources */,
 				A28B652123FD215500B6B638 /* HNetworkDAO.swift in Sources */,
 				A26D432B23856F8900F457AE /* NSTimer+HUtil.swift in Sources */,
+				EB3541E32BE9E9A8003B1D69 /* Network10008API.swift in Sources */,
 				A265DA052394B6F7001F39B0 /* UIScrollView+HTab.swift in Sources */,
 				A2B42FCE237CED5A00795605 /* SceneDelegate.swift in Sources */,
 				A26D43452387827A00F457AE /* NSObject+HForwarding.swift in Sources */,
@@ -2027,6 +2048,7 @@
 				EBD0FB9229DA97C000808EDA /* HMainController6+UIExt.swift in Sources */,
 				A26D432523852DB700F457AE /* NSDate+HUtil.swift in Sources */,
 				EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */,
+				EB3541E92BEA0073003B1D69 /* HUserLoginRequest.swift in Sources */,
 				A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */,
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,
 				EB0597712A0B6B990016ACD8 /* HNavigationBar.swift in Sources */,
@@ -2035,6 +2057,7 @@
 				EBD0FB0B29CA938900808EDA /* HAssetModel.swift in Sources */,
 				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue.swift in Sources */,
 				EB50428F2A2C348D007E9FC7 /* HTableTextImageApex.swift in Sources */,
+				EB3541DD2BE9B8AA003B1D69 /* HNetworkHeader.swift in Sources */,
 				A265D9FB2390B8EB001F39B0 /* HTabItem.swift in Sources */,
 				EBD0FB3E29CD4DE100808EDA /* AppDelegate+UserService.swift in Sources */,
 				EBD0FB9029DA786C00808EDA /* HInputBoxView.swift in Sources */,
@@ -2070,6 +2093,7 @@
 				EBC8146529AA53DE00A81431 /* HAcceptVideoVC+HStatus1.swift in Sources */,
 				A2A7A93323FE29470090EFD3 /* HTupleViewMarqueeCell.swift in Sources */,
 				A229489723975AE80058B939 /* HTupleViewApex.swift in Sources */,
+				EB3541E52BE9FE02003B1D69 /* IPServer.swift in Sources */,
 				EB1209852A8365E500E5F045 /* HPostVC.swift in Sources */,
 				EB3541D42BE91212003B1D69 /* HFlowAlertVC.swift in Sources */,
 				A2B43080237FF57C00795605 /* HViewController.swift in Sources */,
