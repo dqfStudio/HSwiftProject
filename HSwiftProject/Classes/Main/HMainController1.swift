@@ -97,9 +97,9 @@ class HMainController1: HTupleController {
 //                let cell = tuple.cell(HTupleBannerCell.self, nil, true, indexPath) as! HTupleBannerCell
 //                if cell.imageUrlArr == nil {
 //                    cell.imageUrlArr = [
-//                        "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500",
-//                        "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500",
-//                        "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500"]
+//                        "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=355&h=130",
+//                        "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=355&h=130",
+//                        "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=355&h=130"]
 //                    
 ////                    if cell.imageUrlArr == nil {
 ////                    var imageUrlArr: [String] = []
@@ -323,11 +323,10 @@ extension HMainController1 {
                 attribute.edgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
                 attribute.cellBlock = { (tuple, baseCell) in
                     let cell = baseCell as! HTupleBannerCell
-                    if cell.imageUrlArr == nil {
-                        cell.imageUrlArr = [
-                            "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500",
-                            "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500",
-                            "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=889&h=500"]
+                    cell.imageUrlArr = [
+                        "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=355&h=130",
+                        "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=355&h=130",
+                        "https://img2.baidu.com/it/u=399019925,2499719398&fm=253&fmt=auto&app=138&f=JPEG?w=355&h=130"]
                         
 //                        if cell.imageUrlArr == nil {
 //                        var imageUrlArr: [String] = []
@@ -339,7 +338,7 @@ extension HMainController1 {
 //                            }
 //                        }
 //                        cell.imageUrlArr = imageUrlArr
-                        cell.selectedBannerBlock = { (_ index: Int, _ url: String) in
+                    cell.selectedBannerBlock = { (_ index: Int, _ url: String) in
 //                            if index >= 0, index < self.bannerItems.count {
 //                                let openBannerItem = self.bannerItems[index]
 //                                if let urlString = openBannerItem.link, urlString.hasPrefix("http") {
@@ -348,8 +347,8 @@ extension HMainController1 {
 //                                    self.present(FCNavVC.configFullScreenModalNav(vc: webVC), animated: true)
 //                                }
 //                            }
-                        }
                     }
+                    
                     //接收信号
                     cell.signalBlock = { (target, signal) in
                         let cell = target as! HTupleViewCellHoriValue3
