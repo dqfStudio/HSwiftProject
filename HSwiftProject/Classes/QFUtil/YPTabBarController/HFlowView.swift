@@ -12,8 +12,20 @@ class HFlowView: UIScrollView, UIScrollViewDelegate {
     
     weak var flowBar: HFlowBar?
     
-    var interceptLeftSlideGuetureInLastPage: Bool = false
-    var interceptRightSlideGuetureInFirstPage: Bool = false
+    // 变量 isSupportScreenEdgeGesture 用于指示是否支持屏幕边缘手势检测。
+    // 如果设置为 true，表示该设备或应用支持在屏幕边缘执行手势的功能。
+    // 如果设置为 false，表示不支持在屏幕边缘检测手势。
+    var isSupportScreenEdgeGesture: Bool = false
+    
+    // 变量 interceptLeftSlideGestureInLastPage 控制是否在最后一页上拦截左滑的手势。
+    // 如果设置为 true，则在最后一页上左滑的手势将被拦截，并可能执行特定的操作或忽略该手势。
+    // 如果设置为 false，则左滑手势将正常传递或执行默认操作。
+    var interceptLeftSlideGestureInLastPage: Bool = false
+      
+    // 变量 interceptRightSlideGestureInFirstPage 控制是否在第一页上拦截右滑的手势。
+    // 如果设置为 true，则在第一页上右滑的手势将被拦截，并可能执行特定的操作或忽略该手势。
+    // 如果设置为 false，则右滑手势将正常传递或执行默认操作。
+    var interceptRightSlideGestureInFirstPage: Bool = false
     
     // 被选中的Tab的Index
     private var selectedTabIndex: Int = 0
@@ -76,6 +88,17 @@ class HFlowView: UIScrollView, UIScrollViewDelegate {
         super.delegate = self
         if #available(iOS 11.0, *) {
             self.contentInsetAdjustmentBehavior = .never
+        }
+        // 添加边缘手势识别器UIScreenEdgePanGestureRecognizer
+        let edgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleEdgePanGesture))
+        edgePanGesture.edges = .left //设置手势响应的边缘
+        self.addGestureRecognizer(edgePanGesture)
+    }
+    
+    @objc
+    func handleEdgePanGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
+        if gesture.state == .changed, self.isSupportScreenEdgeGesture {
+            self.containerViewController?.naviBack()
         }
     }
 
@@ -218,12 +241,12 @@ class HFlowView: UIScrollView, UIScrollViewDelegate {
         }
         
         // 第一页往右滑动
-        if self.interceptRightSlideGuetureInFirstPage, targetIndex < 0 {
+        if self.interceptRightSlideGestureInFirstPage, targetIndex < 0 {
             return false
         }
         
         // 最后一页往左滑动
-        if self.interceptLeftSlideGuetureInLastPage {
+        if self.interceptLeftSlideGestureInLastPage {
             let numberOfPage = Int(self.contentSize.width / self.frame.size.width)
             if targetIndex >= numberOfPage {
                 return false
