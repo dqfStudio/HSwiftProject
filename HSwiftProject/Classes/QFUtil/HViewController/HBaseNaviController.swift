@@ -38,47 +38,35 @@ class HBaseNaviController: UINavigationController, UIGestureRecognizerDelegate {
             self.overrideUserInterfaceStyle = .light
         }
     }
-    
-    // 全屏手势返回功能
+
     // 实现类似系统自带的边缘触发手势返回的效果
     func handleNaviTransition() {
-        //  This line is very core
-        guard let target = self.interactivePopGestureRecognizer?.delegate else { return }
-        //  This line is very core
-        let handler = NSSelectorFromString("handleNavigationTransition:")
-        //  Get the view that adds the system edge trigger gesture
-        guard let targetView = self.interactivePopGestureRecognizer?.view else { return }
-        
-        //  Create a pan gesture with full screen effect
-        let fullScreenGes = UIPanGestureRecognizer(target: target, action: handler)
-        fullScreenGes.delegate = self
-        targetView.addGestureRecognizer(fullScreenGes)
-        
         // Turn off the edge trigger gesture to prevent conflicts with the original edge gesture
         self.interactivePopGestureRecognizer?.isEnabled = false
+        // 添加边缘手势识别器UIScreenEdgePanGestureRecognizer
+        let edgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleEdgePanGesture))
+        edgePanGesture.edges = .left //设置手势响应的边缘
+        self.view.addGestureRecognizer(edgePanGesture)
     }
-
-    /// UIGestureRecognizerDelegate
-    /// Prevent gesture triggering when the navigation controller has only one root view controller
-    internal func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        // Decide whether to enable full-screen right slide back based on the specific controller object
-        if let topVC = self.topViewController, self.blackList.contains(topVC) {
-            return false
+    
+    @objc
+    func handleEdgePanGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
+        guard gesture.state == .changed else {
+            return
         }
-        
-        // If this push pop animation is being executed (private property), gestures are not allowed
+        guard let topVC = self.topViewController, !self.blackList.contains(topVC) else {
+            return
+        }
         guard let isTransitioning = self.value(forKeyPath: "_isTransitioning") as? Bool, isTransitioning else {
-            return false
+            return
         }
-        
-        // Solve the conflict between right slide and UITableView left slide deletion
-        let location = gestureRecognizer.location(in: gestureRecognizer.view)
+        let location = gesture.location(in: gesture.view)
         guard location.x > 0 else {
-            return false
+            return
         }
-        
-        // Gestures are not allowed when the current controller is the root controller
-        return self.children.count > 1
+        if self.children.count > 1 {
+            self.naviBack()
+        }
     }
 
 }
