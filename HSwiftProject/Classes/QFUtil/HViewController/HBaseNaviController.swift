@@ -60,7 +60,7 @@ class HBaseNaviController: UINavigationController, UIGestureRecognizerDelegate {
 
     /// UIGestureRecognizerDelegate
     /// Prevent gesture triggering when the navigation controller has only one root view controller
-    private func gestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
+    internal func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         // Decide whether to enable full-screen right slide back based on the specific controller object
         if let topVC = self.topViewController, self.blackList.contains(topVC) {
             return false
@@ -72,8 +72,8 @@ class HBaseNaviController: UINavigationController, UIGestureRecognizerDelegate {
         }
         
         // Solve the conflict between right slide and UITableView left slide deletion
-        let translation: CGPoint = gestureRecognizer.translation(in: gestureRecognizer.view)
-        guard translation.x > 0 else {
+        let location = gestureRecognizer.location(in: gestureRecognizer.view)
+        guard location.x > 0 else {
             return false
         }
         

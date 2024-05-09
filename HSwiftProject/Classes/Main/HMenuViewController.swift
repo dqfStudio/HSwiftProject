@@ -118,12 +118,8 @@ class HMenuViewController: HTabBarController {
         // 设置其size，如果不设置，则默认为与其他item一样
         specialItem.size = CGSize(width: UIScreen.width / 7, height: 80)
         
-        //@www
         self.tabBar.setSpecialItem(specialItem, afterItemWithIndex: 2) { (item) in
-            //@sss
-//            HNavigationController *registerVC = [[HNavigationController alloc] initWithRootViewController:HMainController5.new]
-//            [self presentViewController:registerVC animated:YES completion:nil]
-            self.navigationController?.pushViewController(HMainController5(), animated: true)
+            self.present(HMainController5(), animated: true, completion: nil)
         }
     }
 

@@ -200,19 +200,18 @@ class HFlowView: UIScrollView, UIScrollViewDelegate {
         }
         return view
     }
-
-    // 重写此方法，在需要的时候，拦截UIPanGestureRecognizer
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIPanGestureRecognizer) -> Bool {
+    
+    override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         
-        if !gestureRecognizer.responds(to: #selector(gestureRecognizer.translation(in:))) {
+        if !gestureRecognizer.responds(to: #selector(gestureRecognizer.location(in:))) {
             return true
         }
         // 计算可能切换到的index
         let currentIndex = Int(self.contentOffset.x / self.frame.size.width)
         var targetIndex = currentIndex
         
-        let translation = gestureRecognizer.translation(in: self)
-        if translation.x > 0 {
+        let location = gestureRecognizer.location(in: self)
+        if location.x > 0 {
             targetIndex = currentIndex - 1
         } else {
             targetIndex = currentIndex + 1
