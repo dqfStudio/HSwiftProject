@@ -12,11 +12,6 @@ class HFlowView: UIScrollView, UIScrollViewDelegate {
     
     weak var flowBar: HFlowBar?
     
-    // 变量 isSupportScreenEdgeGesture 用于指示是否支持屏幕边缘手势检测。
-    // 如果设置为 true，表示该设备或应用支持在屏幕边缘执行手势的功能。
-    // 如果设置为 false，表示不支持在屏幕边缘检测手势。
-    var isSupportScreenEdgeGesture: Bool = false
-    
     // 变量 interceptLeftSlideGestureInLastPage 控制是否在最后一页上拦截左滑的手势。
     // 如果设置为 true，则在最后一页上左滑的手势将被拦截，并可能执行特定的操作或忽略该手势。
     // 如果设置为 false，则左滑手势将正常传递或执行默认操作。
@@ -101,7 +96,7 @@ class HFlowView: UIScrollView, UIScrollViewDelegate {
     
     @objc
     func handleEdgePanGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
-        if gesture.state == .changed, self.isSupportScreenEdgeGesture {
+        if gesture.state == .changed {
             self.containerViewController?.naviBack()
         }
     }
