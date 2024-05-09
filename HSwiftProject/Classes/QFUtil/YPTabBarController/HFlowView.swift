@@ -188,7 +188,6 @@ class HFlowView: UIScrollView, UIScrollViewDelegate {
         // 如果不是手势拖动导致的此方法被调用，不处理
         guard scrollView.isDragging || scrollView.isDecelerating else { return }
 
-
         // 滑动越界不处理
         let offsetX: CGFloat = scrollView.contentOffset.x
         let scrollViewWidth: CGFloat = scrollView.frame.size.width
