@@ -89,6 +89,10 @@ class HFlowView: UIScrollView, UIScrollViewDelegate {
         if #available(iOS 11.0, *) {
             self.contentInsetAdjustmentBehavior = .never
         }
+    }
+    
+    // 实现类似系统自带的边缘触发手势返回的效果
+    func handleNaviTransition() {
         // 添加边缘手势识别器UIScreenEdgePanGestureRecognizer
         let edgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleEdgePanGesture))
         edgePanGesture.edges = .left //设置手势响应的边缘
