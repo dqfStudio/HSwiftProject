@@ -280,6 +280,8 @@
 		EBC306F62BEE294500EF8ABD /* HFlowBaseApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306F42BEE294500EF8ABD /* HFlowBaseApex.swift */; };
 		EBC306F72BEE294500EF8ABD /* HFlowViewApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306F52BEE294500EF8ABD /* HFlowViewApex.swift */; };
 		EBC306F92BEE300000EF8ABD /* HFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306F82BEE300000EF8ABD /* HFlowController.swift */; };
+		EBC306FB2BEE6BEC00EF8ABD /* HChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306FA2BEE6BEC00EF8ABD /* HChatView.swift */; };
+		EBC306FD2BEE71BE00EF8ABD /* HChatRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306FC2BEE71BE00EF8ABD /* HChatRefresh.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -637,6 +639,8 @@
 		EBC306F42BEE294500EF8ABD /* HFlowBaseApex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowBaseApex.swift; sourceTree = "<group>"; };
 		EBC306F52BEE294500EF8ABD /* HFlowViewApex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowViewApex.swift; sourceTree = "<group>"; };
 		EBC306F82BEE300000EF8ABD /* HFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowController.swift; sourceTree = "<group>"; };
+		EBC306FA2BEE6BEC00EF8ABD /* HChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatView.swift; sourceTree = "<group>"; };
+		EBC306FC2BEE71BE00EF8ABD /* HChatRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatRefresh.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -790,6 +794,7 @@
 			children = (
 				A2294889239756770058B939 /* HTableSignal.swift */,
 				A2CC441223B3691D00DB095F /* HTableRefresh.swift */,
+				EBC306FC2BEE71BE00EF8ABD /* HChatRefresh.swift */,
 			);
 			path = HTableCommon;
 			sourceTree = "<group>";
@@ -810,6 +815,7 @@
 			isa = PBXGroup;
 			children = (
 				A229488D239756770058B939 /* HTableView.swift */,
+				EBC306FA2BEE6BEC00EF8ABD /* HChatView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2207,9 +2213,11 @@
 				A2B43075237FF2B100795605 /* HPrinterManager.swift in Sources */,
 				A22948A323975FB10058B939 /* HTableViewApexHoriValue.swift in Sources */,
 				A2A7A94923FE8A400090EFD3 /* HCycleScrollView.swift in Sources */,
+				EBC306FB2BEE6BEC00EF8ABD /* HChatView.swift in Sources */,
 				EB12098D2A85DA2A00E5F045 /* HPostCommentHeader.swift in Sources */,
 				EBC8145729AA538B00A81431 /* HAcceptAudioVC.swift in Sources */,
 				EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */,
+				EBC306FD2BEE71BE00EF8ABD /* HChatRefresh.swift in Sources */,
 				EBD0FB2829CC91AF00808EDA /* UIImage+QRCode.swift in Sources */,
 				EB3541B82BE7D052003B1D69 /* HBaseNaviController.swift in Sources */,
 				EB3541C02BE865AA003B1D69 /* HTupleStackView.swift in Sources */,
