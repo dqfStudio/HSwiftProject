@@ -145,13 +145,8 @@ extension HTupleController {
             case 1:
                 let cell = tuple.cell(HTupleTextImageCell.self, nil, true, indexPath) as! HTupleTextImageCell
                 cell.backgroundColor = UIColor.gray
-                let width = self.tupleView.width(forSection: indexPath.section)
-                cell.layoutView.snp.makeConstraints { make in
-                    make.width.equalTo(width)
-                    make.height.equalTo(65)
-                }
 
-                cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+//                cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
                 cell.imageView.backgroundColor = UIColor.red
                 cell.imageView.image = UIImage(named: "icon_no_server")
@@ -179,13 +174,8 @@ extension HTupleController {
             case 2:
                 let cell = tuple.cell(HTupleViewCellHoriValue1.self, nil, true, indexPath) as! HTupleViewCellHoriValue1
                 cell.backgroundColor = UIColor.gray
-                let width = self.tupleView.width(forSection: indexPath.section)
-                cell.layoutView.snp.makeConstraints { make in
-                    make.width.equalTo(width)
-                    make.height.equalTo(65)
-                }
 
-                cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+//                cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
                 //cell.imageView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                 cell.imageView.imageSize = CGSize(width: 25, height: 25)
@@ -212,13 +202,8 @@ extension HTupleController {
             case 3:
                 let cell = tuple.cell(HTupleViewCellHoriValue2.self, nil, true, indexPath) as! HTupleViewCellHoriValue2
                 cell.backgroundColor = UIColor.gray
-                let width = self.tupleView.width(forSection: indexPath.section)
-                cell.layoutView.snp.makeConstraints { make in
-                    make.width.equalTo(width)
-                    make.height.equalTo(65)
-                }
 
-                cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+//                cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
                 //cell.imageView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
                 cell.imageView.imageSize = CGSize(width: 25, height: 25)
@@ -245,11 +230,6 @@ extension HTupleController {
             case 4:
                 let cell = tuple.cell(HTupleFieldCell.self, nil, true, indexPath) as! HTupleFieldCell
                 cell.backgroundColor = UIColor.gray
-                let width = self.tupleView.width(forSection: indexPath.section)
-                cell.layoutView.snp.makeConstraints { make in
-                    make.width.equalTo(width)
-                    make.height.equalTo(65)
-                }
 
                 cell.textField.backgroundColor = UIColor.red
 
@@ -296,11 +276,6 @@ extension HTupleController {
         case 1:
             let cell = tuple.cell(HTupleViewCellVertValue1.self, nil, true, indexPath) as! HTupleViewCellVertValue1
             cell.backgroundColor = UIColor.gray
-            let width = (self.tupleView.width(forSection: indexPath.section) - 16) / 3
-            cell.layoutView.snp.makeConstraints { make in
-                make.width.equalTo(width)
-                make.height.equalTo(width + 5 + 25)
-            }
 
             cell.layoutFirstSpacing = 5
 

@@ -26,7 +26,7 @@ extension HMainController3 {
     func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
         cell.backgroundColor = UIColor.gray
-        cell.separatorView.separatorInset = UILREdgeInsets(left: 0, right: 10)
+//        cell.separatorView.separatorInset = UILREdgeInsets(left: 0, right: 10)
         
         let frame: CGRect = cell.layoutViewBounds
         

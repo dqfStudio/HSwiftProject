@@ -88,7 +88,7 @@ class HMainController1: HViewController {
         let postVC = HPostVC()
         
         activeView.activeBar = activeBar
-        activeView.viewControllers = [tupleVC, flowVC, chatVC, postVC]
+        activeView.viewControllers = [flowVC, tupleVC, chatVC, postVC]
         self.view.addSubview(activeView)
     }
         

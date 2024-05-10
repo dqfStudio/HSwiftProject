@@ -28,7 +28,7 @@ extension HMainController6 {
             let cell = table.cell(HTableViewCellHoriValue2.self, nil, true, indexPath) as! HTableViewCellHoriValue2
             cell.backgroundColor = UIColor.gray
             
-            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+//            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
             cell.imageView.backgroundColor = UIColor.red
             cell.imageView.setImage(WithName: "icon_no_server")
@@ -65,7 +65,7 @@ extension HMainController6 {
             let cell = table.cell(HTableViewCellHoriValue2.self, nil, true, indexPath) as! HTableViewCellHoriValue2
             cell.backgroundColor = UIColor.gray
             
-            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+//            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
             cell.imageView.backgroundColor = UIColor.red
             cell.imageView.setImage(WithName: "icon_no_server")
@@ -86,7 +86,7 @@ extension HMainController6 {
             let cell = table.cell(HTableViewCellHoriValue2.self, nil, true, indexPath) as! HTableViewCellHoriValue2
             cell.backgroundColor = UIColor.gray
             
-            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+//            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
 //            cell.isShowAccsryArrow = true
 

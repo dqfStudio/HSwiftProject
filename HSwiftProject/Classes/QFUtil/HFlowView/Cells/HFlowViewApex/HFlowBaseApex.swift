@@ -24,7 +24,7 @@ class HFlowBaseApex: UICollectionReusableView {
 
     /// The separator view loaded on the content view
     lazy var separatorView: HCellApexSeparator = {
-        let separator = HCellApexSeparator(frame: self.bounds)
+        let separator = HCellApexSeparator()
         self.addSubview(separator)
         return separator
     }()

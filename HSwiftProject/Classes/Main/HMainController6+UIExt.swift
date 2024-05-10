@@ -15,7 +15,7 @@ extension HMainController6 {
         case 3:
             let cell = table.cell(HTableViewCellHoriValue1.self, nil, true, indexPath) as! HTableViewCellHoriValue1
             cell.backgroundColor = UIColor.gray
-            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+//            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
             cell.label.backgroundColor = UIColor.green
             cell.label.text = "label"
@@ -53,7 +53,7 @@ extension HMainController6 {
         case 5:
             let cell = table.cell(HTableCellValue1.self, nil, true, indexPath) as! HTableCellValue1
             cell.backgroundColor = UIColor.gray
-            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+//            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
             cell.textLabel?.backgroundColor = UIColor.green
             cell.textLabel?.text = "label"
@@ -66,7 +66,7 @@ extension HMainController6 {
         case 6:
             let cell = table.cell(HTableCellValue2.self, nil, true, indexPath) as! HTableCellValue2
             cell.backgroundColor = UIColor.gray
-            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+//            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
             cell.textLabel?.backgroundColor = UIColor.green
             cell.textLabel?.text = "label"
@@ -79,7 +79,7 @@ extension HMainController6 {
         case 7:
             let cell = table.cell(HTableCellSubtitle.self, nil, true, indexPath) as! HTableCellSubtitle
             cell.backgroundColor = UIColor.gray
-            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
+//            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
             cell.textLabel?.backgroundColor = UIColor.green
             cell.textLabel?.text = "label"

@@ -8,63 +8,6 @@
 
 import UIKit
 
-class HFlowLabelCell: HFlowBaseCell {
-    lazy var label: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14.0)
-        self.contentView.addSubview(label)
-        label.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        return label
-    }()
-}
-
-class HFlowTextCell: HFlowBaseCell {
-    lazy var textView: HTextView = {
-        let textView = HTextView()
-        textView.font = .systemFont(ofSize: 14.0)
-        self.contentView.addSubview(textView)
-        textView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        return textView
-    }()
-}
-
-class HFlowButtonCell: HFlowBaseCell {
-    lazy var buttonView: HWebButtonView = {
-        let buttonView = HWebButtonView()
-        self.contentView.addSubview(buttonView)
-        buttonView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        return buttonView
-    }()
-}
-
-class HFlowImageCell: HFlowBaseCell {
-    lazy var imageView: HWebImageView = {
-        let imageView = HWebImageView()
-        self.contentView.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        return imageView
-    }()
-}
-
-class HFlowFieldCell: HFlowBaseCell {
-    lazy var textField: HTextField = {
-        let textField = HTextField()
-        self.contentView.addSubview(textField)
-        textField.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        return textField
-    }()
-}
-
 class HFlowViewCell: HFlowBaseCell {
     
     ///label
