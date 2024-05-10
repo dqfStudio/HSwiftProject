@@ -8,7 +8,15 @@
 
 import UIKit
 
-class HAcceptAudioVC: HTupleController {
+class HAcceptAudioVC: HViewController, HTupleViewDelegate {
+    
+    lazy var tupleView: HTupleView = {
+        var frame = UIScreen.bound
+        frame.origin.y += UIScreen.topBarHeight
+        frame.size.height -= UIScreen.topBarHeight + (UIScreen.bottomBarHeight + 10)
+        return HTupleView(frame: frame)
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white

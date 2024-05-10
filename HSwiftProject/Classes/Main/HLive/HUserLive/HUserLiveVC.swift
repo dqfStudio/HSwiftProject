@@ -13,7 +13,13 @@ enum HLiveStatus: Int {
     case liveing = 1
 }
 
-class HUserLiveVC : HTupleController {
+class HUserLiveVC: HViewController, HTupleViewDelegate {
+    
+    lazy var tupleView: HTupleView = {
+        var frame = UIScreen.bound
+        frame.size.height -= UIScreen.bottomBarHeight + 10
+        return HTupleView(frame: frame)
+    }()
     
     lazy var inputField: HTextField = {
         let frame = CGRect(x: 0, y: UIScreen.height, width: UIScreen.width, height: 40)
@@ -53,7 +59,6 @@ class HUserLiveVC : HTupleController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.topExtendedLayout = false
         self.tupleView.isPagingEnabled = true
         self.tupleView.delegate = self
         

@@ -55,6 +55,7 @@ class HChatsMsgVC: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Add custom navigation bar
+        self.navigationBar.isHidden = true
         self.view.addSubview(self.tableView)
 //        self.view.addSubview(tableView)
 //        self.view.addSubview(chatBarBackgroundView)

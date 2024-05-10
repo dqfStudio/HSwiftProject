@@ -1,108 +1,96 @@
 //
-//  HTupleView.swift
+//  HFlowView.swift
 //  HSwiftProject
 //
-//  Created by Wind on 2019/11/22.
-//  Copyright © 2019 wind. All rights reserved.
+//  Created by owner on 2024/5/10.
+//  Copyright © 2024 wind. All rights reserved.
 //
 
 import UIKit
 
-enum HTupleDirection: Int {
+enum HFlowDirection: Int {
     case vertical = 0 // Vertical design
     case horizontal = 1 // Horizontal design
 }
 
-private enum HTupleStyle: Int {
+private enum HFlowStyle: Int {
     case `default` // Singleton design
     case split // Split design
 }
 
-enum HTupleStatus: Int {
-    case delegate = 0  // Delegate design
-    case block = 1  // Block design
-}
-
-enum HTupleAlign {
+enum HFlowAlign {
     case `default` // 垂直居上，水平居左
     case center // 垂直居中，水平居中
     case top(CGFloat) // 垂直距离顶部的距离，水平居中
     case ratio(CGFloat) // 垂直距离顶部的比例，水平居中
 }
 
-var kTupleDefaultTag = 1213141516
+var kFlowDefaultTag = 121314151617
 
-private var kTuplePageNo = 1
-private var kTuplePageSize = 20
-private var kTupleTotalPageNo = 10000
+private var kFlowPageNo = 1
+private var kFlowPageSize = 20
+private var kFlowTotalPageNo = 10000
 
-private var kTupleDesignKey = "tuple"
-private var kTupleExaDesignKey = "tupleExa"
+private var kFlowDesignKey = "flow"
+private var kFlowExaDesignKey = "flowExa"
 
-private var kTupleStateKey: Void?
-private var kTupleSignalKey: Void?
-private var kTupleStateSourceKey: Void?
+private var kFlowStateKey: Void?
+private var kFlowSignalKey: Void?
+private var kFlowStateSourceKey: Void?
 
 /// Refresh & LoadMore block
-typealias HTupleRefreshBlock = () -> Void
-typealias HTupleLoadMoreBlock = () -> Void
+typealias HFlowRefreshBlock = () -> Void
+typealias HFlowLoadMoreBlock = () -> Void
 
-/// This class is used for refreshing tupleView throughout the project.
-class HTupleAppearance: NSObject {
+/// This class is used for refreshing flowView throughout the project.
+class HFlowAppearance: NSObject {
 
-    private static var hashTuples = NSHashTable<HTupleView>.weakObjects()
+    private static var hashFlows = NSHashTable<HFlowView>.weakObjects()
 
-    static func addTuple(_ anTuple: HTupleView) {
-        self.hashTuples.add(anTuple)
+    static func addFlow(_ anFlow: HFlowView) {
+        self.hashFlows.add(anFlow)
     }
-    static func refreshTuples(_ completion: @escaping () -> Void) {
+    static func refreshFlows(_ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
-            let tuples = self.hashTuples.allObjects.reversed()
-            tuples.forEach { $0.reloadTupleData() }
+            let flows = self.hashFlows.allObjects.reversed()
+            flows.forEach { $0.reloadFlowData() }
             DispatchQueue.main.async { completion() }
         }
     }
-    static func refreshTuple(key: String, _ completion: @escaping () -> Void) {
+    static func refreshFlow(key: String, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
-            let tuples = self.hashTuples.allObjects.filter { $0.reloadTupleKey == key }.reversed()
-            tuples.forEach { $0.reloadTupleData() }
+            let flows = self.hashFlows.allObjects.filter { $0.reloadFlowKey == key }.reversed()
+            flows.forEach { $0.reloadFlowData() }
             DispatchQueue.main.async { completion() }
         }
     }
-    static func releaseTuple(key: String, _ completion: @escaping () -> Void) {
+    static func releaseFlow(key: String, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
-            let tuples = self.hashTuples.allObjects.filter { $0.releaseTupleKey == key }.reversed()
-            tuples.forEach { $0.releaseTupleBlock() }
+            let flows = self.hashFlows.allObjects.filter { $0.releaseFlowKey == key }.reversed()
+            flows.forEach { $0.releaseFlowBlock() }
             DispatchQueue.main.async { completion() }
         }
     }
 }
 
-@objc protocol HTupleViewDelegate: UICollectionViewDelegate {
+@objc protocol HFlowViewDelegate: UICollectionViewDelegate {
     @objc
-    optional func numberOfSectionsInTupleView() -> Any
+    optional func numberOfSectionsInFlowView() -> Any
+    @objc
+    optional func insetForSection(_ section: Any) -> Any
     @objc
     optional func numberOfItemsInSection(_ section: Any) -> Any
-    /// layout == HTupleViewLayout
+    /// layout == HFlowViewLayout
     @objc
     optional func colorForSection(_ section: Any) -> UIColor
-
+    
     @objc
     optional func sizeForHeaderInSection(_ section: Any) -> Any
     @objc
     optional func sizeForFooterInSection(_ section: Any) -> Any
-    @objc
-    optional func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any
-
-    @objc
-    optional func edgeInsetsForHeaderInSection(_ section: Any) -> Any
-    @objc
-    optional func edgeInsetsForFooterInSection(_ section: Any) -> Any
-    @objc
-    optional func edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any
 
     @objc
     optional func minimumHeaderSpacingForSectionAt(_ section: Any) -> Any
@@ -112,25 +100,19 @@ class HTupleAppearance: NSObject {
     optional func minimumLineSpacingForSectionAt(_ section: Any) -> Any
     @objc
     optional func minimumInteritemSpacingForSectionAt(_ section: Any) -> Any
+    
+    @objc
+    optional func flowHeader(_ flow: HFlowView, atIndexPath indexPath: IndexPath)
+    @objc
+    optional func flowFooter(_ flow: HFlowView, atIndexPath indexPath: IndexPath)
+    @objc
+    optional func flowItem(_ flow: HFlowView, atIndexPath indexPath: IndexPath)
 
     @objc
-    optional func insetForSection(_ section: Any) -> Any
+    optional func willDisplayCell(_ cell: HFlowBaseCell, atIndexPath indexPath: IndexPath)
     
     @objc
-    optional func tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
-    @objc
-    optional func tupleFooter(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
-    @objc
-    optional func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
-    
-    @objc
-    optional func attributeForItemAtIndexPath(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
-
-    @objc
-    optional func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath)
-    
-    @objc
-    optional func didSelectCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath)
+    optional func didSelectCell(_ cell: HFlowBaseCell, atIndexPath indexPath: IndexPath)
 
     /// UICollectionViewDelegate
     @objc
@@ -149,65 +131,61 @@ class HTupleAppearance: NSObject {
     @objc
     optional func willDisplayElementKind(_ elementKind: String, atIndexPath indexPath: IndexPath)
     @objc
-    optional func didEndDisplayingCell(_ cell: HTupleBaseCell, forItemAtIndexPath indexPath: IndexPath)
+    optional func didEndDisplayingCell(_ cell: HFlowBaseCell, forItemAtIndexPath indexPath: IndexPath)
     @objc
     optional func didEndDisplayingElementOfKind(_ elementKind: String, atIndexPath indexPath: IndexPath)
 
     /// UIScrollViewDelegate
     @objc
-    optional func tupleViewDidScroll(_ scrollView: UIScrollView)
+    optional func flowViewDidScroll(_ scrollView: UIScrollView)
     @objc
-    optional func tupleViewDidZoom(_ scrollView: UIScrollView)
+    optional func flowViewDidZoom(_ scrollView: UIScrollView)
 
     @objc
-    optional func tupleViewWillBeginDragging(_ scrollView: UIScrollView)
+    optional func flowViewWillBeginDragging(_ scrollView: UIScrollView)
 
     @objc
-    optional func tupleViewWillEndDragging(_ velocity: CGPoint, targetContentOffset: CGPoint)
+    optional func flowViewWillEndDragging(_ velocity: CGPoint, targetContentOffset: CGPoint)
 
     @objc
-    optional func tupleViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
+    optional func flowViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
 
     @objc
-    optional func tupleViewWillBeginDecelerating(_ scrollView: UIScrollView)
+    optional func flowViewWillBeginDecelerating(_ scrollView: UIScrollView)
     @objc
-    optional func tupleViewDidEndDecelerating(_ scrollView: UIScrollView)
+    optional func flowViewDidEndDecelerating(_ scrollView: UIScrollView)
 
     @objc
-    optional func tupleViewDidEndScrollingAnimation(_ scrollView: UIScrollView)
+    optional func flowViewDidEndScrollingAnimation(_ scrollView: UIScrollView)
 
     @objc
-    optional func tupleViewForZoomingInScrollView(_ scrollView: UIScrollView) -> UIView?
+    optional func flowViewForZoomingInScrollView(_ scrollView: UIScrollView) -> UIView?
     @objc
-    optional func tupleViewWillBeginZooming(_ scrollView: UIScrollView, withView view: UIView?)
+    optional func flowViewWillBeginZooming(_ scrollView: UIScrollView, withView view: UIView?)
     @objc
-    optional func tupleViewDidEndZooming(_ view: UIView?, atScale scale: CGFloat)
+    optional func flowViewDidEndZooming(_ view: UIView?, atScale scale: CGFloat)
 
     @objc
-    optional func tupleViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool
+    optional func flowViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool
     @objc
-    optional func tupleViewDidScrollToTop(_ scrollView: UIScrollView)
+    optional func flowViewDidScrollToTop(_ scrollView: UIScrollView)
 
     @objc
-    optional func tupleViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView)
+    optional func flowViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView)
 }
 
-class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, HTupleViewLayoutDelegate {
+class HFlowView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, HFlowViewLayoutDelegate {
 
     private var flowLayout: UICollectionViewFlowLayout?
 
-    // Tuple style
-    private var tupleStyle: HTupleStyle = .default
+    // Flow style
+    private var flowStyle: HFlowStyle = .default
     
-    // tuple status
-    var tupleStatus: HTupleStatus = .delegate
-    
-    // tuple align
-    var tupleAlign: HTupleAlign = .default
+    // flow align
+    var flowAlign: HFlowAlign = .default
 
     private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
-    private var allAttributes = NSMapTable<NSString, HTupleAttributes>.strongToStrongObjects()
     private var allSectionInsets = NSMapTable<NSString, NSString>.strongToStrongObjects()
     private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
@@ -223,9 +201,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         self.init(frame: frame, scrollDirection: .vertical)
     }
 
-    /// Default layout is HTupleViewLayout
-    convenience init(frame: CGRect, scrollDirection direction: HTupleDirection) {
-        self.init(frame: frame, collectionViewLayout: HTupleViewLayout(direction))
+    /// Default layout is HFlowViewLayout
+    convenience init(frame: CGRect, scrollDirection direction: HFlowDirection) {
+        self.init(frame: frame, collectionViewLayout: HFlowViewLayout(direction))
     }
 
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
@@ -235,25 +213,25 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     /// Initialization method for split
-    static func tupleFrame(_ frame: () -> CGRect, exclusiveSections sections: () -> NSArray) -> HTupleView {
-        return HTupleView(frame(), exclusiveSections: sections(), scrollDirection: .vertical)
+    static func flowFrame(_ frame: () -> CGRect, exclusiveSections sections: () -> NSArray) -> HFlowView {
+        return HFlowView(frame(), exclusiveSections: sections(), scrollDirection: .vertical)
     }
     
-    static func tupleFrame(_ frame: () -> CGRect, scrollDirection direction: () -> HTupleDirection, exclusiveSections sections: () -> NSArray) -> HTupleView {
-        return HTupleView(frame(), exclusiveSections: sections(), scrollDirection: direction())
+    static func flowFrame(_ frame: () -> CGRect, scrollDirection direction: () -> HFlowDirection, exclusiveSections sections: () -> NSArray) -> HFlowView {
+        return HFlowView(frame(), exclusiveSections: sections(), scrollDirection: direction())
     }
 
-    private convenience init(_ frame: CGRect, exclusiveSections sectionPaths: NSArray, scrollDirection direction: HTupleDirection) {
-        self.init(frame: UIRectIntegral(frame), collectionViewLayout: HTupleViewLayout(direction))
+    private convenience init(_ frame: CGRect, exclusiveSections sectionPaths: NSArray, scrollDirection direction: HFlowDirection) {
+        self.init(frame: UIRectIntegral(frame), collectionViewLayout: HFlowViewLayout(direction))
         self.sectionPaths = sectionPaths
-        self.tupleStyle = .split
+        self.flowStyle = .split
         self.setup()
     }
 
-    private weak var tupleDelegate: HTupleViewDelegate?
+    private weak var flowDelegate: HFlowViewDelegate?
     weak override var delegate: UICollectionViewDelegate? {
         get { return super.delegate }
-        set { tupleDelegate = newValue as? HTupleViewDelegate }
+        set { flowDelegate = newValue as? HFlowViewDelegate }
     }
     weak override var dataSource: UICollectionViewDataSource? {
         get { return super.dataSource }
@@ -280,7 +258,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     private func updateAlign() {
         let cntSize = self.contentSize
         let cntInset = self.contentInset
-        switch tupleAlign {
+        switch flowAlign {
         case .default:
             self.contentInset = UIEdgeInsets.zero
         case .center:
@@ -307,11 +285,11 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     private func setup() {
-        // Save tupleView for global refresh
-        HTupleAppearance.addTuple(self)
+        // Save flowView for global refresh
+        HFlowAppearance.addFlow(self)
 
         // Set default tag
-        self.tag = kTupleDefaultTag
+        self.tag = kFlowDefaultTag
 
         if self.flowLayout?.scrollDirection == .vertical {
             self.enableVerticalBounce()
@@ -331,43 +309,43 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     /// Page number, Default 1
-    var pageNo: Int = kTuplePageNo {
+    var pageNo: Int = kFlowPageNo {
         didSet {
             if pageNo <= 0 {
-                pageNo = kTuplePageNo
+                pageNo = kFlowPageNo
             }
         }
     }
 
     /// Page size, Default 20
-    var pageSize: Int = kTuplePageSize {
+    var pageSize: Int = kFlowPageSize {
         didSet {
             if pageSize <= 0 {
-                pageSize = kTuplePageSize
+                pageSize = kFlowPageSize
             }
         }
     }
 
     /// Total number. Default 10000
-    var totalNo: Int = kTupleTotalPageNo {
+    var totalNo: Int = kFlowTotalPageNo {
         didSet {
             if totalNo <= 0 {
-                totalNo = kTupleTotalPageNo
+                totalNo = kFlowTotalPageNo
             }
         }
     }
 
     /// Refresh header style
-    var refreshHeaderStyle: HTupleRefreshHeaderStyle = .gray
+    var refreshHeaderStyle: HFlowRefreshHeaderStyle = .gray
 
     /// Load more footer style
-    var refreshFooterStyle: HTupleRefreshFooterStyle = .style1
+    var refreshFooterStyle: HFlowRefreshFooterStyle = .style1
 
     /// Block to refresh data
-    var refreshBlock: HTupleRefreshBlock? {
+    var refreshBlock: HFlowRefreshBlock? {
         didSet {
             if let refreshBlock = refreshBlock {
-                self.mj_header = HTupleRefresh.refreshHeaderWithStyle(refreshHeaderStyle) { [weak self] in
+                self.mj_header = HFlowRefresh.refreshHeaderWithStyle(refreshHeaderStyle) { [weak self] in
                     guard let self = self else { return }
                     self.pageNo = 1
                     refreshBlock()
@@ -379,11 +357,11 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     /// Block to load more data
-    var loadMoreBlock: HTupleLoadMoreBlock? {
+    var loadMoreBlock: HFlowLoadMoreBlock? {
         didSet {
             if let loadMoreBlock = loadMoreBlock {
                 self.pageNo = 1
-                self.mj_footer = HTupleRefresh.refreshFooterWithStyle(refreshFooterStyle) { [weak self] in
+                self.mj_footer = HFlowRefresh.refreshFooterWithStyle(refreshFooterStyle) { [weak self] in
                     guard let self = self else { return }
                     self.pageNo += 1
                     if self.pageSize * self.pageNo < self.totalNo {
@@ -399,10 +377,10 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     /// Set the key value for release
-    var releaseTupleKey: String?
+    var releaseFlowKey: String?
 
     /// Set the key value for reload
-    var reloadTupleKey: String?
+    var reloadFlowKey: String?
 
     /// Block refresh & loadMore
     func beginRefreshing(_ completion: @escaping () -> Void) {
@@ -469,7 +447,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     @objc
-    func reloadTupleData() {
+    func reloadFlowData() {
         DispatchQueue.main.async { [weak self] in
             self?.reloadData()
         }
@@ -477,13 +455,13 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     /// Release method
     @objc
-    func releaseTupleBlock() {
+    func releaseFlowBlock() {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             self?.releaseAllSignal()
-            self?.clearTupleState()
+            self?.clearFlowState()
 
             DispatchQueue.main.async { [weak self] in
-                self?.tupleDelegate = nil
+                self?.flowDelegate = nil
                 self?.refreshBlock = nil
                 self?.loadMoreBlock = nil
             }
@@ -504,9 +482,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         var identifier = (pre ?? "") + "HeaderCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
         identifier += idx ? indexPath.stringValue : ""
-        // Determine if there is a tuple state value
-        if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
-            identifier += "\(self.tupleState)"
+        // Determine if there is a flow state value
+        if self.flowStyle == .split, !self.sectionPaths.contains(indexPath.section) {
+            identifier += "\(self.flowState)"
         }
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
@@ -514,26 +492,12 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             self.register(cls, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier)
         }
         // Dequeue cell
-        let cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath) as! HTupleBaseApex
+        let cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath) as! HFlowBaseApex
         cell.indexPath = indexPath
         cell.isHeader = true
-        cell.tuple = self
+        cell.flow = self
         // Save cell
         self.allReuseHeaders.setObject(cell, forKey: IndexPath.nsStringValue(0, indexPath.section))
-        // Call delegate method
-        var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
-            let selector: Selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath.section, withPre: prefix) as! UIEdgeInsets
-            }
-        }
-        // Set properties
-        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-            cell.edgeInsets = edgeInsets
-        }
-        // Return cell
         return cell
     }
 
@@ -542,9 +506,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         var identifier = (pre ?? "") + "FooterCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
         identifier += idx ? indexPath.stringValue : ""
-        // Determine if there is a tuple state value
-        if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
-            identifier += "\(self.tupleState)"
+        // Determine if there is a flow state value
+        if self.flowStyle == .split, !self.sectionPaths.contains(indexPath.section) {
+            identifier += "\(self.flowState)"
         }
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
@@ -552,25 +516,12 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             self.register(cls, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier)
         }
         // Dequeue cell
-        let cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath) as! HTupleBaseApex
+        let cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath) as! HFlowBaseApex
         cell.indexPath = indexPath
         cell.isHeader = false
-        cell.tuple = self
+        cell.flow = self
         // Save cell
         self.allReuseFooters.setObject(cell, forKey: IndexPath.nsStringValue(0, indexPath.section))
-        // Call delegate method
-        var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
-            let selector = #selector(delegate.edgeInsetsForFooterInSection(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath.section, withPre: prefix) as! UIEdgeInsets
-            }
-        }
-        // Set properties
-        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-            cell.edgeInsets = edgeInsets
-        }
         // Return cell
         return cell
     }
@@ -580,9 +531,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
         identifier += idx ? indexPath.stringValue : ""
-        // Determine if there is a tuple state value
-        if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
-            identifier += "\(self.tupleState)"
+        // Determine if there is a flow state value
+        if self.flowStyle == .split, !self.sectionPaths.contains(indexPath.section) {
+            identifier += "\(self.flowState)"
         }
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
@@ -590,69 +541,33 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             self.register(cls, forCellWithReuseIdentifier: identifier)
         }
         // Dequeue cell
-        let cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! HTupleBaseCell
+        let cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! HFlowBaseCell
         cell.indexPath = indexPath
-        cell.tuple = self
+        cell.flow = self
         // Save cell
         self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
-        // Call delegate method
-        var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
-            let selector = #selector(delegate.edgeInsetsForItemAtIndexPath(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! UIEdgeInsets
-            }
-        }
-        // Set properties
-        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-            cell.edgeInsets = edgeInsets
-        }
         // Return cell
         return cell
-    }
-    
-    func attribute(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> HTupleAttributes {
-        // Unique identifier
-        var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
-        // Determine whether it contains an index
-        identifier += idx ? indexPath.stringValue : ""
-        // Determine if there is a tuple state value
-        if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
-            identifier += "\(self.tupleState)"
-        }
-        // Register cell if not already registered
-        let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
-        guard let attribute = self.allAttributes.object(forKey: attributeKey) else {
-            if !self.allReuseIdentifiers.contains(identifier) {
-                self.allReuseIdentifiers.add(identifier)
-                self.register(cls, forCellWithReuseIdentifier: identifier)
-            }
-            let attribute = HTupleAttributes(identifier)
-            self.allAttributes.setObject(attribute, forKey: attributeKey)
-            return attribute
-        }
-        return attribute
     }
 
     /// UICollectionViewDatasource  & delegate
     private func scrollSplitPrefix() -> String {
         var prefix = ""
-        if self.tupleStyle == .split {
-            if self.sectionPaths.contains(self.tupleState) {
-                prefix = kTupleDesignKey + "\(self.tupleState)" + "_"
+        if self.flowStyle == .split {
+            if self.sectionPaths.contains(self.flowState) {
+                prefix = kFlowDesignKey + "\(self.flowState)" + "_"
             }
         }
         return prefix
     }
-    private func tupleSplitPrefix(_ section: Int) -> String {
+    private func flowSplitPrefix(_ section: Int) -> String {
         var prefix = ""
-        if self.tupleStyle == .split {
+        if self.flowStyle == .split {
             if self.sectionPaths.contains(section) {
                 let idx = self.sectionPaths.index(of: section)
-                prefix = kTupleExaDesignKey + "\(idx)" + "_"
+                prefix = kFlowExaDesignKey + "\(idx)" + "_"
             }else {
-                prefix = kTupleDesignKey + "\(self.tupleState)" + "_"
+                prefix = kFlowDesignKey + "\(self.flowState)" + "_"
             }
         }
         return prefix
@@ -663,14 +578,13 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // remove cache data
         self.allReuseIdentifiers.removeAllObjects()
         self.allSectionInsets.removeAllObjects()
-        self.allAttributes.removeAllObjects()
-        // tuple Style
+        // flow Style
         var sections = 1
-        switch self.tupleStyle {
+        switch self.flowStyle {
         case .default:
-            if let delegate = self.tupleDelegate {
+            if let delegate = self.flowDelegate {
                 let prefix = ""
-                let selector = #selector(delegate.numberOfSectionsInTupleView)
+                let selector = #selector(delegate.numberOfSectionsInFlowView)
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
@@ -678,9 +592,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 sections = max(sections, 1)
             }
         case .split:
-            if let delegate = self.tupleDelegate {
-                let prefix = kTupleDesignKey + "\(self.tupleState)" + "_"
-                let selector = #selector(delegate.numberOfSectionsInTupleView)
+            if let delegate = self.flowDelegate {
+                let prefix = kFlowDesignKey + "\(self.flowState)" + "_"
+                let selector = #selector(delegate.numberOfSectionsInFlowView)
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
@@ -693,9 +607,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var items = 0
-        if let delegate = self.tupleDelegate {
+        if let delegate = self.flowDelegate {
             // Get the number of items
-            let prefix = self.tupleSplitPrefix(section)
+            let prefix = self.flowSplitPrefix(section)
             let itemSelector: Selector = #selector(delegate.numberOfItemsInSection(_:))
             if delegate.responds(to: itemSelector, withPre: prefix) {
                 items = delegate.performWithUnretainedValue(itemSelector, with: section, withPre: prefix) as! Int
@@ -715,10 +629,10 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         return items
     }
 
-    /// layout == HTupleViewLayout
+    /// layout == HFlowViewLayout
     internal func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, colorForSectionAt section: NSInteger) -> UIColor {
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(section)
             let selector = #selector(delegate.colorForSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIColor
@@ -728,8 +642,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(section)
             let selector = #selector(delegate.minimumLineSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -739,8 +653,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(section)
             let selector = #selector(delegate.minimumInteritemSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -761,8 +675,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         var size = CGSize.zero
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(section)
             let selector: Selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 let spacing: CGFloat = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -786,8 +700,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         var size = CGSize.zero
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(section)
             let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 let spacing: CGFloat = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -809,146 +723,79 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         return UISizeIntegral(size)
     }
 
-    internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        //item size cannot be zero, otherwise it will crash
-        var size = CGSize(width: 1.0, height: 1.0)
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
-            // Delegate status
-            if self.tupleStatus == .delegate {
-                let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
-                }
-                // Prevent negative size
-                if size.width <= 0 { size.width = 1.0 }
-                if size.height <= 0 { size.height = 1.0 }
-            } else {// block status
-                // Call cell delegate method
-                let selector = #selector(delegate.attributeForItemAtIndexPath(_:atIndexPath:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    delegate.performWithUnretainedValue(selector, with: self, with: indexPath, withPre: prefix)
-                }
-                let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
-                let attribute = self.allAttributes.object(forKey: attributeKey)
-                size = attribute?.size ?? .zero
-                // Prevent negative size
-                if size.width <= 0 { size.width = 1.0 }
-                if size.height <= 0 { size.height = 1.0 }
-            }
-        }
-        return UISizeIntegral(size)
-    }
-
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // Delegate status
-        if self.tupleStatus == .delegate {
-            // Call delegate method
-            if let delegate = self.tupleDelegate {
-                let prefix = self.tupleSplitPrefix(indexPath.section)
-                let selector: Selector = #selector(delegate.tupleItem(_:atIndexPath:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    delegate.performWithUnretainedValue(selector, with: self, with: indexPath, withPre: prefix)
-                }
+        // Call delegate method
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(indexPath.section)
+            let selector: Selector = #selector(delegate.flowItem(_:atIndexPath:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                delegate.performWithUnretainedValue(selector, with: self, with: indexPath, withPre: prefix)
             }
-            // Call cell
-            let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
-            // Update layout
-            if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-                cell.relayoutSubviews()
-            }
-            return cell!
-        }else {
-            // Call cell
-            let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
-            let attribute = self.allAttributes.object(forKey: attributeKey)
-            let identifier = attribute?.identifier ?? ""
-            let cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! HTupleBaseCell
-            if let attribute = attribute {
-                // Dequeue cell
-                cell.indexPath = indexPath
-                cell.tuple = self
-                // Save cell
-                self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
-                // Set properties
-                if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-                    cell.edgeInsets = attribute.edgeInsets
-                }
-                // Call cell
-                attribute.cellBlock?(self, cell)
-                // Update layout
-                if cell.responds(to: #selector(cell.relayoutSubviews)) {
-                    cell.relayoutSubviews()
-                }
-            }
-            return cell
         }
+        // Call cell
+        return self.allReuseCells.object(forKey: indexPath.nsStringValue) as! HFlowBaseCell
     }
 
     internal func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        var cell: HTupleBaseApex?
+        var cell: HFlowBaseApex?
         if kind == UICollectionView.elementKindSectionHeader {
             // Call delegate method
-            if let delegate = self.tupleDelegate {
-                let prefix = self.tupleSplitPrefix(indexPath.section)
+            if let delegate = self.flowDelegate {
+                let prefix = self.flowSplitPrefix(indexPath.section)
                 let selector: Selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     // Unique identifier
-                    let identifier = "HeaderSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.tupleState)"
+                    let identifier = "HeaderSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.flowState)"
                     // Register cell if not already registered
                     if !self.allReuseIdentifiers.contains(identifier) {
                         self.allReuseIdentifiers.add(identifier)
-                        self.register(HTupleBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier)
+                        self.register(HFlowBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier)
                     }
                     // Dequeue cell
                     return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath)
                 } else {
-                    let selector: Selector = #selector(delegate.tupleHeader(_:atIndexPath:))
+                    let selector: Selector = #selector(delegate.flowHeader(_:atIndexPath:))
                     if delegate.responds(to: selector, withPre: prefix) {
                         delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
                     }
                 }
             }
             // Call cell
-            cell = self.allReuseHeaders.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
+            cell = self.allReuseHeaders.object(forKey: indexPath.nsStringValue) as? HFlowBaseApex
         }else if (kind == UICollectionView.elementKindSectionFooter) {
             // Call delegate method
-            if let delegate = self.tupleDelegate {
-                let prefix = self.tupleSplitPrefix(indexPath.section)
+            if let delegate = self.flowDelegate {
+                let prefix = self.flowSplitPrefix(indexPath.section)
                 let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     // Unique identifier
-                    let identifier = "FooterSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.tupleState)"
+                    let identifier = "FooterSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.flowState)"
                     // Register cell if not already registered
                     if !self.allReuseIdentifiers.contains(identifier) {
                         self.allReuseIdentifiers.add(identifier)
-                        self.register(HTupleBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier)
+                        self.register(HFlowBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier)
                     }
                     // Dequeue cell
                     return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath)
                 } else {
-                    let selector: Selector = #selector(delegate.tupleFooter(_:atIndexPath:))
+                    let selector: Selector = #selector(delegate.flowFooter(_:atIndexPath:))
                     if delegate.responds(to: selector, withPre: prefix) {
                         delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
                     }
                 }
             }
             // Call cell
-            cell = self.allReuseFooters.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
-        }
-        // Update layout
-        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-            cell.relayoutSubviews()
+            cell = self.allReuseFooters.object(forKey: indexPath.nsStringValue) as? HFlowBaseApex
         }
         return cell!
     }
 
     internal func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HFlowBaseCell
         if let willDisplayBlock = cell?.willDisplayBlock {
             willDisplayBlock()
-        }else if let delegate = self.tupleDelegate, let cell = cell {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
+        }else if let delegate = self.flowDelegate, let cell = cell {
+            let prefix = self.flowSplitPrefix(indexPath.section)
             let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
             if delegate.responds(to: selector, withPre: prefix) {
                 delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
@@ -957,11 +804,11 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HFlowBaseCell
         if let selectBlock = cell?.selectBlock {
             selectBlock()
-        }else if let delegate = self.tupleDelegate, let cell = cell {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
+        }else if let delegate = self.flowDelegate, let cell = cell {
+            let prefix = self.flowSplitPrefix(indexPath.section)
             let selector = #selector(delegate.didSelectCell(_:atIndexPath:))
             if delegate.responds(to: selector, withPre: prefix) {
                 delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
@@ -971,8 +818,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     /// UICollectionViewDelegate
     internal func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(indexPath.section)
             let selector = #selector(delegate.shouldHighlightItemAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
@@ -982,8 +829,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(indexPath.section)
+        guard let delegate = self.flowDelegate else { return }
+        let prefix = self.flowSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didHighlightItemAtIndexPath(_:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: indexPath, withPre: prefix)
@@ -991,8 +838,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(indexPath.section)
+        guard let delegate = self.flowDelegate else { return }
+        let prefix = self.flowSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didUnhighlightItemAtIndexPath(_:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: indexPath, withPre: prefix)
@@ -1000,8 +847,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(indexPath.section)
             let selector = #selector(delegate.shouldSelectItemAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
@@ -1011,8 +858,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(indexPath.section)
             let selector = #selector(delegate.shouldDeselectItemAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
@@ -1022,8 +869,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(indexPath.section)
+        guard let delegate = self.flowDelegate else { return }
+        let prefix = self.flowSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didDeselectItemAtIndexPath(_:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: indexPath, withPre: prefix)
@@ -1031,8 +878,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     internal func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-        guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(indexPath.section)
+        guard let delegate = self.flowDelegate else { return }
+        let prefix = self.flowSplitPrefix(indexPath.section)
         let selector = #selector(delegate.willDisplayElementKind(_:atIndexPath:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: elementKind, with: indexPath, withPre: prefix)
@@ -1040,8 +887,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(indexPath.section)
+        guard let delegate = self.flowDelegate else { return }
+        let prefix = self.flowSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didEndDisplayingCell(_:forItemAtIndexPath:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
@@ -1049,8 +896,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
-        guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(indexPath.section)
+        guard let delegate = self.flowDelegate else { return }
+        let prefix = self.flowSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didEndDisplayingElementOfKind(_:atIndexPath:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: elementKind, with: indexPath, withPre: prefix)
@@ -1059,82 +906,82 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     /// UIScrollViewDelegate
     internal func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.flowDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidScroll:")
+        let selector = NSSelectorFromString("flowViewDidScroll:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
     
     internal func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.flowDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidZoom:")
+        let selector = NSSelectorFromString("flowViewDidZoom:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
 
     internal func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.flowDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewWillBeginDragging:")
+        let selector = NSSelectorFromString("flowViewWillBeginDragging:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
 
     internal func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.flowDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        //let selector = NSSelectorFromString("tupleViewWillEndDragging:withVelocity:targetContentOffset:")
-        let selector = NSSelectorFromString("tupleViewWillEndDragging:targetContentOffset:")
+        //let selector = NSSelectorFromString("flowViewWillEndDragging:withVelocity:targetContentOffset:")
+        let selector = NSSelectorFromString("flowViewWillEndDragging:targetContentOffset:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: velocity, with: targetContentOffset, withPre: prefix)
         }
     }
 
     internal func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.flowDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidEndDragging:willDecelerate:")
+        let selector = NSSelectorFromString("flowViewDidEndDragging:willDecelerate:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, with: decelerate, withPre: prefix)
         }
     }
 
     internal func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.flowDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewWillBeginDecelerating:")
+        let selector = NSSelectorFromString("flowViewWillBeginDecelerating:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
     
     internal func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.flowDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidEndDecelerating:")
+        let selector = NSSelectorFromString("flowViewDidEndDecelerating:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
 
     internal func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.flowDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidEndScrollingAnimation:")
+        let selector = NSSelectorFromString("flowViewDidEndScrollingAnimation:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
 
     internal func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        if let delegate = self.tupleDelegate {
+        if let delegate = self.flowDelegate {
             let prefix = self.scrollSplitPrefix()
-            let selector = NSSelectorFromString("tupleViewForZoomingInScrollView:")
+            let selector = NSSelectorFromString("flowViewForZoomingInScrollView:")
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: scrollView, withPre: prefix) as? UIView
             }
@@ -1143,27 +990,27 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.flowDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewWillBeginZooming:withView:")
+        let selector = NSSelectorFromString("flowViewWillBeginZooming:withView:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, with: view as Any, withPre: prefix)
         }
     }
     
     internal func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.flowDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidEndZooming:atScale:")
+        let selector = NSSelectorFromString("flowViewDidEndZooming:atScale:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: view as Any, with: scale, withPre: prefix)
         }
     }
 
     internal func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        if let delegate = self.tupleDelegate {
+        if let delegate = self.flowDelegate {
             let prefix = self.scrollSplitPrefix()
-            let selector = NSSelectorFromString("tupleViewShouldScrollToTop:")
+            let selector = NSSelectorFromString("flowViewShouldScrollToTop:")
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: scrollView, withPre: prefix) as! Bool
             }
@@ -1172,18 +1019,18 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.flowDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidScrollToTop:")
+        let selector = NSSelectorFromString("flowViewDidScrollToTop:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
 
     internal func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.flowDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidChangeAdjustedContentInset:")
+        let selector = NSSelectorFromString("flowViewDidChangeAdjustedContentInset:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
@@ -1192,26 +1039,26 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 }
 
 /// Signal mechanism classification
-extension HTupleView {
+extension HFlowView {
 
-    /// The signal block held by tupleView
-    var signalBlock: HTupleCellSignalBlock? {
-        get { return self.getAssociatedValueForKey(&kTupleSignalKey) as? HTupleCellSignalBlock }
-        set { self.setAssociateCopyValue(newValue, key: &kTupleSignalKey) }
+    /// The signal block held by flowView
+    var signalBlock: HFlowCellSignalBlock? {
+        get { return self.getAssociatedValueForKey(&kFlowSignalKey) as? HFlowCellSignalBlock }
+        set { self.setAssociateCopyValue(newValue, key: &kFlowSignalKey) }
     }
 
-    /// Send signal to tupleView
-    func signalToTupleView(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
+    /// Send signal to flowView
+    func signalToFlowView(_ signal: HFlowSignal?, _ completion: @escaping () -> Void) {
         guard let signalBlock = self.signalBlock else { return }
         signalBlock(self, signal)
         completion()
     }
 
     /// Send signals to all items, items under a certain section, or a single item individually
-    func signalToAllItems(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
+    func signalToAllItems(_ signal: HFlowSignal?, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            let tuples = self?.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HTupleBaseCell }
-            tuples?.forEach { cell in
+            let flows = self?.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HFlowBaseCell }
+            flows?.forEach { cell in
                 DispatchQueue.main.async {
                     cell.signalBlock?(cell, signal)
                 }
@@ -1222,12 +1069,12 @@ extension HTupleView {
         }
     }
 
-    func signal(_ signal: HTupleSignal?, itemSection section: Int, _ completion: @escaping () -> Void) {
+    func signal(_ signal: HFlowSignal?, itemSection section: Int, _ completion: @escaping () -> Void) {
         let items = self.numberOfItems(inSection: section)
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: items) { [weak self] i in
-                let cell = self?.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HTupleBaseCell
+                let cell = self?.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HFlowBaseCell
                 if let cell = cell, let signalBlock = cell.signalBlock {
                     DispatchQueue.main.async(group: group) {
                         signalBlock(cell, signal)
@@ -1241,8 +1088,8 @@ extension HTupleView {
         }
     }
 
-    func signal(_ signal: HTupleSignal?, toRow row: Int, inSection section: Int, _ completion: @escaping () -> Void) {
-        let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section)) as? HTupleBaseCell
+    func signal(_ signal: HFlowSignal?, toRow row: Int, inSection section: Int, _ completion: @escaping () -> Void) {
+        let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section)) as? HFlowBaseCell
         if let cell = cell, let signalBlock = cell.signalBlock {
             signalBlock(cell, signal)
         }
@@ -1250,12 +1097,12 @@ extension HTupleView {
     }
 
     /// Send signals to all headers or a single header individually
-    func signalToAllHeader(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
+    func signalToAllHeader(_ signal: HFlowSignal?, _ completion: @escaping () -> Void) {
         let sections = self.numberOfSections
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: sections) { [weak self] i in
-                let header = self?.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HTupleBaseApex
+                let header = self?.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HFlowBaseApex
                 if let header = header, let signalBlock = header.signalBlock {
                     DispatchQueue.main.async(group: group) {
                         signalBlock(header, signal)
@@ -1269,8 +1116,8 @@ extension HTupleView {
         }
     }
 
-    func signal(_ signal: HTupleSignal?, headerSection section: Int, _ completion: @escaping () -> Void) {
-        let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section)) as? HTupleBaseApex
+    func signal(_ signal: HFlowSignal?, headerSection section: Int, _ completion: @escaping () -> Void) {
+        let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section)) as? HFlowBaseApex
         if let header = header, let signalBlock = header.signalBlock {
             signalBlock(header, signal)
         }
@@ -1278,12 +1125,12 @@ extension HTupleView {
     }
 
     /// Send signals to all footers or a single footer individually
-    func signalToAllFooter(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
+    func signalToAllFooter(_ signal: HFlowSignal?, _ completion: @escaping () -> Void) {
         let sections = self.numberOfSections
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: sections) { [weak self] i in
-                let footer = self?.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HTupleBaseApex
+                let footer = self?.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HFlowBaseApex
                 if let footer = footer, let signalBlock = footer.signalBlock {
                     DispatchQueue.main.async(group: group) {
                         signalBlock(footer, signal)
@@ -1297,8 +1144,8 @@ extension HTupleView {
         }
     }
 
-    func signal(_ signal: HTupleSignal?, footerSection section: Int, _ completion: @escaping () -> Void) {
-        let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section)) as? HTupleBaseApex
+    func signal(_ signal: HFlowSignal?, footerSection section: Int, _ completion: @escaping () -> Void) {
+        let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section)) as? HFlowBaseApex
         if let footer = footer, let signalBlock = footer.signalBlock {
             signalBlock(footer, signal)
         }
@@ -1312,23 +1159,17 @@ extension HTupleView {
             self.signalBlock = nil
             //release all cell
             self.allReuseCells.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HTupleBaseCell)?.signalBlock = nil
-                ($0 as? HTupleBaseCell)?.selectBlock = nil
-                ($0 as? HTupleBaseCell)?.willDisplayBlock = nil
+                ($0 as? HFlowBaseCell)?.signalBlock = nil
+                ($0 as? HFlowBaseCell)?.selectBlock = nil
+                ($0 as? HFlowBaseCell)?.willDisplayBlock = nil
             }
             //release all header
             self.allReuseHeaders.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HTupleBaseApex)?.signalBlock = nil
+                ($0 as? HFlowBaseApex)?.signalBlock = nil
             }
             //release all footer
             self.allReuseFooters.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HTupleBaseApex)?.signalBlock = nil
-            }
-            //delegate status
-            if self.tupleStatus == .block {
-                self.allAttributes.objectEnumerator()?.allObjects.forEach {
-                    ($0 as? HTupleAttributes)?.cellBlock = nil
-                }
+                ($0 as? HFlowBaseApex)?.signalBlock = nil
             }
         }
     }
@@ -1386,32 +1227,32 @@ extension HTupleView {
 
 }
 
-private var Tuple_State_Key = "_tuple_"
+private var Flow_State_Key = "_flow_"
 
 /// Design data storage category for split
-extension HTupleView {
+extension HFlowView {
 
-    private var tupleStateSource: NSMutableDictionary {
+    private var flowStateSource: NSMutableDictionary {
         get {
-            if let dict = self.getAssociatedValueForKey(&kTupleStateSourceKey) as? NSMutableDictionary {
+            if let dict = self.getAssociatedValueForKey(&kFlowStateSourceKey) as? NSMutableDictionary {
                 return dict
             } else {
                 let dict = NSMutableDictionary()
-                self.setAssociateValue(dict, key: &kTupleStateSourceKey)
+                self.setAssociateValue(dict, key: &kFlowStateSourceKey)
                 return dict
             }
         }
     }
 
-    /// The state represented by the tupleView split design
-    var tupleState: Int {
+    /// The state represented by the flowView split design
+    var flowState: Int {
         get {
-            let value = self.getAssociatedValueForKey(&kTupleStateKey) as? NSNumber ?? NSNumber(value: 0)
+            let value = self.getAssociatedValueForKey(&kFlowStateKey) as? NSNumber ?? NSNumber(value: 0)
             return value.intValue
         }
         set {
-            if newValue != self.tupleState {
-                self.setAssociateValue(NSNumber(value: newValue), key: &kTupleStateKey)
+            if newValue != self.flowState {
+                self.setAssociateValue(NSNumber(value: newValue), key: &kFlowStateKey)
                 self.reloadData()
             }
         }
@@ -1419,36 +1260,36 @@ extension HTupleView {
 
     /// Add a value to a certain state
     func setObject(_ anObject: Any, forKey aKey: String, state: Int) {
-        let key = aKey + Tuple_State_Key + "\(state)"
-        self.tupleStateSource.setObject(anObject, forKey: key as NSCopying)
+        let key = aKey + Flow_State_Key + "\(state)"
+        self.flowStateSource.setObject(anObject, forKey: key as NSCopying)
     }
 
     /// Get a value of a certain state
     func object(forKey aKey: String, state: Int) -> Any? {
-        let key = aKey + Tuple_State_Key + "\(state)"
-        return self.tupleStateSource.object(forKey: key)
+        let key = aKey + Flow_State_Key + "\(state)"
+        return self.flowStateSource.object(forKey: key)
     }
 
     /// Remove a value in a certain state
     func removeObject(forKey aKey: String, state: Int) {
-        let key = aKey + Tuple_State_Key + "\(state)"
-        self.tupleStateSource.removeObject(forKey: key)
+        let key = aKey + Flow_State_Key + "\(state)"
+        self.flowStateSource.removeObject(forKey: key)
     }
 
     /// Delete the value of a certain state
     func removeObject(forState state: Int) {
-        let key = Tuple_State_Key + "\(state)"
-        for (aKey, _) in self.tupleStateSource.reversed() {
+        let key = Flow_State_Key + "\(state)"
+        for (aKey, _) in self.flowStateSource.reversed() {
             let aKey = aKey as! String
             if key == aKey {
-                self.tupleStateSource.removeObject(forKey: aKey)
+                self.flowStateSource.removeObject(forKey: aKey)
             }
         }
     }
 
     /// Remove all values ​​of the state
-    func clearTupleState() {
-        self.tupleStateSource.removeAllObjects()
+    func clearFlowState() {
+        self.flowStateSource.removeAllObjects()
     }
 
 }

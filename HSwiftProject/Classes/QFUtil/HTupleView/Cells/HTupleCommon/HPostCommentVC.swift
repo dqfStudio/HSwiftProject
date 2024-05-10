@@ -8,7 +8,14 @@
 
 import UIKit
 
-class HPostCommentVC: HTupleController {
+class HPostCommentVC: HViewController, HTupleViewDelegate {
+    
+    lazy var tupleView: HTupleView = {
+        var frame = UIScreen.bound
+        frame.origin.y += UIScreen.topBarHeight
+        frame.size.height -= UIScreen.topBarHeight + (UIScreen.bottomBarHeight + 10)
+        return HTupleView(frame: frame)
+    }()
     
     var sourceData: [String] = ["放假啦束带结发拉屎会计法拉数据发来的撒放假了打撒发给垃圾粉了",
                                 "我饿付了款静电纺丝啦",

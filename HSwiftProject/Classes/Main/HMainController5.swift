@@ -62,38 +62,45 @@ private let kTabBarHeight: CGFloat = 50.0
 //
 //}
 
-class HMainController5: HTupleController {
+class HMainController5: HViewController, HTupleViewDelegate {
     
-    lazy var flowBar: HFlowBar = {
-        let flowWidth = self.view.width
-        let frame = CGRect(x: 0, y: UIScreen.topBarHeight, width: flowWidth, height: kTabBarHeight)
-        let flowBar = HFlowBar(frame: frame, direction: .horizontal)
-        flowBar.backgroundColor = UIColor.gray
+    lazy var tupleView: HTupleView = {
+        var frame = UIScreen.bound
+        frame.origin.y += UIScreen.topBarHeight
+        frame.size.height -= UIScreen.topBarHeight + (UIScreen.bottomBarHeight + 10)
+        return HTupleView(frame: frame)
+    }()
+    
+    lazy var activeBar: HActivebar = {
+        let activeWidth = self.view.width
+        let frame = CGRect(x: 0, y: UIScreen.topBarHeight, width: activeWidth, height: kTabBarHeight)
+        let activeBar = HActivebar(frame: frame, direction: .horizontal)
+        activeBar.backgroundColor = UIColor.gray
         
-//        flowBar.headerSpacing = 16
-//        flowBar.footerSpacing = 16
-//        flowBar.itemSpacing = 10
+//        activeBar.headerSpacing = 16
+//        activeBar.footerSpacing = 16
+//        activeBar.itemSpacing = 10
         
-//        flowBar.indicatorWidth = 20
-        flowBar.indicatorWidth = self.view.width / 3
-        flowBar.indicatorHeight = 3
-        flowBar.indicatorColor = UIColor.red
-        flowBar.showIndicator = true
-//        flowBar.tupleView.tupleAlign = .center
+//        activeBar.indicatorWidth = 20
+        activeBar.indicatorWidth = self.view.width / 3
+        activeBar.indicatorHeight = 3
+        activeBar.indicatorColor = UIColor.red
+        activeBar.showIndicator = true
+//        activeBar.tupleView.tupleAlign = .center
         
-//        flowBar.showTopSeparator = true
-//        flowBar.topSeparatorColor = .red
+//        activeBar.showTopSeparator = true
+//        activeBar.topSeparatorColor = .red
         
-        flowBar.showBottomSeparator = true
-        flowBar.bottomSeparatorColor = UIColor.black
+        activeBar.showBottomSeparator = true
+        activeBar.bottomSeparatorColor = UIColor.black
         
-        flowBar.numberBlock = {
+        activeBar.numberBlock = {
             return 3
         }
-        flowBar.sizeBlock = { index in
+        activeBar.sizeBlock = { index in
             return self.view.width / 3
         }
-        flowBar.itemBlock = { (tuple: HTupleView, indexPath: IndexPath) in
+        activeBar.itemBlock = { (tuple: HTupleView, indexPath: IndexPath) in
             let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.label.textAlignment = .center
             switch indexPath.row {
@@ -106,7 +113,7 @@ class HMainController5: HTupleController {
             default:
                 break
             }
-            if indexPath.row == flowBar.selectedIndex {
+            if indexPath.row == activeBar.selectedIndex {
                 cell.label.textColor = UIColor.red
                 cell.label.font = UIFont.systemFont(ofSize: 17)
             }else {
@@ -114,10 +121,10 @@ class HMainController5: HTupleController {
                 cell.label.font = UIFont.systemFont(ofSize: 16)
             }
         }
-        flowBar.didSelectBlock = { index in
+        activeBar.didSelectBlock = { index in
             
         }
-        return flowBar
+        return activeBar
     }()
     
     override func viewDidLoad() {
@@ -125,20 +132,20 @@ class HMainController5: HTupleController {
         // Do any additional setup after loading the view.
         self.title = "tab展示"
         
-        self.view.addSubview(flowBar)
+        self.view.addSubview(activeBar)
         
         
-        let flowY = UIScreen.topBarHeight + kTabBarHeight
-        let flowH = UIScreen.height - UIScreen.topBarHeight - flowY
-        let flowFrame = CGRect(x: 0, y: flowY, width: self.view.width, height: flowH)
-        let flowView = HFlowView(frame: flowFrame)
+        let activeY = UIScreen.topBarHeight + kTabBarHeight
+        let activeH = UIScreen.height - UIScreen.topBarHeight - activeY
+        let activeFrame = CGRect(x: 0, y: activeY, width: self.view.width, height: activeH)
+        let activeView = HActiveView(frame: activeFrame)
         
         let loginVC = HLoginController()
         let registerVC = HRegisterController()
         let registerVC2 = HRegisterController()
         
-        flowView.flowBar = flowBar
-        flowView.viewControllers = [loginVC, registerVC, registerVC2]
-        self.view.addSubview(flowView)
+        activeView.activeBar = activeBar
+        activeView.viewControllers = [loginVC, registerVC, registerVC2]
+        self.view.addSubview(activeView)
     }
 }

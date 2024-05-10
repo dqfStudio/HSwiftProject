@@ -1,5 +1,5 @@
 //
-//  HFlowBar.swift
+//  HActivebar.swift
 //  HSwiftProject
 //
 //  Created by owner on 2024/4/24.
@@ -8,23 +8,23 @@
 
 import UIKit
 
-typealias HFlowBarNumberBlock = () -> Int
-typealias HFlowBarSizeBlock = (_ index: Int) -> CGFloat
-typealias HFlowBarItemBlock = (_ tuple: HTupleView, _ indexPath: IndexPath) -> Void
-typealias HFlowBarSelectBlock = (_ index: Int) -> Void
+typealias HActivebarNumberBlock = () -> Int
+typealias HActivebarSizeBlock = (_ index: Int) -> CGFloat
+typealias HActivebarItemBlock = (_ tuple: HTupleView, _ indexPath: IndexPath) -> Void
+typealias HActivebarSelectBlock = (_ index: Int) -> Void
 
-class HFlowBar: UIStackView, HTupleViewDelegate {
+class HActivebar: UIStackView, HTupleViewDelegate {
     
-    var numberBlock: HFlowBarNumberBlock?
-    var sizeBlock: HFlowBarSizeBlock?
-    var itemBlock: HFlowBarItemBlock?
+    var numberBlock: HActivebarNumberBlock?
+    var sizeBlock: HActivebarSizeBlock?
+    var itemBlock: HActivebarItemBlock?
     
-    var willSelectBlock: HFlowBarSelectBlock?
-    var didSelectBlock: HFlowBarSelectBlock?
-    var reSelectBlock: HFlowBarSelectBlock?
+    var willSelectBlock: HActivebarSelectBlock?
+    var didSelectBlock: HActivebarSelectBlock?
+    var reSelectBlock: HActivebarSelectBlock?
     
-    // 仅供HFlowView内部使用
-    var flowViewSelectBlock: HFlowBarSelectBlock?
+    // 仅供HActiveView内部使用
+    var activeViewSelectBlock: HActivebarSelectBlock?
     
     // 垂直或水平方向
     private var direction: HTupleDirection = .horizontal
@@ -221,7 +221,7 @@ class HFlowBar: UIStackView, HTupleViewDelegate {
 }
 
 // vertical
-extension HFlowBar {
+extension HActivebar {
 
     @objc
     func tuple0_numberOfItemsInSection(_ section: Any) -> Any {
@@ -269,7 +269,7 @@ extension HFlowBar {
                 self.willSelectBlock?(indexPath.row)
                 self.selectedIndex = indexPath.row
                 self.didSelectBlock?(indexPath.row)
-                self.flowViewSelectBlock?(indexPath.row)
+                self.activeViewSelectBlock?(indexPath.row)
             }else {
                 self.reSelectBlock?(indexPath.row)
             }
@@ -279,7 +279,7 @@ extension HFlowBar {
 }
 
 // horizontal
-extension HFlowBar {
+extension HActivebar {
 
     @objc
     func tuple1_numberOfItemsInSection(_ section: Any) -> Any {
@@ -327,7 +327,7 @@ extension HFlowBar {
                 self.willSelectBlock?(indexPath.row)
                 self.selectedIndex = indexPath.row
                 self.didSelectBlock?(indexPath.row)
-                self.flowViewSelectBlock?(indexPath.row)
+                self.activeViewSelectBlock?(indexPath.row)
             }else {
                 self.reSelectBlock?(indexPath.row)
             }

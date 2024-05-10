@@ -1,5 +1,5 @@
 //
-//  HCollectionViewFlowLayout.swift
+//  HFlowViewLayout.swift
 //  HSwiftProject
 //
 //  Created by Wind on 2019/11/22.
@@ -8,16 +8,16 @@
 
 import UIKit
 
-private var HCollectionViewSectionColor = "com.dqf.HCollectionElementKindSectionColor"
+private var HFlowViewSectionColor = "com.dqf.HFlowElementKindSectionColor"
 
-private class HCollectionViewLayoutAttributes : UICollectionViewLayoutAttributes {
+private class HFlowViewLayoutAttributes: UICollectionViewLayoutAttributes {
     var backgroundColor: UIColor?
 }
 
-private class HCollectionReusableView: UICollectionReusableView {
+private class HFlowReusableView: UICollectionReusableView {
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
         super.apply(layoutAttributes)
-        guard let attr = layoutAttributes as? HCollectionViewLayoutAttributes,
+        guard let attr = layoutAttributes as? HFlowViewLayoutAttributes,
               let backgroundColor = attr.backgroundColor,
               self.backgroundColor != backgroundColor else { return }
         self.backgroundColor = backgroundColor
@@ -25,21 +25,22 @@ private class HCollectionReusableView: UICollectionReusableView {
 }
 
 /// Extend the background color of the section
-@objc protocol HCollectionViewDelegateFlowLayout: UICollectionViewDelegateFlowLayout {
+@objc protocol HFlowViewLayoutDelegate: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, colorForSectionAt section: NSInteger) -> UIColor
 }
 
-class HCollectionViewFlowLayout: UICollectionViewFlowLayout {
+class HFlowViewLayout: UICollectionViewFlowLayout {
     
     private var decorationViewAttrs: [UICollectionViewLayoutAttributes] = [UICollectionViewLayoutAttributes]()
     
-    convenience init(_ direction: HTupleDirection) {
+    convenience init(_ direction: HFlowDirection) {
         self.init()
         if direction == .horizontal {
             self.scrollDirection = .horizontal
         }else {
             self.scrollDirection = .vertical
         }
+        self.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
     }
 
     override func prepare() {
@@ -47,10 +48,10 @@ class HCollectionViewFlowLayout: UICollectionViewFlowLayout {
 
         guard let collectionView = self.collectionView else { return }
         let sections = collectionView.numberOfSections
-        guard let delegate = collectionView.delegate as? HCollectionViewDelegateFlowLayout else { return }
+        guard let delegate = collectionView.delegate as? HFlowViewLayoutDelegate else { return }
 
         // 1. Initialization
-        self.register(HCollectionReusableView.self, forDecorationViewOfKind: HCollectionViewSectionColor)
+        self.register(HFlowReusableView.self, forDecorationViewOfKind: HFlowViewSectionColor)
         self.decorationViewAttrs.removeAll()
 
         for section in 0..<sections {
@@ -76,7 +77,7 @@ class HCollectionViewFlowLayout: UICollectionViewFlowLayout {
             }
 
             // 2. Definition
-            let attr: HCollectionViewLayoutAttributes = HCollectionViewLayoutAttributes(forDecorationViewOfKind: HCollectionViewSectionColor, with: IndexPath(row: 0, section: section))
+            let attr: HFlowViewLayoutAttributes = HFlowViewLayoutAttributes(forDecorationViewOfKind: HFlowViewSectionColor, with: IndexPath(row: 0, section: section))
             attr.frame = sectionFrame
             attr.zIndex = -1
             attr.backgroundColor = delegate.collectionView(collectionView, layout: self, colorForSectionAt: section)

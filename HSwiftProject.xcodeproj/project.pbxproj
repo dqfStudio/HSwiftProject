@@ -79,7 +79,7 @@
 		A28923A5238B72F800E4AB75 /* HTupleSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289239B238B72F800E4AB75 /* HTupleSignal.swift */; };
 		A28923A6238B72F800E4AB75 /* NSIndexPath+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289239C238B72F800E4AB75 /* NSIndexPath+HUtil.swift */; };
 		A28923A7238B72F800E4AB75 /* HTupleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289239E238B72F800E4AB75 /* HTupleView.swift */; };
-		A28923A8238B72F800E4AB75 /* HCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289239F238B72F800E4AB75 /* HCollectionViewFlowLayout.swift */; };
+		A28923A8238B72F800E4AB75 /* HTupleViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = A289239F238B72F800E4AB75 /* HTupleViewLayout.swift */; };
 		A28923A9238B72F800E4AB75 /* NSObject+HSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28923A1238B72F800E4AB75 /* NSObject+HSelector.swift */; };
 		A28923AB238B733500E4AB75 /* HTupleViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28923AA238B733500E4AB75 /* HTupleViewCell.swift */; };
 		A28923AE238B750000E4AB75 /* HTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = A28923AD238B750000E4AB75 /* HTextField.swift */; };
@@ -183,8 +183,8 @@
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
 		EB23DACD2A027D6C00C96CAC /* HSheetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */; };
 		EB3541962BD61A75003B1D69 /* HBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541952BD61A75003B1D69 /* HBaseController.swift */; };
-		EB35419E2BD90E39003B1D69 /* HFlowBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB35419D2BD90E39003B1D69 /* HFlowBar.swift */; };
-		EB3541A02BDA2CFA003B1D69 /* HFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB35419F2BDA2CFA003B1D69 /* HFlowView.swift */; };
+		EB35419E2BD90E39003B1D69 /* HActivebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB35419D2BD90E39003B1D69 /* HActivebar.swift */; };
+		EB3541A02BDA2CFA003B1D69 /* HActiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB35419F2BDA2CFA003B1D69 /* HActiveView.swift */; };
 		EB3541B62BE7C760003B1D69 /* HActiveNaviController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B52BE7C75F003B1D69 /* HActiveNaviController.swift */; };
 		EB3541B82BE7D052003B1D69 /* HBaseNaviController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B72BE7D052003B1D69 /* HBaseNaviController.swift */; };
 		EB3541BC2BE86152003B1D69 /* HActiveTabbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541BB2BE86151003B1D69 /* HActiveTabbarVC.swift */; };
@@ -270,6 +270,16 @@
 		EBA6472B2A875D1B00897D76 /* HStackBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6472A2A875D1B00897D76 /* HStackBar.swift */; };
 		EBA6472D2A87704900897D76 /* HGroupbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6472C2A87704900897D76 /* HGroupbar.swift */; };
 		EBC306CD2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */; };
+		EBC306E62BEE24E500EF8ABD /* HFlowBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306E12BEE24E500EF8ABD /* HFlowBaseCell.swift */; };
+		EBC306E72BEE24E500EF8ABD /* HFlowViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306E22BEE24E500EF8ABD /* HFlowViewCell.swift */; };
+		EBC306EA2BEE25C100EF8ABD /* HFlowAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306E92BEE25C100EF8ABD /* HFlowAttributes.swift */; };
+		EBC306EC2BEE263200EF8ABD /* HFlowSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306EB2BEE263200EF8ABD /* HFlowSignal.swift */; };
+		EBC306F02BEE273000EF8ABD /* HFlowViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306EE2BEE273000EF8ABD /* HFlowViewLayout.swift */; };
+		EBC306F12BEE273000EF8ABD /* HFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306EF2BEE273000EF8ABD /* HFlowView.swift */; };
+		EBC306F32BEE28E000EF8ABD /* HFlowRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306F22BEE28E000EF8ABD /* HFlowRefresh.swift */; };
+		EBC306F62BEE294500EF8ABD /* HFlowBaseApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306F42BEE294500EF8ABD /* HFlowBaseApex.swift */; };
+		EBC306F72BEE294500EF8ABD /* HFlowViewApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306F52BEE294500EF8ABD /* HFlowViewApex.swift */; };
+		EBC306F92BEE300000EF8ABD /* HFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306F82BEE300000EF8ABD /* HFlowController.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -423,7 +433,7 @@
 		A289239B238B72F800E4AB75 /* HTupleSignal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleSignal.swift; sourceTree = "<group>"; };
 		A289239C238B72F800E4AB75 /* NSIndexPath+HUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSIndexPath+HUtil.swift"; sourceTree = "<group>"; };
 		A289239E238B72F800E4AB75 /* HTupleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleView.swift; sourceTree = "<group>"; };
-		A289239F238B72F800E4AB75 /* HCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		A289239F238B72F800E4AB75 /* HTupleViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleViewLayout.swift; sourceTree = "<group>"; };
 		A28923A1238B72F800E4AB75 /* NSObject+HSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+HSelector.swift"; sourceTree = "<group>"; };
 		A28923AA238B733500E4AB75 /* HTupleViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewCell.swift; sourceTree = "<group>"; };
 		A28923AD238B750000E4AB75 /* HTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextField.swift; sourceTree = "<group>"; };
@@ -530,8 +540,8 @@
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
 		EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSheetAction.swift; sourceTree = "<group>"; };
 		EB3541952BD61A75003B1D69 /* HBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseController.swift; sourceTree = "<group>"; };
-		EB35419D2BD90E39003B1D69 /* HFlowBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowBar.swift; sourceTree = "<group>"; };
-		EB35419F2BDA2CFA003B1D69 /* HFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowView.swift; sourceTree = "<group>"; };
+		EB35419D2BD90E39003B1D69 /* HActivebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActivebar.swift; sourceTree = "<group>"; };
+		EB35419F2BDA2CFA003B1D69 /* HActiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveView.swift; sourceTree = "<group>"; };
 		EB3541B52BE7C75F003B1D69 /* HActiveNaviController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveNaviController.swift; sourceTree = "<group>"; };
 		EB3541B72BE7D052003B1D69 /* HBaseNaviController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseNaviController.swift; sourceTree = "<group>"; };
 		EB3541BB2BE86151003B1D69 /* HActiveTabbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveTabbarVC.swift; sourceTree = "<group>"; };
@@ -617,6 +627,16 @@
 		EBA6472A2A875D1B00897D76 /* HStackBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackBar.swift; sourceTree = "<group>"; };
 		EBA6472C2A87704900897D76 /* HGroupbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupbar.swift; sourceTree = "<group>"; };
 		EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extern.swift"; sourceTree = "<group>"; };
+		EBC306E12BEE24E500EF8ABD /* HFlowBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowBaseCell.swift; sourceTree = "<group>"; };
+		EBC306E22BEE24E500EF8ABD /* HFlowViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowViewCell.swift; sourceTree = "<group>"; };
+		EBC306E92BEE25C100EF8ABD /* HFlowAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowAttributes.swift; sourceTree = "<group>"; };
+		EBC306EB2BEE263200EF8ABD /* HFlowSignal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowSignal.swift; sourceTree = "<group>"; };
+		EBC306EE2BEE273000EF8ABD /* HFlowViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowViewLayout.swift; sourceTree = "<group>"; };
+		EBC306EF2BEE273000EF8ABD /* HFlowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowView.swift; sourceTree = "<group>"; };
+		EBC306F22BEE28E000EF8ABD /* HFlowRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowRefresh.swift; sourceTree = "<group>"; };
+		EBC306F42BEE294500EF8ABD /* HFlowBaseApex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowBaseApex.swift; sourceTree = "<group>"; };
+		EBC306F52BEE294500EF8ABD /* HFlowViewApex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowViewApex.swift; sourceTree = "<group>"; };
+		EBC306F82BEE300000EF8ABD /* HFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowController.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -821,8 +841,8 @@
 				A265DA062394BF12001F39B0 /* HTabBar+HSubView.swift */,
 				A265DA022394B24C001F39B0 /* HTabBarController.swift */,
 				A265D9FE239250F6001F39B0 /* HTabContentView.swift */,
-				EB35419D2BD90E39003B1D69 /* HFlowBar.swift */,
-				EB35419F2BDA2CFA003B1D69 /* HFlowView.swift */,
+				EB35419D2BD90E39003B1D69 /* HActivebar.swift */,
+				EB35419F2BDA2CFA003B1D69 /* HActiveView.swift */,
 				A265D9FA2390B8EB001F39B0 /* HTabItem.swift */,
 				A265DA042394B6F7001F39B0 /* UIScrollView+HTab.swift */,
 				A265DA002392A2B3001F39B0 /* UIViewController+HTab.swift */,
@@ -921,7 +941,7 @@
 			isa = PBXGroup;
 			children = (
 				A289239E238B72F800E4AB75 /* HTupleView.swift */,
-				A289239F238B72F800E4AB75 /* HCollectionViewFlowLayout.swift */,
+				A289239F238B72F800E4AB75 /* HTupleViewLayout.swift */,
 				EB5148972AE283A70075F737 /* HWaterfallMutiSectionFlowLayout.swift */,
 			);
 			path = View;
@@ -1149,6 +1169,7 @@
 				A265D9F92390B8D7001F39B0 /* YPTabBarController */,
 				A21887A323900832005C20BF /* HKeyChainStore */,
 				A218879A238FF87F005C20BF /* HUserDefaults */,
+				EBC306DE2BEE24E500EF8ABD /* HFlowView */,
 				A26D434A2387C2B500F457AE /* HTupleView */,
 				A2B4308123801C3A00795605 /* HWebClasses */,
 				A2B4307E237FF56D00795605 /* HViewController */,
@@ -1439,6 +1460,64 @@
 				EB43243529C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift */,
 			);
 			path = HAtrribute;
+			sourceTree = "<group>";
+		};
+		EBC306DE2BEE24E500EF8ABD /* HFlowView */ = {
+			isa = PBXGroup;
+			children = (
+				EBC306DF2BEE24E500EF8ABD /* Cells */,
+				EBC306ED2BEE273000EF8ABD /* View */,
+			);
+			name = HFlowView;
+			path = HSwiftProject/Classes/QFUtil/HFlowView;
+			sourceTree = SOURCE_ROOT;
+		};
+		EBC306DF2BEE24E500EF8ABD /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				EBC306E02BEE24E500EF8ABD /* HFlowViewCell */,
+				EBC306E32BEE24E500EF8ABD /* HFlowViewApex */,
+				EBC306E42BEE24E500EF8ABD /* HFlowCommon */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		EBC306E02BEE24E500EF8ABD /* HFlowViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				EBC306E12BEE24E500EF8ABD /* HFlowBaseCell.swift */,
+				EBC306E22BEE24E500EF8ABD /* HFlowViewCell.swift */,
+			);
+			path = HFlowViewCell;
+			sourceTree = "<group>";
+		};
+		EBC306E32BEE24E500EF8ABD /* HFlowViewApex */ = {
+			isa = PBXGroup;
+			children = (
+				EBC306F42BEE294500EF8ABD /* HFlowBaseApex.swift */,
+				EBC306F52BEE294500EF8ABD /* HFlowViewApex.swift */,
+			);
+			path = HFlowViewApex;
+			sourceTree = "<group>";
+		};
+		EBC306E42BEE24E500EF8ABD /* HFlowCommon */ = {
+			isa = PBXGroup;
+			children = (
+				EBC306E92BEE25C100EF8ABD /* HFlowAttributes.swift */,
+				EBC306F22BEE28E000EF8ABD /* HFlowRefresh.swift */,
+				EBC306EB2BEE263200EF8ABD /* HFlowSignal.swift */,
+			);
+			path = HFlowCommon;
+			sourceTree = "<group>";
+		};
+		EBC306ED2BEE273000EF8ABD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EBC306EE2BEE273000EF8ABD /* HFlowViewLayout.swift */,
+				EBC306EF2BEE273000EF8ABD /* HFlowView.swift */,
+				EBC306F82BEE300000EF8ABD /* HFlowController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		EBC813F029AA48C000A81431 /* HUserLive */ = {
@@ -1860,6 +1939,7 @@
 			files = (
 				EB3541D32BE91212003B1D69 /* HFlowSheetVC+Extern.swift in Sources */,
 				A2B4308323801C4E00795605 /* HWebButtonView.swift in Sources */,
+				EBC306E62BEE24E500EF8ABD /* HFlowBaseCell.swift in Sources */,
 				A26D43172383DE5800F457AE /* UIColor+HUtil.swift in Sources */,
 				EB80B66E2A122A940016648A /* HScrollbar.swift in Sources */,
 				EBD0FB3A29CD461E00808EDA /* AppDelegate+NotifyService.swift in Sources */,
@@ -1937,6 +2017,7 @@
 				EBD0FB2629CC8CF100808EDA /* HFPickerView.swift in Sources */,
 				EBD0FB7929D02B9600808EDA /* HDefaultsCore.swift in Sources */,
 				A2A814BA274CCC1800FAB929 /* HPresentationController.swift in Sources */,
+				EBC306F92BEE300000EF8ABD /* HFlowController.swift in Sources */,
 				A2B4308F2382CC8A00795605 /* UIDevice+HUtil.swift in Sources */,
 				EBD0FB8A29D5668E00808EDA /* CALayer+HUtil.swift in Sources */,
 				EB23DACD2A027D6C00C96CAC /* HSheetAction.swift in Sources */,
@@ -1957,6 +2038,7 @@
 				EBC8147929AA543300A81431 /* HSendVideoVC+HStatus6.swift in Sources */,
 				A22948BE239799190058B939 /* HRegisterController+SJ.swift in Sources */,
 				A28923A4238B72F800E4AB75 /* HGeometry.swift in Sources */,
+				EBC306F32BEE28E000EF8ABD /* HFlowRefresh.swift in Sources */,
 				EBC8140629AA48C000A81431 /* HUserLiveVC.swift in Sources */,
 				EBD0FB3129CCA16400808EDA /* AppDelegate+WindowService.swift in Sources */,
 				EBED9CA52A4C3C8600E590DE /* HTupleBannerApex.swift in Sources */,
@@ -1976,7 +2058,9 @@
 				A22948AF239798870058B939 /* HMainController3+HSection2.swift in Sources */,
 				EB43243A29C588A400EDDB64 /* HTextViewer.swift in Sources */,
 				EB4323F429B98C9400EDDB64 /* HNaviToastView.swift in Sources */,
+				EBC306EC2BEE263200EF8ABD /* HFlowSignal.swift in Sources */,
 				EBC8146129AA53C600A81431 /* HSendAudioVC+HStatus5.swift in Sources */,
+				EBC306EA2BEE25C100EF8ABD /* HFlowAttributes.swift in Sources */,
 				EB3541C72BE8C7F3003B1D69 /* HChatsMsgVC.swift in Sources */,
 				EBD0FB2C29CC9AEF00808EDA /* UIColor+HSkin.swift in Sources */,
 				EBD0FBB229DBEE4800808EDA /* HNumberFormatter.swift in Sources */,
@@ -1986,7 +2070,7 @@
 				EB9D332B2B038F97000B8F48 /* HPullController.swift in Sources */,
 				EBA53C322A3210FB0077158D /* HMultiButtonView.swift in Sources */,
 				EB3541BC2BE86152003B1D69 /* HActiveTabbarVC.swift in Sources */,
-				EB35419E2BD90E39003B1D69 /* HFlowBar.swift in Sources */,
+				EB35419E2BD90E39003B1D69 /* HActivebar.swift in Sources */,
 				A2B43074237FF2B100795605 /* UIView+HPrinter.swift in Sources */,
 				A250DF1223FFC2AB009F5E47 /* HTupleViewBannerApex.swift in Sources */,
 				EB80B67E2A18A7430016648A /* HSearchBar.swift in Sources */,
@@ -1999,10 +2083,11 @@
 				EBD0FB7829D02B9600808EDA /* HUserDefaults+Property.swift in Sources */,
 				A28C314923EBB4D80050CDA1 /* HVerifyCodeView.swift in Sources */,
 				EB1209812A827E1900E5F045 /* HPostHeader.swift in Sources */,
-				A28923A8238B72F800E4AB75 /* HCollectionViewFlowLayout.swift in Sources */,
+				A28923A8238B72F800E4AB75 /* HTupleViewLayout.swift in Sources */,
 				EB50428D2A2C343C007E9FC7 /* HTableTextImageCell.swift in Sources */,
 				EB50428B2A2C33F6007E9FC7 /* HTupleTextImageApex.swift in Sources */,
 				EBC8140429AA48C000A81431 /* HUserLiveCell+HSection2.swift in Sources */,
+				EBC306F62BEE294500EF8ABD /* HFlowBaseApex.swift in Sources */,
 				A2B43071237FF2B100795605 /* Swifty.m in Sources */,
 				EBD0FB2329CC739A00808EDA /* HDrawerViewController.swift in Sources */,
 				EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */,
@@ -2030,6 +2115,7 @@
 				A26D432B23856F8900F457AE /* NSTimer+HUtil.swift in Sources */,
 				EB3541E32BE9E9A8003B1D69 /* Network10008API.swift in Sources */,
 				A265DA052394B6F7001F39B0 /* UIScrollView+HTab.swift in Sources */,
+				EBC306F72BEE294500EF8ABD /* HFlowViewApex.swift in Sources */,
 				A2B42FCE237CED5A00795605 /* SceneDelegate.swift in Sources */,
 				A26D43452387827A00F457AE /* NSObject+HForwarding.swift in Sources */,
 				A26D432723853F2900F457AE /* NSObject+HMessy.swift in Sources */,
@@ -2052,6 +2138,7 @@
 				EBD0FB9229DA97C000808EDA /* HMainController6+UIExt.swift in Sources */,
 				A26D432523852DB700F457AE /* NSDate+HUtil.swift in Sources */,
 				EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */,
+				EBC306F12BEE273000EF8ABD /* HFlowView.swift in Sources */,
 				EB3541E92BEA0073003B1D69 /* HUserLoginRequest.swift in Sources */,
 				A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */,
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,
@@ -2103,9 +2190,11 @@
 				A2B43080237FF57C00795605 /* HViewController.swift in Sources */,
 				A2294890239756770058B939 /* HTableBaseCell.swift in Sources */,
 				A229488F239756770058B939 /* HTableSignal.swift in Sources */,
+				EBC306F02BEE273000EF8ABD /* HFlowViewLayout.swift in Sources */,
 				EBA6472B2A875D1B00897D76 /* HStackBar.swift in Sources */,
-				EB3541A02BDA2CFA003B1D69 /* HFlowView.swift in Sources */,
+				EB3541A02BDA2CFA003B1D69 /* HActiveView.swift in Sources */,
 				A2B4307A237FF2B100795605 /* HMenuViewController.swift in Sources */,
+				EBC306E72BEE24E500EF8ABD /* HFlowViewCell.swift in Sources */,
 				A21887A723900832005C20BF /* HKeychainSwiftAccessOptions.swift in Sources */,
 				EBD0FB7A29D02B9600808EDA /* HUserCore.swift in Sources */,
 				A2A814B8274CCA7200FAB929 /* HPresentAnimation.swift in Sources */,

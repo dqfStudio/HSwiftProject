@@ -13,10 +13,10 @@ class HMainController2: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let flowWidth = self.view.width
+        let activeWidth = self.view.width
         
-        let frame = CGRect(x: 0, y: UIScreen.topBarHeight, width: flowWidth, height: 50)
-        let naviBar = HFlowBar(frame: frame, direction: .horizontal)
+        let frame = CGRect(x: 0, y: UIScreen.topBarHeight, width: activeWidth, height: 50)
+        let naviBar = HActivebar(frame: frame, direction: .horizontal)
         naviBar.backgroundColor = .yellow
         
         naviBar.headerSpacing = 16
@@ -55,18 +55,18 @@ class HMainController2: HViewController {
         self.view.addSubview(naviBar)
         
         
-        let flowY = UIScreen.topBarHeight + 50
-        let flowH = UIScreen.height - flowY - 50
-        let flowFrame = CGRect(x: 0, y: flowY, width: flowWidth, height: flowH)
-        let flowView = HFlowView(frame: flowFrame)
+        let activeY = UIScreen.topBarHeight + 50
+        let activeH = UIScreen.height - activeY - 50
+        let activeFrame = CGRect(x: 0, y: activeY, width: activeWidth, height: activeH)
+        let activeView = HActiveView(frame: activeFrame)
         
         let loginVC = HLoginController()
         let registerVC = HRegisterController()
         let registerVC2 = HRegisterController()
         
-        flowView.flowBar = naviBar
-        flowView.viewControllers = [loginVC, registerVC, registerVC2]
-        self.view.addSubview(flowView)
+        activeView.activeBar = naviBar
+        activeView.viewControllers = [loginVC, registerVC, registerVC2]
+        self.view.addSubview(activeView)
         
         return
         

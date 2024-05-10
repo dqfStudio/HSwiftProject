@@ -1,5 +1,5 @@
 //
-//  HFlowView.swift
+//  HActiveView.swift
 //  HSwiftProject
 //
 //  Created by owner on 2024/4/25.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class HFlowView: UIScrollView, UIScrollViewDelegate {
+class HActiveView: UIScrollView, UIScrollViewDelegate {
     
-    weak var flowBar: HFlowBar?
+    weak var activeBar: HActivebar?
     
     // 变量 interceptLeftSlideGestureInLastPage 控制是否在最后一页上拦截左滑的手势。
     // 如果设置为 true，则在最后一页上左滑的手势将被拦截，并可能执行特定的操作或忽略该手势。
@@ -164,14 +164,14 @@ class HFlowView: UIScrollView, UIScrollViewDelegate {
                                       height: self.bounds.size.height)
         }
         
-        // flowBar选中的index
-        self.selectedTabIndex = self.flowBar?.selectedIndex ?? 0
+        // activeBar选中的index
+        self.selectedTabIndex = self.activeBar?.selectedIndex ?? 0
         
         // 更新vc frame
         self.updateContentViewsFrame()
         
-        // flowBar点击回调
-        self.flowBar?.flowViewSelectBlock = { index in
+        // activeBar点击回调
+        self.activeBar?.activeViewSelectBlock = { index in
             self.selectedTabIndex = index
             self.updateContentViewsFrame()
         }
@@ -180,7 +180,7 @@ class HFlowView: UIScrollView, UIScrollViewDelegate {
     // UIScrollViewDelegate
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let page = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
-        self.flowBar?.selectedIndex = page
+        self.activeBar?.selectedIndex = page
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
