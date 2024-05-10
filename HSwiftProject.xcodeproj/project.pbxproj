@@ -269,6 +269,7 @@
 		EBA53C3C2A3BED2B0077158D /* HWebButtonView3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C3B2A3BED2B0077158D /* HWebButtonView3.swift */; };
 		EBA6472B2A875D1B00897D76 /* HStackBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6472A2A875D1B00897D76 /* HStackBar.swift */; };
 		EBA6472D2A87704900897D76 /* HGroupbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6472C2A87704900897D76 /* HGroupbar.swift */; };
+		EBC306CD2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -615,6 +616,7 @@
 		EBA53C3B2A3BED2B0077158D /* HWebButtonView3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebButtonView3.swift; sourceTree = "<group>"; };
 		EBA6472A2A875D1B00897D76 /* HStackBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackBar.swift; sourceTree = "<group>"; };
 		EBA6472C2A87704900897D76 /* HGroupbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupbar.swift; sourceTree = "<group>"; };
+		EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extern.swift"; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -1233,6 +1235,7 @@
 				A26D432423852DB700F457AE /* NSDate+HUtil.swift */,
 				A26D432623853F2900F457AE /* NSObject+HMessy.swift */,
 				A26D432A23856F8900F457AE /* NSTimer+HUtil.swift */,
+				EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */,
 				A26D433E2386CA0900F457AE /* NSObject+HSwizzleUtil.swift */,
 				EB43241329C3163900EDDB64 /* HUserRegion.swift */,
 				EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */,
@@ -2023,6 +2026,7 @@
 				A2A814B2274C081B00FAB929 /* HTransitionHeader.swift in Sources */,
 				A28A022823EE62D6000556A2 /* HTupleViewTextLoopCell.swift in Sources */,
 				A28B652123FD215500B6B638 /* HNetworkDAO.swift in Sources */,
+				EBC306CD2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift in Sources */,
 				A26D432B23856F8900F457AE /* NSTimer+HUtil.swift in Sources */,
 				EB3541E32BE9E9A8003B1D69 /* Network10008API.swift in Sources */,
 				A265DA052394B6F7001F39B0 /* UIScrollView+HTab.swift in Sources */,
