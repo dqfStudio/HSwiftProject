@@ -62,14 +62,7 @@ private let kTabBarHeight: CGFloat = 50.0
 //
 //}
 
-class HMainController5: HViewController, HTupleViewDelegate {
-    
-    lazy var tupleView: HTupleView = {
-        var frame = UIScreen.bound
-        frame.origin.y += UIScreen.topBarHeight
-        frame.size.height -= UIScreen.topBarHeight + (UIScreen.bottomBarHeight + 10)
-        return HTupleView(frame: frame)
-    }()
+class HMainController5: HViewController {
     
     lazy var activeBar: HActivebar = {
         let activeWidth = self.view.width

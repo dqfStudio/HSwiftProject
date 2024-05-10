@@ -22,6 +22,7 @@ class HLoginController: HViewController, HTupleViewDelegate {
         self.navigationBar.leftItem.isHidden = true
         self.title = "登录"
         self.tupleView.delegate = self
+        self.view.addSubview(self.tupleView)
     }
 
     func numberOfSectionsInTupleView() -> Any {

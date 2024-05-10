@@ -21,6 +21,7 @@ class HAcceptAudioVC: HViewController, HTupleViewDelegate {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.white
         self.tupleView.delegate = self
+        self.view.addSubview(self.tupleView)
     }
     
     override func viewWillAppear(_ animated: Bool) {

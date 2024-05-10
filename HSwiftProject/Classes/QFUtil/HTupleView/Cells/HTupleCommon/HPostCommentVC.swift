@@ -30,6 +30,7 @@ class HPostCommentVC: HViewController, HTupleViewDelegate {
         super.viewDidLoad()
         self.title = "评论列表"
         self.tupleView.delegate = self
+        self.view.addSubview(self.tupleView)
         
         sourceData.forEach { item in
             let postVM = HPostCommentVM()
