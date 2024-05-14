@@ -89,7 +89,7 @@ class HUserStore: NSObject, NSCoding {
     @objc
     private func saveUser() {
         guard isLogin else { return }
-        if let defaultsUserId = HUserStore.defaultsUserId, defaultsUserId.length > 0,
+        if let defaultsUserId = HUserStore.defaultsUserId, !defaultsUserId.isEmpty,
            let data = try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false) {
             HKeychainSwift.defaults.set(data, forKey: defaultsUserId)
             HKeychainSwift.defaults.set(defaultsUserId, forKey: KUSER)
