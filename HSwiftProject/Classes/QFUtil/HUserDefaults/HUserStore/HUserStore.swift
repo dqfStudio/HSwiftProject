@@ -53,7 +53,7 @@ class HUserStore: NSObject, NSCoding {
     static var defaults: HUserStore = {
         if let defaultsUserId = HKeychainSwift.defaults.get(KUSER), !defaultsUserId.isEmpty,
             let data = HKeychainSwift.defaults.getData(defaultsUserId),
-            let share = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? HUserStore,
+            let share = try? NSKeyedUnarchiver.unarchivedObject(ofClass: HUserStore.self, from: data),
             share.responds(to: #selector(loadObserver)) {
             share.loadObserver()
             return share
