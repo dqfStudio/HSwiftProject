@@ -18,6 +18,7 @@ enum HTableAlign {
     case center // 垂直居中，水平居中
     case top(CGFloat) // 垂直距离顶部的距离，水平居中
     case ratio(CGFloat) // 垂直距离顶部的比例，水平居中
+    case bottom(CGFloat) // 垂直距离底部的距离，水平居中
 }
 
 var kTableDefaultTag = 1615141312
@@ -202,6 +203,13 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         case .ratio(let ratio):
             let originX = (self.width - cntSize.width) / 2
             let originY = (self.height - cntSize.height) * ratio
+            self.contentInset = UIEdgeInsets(top: max(originY, 0),
+                                             left: max(originX, 0),
+                                             bottom: cntInset.bottom,
+                                             right: cntInset.right)
+        case .bottom(let bottom):
+            let originX = (self.width - cntSize.width) / 2
+            let originY = self.height - cntSize.height - bottom
             self.contentInset = UIEdgeInsets(top: max(originY, 0),
                                              left: max(originX, 0),
                                              bottom: cntInset.bottom,

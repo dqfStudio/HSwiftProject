@@ -22,6 +22,8 @@ target 'HSwiftProject' do
   pod 'RxSwift', '6.1.0'
   pod 'RxCocoa', '6.1.0'
 
+  pod 'ReactiveCocoa'
+
   # 代码规范
   pod 'SwiftLint', '0.43.1', configurations: ['Debug']
 
