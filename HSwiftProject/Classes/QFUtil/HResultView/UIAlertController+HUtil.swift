@@ -120,6 +120,48 @@ extension HPullController {
     
 }
 
+extension XAlertController {
+    
+    @discardableResult
+    static func showWalletAlert(completion: @escaping (_ actionStyle: Int) -> Void) -> XAlertController {
+        let cancelAction = HSheetAction(title: "取消".localized()) { index in
+            completion(index)
+        }
+        let alertController = XAlertController(title: nil, cancelAction: cancelAction)
+        // 转给Freechat钱包
+        let videoAction = HSheetAction(title: "转给Freechat钱包".localized()) { index in
+            completion(index)
+        }
+        alertController.addAction(videoAction)
+        // 转给Web 3钱包
+        let audioAction = HSheetAction(title: "转给Web 3钱包".localized()) { index in
+            completion(index)
+        }
+        alertController.addAction(audioAction)
+        return alertController
+    }
+    
+    @discardableResult
+    static func showVideoAlert(completion: @escaping (_ actionStyle: Int) -> Void) -> XAlertController {
+        let cancelAction = HSheetAction(title: "取消".localized()) { index in
+            completion(index)
+        }
+        let alertController = XAlertController(title: nil, cancelAction: cancelAction)
+        // 视频通话
+        let videoAction = HSheetAction(title: "视频通话".localized(), image: "Icon-video-phone") { index in
+            completion(index)
+        }
+        alertController.addAction(videoAction)
+        // 语音通话
+        let audioAction = HSheetAction(title: "语音通话".localized(), image: "Icon-audio-phone") { index in
+            completion(index)
+        }
+        alertController.addAction(audioAction)
+        return alertController
+    }
+    
+}
+
 extension HSheetController {
     
     @discardableResult

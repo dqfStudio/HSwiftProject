@@ -281,6 +281,12 @@
 		EBC306F92BEE300000EF8ABD /* HFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306F82BEE300000EF8ABD /* HFlowController.swift */; };
 		EBC306FB2BEE6BEC00EF8ABD /* HChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306FA2BEE6BEC00EF8ABD /* HChatView.swift */; };
 		EBC306FD2BEE71BE00EF8ABD /* HChatRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306FC2BEE71BE00EF8ABD /* HChatRefresh.swift */; };
+		EBC307142BF8914000EF8ABD /* HTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307132BF8914000EF8ABD /* HTransitionAnimator.swift */; };
+		EBC307162BF8A65A00EF8ABD /* HTransitionAnimator2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307152BF8A65A00EF8ABD /* HTransitionAnimator2.swift */; };
+		EBC307192BF8ACD500EF8ABD /* XTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307182BF8ACD500EF8ABD /* XTransitionAnimation.swift */; };
+		EBC3071B2BF8ACF800EF8ABD /* XPresentAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3071A2BF8ACF800EF8ABD /* XPresentAnimation.swift */; };
+		EBC3071D2BF8AD7B00EF8ABD /* XPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3071C2BF8AD7B00EF8ABD /* XPresentationController.swift */; };
+		EBC3071F2BF8AEF000EF8ABD /* XAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3071E2BF8AEF000EF8ABD /* XAlertController.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -639,6 +645,12 @@
 		EBC306F82BEE300000EF8ABD /* HFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowController.swift; sourceTree = "<group>"; };
 		EBC306FA2BEE6BEC00EF8ABD /* HChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatView.swift; sourceTree = "<group>"; };
 		EBC306FC2BEE71BE00EF8ABD /* HChatRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatRefresh.swift; sourceTree = "<group>"; };
+		EBC307132BF8914000EF8ABD /* HTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTransitionAnimator.swift; sourceTree = "<group>"; };
+		EBC307152BF8A65A00EF8ABD /* HTransitionAnimator2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTransitionAnimator2.swift; sourceTree = "<group>"; };
+		EBC307182BF8ACD500EF8ABD /* XTransitionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTransitionAnimation.swift; sourceTree = "<group>"; };
+		EBC3071A2BF8ACF800EF8ABD /* XPresentAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPresentAnimation.swift; sourceTree = "<group>"; };
+		EBC3071C2BF8AD7B00EF8ABD /* XPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPresentationController.swift; sourceTree = "<group>"; };
+		EBC3071E2BF8AEF000EF8ABD /* XAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAlertController.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -1058,6 +1070,8 @@
 				A2A814B7274CCA7200FAB929 /* HPresentAnimation.swift */,
 				A2A814B9274CCC1800FAB929 /* HPresentationController.swift */,
 				A2A814BD274D6C3000FAB929 /* HPushAnimation.swift */,
+				EBC307132BF8914000EF8ABD /* HTransitionAnimator.swift */,
+				EBC307152BF8A65A00EF8ABD /* HTransitionAnimator2.swift */,
 				EB9D332A2B038F97000B8F48 /* HPullController.swift */,
 				A2A814BF274E030100FAB929 /* HSheetController.swift */,
 				EB3541D82BE914D9003B1D69 /* HFlowDropVC.swift */,
@@ -1163,6 +1177,7 @@
 				EB43243429C588A300EDDB64 /* HAtrribute */,
 				EB43241029C2EB1200EDDB64 /* HLocale */,
 				EB43239E29B988A300EDDB64 /* HResultView */,
+				EBC307172BF8ACA600EF8ABD /* XTransitionAnimation */,
 				A2A81493274C059100FAB929 /* HTransitionAnimation */,
 				A2A7A93623FE2DED0090EFD3 /* HCycleScrollView */,
 				A28B651D23FCEF4A00B6B638 /* HNetwork */,
@@ -1522,6 +1537,18 @@
 			);
 			path = View;
 			sourceTree = "<group>";
+		};
+		EBC307172BF8ACA600EF8ABD /* XTransitionAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				EBC307182BF8ACD500EF8ABD /* XTransitionAnimation.swift */,
+				EBC3071A2BF8ACF800EF8ABD /* XPresentAnimation.swift */,
+				EBC3071C2BF8AD7B00EF8ABD /* XPresentationController.swift */,
+				EBC3071E2BF8AEF000EF8ABD /* XAlertController.swift */,
+			);
+			name = XTransitionAnimation;
+			path = HSwiftProject/Classes/QFUtil/XTransitionAnimation;
+			sourceTree = SOURCE_ROOT;
 		};
 		EBC813F029AA48C000A81431 /* HUserLive */ = {
 			isa = PBXGroup;
@@ -1964,6 +1991,7 @@
 				A28B652323FD26CE00B6B638 /* HNetworkManager.swift in Sources */,
 				EBD0FB3829CCA8D800808EDA /* HRemoteNotification.swift in Sources */,
 				EB9358F52AF4E5FC00716728 /* HMainController7.swift in Sources */,
+				EBC307192BF8ACD500EF8ABD /* XTransitionAnimation.swift in Sources */,
 				EB12098B2A85DA1A00E5F045 /* HPostCommentView.swift in Sources */,
 				EBA53C382A38AF000077158D /* HWebButtonView2.swift in Sources */,
 				EBA53C2E2A308BF00077158D /* HWebActionView.swift in Sources */,
@@ -2084,6 +2112,7 @@
 				A2A814C5274F56C400FAB929 /* UIView+HUtil.swift in Sources */,
 				EBD0FB7829D02B9600808EDA /* HUserDefaults+Property.swift in Sources */,
 				A28C314923EBB4D80050CDA1 /* HVerifyCodeView.swift in Sources */,
+				EBC3071F2BF8AEF000EF8ABD /* XAlertController.swift in Sources */,
 				EB1209812A827E1900E5F045 /* HPostHeader.swift in Sources */,
 				A28923A8238B72F800E4AB75 /* HTupleViewLayout.swift in Sources */,
 				EB50428D2A2C343C007E9FC7 /* HTableTextImageCell.swift in Sources */,
@@ -2104,6 +2133,8 @@
 				EB43241429C3163900EDDB64 /* HUserRegion.swift in Sources */,
 				EBD213D92A67783700C31E2D /* HNavigationBar2.swift in Sources */,
 				EB3541DB2BE91732003B1D69 /* HFlowDropVC+Extern.swift in Sources */,
+				EBC307142BF8914000EF8ABD /* HTransitionAnimator.swift in Sources */,
+				EBC3071D2BF8AD7B00EF8ABD /* XPresentationController.swift in Sources */,
 				EBED9CCA2A4D339700E590DE /* HDotIndicatorBar.swift in Sources */,
 				EBD0FB6B29D02B1000808EDA /* HUserStore.swift in Sources */,
 				EBD0FB3629CCA34800808EDA /* HLocalNotification.swift in Sources */,
@@ -2120,6 +2151,7 @@
 				EBC306F72BEE294500EF8ABD /* HFlowViewApex.swift in Sources */,
 				A2B42FCE237CED5A00795605 /* SceneDelegate.swift in Sources */,
 				A26D43452387827A00F457AE /* NSObject+HForwarding.swift in Sources */,
+				EBC3071B2BF8ACF800EF8ABD /* XPresentAnimation.swift in Sources */,
 				A26D432723853F2900F457AE /* NSObject+HMessy.swift in Sources */,
 				A229489F23975D850058B939 /* HTableViewCellHoriValue.swift in Sources */,
 				A2A814B4274C0E2000FAB929 /* HTupleHeader.swift in Sources */,
@@ -2208,6 +2240,7 @@
 				A2A7A93D23FE3A790090EFD3 /* HDotView.swift in Sources */,
 				A2B43075237FF2B100795605 /* HPrinterManager.swift in Sources */,
 				A22948A323975FB10058B939 /* HTableViewApexHoriValue.swift in Sources */,
+				EBC307162BF8A65A00EF8ABD /* HTransitionAnimator2.swift in Sources */,
 				A2A7A94923FE8A400090EFD3 /* HCycleScrollView.swift in Sources */,
 				EBC306FB2BEE6BEC00EF8ABD /* HChatView.swift in Sources */,
 				EB12098D2A85DA2A00E5F045 /* HPostCommentHeader.swift in Sources */,

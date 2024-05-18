@@ -291,7 +291,9 @@ extension HTupleController {
                     let navi = HNavigationController.fullScreenModalNavi(rootVC: HUserLiveVC())
                     self.present(navi, animated: true)
                 }else {
-                    let alertVC = HPullController.showVideoAlert { index in }
+//                    let alertVC = HPullController.showVideoAlert { index in }
+//                    self.presentController(alertVC, completion: nil)
+                    let alertVC = XAlertController.showVideoAlert { index in }
                     self.presentController(alertVC, completion: nil)
                 }
             }

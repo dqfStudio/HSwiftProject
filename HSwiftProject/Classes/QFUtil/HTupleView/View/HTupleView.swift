@@ -47,6 +47,7 @@ private var kTupleStateSourceKey: Void?
 /// Refresh & LoadMore block
 typealias HTupleRefreshBlock = () -> Void
 typealias HTupleLoadMoreBlock = () -> Void
+typealias HTupleOutsideCntBlock = () -> Void
 
 /// This class is used for refreshing tupleView throughout the project.
 class HTupleAppearance: NSObject {
@@ -199,6 +200,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     // Tuple style
     private var tupleStyle: HTupleStyle = .default
+    
+    // 实际内容之外的区域被点击
+    var outsideCntBlock: HTupleOutsideCntBlock?
     
     // tuple status
     var tupleStatus: HTupleStatus = .delegate
@@ -496,6 +500,29 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 self?.loadMoreBlock = nil
             }
         }
+    }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        guard let outsideCntBlock = self.outsideCntBlock else { return true }
+        // 将点击的点转换为collectionView的坐标系
+        let pointForCollectionView = convert(point, from: self)
+        
+        // 检查点击是否在任何可见的item或者supplementary view上
+        guard let layoutAttributes = collectionViewLayout.layoutAttributesForElements(in: CGRect(x: 0, y: 0, width: bounds.size.width, height: bounds.size.height)) else {
+            return true
+        }
+        
+        // 点击是否在cell或header/footer上
+        for attribute in layoutAttributes {
+            if attribute.representedElementCategory == .cell || attribute.representedElementCategory == .supplementaryView {
+                if attribute.frame.contains(pointForCollectionView) {
+                    return true
+                }
+            }
+        }
+        // 如果点击不在任何cell或header/footer上
+        outsideCntBlock()
+        return true
     }
 
     private var addressValue: String {
