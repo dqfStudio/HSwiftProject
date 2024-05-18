@@ -272,7 +272,6 @@
 		EBC306CD2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */; };
 		EBC306E62BEE24E500EF8ABD /* HFlowBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306E12BEE24E500EF8ABD /* HFlowBaseCell.swift */; };
 		EBC306E72BEE24E500EF8ABD /* HFlowViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306E22BEE24E500EF8ABD /* HFlowViewCell.swift */; };
-		EBC306EA2BEE25C100EF8ABD /* HFlowAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306E92BEE25C100EF8ABD /* HFlowAttributes.swift */; };
 		EBC306EC2BEE263200EF8ABD /* HFlowSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306EB2BEE263200EF8ABD /* HFlowSignal.swift */; };
 		EBC306F02BEE273000EF8ABD /* HFlowViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306EE2BEE273000EF8ABD /* HFlowViewLayout.swift */; };
 		EBC306F12BEE273000EF8ABD /* HFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306EF2BEE273000EF8ABD /* HFlowView.swift */; };
@@ -631,7 +630,6 @@
 		EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extern.swift"; sourceTree = "<group>"; };
 		EBC306E12BEE24E500EF8ABD /* HFlowBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowBaseCell.swift; sourceTree = "<group>"; };
 		EBC306E22BEE24E500EF8ABD /* HFlowViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowViewCell.swift; sourceTree = "<group>"; };
-		EBC306E92BEE25C100EF8ABD /* HFlowAttributes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowAttributes.swift; sourceTree = "<group>"; };
 		EBC306EB2BEE263200EF8ABD /* HFlowSignal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowSignal.swift; sourceTree = "<group>"; };
 		EBC306EE2BEE273000EF8ABD /* HFlowViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowViewLayout.swift; sourceTree = "<group>"; };
 		EBC306EF2BEE273000EF8ABD /* HFlowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowView.swift; sourceTree = "<group>"; };
@@ -1509,7 +1507,6 @@
 		EBC306E42BEE24E500EF8ABD /* HFlowCommon */ = {
 			isa = PBXGroup;
 			children = (
-				EBC306E92BEE25C100EF8ABD /* HFlowAttributes.swift */,
 				EBC306F22BEE28E000EF8ABD /* HFlowRefresh.swift */,
 				EBC306EB2BEE263200EF8ABD /* HFlowSignal.swift */,
 			);
@@ -2066,7 +2063,6 @@
 				EB4323F429B98C9400EDDB64 /* HNaviToastView.swift in Sources */,
 				EBC306EC2BEE263200EF8ABD /* HFlowSignal.swift in Sources */,
 				EBC8146129AA53C600A81431 /* HSendAudioVC+HStatus5.swift in Sources */,
-				EBC306EA2BEE25C100EF8ABD /* HFlowAttributes.swift in Sources */,
 				EB3541C72BE8C7F3003B1D69 /* HChatsMsgVC.swift in Sources */,
 				EBD0FB2C29CC9AEF00808EDA /* UIColor+HSkin.swift in Sources */,
 				EBD0FBB229DBEE4800808EDA /* HNumberFormatter.swift in Sources */,
