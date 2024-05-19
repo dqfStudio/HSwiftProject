@@ -25,7 +25,7 @@ extension HRegisterController {
 
     @objc
     func tuple1_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
-        let cell = tuple.cell(HTupleFieldCell.self, "tuple1", true, indexPath) as! HTupleFieldCell
+        let cell = tuple.reuseCell(HTupleFieldCell.self, "tuple1", true, indexPath) as! HTupleFieldCell
         cell.textField.backgroundColor = UIColor(hex: "#F2F2F2")
 
         cell.textField.leftWidth = 80

@@ -11,7 +11,13 @@ import UIKit
 class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
 
     lazy var tupleView: HTupleView = {
-        let view = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
+        let view = HTupleView.tupleFrame {
+            return self.bounds
+        } mode: {
+            return .delegate
+        } layout: {
+            return HTupleViewLayout(.horizontal, .manual)
+        }
         view.backgroundColor = .clear
         view.disableBounce()
         return view
@@ -79,7 +85,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+            let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             cell.backgroundColor = .black
             cell.cornerRadius = cell.height / 2
             
@@ -133,13 +139,13 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             
             break
         case 1:
-            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+            let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.label.font = .systemFont(ofSize: 14.0)
             cell.label.textAlignment = .center
             cell.label.textColor = HColorHex("#0B0A0C")
             break
         case 2:
-            let cell = tuple.cell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
+            let cell = tuple.reuseCell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
@@ -153,7 +159,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             }
             break
         case 3:
-            let cell = tuple.cell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
+            let cell = tuple.reuseCell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
@@ -167,7 +173,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             }
             break
         case 4:
-            let cell = tuple.cell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
+            let cell = tuple.reuseCell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
@@ -181,7 +187,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             }
             break
         case 5:
-            let cell = tuple.cell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
+            let cell = tuple.reuseCell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
             cell.buttonView.setImage(WithName: "icon_no_server")
@@ -204,7 +210,13 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
 class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
-        let view = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
+        let view = HTupleView.tupleFrame {
+            return self.bounds
+        } mode: {
+            return .delegate
+        } layout: {
+            return HTupleViewLayout(.horizontal, .manual)
+        }
         view.backgroundColor = .clear
         view.disableBounce()
         return view
@@ -247,7 +259,7 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {      
         switch (indexPath.row) {
         case 0:
-            let cell = tuple.cell(HTupleViewCellHoriValue2.self, nil, true, indexPath) as! HTupleViewCellHoriValue2
+            let cell = tuple.reuseCell(HTupleViewCellHoriValue2.self, nil, true, indexPath) as! HTupleViewCellHoriValue2
             cell.layoutView.backgroundColor = UIColor.black
             cell.layoutView.cornerRadius = cell.layoutView.height / 2
             
@@ -266,7 +278,7 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
             cell.detailLabel.text = "›"
             break
         case 1:
-            let cell = tuple.cell(HTupleViewCellHoriValue2.self, nil, true, indexPath) as! HTupleViewCellHoriValue2
+            let cell = tuple.reuseCell(HTupleViewCellHoriValue2.self, nil, true, indexPath) as! HTupleViewCellHoriValue2
             cell.layoutView.backgroundColor = UIColor.black
             cell.layoutView.cornerRadius = cell.layoutView.height / 2
             
@@ -285,7 +297,7 @@ class HUserLiveTopHonorView : UIView, HTupleViewDelegate {
             cell.detailLabel.text = "›"
             break
         case 2:
-            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+            let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.label.font = UIFont.systemFont(ofSize: 10)
             cell.label.textAlignment = .center
             cell.label.textColor = UIColor.white
@@ -334,14 +346,14 @@ extension HUserLiveCell {
     }
     @objc
     func tupleExa0_tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.header(HTupleBaseApex.self, nil, true, indexPath) as! HTupleBaseApex
+        let cell = tuple.reuseHeader(HTupleBaseApex.self, nil, true, indexPath) as! HTupleBaseApex
         cell.backgroundColor = UIColor.clear
     }
     @objc
     func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {      
         switch (indexPath.row) {
         case 0:
-            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             var topHeaderView = cell.viewWithTag(123456) as? HUserLiveTopHeaderView
             if topHeaderView == nil {
                 topHeaderView = HUserLiveTopHeaderView(frame: cell.bounds)
@@ -350,7 +362,7 @@ extension HUserLiveCell {
             }
             break
         case 1:
-            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             var topHonorView = cell.viewWithTag(234567) as? HUserLiveTopHonorView
             if (topHonorView == nil) {
                 topHonorView = HUserLiveTopHonorView(frame: cell.bounds)
@@ -359,7 +371,7 @@ extension HUserLiveCell {
             }
             break
         case 2:
-//            let cell = tuple.cell(HTupleViewMarqueeCell.self, nil, true, indexPath) as! HTupleViewMarqueeCell
+//            let cell = tuple.reuseCell(HTupleViewMarqueeCell.self, nil, true, indexPath) as! HTupleViewMarqueeCell
 //            cell.layoutView.backgroundColor = UIColor.black
 //            cell.layoutView.cornerRadius = cell.layoutView.height / 2
 //            cell.msg = "测试通告!!!"
@@ -369,7 +381,7 @@ extension HUserLiveCell {
 //                NSLog("")
 //            }
             
-            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleLayoutCell.self, nil, true, indexPath) as! HTupleLayoutCell
             cell.layoutView.backgroundColor = UIColor.black
             cell.layoutView.cornerRadius = cell.layoutView.height / 2
             
@@ -390,7 +402,7 @@ extension HUserLiveCell {
 //            [noticeBrowse reloadData]
             break
         case 3:
-            let cell = tuple.cell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
+            let cell = tuple.reuseCell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.cornerRadius = cell.layoutViewFrame.height / 2
             cell.buttonView.backgroundColor = UIColor.yellow
             cell.buttonView.text = "测试公告"

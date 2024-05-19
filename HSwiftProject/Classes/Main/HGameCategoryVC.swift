@@ -11,14 +11,18 @@ import UIKit
 class HGameCategoryVC : HViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
-        var frame = UIScreen.bound
-        frame.y += UIScreen.topBarHeight
-        frame.height -= UIScreen.topBarHeight
-        let tupleView = HTupleView.tupleFrame({
+        let tupleView = HTupleView.splitFrame {
+            var frame = UIScreen.bound
+            frame.y += UIScreen.topBarHeight
+            frame.height -= UIScreen.topBarHeight
             return frame
-        }, exclusiveSections: {
+        } mode: {
+            return .delegate
+        } exclusiveSections: {
             return [0, 1, 2]
-        })
+        } layout: {
+            return HTupleViewLayout(.vertical, .manual)
+        }
         return tupleView
     }()
     

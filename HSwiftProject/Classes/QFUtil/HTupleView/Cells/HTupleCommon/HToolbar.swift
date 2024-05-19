@@ -15,7 +15,13 @@ class HToolbar: UIStackView, HTupleViewDelegate {
     
     // A lazy-loaded HTupleView instance
     private lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView(frame: .zero, scrollDirection: .horizontal)
+        let tupleView = HTupleView.tupleFrame({
+            return .zero
+        }, mode: {
+            return .delegate
+        }, layout: {
+            return HTupleViewLayout(.horizontal, .manual)
+        })
         tupleView.isScrollEnabled = false
         return tupleView
     }()
@@ -68,7 +74,7 @@ class HToolbar: UIStackView, HTupleViewDelegate {
 
     // Configures the tuple item at the specified index path
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {        
-        let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+        let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
         let item = self.items?[indexPath.row]
         cell.label.textAlignment = .center
         cell.label.text = item

@@ -32,7 +32,7 @@ extension HSendVideoVC {
     func tupleExa2_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         switch (indexPath.row) {
         case 0:
-            let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+            let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             let frame = CGRect(x: 20, y: UIScreen.naviBarHeight + 15, width: 30, height: 30)
             cell.buttonView.frame = frame
             cell.buttonView.setImage(WithName: "mdeia-reduce")
@@ -41,10 +41,10 @@ extension HSendVideoVC {
             }
             break
         case 1:
-            _ = tuple.cell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
             break
         case 2:
-            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+            let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.label.text = "暂时无法接通，请稍后尝试..."
             cell.label.textColor = UIColor.white
             cell.label.font = .systemFont(ofSize: 14.0)
@@ -52,10 +52,10 @@ extension HSendVideoVC {
             cell.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             break
         case 3:
-            _ = tuple.cell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
             break
         case 4:
-            let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+            let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             let bounds: CGRect = cell.layoutViewBounds
 
             let frame1 = CGRect(x: bounds.size.width / 2 - 40 - kSendVideoHeight1, y: 0, width: kSendVideoHeight1, height: kSendVideoHeight1)
@@ -88,10 +88,10 @@ extension HSendVideoVC {
             cell.detailLabel.textAlignment = .center
             break
         case 5:
-            _ = tuple.cell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
             break
         case 6:
-            let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+            let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             let bounds: CGRect = cell.layoutViewBounds
 
             let frame1 = CGRect(x: bounds.size.width / 2 - kSendVideoHeight2 / 2, y: 0, width: kSendVideoHeight2, height: kSendVideoHeight2)
@@ -109,7 +109,7 @@ extension HSendVideoVC {
             cell.label.textAlignment = .center
             break
         case 7:
-            _ = tuple.cell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
             break
 
         default:

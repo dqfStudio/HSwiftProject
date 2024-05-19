@@ -25,11 +25,15 @@ class HPostCommentView: UIStackView, HTupleViewDelegate {
     weak var tuple: HTupleView?
     
     private lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView.tupleFrame({
+        let tupleView = HTupleView.splitFrame {
             return self.bounds
-        }, exclusiveSections: {
+        } mode: {
+            return .delegate
+        } exclusiveSections: {
             return [0, 1, 2, 3, 4, 5]
-        })
+        } layout: {
+            return HTupleViewLayout(.vertical, .manual)
+        }
         tupleView.isScrollEnabled = false
         tupleView.disableBounce()
         return tupleView
@@ -81,7 +85,7 @@ extension HPostCommentView {
     
     @objc
     func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.cell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
+        let cell = tuple.reuseCell(HTupleLayoutCell.self, indexPath.stringValue, true, indexPath) as! HTupleLayoutCell
         let frame = cell.layoutViewBounds
         
         var headerView = cell.layoutView.viewWithTag(121314) as? HPostCommentHeader
@@ -128,7 +132,7 @@ extension HPostCommentView {
     
     @objc
     func tupleExa1_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.cell(HTupleLabelCell.self, indexPath.stringValue, true, indexPath) as! HTupleLabelCell
+        let cell = tuple.reuseCell(HTupleLabelCell.self, indexPath.stringValue, true, indexPath) as! HTupleLabelCell
         cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
         cell.label.textColor = UIColor(hex: "#17191E")
         cell.label.numberOfLines = 0
@@ -171,13 +175,13 @@ extension HPostCommentView {
     func tupleExa2_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         // 是否已经翻译过了
         if postVM.postTranslate == .isTranslated {
-            let cell = tuple.cell(HTupleLabelCell.self, indexPath.stringValue, true, indexPath) as! HTupleLabelCell
+            let cell = tuple.reuseCell(HTupleLabelCell.self, indexPath.stringValue, true, indexPath) as! HTupleLabelCell
             cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
             cell.label.textColor = UIColor(hex: "#17191E")
             cell.label.numberOfLines = 0
             cell.label.text = postVM.post
         } else {
-            let cell = tuple.cell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
+            let cell = tuple.reuseCell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
             
             let frame = cell.layoutViewBounds
             let width = "翻译内容".widthWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToHeight: postTranslateSpace - 8.0)
@@ -220,7 +224,7 @@ extension HPostCommentView {
     
     @objc
     func tupleExa3_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.cell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
+        let cell = tuple.reuseCell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
         let frame = cell.layoutViewBounds
         
         let string1 = "14小时前"
@@ -273,7 +277,7 @@ extension HPostCommentView {
     
     @objc
     func tupleExa4_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.cell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
+        let cell = tuple.reuseCell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
         let frame = cell.layoutViewBounds
         
         let ff = true
@@ -346,7 +350,7 @@ extension HPostCommentView {
     
     @objc
     func tupleExa5_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
-        _ = tuple.cell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
+        _ = tuple.reuseCell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
     }
     
 }

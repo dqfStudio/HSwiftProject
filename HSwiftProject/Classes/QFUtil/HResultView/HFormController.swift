@@ -82,7 +82,7 @@ class HFormController: NSObject, HTupleViewDelegate {
 //        }
     }
     func tupleFooter(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.footer(HTupleButtonApex.self, nil, true, indexPath) as! HTupleButtonApex
+        let cell = tuple.reuseFooter(HTupleButtonApex.self, nil, true, indexPath) as! HTupleButtonApex
         cell.buttonView.backgroundColor = UIColor.white
         cell.buttonView.textColor = UIColor.black
         cell.buttonView.text = "取消"
@@ -92,7 +92,7 @@ class HFormController: NSObject, HTupleViewDelegate {
         }
     }
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {        
-        let cell = tuple.cell(HFormCell.self, nil, true, indexPath) as! HFormCell
+        let cell = tuple.reuseCell(HFormCell.self, nil, true, indexPath) as! HFormCell
         cell.modelArr = self.sourceArr
         
         //配置参数

@@ -62,7 +62,7 @@ class HWaitingView: UIView, HTupleViewDelegate {
     }
 
     func tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.header(HTupleAnimatedImageApex.self, nil, true, indexPath) as! HTupleAnimatedImageApex
+        let cell = tuple.reuseHeader(HTupleAnimatedImageApex.self, nil, true, indexPath) as! HTupleAnimatedImageApex
         
         if let make = make {
             if let bgColor = make.bgColor {
@@ -83,7 +83,7 @@ class HWaitingView: UIView, HTupleViewDelegate {
     }
     
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
-        let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+        let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
         
         cell.label.backgroundColor = UIColor.white
         cell.label.font = .systemFont(ofSize: 14.0)

@@ -56,7 +56,7 @@ class HPostCommentVC: HViewController, HTupleViewDelegate {
     }
     
     func tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.header(HTupleBaseApex.self, "\(indexPath.section)", true, indexPath) as! HTupleBaseApex
+        let cell = tuple.reuseHeader(HTupleBaseApex.self, "\(indexPath.section)", true, indexPath) as! HTupleBaseApex
         cell.backgroundColor = .yellow
         guard indexPath.section < postList.count else { return }
         
@@ -84,7 +84,7 @@ class HPostCommentVC: HViewController, HTupleViewDelegate {
     }
 
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
-        let cell = tuple.cell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
+        let cell = tuple.reuseCell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
         cell.backgroundColor = .green
         guard indexPath.row < postList.count else { return }
 

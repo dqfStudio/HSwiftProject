@@ -33,17 +33,17 @@ extension HRegisterController {
 
     @objc
     func tuple0_tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.header(HTupleBaseApex.self, nil, false, indexPath) as! HTupleBaseApex
+        let cell = tuple.reuseHeader(HTupleBaseApex.self, nil, false, indexPath) as! HTupleBaseApex
         cell.backgroundColor = .red
     }
     @objc
     func tuple0_tupleFooter(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.footer(HTupleBaseApex.self, nil, false, indexPath) as! HTupleBaseApex
+        let cell = tuple.reuseFooter(HTupleBaseApex.self, nil, false, indexPath) as! HTupleBaseApex
         cell.backgroundColor = .blue
     }
     @objc
     func tuple0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {        
-        let cell = tuple.cell(HTupleFieldCell.self, "tuple0", true, indexPath) as! HTupleFieldCell
+        let cell = tuple.reuseCell(HTupleFieldCell.self, "tuple0", true, indexPath) as! HTupleFieldCell
         cell.textField.backgroundColor = UIColor(hex: "#F2F2F2")
 
         cell.textField.leftWidth = 80

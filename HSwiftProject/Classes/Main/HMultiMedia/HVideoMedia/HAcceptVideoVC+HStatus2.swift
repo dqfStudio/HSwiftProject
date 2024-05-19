@@ -32,7 +32,7 @@ extension HAcceptVideoVC {
     func tupleExa1_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         switch (indexPath.row) {
         case 0:
-            let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+            let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             let frame = CGRect(x: 20, y: UIScreen.naviBarHeight + 15, width: 30, height: 30)
             cell.buttonView.frame = frame
             cell.buttonView.setImage(WithName: "mdeia-reduce")
@@ -40,7 +40,7 @@ extension HAcceptVideoVC {
                 self.dismiss(animated: true)
             }
         case 1:
-            let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+            let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             let bounds: CGRect = cell.layoutViewBounds
 
             let frame1 = CGRect(x: bounds.size.width - 20 - kAcceptVideoHeight1, y: 0, width: kAcceptVideoHeight1, height: kAcceptVideoHeight1 * 1.5)
@@ -50,7 +50,7 @@ extension HAcceptVideoVC {
                 
             }
         case 2:
-            let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+            let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
         
             let bounds: CGRect = cell.layoutViewBounds
             
@@ -68,9 +68,9 @@ extension HAcceptVideoVC {
             cell.label.font = UIFont.systemFont(ofSize: 12)
             cell.label.textAlignment = .center
         case 3:
-            _ = tuple.cell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
         case 4:
-            let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+            let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             let bounds: CGRect = cell.layoutViewBounds
 
             let frame1 = CGRect(x: bounds.size.width / 2 - 40 - kAcceptVideoHeight1, y: 0, width: kAcceptVideoHeight1, height: kAcceptVideoHeight1)
@@ -102,9 +102,9 @@ extension HAcceptVideoVC {
             cell.detailLabel.font = UIFont.systemFont(ofSize: 12)
             cell.detailLabel.textAlignment = .center
         case 5:
-            _ = tuple.cell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
         case 6:
-            let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+            let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             let bounds: CGRect = cell.layoutViewBounds
 
             let frame1 = CGRect(x: 40, y: 5, width: kAcceptVideoHeight1, height: kAcceptVideoHeight1)
@@ -151,7 +151,7 @@ extension HAcceptVideoVC {
             cell.accsryLabel.textAlignment = .center
             break
         case 7:
-            _ = tuple.cell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
         default:
             break
         }

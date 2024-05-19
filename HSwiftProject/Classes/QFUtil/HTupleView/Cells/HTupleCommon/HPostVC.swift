@@ -47,7 +47,7 @@ class HPostVC: HViewController, HTupleViewDelegate {
     }
 
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {        
-        let cell = tuple.cell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
+        let cell = tuple.reuseCell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
         cell.backgroundColor = .yellow
         guard indexPath.row < postList.count else { return }
         

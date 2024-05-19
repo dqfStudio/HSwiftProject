@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTupleLabelApex: HTupleBaseApex {
+class HTupleLabelApex: HTupleLayoutApex {
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
@@ -21,7 +21,7 @@ class HTupleLabelApex: HTupleBaseApex {
     }
 }
 
-class HTupleTextApex: HTupleBaseApex {
+class HTupleTextApex: HTupleLayoutApex {
     lazy var textView: HTextView = {
         let textView = HTextView()
         textView.font = .systemFont(ofSize: 14.0)
@@ -34,7 +34,7 @@ class HTupleTextApex: HTupleBaseApex {
     }
 }
 
-class HTupleButtonApex: HTupleBaseApex {
+class HTupleButtonApex: HTupleLayoutApex {
     lazy var buttonView: HWebButtonView = {
         let buttonView = HWebButtonView()
         self.layoutView.addSubview(buttonView)
@@ -46,7 +46,7 @@ class HTupleButtonApex: HTupleBaseApex {
     }
 }
 
-class HTupleImageApex: HTupleBaseApex {
+class HTupleImageApex: HTupleLayoutApex {
     lazy var imageView: HWebImageView = {
         let imageView = HWebImageView()
         self.layoutView.addSubview(imageView)
@@ -58,7 +58,7 @@ class HTupleImageApex: HTupleBaseApex {
     }
 }
 
-class HTupleAnimatedImageApex: HTupleBaseApex {
+class HTupleAnimatedImageApex: HTupleLayoutApex {
     lazy var imageView: HAnimatedImageView = {
         let imageView = HAnimatedImageView()
         self.layoutView.addSubview(imageView)
@@ -70,7 +70,7 @@ class HTupleAnimatedImageApex: HTupleBaseApex {
     }
 }
 
-class HTupleFieldApex: HTupleBaseApex {
+class HTupleFieldApex: HTupleLayoutApex {
     lazy var textField: HTextField = {
         let textField = HTextField()
         HLayoutTupleApex(textField)
@@ -83,7 +83,7 @@ class HTupleFieldApex: HTupleBaseApex {
     }
 }
 
-class HTupleViewApex: HTupleBaseApex {
+class HTupleViewApex: HTupleLayoutApex {
 
     ///label
     lazy var label: UILabel = {
@@ -180,6 +180,106 @@ class HTupleViewApex: HTupleBaseApex {
         let textField = HTextField()
         HLayoutTupleApex(textField)
         self.layoutView.addSubview(textField)
+        return textField
+    }()
+
+}
+
+
+class HTupleAutoApex: HTupleBaseApex {
+
+    ///label
+    lazy var label: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14.0)
+        self.addSubview(label)
+        return label
+    }()
+    lazy var detailLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14.0)
+        self.addSubview(label)
+        return label
+    }()
+    lazy var accsryLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14.0)
+        self.addSubview(label)
+        return label
+    }()
+
+
+    ///textView
+    lazy var textView: HTextView = {
+        let textView = HTextView()
+        textView.font = .systemFont(ofSize: 14.0)
+        self.addSubview(textView)
+        return textView
+    }()
+    lazy var detailText: HTextView = {
+        let textView = HTextView()
+        textView.font = .systemFont(ofSize: 14.0)
+        self.addSubview(textView)
+        return textView
+    }()
+    lazy var accsryText: HTextView = {
+        let textView = HTextView()
+        textView.font = .systemFont(ofSize: 14.0)
+        self.addSubview(textView)
+        return textView
+    }()
+
+
+    ///button
+    lazy var buttonView: HWebButtonView = {
+        let buttonView = HWebButtonView()
+        self.addSubview(buttonView)
+        return buttonView
+    }()
+    lazy var detailButton: HWebButtonView = {
+        let buttonView = HWebButtonView()
+        self.addSubview(buttonView)
+        return buttonView
+    }()
+    lazy var accsryButton: HWebButtonView = {
+        let buttonView = HWebButtonView()
+        self.addSubview(buttonView)
+        return buttonView
+    }()
+
+
+    ///imageView
+    lazy var imageView: HWebImageView = {
+        let imageView = HWebImageView()
+        self.addSubview(imageView)
+        return imageView
+    }()
+    lazy var detailView: HWebImageView = {
+        let imageView = HWebImageView()
+        self.addSubview(imageView)
+        return imageView
+    }()
+    lazy var accsryView: HWebImageView = {
+        let imageView = HWebImageView()
+        self.addSubview(imageView)
+        return imageView
+    }()
+
+
+    ///textField
+    lazy var textField: HTextField = {
+        let textField = HTextField()
+        self.addSubview(textField)
+        return textField
+    }()
+    lazy var detailField: HTextField = {
+        let textField = HTextField()
+        self.addSubview(textField)
+        return textField
+    }()
+    lazy var accsryField: HTextField = {
+        let textField = HTextField()
+        self.addSubview(textField)
         return textField
     }()
 

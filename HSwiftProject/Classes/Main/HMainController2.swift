@@ -43,7 +43,7 @@ class HMainController2: HViewController {
             return 70
         }
         naviBar.itemBlock = { (tuple: HTupleView, indexPath: IndexPath) in
-            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+            let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.label.text = "\(indexPath.row)"
             cell.label.textColor = UIColor.red
             cell.label.textAlignment = .center

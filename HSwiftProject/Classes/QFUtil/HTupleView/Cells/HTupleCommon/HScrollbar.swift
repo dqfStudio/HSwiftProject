@@ -15,7 +15,13 @@ class HScrollbar: UIStackView, HTupleViewDelegate {
     
     // A lazy-loaded HTupleView instance
     private lazy var tupleView: HTupleView = {
-        return HTupleView(frame: .zero, scrollDirection: .horizontal)
+        return HTupleView.tupleFrame {
+            return .zero
+        } mode: {
+            return .delegate
+        } layout: {
+            return HTupleViewLayout(.horizontal, .manual)
+        }
     }()
     
     // Indicator bar
@@ -133,7 +139,7 @@ class HScrollbar: UIStackView, HTupleViewDelegate {
 
     // Configures the tuple item at the specified index path
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
-        let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+        let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
         let bounds = cell.layoutViewBounds
         let labelFrame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height - self.indicatorBarHeight)
         

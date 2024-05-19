@@ -23,10 +23,14 @@ var kSendVideoHeight2: CGFloat = 65.0
 class HSendVideoVC: HViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView.tupleFrame({
+        let tupleView = HTupleView.splitFrame({
             return UIScreen.bound
+        }, mode: {
+            return .delegate
         }, exclusiveSections: {
             return []
+        }, layout: {
+            return HTupleViewLayout(.vertical, .manual)
         })
         return tupleView
     }()

@@ -10,7 +10,7 @@ import UIKit
 
 typealias HTupleViewTextLoopApexBlock = (_ selectString: NSString, _ index: Int) -> Void
 
-class HTupleViewTextLoopApex: HTupleBaseApex {
+class HTupleViewTextLoopApex: HTupleLayoutApex {
 
     var contentArr: NSArray? {
         didSet {

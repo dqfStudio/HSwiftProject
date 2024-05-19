@@ -11,14 +11,18 @@ import UIKit
 class HRegisterController: HViewController, HTupleViewDelegate {
 
     lazy var tupleView: HTupleView = {
-        var frame = UIScreen.bound
-        frame.origin.y += UIScreen.topBarHeight
-        frame.size.height -= UIScreen.topBarHeight
-        let tupleView = HTupleView.tupleFrame({
+        let tupleView = HTupleView.splitFrame {
+            var frame = UIScreen.bound
+            frame.origin.y += UIScreen.topBarHeight
+            frame.size.height -= UIScreen.topBarHeight
             return frame
-        }, exclusiveSections: {
+        } mode: {
+            return .delegate
+        } exclusiveSections: {
             return [0]
-        })
+        } layout: {
+            return HTupleViewLayout(.vertical, .manual)
+        }
         return tupleView
     }()
 
@@ -130,7 +134,7 @@ class HRegisterController: HViewController, HTupleViewDelegate {
     }
     @objc
     func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
-        let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+        let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
 //        let tabBar = cell.viewWithTag(12345) as? HTabBar
 //        if tabBar == nil {
 //            cell.addSubview(self.tabBarView)

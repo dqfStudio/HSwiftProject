@@ -15,7 +15,13 @@ class HDotIndicatorBar: UIStackView, HTupleViewDelegate {
     
     // A lazy-loaded HTupleView instance
     private lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView(frame: .zero, scrollDirection: .horizontal)
+        let tupleView = HTupleView.tupleFrame({
+            return .zero
+        }, mode: {
+            return .delegate
+        }, layout: {
+            return HTupleViewLayout(.horizontal, .manual)
+        })
         tupleView.isScrollEnabled = false
         return tupleView
     }()
@@ -82,7 +88,7 @@ class HDotIndicatorBar: UIStackView, HTupleViewDelegate {
 
     // Configures the tuple item at the specified index path
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+        let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
         cell.cornerRadius = self.height / 2
         // Set the color of the title based on whether it is selected or not
         if self.selectedIndex == indexPath.section {

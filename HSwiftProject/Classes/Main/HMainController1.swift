@@ -43,7 +43,7 @@ class HMainController1: HViewController {
             return self.view.width / 4
         }
         activeBar.itemBlock = { (tuple: HTupleView, indexPath: IndexPath) in
-            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+            let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.label.textAlignment = .center
             switch indexPath.row {
             case 0:
@@ -83,7 +83,7 @@ class HMainController1: HViewController {
         let activeView = HActiveView(frame: activeFrame)
         
         let tupleVC = HTupleController()
-        let flowVC = HFlowController()
+        let flowVC = HTupleAutoVC()
         let chatVC = HChatsMsgVC()
         let postVC = HPostVC()
         

@@ -85,12 +85,12 @@ extension HAuthView {
     
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
         if indexPath.row == 0 {
-            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+            let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.label.textColor = self.nameColor
             cell.label.font = self.nameFont
             cell.label.text = self.nameString
         }else {
-            let cell = tuple.cell(HTupleImageCell.self, nil, true, indexPath) as! HTupleImageCell
+            let cell = tuple.reuseCell(HTupleImageCell.self, nil, true, indexPath) as! HTupleImageCell
             if indexPath.row <= self.auths.count {
                 let authIndex = indexPath.row - 1
                 let auth = self.auths[authIndex]

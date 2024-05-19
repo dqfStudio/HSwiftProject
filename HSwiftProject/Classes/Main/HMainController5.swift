@@ -94,7 +94,7 @@ class HMainController5: HViewController {
             return self.view.width / 3
         }
         activeBar.itemBlock = { (tuple: HTupleView, indexPath: IndexPath) in
-            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+            let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.label.textAlignment = .center
             switch indexPath.row {
             case 0:

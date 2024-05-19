@@ -32,7 +32,13 @@ class HInputBoxView: UIView, HTupleViewDelegate {
     }()
     
     lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
+        let tupleView = HTupleView.tupleFrame {
+            return self.bounds
+        } mode: {
+            return .delegate
+        } layout: {
+            return HTupleViewLayout(.horizontal, .manual)
+        }
         tupleView.backgroundColor = .clear
         tupleView.disableBounce()
         return tupleView
@@ -91,7 +97,7 @@ class HInputBoxView: UIView, HTupleViewDelegate {
     }
 
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {        
-        let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+        let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
         let string = self.textField.text ?? ""
         if textField.isFirstResponder, indexPath.section == string.length {
             cell.backgroundColor = .clear
@@ -128,7 +134,7 @@ class HInputBoxView: UIView, HTupleViewDelegate {
     }
     
     func tupleFooter(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.footer(HTupleBaseApex.self, nil, true, indexPath) as! HTupleBaseApex
+        let cell = tuple.reuseFooter(HTupleBaseApex.self, nil, true, indexPath) as! HTupleBaseApex
         cell.backgroundColor = .clear
     }
     

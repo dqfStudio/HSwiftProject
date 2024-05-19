@@ -11,13 +11,17 @@ import UIKit
 class HMainController3: HViewController, HTupleViewDelegate {
 
     lazy var tupleView: HTupleView = {
-        var frame = UIScreen.bound
-        frame.origin.y += UIScreen.topBarHeight
-        frame.size.height -= UIScreen.topBarHeight
-        let tupleView = HTupleView.tupleFrame({
+        let tupleView = HTupleView.splitFrame({
+            var frame = UIScreen.bound
+            frame.origin.y += UIScreen.topBarHeight
+            frame.size.height -= UIScreen.topBarHeight
             return frame
+        }, mode: {
+            return .delegate
         }, exclusiveSections: {
             return [0, 1, 2]
+        }, layout: {
+            return HTupleViewLayout(.vertical, .manual)
         })
         return tupleView
     }()

@@ -55,13 +55,17 @@ class HSheetController: HViewController, HTupleViewDelegate {
     }()
 
     private lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView.tupleFrame({
+        let tupleView = HTupleView.splitFrame {
             var frame = CGRect.zero
             frame.size = self.containerSize
             return frame
-        }, exclusiveSections: {
+        } mode: {
+            return .delegate
+        } exclusiveSections: {
             return [0, 1, 2]
-        })
+        } layout: {
+            return HTupleViewLayout(.vertical, .manual)
+        }
         tupleView.backgroundColor = UIColor.clear
         tupleView.setCornerRadiiOnTop(16)
         tupleView.isScrollEnabled = false
@@ -146,20 +150,20 @@ extension HSheetController {
         if let title = _title, !title.isEmpty {
             switch (indexPath.row) {
             case 0:
-                let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+                let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
                 cell.backgroundColor = UIColor.white
                 cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
                 cell.label.textColor = UIColor.black
                 cell.label.textAlignment = .center
                 cell.label.text = title
             case 1:
-                let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+                let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
                 cell.backgroundColor = UIColor(hex: 0xF7F8FA)
             default:
                 break
             }
         } else {
-            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor.white
         }
     }
@@ -189,7 +193,7 @@ extension HSheetController {
         let row = indexPath.row % 2
         switch row {
         case 0:
-            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleLayoutCell.self, nil, true, indexPath) as! HTupleLayoutCell
             cell.backgroundColor = UIColor.white
             var button = cell.viewWithTag(12345) as? HWebButtonView
             if button == nil {
@@ -220,7 +224,7 @@ extension HSheetController {
                 self.naviBack()
             }
         case 1:
-            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor(hex: 0xF7F8FA)
         default:
             break
@@ -253,10 +257,10 @@ extension HSheetController {
     func tupleExa2_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
         switch (indexPath.row) {
         case 0:
-            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor(hex: 0xF7F8FA)
         case 1:
-            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+            let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.backgroundColor = UIColor.white
             cell.label.font = UIFont.font(ofSize: 16, weight: .medium)
             cell.label.textColor = UIColor.black
@@ -268,7 +272,7 @@ extension HSheetController {
             }
             break
         case 2:
-            let cell = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor.white
         default:
             break

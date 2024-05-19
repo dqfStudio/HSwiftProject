@@ -12,7 +12,7 @@ private let kRunloopCount: CGFloat = 5.0
 
 typealias HTupleBannerCellBlock = (_ index: Int, _ url: String) -> Void
 
-class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
+class HTupleBannerCell : HTupleLayoutCell, HTupleViewDelegate {
     
     // dot之间的间隔
     var dotSpace: CGFloat = 8.0
@@ -115,7 +115,13 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     }
     
     lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView(frame: layoutViewBounds, scrollDirection: .horizontal)
+        let tupleView = HTupleView.tupleFrame {
+            return self.layoutViewBounds
+        } mode: {
+            return .delegate
+        } layout: {
+            return HTupleViewLayout(.horizontal, .manual)
+        }
         tupleView.backgroundColor = .clear
         tupleView.isPagingEnabled = true
         return tupleView
@@ -144,7 +150,7 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     }
     
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.cell(HTupleButtonCell.self, "banner", true, indexPath) as! HTupleButtonCell
+        let cell = tuple.reuseCell(HTupleButtonCell.self, "banner", true, indexPath) as! HTupleButtonCell
         if let imageUrlArr = imageUrlArr {
             let index = indexPath.section % imageUrlArr.count
             let imageUrlString = imageUrlArr[index]

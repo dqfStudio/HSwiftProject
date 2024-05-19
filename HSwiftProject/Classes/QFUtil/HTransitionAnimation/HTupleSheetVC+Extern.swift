@@ -1,17 +1,17 @@
 //
-//  HFlowSheetVC+Extern.swift
+//  HTupleSheetVC+Extern.swift
 //  HSwiftProject
 //
-//  Created by owner on 2024/4/26.
+//  Created by owner on 2024/5/18.
 //  Copyright © 2024 wind. All rights reserved.
 //
 
 import UIKit
 
-extension HFlowSheetVC {
+extension HTupleSheetVC {
     @discardableResult
-    static func showPacketSheet(_ containVip: Bool, completion: @escaping (_ actionStyle: Int) -> Void) -> HFlowSheetVC {
-        let sheetVC = HFlowSheetVC(bottomSpacing: 8)
+    static func showPacketSheet(_ containVip: Bool, completion: @escaping (_ actionStyle: Int) -> Void) -> HTupleSheetVC {
+        let sheetVC = HTupleSheetVC(bottomSpacing: 8)
         sheetVC.numberBlock = {
             return containVip ? 5 : 4
         }
@@ -23,13 +23,13 @@ extension HFlowSheetVC {
         }
         sheetVC.itemBlock = { (tuple: HTupleView, indexPath: IndexPath) in
             if indexPath.row == 0 {
-                let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+                let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
                 let frame = cell.layoutViewBounds
                 cell.label.frame = CGRect(x: (frame.width - 38) / 2, y: 8, width: 38, height: 4)
                 //cell.label.backgroundColor = UIColor.color272729
                 cell.label.cornerRadius = 2
             }else {
-                let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+                let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
                 cell.edgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
                 cell.label.font = UIFont.font(ofSize: 16, weight: .regular)
                 cell.label.textAlignment = .center

@@ -1,34 +1,34 @@
 //
-//  HFlowAlertVC.swift
+//  HTupleAlertVC.swift
 //  HSwiftProject
 //
-//  Created by owner on 2024/4/26.
+//  Created by owner on 2024/5/18.
 //  Copyright © 2024 wind. All rights reserved.
 //
 
 import UIKit
 
-typealias HFlowAlertNumberBlock = () -> Int
-typealias HFlowAlertInsetBlock = () -> UIEdgeInsets
-typealias HFlowAlertHeightBlock = (_ index: Int) -> CGFloat
-typealias HFlowAlertItemBlock = (_ tuple: HTupleView, _ indexPath: IndexPath) -> Void
+typealias HTupleAlertNumberBlock = () -> Int
+typealias HTupleAlertInsetBlock = () -> UIEdgeInsets
+typealias HTupleAlertHeightBlock = (_ index: Int) -> CGFloat
+typealias HTupleAlertItemBlock = (_ tuple: HTupleView, _ indexPath: IndexPath) -> Void
 
-let kFlowAlertWidth: CGFloat = 291.0
+let kTupleAlertWidth: CGFloat = 291.0
 
-class HFlowAlertVC: HViewController, HTupleViewDelegate {
+class HTupleAlertVC: HBaseController, HTupleViewDelegate {
     
     let itemsHeight = NSMutableDictionary()
-    var numberBlock: HFlowAlertNumberBlock?
-    var insetBlock: HFlowAlertInsetBlock?
-    var heightBlock: HFlowAlertHeightBlock?
-    var itemBlock: HFlowAlertItemBlock?
+    var numberBlock: HTupleAlertNumberBlock?
+    var insetBlock: HTupleAlertInsetBlock?
+    var heightBlock: HTupleAlertHeightBlock?
+    var itemBlock: HTupleAlertItemBlock?
     
     override var containerSize: CGSize {
         // 执行block
         self.performBlocks()
         // 计算高度
         let height = self.itemsHeight.allValues.reduce(0, { $0 + ($1 as! CGFloat) })
-        return CGSize(width: kFlowAlertWidth, height: height)
+        return CGSize(width: kTupleAlertWidth, height: height)
     }
     
     // 转场动画内容视图阴影部分颜色
@@ -60,7 +60,6 @@ class HFlowAlertVC: HViewController, HTupleViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
-        self.navigationBar.isHidden = true
         self.tupleView.delegate = self
         self.view.addSubview(self.tupleView)
     }
@@ -84,7 +83,7 @@ class HFlowAlertVC: HViewController, HTupleViewDelegate {
 
 }
 
-extension HFlowAlertVC {
+extension HTupleAlertVC {
 
     func numberOfItemsInSection(_ section: Any) -> Any {
         return self.numberBlock?() ?? 0

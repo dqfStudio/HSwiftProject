@@ -15,7 +15,13 @@ class HGroupbar: UIStackView, HTupleViewDelegate {
     
     // A lazy-loaded HTupleView instance
     private lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView(frame: .zero, scrollDirection: .horizontal)
+        let tupleView = HTupleView.tupleFrame({
+            return .zero
+        }, mode: {
+            return .delegate
+        }, layout: {
+            return HTupleViewLayout(.horizontal, .manual)
+        })
         tupleView.backgroundColor = .clear
         return tupleView
     }()
@@ -152,7 +158,7 @@ class HGroupbar: UIStackView, HTupleViewDelegate {
     // Configures the tuple item at the specified index path
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         guard let items = self.items, indexPath.row < items.count else { return }        
-        let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+        let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
         
         let item = items[indexPath.row]
         let bounds = cell.layoutViewBounds

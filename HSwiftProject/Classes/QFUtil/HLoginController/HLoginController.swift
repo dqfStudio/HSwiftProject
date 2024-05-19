@@ -54,7 +54,7 @@ class HLoginController: HViewController, HTupleViewDelegate {
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {    
         switch (indexPath.row) {
         case 0:
-            let cell = tuple.cell(HTupleFieldCell.self, nil, true, indexPath) as! HTupleFieldCell
+            let cell = tuple.reuseCell(HTupleFieldCell.self, nil, true, indexPath) as! HTupleFieldCell
             cell.textField.backgroundColor = UIColor(hex:"#F2F2F2")
 
             cell.textField.leftWidth = 80
@@ -71,7 +71,7 @@ class HLoginController: HViewController, HTupleViewDelegate {
                 NSLog("选中%d", cell)
             }
         case 1:
-            let cell = tuple.cell(HTupleFieldCell.self, nil, true, indexPath) as! HTupleFieldCell
+            let cell = tuple.reuseCell(HTupleFieldCell.self, nil, true, indexPath) as! HTupleFieldCell
             cell.textField.backgroundColor = UIColor(hex:"#F2F2F2")
 
             cell.textField.leftWidth = 80
@@ -87,7 +87,7 @@ class HLoginController: HViewController, HTupleViewDelegate {
                 NSLog("选中%d", cell)
             }
         case 2:
-            let cell = tuple.cell(HTupleFieldCell.self, nil, true, indexPath) as! HTupleFieldCell
+            let cell = tuple.reuseCell(HTupleFieldCell.self, nil, true, indexPath) as! HTupleFieldCell
             cell.textField.backgroundColor = UIColor(hex:"#F2F2F2")
 
             cell.textField.leftWidth = 80
@@ -111,9 +111,9 @@ class HLoginController: HViewController, HTupleViewDelegate {
                 NSLog("选中%d", cell)
             }
         case 3:
-            _ = tuple.cell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
         case 4:
-            let cell = tuple.cell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
+            let cell = tuple.reuseCell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor(hex:"#CCCCCC")
             cell.buttonView.text = "登录"
             cell.buttonView.pressed = { (sender, data) in

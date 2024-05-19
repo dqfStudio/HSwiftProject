@@ -22,7 +22,7 @@ class HFormModel: NSObject {
     }
 }
 
-class HFormCell: HTupleBaseCell, HTupleViewDelegate {
+class HFormCell: HTupleLayoutCell, HTupleViewDelegate {
     
     var modelArr: [HFormModel]? {
         didSet {
@@ -37,7 +37,13 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
     var formCellBlock: HFormCellBlock?
     
     lazy private var tupleView: HTupleView = {
-        let tupleView = HTupleView(frame: self.bounds, scrollDirection: .horizontal)
+        let tupleView = HTupleView.tupleFrame {
+            return self.bounds
+        } mode: {
+            return .delegate
+        } layout: {
+            return HTupleViewLayout(.horizontal, .manual)
+        }
         tupleView.backgroundColor = .white
         tupleView.isPagingEnabled = true
         tupleView.delegate = self
@@ -84,7 +90,7 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {        
         let index = indexPath.section * self.rows * self.rowItems + indexPath.row
         if let modelArr = self.modelArr, index < modelArr.count {
-            let cell = tuple.cell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
+            let cell = tuple.reuseCell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.textColor = .black
             
             let model = modelArr[index]
@@ -98,7 +104,7 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
                 self.formCellBlock?(indexPath, model)
             }
         }else {
-            _ = tuple.cell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
         }
     }
     

@@ -8,19 +8,24 @@
 
 import UIKit
 
-enum HTupleDirection: Int {
-    case vertical = 0 // Vertical design
-    case horizontal = 1 // Horizontal design
-}
-
-private enum HTupleStyle: Int {
-    case `default` // Singleton design
+enum HTupleStyle {
+    case tuple // Singleton design
     case split // Split design
 }
 
-enum HTupleStatus: Int {
-    case delegate = 0  // Delegate design
-    case block = 1  // Block design
+enum HTupleMode {
+    case delegate  // Delegate design
+    case block  // Block design
+}
+
+enum HTupleDirection {
+    case vertical // Vertical design
+    case horizontal // Horizontal design
+}
+
+enum HTupleItemLayout {
+    case manual // Manual
+    case automatic // Automatic
 }
 
 enum HTupleAlign {
@@ -197,15 +202,15 @@ class HTupleAppearance: NSObject {
 class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, HTupleViewLayoutDelegate {
 
     private var flowLayout: UICollectionViewFlowLayout?
-
-    // Tuple style
-    private var tupleStyle: HTupleStyle = .default
     
     // 实际内容之外的区域被点击
     var outsideCntBlock: HTupleOutsideCntBlock?
+
+    // tuple style
+    private var tupleStyle: HTupleStyle = .tuple
     
-    // tuple status
-    var tupleStatus: HTupleStatus = .delegate
+    // tuple mode
+    private var tupleMode: HTupleMode = .delegate
     
     // tuple align
     var tupleAlign: HTupleAlign = .default
@@ -222,37 +227,31 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-
+    
     /// Default scrolling direction is vertical
     convenience init(frame: CGRect) {
-        self.init(frame: frame, scrollDirection: .vertical)
+        self.init(frame: frame, collectionViewLayout: HTupleViewLayout(.vertical, .manual))
     }
-
-    /// Default layout is HTupleViewLayout
-    convenience init(frame: CGRect, scrollDirection direction: HTupleDirection) {
-        self.init(frame: frame, collectionViewLayout: HTupleViewLayout(direction))
-    }
-
+    
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
         flowLayout = layout as? UICollectionViewFlowLayout
         self.setup()
     }
 
-    /// Initialization method for split
-    static func tupleFrame(_ frame: () -> CGRect, exclusiveSections sections: () -> NSArray) -> HTupleView {
-        return HTupleView(frame(), exclusiveSections: sections(), scrollDirection: .vertical)
+    static func splitFrame(_ frame: () -> CGRect, mode: () -> HTupleMode, exclusiveSections sections: () -> NSArray, layout: () -> UICollectionViewFlowLayout) -> HTupleView {
+        return HTupleView(frame(), style: .split, mode: mode(), exclusiveSections: sections(), layout: layout())
     }
     
-    static func tupleFrame(_ frame: () -> CGRect, scrollDirection direction: () -> HTupleDirection, exclusiveSections sections: () -> NSArray) -> HTupleView {
-        return HTupleView(frame(), exclusiveSections: sections(), scrollDirection: direction())
+    static func tupleFrame(_ frame: () -> CGRect, mode: () -> HTupleMode, layout: () -> UICollectionViewFlowLayout) -> HTupleView {
+        return HTupleView(frame(), style: .tuple, mode: mode(), exclusiveSections: [], layout: layout())
     }
 
-    private convenience init(_ frame: CGRect, exclusiveSections sectionPaths: NSArray, scrollDirection direction: HTupleDirection) {
-        self.init(frame: UIRectIntegral(frame), collectionViewLayout: HTupleViewLayout(direction))
+    private convenience init(_ frame: CGRect, style: HTupleStyle, mode: HTupleMode, exclusiveSections sectionPaths: NSArray, layout: UICollectionViewFlowLayout) {
+        self.init(frame: UIRectIntegral(frame), collectionViewLayout: layout)
         self.sectionPaths = sectionPaths
-        self.tupleStyle = .split
-        self.setup()
+        self.tupleStyle = style
+        self.tupleMode = mode
     }
 
     private weak var tupleDelegate: HTupleViewDelegate?
@@ -534,7 +533,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     /// Register class
-    func header(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
+    func reuseHeader(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
         var identifier = (pre ?? "") + "HeaderCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
@@ -572,7 +571,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
 
-    func footer(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
+    func reuseFooter(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
         var identifier = (pre ?? "") + "FooterCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
@@ -610,7 +609,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     
-    func cell(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
+    func reuseCell(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
@@ -702,7 +701,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // tuple Style
         var sections = 1
         switch self.tupleStyle {
-        case .default:
+        case .tuple:
             if let delegate = self.tupleDelegate {
                 let prefix = ""
                 let selector = #selector(delegate.numberOfSectionsInTupleView)
@@ -850,7 +849,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         if let delegate = self.tupleDelegate {
             let prefix = self.tupleSplitPrefix(indexPath.section)
             // Delegate status
-            if self.tupleStatus == .delegate {
+            if self.tupleMode == .delegate {
                 let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
@@ -877,7 +876,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // Delegate status
-        if self.tupleStatus == .delegate {
+        if self.tupleMode == .delegate {
             // Call delegate method
             if let delegate = self.tupleDelegate {
                 let prefix = self.tupleSplitPrefix(indexPath.section)
@@ -1360,7 +1359,7 @@ extension HTupleView {
                 ($0 as? HTupleBaseApex)?.signalBlock = nil
             }
             //delegate status
-            if self.tupleStatus == .block {
+            if self.tupleMode == .block {
                 self.allAttributes.objectEnumerator()?.allObjects.forEach {
                     ($0 as? HTupleAttributes)?.cellBlock = nil
                 }

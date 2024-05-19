@@ -1,5 +1,5 @@
 //
-//  HFlowController.swift
+//  HTupleAutoVC.swift
 //  HSwiftProject
 //
 //  Created by owner on 2024/5/10.
@@ -8,66 +8,73 @@
 
 import UIKit
 
-class HFlowController: HViewController {
+class HTupleAutoVC: HViewController {
     
-    lazy var flowView: HFlowView = {
-        return HFlowView(frame: .zero)
+    lazy var tupleView: HTupleView = {
+        return HTupleView.tupleFrame {
+            return .zero
+        } mode: {
+            return .delegate
+        } layout: {
+            return HTupleViewLayout(.vertical, .automatic)
+        }
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Add custom navigation bar
         self.navigationBar.isHidden = true
-        self.flowView.delegate = self
-        self.view.addSubview(self.flowView)
-        self.flowView.snp.makeConstraints { make in
+        self.tupleView.delegate = self
+        self.view.addSubview(self.tupleView)
+        self.tupleView.snp.makeConstraints { make in
             make.edges.equalTo(self.view.safeAreaLayoutGuide)
         }
     }
     
 }
 
-extension HFlowController: HFlowViewDelegate {
+extension HTupleAutoVC: HTupleViewDelegate {
 
     func numberOfItemsInSection(_ section: Any) -> Any {
         return 4
     }
-    func flowItem(_ flow: HFlowView, atIndexPath indexPath: IndexPath) {
+    func tupleItem(_ flow: HTupleView, atIndexPath indexPath: IndexPath) {
         switch indexPath.row {
         case 0:
-            let cell = flow.cell(HFlowViewCell.self, nil, true, indexPath) as! HFlowViewCell
+            let cell = flow.reuseCell(HTupleAutoCell.self, nil, true, indexPath) as! HTupleAutoCell
             cell.backgroundColor = UIColor.gray
-            cell.contentView.snp.makeConstraints { make in
-                make.left.top.bottom.equalToSuperview()
-                make.width.equalTo(self.flowView.width)
-            }
             
             cell.label.snp.makeConstraints { make in
                 make.left.top.equalToSuperview().offset(10)
                 make.right.bottom.equalToSuperview().offset(-10)
+                make.width.equalTo(self.tupleView.width)
             }
             cell.label.numberOfLines = 0
             cell.label.text = "家乐福大数据冯老师复方丹参封疆大吏撒附件打撒丽枫酒店酸辣粉大家酸辣粉离开家我拉的开发机六点多撒会计分录打扫房间领导撒附件都说了咖啡机多少啦咖啡机第三方"
             
             cell.separatorView.snp.makeConstraints { make in
                 make.left.bottom.equalToSuperview()
-                make.width.equalTo(self.flowView.width)
+                make.width.equalTo(self.tupleView.width)
                 make.height.equalTo(1)
             }
+            
+            cell.selectBlock = {
+                let tupleAlert = HTupleAlertVC.showRePassErrorAlert { index in }
+                self.presentController(tupleAlert, completion: nil)
+            }
         case 1:
-            let cell = flow.cell(HFlowViewCell.self, nil, true, indexPath) as! HFlowViewCell
+            let cell = flow.reuseCell(HTupleAutoCell.self, nil, true, indexPath) as! HTupleAutoCell
             cell.backgroundColor = UIColor.gray
             
             cell.contentView.snp.makeConstraints { make in
-                make.left.top.bottom.equalToSuperview()
-                make.width.equalTo(self.flowView.width)
+                make.width.equalTo(self.tupleView.width)
                 make.height.equalTo(65)
             }
             
             cell.separatorView.snp.makeConstraints { make in
                 make.left.bottom.equalToSuperview()
                 make.height.equalTo(1)
-                make.width.equalTo(self.flowView.width)
+                make.width.equalTo(self.tupleView.width)
             }
             
             cell.imageView.snp.makeConstraints { make in
@@ -103,19 +110,18 @@ extension HFlowController: HFlowViewDelegate {
                 make.height.equalTo(15)
             }
         case 2:
-            let cell = flow.cell(HFlowViewCell.self, nil, true, indexPath) as! HFlowViewCell
+            let cell = flow.reuseCell(HTupleAutoCell.self, nil, true, indexPath) as! HTupleAutoCell
             cell.backgroundColor = UIColor.gray
             
             cell.contentView.snp.makeConstraints { make in
-                make.left.top.bottom.equalToSuperview()
-                make.width.equalTo(self.flowView.width)
+                make.width.equalTo(self.tupleView.width)
                 make.height.equalTo(65)
             }
             
             cell.separatorView.snp.makeConstraints { make in
                 make.left.bottom.equalToSuperview()
                 make.height.equalTo(1)
-                make.width.equalTo(self.flowView.width)
+                make.width.equalTo(self.tupleView.width)
             }
             
             cell.imageView.snp.makeConstraints { make in
@@ -150,19 +156,18 @@ extension HFlowController: HFlowViewDelegate {
             }
             cell.detailView.setImage(WithName: "icon_tuple_arrow_right")
         case 3:
-            let cell = flow.cell(HFlowViewCell.self, nil, true, indexPath) as! HFlowViewCell
+            let cell = flow.reuseCell(HTupleAutoCell.self, nil, true, indexPath) as! HTupleAutoCell
             cell.backgroundColor = UIColor.gray
             
             cell.contentView.snp.makeConstraints { make in
-                make.left.top.bottom.equalToSuperview()
-                make.width.equalTo(self.flowView.width)
+                make.width.equalTo(self.tupleView.width)
                 make.height.equalTo(65)
             }
             
             cell.separatorView.snp.makeConstraints { make in
                 make.left.bottom.equalToSuperview()
                 make.height.equalTo(1)
-                make.width.equalTo(self.flowView.width)
+                make.width.equalTo(self.tupleView.width)
             }
             
             cell.imageView.snp.makeConstraints { make in

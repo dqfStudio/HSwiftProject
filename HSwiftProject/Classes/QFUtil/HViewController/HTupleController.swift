@@ -105,7 +105,7 @@ extension HTupleController {
         case 0:
             switch indexPath.row {
             case 0:
-                let cell = tuple.cell(HTupleBannerCell.self, nil, true, indexPath) as! HTupleBannerCell
+                let cell = tuple.reuseCell(HTupleBannerCell.self, nil, true, indexPath) as! HTupleBannerCell
                 cell.layoutView.snp.makeConstraints { make in
                     make.width.equalTo(self.tupleView.width)
                     make.height.equalTo(130)
@@ -143,7 +143,7 @@ extension HTupleController {
                     NSLog("选中%d", cell.label)
                 }
             case 1:
-                let cell = tuple.cell(HTupleTextImageCell.self, nil, true, indexPath) as! HTupleTextImageCell
+                let cell = tuple.reuseCell(HTupleTextImageCell.self, nil, true, indexPath) as! HTupleTextImageCell
                 cell.backgroundColor = UIColor.gray
 
 //                cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
@@ -172,7 +172,7 @@ extension HTupleController {
                 cell.detailSpacing = 5.0
                 cell.accsrySpacing = 10.0
             case 2:
-                let cell = tuple.cell(HTupleViewCellHoriValue1.self, nil, true, indexPath) as! HTupleViewCellHoriValue1
+                let cell = tuple.reuseCell(HTupleViewCellHoriValue1.self, nil, true, indexPath) as! HTupleViewCellHoriValue1
                 cell.backgroundColor = UIColor.gray
 
 //                cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
@@ -200,7 +200,7 @@ extension HTupleController {
 
                 cell.isShowAccsryArrow = true
             case 3:
-                let cell = tuple.cell(HTupleViewCellHoriValue2.self, nil, true, indexPath) as! HTupleViewCellHoriValue2
+                let cell = tuple.reuseCell(HTupleViewCellHoriValue2.self, nil, true, indexPath) as! HTupleViewCellHoriValue2
                 cell.backgroundColor = UIColor.gray
 
 //                cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
@@ -228,7 +228,7 @@ extension HTupleController {
 
                 cell.isShowAccsryArrow = true
             case 4:
-                let cell = tuple.cell(HTupleFieldCell.self, nil, true, indexPath) as! HTupleFieldCell
+                let cell = tuple.reuseCell(HTupleFieldCell.self, nil, true, indexPath) as! HTupleFieldCell
                 cell.backgroundColor = UIColor.gray
 
                 cell.textField.backgroundColor = UIColor.red
@@ -274,7 +274,7 @@ extension HTupleController {
                 break
             }
         case 1:
-            let cell = tuple.cell(HTupleViewCellVertValue1.self, nil, true, indexPath) as! HTupleViewCellVertValue1
+            let cell = tuple.reuseCell(HTupleViewCellVertValue1.self, nil, true, indexPath) as! HTupleViewCellVertValue1
             cell.backgroundColor = UIColor.gray
 
             cell.layoutFirstSpacing = 5

@@ -1,25 +1,25 @@
 //
-//  HFlowDropVC.swift
+//  HTupleDropVC.swift
 //  HSwiftProject
 //
-//  Created by owner on 2024/5/6.
+//  Created by owner on 2024/5/18.
 //  Copyright © 2024 wind. All rights reserved.
 //
 
 import UIKit
 
-typealias HFlowDropNumberBlock = () -> Int
-typealias HFlowDropInsetBlock = () -> UIEdgeInsets
-typealias HFlowDropHeightBlock = (_ index: Int) -> CGFloat
-typealias HFlowDropItemBlock = (_ tuple: HTupleView, _ indexPath: IndexPath) -> Void
+typealias HTupleDropNumberBlock = () -> Int
+typealias HTupleDropInsetBlock = () -> UIEdgeInsets
+typealias HTupleDropHeightBlock = (_ index: Int) -> CGFloat
+typealias HTupleDropItemBlock = (_ tuple: HTupleView, _ indexPath: IndexPath) -> Void
 
-class HFlowDropVC: HViewController, HTupleViewDelegate {
+class HTupleDropVC: HViewController, HTupleViewDelegate {
     
     let itemsHeight = NSMutableDictionary()
-    var numberBlock: HFlowDropNumberBlock?
-    var insetBlock: HFlowDropInsetBlock?
-    var heightBlock: HFlowDropHeightBlock?
-    var itemBlock: HFlowDropItemBlock?
+    var numberBlock: HTupleDropNumberBlock?
+    var insetBlock: HTupleDropInsetBlock?
+    var heightBlock: HTupleDropHeightBlock?
+    var itemBlock: HTupleDropItemBlock?
     var topHeight = UIScreen.statusBarHeight
 
     init(topSpacing: CGFloat) {
@@ -89,7 +89,7 @@ class HFlowDropVC: HViewController, HTupleViewDelegate {
 
 }
 
-extension HFlowDropVC {
+extension HTupleDropVC {
 
     func numberOfItemsInSection(_ section: Any) -> Any {
         return self.numberBlock?() ?? 0
@@ -114,4 +114,3 @@ extension HFlowDropVC {
     }
 
 }
-

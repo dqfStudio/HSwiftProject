@@ -55,11 +55,15 @@ class HUserLiveCell : HUserLiveBgCell, HTupleViewDelegate {
     }()
     
     lazy var liveRightView: HTupleView = {
-        let view = HTupleView.tupleFrame({
+        let view = HTupleView.splitFrame {
             return self.bounds
-        }, exclusiveSections: {
+        } mode: {
+            return .delegate
+        } exclusiveSections: {
             return [0, 1, 2]
-        })
+        } layout: {
+            return HTupleViewLayout(.vertical, .manual)
+        }
         view.backgroundColor = .clear
         view.disableBounce()
 //        let swipeGesture = UISwipeGestureRecognizer(target: self, action:  #selector(rightSwipped))

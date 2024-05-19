@@ -10,7 +10,7 @@ import UIKit
 
 typealias HTupleViewBannerCellBlock = (_ index: Int) -> Void
 
-class HTupleViewBannerCell : HTupleBaseCell, HCycleScrollViewDelegate {
+class HTupleViewBannerCell : HTupleLayoutCell, HCycleScrollViewDelegate {
     
     private lazy var cycleScrollView: HCycleScrollView = {
         let scrollView = HCycleScrollView.cycleScrollViewWithFrame(self.bounds, delegate: self, placeholderImage: UIImage(named: "HCyclePlaceholder"))

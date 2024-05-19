@@ -31,16 +31,14 @@ class HActivebar: UIStackView, HTupleViewDelegate {
     
     // A lazy-loaded HTupleView instance
     lazy var tupleView: HTupleView = {
-        let tupleView = HTupleView.tupleFrame {
+        let tupleView = HTupleView.splitFrame {
             return .zero
-        } scrollDirection: { [weak self] in
-            if self?.direction == .vertical {
-                return .vertical
-            }else {
-                return .horizontal
-            }
+        } mode: {
+            return .delegate
         } exclusiveSections: {
             return []
+        } layout: {
+            return HTupleViewLayout(self.direction, .manual)
         }
         if self.direction == .vertical {
             tupleView.tupleState = 0
@@ -249,7 +247,7 @@ extension HActivebar {
         // cell回调
         self.itemBlock?(tuple, indexPath)
         
-        let cell = tuple.cell(indexPath.row, indexPath.section) as! HTupleBaseCell
+        let cell = tuple.cell(indexPath.row, indexPath.section) as! HTupleLayoutCell
         let bounds = cell.layoutViewBounds
         
         // Set the font and color of the title based on whether it is selected or not
@@ -307,7 +305,7 @@ extension HActivebar {
         // cell回调
         self.itemBlock?(tuple, indexPath)
         
-        let cell = tuple.cell(indexPath.row, indexPath.section) as! HTupleBaseCell
+        let cell = tuple.cell(indexPath.row, indexPath.section) as! HTupleLayoutCell
         let bounds = cell.layoutViewBounds
         
         // Set the font and color of the title based on whether it is selected or not

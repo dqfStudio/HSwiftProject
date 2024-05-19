@@ -1,22 +1,22 @@
 //
-//  HFlowAlertVC+Extern.swift
+//  HTupleAlertVC+Extern.swift
 //  HSwiftProject
 //
-//  Created by owner on 2024/4/26.
+//  Created by owner on 2024/5/18.
 //  Copyright © 2024 wind. All rights reserved.
 //
 
 import UIKit
 
-extension HFlowAlertVC {
+extension HTupleAlertVC {
     // 注销账号
     @discardableResult
-    static func showCancelAccountAlert(completion: @escaping (_ actionStyle: Int) -> Void) -> HFlowAlertVC {
+    static func showCancelAccountAlert(completion: @escaping (_ actionStyle: Int) -> Void) -> HTupleAlertVC {
         let message = "Freechat团队将在15天内处理你的申请并删除你的所有数据，在15天内，如果重新登录Freechat，您的注销账号申请将被撤销。".localized()
         let messageFont = UIFont.font(ofSize: 15, weight: .regular)
-        let messageHeight = message.heightWithFont(messageFont, constrainedToWidth: kFlowAlertWidth - 48) + 48.5
+        let messageHeight = message.heightWithFont(messageFont, constrainedToWidth: kTupleAlertWidth - 48) + 48.5
         
-        let alertVC = HFlowAlertVC()
+        let alertVC = HTupleAlertVC()
         alertVC.numberBlock = {
             return 2
         }
@@ -27,7 +27,7 @@ extension HFlowAlertVC {
             return 48
         }
         alertVC.itemBlock = { (tuple: HTupleView, indexPath: IndexPath) in
-            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+            let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.edgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
             if indexPath.row == 0 {
                 //cell.setBottomLine(withColor: UIColor.border2, lineHeight: 0.5)
@@ -52,12 +52,12 @@ extension HFlowAlertVC {
     }
     // 删除印象评论
     @discardableResult
-    static func showDelImpreMentAlert(completion: @escaping (_ actionStyle: Int) -> Void) -> HFlowAlertVC {
+    static func showDelImpreMentAlert(completion: @escaping (_ actionStyle: Int) -> Void) -> HTupleAlertVC {
         let message = "确定要删除该印象评论吗？".localized()
         let messageFont = UIFont.font(ofSize: 17, weight: .medium)
-        let messageHeight = message.heightWithFont(messageFont, constrainedToWidth: kFlowAlertWidth - 48) + 80.5
+        let messageHeight = message.heightWithFont(messageFont, constrainedToWidth: kTupleAlertWidth - 48) + 80.5
         
-        let alertVC = HFlowAlertVC()
+        let alertVC = HTupleAlertVC()
         alertVC.numberBlock = {
             return 2
         }
@@ -69,7 +69,7 @@ extension HFlowAlertVC {
         }
         alertVC.itemBlock = { (tuple: HTupleView, indexPath: IndexPath) in
             if indexPath.row == 0 {
-                let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+                let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
                 cell.edgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
                 //cell.setBottomLine(withColor: UIColor.border2, lineHeight: 0.5)
                 cell.label.font = messageFont
@@ -78,7 +78,7 @@ extension HFlowAlertVC {
                 cell.label.textColor = UIColor.white
                 cell.label.text = message
             }else {
-                let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+                let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
                 let frame = cell.layoutViewBounds
                 let halfWidth = frame.width / 2
                 
@@ -107,12 +107,12 @@ extension HFlowAlertVC {
     }
     // 密码错误重试
     @discardableResult
-    static func showRePassErrorAlert(completion: @escaping (_ actionStyle: Int) -> Void) -> HFlowAlertVC {
+    static func showRePassErrorAlert(completion: @escaping (_ actionStyle: Int) -> Void) -> HTupleAlertVC {
         let message = "旧密码错误，请重试".localized()
         let messageFont = UIFont.font(ofSize: 17, weight: .medium)
-        let messageHeight = message.heightWithFont(messageFont, constrainedToWidth: kFlowAlertWidth - 48) + 80.5
+        let messageHeight = message.heightWithFont(messageFont, constrainedToWidth: kTupleAlertWidth - 48) + 80.5
         
-        let alertVC = HFlowAlertVC()
+        let alertVC = HTupleAlertVC()
         alertVC.numberBlock = {
             return 2
         }
@@ -124,7 +124,7 @@ extension HFlowAlertVC {
         }
         alertVC.itemBlock = { (tuple: HTupleView, indexPath: IndexPath) in
             if indexPath.row == 0 {
-                let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+                let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
                 cell.edgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
                 //cell.setBottomLine(withColor: UIColor.border2, lineHeight: 0.5)
                 cell.label.font = messageFont
@@ -133,7 +133,7 @@ extension HFlowAlertVC {
                 cell.label.textColor = UIColor.white
                 cell.label.text = message
             }else {
-                let cell = tuple.cell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+                let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
                 let frame = cell.layoutViewBounds
                 let halfWidth = frame.width / 2
                 

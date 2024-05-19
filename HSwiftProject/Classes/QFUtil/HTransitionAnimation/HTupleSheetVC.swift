@@ -1,25 +1,25 @@
 //
-//  HFlowSheetVC.swift
+//  HTupleSheetVC.swift
 //  HSwiftProject
 //
-//  Created by owner on 2024/4/26.
+//  Created by owner on 2024/5/18.
 //  Copyright © 2024 wind. All rights reserved.
 //
 
 import UIKit
 
-typealias HFlowSheetNumberBlock = () -> Int
-typealias HFlowSheetInsetBlock = () -> UIEdgeInsets
-typealias HFlowSheetHeightBlock = (_ index: Int) -> CGFloat
-typealias HFlowSheetItemBlock = (_ tuple: HTupleView, _ indexPath: IndexPath) -> Void
+typealias HTupleSheetNumberBlock = () -> Int
+typealias HTupleSheetInsetBlock = () -> UIEdgeInsets
+typealias HTupleSheetHeightBlock = (_ index: Int) -> CGFloat
+typealias HTupleSheetItemBlock = (_ tuple: HTupleView, _ indexPath: IndexPath) -> Void
 
-class HFlowSheetVC: HViewController, HTupleViewDelegate {
+class HTupleSheetVC: HViewController, HTupleViewDelegate {
     
     let itemsHeight = NSMutableDictionary()
-    var numberBlock: HFlowSheetNumberBlock?
-    var insetBlock: HFlowSheetInsetBlock?
-    var heightBlock: HFlowSheetHeightBlock?
-    var itemBlock: HFlowSheetItemBlock?
+    var numberBlock: HTupleSheetNumberBlock?
+    var insetBlock: HTupleSheetInsetBlock?
+    var heightBlock: HTupleSheetHeightBlock?
+    var itemBlock: HTupleSheetItemBlock?
     var bottomHeight = UIScreen.bottomBarHeight
 
     init(bottomSpacing: CGFloat) {
@@ -89,7 +89,7 @@ class HFlowSheetVC: HViewController, HTupleViewDelegate {
 
 }
 
-extension HFlowSheetVC {
+extension HTupleSheetVC {
 
     func numberOfItemsInSection(_ section: Any) -> Any {
         return self.numberBlock?() ?? 0

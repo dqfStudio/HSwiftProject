@@ -196,12 +196,6 @@
 		EB3541C92BE8C895003B1D69 /* MessageCellAble.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541C82BE8C895003B1D69 /* MessageCellAble.swift */; };
 		EB3541CB2BE8CBEF003B1D69 /* MessageInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541CA2BE8CBEF003B1D69 /* MessageInfo.swift */; };
 		EB3541CD2BE8D53D003B1D69 /* MessageBaseRightTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541CC2BE8D53D003B1D69 /* MessageBaseRightTableViewCell.swift */; };
-		EB3541D22BE91212003B1D69 /* HFlowAlertVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541CE2BE91210003B1D69 /* HFlowAlertVC+Extern.swift */; };
-		EB3541D32BE91212003B1D69 /* HFlowSheetVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541CF2BE91211003B1D69 /* HFlowSheetVC+Extern.swift */; };
-		EB3541D42BE91212003B1D69 /* HFlowAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541D02BE91211003B1D69 /* HFlowAlertVC.swift */; };
-		EB3541D52BE91212003B1D69 /* HFlowSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541D12BE91211003B1D69 /* HFlowSheetVC.swift */; };
-		EB3541D92BE914D9003B1D69 /* HFlowDropVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541D82BE914D9003B1D69 /* HFlowDropVC.swift */; };
-		EB3541DB2BE91732003B1D69 /* HFlowDropVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541DA2BE91732003B1D69 /* HFlowDropVC+Extern.swift */; };
 		EB3541DD2BE9B8AA003B1D69 /* HNetworkHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541DC2BE9B8AA003B1D69 /* HNetworkHeader.swift */; };
 		EB3541E12BE9D6AD003B1D69 /* HNetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541E02BE9D6AD003B1D69 /* HNetworkError.swift */; };
 		EB3541E32BE9E9A8003B1D69 /* Network10008API.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541E22BE9E9A8003B1D69 /* Network10008API.swift */; };
@@ -270,23 +264,22 @@
 		EBA6472B2A875D1B00897D76 /* HStackBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6472A2A875D1B00897D76 /* HStackBar.swift */; };
 		EBA6472D2A87704900897D76 /* HGroupbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA6472C2A87704900897D76 /* HGroupbar.swift */; };
 		EBC306CD2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */; };
-		EBC306E62BEE24E500EF8ABD /* HFlowBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306E12BEE24E500EF8ABD /* HFlowBaseCell.swift */; };
-		EBC306E72BEE24E500EF8ABD /* HFlowViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306E22BEE24E500EF8ABD /* HFlowViewCell.swift */; };
-		EBC306EC2BEE263200EF8ABD /* HFlowSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306EB2BEE263200EF8ABD /* HFlowSignal.swift */; };
-		EBC306F02BEE273000EF8ABD /* HFlowViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306EE2BEE273000EF8ABD /* HFlowViewLayout.swift */; };
-		EBC306F12BEE273000EF8ABD /* HFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306EF2BEE273000EF8ABD /* HFlowView.swift */; };
-		EBC306F32BEE28E000EF8ABD /* HFlowRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306F22BEE28E000EF8ABD /* HFlowRefresh.swift */; };
-		EBC306F62BEE294500EF8ABD /* HFlowBaseApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306F42BEE294500EF8ABD /* HFlowBaseApex.swift */; };
-		EBC306F72BEE294500EF8ABD /* HFlowViewApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306F52BEE294500EF8ABD /* HFlowViewApex.swift */; };
-		EBC306F92BEE300000EF8ABD /* HFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306F82BEE300000EF8ABD /* HFlowController.swift */; };
 		EBC306FB2BEE6BEC00EF8ABD /* HChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306FA2BEE6BEC00EF8ABD /* HChatView.swift */; };
 		EBC306FD2BEE71BE00EF8ABD /* HChatRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306FC2BEE71BE00EF8ABD /* HChatRefresh.swift */; };
 		EBC307142BF8914000EF8ABD /* HTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307132BF8914000EF8ABD /* HTransitionAnimator.swift */; };
 		EBC307162BF8A65A00EF8ABD /* HTransitionAnimator2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307152BF8A65A00EF8ABD /* HTransitionAnimator2.swift */; };
-		EBC307192BF8ACD500EF8ABD /* XTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307182BF8ACD500EF8ABD /* XTransitionAnimation.swift */; };
 		EBC3071B2BF8ACF800EF8ABD /* XPresentAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3071A2BF8ACF800EF8ABD /* XPresentAnimation.swift */; };
 		EBC3071D2BF8AD7B00EF8ABD /* XPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3071C2BF8AD7B00EF8ABD /* XPresentationController.swift */; };
 		EBC3071F2BF8AEF000EF8ABD /* XAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3071E2BF8AEF000EF8ABD /* XAlertController.swift */; };
+		EBC307252BF8F06C00EF8ABD /* HTupleAlertVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307242BF8F06C00EF8ABD /* HTupleAlertVC.swift */; };
+		EBC307272BF8F10500EF8ABD /* HTupleAlertVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307262BF8F10500EF8ABD /* HTupleAlertVC+Extern.swift */; };
+		EBC307292BF8F16000EF8ABD /* HTupleDropVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307282BF8F16000EF8ABD /* HTupleDropVC.swift */; };
+		EBC3072B2BF8F19200EF8ABD /* HTupleDropVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3072A2BF8F19200EF8ABD /* HTupleDropVC+Extern.swift */; };
+		EBC3072D2BF8F1C200EF8ABD /* HTupleSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3072C2BF8F1C200EF8ABD /* HTupleSheetVC.swift */; };
+		EBC3072F2BF8F1EF00EF8ABD /* HTupleSheetVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3072E2BF8F1EF00EF8ABD /* HTupleSheetVC+Extern.swift */; };
+		EBC307352BF9A05200EF8ABD /* HTupleLayoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307342BF9A05200EF8ABD /* HTupleLayoutCell.swift */; };
+		EBC307372BF9A19B00EF8ABD /* HTupleLayoutApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307362BF9A19B00EF8ABD /* HTupleLayoutApex.swift */; };
+		EBC3073B2BF9B1DD00EF8ABD /* HTupleAutoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3073A2BF9B1DD00EF8ABD /* HTupleAutoVC.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -560,12 +553,6 @@
 		EB3541C82BE8C895003B1D69 /* MessageCellAble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellAble.swift; sourceTree = "<group>"; };
 		EB3541CA2BE8CBEF003B1D69 /* MessageInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInfo.swift; sourceTree = "<group>"; };
 		EB3541CC2BE8D53D003B1D69 /* MessageBaseRightTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBaseRightTableViewCell.swift; sourceTree = "<group>"; };
-		EB3541CE2BE91210003B1D69 /* HFlowAlertVC+Extern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HFlowAlertVC+Extern.swift"; sourceTree = "<group>"; };
-		EB3541CF2BE91211003B1D69 /* HFlowSheetVC+Extern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "HFlowSheetVC+Extern.swift"; sourceTree = "<group>"; };
-		EB3541D02BE91211003B1D69 /* HFlowAlertVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowAlertVC.swift; sourceTree = "<group>"; };
-		EB3541D12BE91211003B1D69 /* HFlowSheetVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowSheetVC.swift; sourceTree = "<group>"; };
-		EB3541D82BE914D9003B1D69 /* HFlowDropVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowDropVC.swift; sourceTree = "<group>"; };
-		EB3541DA2BE91732003B1D69 /* HFlowDropVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowDropVC+Extern.swift"; sourceTree = "<group>"; };
 		EB3541DC2BE9B8AA003B1D69 /* HNetworkHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNetworkHeader.swift; sourceTree = "<group>"; };
 		EB3541E02BE9D6AD003B1D69 /* HNetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNetworkError.swift; sourceTree = "<group>"; };
 		EB3541E22BE9E9A8003B1D69 /* Network10008API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network10008API.swift; sourceTree = "<group>"; };
@@ -634,23 +621,22 @@
 		EBA6472A2A875D1B00897D76 /* HStackBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HStackBar.swift; sourceTree = "<group>"; };
 		EBA6472C2A87704900897D76 /* HGroupbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupbar.swift; sourceTree = "<group>"; };
 		EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extern.swift"; sourceTree = "<group>"; };
-		EBC306E12BEE24E500EF8ABD /* HFlowBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowBaseCell.swift; sourceTree = "<group>"; };
-		EBC306E22BEE24E500EF8ABD /* HFlowViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowViewCell.swift; sourceTree = "<group>"; };
-		EBC306EB2BEE263200EF8ABD /* HFlowSignal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowSignal.swift; sourceTree = "<group>"; };
-		EBC306EE2BEE273000EF8ABD /* HFlowViewLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowViewLayout.swift; sourceTree = "<group>"; };
-		EBC306EF2BEE273000EF8ABD /* HFlowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowView.swift; sourceTree = "<group>"; };
-		EBC306F22BEE28E000EF8ABD /* HFlowRefresh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowRefresh.swift; sourceTree = "<group>"; };
-		EBC306F42BEE294500EF8ABD /* HFlowBaseApex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowBaseApex.swift; sourceTree = "<group>"; };
-		EBC306F52BEE294500EF8ABD /* HFlowViewApex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowViewApex.swift; sourceTree = "<group>"; };
-		EBC306F82BEE300000EF8ABD /* HFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowController.swift; sourceTree = "<group>"; };
 		EBC306FA2BEE6BEC00EF8ABD /* HChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatView.swift; sourceTree = "<group>"; };
 		EBC306FC2BEE71BE00EF8ABD /* HChatRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatRefresh.swift; sourceTree = "<group>"; };
 		EBC307132BF8914000EF8ABD /* HTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTransitionAnimator.swift; sourceTree = "<group>"; };
 		EBC307152BF8A65A00EF8ABD /* HTransitionAnimator2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTransitionAnimator2.swift; sourceTree = "<group>"; };
-		EBC307182BF8ACD500EF8ABD /* XTransitionAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XTransitionAnimation.swift; sourceTree = "<group>"; };
 		EBC3071A2BF8ACF800EF8ABD /* XPresentAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPresentAnimation.swift; sourceTree = "<group>"; };
 		EBC3071C2BF8AD7B00EF8ABD /* XPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPresentationController.swift; sourceTree = "<group>"; };
 		EBC3071E2BF8AEF000EF8ABD /* XAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XAlertController.swift; sourceTree = "<group>"; };
+		EBC307242BF8F06C00EF8ABD /* HTupleAlertVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleAlertVC.swift; sourceTree = "<group>"; };
+		EBC307262BF8F10500EF8ABD /* HTupleAlertVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTupleAlertVC+Extern.swift"; sourceTree = "<group>"; };
+		EBC307282BF8F16000EF8ABD /* HTupleDropVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleDropVC.swift; sourceTree = "<group>"; };
+		EBC3072A2BF8F19200EF8ABD /* HTupleDropVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTupleDropVC+Extern.swift"; sourceTree = "<group>"; };
+		EBC3072C2BF8F1C200EF8ABD /* HTupleSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleSheetVC.swift; sourceTree = "<group>"; };
+		EBC3072E2BF8F1EF00EF8ABD /* HTupleSheetVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTupleSheetVC+Extern.swift"; sourceTree = "<group>"; };
+		EBC307342BF9A05200EF8ABD /* HTupleLayoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleLayoutCell.swift; sourceTree = "<group>"; };
+		EBC307362BF9A19B00EF8ABD /* HTupleLayoutApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleLayoutApex.swift; sourceTree = "<group>"; };
+		EBC3073A2BF9B1DD00EF8ABD /* HTupleAutoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleAutoVC.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -891,6 +877,7 @@
 			isa = PBXGroup;
 			children = (
 				A2892396238B72F800E4AB75 /* HTupleBaseApex.swift */,
+				EBC307362BF9A19B00EF8ABD /* HTupleLayoutApex.swift */,
 				A229489623975AE80058B939 /* HTupleViewApex.swift */,
 				EB50428A2A2C33F6007E9FC7 /* HTupleTextImageApex.swift */,
 				A229489823975BA80058B939 /* HTupleViewApexVertValue.swift */,
@@ -903,6 +890,7 @@
 			isa = PBXGroup;
 			children = (
 				A2892398238B72F800E4AB75 /* HTupleBaseCell.swift */,
+				EBC307342BF9A05200EF8ABD /* HTupleLayoutCell.swift */,
 				A28923AA238B733500E4AB75 /* HTupleViewCell.swift */,
 				EB5042882A2C31E2007E9FC7 /* HTupleTextImageCell.swift */,
 				A28923AF238BC2D100E4AB75 /* HTupleViewCellVertValue.swift */,
@@ -1074,12 +1062,12 @@
 				EBC307152BF8A65A00EF8ABD /* HTransitionAnimator2.swift */,
 				EB9D332A2B038F97000B8F48 /* HPullController.swift */,
 				A2A814BF274E030100FAB929 /* HSheetController.swift */,
-				EB3541D82BE914D9003B1D69 /* HFlowDropVC.swift */,
-				EB3541DA2BE91732003B1D69 /* HFlowDropVC+Extern.swift */,
-				EB3541D02BE91211003B1D69 /* HFlowAlertVC.swift */,
-				EB3541CE2BE91210003B1D69 /* HFlowAlertVC+Extern.swift */,
-				EB3541D12BE91211003B1D69 /* HFlowSheetVC.swift */,
-				EB3541CF2BE91211003B1D69 /* HFlowSheetVC+Extern.swift */,
+				EBC307282BF8F16000EF8ABD /* HTupleDropVC.swift */,
+				EBC3072A2BF8F19200EF8ABD /* HTupleDropVC+Extern.swift */,
+				EBC307242BF8F06C00EF8ABD /* HTupleAlertVC.swift */,
+				EBC307262BF8F10500EF8ABD /* HTupleAlertVC+Extern.swift */,
+				EBC3072C2BF8F1C200EF8ABD /* HTupleSheetVC.swift */,
+				EBC3072E2BF8F1EF00EF8ABD /* HTupleSheetVC+Extern.swift */,
 				A2A814B5274CC23C00FAB929 /* HTransitionAnimation.swift */,
 				A2A814B1274C081B00FAB929 /* HTransitionHeader.swift */,
 				A2A814BB274D694E00FAB929 /* UIViewController+HAnimation.swift */,
@@ -1188,7 +1176,6 @@
 				A265D9F92390B8D7001F39B0 /* YPTabBarController */,
 				A21887A323900832005C20BF /* HKeyChainStore */,
 				A218879A238FF87F005C20BF /* HUserDefaults */,
-				EBC306DE2BEE24E500EF8ABD /* HFlowView */,
 				A26D434A2387C2B500F457AE /* HTupleView */,
 				A2B4308123801C3A00795605 /* HWebClasses */,
 				A2B4307E237FF56D00795605 /* HViewController */,
@@ -1338,6 +1325,7 @@
 				EBD213D62A655FB800C31E2D /* HActiveController.swift */,
 				EB23DAC42A00D69300C96CAC /* HViewController2.swift */,
 				A258395823B4E70F00881941 /* HTableController.swift */,
+				EBC3073A2BF9B1DD00EF8ABD /* HTupleAutoVC.swift */,
 				A28923C4238CDE8400E4AB75 /* HTupleController.swift */,
 				EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */,
 				A26D432E23868AFE00F457AE /* UIViewController+HDisappear.swift */,
@@ -1481,67 +1469,9 @@
 			path = HAtrribute;
 			sourceTree = "<group>";
 		};
-		EBC306DE2BEE24E500EF8ABD /* HFlowView */ = {
-			isa = PBXGroup;
-			children = (
-				EBC306DF2BEE24E500EF8ABD /* Cells */,
-				EBC306ED2BEE273000EF8ABD /* View */,
-			);
-			name = HFlowView;
-			path = HSwiftProject/Classes/QFUtil/HFlowView;
-			sourceTree = SOURCE_ROOT;
-		};
-		EBC306DF2BEE24E500EF8ABD /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				EBC306E02BEE24E500EF8ABD /* HFlowViewCell */,
-				EBC306E32BEE24E500EF8ABD /* HFlowViewApex */,
-				EBC306E42BEE24E500EF8ABD /* HFlowCommon */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		EBC306E02BEE24E500EF8ABD /* HFlowViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				EBC306E12BEE24E500EF8ABD /* HFlowBaseCell.swift */,
-				EBC306E22BEE24E500EF8ABD /* HFlowViewCell.swift */,
-			);
-			path = HFlowViewCell;
-			sourceTree = "<group>";
-		};
-		EBC306E32BEE24E500EF8ABD /* HFlowViewApex */ = {
-			isa = PBXGroup;
-			children = (
-				EBC306F42BEE294500EF8ABD /* HFlowBaseApex.swift */,
-				EBC306F52BEE294500EF8ABD /* HFlowViewApex.swift */,
-			);
-			path = HFlowViewApex;
-			sourceTree = "<group>";
-		};
-		EBC306E42BEE24E500EF8ABD /* HFlowCommon */ = {
-			isa = PBXGroup;
-			children = (
-				EBC306F22BEE28E000EF8ABD /* HFlowRefresh.swift */,
-				EBC306EB2BEE263200EF8ABD /* HFlowSignal.swift */,
-			);
-			path = HFlowCommon;
-			sourceTree = "<group>";
-		};
-		EBC306ED2BEE273000EF8ABD /* View */ = {
-			isa = PBXGroup;
-			children = (
-				EBC306EE2BEE273000EF8ABD /* HFlowViewLayout.swift */,
-				EBC306EF2BEE273000EF8ABD /* HFlowView.swift */,
-				EBC306F82BEE300000EF8ABD /* HFlowController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		EBC307172BF8ACA600EF8ABD /* XTransitionAnimation */ = {
 			isa = PBXGroup;
 			children = (
-				EBC307182BF8ACD500EF8ABD /* XTransitionAnimation.swift */,
 				EBC3071A2BF8ACF800EF8ABD /* XPresentAnimation.swift */,
 				EBC3071C2BF8AD7B00EF8ABD /* XPresentationController.swift */,
 				EBC3071E2BF8AEF000EF8ABD /* XAlertController.swift */,
@@ -1967,9 +1897,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB3541D32BE91212003B1D69 /* HFlowSheetVC+Extern.swift in Sources */,
 				A2B4308323801C4E00795605 /* HWebButtonView.swift in Sources */,
-				EBC306E62BEE24E500EF8ABD /* HFlowBaseCell.swift in Sources */,
 				A26D43172383DE5800F457AE /* UIColor+HUtil.swift in Sources */,
 				EB80B66E2A122A940016648A /* HScrollbar.swift in Sources */,
 				EBD0FB3A29CD461E00808EDA /* AppDelegate+NotifyService.swift in Sources */,
@@ -1982,16 +1910,17 @@
 				A26D4323238526BA00F457AE /* UIViewController+HUtil.swift in Sources */,
 				A2A814B0274C07E300FAB929 /* UIViewController+HTransition.swift in Sources */,
 				A2B4308D23825BBE00795605 /* HWebImageView.swift in Sources */,
+				EBC3072F2BF8F1EF00EF8ABD /* HTupleSheetVC+Extern.swift in Sources */,
 				A2B4308723823F3400795605 /* Error+HUtil.swift in Sources */,
 				EBD0FB2029CC51BF00808EDA /* HFileCache.swift in Sources */,
 				EBD0FB3329CCA2CB00808EDA /* AppDelegate+ConfigerService.swift in Sources */,
 				EB3541BE2BE86484003B1D69 /* HSkeletonView2.swift in Sources */,
 				EB43241829C3569800EDDB64 /* HFormController.swift in Sources */,
+				EBC307252BF8F06C00EF8ABD /* HTupleAlertVC.swift in Sources */,
 				A22948A123975F500058B939 /* HTableViewApexVertValue.swift in Sources */,
 				A28B652323FD26CE00B6B638 /* HNetworkManager.swift in Sources */,
 				EBD0FB3829CCA8D800808EDA /* HRemoteNotification.swift in Sources */,
 				EB9358F52AF4E5FC00716728 /* HMainController7.swift in Sources */,
-				EBC307192BF8ACD500EF8ABD /* XTransitionAnimation.swift in Sources */,
 				EB12098B2A85DA1A00E5F045 /* HPostCommentView.swift in Sources */,
 				EBA53C382A38AF000077158D /* HWebButtonView2.swift in Sources */,
 				EBA53C2E2A308BF00077158D /* HWebActionView.swift in Sources */,
@@ -2017,13 +1946,13 @@
 				EBD213E72A6B859500C31E2D /* HSkeletonView.swift in Sources */,
 				EBD0FB6E29D02B1000808EDA /* HUserDefaults.swift in Sources */,
 				A28923AB238B733500E4AB75 /* HTupleViewCell.swift in Sources */,
-				EB3541D22BE91212003B1D69 /* HFlowAlertVC+Extern.swift in Sources */,
 				A2188799238FD3E0005C20BF /* HGameCategoryVC+HSection2.swift in Sources */,
 				A2A7A93523FE2CBF0090EFD3 /* HTupleViewMarqueeApex.swift in Sources */,
 				A258395923B4E70F00881941 /* HTableController.swift in Sources */,
 				EBD0FB1A29CC366D00808EDA /* HAuthorizeManager.swift in Sources */,
 				A286251623EAB8DD00E81781 /* HCountDownButton.swift in Sources */,
 				EBD0FB6C29D02B1000808EDA /* HDefaultsCore+Extern.swift in Sources */,
+				EBC3072D2BF8F1C200EF8ABD /* HTupleSheetVC.swift in Sources */,
 				EB80B6962A20BEEC0016648A /* HTextImageView.swift in Sources */,
 				EB3541CB2BE8CBEF003B1D69 /* MessageInfo.swift in Sources */,
 				EBD0FB9E29DB00B300808EDA /* HMainController6+UI.swift in Sources */,
@@ -2044,11 +1973,9 @@
 				A22948BA239798FC0058B939 /* HRegisterController.swift in Sources */,
 				A26D432D238682D200F457AE /* HNavigationController.swift in Sources */,
 				A22948B3239798A30058B939 /* HMainController5.swift in Sources */,
-				EB3541D92BE914D9003B1D69 /* HFlowDropVC.swift in Sources */,
 				EBD0FB2629CC8CF100808EDA /* HFPickerView.swift in Sources */,
 				EBD0FB7929D02B9600808EDA /* HDefaultsCore.swift in Sources */,
 				A2A814BA274CCC1800FAB929 /* HPresentationController.swift in Sources */,
-				EBC306F92BEE300000EF8ABD /* HFlowController.swift in Sources */,
 				A2B4308F2382CC8A00795605 /* UIDevice+HUtil.swift in Sources */,
 				EBD0FB8A29D5668E00808EDA /* CALayer+HUtil.swift in Sources */,
 				EB23DACD2A027D6C00C96CAC /* HSheetAction.swift in Sources */,
@@ -2069,7 +1996,6 @@
 				EBC8147929AA543300A81431 /* HSendVideoVC+HStatus6.swift in Sources */,
 				A22948BE239799190058B939 /* HRegisterController+SJ.swift in Sources */,
 				A28923A4238B72F800E4AB75 /* HGeometry.swift in Sources */,
-				EBC306F32BEE28E000EF8ABD /* HFlowRefresh.swift in Sources */,
 				EBC8140629AA48C000A81431 /* HUserLiveVC.swift in Sources */,
 				EBD0FB3129CCA16400808EDA /* AppDelegate+WindowService.swift in Sources */,
 				EBED9CA52A4C3C8600E590DE /* HTupleBannerApex.swift in Sources */,
@@ -2089,7 +2015,6 @@
 				A22948AF239798870058B939 /* HMainController3+HSection2.swift in Sources */,
 				EB43243A29C588A400EDDB64 /* HTextViewer.swift in Sources */,
 				EB4323F429B98C9400EDDB64 /* HNaviToastView.swift in Sources */,
-				EBC306EC2BEE263200EF8ABD /* HFlowSignal.swift in Sources */,
 				EBC8146129AA53C600A81431 /* HSendAudioVC+HStatus5.swift in Sources */,
 				EB3541C72BE8C7F3003B1D69 /* HChatsMsgVC.swift in Sources */,
 				EBD0FB2C29CC9AEF00808EDA /* UIColor+HSkin.swift in Sources */,
@@ -2106,6 +2031,7 @@
 				EB80B67E2A18A7430016648A /* HSearchBar.swift in Sources */,
 				EB1209912A86110E00E5F045 /* HPostCommentVM.swift in Sources */,
 				A2A814B6274CC23C00FAB929 /* HTransitionAnimation.swift in Sources */,
+				EBC3072B2BF8F19200EF8ABD /* HTupleDropVC+Extern.swift in Sources */,
 				A2A7A93923FE2E150090EFD3 /* HAbstractDotView.swift in Sources */,
 				A26D43392386C0A000F457AE /* UINavigationController+HUtil.swift in Sources */,
 				A2B4308523823B9000795605 /* HCommonBlock.swift in Sources */,
@@ -2118,7 +2044,6 @@
 				EB50428D2A2C343C007E9FC7 /* HTableTextImageCell.swift in Sources */,
 				EB50428B2A2C33F6007E9FC7 /* HTupleTextImageApex.swift in Sources */,
 				EBC8140429AA48C000A81431 /* HUserLiveCell+HSection2.swift in Sources */,
-				EBC306F62BEE294500EF8ABD /* HFlowBaseApex.swift in Sources */,
 				A2B43071237FF2B100795605 /* Swifty.m in Sources */,
 				EBD0FB2329CC739A00808EDA /* HDrawerViewController.swift in Sources */,
 				EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */,
@@ -2129,10 +2054,10 @@
 				A2B43073237FF2B100795605 /* HCommonDefine.swift in Sources */,
 				A2B42FCC237CED5A00795605 /* AppDelegate.swift in Sources */,
 				EBC8140929AA48C000A81431 /* HUserLiveCell+HSection1.swift in Sources */,
+				EBC3073B2BF9B1DD00EF8ABD /* HTupleAutoVC.swift in Sources */,
 				A2B4307C237FF2B100795605 /* HGameCategoryVC.swift in Sources */,
 				EB43241429C3163900EDDB64 /* HUserRegion.swift in Sources */,
 				EBD213D92A67783700C31E2D /* HNavigationBar2.swift in Sources */,
-				EB3541DB2BE91732003B1D69 /* HFlowDropVC+Extern.swift in Sources */,
 				EBC307142BF8914000EF8ABD /* HTransitionAnimator.swift in Sources */,
 				EBC3071D2BF8AD7B00EF8ABD /* XPresentationController.swift in Sources */,
 				EBED9CCA2A4D339700E590DE /* HDotIndicatorBar.swift in Sources */,
@@ -2148,14 +2073,15 @@
 				A26D432B23856F8900F457AE /* NSTimer+HUtil.swift in Sources */,
 				EB3541E32BE9E9A8003B1D69 /* Network10008API.swift in Sources */,
 				A265DA052394B6F7001F39B0 /* UIScrollView+HTab.swift in Sources */,
-				EBC306F72BEE294500EF8ABD /* HFlowViewApex.swift in Sources */,
 				A2B42FCE237CED5A00795605 /* SceneDelegate.swift in Sources */,
 				A26D43452387827A00F457AE /* NSObject+HForwarding.swift in Sources */,
 				EBC3071B2BF8ACF800EF8ABD /* XPresentAnimation.swift in Sources */,
+				EBC307272BF8F10500EF8ABD /* HTupleAlertVC+Extern.swift in Sources */,
 				A26D432723853F2900F457AE /* NSObject+HMessy.swift in Sources */,
 				A229489F23975D850058B939 /* HTableViewCellHoriValue.swift in Sources */,
 				A2A814B4274C0E2000FAB929 /* HTupleHeader.swift in Sources */,
 				EBA53C3A2A3B47240077158D /* HWebImageView2.swift in Sources */,
+				EBC307292BF8F16000EF8ABD /* HTupleDropVC.swift in Sources */,
 				EB1209872A84CC8300E5F045 /* HPostVM.swift in Sources */,
 				EB12097F2A827AF200E5F045 /* HPostFooter.swift in Sources */,
 				A26D43192383E23300F457AE /* NSString+HUtil.swift in Sources */,
@@ -2164,6 +2090,7 @@
 				A2A7A93B23FE36440090EFD3 /* HAnimatedDotView.swift in Sources */,
 				A26D434923879FB900F457AE /* Router.swift in Sources */,
 				EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */,
+				EBC307372BF9A19B00EF8ABD /* HTupleLayoutApex.swift in Sources */,
 				A28923C5238CDE8400E4AB75 /* HTupleController.swift in Sources */,
 				A265DA012392A2B3001F39B0 /* UIViewController+HTab.swift in Sources */,
 				EBD0FB0629CA011400808EDA /* HVersionManager.swift in Sources */,
@@ -2172,13 +2099,11 @@
 				EBD0FB9229DA97C000808EDA /* HMainController6+UIExt.swift in Sources */,
 				A26D432523852DB700F457AE /* NSDate+HUtil.swift in Sources */,
 				EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */,
-				EBC306F12BEE273000EF8ABD /* HFlowView.swift in Sources */,
 				EB3541E92BEA0073003B1D69 /* HUserLoginRequest.swift in Sources */,
 				A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */,
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,
 				EB0597712A0B6B990016ACD8 /* HNavigationBar.swift in Sources */,
 				A229489923975BA80058B939 /* HTupleViewApexVertValue.swift in Sources */,
-				EB3541D52BE91212003B1D69 /* HFlowSheetVC.swift in Sources */,
 				EBD0FB0B29CA938900808EDA /* HAssetModel.swift in Sources */,
 				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue.swift in Sources */,
 				EB50428F2A2C348D007E9FC7 /* HTableTextImageApex.swift in Sources */,
@@ -2210,6 +2135,7 @@
 				EBD0FB6F29D02B1000808EDA /* HUserCore+Extern.swift in Sources */,
 				A28A022A23EE65B7000556A2 /* HTupleViewTextLoopApex.swift in Sources */,
 				EBC8146929AA53ED00A81431 /* HAcceptVideoVC+HStatus3.swift in Sources */,
+				EBC307352BF9A05200EF8ABD /* HTupleLayoutCell.swift in Sources */,
 				A28923A5238B72F800E4AB75 /* HTupleSignal.swift in Sources */,
 				A22948A92397985B0058B939 /* HMainController3.swift in Sources */,
 				A2B43077237FF2B100795605 /* NSObject+HUtil.swift in Sources */,
@@ -2220,15 +2146,12 @@
 				A229489723975AE80058B939 /* HTupleViewApex.swift in Sources */,
 				EB3541E52BE9FE02003B1D69 /* IPServer.swift in Sources */,
 				EB1209852A8365E500E5F045 /* HPostVC.swift in Sources */,
-				EB3541D42BE91212003B1D69 /* HFlowAlertVC.swift in Sources */,
 				A2B43080237FF57C00795605 /* HViewController.swift in Sources */,
 				A2294890239756770058B939 /* HTableBaseCell.swift in Sources */,
 				A229488F239756770058B939 /* HTableSignal.swift in Sources */,
-				EBC306F02BEE273000EF8ABD /* HFlowViewLayout.swift in Sources */,
 				EBA6472B2A875D1B00897D76 /* HStackBar.swift in Sources */,
 				EB3541A02BDA2CFA003B1D69 /* HActiveView.swift in Sources */,
 				A2B4307A237FF2B100795605 /* HMenuViewController.swift in Sources */,
-				EBC306E72BEE24E500EF8ABD /* HFlowViewCell.swift in Sources */,
 				A21887A723900832005C20BF /* HKeychainSwiftAccessOptions.swift in Sources */,
 				EBD0FB7A29D02B9600808EDA /* HUserCore.swift in Sources */,
 				A2A814B8274CCA7200FAB929 /* HPresentAnimation.swift in Sources */,

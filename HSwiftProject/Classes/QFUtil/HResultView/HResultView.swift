@@ -81,7 +81,7 @@ class HResultView: UIView, HTupleViewDelegate {
     }
 
     func tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.header(HTupleButtonApex.self, nil, true, indexPath) as! HTupleButtonApex
+        let cell = tuple.reuseHeader(HTupleButtonApex.self, nil, true, indexPath) as! HTupleButtonApex
         cell.buttonView.backgroundColor = UIColor.white
         if let make = make {
             if let bgColor = make.bgColor {
@@ -110,7 +110,7 @@ class HResultView: UIView, HTupleViewDelegate {
         
         switch (indexPath.row) {
         case 0:
-            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+            let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             
             cell.label.backgroundColor = UIColor.white
             cell.label.font = .systemFont(ofSize: 14.0)
@@ -146,7 +146,7 @@ class HResultView: UIView, HTupleViewDelegate {
             }
             break
         case 1:
-            let cell = tuple.cell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+            let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             
             cell.label.backgroundColor = UIColor.white
             cell.label.font = .systemFont(ofSize: 14.0)
