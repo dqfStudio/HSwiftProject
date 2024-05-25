@@ -49,9 +49,6 @@ extension HTupleAutoVC: HTupleViewDelegate {
                 make.right.bottom.equalToSuperview().offset(-10)
                 make.width.equalTo(self.tupleView.width - 20)
             }
-            cell.label.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
-            }
             cell.label.numberOfLines = 0
             cell.label.text = "家乐福大数据冯老师复方丹参封疆大吏撒附件打撒丽枫酒店酸辣粉大家酸辣粉离开家我拉的开发机六点多撒会计分录打扫房间领导撒附件都说了咖啡机多少啦咖啡机第三方"
             
