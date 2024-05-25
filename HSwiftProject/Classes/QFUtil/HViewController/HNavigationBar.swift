@@ -157,7 +157,8 @@ extension HNavigationBar {
             let attribute = tuple.attribute(HTupleLayoutCell.self, nil, true, indexPath)
             let itemWidth = max(self.leftItemWidth, self.rightItemWidth)
             attribute.size = CGSize(width: itemWidth, height: UIScreen.naviBarHeight)
-            attribute.cellBlock = { (tuple, baseCell) in
+            attribute.cellBlock = { [weak self] (tuple, baseCell) in
+                guard let self = self else { return }
                 let cell = baseCell as! HTupleLayoutCell
                 if self.leftItem.superview == nil {
                     cell.layoutView.addSubview(self.leftItem)
@@ -176,7 +177,8 @@ extension HNavigationBar {
             var titleWidth = self.width - self.edgeSpace * 2 - self.titleSpace * 2 - itemWidth * 2
             titleWidth = max(titleWidth, 1)
             attribute.size = CGSize(width: titleWidth, height: UIScreen.naviBarHeight)
-            attribute.cellBlock = { (tuple, baseCell) in
+            attribute.cellBlock = { [weak self] (tuple, baseCell) in
+                guard let self = self else { return }
                 let cell = baseCell as! HTupleLayoutCell
                 if self.titleItem.superview == nil {
                     cell.layoutView.addSubview(self.titleItem)
@@ -191,7 +193,8 @@ extension HNavigationBar {
             let attribute = tuple.attribute(HTupleLayoutCell.self, nil, true, indexPath)
             let itemWidth = max(self.leftItemWidth, self.rightItemWidth)
             attribute.size = CGSize(width: itemWidth, height: UIScreen.naviBarHeight)
-            attribute.cellBlock = { (tuple, baseCell) in
+            attribute.cellBlock = { [weak self] (tuple, baseCell) in
+                guard let self = self else { return }
                 let cell = baseCell as! HTupleLayoutCell
                 if self.rightItem.superview == nil {
                     cell.layoutView.addSubview(self.rightItem)
