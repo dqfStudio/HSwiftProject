@@ -25,7 +25,7 @@ enum HTupleDirection {
 
 enum HTupleItemLayout {
     case manual // Manual
-    case automatic // Automatic
+    case automatic // Automatic，只能在HTupleMode的delegate模式下使用
 }
 
 enum HTupleAlign {
