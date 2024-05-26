@@ -10,7 +10,7 @@ import UIKit
 
 typealias HTupleViewMarqueeCellBlock = () -> Void
 
-class HTupleViewMarqueeCell: HTupleLayoutCell {
+class HTupleViewMarqueeCell: HTupleBaseCell {
 
     ///显示的文字
     var msg: String? {

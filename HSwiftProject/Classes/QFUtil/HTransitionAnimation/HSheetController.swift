@@ -193,7 +193,7 @@ extension HSheetController {
         let row = indexPath.row % 2
         switch row {
         case 0:
-            let cell = tuple.reuseCell(HTupleLayoutCell.self, nil, true, indexPath) as! HTupleLayoutCell
+            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.backgroundColor = UIColor.white
             var button = cell.viewWithTag(12345) as? HWebButtonView
             if button == nil {

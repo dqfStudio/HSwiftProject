@@ -154,12 +154,12 @@ extension HNavigationBar {
     func attributeForItemAtIndexPath(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         switch indexPath.row {
         case 0: //左边返回按钮
-            let attribute = tuple.attribute(HTupleLayoutCell.self, nil, true, indexPath)
+            let attribute = tuple.attribute(HTupleBaseCell.self, nil, true, indexPath)
             let itemWidth = max(self.leftItemWidth, self.rightItemWidth)
             attribute.size = CGSize(width: itemWidth, height: UIScreen.naviBarHeight)
             attribute.cellBlock = { [weak self] (tuple, baseCell) in
                 guard let self = self else { return }
-                let cell = baseCell as! HTupleLayoutCell
+                let cell = baseCell as! HTupleBaseCell
                 if self.leftItem.superview == nil {
                     cell.layoutView.addSubview(self.leftItem)
                 }
@@ -172,14 +172,14 @@ extension HNavigationBar {
             let attribute = tuple.attribute(HTupleBaseCell.self, nil, true, indexPath)
             attribute.size = CGSize(width: self.titleSpace, height: UIScreen.naviBarHeight)
         case 2: //中间标题按钮
-            let attribute = tuple.attribute(HTupleLayoutCell.self, nil, true, indexPath)
+            let attribute = tuple.attribute(HTupleBaseCell.self, nil, true, indexPath)
             let itemWidth = max(self.leftItemWidth, self.rightItemWidth)
             var titleWidth = self.width - self.edgeSpace * 2 - self.titleSpace * 2 - itemWidth * 2
             titleWidth = max(titleWidth, 1)
             attribute.size = CGSize(width: titleWidth, height: UIScreen.naviBarHeight)
             attribute.cellBlock = { [weak self] (tuple, baseCell) in
                 guard let self = self else { return }
-                let cell = baseCell as! HTupleLayoutCell
+                let cell = baseCell as! HTupleBaseCell
                 if self.titleItem.superview == nil {
                     cell.layoutView.addSubview(self.titleItem)
                 }
@@ -190,12 +190,12 @@ extension HNavigationBar {
             let attribute = tuple.attribute(HTupleBaseCell.self, nil, true, indexPath)
             attribute.size = CGSize(width: self.titleSpace, height: UIScreen.naviBarHeight)
         case 4: //右边按钮
-            let attribute = tuple.attribute(HTupleLayoutCell.self, nil, true, indexPath)
+            let attribute = tuple.attribute(HTupleBaseCell.self, nil, true, indexPath)
             let itemWidth = max(self.leftItemWidth, self.rightItemWidth)
             attribute.size = CGSize(width: itemWidth, height: UIScreen.naviBarHeight)
             attribute.cellBlock = { [weak self] (tuple, baseCell) in
                 guard let self = self else { return }
-                let cell = baseCell as! HTupleLayoutCell
+                let cell = baseCell as! HTupleBaseCell
                 if self.rightItem.superview == nil {
                     cell.layoutView.addSubview(self.rightItem)
                 }

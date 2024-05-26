@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HPostCommentViewCell: HTupleLayoutCell, HTupleViewDelegate {
+class HPostCommentViewCell: HTupleBaseCell, HTupleViewDelegate {
     
     // 帖子model
     private var _postVM: HPostCommentVM?
@@ -80,7 +80,7 @@ extension HPostCommentViewCell {
     
     @objc
     func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HTupleLayoutCell.self, indexPath.stringValue, true, indexPath) as! HTupleLayoutCell
+        let cell = tuple.reuseCell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
         let frame = cell.layoutViewBounds
         
         var headerView = cell.layoutView.viewWithTag(121314) as? HPostCommentHeader

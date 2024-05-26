@@ -278,8 +278,6 @@
 		EBC3072B2BF8F19200EF8ABD /* HTupleDropVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3072A2BF8F19200EF8ABD /* HTupleDropVC+Extern.swift */; };
 		EBC3072D2BF8F1C200EF8ABD /* HTupleSheetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3072C2BF8F1C200EF8ABD /* HTupleSheetVC.swift */; };
 		EBC3072F2BF8F1EF00EF8ABD /* HTupleSheetVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3072E2BF8F1EF00EF8ABD /* HTupleSheetVC+Extern.swift */; };
-		EBC307352BF9A05200EF8ABD /* HTupleLayoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307342BF9A05200EF8ABD /* HTupleLayoutCell.swift */; };
-		EBC307372BF9A19B00EF8ABD /* HTupleLayoutApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307362BF9A19B00EF8ABD /* HTupleLayoutApex.swift */; };
 		EBC3073B2BF9B1DD00EF8ABD /* HTupleAutoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3073A2BF9B1DD00EF8ABD /* HTupleAutoVC.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
@@ -636,8 +634,6 @@
 		EBC3072A2BF8F19200EF8ABD /* HTupleDropVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTupleDropVC+Extern.swift"; sourceTree = "<group>"; };
 		EBC3072C2BF8F1C200EF8ABD /* HTupleSheetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleSheetVC.swift; sourceTree = "<group>"; };
 		EBC3072E2BF8F1EF00EF8ABD /* HTupleSheetVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTupleSheetVC+Extern.swift"; sourceTree = "<group>"; };
-		EBC307342BF9A05200EF8ABD /* HTupleLayoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleLayoutCell.swift; sourceTree = "<group>"; };
-		EBC307362BF9A19B00EF8ABD /* HTupleLayoutApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleLayoutApex.swift; sourceTree = "<group>"; };
 		EBC3073A2BF9B1DD00EF8ABD /* HTupleAutoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleAutoVC.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
@@ -879,7 +875,6 @@
 			isa = PBXGroup;
 			children = (
 				A2892396238B72F800E4AB75 /* HTupleBaseApex.swift */,
-				EBC307362BF9A19B00EF8ABD /* HTupleLayoutApex.swift */,
 				A229489623975AE80058B939 /* HTupleViewApex.swift */,
 				EB50428A2A2C33F6007E9FC7 /* HTupleTextImageApex.swift */,
 				A229489823975BA80058B939 /* HTupleViewApexVertValue.swift */,
@@ -892,7 +887,6 @@
 			isa = PBXGroup;
 			children = (
 				A2892398238B72F800E4AB75 /* HTupleBaseCell.swift */,
-				EBC307342BF9A05200EF8ABD /* HTupleLayoutCell.swift */,
 				A28923AA238B733500E4AB75 /* HTupleViewCell.swift */,
 				EB5042882A2C31E2007E9FC7 /* HTupleTextImageCell.swift */,
 				A28923AF238BC2D100E4AB75 /* HTupleViewCellVertValue.swift */,
@@ -2094,7 +2088,6 @@
 				A2A7A93B23FE36440090EFD3 /* HAnimatedDotView.swift in Sources */,
 				A26D434923879FB900F457AE /* Router.swift in Sources */,
 				EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */,
-				EBC307372BF9A19B00EF8ABD /* HTupleLayoutApex.swift in Sources */,
 				A28923C5238CDE8400E4AB75 /* HTupleController.swift in Sources */,
 				A265DA012392A2B3001F39B0 /* UIViewController+HTab.swift in Sources */,
 				EBD0FB0629CA011400808EDA /* HVersionManager.swift in Sources */,
@@ -2139,7 +2132,6 @@
 				EBD0FB6F29D02B1000808EDA /* HUserCore+Extern.swift in Sources */,
 				A28A022A23EE65B7000556A2 /* HTupleViewTextLoopApex.swift in Sources */,
 				EBC8146929AA53ED00A81431 /* HAcceptVideoVC+HStatus3.swift in Sources */,
-				EBC307352BF9A05200EF8ABD /* HTupleLayoutCell.swift in Sources */,
 				A28923A5238B72F800E4AB75 /* HTupleSignal.swift in Sources */,
 				A22948A92397985B0058B939 /* HMainController3.swift in Sources */,
 				A2B43077237FF2B100795605 /* NSObject+HUtil.swift in Sources */,

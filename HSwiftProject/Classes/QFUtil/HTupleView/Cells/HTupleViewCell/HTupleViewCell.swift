@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTupleLabelCell: HTupleLayoutCell {
+class HTupleLabelCell: HTupleBaseCell {
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
@@ -17,7 +17,7 @@ class HTupleLabelCell: HTupleLayoutCell {
     }()
 }
 
-class HTupleTextCell: HTupleLayoutCell {
+class HTupleTextCell: HTupleBaseCell {
     lazy var textView: HTextView = {
         let textView = HTextView()
         textView.font = .systemFont(ofSize: 14.0)
@@ -26,7 +26,7 @@ class HTupleTextCell: HTupleLayoutCell {
     }()
 }
 
-class HTupleButtonCell: HTupleLayoutCell {
+class HTupleButtonCell: HTupleBaseCell {
     lazy var buttonView: HWebButtonView = {
         let buttonView = HWebButtonView()
         self.layoutView.addArrangedSubview(buttonView)
@@ -34,7 +34,7 @@ class HTupleButtonCell: HTupleLayoutCell {
     }()
 }
 
-class HTupleImageCell: HTupleLayoutCell {
+class HTupleImageCell: HTupleBaseCell {
     lazy var imageView: HWebImageView = {
         let imageView = HWebImageView()
         self.layoutView.addArrangedSubview(imageView)
@@ -42,7 +42,7 @@ class HTupleImageCell: HTupleLayoutCell {
     }()
 }
 
-class HTupleFieldCell: HTupleLayoutCell {
+class HTupleFieldCell: HTupleBaseCell {
     lazy var textField: HTextField = {
         let textField = HTextField(frame: self.layoutView.bounds)
         self.layoutView.addArrangedSubview(textField)
@@ -50,7 +50,7 @@ class HTupleFieldCell: HTupleLayoutCell {
     }()
 }
 
-class HTupleViewCell: HTupleLayoutCell {
+class HTupleViewCell: HTupleBaseCell {
     
     ///label
     lazy var label: UILabel = {

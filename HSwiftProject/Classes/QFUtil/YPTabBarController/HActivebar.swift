@@ -247,7 +247,7 @@ extension HActivebar {
         // cell回调
         self.itemBlock?(tuple, indexPath)
         
-        let cell = tuple.cell(indexPath.row, indexPath.section) as! HTupleLayoutCell
+        let cell = tuple.cell(indexPath.row, indexPath.section) as! HTupleBaseCell
         let bounds = cell.layoutViewBounds
         
         // Set the font and color of the title based on whether it is selected or not
@@ -305,7 +305,7 @@ extension HActivebar {
         // cell回调
         self.itemBlock?(tuple, indexPath)
         
-        let cell = tuple.cell(indexPath.row, indexPath.section) as! HTupleLayoutCell
+        let cell = tuple.cell(indexPath.row, indexPath.section) as! HTupleBaseCell
         let bounds = cell.layoutViewBounds
         
         // Set the font and color of the title based on whether it is selected or not

@@ -22,7 +22,7 @@ class HFormModel: NSObject {
     }
 }
 
-class HFormCell: HTupleLayoutCell, HTupleViewDelegate {
+class HFormCell: HTupleBaseCell, HTupleViewDelegate {
     
     var modelArr: [HFormModel]? {
         didSet {

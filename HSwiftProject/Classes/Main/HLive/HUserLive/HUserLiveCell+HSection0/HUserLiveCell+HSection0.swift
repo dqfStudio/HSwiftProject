@@ -381,7 +381,7 @@ extension HUserLiveCell {
 //                NSLog("")
 //            }
             
-            let cell = tuple.reuseCell(HTupleLayoutCell.self, nil, true, indexPath) as! HTupleLayoutCell
+            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
             cell.layoutView.backgroundColor = UIColor.black
             cell.layoutView.cornerRadius = cell.layoutView.height / 2
             

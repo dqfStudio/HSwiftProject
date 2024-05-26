@@ -10,7 +10,7 @@ import UIKit
 
 typealias HTupleViewMarqueeApexBlock = () -> Void
 
-class HTupleViewMarqueeApex: HTupleLayoutApex {
+class HTupleViewMarqueeApex: HTupleBaseApex {
 
     ///显示的文字
     var msg: String? {

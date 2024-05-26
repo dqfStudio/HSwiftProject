@@ -10,7 +10,7 @@ import UIKit
 
 typealias HTupleViewTextLoopCellBlock = (_ selectString: NSString, _ index: Int) -> Void
 
-class HTupleViewTextLoopCell: HTupleLayoutCell {
+class HTupleViewTextLoopCell: HTupleBaseCell {
 
     var contentArr: NSArray? {
         didSet {

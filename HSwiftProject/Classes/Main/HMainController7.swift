@@ -97,7 +97,7 @@ extension HMainController7: HWaterfallMutiSectionDelegate {
     }
 }
 
-class HPengCell: HTupleLayoutCell, HTupleViewDelegate {
+class HPengCell: HTupleBaseCell, HTupleViewDelegate {
     
     // 帖子model
     private var _postVM: HPostVM?
@@ -171,7 +171,7 @@ extension HPengCell {
     
     @objc
     func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HTupleLayoutCell.self, indexPath.stringValue, true, indexPath) as! HTupleLayoutCell
+        let cell = tuple.reuseCell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
         let frame = cell.layoutViewBounds
         
         var headerView = cell.layoutView.viewWithTag(121314) as? HPostHeader
@@ -513,7 +513,7 @@ extension HPengCell {
     
     @objc
     func tupleExa5_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HTupleLayoutCell.self, indexPath.stringValue, true, indexPath) as! HTupleLayoutCell
+        let cell = tuple.reuseCell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
         let frame = cell.layoutViewBounds
         
         var footerView = cell.layoutView.viewWithTag(131415) as? HPostFooter

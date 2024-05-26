@@ -12,7 +12,7 @@ private let kRunloopCount: CGFloat = 5.0
 
 typealias HTupleBannerCellBlock = (_ index: Int, _ url: String) -> Void
 
-class HTupleBannerCell : HTupleLayoutCell, HTupleViewDelegate {
+class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
     
     // dot之间的间隔
     var dotSpace: CGFloat = 8.0
