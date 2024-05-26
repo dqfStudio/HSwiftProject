@@ -1258,7 +1258,8 @@ extension HTupleView {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             let tuples = self?.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HTupleBaseCell }
             tuples?.forEach { cell in
-                DispatchQueue.main.async {
+                DispatchQueue.main.async { [weak cell] in
+                    guard let cell = cell else { return }
                     cell.signalBlock?(cell, signal)
                 }
             }
@@ -1275,7 +1276,8 @@ extension HTupleView {
             DispatchQueue.concurrentPerform(iterations: items) { [weak self] i in
                 let cell = self?.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HTupleBaseCell
                 if let cell = cell, let signalBlock = cell.signalBlock {
-                    DispatchQueue.main.async(group: group) {
+                    DispatchQueue.main.async(group: group) { [weak cell] in
+                        guard let cell = cell else { return }
                         signalBlock(cell, signal)
                     }
                 }
@@ -1303,7 +1305,8 @@ extension HTupleView {
             DispatchQueue.concurrentPerform(iterations: sections) { [weak self] i in
                 let header = self?.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HTupleBaseApex
                 if let header = header, let signalBlock = header.signalBlock {
-                    DispatchQueue.main.async(group: group) {
+                    DispatchQueue.main.async(group: group) { [weak header] in
+                        guard let header = header else { return }
                         signalBlock(header, signal)
                     }
                 }
@@ -1331,7 +1334,8 @@ extension HTupleView {
             DispatchQueue.concurrentPerform(iterations: sections) { [weak self] i in
                 let footer = self?.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HTupleBaseApex
                 if let footer = footer, let signalBlock = footer.signalBlock {
-                    DispatchQueue.main.async(group: group) {
+                    DispatchQueue.main.async(group: group) { [weak footer] in
+                        guard let footer = footer else { return }
                         signalBlock(footer, signal)
                     }
                 }
