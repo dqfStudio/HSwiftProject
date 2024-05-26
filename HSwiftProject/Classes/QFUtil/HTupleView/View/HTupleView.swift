@@ -214,7 +214,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }
     }
     
-    // 实际内容之外的区域被点击
+    // 实际内容之外的区域被点击回调
     var outsideCntBlock: HTupleOutsideCntBlock?
 
     // tuple style
