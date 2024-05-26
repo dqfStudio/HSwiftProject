@@ -1,5 +1,5 @@
 //
-//  HWaterfallMutiSectionFlowLayout.swift
+//  HTupleViewWaterfallLayout.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/10/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-@objc protocol HWaterfallMutiSectionDelegate: NSObjectProtocol {
+@objc protocol HTupleViewWaterfallLayoutDelegate: NSObjectProtocol {
     /// item高度
     func waterHeightForItemAtIndexPath(_ indexPath: IndexPath, itemWidth: CGFloat) -> CGFloat
   
@@ -41,9 +41,9 @@ import UIKit
     optional func waterSpacingForLastSection( _ section: Int) -> CGFloat
 }
 
-class HWaterfallMutiSectionFlowLayout: UICollectionViewFlowLayout {
+class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
     
-    private weak var delegate: HWaterfallMutiSectionDelegate?
+    private weak var delegate: HTupleViewWaterfallLayoutDelegate?
     private var sectionInsets: UIEdgeInsets = .zero
     private var columnCount: Int = 2
     private var lineSpacing: CGFloat = 0.0
@@ -62,7 +62,7 @@ class HWaterfallMutiSectionFlowLayout: UICollectionViewFlowLayout {
     //每个section的header与上个section的footer距离
     private var spacingForLastSection: CGFloat = 0.0
     
-    convenience init(delegate: HWaterfallMutiSectionDelegate) {
+    convenience init(delegate: HTupleViewWaterfallLayoutDelegate) {
         self.init()
         self.delegate = delegate
     }

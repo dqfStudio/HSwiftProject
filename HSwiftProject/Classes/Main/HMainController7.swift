@@ -11,7 +11,7 @@ import UIKit
 class HMainController7: HViewController, HTupleViewDelegate {
     
     private lazy var tupleView: HTupleView = {
-        let layout = HWaterfallMutiSectionFlowLayout(delegate: self)
+        let layout = HTupleViewWaterfallLayout(delegate: self)
         var frame = self.view.bounds
         frame.y = UIScreen.topBarHeight
         frame.height -= frame.y + 50
@@ -72,7 +72,7 @@ extension HMainController7 {
 
 }
 
-extension HMainController7: HWaterfallMutiSectionDelegate {
+extension HMainController7: HTupleViewWaterfallLayoutDelegate {
     func waterInsetForSection( _ section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }

@@ -247,7 +247,7 @@
 		EB50428B2A2C33F6007E9FC7 /* HTupleTextImageApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428A2A2C33F6007E9FC7 /* HTupleTextImageApex.swift */; };
 		EB50428D2A2C343C007E9FC7 /* HTableTextImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428C2A2C343C007E9FC7 /* HTableTextImageCell.swift */; };
 		EB50428F2A2C348D007E9FC7 /* HTableTextImageApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428E2A2C348D007E9FC7 /* HTableTextImageApex.swift */; };
-		EB5148982AE283A70075F737 /* HWaterfallMutiSectionFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5148972AE283A70075F737 /* HWaterfallMutiSectionFlowLayout.swift */; };
+		EB5148982AE283A70075F737 /* HTupleViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5148972AE283A70075F737 /* HTupleViewWaterfallLayout.swift */; };
 		EB80B66C2A1130E10016648A /* HToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B66B2A1130E00016648A /* HToolbar.swift */; };
 		EB80B66E2A122A940016648A /* HScrollbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B66D2A122A940016648A /* HScrollbar.swift */; };
 		EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6732A15C8ED0016648A /* HLabel.swift */; };
@@ -603,7 +603,7 @@
 		EB50428A2A2C33F6007E9FC7 /* HTupleTextImageApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleTextImageApex.swift; sourceTree = "<group>"; };
 		EB50428C2A2C343C007E9FC7 /* HTableTextImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableTextImageCell.swift; sourceTree = "<group>"; };
 		EB50428E2A2C348D007E9FC7 /* HTableTextImageApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableTextImageApex.swift; sourceTree = "<group>"; };
-		EB5148972AE283A70075F737 /* HWaterfallMutiSectionFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWaterfallMutiSectionFlowLayout.swift; sourceTree = "<group>"; };
+		EB5148972AE283A70075F737 /* HTupleViewWaterfallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewWaterfallLayout.swift; sourceTree = "<group>"; };
 		EB80B66B2A1130E00016648A /* HToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HToolbar.swift; sourceTree = "<group>"; };
 		EB80B66D2A122A940016648A /* HScrollbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HScrollbar.swift; sourceTree = "<group>"; };
 		EB80B6732A15C8ED0016648A /* HLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLabel.swift; sourceTree = "<group>"; };
@@ -943,7 +943,7 @@
 			children = (
 				A289239E238B72F800E4AB75 /* HTupleView.swift */,
 				A289239F238B72F800E4AB75 /* HTupleViewLayout.swift */,
-				EB5148972AE283A70075F737 /* HWaterfallMutiSectionFlowLayout.swift */,
+				EB5148972AE283A70075F737 /* HTupleViewWaterfallLayout.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1935,7 +1935,7 @@
 				EBC8140729AA48C000A81431 /* HUserLiveCell.swift in Sources */,
 				EB43244929C5B8E700EDDB64 /* UIImage+HUtil.swift in Sources */,
 				A28923A2238B72F800E4AB75 /* HTupleBaseApex.swift in Sources */,
-				EB5148982AE283A70075F737 /* HWaterfallMutiSectionFlowLayout.swift in Sources */,
+				EB5148982AE283A70075F737 /* HTupleViewWaterfallLayout.swift in Sources */,
 				A265D9FD23910309001F39B0 /* HTabBar.swift in Sources */,
 				EB5042892A2C31E2007E9FC7 /* HTupleTextImageCell.swift in Sources */,
 				A250DF1023FFC05C009F5E47 /* HTupleViewBannerCell.swift in Sources */,
