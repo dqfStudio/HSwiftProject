@@ -1,14 +1,14 @@
 //
-//  HPostView.swift
-//  HSwiftProject
+//  HPostViewCellCell.swift
+//  HPostViewCell
 //
-//  Created by owner on 2023/8/8.
-//  Copyright © 2023 wind. All rights reserved.
+//  Created by owner on 2024/5/26.
+//  Copyright © 2024 wind. All rights reserved.
 //
 
 import UIKit
 
-class HPostView: UIStackView, HTupleViewDelegate {
+class HPostViewCell: HTupleLayoutCell, HTupleViewDelegate {
     
     // 帖子model
     private var _postVM: HPostVM?
@@ -17,14 +17,12 @@ class HPostView: UIStackView, HTupleViewDelegate {
         set {
             if _postVM?.post != newValue.post {
                 _postVM = newValue
+                tupleView.reloadTupleData()
             }
         }
     }
     
-    // 父类tuple view
-    weak var tuple: HTupleView?
-    
-    private lazy var tupleView: HTupleView = {
+    lazy var tupleView: HTupleView = {
         let tupleView = HTupleView.splitFrame {
             return self.bounds
         } mode: {
@@ -36,19 +34,18 @@ class HPostView: UIStackView, HTupleViewDelegate {
         }
         tupleView.isScrollEnabled = false
         tupleView.disableBounce()
+        self.layoutView.addArrangedSubview(tupleView)
         return tupleView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = .clear
+    override func initUI() {
         self.tupleView.delegate = self
-        self.addArrangedSubview(self.tupleView)
-    }
-
-    @available(*, unavailable)
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        self.layoutView.addArrangedSubview(self.tupleView)
+        self.tupleView.cntSizeBlock = { [weak self] cntSize in
+            if let tuple = self?.tuple {
+                tuple.reloadData()
+            }
+        }
     }
     
     func reloadTupleData() {
@@ -66,7 +63,7 @@ class HPostView: UIStackView, HTupleViewDelegate {
 
 }
 
-extension HPostView {
+extension HPostViewCell {
     
     @objc
     func tupleExa0_numberOfItemsInSection(_ section: Any) -> Any {
@@ -108,7 +105,7 @@ extension HPostView {
     
 }
 
-extension HPostView {
+extension HPostViewCell {
     
     @objc
     func tupleExa1_numberOfItemsInSection(_ section: Any) -> Any {
@@ -182,7 +179,7 @@ extension HPostView {
                 self.postVM.postExtend = .isExtended
                 // 刷新tuple view
                 UIView.performWithoutAnimation {
-                    self.tuple?.reloadData()
+                    self.tupleView.reloadData()
                 }
             }
         default:
@@ -193,7 +190,7 @@ extension HPostView {
     
 }
 
-extension HPostView {
+extension HPostViewCell {
     
     @objc
     func tupleExa2_numberOfItemsInSection(_ section: Any) -> Any {
@@ -248,7 +245,7 @@ extension HPostView {
                 self.postVM.postTranslate = .isTranslated
                 // 刷新tuple view
                 UIView.performWithoutAnimation {
-                    self.tuple?.reloadData()
+                    self.tupleView.reloadData()
                 }
             }
         }
@@ -257,7 +254,7 @@ extension HPostView {
     
 }
 
-extension HPostView {
+extension HPostViewCell {
     
     @objc
     func tupleExa3_numberOfItemsInSection(_ section: Any) -> Any {
@@ -309,7 +306,7 @@ extension HPostView {
             cell.buttonView.cornerRadius = 8.0
             cell.buttonView.isUserInteractionEnabled = true
             cell.buttonView.pressed = { (sender, data) in
-                NSLog("")
+                NSLog("图片")
             }
             
         } else if indexPath.row == 1 {
@@ -320,7 +317,7 @@ extension HPostView {
             cell.buttonView.cornerRadius = 8.0
             cell.buttonView.isUserInteractionEnabled = true
             cell.buttonView.pressed = { (sender, data) in
-                
+                NSLog("图片")
             }
 
         }  else if indexPath.row == 2 {
@@ -336,7 +333,7 @@ extension HPostView {
                 cell.buttonView.text = "图片"
                 cell.buttonView.cornerRadius = 8.0
                 cell.buttonView.pressed = { (sender, data) in
-                    
+                    NSLog("图片")
                 }
             }
             
@@ -353,12 +350,14 @@ extension HPostView {
                 
                 cell.buttonView.pressed = { (sender, data) in
                     //let row = indexPath.row - 1
+                    NSLog("图片")
                 }
                 
             } else {
                 
                 cell.buttonView.pressed = { (sender, data) in
                     //let row = indexPath.row
+                    NSLog("图片")
                 }
             }
             
@@ -368,7 +367,7 @@ extension HPostView {
     
 }
 
-extension HPostView {
+extension HPostViewCell {
     
     @objc
     func tupleExa4_numberOfItemsInSection(_ section: Any) -> Any {
@@ -400,13 +399,13 @@ extension HPostView {
         cell.buttonView.text = "视频"
         cell.buttonView.cornerRadius = 8.0
         cell.buttonView.pressed = { (sender, data) in
-            
+            NSLog("视频")
         }
     }
     
 }
 
-extension HPostView {
+extension HPostViewCell {
     
     @objc
     func tupleExa5_numberOfItemsInSection(_ section: Any) -> Any {
@@ -424,7 +423,7 @@ extension HPostView {
     }
     
     @objc
-    func tupleExa5_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {      
+    func tupleExa5_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         let cell = tuple.reuseCell(HTupleLayoutCell.self, indexPath.stringValue, true, indexPath) as! HTupleLayoutCell
         let frame = cell.layoutViewBounds
         
@@ -433,19 +432,20 @@ extension HPostView {
             footerView = HPostFooter(frame: frame)
             footerView!.tag = 131415
             footerView!.likeButton.pressed = { (sender, data) in
-                NSLog("")
+                NSLog("like")
             }
             
             footerView!.commentButton.pressed = { (sender, data) in
+                NSLog("comment")
                 self.viewController?.navigationController?.pushViewController(HPostCommentVC(), animated: true)
             }
             
             footerView!.shareButton.pressed = { (sender, data) in
-                NSLog("")
+                NSLog("share")
             }
             
             footerView!.moreButton.pressed = { (sender, data) in
-                NSLog("")
+                NSLog("more")
             }
             cell.layoutView.addSubview(footerView!)
         }

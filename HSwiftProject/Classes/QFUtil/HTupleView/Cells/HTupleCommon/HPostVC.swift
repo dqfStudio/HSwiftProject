@@ -12,7 +12,6 @@ class HPostVC: HViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
         var frame = UIScreen.bound
-        frame.origin.y += UIScreen.topBarHeight
         frame.size.height -= UIScreen.topBarHeight + (UIScreen.bottomBarHeight + 10)
         return HTupleView(frame: frame)
     }()
@@ -45,38 +44,27 @@ class HPostVC: HViewController, HTupleViewDelegate {
     func numberOfItemsInSection(_ section: Any) -> Any {
         return postList.count
     }
-
-    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {        
-        let cell = tuple.reuseCell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
+    
+    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+        if let cell = tupleView.cell(for: indexPath) as? HPostViewCell {
+            let contentSize = cell.tupleView.contentSize
+            return CGSize(width: tupleView.bounds.width, height: contentSize.height)
+        }
+        return CGSize(width: tupleView.bounds.width, height: 100)
+    }
+    
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.reuseCell(HPostViewCell.self, indexPath.stringValue, true, indexPath) as! HPostViewCell
         cell.backgroundColor = .yellow
         guard indexPath.row < postList.count else { return }
         
-        // 添加postCell
-        var postCell = cell.viewWithTag(131214) as? HPostView
-        if postCell == nil {
-            postCell = HPostView(frame: .zero)
-            postCell!.tag = 131214
-            cell.addSubview(postCell!)
+        cell.layoutView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         // 赋值model
         let postVM = postList[indexPath.row]
-        postCell!.postVM = postVM
-        postCell!.tuple = self.tupleView
-        
-        // 获取cell高度
-        let cellHeight = postVM.cellHeight
-        
-        // 重设postCell frame
-        if postCell!.height != cellHeight {
-            postCell!.frame = CGRect(x: 0, y: 0, width: self.tupleView.width, height: cellHeight)
-            postCell!.reloadTupleData()
-        }
-        
-        // 设置cell大小
-//        cell.sizeBlock = {
-//            return CGSize(width: self.tupleView.width, height: cellHeight)
-//        }
+        cell.postVM = postVM
     }
     
     func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {

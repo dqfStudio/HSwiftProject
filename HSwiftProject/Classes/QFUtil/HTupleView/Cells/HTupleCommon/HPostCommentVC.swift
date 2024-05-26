@@ -50,70 +50,47 @@ class HPostCommentVC: HViewController, HTupleViewDelegate {
     
     func sizeForHeaderInSection(_ section: Any) -> Any {
         let section = section as! Int
-        guard section < postList.count else { return CGSize.zero }
-        let postVM = postList[section]
-        return CGSize(width: self.tupleView.width, height: postVM.cellHeight)
+        if let cell = tupleView.header(for: section) as? HPostCommentViewApex {
+            let contentSize = cell.tupleView.contentSize
+            return CGSize(width: tupleView.bounds.width, height: contentSize.height)
+        }
+        return CGSize(width: tupleView.bounds.width, height: 100)
+    }
+    
+    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+        if let cell = tupleView.cell(for: indexPath) as? HPostCommentViewCell {
+            let contentSize = cell.tupleView.contentSize
+            return CGSize(width: tupleView.bounds.width, height: contentSize.height)
+        }
+        return CGSize(width: tupleView.bounds.width, height: 100)
     }
     
     func tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseHeader(HTupleBaseApex.self, "\(indexPath.section)", true, indexPath) as! HTupleBaseApex
+        let cell = tuple.reuseHeader(HPostCommentViewApex.self, "\(indexPath.section)", true, indexPath) as! HPostCommentViewApex
         cell.backgroundColor = .yellow
         guard indexPath.section < postList.count else { return }
-        
-        // 添加postCell
-        var postCell = cell.viewWithTag(131214) as? HPostCommentView
-        if postCell == nil {
-            postCell = HPostCommentView(frame: .zero)
-            postCell!.tag = 131214
-            cell.addSubview(postCell!)
+
+        cell.layoutView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
         
         // 赋值model
         let postVM = postList[indexPath.section]
-        postCell!.postVM = postVM
-        postCell!.tuple = self.tupleView
-        
-        // 获取cell高度
-        let cellHeight = postVM.cellHeight
-        
-        // 重设postCell frame
-        if postCell!.height != cellHeight {
-            postCell!.frame = CGRect(x: 0, y: 0, width: self.tupleView.width, height: cellHeight)
-            postCell!.reloadTupleData()
-        }
+        cell.postVM = postVM
     }
 
-    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
-        let cell = tuple.reuseCell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
+    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.reuseCell(HPostCommentViewCell.self, indexPath.stringValue, true, indexPath) as! HPostCommentViewCell
         cell.backgroundColor = .green
         guard indexPath.row < postList.count else { return }
 
-        // 添加postCell
-        var postCell = cell.viewWithTag(131215) as? HPostCommentView
-        if postCell == nil {
-            postCell = HPostCommentView(frame: .zero)
-            postCell!.tag = 131215
-            cell.addSubview(postCell!)
+        cell.layoutView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
         }
 
         // 赋值model
         let postVM = postList[indexPath.row]
-        postCell!.postVM = postVM
-        postCell!.tuple = self.tupleView
-
-        // 获取cell高度
-        let cellHeight = postVM.cellHeight
-
-        // 重设postCell frame
-        if postCell!.height != cellHeight {
-            postCell!.frame = CGRect(x: 60, y: 0, width: self.tupleView.width - 60, height: cellHeight)
-            postCell!.reloadTupleData()
-        }
-
-        // 设置cell大小
-//        cell.sizeBlock = {
-//            return CGSize(width: self.tupleView.width, height: cellHeight)
-//        }
+        cell.postVM = postVM
     }
     
     func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {

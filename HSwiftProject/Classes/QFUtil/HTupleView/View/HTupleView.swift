@@ -53,6 +53,7 @@ private var kTupleStateSourceKey: Void?
 typealias HTupleRefreshBlock = () -> Void
 typealias HTupleLoadMoreBlock = () -> Void
 typealias HTupleOutsideCntBlock = () -> Void
+typealias HTupleCntSizeBlock = (_ cntSize: CGSize) -> Void
 
 /// This class is used for refreshing tupleView throughout the project.
 class HTupleAppearance: NSObject {
@@ -202,6 +203,16 @@ class HTupleAppearance: NSObject {
 class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, HTupleViewLayoutDelegate {
 
     private var flowLayout: UICollectionViewFlowLayout?
+
+    // 获取到实际内容大小时的回调
+    var cntSizeBlock: HTupleCntSizeBlock?
+    private var oldCntSize: CGSize = .zero {
+        didSet {
+            if oldCntSize != oldValue {
+                cntSizeBlock?(oldCntSize)
+            }
+        }
+    }
     
     // 实际内容之外的区域被点击
     var outsideCntBlock: HTupleOutsideCntBlock?
@@ -284,6 +295,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     private func updateAlign() {
         let cntSize = self.contentSize
         let cntInset = self.contentInset
+        self.oldCntSize = cntSize //保存contentSize
         switch tupleAlign {
         case .default:
             self.contentInset = UIEdgeInsets.zero
@@ -1370,6 +1382,18 @@ extension HTupleView {
     /// Get cell based on the given row and section
     func cell(_ row: Int, _ section: Int) -> AnyObject? {
         return self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section))
+    }
+    
+    func cell(for indexPath: IndexPath) -> AnyObject? {
+        return self.allReuseCells.object(forKey: indexPath.nsStringValue)
+    }
+    
+    func header(for section: Int) -> AnyObject? {
+        return self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section))
+    }
+    
+    func footer(for section: Int) -> AnyObject? {
+        return self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section))
     }
 
     /// Get the width, height, and size of a certain section

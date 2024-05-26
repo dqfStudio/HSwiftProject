@@ -172,13 +172,14 @@
 		EB1209712A7CD45500E5F045 /* HGroupAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */; };
 		EB12097F2A827AF200E5F045 /* HPostFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB12097E2A827AF200E5F045 /* HPostFooter.swift */; };
 		EB1209812A827E1900E5F045 /* HPostHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209802A827E1900E5F045 /* HPostHeader.swift */; };
-		EB1209832A8280E400E5F045 /* HPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209822A8280E400E5F045 /* HPostView.swift */; };
 		EB1209852A8365E500E5F045 /* HPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209842A8365E400E5F045 /* HPostVC.swift */; };
 		EB1209872A84CC8300E5F045 /* HPostVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209862A84CC8300E5F045 /* HPostVM.swift */; };
 		EB1209892A85D87700E5F045 /* HPostCommentVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209882A85D87700E5F045 /* HPostCommentVC.swift */; };
-		EB12098B2A85DA1A00E5F045 /* HPostCommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB12098A2A85DA1A00E5F045 /* HPostCommentView.swift */; };
 		EB12098D2A85DA2A00E5F045 /* HPostCommentHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB12098C2A85DA2A00E5F045 /* HPostCommentHeader.swift */; };
 		EB1209912A86110E00E5F045 /* HPostCommentVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209902A86110E00E5F045 /* HPostCommentVM.swift */; };
+		EB1C8D772C02A82200ADF411 /* HPostViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C8D762C02A82200ADF411 /* HPostViewCell.swift */; };
+		EB1C8D792C02CBC900ADF411 /* HPostCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C8D782C02CBC900ADF411 /* HPostCommentViewCell.swift */; };
+		EB1C8D7B2C02CDFD00ADF411 /* HPostCommentViewApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C8D7A2C02CDFD00ADF411 /* HPostCommentViewApex.swift */; };
 		EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23D99529DFC6F800C96CAC /* HTextView.swift */; };
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
 		EB23DACD2A027D6C00C96CAC /* HSheetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */; };
@@ -529,13 +530,14 @@
 		EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupAvatarView.swift; sourceTree = "<group>"; };
 		EB12097E2A827AF200E5F045 /* HPostFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostFooter.swift; sourceTree = "<group>"; };
 		EB1209802A827E1900E5F045 /* HPostHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostHeader.swift; sourceTree = "<group>"; };
-		EB1209822A8280E400E5F045 /* HPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostView.swift; sourceTree = "<group>"; };
 		EB1209842A8365E400E5F045 /* HPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostVC.swift; sourceTree = "<group>"; };
 		EB1209862A84CC8300E5F045 /* HPostVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostVM.swift; sourceTree = "<group>"; };
 		EB1209882A85D87700E5F045 /* HPostCommentVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostCommentVC.swift; sourceTree = "<group>"; };
-		EB12098A2A85DA1A00E5F045 /* HPostCommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostCommentView.swift; sourceTree = "<group>"; };
 		EB12098C2A85DA2A00E5F045 /* HPostCommentHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostCommentHeader.swift; sourceTree = "<group>"; };
 		EB1209902A86110E00E5F045 /* HPostCommentVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostCommentVM.swift; sourceTree = "<group>"; };
+		EB1C8D762C02A82200ADF411 /* HPostViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostViewCell.swift; sourceTree = "<group>"; };
+		EB1C8D782C02CBC900ADF411 /* HPostCommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostCommentViewCell.swift; sourceTree = "<group>"; };
+		EB1C8D7A2C02CDFD00ADF411 /* HPostCommentViewApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostCommentViewApex.swift; sourceTree = "<group>"; };
 		EB23D99529DFC6F800C96CAC /* HTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
 		EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSheetAction.swift; sourceTree = "<group>"; };
@@ -927,12 +929,13 @@
 				EB3541C32BE86B53003B1D69 /* HBottomButtonView.swift */,
 				EB1209842A8365E400E5F045 /* HPostVC.swift */,
 				EB1209862A84CC8300E5F045 /* HPostVM.swift */,
-				EB1209822A8280E400E5F045 /* HPostView.swift */,
+				EB1C8D762C02A82200ADF411 /* HPostViewCell.swift */,
 				EB1209802A827E1900E5F045 /* HPostHeader.swift */,
 				EB12097E2A827AF200E5F045 /* HPostFooter.swift */,
 				EB1209882A85D87700E5F045 /* HPostCommentVC.swift */,
 				EB1209902A86110E00E5F045 /* HPostCommentVM.swift */,
-				EB12098A2A85DA1A00E5F045 /* HPostCommentView.swift */,
+				EB1C8D782C02CBC900ADF411 /* HPostCommentViewCell.swift */,
+				EB1C8D7A2C02CDFD00ADF411 /* HPostCommentViewApex.swift */,
 				EB12098C2A85DA2A00E5F045 /* HPostCommentHeader.swift */,
 				EBD213E62A6B859500C31E2D /* HSkeletonView.swift */,
 				EB3541BD2BE86484003B1D69 /* HSkeletonView2.swift */,
@@ -1906,6 +1909,7 @@
 				A22948BC2397990B0058B939 /* HRegisterController+KS.swift in Sources */,
 				EB05977C2A0DF18F0016ACD8 /* HChatTableView.swift in Sources */,
 				EBC8147129AA541200A81431 /* HSendVideoVC+HStatus2.swift in Sources */,
+				EB1C8D772C02A82200ADF411 /* HPostViewCell.swift in Sources */,
 				EBC8147529AA541F00A81431 /* HSendVideoVC+HStatus4.swift in Sources */,
 				A26D4323238526BA00F457AE /* UIViewController+HUtil.swift in Sources */,
 				A2A814B0274C07E300FAB929 /* UIViewController+HTransition.swift in Sources */,
@@ -1921,7 +1925,6 @@
 				A28B652323FD26CE00B6B638 /* HNetworkManager.swift in Sources */,
 				EBD0FB3829CCA8D800808EDA /* HRemoteNotification.swift in Sources */,
 				EB9358F52AF4E5FC00716728 /* HMainController7.swift in Sources */,
-				EB12098B2A85DA1A00E5F045 /* HPostCommentView.swift in Sources */,
 				EBA53C382A38AF000077158D /* HWebButtonView2.swift in Sources */,
 				EBA53C2E2A308BF00077158D /* HWebActionView.swift in Sources */,
 				EB4323F029B988C100EDDB64 /* HAlertFormatter.swift in Sources */,
@@ -1939,7 +1942,6 @@
 				EB43244929C5B8E700EDDB64 /* UIImage+HUtil.swift in Sources */,
 				A28923A2238B72F800E4AB75 /* HTupleBaseApex.swift in Sources */,
 				EB5148982AE283A70075F737 /* HWaterfallMutiSectionFlowLayout.swift in Sources */,
-				EB1209832A8280E400E5F045 /* HPostView.swift in Sources */,
 				A265D9FD23910309001F39B0 /* HTabBar.swift in Sources */,
 				EB5042892A2C31E2007E9FC7 /* HTupleTextImageCell.swift in Sources */,
 				A250DF1023FFC05C009F5E47 /* HTupleViewBannerCell.swift in Sources */,
@@ -1985,6 +1987,7 @@
 				A229488E239756770058B939 /* HTableBaseApex.swift in Sources */,
 				EB3541962BD61A75003B1D69 /* HBaseController.swift in Sources */,
 				EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */,
+				EB1C8D7B2C02CDFD00ADF411 /* HPostCommentViewApex.swift in Sources */,
 				A22948B1239798960058B939 /* HMainController4.swift in Sources */,
 				EBD213CF2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift in Sources */,
 				A229489D23975CE40058B939 /* HTableViewCellVertValue.swift in Sources */,
@@ -2025,6 +2028,7 @@
 				EB9D332B2B038F97000B8F48 /* HPullController.swift in Sources */,
 				EBA53C322A3210FB0077158D /* HMultiButtonView.swift in Sources */,
 				EB3541BC2BE86152003B1D69 /* HActiveTabbarVC.swift in Sources */,
+				EB1C8D792C02CBC900ADF411 /* HPostCommentViewCell.swift in Sources */,
 				EB35419E2BD90E39003B1D69 /* HActivebar.swift in Sources */,
 				A2B43074237FF2B100795605 /* UIView+HPrinter.swift in Sources */,
 				A250DF1223FFC2AB009F5E47 /* HTupleViewBannerApex.swift in Sources */,

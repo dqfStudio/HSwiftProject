@@ -92,38 +92,4 @@ class HPostVM: NSObject {
     // text高度
     var textHeight: CGFloat = 0.0
     
-    // cell高度
-    var cellHeight: CGFloat {
-        var tmpHeight = 0.0
-        // text高度
-        if postExtend == .extend {
-            tmpHeight += postTextHeightOmit + postLineSpace
-        } else {
-            tmpHeight += textHeight + postLineSpace
-        }
-        // 是否需要翻译
-        if postTranslate == .isTranslated {
-            tmpHeight += textHeight
-        } else if postTranslate == .translate {
-            tmpHeight += postTranslateSpace
-        }
-        // 图片
-        if let count = imageUrls?.count, count > 0 {
-            let cc = ceil(CGFloat((count - 1) / 2))
-            let height = (cc + 1) * postImageSize + cc * postImageSpace
-            tmpHeight += height + postLineSpace
-        }
-        // 视频
-        if videoUrl?.count ?? 0 > 0 {
-            tmpHeight += postVideoSize + postLineSpace
-        }
-        
-        // header高度
-        tmpHeight += 72
-        // footer高度
-        tmpHeight += 65
-        
-        return tmpHeight
-    }
-    
 }

@@ -48,7 +48,7 @@ class HTupleBaseCell: UICollectionViewCell {
     }()
     
     /// Refresh the current cell
-    func reloadData() {
+    func reloadItemData() {
         guard let indexPath = self.indexPath else { return }
         self.tuple?.reloadItems(at: [indexPath])
     }

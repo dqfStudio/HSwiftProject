@@ -73,31 +73,4 @@ class HPostCommentVM: NSObject {
     // text高度
     var textHeight: CGFloat = 0.0
     
-    // cell高度
-    var cellHeight: CGFloat {
-        var tmpHeight = 0.0
-        // text高度
-        tmpHeight += textHeight + postCommentLineSpace
-        // 是否需要翻译
-        if postTranslate == .isTranslated {
-            tmpHeight += textHeight + 8.0
-        } else if postTranslate == .translate {
-            tmpHeight += postCommentTranslateSpace
-        }
-        // 评论时间按钮高度
-        tmpHeight += postCommentTimeSpace
-        
-        // 更多按钮高度
-        if postExtend == .extend {
-            tmpHeight += postCommentExtendSpace
-        }
-
-        // header高度
-        tmpHeight += 60
-        // footer高度
-        tmpHeight += 12
-        
-        return tmpHeight
-    }
-    
 }

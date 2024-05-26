@@ -1,14 +1,14 @@
 //
-//  HPostCommentView.swift
+//  HPostCommentViewCellCell.swift
 //  HSwiftProject
 //
-//  Created by owner on 2023/8/11.
-//  Copyright © 2023 wind. All rights reserved.
+//  Created by owner on 2024/5/26.
+//  Copyright © 2024 wind. All rights reserved.
 //
 
 import UIKit
 
-class HPostCommentView: UIStackView, HTupleViewDelegate {
+class HPostCommentViewCell: HTupleLayoutCell, HTupleViewDelegate {
     
     // 帖子model
     private var _postVM: HPostCommentVM?
@@ -21,10 +21,7 @@ class HPostCommentView: UIStackView, HTupleViewDelegate {
         }
     }
     
-    // 父类tuple view
-    weak var tuple: HTupleView?
-    
-    private lazy var tupleView: HTupleView = {
+    lazy var tupleView: HTupleView = {
         let tupleView = HTupleView.splitFrame {
             return self.bounds
         } mode: {
@@ -39,16 +36,14 @@ class HPostCommentView: UIStackView, HTupleViewDelegate {
         return tupleView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = .clear
+    override func initUI() {
         self.tupleView.delegate = self
-        self.addArrangedSubview(self.tupleView)
-    }
-
-    @available(*, unavailable)
-    required init(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        self.layoutView.addArrangedSubview(self.tupleView)
+        self.tupleView.cntSizeBlock = { [weak self] cntSize in
+            if let tuple = self?.tuple {
+                tuple.reloadData()
+            }
+        }
     }
     
     func reloadTupleData() {
@@ -66,7 +61,7 @@ class HPostCommentView: UIStackView, HTupleViewDelegate {
 
 }
 
-extension HPostCommentView {
+extension HPostCommentViewCell {
     
     @objc
     func tupleExa0_numberOfItemsInSection(_ section: Any) -> Any {
@@ -108,7 +103,7 @@ extension HPostCommentView {
     
 }
 
-extension HPostCommentView {
+extension HPostCommentViewCell {
     
     @objc
     func tupleExa1_numberOfItemsInSection(_ section: Any) -> Any {
@@ -141,7 +136,7 @@ extension HPostCommentView {
     
 }
 
-extension HPostCommentView {
+extension HPostCommentViewCell {
     
     @objc
     func tupleExa2_numberOfItemsInSection(_ section: Any) -> Any {
@@ -196,7 +191,7 @@ extension HPostCommentView {
                 self.postVM.postTranslate = .isTranslated
                 // 刷新tuple view
                 UIView.performWithoutAnimation {
-                    self.tuple?.reloadData()
+                    self.tupleView.reloadData()
                 }
             }
         }
@@ -205,7 +200,7 @@ extension HPostCommentView {
     
 }
 
-extension HPostCommentView {
+extension HPostCommentViewCell {
     
     @objc
     func tupleExa3_numberOfItemsInSection(_ section: Any) -> Any {
@@ -249,7 +244,7 @@ extension HPostCommentView {
     
 }
 
-extension HPostCommentView {
+extension HPostCommentViewCell {
     
     @objc
     func tupleExa4_numberOfItemsInSection(_ section: Any) -> Any {
@@ -295,7 +290,7 @@ extension HPostCommentView {
                 UIView.performWithoutAnimation {
                     // 更多按钮高度
                     self.postVM.postExtend = .undefine
-                    self.tuple?.reloadData()
+                    self.tupleView.reloadData()
                 }
             }
         } else {
@@ -309,7 +304,7 @@ extension HPostCommentView {
             cell.buttonView.pressed = { (sender, data) in
                 // 刷新tuple view
                 UIView.performWithoutAnimation {
-                    self.tuple?.reloadData()
+                    self.tupleView.reloadData()
                 }
             }
             
@@ -323,7 +318,7 @@ extension HPostCommentView {
             cell.detailButton.pressed = { (sender, data) in
                 // 刷新tuple view
                 UIView.performWithoutAnimation {
-                    self.tuple?.reloadData()
+                    self.tupleView.reloadData()
                 }
             }
         }
@@ -331,7 +326,7 @@ extension HPostCommentView {
     
 }
 
-extension HPostCommentView {
+extension HPostCommentViewCell {
     
     @objc
     func tupleExa5_numberOfItemsInSection(_ section: Any) -> Any {
@@ -349,7 +344,7 @@ extension HPostCommentView {
     }
     
     @objc
-    func tupleExa5_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
+    func tupleExa5_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         _ = tuple.reuseCell(HTupleBaseCell.self, indexPath.stringValue, true, indexPath) as! HTupleBaseCell
     }
     
