@@ -10,40 +10,40 @@ import UIKit
 
 @objc protocol HWaterfallMutiSectionDelegate: NSObjectProtocol {
     /// item高度
-    func heightForItemAtIndexPath(_ indexPath: IndexPath, itemWidth: CGFloat) -> CGFloat
+    func waterHeightForItemAtIndexPath(_ indexPath: IndexPath, itemWidth: CGFloat) -> CGFloat
   
     /// 每个section 列数（默认2列）
     @objc
-    optional func numberOfColumnsInSection( _ section: Int) -> Int
+    optional func waterNumberOfColumnsInSection( _ section: Int) -> Int
 
     /// header高度（默认为0）
     @objc
-    optional func referenceSizeForHeaderInSection(_ section: Int) -> CGSize
+    optional func waterSizeForHeaderInSection(_ section: Int) -> CGSize
 
     /// footer高度（默认为0）
     @objc
-    optional func referenceSizeForFooterInSection(_ section: Int) -> CGSize
+    optional func waterSizeForFooterInSection(_ section: Int) -> CGSize
 
     /// 每个section 边距（默认为0）
     @objc
-    optional func insetForSection( _ section: Int) -> UIEdgeInsets
+    optional func waterInsetForSection( _ section: Int) -> UIEdgeInsets
 
     /// 每个section item上下间距（默认为0）
     @objc
-    optional func lineSpacingForSection( _ section: Int) -> CGFloat
+    optional func waterLineSpacingForSection( _ section: Int) -> CGFloat
 
     /// 每个section item左右间距（默认为0）
     @objc
-    optional func interitemSpacingForSection( _ section: Int) -> CGFloat
+    optional func waterInteritemSpacingForSection( _ section: Int) -> CGFloat
 
     /// section头部header与上个section尾部footer间距（默认为0）
     @objc
-    optional func spacingForLastSection( _ section: Int) -> CGFloat
+    optional func waterSpacingForLastSection( _ section: Int) -> CGFloat
 }
 
 class HWaterfallMutiSectionFlowLayout: UICollectionViewFlowLayout {
     
-    weak var delegate: HWaterfallMutiSectionDelegate?
+    private weak var delegate: HWaterfallMutiSectionDelegate?
     private var sectionInsets: UIEdgeInsets = .zero
     private var columnCount: Int = 2
     private var lineSpacing: CGFloat = 0.0
@@ -56,16 +56,21 @@ class HWaterfallMutiSectionFlowLayout: UICollectionViewFlowLayout {
     //存放每个section中各个列的最后一个高度
     private var columnHeights: [CGFloat] = []
     //collectionView的Content的高度
-    private var contentHeight: CGFloat = 0.0
+    private var cntHeight: CGFloat = 0.0
     //记录上个section高度最高一列的高度
-    private var lastContentHeight: CGFloat = 0.0
+    private var lastCntHeight: CGFloat = 0.0
     //每个section的header与上个section的footer距离
     private var spacingForLastSection: CGFloat = 0.0
+    
+    convenience init(delegate: HWaterfallMutiSectionDelegate) {
+        self.init()
+        self.delegate = delegate
+    }
   
     override func prepare() {
         super.prepare()
-        self.contentHeight = 0.0
-        self.lastContentHeight = 0.0
+        self.cntHeight = 0.0
+        self.lastCntHeight = 0.0
         self.spacingForLastSection = 0.0
         self.lineSpacing = 0.0
         self.sectionInsets = .zero
@@ -79,13 +84,13 @@ class HWaterfallMutiSectionFlowLayout: UICollectionViewFlowLayout {
         // 遍历section
         for section in 0..<sectionCount {
             let indexPath = IndexPath(item: 0, section: section)
-            if let columnCount = delegate.numberOfColumnsInSection?(section) {
+            if let columnCount = delegate.waterNumberOfColumnsInSection?(section) {
                 self.columnCount = columnCount
             }
-            if let inset = delegate.insetForSection?(section) {
+            if let inset = delegate.waterInsetForSection?(section) {
                 self.sectionInsets = inset
             }
-            if let spacingLastSection = delegate.spacingForLastSection?(section) {
+            if let spacingLastSection = delegate.waterSpacingForLastSection?(section) {
                 self.spacingForLastSection = spacingLastSection
             }
             // 生成header
@@ -95,10 +100,10 @@ class HWaterfallMutiSectionFlowLayout: UICollectionViewFlowLayout {
                 self.attrsArray.append(header)
                 self.columnHeights.removeAll()
             }
-            self.lastContentHeight = self.contentHeight
+            self.lastCntHeight = self.cntHeight
             // 初始化区y值
             for _ in 0..<self.columnCount {
-                self.columnHeights.append(self.contentHeight)
+                self.columnHeights.append(self.cntHeight)
             }
             // 多少个item
             for item in 0..<itemCount {
@@ -122,13 +127,13 @@ class HWaterfallMutiSectionFlowLayout: UICollectionViewFlowLayout {
   
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
         guard let delegate = self.delegate, let collectionView = self.collectionView else { return nil }
-        if let columnCount = delegate.numberOfColumnsInSection?(indexPath.section) {
+        if let columnCount = delegate.waterNumberOfColumnsInSection?(indexPath.section) {
             self.columnCount = columnCount
         }
-        if let lineSpacing = delegate.lineSpacingForSection?(indexPath.section) {
+        if let lineSpacing = delegate.waterLineSpacingForSection?(indexPath.section) {
             self.lineSpacing = lineSpacing
         }
-        if let interitem = delegate.interitemSpacingForSection?(indexPath.section) {
+        if let interitem = delegate.waterInteritemSpacingForSection?(indexPath.section) {
             self.interitemSpacing = interitem
         }
 
@@ -137,7 +142,7 @@ class HWaterfallMutiSectionFlowLayout: UICollectionViewFlowLayout {
         let itemSpacing = CGFloat(self.columnCount - 1) * self.interitemSpacing
         let allWeight = weight - self.sectionInsets.left - self.sectionInsets.right - itemSpacing
         let cellWeight = allWeight / CGFloat(self.columnCount)
-        let cellHeight = delegate.heightForItemAtIndexPath(indexPath, itemWidth: cellWeight)
+        let cellHeight = delegate.waterHeightForItemAtIndexPath(indexPath, itemWidth: cellWeight)
 
         var tmpMinColumn = 0
         var minColumnHeight = self.columnHeights[0]
@@ -151,20 +156,20 @@ class HWaterfallMutiSectionFlowLayout: UICollectionViewFlowLayout {
         let cellX = self.sectionInsets.left + CGFloat(tmpMinColumn) * (cellWeight + self.interitemSpacing)
         var cellY: CGFloat = 0.0
         cellY = minColumnHeight
-        if cellY != self.lastContentHeight {
+        if cellY != self.lastCntHeight {
             cellY += self.lineSpacing
         }
 
-        if self.contentHeight < minColumnHeight {
-            self.contentHeight = minColumnHeight
+        if self.cntHeight < minColumnHeight {
+            self.cntHeight = minColumnHeight
         }
 
         attri.frame = CGRect(x: cellX, y: cellY, width: cellWeight, height: cellHeight)
         self.columnHeights[tmpMinColumn] = attri.frame.maxY
         //取最大的
         for i in 0..<self.columnHeights.count {
-            if self.contentHeight < self.columnHeights[i] {
-                self.contentHeight = self.columnHeights[i]
+            if self.cntHeight < self.columnHeights[i] {
+                self.cntHeight = self.columnHeights[i]
             }
         }
 
@@ -175,27 +180,27 @@ class HWaterfallMutiSectionFlowLayout: UICollectionViewFlowLayout {
         guard let delegate = self.delegate else { return nil }
         let attri = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, with: indexPath)
         if elementKind == UICollectionView.elementKindSectionHeader {
-            if let headerSize = delegate.referenceSizeForHeaderInSection?(indexPath.section) {
-                self.headerSize = headerSize
-            }
-            self.contentHeight += self.spacingForLastSection
-            attri.frame = CGRect(x: 0, y: self.contentHeight, width: self.headerSize.width, height: self.headerSize.height)
-            self.contentHeight += self.headerSize.height
-            self.contentHeight += self.sectionInsets.top
+            let headerSize = delegate.waterSizeForHeaderInSection?(indexPath.section) ?? CGSize.zero
+            guard headerSize != .zero else { return nil }
+            self.headerSize = headerSize
+            self.cntHeight += self.spacingForLastSection
+            attri.frame = CGRect(x: 0, y: self.cntHeight, width: self.headerSize.width, height: self.headerSize.height)
+            self.cntHeight += self.headerSize.height
+            self.cntHeight += self.sectionInsets.top
         }else if elementKind == UICollectionView.elementKindSectionFooter {
-            if let footerSize = delegate.referenceSizeForFooterInSection?(indexPath.section) {
-                self.footerSize = footerSize
-            }
-            self.contentHeight += self.sectionInsets.bottom
-            attri.frame = CGRect(x: 0, y: self.contentHeight, width: self.footerSize.width, height: self.footerSize.height)
-            self.contentHeight += self.footerSize.height
+            let footerSize = delegate.waterSizeForFooterInSection?(indexPath.section) ?? CGSize.zero
+            guard footerSize != .zero else { return nil }
+            self.footerSize = footerSize
+            self.cntHeight += self.sectionInsets.bottom
+            attri.frame = CGRect(x: 0, y: self.cntHeight, width: self.footerSize.width, height: self.footerSize.height)
+            self.cntHeight += self.footerSize.height
         }
         return attri
     }
   
     override var collectionViewContentSize: CGSize {
         guard let collectionView = self.collectionView else { return CGSize.zero }
-        return CGSize(width: collectionView.frame.size.width, height: self.contentHeight)
+        return CGSize(width: collectionView.frame.size.width, height: self.cntHeight)
     }
     
 }
