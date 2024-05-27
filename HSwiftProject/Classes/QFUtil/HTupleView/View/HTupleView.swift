@@ -89,6 +89,24 @@ class HTupleAppearance: NSObject {
     }
 }
 
+class HAppearance: NSObject {
+
+    private static var hashArray = NSHashTable<NSObject>.weakObjects()
+
+    static func addObject(_ anObject: NSObject) {
+        self.hashArray.add(anObject)
+    }
+    static func refreshObject(key: String) {
+        let selector = NSSelectorFromString(key)
+        let tuples = self.hashArray.allObjects.reversed()
+        tuples.forEach {
+            if $0.responds(to: selector) {
+                $0.perform(selector)
+            }
+        }
+    }
+}
+
 @objc protocol HTupleViewDelegate: UICollectionViewDelegate {
     @objc
     optional func numberOfSectionsInTupleView() -> Any
