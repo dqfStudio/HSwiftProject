@@ -514,7 +514,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
-        guard let outsideCntBlock = self.outsideCntBlock else { return true }
+        guard let outsideCntBlock = self.outsideCntBlock else {
+            return super.point(inside: point, with: event)
+        }
         // 将点击的点转换为collectionView的坐标系
         let pointForCollectionView = convert(point, from: self)
         
