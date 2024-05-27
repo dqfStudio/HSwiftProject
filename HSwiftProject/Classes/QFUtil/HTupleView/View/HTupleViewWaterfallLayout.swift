@@ -204,5 +204,3 @@ class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
     }
     
 }
-
-
