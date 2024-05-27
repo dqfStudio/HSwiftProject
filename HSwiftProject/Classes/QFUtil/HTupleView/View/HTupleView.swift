@@ -93,8 +93,10 @@ class HAppearance: NSObject {
 
     private static var hashArray = NSHashTable<NSObject>.weakObjects()
 
-    static func addObject(_ anObject: NSObject) {
-        self.hashArray.add(anObject)
+    static func addObject(_ anObject: NSObject?) {
+        if let anObject = anObject {
+            self.hashArray.add(anObject)
+        }
     }
     static func refreshObject(key: String) {
         let selector = NSSelectorFromString(key)
