@@ -10,7 +10,7 @@ import UIKit
 
 private var HTupleViewSectionColor = "com.dqf.HTupleElementKindSectionColor"
 
-private class HTupleViewLayoutAttributes : UICollectionViewLayoutAttributes {
+private class HTupleViewLayoutAttributes: UICollectionViewLayoutAttributes {
     var backgroundColor: UIColor?
 }
 
