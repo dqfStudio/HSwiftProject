@@ -115,7 +115,7 @@ class HActivebar: UIStackView, HTupleViewDelegate {
         return view
     }()
     // 是否显示顶部间隔线
-    var showTopSeparator: Bool = true {
+    var showTopSeparator: Bool = false {
         didSet {
             if showTopSeparator != oldValue {
                 topSeparator.isHidden = !showTopSeparator
