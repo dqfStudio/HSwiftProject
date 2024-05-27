@@ -180,6 +180,8 @@
 		EB1C8D772C02A82200ADF411 /* HPostViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C8D762C02A82200ADF411 /* HPostViewCell.swift */; };
 		EB1C8D792C02CBC900ADF411 /* HPostCommentViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C8D782C02CBC900ADF411 /* HPostCommentViewCell.swift */; };
 		EB1C8D7B2C02CDFD00ADF411 /* HPostCommentViewApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C8D7A2C02CDFD00ADF411 /* HPostCommentViewApex.swift */; };
+		EB1C8D912C04751600ADF411 /* HTupleMultiApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C8D902C04751500ADF411 /* HTupleMultiApex.swift */; };
+		EB1C8D932C04753300ADF411 /* HTupleMultiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1C8D922C04753300ADF411 /* HTupleMultiCell.swift */; };
 		EB23D99629DFC6F800C96CAC /* HTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23D99529DFC6F800C96CAC /* HTextView.swift */; };
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
 		EB23DACD2A027D6C00C96CAC /* HSheetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */; };
@@ -536,6 +538,8 @@
 		EB1C8D762C02A82200ADF411 /* HPostViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostViewCell.swift; sourceTree = "<group>"; };
 		EB1C8D782C02CBC900ADF411 /* HPostCommentViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostCommentViewCell.swift; sourceTree = "<group>"; };
 		EB1C8D7A2C02CDFD00ADF411 /* HPostCommentViewApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPostCommentViewApex.swift; sourceTree = "<group>"; };
+		EB1C8D902C04751500ADF411 /* HTupleMultiApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleMultiApex.swift; sourceTree = "<group>"; };
+		EB1C8D922C04753300ADF411 /* HTupleMultiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleMultiCell.swift; sourceTree = "<group>"; };
 		EB23D99529DFC6F800C96CAC /* HTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextView.swift; sourceTree = "<group>"; };
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
 		EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSheetAction.swift; sourceTree = "<group>"; };
@@ -876,6 +880,7 @@
 			children = (
 				A2892396238B72F800E4AB75 /* HTupleBaseApex.swift */,
 				A229489623975AE80058B939 /* HTupleViewApex.swift */,
+				EB1C8D902C04751500ADF411 /* HTupleMultiApex.swift */,
 				EB50428A2A2C33F6007E9FC7 /* HTupleTextImageApex.swift */,
 				A229489823975BA80058B939 /* HTupleViewApexVertValue.swift */,
 				A229489A23975C2E0058B939 /* HTupleViewApexHoriValue.swift */,
@@ -888,6 +893,7 @@
 			children = (
 				A2892398238B72F800E4AB75 /* HTupleBaseCell.swift */,
 				A28923AA238B733500E4AB75 /* HTupleViewCell.swift */,
+				EB1C8D922C04753300ADF411 /* HTupleMultiCell.swift */,
 				EB5042882A2C31E2007E9FC7 /* HTupleTextImageCell.swift */,
 				A28923AF238BC2D100E4AB75 /* HTupleViewCellVertValue.swift */,
 				A28923B1238BCB5000E4AB75 /* HTupleViewCellHoriValue.swift */,
@@ -2077,6 +2083,7 @@
 				EBC307272BF8F10500EF8ABD /* HTupleAlertVC+Extern.swift in Sources */,
 				A26D432723853F2900F457AE /* NSObject+HMessy.swift in Sources */,
 				A229489F23975D850058B939 /* HTableViewCellHoriValue.swift in Sources */,
+				EB1C8D912C04751600ADF411 /* HTupleMultiApex.swift in Sources */,
 				A2A814B4274C0E2000FAB929 /* HTupleHeader.swift in Sources */,
 				EBA53C3A2A3B47240077158D /* HWebImageView2.swift in Sources */,
 				EBC307292BF8F16000EF8ABD /* HTupleDropVC.swift in Sources */,
@@ -2119,6 +2126,7 @@
 				EB43240D29C1B70400EDDB64 /* UIView+HAlert.swift in Sources */,
 				A26D433D2386C76D00F457AE /* NSObject+HSafeMessy.swift in Sources */,
 				A28923B0238BC2D100E4AB75 /* HTupleViewCellVertValue.swift in Sources */,
+				EB1C8D932C04753300ADF411 /* HTupleMultiCell.swift in Sources */,
 				A28923B2238BCB5000E4AB75 /* HTupleViewCellHoriValue.swift in Sources */,
 				EBC8146F29AA540B00A81431 /* HSendVideoVC+HStatus1.swift in Sources */,
 				EBC8145F29AA53BD00A81431 /* HSendAudioVC+HStatus4.swift in Sources */,
