@@ -108,7 +108,7 @@ class HActivebar: UIStackView, HTupleViewDelegate {
     //******************顶部间隔线******************//
     
     // 顶部间隔线
-    private lazy var topSeparator: UIView = {
+    lazy var topSeparator: UIView = {
         let frame = CGRect(x: 0, y: 0, width: self.width, height: 1)
         let view = UIView(frame: frame)
         view.isHidden = !showTopSeparator
@@ -134,7 +134,7 @@ class HActivebar: UIStackView, HTupleViewDelegate {
     //******************底部间隔线******************//
     
     // 底部间隔线
-    private lazy var bottomSeparator: UIView = {
+    lazy var bottomSeparator: UIView = {
         let frame = CGRect(x: 0, y: self.height - 1, width: self.width, height: 1)
         let view = UIView(frame: frame)
         view.isHidden = !showBottomSeparator
