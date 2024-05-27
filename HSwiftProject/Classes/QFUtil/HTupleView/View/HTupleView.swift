@@ -98,7 +98,7 @@ class HAppearance: NSObject {
             self.hashArray.add(anObject)
         }
     }
-    static func refreshObject(key: String) {
+    static func perform(key: String) {
         let selector = NSSelectorFromString(key)
         let tuples = self.hashArray.allObjects.reversed()
         tuples.forEach {
