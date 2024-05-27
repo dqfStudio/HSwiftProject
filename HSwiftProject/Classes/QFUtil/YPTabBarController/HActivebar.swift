@@ -167,7 +167,7 @@ class HActivebar: UIStackView, HTupleViewDelegate {
                 var row = selectedIndex
                 if row >= items { row = items - 1 }
                 let indexPath = IndexPath(row: row, section: 0)
-                self.tupleView.scrollToItem(at: indexPath, at: .right, animated: true)
+                self.tupleView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
             }
         }
     }
