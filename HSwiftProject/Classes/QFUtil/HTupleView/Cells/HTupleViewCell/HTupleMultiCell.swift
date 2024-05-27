@@ -9,6 +9,11 @@
 import UIKit
 
 class HMultiLabelCell: HTupleBaseCell {
+    override func initUI() {
+        self.layoutView.axis = .horizontal
+        self.layoutView.distribution = .fillEqually
+    }
+    
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
@@ -30,6 +35,11 @@ class HMultiLabelCell: HTupleBaseCell {
 }
 
 class HMultiImageCell: HTupleBaseCell {
+    override func initUI() {
+        self.layoutView.axis = .horizontal
+        self.layoutView.distribution = .fillEqually
+    }
+    
     lazy var imageView: HWebImageView = {
         let imageView = HWebImageView()
         self.layoutView.addArrangedSubview(imageView)
@@ -48,6 +58,11 @@ class HMultiImageCell: HTupleBaseCell {
 }
 
 class HMultiButtonCell: HTupleBaseCell {
+    override func initUI() {
+        self.layoutView.axis = .horizontal
+        self.layoutView.distribution = .fillEqually
+    }
+    
     lazy var buttonView: HWebButtonView = {
         let buttonView = HWebButtonView()
         self.layoutView.addArrangedSubview(buttonView)
