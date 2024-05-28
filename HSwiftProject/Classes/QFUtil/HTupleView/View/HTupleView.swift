@@ -91,17 +91,17 @@ class HTupleAppearance: NSObject {
 
 class HAppearance: NSObject {
 
-    private static var hashArray = NSHashTable<NSObject>.weakObjects()
+    private static var hashObjects = NSHashTable<NSObject>.weakObjects()
 
     static func addObject(_ anObject: NSObject?) {
         if let anObject = anObject {
-            self.hashArray.add(anObject)
+            self.hashObjects.add(anObject)
         }
     }
     static func perform(key: String) {
         let selector = NSSelectorFromString(key)
-        let tuples = self.hashArray.allObjects.reversed()
-        tuples.forEach {
+        let objects = self.hashObjects.allObjects.reversed()
+        objects.forEach {
             if $0.responds(to: selector) {
                 $0.perform(selector)
             }
