@@ -107,6 +107,24 @@ class HAppearance: NSObject {
             }
         }
     }
+    static func perform(key: String, with object: String) {
+        let selector = NSSelectorFromString(key)
+        let objects = self.hashObjects.allObjects.reversed()
+        objects.forEach {
+            if $0.responds(to: selector) {
+                $0.perform(selector, with: object)
+            }
+        }
+    }
+    static func perform(key: String, with object1: String, with object2: String) {
+        let selector = NSSelectorFromString(key)
+        let objects = self.hashObjects.allObjects.reversed()
+        objects.forEach {
+            if $0.responds(to: selector) {
+                $0.perform(selector, with: object1, with: object2)
+            }
+        }
+    }
 }
 
 @objc protocol HTupleViewDelegate: UICollectionViewDelegate {
