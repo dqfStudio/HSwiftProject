@@ -523,9 +523,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     /// Scroll to bottom
     func scrollsToBottom(_ animated: Bool) {
-        let sections = self.numberOfSections
-        let items = self.numberOfItems(inSection: sections - 1)
-        let indexPath = IndexPath(row: items - 1, section: sections - 1)
+        let sections = max(self.numberOfSections - 1, 0)
+        let items = max(self.numberOfItems(inSection: sections) - 1, 0)
+        let indexPath = IndexPath(row: items, section: sections)
         self.scrollToItem(at: indexPath, at: .bottom, animated: animated)
     }
     
