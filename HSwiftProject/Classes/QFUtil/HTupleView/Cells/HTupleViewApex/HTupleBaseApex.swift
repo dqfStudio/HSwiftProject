@@ -55,6 +55,7 @@ class HTupleBaseApex: UICollectionReusableView {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .fill
+        stackView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         self.addSubview(stackView)
         return stackView
     }()

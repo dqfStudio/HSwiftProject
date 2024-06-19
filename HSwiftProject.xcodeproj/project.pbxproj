@@ -250,6 +250,9 @@
 		EB50428D2A2C343C007E9FC7 /* HTableTextImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428C2A2C343C007E9FC7 /* HTableTextImageCell.swift */; };
 		EB50428F2A2C348D007E9FC7 /* HTableTextImageApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428E2A2C348D007E9FC7 /* HTableTextImageApex.swift */; };
 		EB5148982AE283A70075F737 /* HTupleViewWaterfallLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5148972AE283A70075F737 /* HTupleViewWaterfallLayout.swift */; };
+		EB5998DE2C0DAC980021241C /* HNodeModelTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5998DD2C0DAC980021241C /* HNodeModelTableView.swift */; };
+		EB5998E02C0DACB40021241C /* SLNodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5998DF2C0DACB40021241C /* SLNodeModel.swift */; };
+		EB5998E22C0DAD500021241C /* SLNodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5998E12C0DAD500021241C /* SLNodeTableViewCell.swift */; };
 		EB80B66C2A1130E10016648A /* HToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B66B2A1130E00016648A /* HToolbar.swift */; };
 		EB80B66E2A122A940016648A /* HScrollbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B66D2A122A940016648A /* HScrollbar.swift */; };
 		EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6732A15C8ED0016648A /* HLabel.swift */; };
@@ -608,6 +611,9 @@
 		EB50428C2A2C343C007E9FC7 /* HTableTextImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableTextImageCell.swift; sourceTree = "<group>"; };
 		EB50428E2A2C348D007E9FC7 /* HTableTextImageApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableTextImageApex.swift; sourceTree = "<group>"; };
 		EB5148972AE283A70075F737 /* HTupleViewWaterfallLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewWaterfallLayout.swift; sourceTree = "<group>"; };
+		EB5998DD2C0DAC980021241C /* HNodeModelTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeModelTableView.swift; sourceTree = "<group>"; };
+		EB5998DF2C0DACB40021241C /* SLNodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLNodeModel.swift; sourceTree = "<group>"; };
+		EB5998E12C0DAD500021241C /* SLNodeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLNodeTableViewCell.swift; sourceTree = "<group>"; };
 		EB80B66B2A1130E00016648A /* HToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HToolbar.swift; sourceTree = "<group>"; };
 		EB80B66D2A122A940016648A /* HScrollbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HScrollbar.swift; sourceTree = "<group>"; };
 		EB80B6732A15C8ED0016648A /* HLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLabel.swift; sourceTree = "<group>"; };
@@ -1329,6 +1335,9 @@
 				EB23DAC42A00D69300C96CAC /* HViewController2.swift */,
 				A258395823B4E70F00881941 /* HTableController.swift */,
 				EBC3073A2BF9B1DD00EF8ABD /* HTupleAutoVC.swift */,
+				EB5998DD2C0DAC980021241C /* HNodeModelTableView.swift */,
+				EB5998DF2C0DACB40021241C /* SLNodeModel.swift */,
+				EB5998E12C0DAD500021241C /* SLNodeTableViewCell.swift */,
 				A28923C4238CDE8400E4AB75 /* HTupleController.swift */,
 				EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */,
 				A26D432E23868AFE00F457AE /* UIViewController+HDisappear.swift */,
@@ -2056,6 +2065,8 @@
 				EB3541B62BE7C760003B1D69 /* HActiveNaviController.swift in Sources */,
 				A28A022623EE55EB000556A2 /* HTextLoopView.swift in Sources */,
 				A2B43073237FF2B100795605 /* HCommonDefine.swift in Sources */,
+				EB5998E22C0DAD500021241C /* SLNodeTableViewCell.swift in Sources */,
+				EB5998DE2C0DAC980021241C /* HNodeModelTableView.swift in Sources */,
 				A2B42FCC237CED5A00795605 /* AppDelegate.swift in Sources */,
 				EBC8140929AA48C000A81431 /* HUserLiveCell+HSection1.swift in Sources */,
 				EBC3073B2BF9B1DD00EF8ABD /* HTupleAutoVC.swift in Sources */,
@@ -2067,6 +2078,7 @@
 				EBED9CCA2A4D339700E590DE /* HDotIndicatorBar.swift in Sources */,
 				EBD0FB6B29D02B1000808EDA /* HUserStore.swift in Sources */,
 				EBD0FB3629CCA34800808EDA /* HLocalNotification.swift in Sources */,
+				EB5998E02C0DACB40021241C /* SLNodeModel.swift in Sources */,
 				A26D43412386CD9000F457AE /* NSTimer+HSafeUtil.swift in Sources */,
 				EB3541C22BE86912003B1D69 /* HAuthView.swift in Sources */,
 				EBD0FBA029DB00D100808EDA /* HMainController6+Event.swift in Sources */,

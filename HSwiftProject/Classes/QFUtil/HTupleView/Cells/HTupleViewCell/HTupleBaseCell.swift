@@ -60,6 +60,7 @@ class HTupleBaseCell: UICollectionViewCell {
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .fill
+        stackView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         self.contentView.addSubview(stackView)
         return stackView
     }()

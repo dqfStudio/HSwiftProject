@@ -585,6 +585,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     /// Register class
+    @discardableResult
     func reuseHeader(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
         var identifier = (pre ?? "") + "HeaderCell" + NSStringFromClass(cls) + self.addressValue
@@ -623,6 +624,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
 
+    @discardableResult
     func reuseFooter(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
         var identifier = (pre ?? "") + "FooterCell" + NSStringFromClass(cls) + self.addressValue
@@ -661,6 +663,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     
+    @discardableResult
     func reuseCell(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
