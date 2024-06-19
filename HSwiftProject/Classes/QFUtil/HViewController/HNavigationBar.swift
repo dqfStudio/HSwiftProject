@@ -159,12 +159,11 @@ extension HNavigationBar {
             attribute.size = CGSize(width: itemWidth, height: UIScreen.naviBarHeight)
             attribute.cellBlock = { [weak self] (tuple, baseCell) in
                 guard let self = self else { return }
-                let cell = baseCell as! HTupleBaseCell
                 if self.leftItem.superview == nil {
-                    cell.layoutView.addSubview(self.leftItem)
+                    baseCell.layoutView.addSubview(self.leftItem)
                 }
                 // Reset frame
-                var frame = cell.layoutViewBounds
+                var frame = baseCell.layoutViewBounds
                 frame.width = self.leftItemWidth
                 self.leftItem.frame = frame
             }
@@ -179,12 +178,11 @@ extension HNavigationBar {
             attribute.size = CGSize(width: titleWidth, height: UIScreen.naviBarHeight)
             attribute.cellBlock = { [weak self] (tuple, baseCell) in
                 guard let self = self else { return }
-                let cell = baseCell as! HTupleBaseCell
                 if self.titleItem.superview == nil {
-                    cell.layoutView.addSubview(self.titleItem)
+                    baseCell.layoutView.addSubview(self.titleItem)
                 }
                 // Reset frame
-                self.titleItem.frame = cell.layoutViewBounds
+                self.titleItem.frame = baseCell.layoutViewBounds
             }
         case 3: //右边间隔
             let attribute = tuple.attribute(HTupleBaseCell.self, nil, true, indexPath)
@@ -195,12 +193,11 @@ extension HNavigationBar {
             attribute.size = CGSize(width: itemWidth, height: UIScreen.naviBarHeight)
             attribute.cellBlock = { [weak self] (tuple, baseCell) in
                 guard let self = self else { return }
-                let cell = baseCell as! HTupleBaseCell
                 if self.rightItem.superview == nil {
-                    cell.layoutView.addSubview(self.rightItem)
+                    baseCell.layoutView.addSubview(self.rightItem)
                 }
                 // Reset frame
-                var frame = cell.layoutViewBounds
+                var frame = baseCell.layoutViewBounds
                 frame.x = frame.width - self.rightItemWidth
                 frame.width = self.rightItemWidth
                 self.rightItem.frame = frame
