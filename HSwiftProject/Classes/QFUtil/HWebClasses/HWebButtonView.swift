@@ -234,8 +234,8 @@ extension HWebButtonView {
     *  @param syncLoadCache Synchronously read cache
     *
     */
-    func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true) {
-        self.setImageUrlString(url.absoluteString, placeholder: placeholder, syncLoadCache: cache)
+    func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true, cropSize: CGSize = .zero) {
+        self.setImageUrlString(url.absoluteString, placeholder: placeholder, syncLoadCache: cache, cropSize: cropSize)
     }
 
     /**
@@ -246,7 +246,7 @@ extension HWebButtonView {
     *  @param syncLoadCache whether to read cache synchronously
     *
     */
-    func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true) {
+    func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true, cropSize: CGSize = .zero) {
         if urlString.count == 0 {
             self._setImage(placeholder)
             self.lastURL = ""
@@ -278,9 +278,18 @@ extension HWebButtonView {
         guard let url = URL(string: urlString) else {
             return
         }
+        
+        var option = KingfisherOptionsInfo()
+        option.append(.cacheOriginalImage)
+        option.append(.scaleFactor(1))
+        option.append(.transition(ImageTransition.fade(1)))
+        if cropSize != .zero {
+            let processor = DownsamplingImageProcessor(size: cropSize)
+            option.append(.processor(processor))
+        }
 
         if cache {
-            KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { [weak self] result in
+            KingfisherManager.shared.cache.retrieveImage(forKey: urlString, options: option) { [weak self] result in
                 switch result {
                 case.success(let value):
                     if value.image != nil {
@@ -295,7 +304,7 @@ extension HWebButtonView {
         }
         
         //self.webImageView.kf.indicatorType = .activity
-        self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: [.transition(ImageTransition.fade(1))], progressBlock: nil) { [weak self] result in
+        self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: option, completionHandler: { [weak self] result in
             switch result {
             case .success(let value):
                 self?._setImage(value.image)
@@ -311,7 +320,7 @@ extension HWebButtonView {
             case .failure(let value):
                 self?.didGetError?(self, value as AnyObject)
             }
-        }
+        })
     }
 
 }
