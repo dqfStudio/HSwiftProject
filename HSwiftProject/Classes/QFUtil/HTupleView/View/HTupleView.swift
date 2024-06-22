@@ -93,9 +93,9 @@ class HAppearance: NSObject {
 
     private static var hashObjects = NSHashTable<NSObject>.weakObjects()
 
-    static func addObject(_ anObject: NSObject?) {
-        if let anObject = anObject, !self.hashObjects.contains(anObject) {
-            self.hashObjects.add(anObject)
+    static func addObserver(_ anObserver: NSObject?) {
+        if let anObserver = anObserver, !self.hashObjects.contains(anObserver) {
+            self.hashObjects.add(anObserver)
         }
     }
     static func perform(key: String) {
