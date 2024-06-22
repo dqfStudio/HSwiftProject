@@ -1,5 +1,5 @@
 //
-//  HTupleModel.swift
+//  HModelManager.swift
 //  HSwiftProject
 //
 //  Created by owner on 2024/6/22.
@@ -8,8 +8,8 @@
 
 import Foundation
 
-class HTupleModel: NSObject {
-    static let defaults: HTupleModel = { return HTupleModel() }()
+class HModelManager: NSObject {
+    static let defaults: HModelManager = { return HModelManager() }()
     private var hashObjects = NSHashTable<NSObject>.weakObjects()
 
     func addObserver(_ anObserver: NSObject?) {

@@ -1,5 +1,5 @@
 //
-//  HUserModel.swift
+//  HUserModelMngr.swift
 //  HSwiftProject
 //
 //  Created by owner on 2024/6/22.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HUserModel: HTupleModel {
+class HUserModelMngr: HModelManager {
     var operateUser: GetOperateUser? {
         didSet {
             operateUser?.valueChange = { [weak self] in
