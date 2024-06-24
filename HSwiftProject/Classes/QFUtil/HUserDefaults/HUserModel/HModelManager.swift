@@ -9,7 +9,6 @@
 import Foundation
 
 class HModelManager: NSObject {
-    static let defaults: HModelManager = { return HModelManager() }()
     private var hashObjects = NSHashTable<NSObject>.weakObjects()
 
     func addObserver(_ anObserver: NSObject?) {

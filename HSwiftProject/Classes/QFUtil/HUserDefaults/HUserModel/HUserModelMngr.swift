@@ -9,6 +9,8 @@
 import Foundation
 
 class HUserModelMngr: HModelManager {
+    static var defaults = HUserModelMngr()
+    
     var operateUser: GetOperateUser? {
         didSet {
             operateUser?.valueChange = { [weak self] in
