@@ -474,11 +474,11 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     /// Stop refresh
     func endRefreshing(_ completion: @escaping () -> Void) {
-        self.mj_header?.endRefreshing(completionBlock:completion)
+        self.mj_header?.endRefreshing(completionBlock: completion)
     }
 
     func endLoadMore(_ completion: @escaping () -> Void) {
-        self.mj_footer?.endRefreshing(completionBlock:completion)
+        self.mj_footer?.endRefreshing(completionBlock: completion)
     }
 
     /// Whether the header and footer are sticky
