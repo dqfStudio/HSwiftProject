@@ -53,11 +53,11 @@ class HViewController: HBaseController {
         let height = UIScreen.topBarHeight
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
         let naviBar = HNavigationBar(frame: frame)
-        naviBar.leftItem.pressedBlock = {
-            self.leftNaviItemPressed()
+        naviBar.leftItem.pressedBlock = { [weak self] in
+            self?.leftNaviItemPressed()
         }
-        naviBar.rightItem.pressedBlock = {
-            self.rightNaviItemPressed()
+        naviBar.rightItem.pressedBlock = { [weak self] in
+            self?.rightNaviItemPressed()
         }
         return naviBar
     }()
