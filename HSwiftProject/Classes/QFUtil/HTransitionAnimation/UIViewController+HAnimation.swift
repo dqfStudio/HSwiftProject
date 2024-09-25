@@ -15,12 +15,12 @@ private var kPresentAlertAnimationKey: Void?
 extension UIViewController {
 
     //动画管理类(Present、Dismiss)
-    var presentAnimation: HPresentAnimation? {
+    weak var presentAnimation: HPresentAnimation? {
         get { return objc_getAssociatedObject(self, &kPresentAnimationKey) as? HPresentAnimation }
         set { objc_setAssociatedObject(self, &kPresentAnimationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }
     
-    var presentAlertAnimation: XPresentAnimation? {
+    weak var presentAlertAnimation: XPresentAnimation? {
         get { return objc_getAssociatedObject(self, &kPresentAlertAnimationKey) as? XPresentAnimation }
         set { objc_setAssociatedObject(self, &kPresentAlertAnimationKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC) }
     }

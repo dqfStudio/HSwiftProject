@@ -517,21 +517,27 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     /// Scroll to top
     func scrollToTop(_ animated: Bool) {
-        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
-        self.scrollRectToVisible(rect, animated: animated)
+        DispatchQueue.mainAsync { [weak self] in
+            guard let self = self else { return }
+            let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+            self.scrollRectToVisible(rect, animated: animated)
+        }
     }
 
     /// Scroll to bottom
     func scrollsToBottom(_ animated: Bool) {
-        let sections = self.numberOfSections
-        let items = self.numberOfItems(inSection: sections - 1)
-        let indexPath = IndexPath(row: items - 1, section: sections - 1)
-        self.scrollToItem(at: indexPath, at: .bottom, animated: animated)
+        DispatchQueue.mainAsync { [weak self] in
+            guard let self = self else { return }
+            let sections = self.numberOfSections
+            let items = self.numberOfItems(inSection: sections - 1)
+            let indexPath = IndexPath(row: items - 1, section: sections - 1)
+            self.scrollToItem(at: indexPath, at: .bottom, animated: animated)
+        }
     }
     
     @objc
     func reloadTupleData() {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.mainAsync { [weak self] in
             self?.reloadData()
         }
     }
@@ -734,7 +740,34 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }
         return prefix
     }
-    private func tupleSplitPrefix(_ section: Int) -> String {
+    
+    func tupleSplitPrefix(_ section: Int) -> String {
+        var prefix = ""
+        if self.tupleStyle == .split {
+            if self.sectionPaths.contains(section) {
+                let idx = self.sectionPaths.index(of: section)
+                prefix = kTupleExaDesignKey + "\(idx)" + "_"
+            }else {
+                prefix = kTupleDesignKey + "\(self.tupleState)" + "_"
+            }
+        }
+        return prefix
+    }
+    
+    func tupleLayoutItemPrefix(_ section: Int) -> String {
+        var prefix = ""
+        if self.tupleStyle == .split {
+            if self.sectionPaths.contains(section) {
+                let idx = self.sectionPaths.index(of: section)
+                prefix = kTupleExaDesignKey + "\(idx)" + "_"
+            }else {
+                prefix = kTupleDesignKey + "\(section)" + "_"
+            }
+        }
+        return prefix
+    }
+    
+    func tupleLayoutViewPrefix(_ section: Int) -> String {
         var prefix = ""
         if self.tupleStyle == .split {
             if self.sectionPaths.contains(section) {

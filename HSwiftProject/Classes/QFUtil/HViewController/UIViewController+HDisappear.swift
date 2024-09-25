@@ -57,16 +57,19 @@ extension UIViewController {
     
     /// Return event processing
     @objc
-    func naviBack() {
+    func naviBack(_ completion: (() -> Void)? = nil) {
         if let navi = self.navigationController {
             if navi.isKind(of: HNavigationController.self), self.isKind(of: HBaseController.self) {
                 switch (self.appearType) {
                 case .undefine, .present:
                     // dismiss with present animation
-                    self.dismiss(animated: true, completion: nil)
+                    self.dismiss(animated: true, completion: {
+                        completion?()
+                    })
                     return
                 case .push:
                     // pop view controller with push animation
+                    completion?()
                     navi.popViewController(animated: true)
                     return
                 default:
@@ -77,13 +80,16 @@ extension UIViewController {
                 let topViewController = navi.topViewController
                 if viewcontrollers.count > 1 && topViewController == self {
                     // pop view controller with push animation
+                    completion?()
                     navi.popViewController(animated: true)
                     return
                 }
             }
         }
         // dismiss with present animation
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true, completion: {
+            completion?()
+        })
     }
     
     /*

@@ -10,12 +10,20 @@ import UIKit
 
 class HMainController7: HViewController, HTupleViewDelegate {
     
+//    var cellHeights: [CGFloat] = [100, 200, 300, 200, 400, 150, 200, 300, 500, 400]
+    var cellHeights: [CGFloat] = [400, 500, 600, 500, 700, 450]
+    
+    
     private lazy var tupleView: HTupleView = {
         let layout = HTupleViewWaterfallLayout(delegate: self)
+//        let layout = WaterFallFlowLayout()
+//        layout.delegate = self
         var frame = self.view.bounds
         frame.y = UIScreen.topBarHeight
         frame.height -= frame.y + 50
         let tupleView = HTupleView(frame: frame, collectionViewLayout: layout)
+//        let tupleView = HTupleView(frame: frame)
+        tupleView.sectionHeadersPinToVisibleBounds = true
         return tupleView
     }()
     
@@ -42,58 +50,145 @@ class HMainController7: HViewController, HTupleViewDelegate {
             postVM.videoUrl = "11"
             postList.append(postVM)
         }
-        
+
+        DispatchQueue.main.async {
+            self.tupleView.contentOffset = CGPoint(x: 0, y: 1)
+            self.tupleView.contentOffset = CGPoint(x: 0, y: 0)
+        }
     }
 
 }
 
 
 extension HMainController7 {
+    func numberOfSectionsInTupleView() -> Any {
+        return 2
+    }
+    func insetForSection(_ section: Any) -> Any {
+//        let section = section as! Int
+//        if section == 0 {
+//            return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: UIScreen.width / 2)
+//        }else {
+//            let hh = 100 + 200 + 300 + 200 + 400 + 150
+//            return UIEdgeInsets(top: -CGFloat(hh), left: UIScreen.width / 2, bottom: 0, right: 0)
+//        }
+        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+    }
     func numberOfItemsInSection(_ section: Any) -> Any {
         return postList.count
     }
+    func sizeForHeaderInSection(_ section: Any) -> Any {
+//        return CGSize(width: UIScreen.width, height: 50)
+        let section = section as! Int
+        if section == 0 {
+            return CGSize(width: UIScreen.width, height: 50)
+//            return CGSize.zero
+        }else {
+            return CGSize(width: UIScreen.width, height: 50)
+//            return CGSize.zero
+        }
+    }
+    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+        let numberOfColumns = 2 // 你可以根据需要设置列数
+        let padding: CGFloat = 10
+//        let itemWidth = (self.tupleView.width - padding * CGFloat(numberOfColumns + 1)) / CGFloat(numberOfColumns)
+        
+        let itemWidth = (self.tupleView.width - 32 - 10) / CGFloat(numberOfColumns)
+//        let itemWidth = (self.tupleView.width) / CGFloat(numberOfColumns)
+//        let itemHeight = itemWidth * 1.5 // 你可以根据内容动态调整高度
+//        let itemHeight = CGFloat(Int.random(in: 100...500))
+//        let itemHeight = cellHeights[indexPath.row]
+//        return CGSize(width: itemWidth, height: itemHeight)
+        
+        if indexPath.section == 0 {
+//            let itemHeight = cellHeights[indexPath.row]
+            return CGSize(width: itemWidth, height: 100)
+        }else {
+            let itemHeight = cellHeights[indexPath.row]
+            return CGSize(width: itemWidth, height: itemHeight)
+        }
+    }
+    func minimumLineSpacingForSectionAt(_ section: Any) -> Any {
+        return 10
+    }
+    func minimumInteritemSpacingForSectionAt(_ section: Any) -> Any {
+        return 10
+    }
     func tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         let cell = tuple.reuseHeader(HTupleBaseApex.self, nil, true, indexPath) as! HTupleBaseApex
-        cell.backgroundColor = UIColor.green
+//        cell.backgroundColor = UIColor.green
+        if indexPath.section == 0 {
+            cell.backgroundColor = .green
+        }else {
+            cell.backgroundColor = .yellow
+//            cell.alpha = 0
+        }
     }
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         let cell = tuple.reuseCell(HPengCell.self, indexPath.stringValue, true, indexPath) as! HPengCell
-        cell.backgroundColor = .yellow
+        if indexPath.section == 0 {
+            cell.backgroundColor = .yellow
+        }else {
+            cell.backgroundColor = .green
+        }
+//        cell.backgroundColor = .yellow
         guard indexPath.row < postList.count else { return }
         
-        cell.layoutView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+//        cell.layoutView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
         
         // 赋值model
-        let postVM = postList[indexPath.row]
-        cell.postVM = postVM
+//        let postVM = postList[indexPath.row]
+//        cell.postVM = postVM
     }
 
 }
 
 extension HMainController7: HTupleViewWaterfallLayoutDelegate {
-    func waterInsetForSection( _ section: Int) -> UIEdgeInsets {
+    
+    func waterInsetForSection( _ section: Any) -> Any {
         return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
-    func waterSizeForHeaderInSection(_ section: Int) -> CGSize {
-        return CGSize(width: self.view.width, height: 50)
-    }
-    func waterHeightForItemAtIndexPath(_ indexPath: IndexPath, itemWidth: CGFloat) -> CGFloat {
-        if let cell = tupleView.cell(for: indexPath) as? HPengCell {
-            let contentSize = cell.tupleView.contentSize
-            return contentSize.height
+    func waterSizeForHeaderInSection(_ section: Any) -> Any {
+//        return CGSize(width: self.view.width, height: 50)
+        let section = section as! Int
+        if section == 0 {
+            return CGSize(width: UIScreen.width, height: 50)
+//            return CGSize.zero
+        }else {
+            return CGSize(width: UIScreen.width, height: 50)
         }
-        return 100
     }
-    func waterNumberOfColumnsInSection( _ section: Int) -> Int {
+    func waterHeightForItemAtIndexPath(_ indexPath: IndexPath, itemWidth: Any) -> Any {
+//        if let cell = tupleView.cell(for: indexPath) as? HPengCell {
+//            let contentSize = cell.tupleView.contentSize
+//            return contentSize.height
+//        }
+//        return 100
+        if indexPath.section == 0 {
+            return 100
+        }else {
+            let itemHeight = cellHeights[indexPath.row]
+            return itemHeight
+        }
+    }
+//    func waterSpacingForLastSection( _ section: Any) -> Any {
+//        let section = section as! Int
+//        if section == 0 {
+//            return 0
+//        }else {
+//            return 50
+//        }
+//    }
+    func waterNumberOfColumnsInSection( _ section: Any) -> Any {
         return 2
     }
-    func waterLineSpacingForSection( _ section: Int) -> CGFloat {
-        return 16.0
+    func waterLineSpacingForSection( _ section: Any) -> Any {
+        return 10.0
     }
-    func waterInteritemSpacingForSection( _ section: Int) -> CGFloat {
-        return 15.0
+    func waterInteritemSpacingForSection( _ section: Any) -> Any {
+        return 10.0
     }
 }
 
@@ -128,13 +223,13 @@ class HPengCell: HTupleBaseCell, HTupleViewDelegate {
     }()
     
     override func initUI() {
-        self.tupleView.delegate = self
-        self.layoutView.addArrangedSubview(self.tupleView)
-        self.tupleView.cntSizeBlock = { [weak self] cntSize in
-            if let tuple = self?.tuple {
-                tuple.reloadData()
-            }
-        }
+//        self.tupleView.delegate = self
+//        self.layoutView.addArrangedSubview(self.tupleView)
+//        self.tupleView.cntSizeBlock = { [weak self] cntSize in
+//            if let tuple = self?.tuple {
+//                tuple.reloadData()
+//            }
+//        }
     }
     
     func reloadTupleData() {
@@ -545,3 +640,84 @@ extension HPengCell {
     }
     
 }
+
+
+//class HMainController7: HViewController, UICollectionViewDelegate {
+//    var collectionView: UICollectionView!
+//    var items: [String] = [] // 用于存储数据
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        
+//        // 示例数据
+//        items = ["短文本--1", "这是一个较长的文本示例--2", "中等高度的文本--3", "短--4", "更长的文本示例，可能会占用更多的空间--5", "短文本--6", "中等高度的文本--7", "短--8", "更长的文本示例，可能会占用更多的空间--9"]
+//        
+//        // 创建集合视图
+//        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: createWaterfallLayout())
+//        collectionView.register(WaterfallCell.self, forCellWithReuseIdentifier: "WaterfallCell")
+//        collectionView.dataSource = self
+//        collectionView.delegate = self
+//        collectionView.backgroundColor = .white
+//        view.addSubview(collectionView)
+//    }
+//
+//    func createWaterfallLayout() -> UICollectionViewLayout {
+//        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5), heightDimension: .estimated(100))
+//        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+//        
+//        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(200))
+////        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+//        
+//        let twoColumnGroup = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item, item])
+//        
+//        let section = NSCollectionLayoutSection(group: twoColumnGroup)
+//        section.interGroupSpacing = 10
+//        section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 10)
+//        
+//        return UICollectionViewCompositionalLayout(section: section)
+//    }
+//}
+//
+//extension HMainController7: UICollectionViewDataSource {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return items.count
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WaterfallCell", for: indexPath) as! WaterfallCell
+//        if indexPath.section == 0 {
+//            cell.backgroundColor = .yellow
+//        }else {
+//            cell.backgroundColor = .red
+//        }
+//        
+//        cell.configure(with: items[indexPath.item])
+//        return cell
+//    }
+//}
+//
+//class WaterfallCell: UICollectionViewCell {
+//    private let label = UILabel()
+//
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//        contentView.addSubview(label)
+//        label.numberOfLines = 0 // 允许多行
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        NSLayoutConstraint.activate([
+//            label.topAnchor.constraint(equalTo: contentView.topAnchor),
+//            label.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+//            label.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+//            label.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+//        ])
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        fatalError("init(coder:) has not been implemented")
+//    }
+//
+//    func configure(with text: String) {
+//        label.text = text
+//        label.sizeToFit() // 根据内容调整大小
+//    }
+//}

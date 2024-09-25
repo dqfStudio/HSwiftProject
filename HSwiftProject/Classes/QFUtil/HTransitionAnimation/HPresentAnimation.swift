@@ -23,7 +23,7 @@ class HPresentAnimation: HTransitionAnimation, UIViewControllerTransitioningDele
     @objc var shadowColor: UIColor = UIColor(white: 0.1, alpha: 0.2)
 
     //管理要显示视图的VC
-    @objc private var presentationVC: HPresentationController?
+    @objc private weak var presentationVC: HPresentationController?
 
     // UIViewControllerTransitioningDelegate
     // 返回的对象控制Presented时的动画 (开始动画的具体细节负责类)
