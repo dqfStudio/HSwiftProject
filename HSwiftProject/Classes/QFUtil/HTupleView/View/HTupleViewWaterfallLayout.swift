@@ -15,7 +15,7 @@ import UIKit
   
     /// 每个section 列数（默认2列）
     @objc
-    optional func waterNumberOfColumnsInSection( _ section: Any) -> Any
+    optional func waterNumberOfColumnsInSection(_ section: Any) -> Any
 
     /// header高度（默认为0）
     @objc
@@ -27,19 +27,19 @@ import UIKit
 
     /// 每个section 边距（默认为0）
     @objc
-    optional func waterInsetForSection( _ section: Any) -> Any
+    optional func waterInsetForSection(_ section: Any) -> Any
 
     /// 每个section item上下间距（默认为0）
     @objc
-    optional func waterLineSpacingForSection( _ section: Any) -> Any
+    optional func waterLineSpacingForSection(_ section: Any) -> Any
 
     /// 每个section item左右间距（默认为0）
     @objc
-    optional func waterInteritemSpacingForSection( _ section: Any) -> Any
+    optional func waterInteritemSpacingForSection(_ section: Any) -> Any
 
     /// section头部header与上个section尾部footer间距（默认为0）
     @objc
-    optional func waterSpacingForLastSection( _ section: Any) -> Any
+    optional func waterSpacingForLastSection(_ section: Any) -> Any
 }
 
 class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
