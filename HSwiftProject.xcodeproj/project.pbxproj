@@ -354,6 +354,7 @@
 		EBD0FBB229DBEE4800808EDA /* HNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */; };
 		EBD11E492CA6F08A00E1E6BF /* HTupleTmplCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD11E482CA6F08A00E1E6BF /* HTupleTmplCell.swift */; };
 		EBD11E4B2CA6F1B200E1E6BF /* HTupleTmplApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD11E4A2CA6F1B200E1E6BF /* HTupleTmplApex.swift */; };
+		EBD11E4D2CA6F7C500E1E6BF /* HTupleTmplView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD11E4C2CA6F7C500E1E6BF /* HTupleTmplView.swift */; };
 		EBD213CF2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */; };
 		EBD213D72A655FB800C31E2D /* HActiveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213D62A655FB800C31E2D /* HActiveController.swift */; };
 		EBD213D92A67783700C31E2D /* HNavigationBar2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213D82A67783700C31E2D /* HNavigationBar2.swift */; };
@@ -719,6 +720,7 @@
 		EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNumberFormatter.swift; sourceTree = "<group>"; };
 		EBD11E482CA6F08A00E1E6BF /* HTupleTmplCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleTmplCell.swift; sourceTree = "<group>"; };
 		EBD11E4A2CA6F1B200E1E6BF /* HTupleTmplApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleTmplApex.swift; sourceTree = "<group>"; };
+		EBD11E4C2CA6F7C500E1E6BF /* HTupleTmplView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleTmplView.swift; sourceTree = "<group>"; };
 		EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+HNaviBar.swift"; sourceTree = "<group>"; };
 		EBD213D62A655FB800C31E2D /* HActiveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveController.swift; sourceTree = "<group>"; };
 		EBD213D82A67783700C31E2D /* HNavigationBar2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HNavigationBar2.swift; sourceTree = "<group>"; };
@@ -965,6 +967,7 @@
 			isa = PBXGroup;
 			children = (
 				A289239E238B72F800E4AB75 /* HTupleView.swift */,
+				EBD11E4C2CA6F7C500E1E6BF /* HTupleTmplView.swift */,
 				A289239F238B72F800E4AB75 /* HTupleViewLayout.swift */,
 				EB5148972AE283A70075F737 /* HTupleViewFlowLayout.swift */,
 			);
@@ -1979,6 +1982,7 @@
 				EBD0FB6E29D02B1000808EDA /* HUserDefaults.swift in Sources */,
 				A28923AB238B733500E4AB75 /* HTupleViewCell.swift in Sources */,
 				A2188799238FD3E0005C20BF /* HGameCategoryVC+HSection2.swift in Sources */,
+				EBD11E4D2CA6F7C500E1E6BF /* HTupleTmplView.swift in Sources */,
 				A2A7A93523FE2CBF0090EFD3 /* HTupleViewMarqueeApex.swift in Sources */,
 				A258395923B4E70F00881941 /* HTableController.swift in Sources */,
 				EBD0FB1A29CC366D00808EDA /* HAuthorizeManager.swift in Sources */,

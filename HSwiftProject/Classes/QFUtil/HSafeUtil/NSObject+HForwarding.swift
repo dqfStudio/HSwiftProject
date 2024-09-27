@@ -48,9 +48,18 @@ extension NSObjectProtocol {
         return self.perform(selector, with: object1, with: object2).takeRetainedValue()
     }
     @discardableResult
+    func performWithRetainedValue(_ aSelector: Selector, with object1: Any, with object2: Any) -> AnyObject? {
+        return self.perform(aSelector, with: object1, with: object2).takeRetainedValue()
+    }
+    
+    @discardableResult
     func performWithUnretainedValue(_ aSelector: Selector, with object1: Any, with object2: Any, withPre pre: String) -> AnyObject? {
         let selector = NSSelectorFromString(pre + NSStringFromSelector(aSelector))
         return self.perform(selector, with: object1, with: object2).takeUnretainedValue()
+    }
+    @discardableResult
+    func performWithUnretainedValue(_ aSelector: Selector, with object1: Any, with object2: Any) -> AnyObject? {
+        return self.perform(aSelector, with: object1, with: object2).takeUnretainedValue()
     }
     
     
