@@ -20,6 +20,7 @@ class HMainController7: HViewController, HTupleViewDelegate {
         let layout = HTupleViewWaterfallLayout()
         let tupleView = HTupleView(frame: frame, collectionViewLayout: layout)
         tupleView.sectionHeadersPinToVisibleBounds = true
+        tupleView.sectionFootersPinToVisibleBounds = true
         return tupleView
     }()
     
@@ -72,6 +73,9 @@ extension HMainController7 {
     func sizeForHeaderInSection(_ section: Any) -> Any {
         return CGSize(width: UIScreen.width, height: 50)
     }
+    func sizeForFooterInSection(_ section: Any) -> Any {
+        return CGSize(width: UIScreen.width, height: 50)
+    }
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         let numberOfColumns = 2 // 你可以根据需要设置列数
         let itemWidth = (self.tupleView.width - 32 - 10) / CGFloat(numberOfColumns)
@@ -89,12 +93,18 @@ extension HMainController7 {
         return 10
     }
     func tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseHeader(HTupleBaseApex.self, nil, true, indexPath) as! HTupleBaseApex
+        let cell = tuple.reuseHeader(HTupleLabelApex.self, nil, true, indexPath) as! HTupleLabelApex
+        cell.label.text = "header"
         if indexPath.section == 0 {
             cell.backgroundColor = .green
         }else {
             cell.backgroundColor = .yellow
         }
+    }
+    func tupleFooter(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
+        let cell = tuple.reuseFooter(HTupleLabelApex.self, nil, true, indexPath) as! HTupleLabelApex
+        cell.backgroundColor = .red
+        cell.label.text = "footer"
     }
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         let cell = tuple.reuseCell(HPengCell.self, indexPath.stringValue, true, indexPath) as! HPengCell

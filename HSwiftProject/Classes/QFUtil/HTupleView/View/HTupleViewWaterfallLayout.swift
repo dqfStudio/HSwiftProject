@@ -51,18 +51,21 @@ class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
             
             // 生成header
             let itemCount = tupleView.numberOfItems(inSection: section)
-//            let headerAttri = self.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: indexPath)
-//            if let header = headerAttri {
-//                self.attrsArray.append(header)
-//                self.columnHeights.removeAll()
-//            }
-            
-            // Header高度
-            let headerSize = tupleView.collectionView(tupleView, layout: self, referenceSizeForHeaderInSection: indexPath.section)
-            if headerSize.width > 0 && headerSize.height > 0 {
-                self.cntHeight += headerSize.height
-                self.cntHeight += self.sectionInsets.top
-                self.columnHeights.removeAll()
+
+            // Header是否吸顶
+            if tupleView.sectionHeadersPinToVisibleBounds {
+                let headerSize = tupleView.collectionView(tupleView, layout: self, referenceSizeForHeaderInSection: indexPath.section)
+                if headerSize.width > 0 && headerSize.height > 0 {
+                    self.cntHeight += headerSize.height
+                    self.cntHeight += self.sectionInsets.top
+                    self.columnHeights.removeAll()
+                }
+            }else {
+                let headerAttri = self.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: indexPath)
+                if let header = headerAttri {
+                    self.attrsArray.append(header)
+                    self.columnHeights.removeAll()
+                }
             }
             
             // 记录上个section高度最高一列的高度，用于设置item的y值
@@ -82,17 +85,18 @@ class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
                 }
             }
             
-            // 初始化footer
-//            let footerAttri = self.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, at: indexPath)
-//            if let footer = footerAttri {
-//                self.attrsArray.append(footer)
-//            }
-            
-            // Footer高度
-            let footerSize = tupleView.collectionView(tupleView, layout: self, referenceSizeForFooterInSection: indexPath.section)
-            if footerSize.width > 0 && footerSize.height > 0 {
-                self.cntHeight += self.sectionInsets.bottom
-                self.cntHeight += self.footerSize.height
+            // Footer是否吸顶
+            if tupleView.sectionFootersPinToVisibleBounds {
+                let footerSize = tupleView.collectionView(tupleView, layout: self, referenceSizeForFooterInSection: indexPath.section)
+                if footerSize.width > 0 && footerSize.height > 0 {
+                    self.cntHeight += self.sectionInsets.bottom
+                    self.cntHeight += footerSize.height
+                }
+            }else {
+                let footerAttri = self.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, at: indexPath)
+                if let footer = footerAttri {
+                    self.attrsArray.append(footer)
+                }
             }
         }
     }
@@ -161,32 +165,43 @@ class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
         return attri
     }
     
-//    override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-//        guard let tupleView = self.collectionView as? HTupleView else { return nil }
-//        let attri = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, with: indexPath)
-//        if elementKind == UICollectionView.elementKindSectionHeader {
-//            let headerSize = tupleView.collectionView(tupleView, layout: self, referenceSizeForHeaderInSection: indexPath.section)
-//            guard headerSize != .zero else { return nil }
-//            self.headerSize = headerSize
-//            attri.frame = CGRect(x: 0, 
-//                                 y: self.cntHeight,
-//                                 width: self.headerSize.width,
-//                                 height: self.headerSize.height)
-//            self.cntHeight += self.headerSize.height
-//            self.cntHeight += self.sectionInsets.top
-//        }else if elementKind == UICollectionView.elementKindSectionFooter {
-//            let footerSize = tupleView.collectionView(tupleView, layout: self, referenceSizeForFooterInSection: indexPath.section)
-//            guard footerSize != .zero else { return nil }
-//            self.footerSize = footerSize
-//            self.cntHeight += self.sectionInsets.bottom
-//            attri.frame = CGRect(x: 0,
-//                                 y: self.cntHeight,
-//                                 width: self.footerSize.width,
-//                                 height: self.footerSize.height)
-//            self.cntHeight += self.footerSize.height
-//        }
-//        return attri
-//    }
+    override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let tupleView = self.collectionView as? HTupleView else { return nil }
+        if elementKind == UICollectionView.elementKindSectionHeader,
+            !tupleView.sectionHeadersPinToVisibleBounds { //Header是否吸顶
+            let headerSize = tupleView.collectionView(tupleView, layout: self, referenceSizeForHeaderInSection: indexPath.section)
+            if headerSize.width > 0 && headerSize.height > 0 {
+                let attri = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind,
+                                                             with: indexPath)
+                self.headerSize = headerSize
+                attri.frame = CGRect(x: 0,
+                                     y: self.cntHeight,
+                                     width: self.headerSize.width,
+                                     height: self.headerSize.height)
+                self.cntHeight += self.headerSize.height
+                self.cntHeight += self.sectionInsets.top
+                return attri
+            }
+            return nil
+        }else if elementKind == UICollectionView.elementKindSectionFooter,
+                    !tupleView.sectionFootersPinToVisibleBounds { //Footer是否吸顶
+            let footerSize = tupleView.collectionView(tupleView, layout: self, referenceSizeForFooterInSection: indexPath.section)
+            if footerSize.width > 0 && footerSize.height > 0 {
+                let attri = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind,
+                                                             with: indexPath)
+                self.footerSize = footerSize
+                self.cntHeight += self.sectionInsets.bottom
+                attri.frame = CGRect(x: 0,
+                                     y: self.cntHeight,
+                                     width: self.footerSize.width,
+                                     height: self.footerSize.height)
+                self.cntHeight += self.footerSize.height
+                return attri
+            }
+            return nil
+        }
+        return super.layoutAttributesForSupplementaryView(ofKind: elementKind, at: indexPath)
+    }
   
     override var collectionViewContentSize: CGSize {
         guard let collectionView = self.collectionView else { return CGSize.zero }
