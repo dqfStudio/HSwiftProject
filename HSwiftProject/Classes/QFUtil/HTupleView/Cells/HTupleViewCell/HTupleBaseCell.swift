@@ -59,18 +59,6 @@ class HTupleBaseCell: UICollectionViewCell {
         self.tuple?.reloadItems(at: [indexPath])
     }
     
-    /// 重写以下属性以启用自动大小计算
-//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-//        let preferredAttributes = super.preferredLayoutAttributesFitting(layoutAttributes)
-//        if let flowLayout = self.tuple?.collectionViewLayout as? UICollectionViewFlowLayout,
-//            flowLayout.estimatedItemSize != CGSize.zero {
-//            let targetSize = CGSize(width: UIView.layoutFittingCompressedSize.width, height: UIView.layoutFittingCompressedSize.width)
-//            let contentSize = contentView.systemLayoutSizeFitting(targetSize, withHorizontalFittingPriority: .fittingSizeLevel, verticalFittingPriority: .fittingSizeLevel)
-//            preferredAttributes.frame.size = contentSize
-//        }
-//        return preferredAttributes
-//    }
-    
     /// Method called during cell initialization
     func initUI() { }
     
