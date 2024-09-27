@@ -88,7 +88,7 @@ class HDotIndicatorBar: UIStackView, HTupleViewDelegate {
 
     // Configures the tuple item at the specified index path
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+        let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
         cell.cornerRadius = self.height / 2
         // Set the color of the title based on whether it is selected or not
         if self.selectedIndex == indexPath.section {

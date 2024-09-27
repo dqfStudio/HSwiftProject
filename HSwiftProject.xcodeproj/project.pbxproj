@@ -352,6 +352,8 @@
 		EBD0FBA029DB00D100808EDA /* HMainController6+Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FB9F29DB00D100808EDA /* HMainController6+Event.swift */; };
 		EBD0FBA229DB00DE00808EDA /* HMainController6+Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */; };
 		EBD0FBB229DBEE4800808EDA /* HNumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */; };
+		EBD11E492CA6F08A00E1E6BF /* HTupleTmplCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD11E482CA6F08A00E1E6BF /* HTupleTmplCell.swift */; };
+		EBD11E4B2CA6F1B200E1E6BF /* HTupleTmplApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD11E4A2CA6F1B200E1E6BF /* HTupleTmplApex.swift */; };
 		EBD213CF2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */; };
 		EBD213D72A655FB800C31E2D /* HActiveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213D62A655FB800C31E2D /* HActiveController.swift */; };
 		EBD213D92A67783700C31E2D /* HNavigationBar2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213D82A67783700C31E2D /* HNavigationBar2.swift */; };
@@ -715,6 +717,8 @@
 		EBD0FB9F29DB00D100808EDA /* HMainController6+Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+Event.swift"; sourceTree = "<group>"; };
 		EBD0FBA129DB00DE00808EDA /* HMainController6+Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HMainController6+Cell.swift"; sourceTree = "<group>"; };
 		EBD0FBB129DBEE4800808EDA /* HNumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNumberFormatter.swift; sourceTree = "<group>"; };
+		EBD11E482CA6F08A00E1E6BF /* HTupleTmplCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleTmplCell.swift; sourceTree = "<group>"; };
+		EBD11E4A2CA6F1B200E1E6BF /* HTupleTmplApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleTmplApex.swift; sourceTree = "<group>"; };
 		EBD213CE2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+HNaviBar.swift"; sourceTree = "<group>"; };
 		EBD213D62A655FB800C31E2D /* HActiveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveController.swift; sourceTree = "<group>"; };
 		EBD213D82A67783700C31E2D /* HNavigationBar2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HNavigationBar2.swift; sourceTree = "<group>"; };
@@ -890,6 +894,7 @@
 			isa = PBXGroup;
 			children = (
 				A2892396238B72F800E4AB75 /* HTupleBaseApex.swift */,
+				EBD11E4A2CA6F1B200E1E6BF /* HTupleTmplApex.swift */,
 				A229489623975AE80058B939 /* HTupleViewApex.swift */,
 				EB1C8D902C04751500ADF411 /* HTupleMultiApex.swift */,
 				EB50428A2A2C33F6007E9FC7 /* HTupleTextImageApex.swift */,
@@ -903,6 +908,7 @@
 			isa = PBXGroup;
 			children = (
 				A2892398238B72F800E4AB75 /* HTupleBaseCell.swift */,
+				EBD11E482CA6F08A00E1E6BF /* HTupleTmplCell.swift */,
 				A28923AA238B733500E4AB75 /* HTupleViewCell.swift */,
 				EB1C8D922C04753300ADF411 /* HTupleMultiCell.swift */,
 				EB5042882A2C31E2007E9FC7 /* HTupleTextImageCell.swift */,
@@ -1959,6 +1965,7 @@
 				EBD0FB0929CA90EB00808EDA /* HAssetManager.swift in Sources */,
 				EB3541E72BE9FF5B003B1D69 /* HNetworkResponse.swift in Sources */,
 				EBD0FB6929D02B1000808EDA /* HUserDefaults2.swift in Sources */,
+				EBD11E4B2CA6F1B200E1E6BF /* HTupleTmplApex.swift in Sources */,
 				A2294893239756A10058B939 /* HTableViewCell.swift in Sources */,
 				EB43240729B9DF9D00EDDB64 /* HResultView.swift in Sources */,
 				EBC8140729AA48C000A81431 /* HUserLiveCell.swift in Sources */,
@@ -2051,6 +2058,7 @@
 				EBD0FB3C29CD4C2400808EDA /* AppDelegate+SoundService.swift in Sources */,
 				EBC8146B29AA53F400A81431 /* HAcceptVideoVC+HStatus4.swift in Sources */,
 				EB9D332B2B038F97000B8F48 /* HPullController.swift in Sources */,
+				EBD11E492CA6F08A00E1E6BF /* HTupleTmplCell.swift in Sources */,
 				EBA53C322A3210FB0077158D /* HMultiButtonView.swift in Sources */,
 				EB3541BC2BE86152003B1D69 /* HActiveTabbarVC.swift in Sources */,
 				EB1C8D792C02CBC900ADF411 /* HPostCommentViewCell.swift in Sources */,

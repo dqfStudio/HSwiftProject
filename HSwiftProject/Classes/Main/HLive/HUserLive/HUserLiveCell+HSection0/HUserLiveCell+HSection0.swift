@@ -346,14 +346,14 @@ extension HUserLiveCell {
     }
     @objc
     func tupleExa0_tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseHeader(HTupleBaseApex.self, nil, true, indexPath) as! HTupleBaseApex
+        let cell = tuple.reuseHeader(HTupleTmplApex.self, nil, true, indexPath) as! HTupleTmplApex
         cell.backgroundColor = UIColor.clear
     }
     @objc
     func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {      
         switch (indexPath.row) {
         case 0:
-            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
             var topHeaderView = cell.viewWithTag(123456) as? HUserLiveTopHeaderView
             if topHeaderView == nil {
                 topHeaderView = HUserLiveTopHeaderView(frame: cell.bounds)
@@ -362,7 +362,7 @@ extension HUserLiveCell {
             }
             break
         case 1:
-            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
             var topHonorView = cell.viewWithTag(234567) as? HUserLiveTopHonorView
             if (topHonorView == nil) {
                 topHonorView = HUserLiveTopHonorView(frame: cell.bounds)
@@ -381,7 +381,7 @@ extension HUserLiveCell {
 //                NSLog("")
 //            }
             
-            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
             cell.layoutView.backgroundColor = UIColor.black
             cell.layoutView.cornerRadius = cell.layoutView.height / 2
             

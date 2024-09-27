@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HMultiLabelCell: HTupleBaseCell {
+class HMultiLabelCell: HTupleTmplCell {
     override func initUI() {
         self.layoutView.axis = .horizontal
         self.layoutView.distribution = .fillEqually
@@ -34,7 +34,7 @@ class HMultiLabelCell: HTupleBaseCell {
     }()
 }
 
-class HMultiImageCell: HTupleBaseCell {
+class HMultiImageCell: HTupleTmplCell {
     override func initUI() {
         self.layoutView.axis = .horizontal
         self.layoutView.distribution = .fillEqually
@@ -57,7 +57,7 @@ class HMultiImageCell: HTupleBaseCell {
     }()
 }
 
-class HMultiButtonCell: HTupleBaseCell {
+class HMultiButtonCell: HTupleTmplCell {
     override func initUI() {
         self.layoutView.axis = .horizontal
         self.layoutView.distribution = .fillEqually

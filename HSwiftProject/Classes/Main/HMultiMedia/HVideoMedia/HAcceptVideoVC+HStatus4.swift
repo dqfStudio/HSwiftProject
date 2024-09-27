@@ -70,7 +70,7 @@ extension HAcceptVideoVC {
             cell.label.textAlignment = .center
             break
         case 3:
-            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath)
             break
         case 4:
             let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
@@ -106,7 +106,7 @@ extension HAcceptVideoVC {
             cell.detailLabel.textAlignment = .center
             break
         case 5:
-            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath)
             break
         case 6:
             let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
@@ -156,7 +156,7 @@ extension HAcceptVideoVC {
             cell.accsryLabel.textAlignment = .center
             break
         case 7:
-            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath)
             break
 
         default:

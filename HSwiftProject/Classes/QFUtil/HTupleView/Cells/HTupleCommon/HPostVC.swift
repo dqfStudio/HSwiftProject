@@ -67,7 +67,7 @@ class HPostVC: HViewController, HTupleViewDelegate {
         cell.postVM = postVM
     }
     
-    func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
+    func willDisplayCell(_ cell: HTupleTmplCell, atIndexPath indexPath: IndexPath) {
         // 添加间隔线
         if indexPath.row != sourceData.count - 1 {
             cell.setBottomLine(withColor: .red, paddingLeft: 16, paddingRight: 16)

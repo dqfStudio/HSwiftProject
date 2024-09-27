@@ -121,7 +121,7 @@ extension HUserLiveCell {
     func tupleExa1_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         switch (indexPath.row) {
         case 0:
-            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
             var buttonView = cell.viewWithTag(123456) as? HWebButtonView
             if (buttonView == nil) {
                 var tmpFrame = cell.layoutViewBounds
@@ -167,7 +167,7 @@ extension HUserLiveCell {
             }
             break
         case 1:
-            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
             var buttonView = cell.viewWithTag(123456) as? HWebButtonView
             if (buttonView == nil) {
                 var tmpFrame = cell.layoutViewBounds
@@ -187,7 +187,7 @@ extension HUserLiveCell {
             }
             break
         case 2:
-            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
             var bottomBarView = cell.viewWithTag(123456) as? HUserLiveMiddleBarView
             if bottomBarView == nil {
                 bottomBarView = HUserLiveMiddleBarView(frame: cell.bounds)

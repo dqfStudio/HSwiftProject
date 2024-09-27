@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTupleTextImageCell: HTupleBaseCell {
+class HTupleTextImageCell: HTupleTmplCell {
     
     /// 左边布局View
     private lazy var leftView: UIView = {

@@ -41,7 +41,7 @@ extension HSendVideoVC {
             }
             break
         case 1:
-            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath)
             break
         case 2:
             let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
@@ -52,7 +52,7 @@ extension HSendVideoVC {
             cell.edgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
             break
         case 3:
-            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath)
             break
         case 4:
             let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
@@ -88,7 +88,7 @@ extension HSendVideoVC {
             cell.detailLabel.textAlignment = .center
             break
         case 5:
-            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath)
             break
         case 6:
             let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
@@ -109,7 +109,7 @@ extension HSendVideoVC {
             cell.label.textAlignment = .center
             break
         case 7:
-            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath)
             break
 
         default:

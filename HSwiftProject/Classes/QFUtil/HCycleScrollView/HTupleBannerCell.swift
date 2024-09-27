@@ -12,7 +12,7 @@ private let kRunloopCount: CGFloat = 5.0
 
 typealias HTupleBannerCellBlock = (_ index: Int, _ url: String) -> Void
 
-class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
+class HTupleBannerCell : HTupleTmplCell, HTupleViewDelegate {
     
     // dot之间的间隔
     var dotSpace: CGFloat = 8.0
@@ -162,7 +162,7 @@ class HTupleBannerCell : HTupleBaseCell, HTupleViewDelegate {
         }
     }
     
-    func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
+    func willDisplayCell(_ cell: HTupleTmplCell, atIndexPath indexPath: IndexPath) {
         if let imageUrlArr = imageUrlArr, imageUrlArr.count > 1 {
             if indexPath.section == 0 || indexPath.section == imageUrlArr.count * kBannerSize - 1 {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

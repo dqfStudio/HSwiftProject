@@ -111,7 +111,7 @@ class HLoginController: HViewController, HTupleViewDelegate {
                 NSLog("选中%d", cell)
             }
         case 3:
-            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath)
         case 4:
             let cell = tuple.reuseCell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor(hex:"#CCCCCC")

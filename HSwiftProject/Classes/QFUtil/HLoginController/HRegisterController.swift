@@ -134,7 +134,7 @@ class HRegisterController: HViewController, HTupleViewDelegate {
     }
     @objc
     func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
-        let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+        let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
 //        let tabBar = cell.viewWithTag(12345) as? HTabBar
 //        if tabBar == nil {
 //            cell.addSubview(self.tabBarView)

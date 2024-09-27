@@ -10,7 +10,7 @@ import UIKit
 
 typealias HTupleViewBannerApexBlock = (_ index: Int) -> Void
 
-class HTupleViewBannerApex: HTupleBaseApex, HCycleScrollViewDelegate {
+class HTupleViewBannerApex: HTupleTmplApex, HCycleScrollViewDelegate {
     
     private lazy var cycleScrollView: HCycleScrollView = {
         let scrollView = HCycleScrollView.cycleScrollViewWithFrame(self.bounds, delegate: self, placeholderImage: UIImage(named: "HCyclePlaceholder"))

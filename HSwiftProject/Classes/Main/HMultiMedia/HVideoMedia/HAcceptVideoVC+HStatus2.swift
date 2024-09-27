@@ -68,7 +68,7 @@ extension HAcceptVideoVC {
             cell.label.font = UIFont.systemFont(ofSize: 12)
             cell.label.textAlignment = .center
         case 3:
-            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath)
         case 4:
             let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             let bounds: CGRect = cell.layoutViewBounds
@@ -102,7 +102,7 @@ extension HAcceptVideoVC {
             cell.detailLabel.font = UIFont.systemFont(ofSize: 12)
             cell.detailLabel.textAlignment = .center
         case 5:
-            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath)
         case 6:
             let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             let bounds: CGRect = cell.layoutViewBounds
@@ -151,7 +151,7 @@ extension HAcceptVideoVC {
             cell.accsryLabel.textAlignment = .center
             break
         case 7:
-            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath)
         default:
             break
         }

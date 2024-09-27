@@ -22,7 +22,7 @@ class HFormModel: NSObject {
     }
 }
 
-class HFormCell: HTupleBaseCell, HTupleViewDelegate {
+class HFormCell: HTupleTmplCell, HTupleViewDelegate {
     
     var modelArr: [HFormModel]? {
         didSet {
@@ -104,7 +104,7 @@ class HFormCell: HTupleBaseCell, HTupleViewDelegate {
                 self.formCellBlock?(indexPath, model)
             }
         }else {
-            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            _ = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
         }
     }
     

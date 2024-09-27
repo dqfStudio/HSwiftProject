@@ -126,7 +126,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
             cell.label.text = self.note
             break
         case 2:
-            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
             cell.backgroundColor = UIColor(white: 0.1, alpha: 0.2)
             break
         case 3:
@@ -141,7 +141,7 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
         }
 
     }
-    func didSelectCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
+    func didSelectCell(_ cell: HTupleTmplCell, atIndexPath indexPath: IndexPath) {
         if indexPath.row == 3 {
             self.naviBack()
         }

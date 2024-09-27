@@ -87,7 +87,7 @@ class HUserLiveBottomBarView : UIView, HTupleViewDelegate {
             }
             break
         case 1:
-            _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
+            _ = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath)
             break
         case 2:
             let cell = tuple.reuseCell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
@@ -143,12 +143,12 @@ extension HUserLiveCell {
     }
     @objc
     func tupleExa2_tupleFooter(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseFooter(HTupleBaseApex.self, nil, true, indexPath) as! HTupleBaseApex
+        let cell = tuple.reuseFooter(HTupleTmplApex.self, nil, true, indexPath) as! HTupleTmplApex
         cell.backgroundColor = UIColor.clear
     }
     @objc
     func tupleExa2_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+        let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
         var bottomBarView = cell.viewWithTag(123456) as? HUserLiveBottomBarView
         if bottomBarView == nil {
             bottomBarView = HUserLiveBottomBarView(frame: cell.bounds)

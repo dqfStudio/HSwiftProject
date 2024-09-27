@@ -157,13 +157,13 @@ extension HSheetController {
                 cell.label.textAlignment = .center
                 cell.label.text = title
             case 1:
-                let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+                let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
                 cell.backgroundColor = UIColor(hex: 0xF7F8FA)
             default:
                 break
             }
         } else {
-            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
             cell.backgroundColor = UIColor.white
         }
     }
@@ -193,7 +193,7 @@ extension HSheetController {
         let row = indexPath.row % 2
         switch row {
         case 0:
-            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
             cell.backgroundColor = UIColor.white
             var button = cell.viewWithTag(12345) as? HWebButtonView
             if button == nil {
@@ -224,7 +224,7 @@ extension HSheetController {
                 self.naviBack()
             }
         case 1:
-            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
             cell.backgroundColor = UIColor(hex: 0xF7F8FA)
         default:
             break
@@ -257,7 +257,7 @@ extension HSheetController {
     func tupleExa2_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
         switch (indexPath.row) {
         case 0:
-            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
             cell.backgroundColor = UIColor(hex: 0xF7F8FA)
         case 1:
             let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
@@ -272,7 +272,7 @@ extension HSheetController {
             }
             break
         case 2:
-            let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
+            let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
             cell.backgroundColor = UIColor.white
         default:
             break

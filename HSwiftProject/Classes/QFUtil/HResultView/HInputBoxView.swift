@@ -134,11 +134,11 @@ class HInputBoxView: UIView, HTupleViewDelegate {
     }
     
     func tupleFooter(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseFooter(HTupleBaseApex.self, nil, true, indexPath) as! HTupleBaseApex
+        let cell = tuple.reuseFooter(HTupleTmplApex.self, nil, true, indexPath) as! HTupleTmplApex
         cell.backgroundColor = .clear
     }
     
-    func didSelectCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
+    func didSelectCell(_ cell: HTupleTmplCell, atIndexPath indexPath: IndexPath) {
         if !textField.isFirstResponder {
             textField.becomeFirstResponder()
         }

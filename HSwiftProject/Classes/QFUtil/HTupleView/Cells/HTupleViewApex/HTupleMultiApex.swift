@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HMultiLabelApex: HTupleBaseApex {
+class HMultiLabelApex: HTupleTmplApex {
     override func initUI() {
         self.layoutView.axis = .horizontal
         self.layoutView.distribution = .fillEqually
@@ -34,7 +34,7 @@ class HMultiLabelApex: HTupleBaseApex {
     }()
 }
 
-class HMultiImageApex: HTupleBaseApex {
+class HMultiImageApex: HTupleTmplApex {
     override func initUI() {
         self.layoutView.axis = .horizontal
         self.layoutView.distribution = .fillEqually
@@ -57,7 +57,7 @@ class HMultiImageApex: HTupleBaseApex {
     }()
 }
 
-class HMultiButtonApex: HTupleBaseApex {
+class HMultiButtonApex: HTupleTmplApex {
     override func initUI() {
         self.layoutView.axis = .horizontal
         self.layoutView.distribution = .fillEqually
