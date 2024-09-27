@@ -8,43 +8,8 @@
 
 import UIKit
 
-@objc protocol HTupleViewWaterfallLayoutDelegate: NSObjectProtocol {
-    /// item高度
-    @objc
-    optional func waterHeightForItemAtIndexPath(_ indexPath: IndexPath, itemWidth: Any) -> Any
-  
-    /// 每个section 列数（默认2列）
-    @objc
-    optional func waterNumberOfColumnsInSection(_ section: Any) -> Any
-
-    /// header高度（默认为0）
-    @objc
-    optional func waterSizeForHeaderInSection(_ section: Any) -> Any
-
-    /// footer高度（默认为0）
-    @objc
-    optional func waterSizeForFooterInSection(_ section: Any) -> Any
-
-    /// 每个section 边距（默认为0）
-    @objc
-    optional func waterInsetForSection(_ section: Any) -> Any
-
-    /// 每个section item上下间距（默认为0）
-    @objc
-    optional func waterLineSpacingForSection(_ section: Any) -> Any
-
-    /// 每个section item左右间距（默认为0）
-    @objc
-    optional func waterInteritemSpacingForSection(_ section: Any) -> Any
-
-    /// section头部header与上个section尾部footer间距（默认为0）
-    @objc
-    optional func waterSpacingForLastSection(_ section: Any) -> Any
-}
-
 class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
     
-    private weak var delegate: HTupleViewWaterfallLayoutDelegate?
     private var sectionInsets: UIEdgeInsets = .zero
     private var columnCount: Int = 2
     private var lineSpacing: CGFloat = 0.0
@@ -60,19 +25,11 @@ class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
     private var cntHeight: CGFloat = 0.0
     //记录上个section高度最高一列的高度
     private var lastCntHeight: CGFloat = 0.0
-    //每个section的header与上个section的footer距离
-    private var spacingForLastSection: CGFloat = 0.0
-    
-    convenience init(delegate: HTupleViewWaterfallLayoutDelegate) {
-        self.init()
-        self.delegate = delegate
-    }
   
     override func prepare() {
         super.prepare()
         self.cntHeight = 0.0
         self.lastCntHeight = 0.0
-        self.spacingForLastSection = 0.0
         self.lineSpacing = 0.0
         self.sectionInsets = .zero
         self.headerSize = .zero
@@ -80,33 +37,20 @@ class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
         self.columnHeights.removeAll()
         self.attrsArray.removeAll()
 
-        guard let delegate = self.delegate, let tuple = self.collectionView as? HTupleView else { return }
-        let sectionCount = tuple.numberOfSections
+        guard let tupleView = self.collectionView as? HTupleView else { return }
+        let sectionCount = tupleView.numberOfSections
         // 遍历section
         for section in 0..<sectionCount {
-            let prefix = tuple.tupleLayoutItemPrefix(section)
             let indexPath = IndexPath(item: 0, section: section)
 
             // 获取每个section 列数
-            let columnSelector = #selector(delegate.waterNumberOfColumnsInSection(_:))
-            if delegate.responds(to: columnSelector, withPre: prefix) {
-                self.columnCount = delegate.performWithUnretainedValue(columnSelector, with: section, withPre: prefix) as! Int
-            }
+            self.columnCount = tupleView.collectionView(tupleView, numberOfColumnsInSection: indexPath.section)
 
             // 获取每个section 边距
-            let insetSelector = #selector(delegate.waterInsetForSection(_:))
-            if delegate.responds(to: insetSelector, withPre: prefix) {
-                self.sectionInsets = delegate.performWithUnretainedValue(insetSelector, with: section, withPre: prefix) as! UIEdgeInsets
-            }
-
-            // 获取section头部header与上个section尾部footer间距
-            let slsSelector = #selector(delegate.waterSpacingForLastSection(_:))
-            if delegate.responds(to: slsSelector, withPre: prefix) {
-                self.spacingForLastSection = delegate.performWithUnretainedValue(slsSelector, with: section, withPre: prefix) as! CGFloat
-            }
+            self.sectionInsets = tupleView.collectionView(tupleView, layout: self, insetForSectionAt: indexPath.section)
             
             // 生成header
-            let itemCount = tuple.numberOfItems(inSection: section)
+            let itemCount = tupleView.numberOfItems(inSection: section)
 //            let headerAttri = self.layoutAttributesForSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, at: indexPath)
 //            if let header = headerAttri {
 //                self.attrsArray.append(header)
@@ -114,17 +58,11 @@ class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
 //            }
             
             // Header高度
-            let headerSizeSelector = #selector(delegate.waterSizeForHeaderInSection(_:))
-            if delegate.responds(to: headerSizeSelector, withPre: prefix) {
-                let headerSize = delegate.performWithUnretainedValue(headerSizeSelector,
-                                                                     with: indexPath.section,
-                                                                     withPre: prefix) as! CGSize
-                if headerSize.width > 0 && headerSize.height > 0 {
-                    self.cntHeight += headerSize.height
-                    self.cntHeight += self.sectionInsets.top
-                    self.cntHeight += self.spacingForLastSection
-                    self.columnHeights.removeAll()
-                }
+            let headerSize = tupleView.collectionView(tupleView, layout: self, referenceSizeForHeaderInSection: indexPath.section)
+            if headerSize.width > 0 && headerSize.height > 0 {
+                self.cntHeight += headerSize.height
+                self.cntHeight += self.sectionInsets.top
+                self.columnHeights.removeAll()
             }
             
             // 记录上个section高度最高一列的高度，用于设置item的y值
@@ -151,15 +89,10 @@ class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
 //            }
             
             // Footer高度
-            let footerSizeSelector = #selector(delegate.waterSizeForFooterInSection(_:))
-            if delegate.responds(to: footerSizeSelector, withPre: prefix) {
-                let footerSize = delegate.performWithUnretainedValue(footerSizeSelector,
-                                                                     with: indexPath.section,
-                                                                     withPre: prefix) as! CGSize
-                if footerSize.width > 0 && footerSize.height > 0 {
-                    self.cntHeight += self.sectionInsets.bottom
-                    self.cntHeight += self.footerSize.height
-                }
+            let footerSize = tupleView.collectionView(tupleView, layout: self, referenceSizeForFooterInSection: indexPath.section)
+            if footerSize.width > 0 && footerSize.height > 0 {
+                self.cntHeight += self.sectionInsets.bottom
+                self.cntHeight += self.footerSize.height
             }
         }
     }
@@ -169,36 +102,20 @@ class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
     }
   
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        guard let delegate = self.delegate, let tuple = self.collectionView as? HTupleView else { return nil }
-        let prefix = tuple.tupleSplitPrefix(indexPath.section)
+        guard let tupleView = self.collectionView as? HTupleView else { return nil }
 
         // 获取每个section 列数
-        let columnSelector = #selector(delegate.waterNumberOfColumnsInSection(_:))
-        if delegate.responds(to: columnSelector, withPre: prefix) {
-            self.columnCount = delegate.performWithUnretainedValue(columnSelector,
-                                                                   with: indexPath.section,
-                                                                   withPre: prefix) as! Int
-        }
+        self.columnCount = tupleView.collectionView(tupleView, numberOfColumnsInSection: indexPath.section)
 
         // 获取每个section item上下间距
-        let lineSelector = #selector(delegate.waterLineSpacingForSection(_:))
-        if delegate.responds(to: lineSelector, withPre: prefix) {
-            self.lineSpacing = delegate.performWithUnretainedValue(lineSelector,
-                                                                   with: indexPath.section,
-                                                                   withPre: prefix) as! CGFloat
-        }
+        self.lineSpacing = tupleView.collectionView(tupleView, layout: self, minimumLineSpacingForSectionAt: indexPath.section)
 
         // 获取每个section item左右间距
-        let interitemSelector = #selector(delegate.waterInteritemSpacingForSection(_:))
-        if delegate.responds(to: interitemSelector, withPre: prefix) {
-            self.interitemSpacing = delegate.performWithUnretainedValue(interitemSelector, 
-                                                                        with: indexPath.section,
-                                                                        withPre: prefix) as! CGFloat
-        }
+        self.interitemSpacing = tupleView.collectionView(tupleView, layout: self, minimumInteritemSpacingForSectionAt: indexPath.section)
 
         let attri = UICollectionViewLayoutAttributes(forCellWith: indexPath)
         // tupleView的宽度
-        let tupleWidth = tuple.bounds.width
+        let tupleWidth = tupleView.bounds.width
         // row的间隔
         let rowSpacing = CGFloat(self.columnCount - 1) * self.interitemSpacing
         // row的宽度
@@ -209,13 +126,7 @@ class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
         var itemHeight = 0.0
         
         // 获取每个section item高度
-        let cellHeightSelector = #selector(delegate.waterHeightForItemAtIndexPath(_:itemWidth:))
-        if delegate.responds(to: cellHeightSelector, withPre: prefix) {
-            itemHeight = delegate.performWithUnretainedValue(cellHeightSelector, 
-                                                             with: indexPath,
-                                                             with: itemWidth,
-                                                             withPre: prefix) as! CGFloat
-        }
+        itemHeight = tupleView.collectionView(tupleView, layout: self, sizeForItemAt: indexPath).height
 
         // 高度最小item的序号和高度
         var minItemIndex = 0
@@ -251,20 +162,12 @@ class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
     }
     
 //    override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-//        guard let delegate = self.delegate, let tuple = self.collectionView as? HTupleView else { return nil }
-//        let prefix = tuple.tupleLayoutViewPrefix(indexPath.section)
+//        guard let tupleView = self.collectionView as? HTupleView else { return nil }
 //        let attri = UICollectionViewLayoutAttributes(forSupplementaryViewOfKind: elementKind, with: indexPath)
 //        if elementKind == UICollectionView.elementKindSectionHeader {
-//            var headerSize = CGSize.zero
-//            let headerSizeSelector = #selector(delegate.waterSizeForHeaderInSection(_:))
-//            if delegate.responds(to: headerSizeSelector, withPre: prefix) {
-//                headerSize = delegate.performWithUnretainedValue(headerSizeSelector, 
-//                                                                 with: indexPath.section,
-//                                                                 withPre: prefix) as! CGSize
-//            }
+//            let headerSize = tupleView.collectionView(tupleView, layout: self, referenceSizeForHeaderInSection: indexPath.section)
 //            guard headerSize != .zero else { return nil }
 //            self.headerSize = headerSize
-//            self.cntHeight += self.spacingForLastSection
 //            attri.frame = CGRect(x: 0, 
 //                                 y: self.cntHeight,
 //                                 width: self.headerSize.width,
@@ -272,13 +175,7 @@ class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
 //            self.cntHeight += self.headerSize.height
 //            self.cntHeight += self.sectionInsets.top
 //        }else if elementKind == UICollectionView.elementKindSectionFooter {
-//            var footerSize = CGSize.zero
-//            let footerSizeSelector = #selector(delegate.waterSizeForFooterInSection(_:))
-//            if delegate.responds(to: footerSizeSelector, withPre: prefix) {
-//                footerSize = delegate.performWithUnretainedValue(footerSizeSelector,
-//                                                                 with: indexPath.section,
-//                                                                 withPre: prefix) as! CGSize
-//            }
+//            let footerSize = tupleView.collectionView(tupleView, layout: self, referenceSizeForFooterInSection: indexPath.section)
 //            guard footerSize != .zero else { return nil }
 //            self.footerSize = footerSize
 //            self.cntHeight += self.sectionInsets.bottom

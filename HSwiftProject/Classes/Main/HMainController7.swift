@@ -13,16 +13,12 @@ class HMainController7: HViewController, HTupleViewDelegate {
 //    var cellHeights: [CGFloat] = [100, 200, 300, 200, 400, 150, 200, 300, 500, 400]
     var cellHeights: [CGFloat] = [400, 500, 600, 500, 700, 450]
     
-    
     private lazy var tupleView: HTupleView = {
-        let layout = HTupleViewWaterfallLayout(delegate: self)
-//        let layout = WaterFallFlowLayout()
-//        layout.delegate = self
         var frame = self.view.bounds
         frame.y = UIScreen.topBarHeight
         frame.height -= frame.y + 50
+        let layout = HTupleViewWaterfallLayout()
         let tupleView = HTupleView(frame: frame, collectionViewLayout: layout)
-//        let tupleView = HTupleView(frame: frame)
         tupleView.sectionHeadersPinToVisibleBounds = true
         return tupleView
     }()
@@ -62,6 +58,9 @@ class HMainController7: HViewController, HTupleViewDelegate {
 
 extension HMainController7 {
     func numberOfSectionsInTupleView() -> Any {
+        return 2
+    }
+    func numberOfColumnsInSection(_ section: Any) -> Any {
         return 2
     }
     func insetForSection(_ section: Any) -> Any {
@@ -143,53 +142,6 @@ extension HMainController7 {
 //        cell.postVM = postVM
     }
 
-}
-
-extension HMainController7: HTupleViewWaterfallLayoutDelegate {
-    
-    func waterInsetForSection( _ section: Any) -> Any {
-        return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-    }
-    func waterSizeForHeaderInSection(_ section: Any) -> Any {
-//        return CGSize(width: self.view.width, height: 50)
-        let section = section as! Int
-        if section == 0 {
-            return CGSize(width: UIScreen.width, height: 50)
-//            return CGSize.zero
-        }else {
-            return CGSize(width: UIScreen.width, height: 50)
-        }
-    }
-    func waterHeightForItemAtIndexPath(_ indexPath: IndexPath, itemWidth: Any) -> Any {
-//        if let cell = tupleView.cell(for: indexPath) as? HPengCell {
-//            let contentSize = cell.tupleView.contentSize
-//            return contentSize.height
-//        }
-//        return 100
-        if indexPath.section == 0 {
-            return 100
-        }else {
-            let itemHeight = cellHeights[indexPath.row]
-            return itemHeight
-        }
-    }
-//    func waterSpacingForLastSection( _ section: Any) -> Any {
-//        let section = section as! Int
-//        if section == 0 {
-//            return 0
-//        }else {
-//            return 50
-//        }
-//    }
-    func waterNumberOfColumnsInSection( _ section: Any) -> Any {
-        return 2
-    }
-    func waterLineSpacingForSection( _ section: Any) -> Any {
-        return 10.0
-    }
-    func waterInteritemSpacingForSection( _ section: Any) -> Any {
-        return 10.0
-    }
 }
 
 class HPengCell: HTupleBaseCell, HTupleViewDelegate {

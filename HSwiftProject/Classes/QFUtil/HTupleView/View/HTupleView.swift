@@ -132,6 +132,9 @@ class HAppearance: NSObject {
     optional func numberOfSectionsInTupleView() -> Any
     @objc
     optional func numberOfItemsInSection(_ section: Any) -> Any
+    /// layout == HTupleViewWaterfallLayout
+    @objc
+    optional func numberOfColumnsInSection(_ section: Any) -> Any
     /// layout == HTupleViewLayout
     @objc
     optional func colorForSection(_ section: Any) -> UIColor
@@ -753,32 +756,6 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }
         return prefix
     }
-    
-    func tupleLayoutItemPrefix(_ section: Int) -> String {
-        var prefix = ""
-        if self.tupleStyle == .split {
-            if self.sectionPaths.contains(section) {
-                let idx = self.sectionPaths.index(of: section)
-                prefix = kTupleExaDesignKey + "\(idx)" + "_"
-            }else {
-                prefix = kTupleDesignKey + "\(section)" + "_"
-            }
-        }
-        return prefix
-    }
-    
-    func tupleLayoutViewPrefix(_ section: Int) -> String {
-        var prefix = ""
-        if self.tupleStyle == .split {
-            if self.sectionPaths.contains(section) {
-                let idx = self.sectionPaths.index(of: section)
-                prefix = kTupleExaDesignKey + "\(idx)" + "_"
-            }else {
-                prefix = kTupleDesignKey + "\(self.tupleState)" + "_"
-            }
-        }
-        return prefix
-    }
 
     /// The following are UICollectionView delegate methods
     internal func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -833,6 +810,23 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
             // Prevents quantity from being less than 0
             items = max(items, 0)
+        }
+        return items
+    }
+    
+    /// layout == HTupleViewWaterfallLayout
+    internal func collectionView(_ collectionView: UICollectionView, numberOfColumnsInSection section: Int) -> Int {
+        var items = 2
+        if let delegate = self.tupleDelegate {
+            // Get the number of items
+            let prefix = self.tupleSplitPrefix(section)
+            let itemSelector: Selector = #selector(delegate.numberOfColumnsInSection(_:))
+            if delegate.responds(to: itemSelector, withPre: prefix) {
+                items = delegate.performWithUnretainedValue(itemSelector, with: section, withPre: prefix) as! Int
+            }
+
+            // Prevents quantity from being less than 0
+            items = max(items, 2)
         }
         return items
     }
