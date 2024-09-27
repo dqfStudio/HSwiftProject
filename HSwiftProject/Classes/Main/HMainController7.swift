@@ -17,7 +17,7 @@ class HMainController7: HViewController, HTupleViewDelegate {
         var frame = self.view.bounds
         frame.y = UIScreen.topBarHeight
         frame.height -= frame.y + 50
-        let layout = HTupleViewWaterfallLayout()
+        let layout = HTupleViewFlowLayout()
         let tupleView = HTupleView(frame: frame, collectionViewLayout: layout)
         tupleView.sectionHeadersPinToVisibleBounds = true
         tupleView.sectionFootersPinToVisibleBounds = true

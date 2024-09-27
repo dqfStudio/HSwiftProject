@@ -132,7 +132,7 @@ class HAppearance: NSObject {
     optional func numberOfSectionsInTupleView() -> Any
     @objc
     optional func numberOfItemsInSection(_ section: Any) -> Any
-    /// layout == HTupleViewWaterfallLayout
+    /// layout == HTupleViewFlowLayout
     @objc
     optional func numberOfColumnsInSection(_ section: Any) -> Any
     /// layout == HTupleViewLayout
@@ -814,7 +814,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         return items
     }
     
-    /// layout == HTupleViewWaterfallLayout
+    /// layout == HTupleViewFlowLayout
     internal func collectionView(_ collectionView: UICollectionView, numberOfColumnsInSection section: Int) -> Int {
         var items = 2
         if let delegate = self.tupleDelegate {

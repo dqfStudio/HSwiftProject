@@ -1,5 +1,5 @@
 //
-//  HTupleViewWaterfallLayout.swift
+//  HTupleViewFlowLayout.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/10/20.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTupleViewWaterfallLayout: UICollectionViewFlowLayout {
+class HTupleViewFlowLayout: UICollectionViewFlowLayout {
     
     private var sectionInsets: UIEdgeInsets = .zero
     private var columnCount: Int = 2
