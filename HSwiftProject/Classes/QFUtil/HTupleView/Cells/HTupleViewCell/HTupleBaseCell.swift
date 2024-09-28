@@ -53,10 +53,25 @@ class HTupleBaseCell: UICollectionViewCell {
         }
     }
     
+    /// The frame and bounds of layoutView
+    var layoutViewFrame: CGRect {
+        return self.frame
+    }
+
+    var layoutViewBounds: CGRect {
+        return self.bounds
+    }
+    
     /// Refresh the current cell
     func reloadItemData() {
         guard let indexPath = self.indexPath else { return }
         self.tuple?.reloadItems(at: [indexPath])
+    }
+    
+    func HLayoutTupleCell(_ v: UIView) {
+        if !v.frame.equalTo(self.bounds) {
+            v.frame = self.bounds
+        }
     }
     
     /// Method called during cell initialization

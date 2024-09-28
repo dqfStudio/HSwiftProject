@@ -64,12 +64,12 @@ extension HSkeletonView {
         cell.detailLabel.frame = CGRect(x: 16 + 60 + 20, y: 35, width: self.width - 32 - 80, height: 25)
 
         // 开始骨架动画
-        cell.layoutView.tabAnimated = TABViewAnimated(viewHeight: 90)
-        cell.layoutView.tab_startAnimation()
+        cell.contentView.tabAnimated = TABViewAnimated(viewHeight: 90)
+        cell.contentView.tab_startAnimation()
 
         //接收信号
         cell.signalBlock = { (target, signal) in
-            cell.layoutView.tab_endAnimation()
+            cell.contentView.tab_endAnimation()
         }
     }
 

@@ -66,17 +66,17 @@ extension HTupleAutoVC: HTupleViewDelegate {
             let cell = flow.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             cell.backgroundColor = UIColor.gray
             
-            cell.layoutView.snp.makeConstraints { make in
+            cell.contentView.snp.makeConstraints { make in
                 make.edges.equalToSuperview()
                 make.width.equalTo(self.tupleView.width)
                 make.height.equalTo(65)
             }
             
-            cell.separatorView.snp.makeConstraints { make in
-                make.left.bottom.equalToSuperview()
-                make.height.equalTo(1)
-                make.width.equalTo(self.tupleView.width)
-            }
+//            cell.separatorView.snp.makeConstraints { make in
+//                make.left.bottom.equalToSuperview()
+//                make.height.equalTo(1)
+//                make.width.equalTo(self.tupleView.width)
+//            }
             
             cell.imageView.snp.makeConstraints { make in
                 make.left.top.equalToSuperview().offset(10)
@@ -114,17 +114,17 @@ extension HTupleAutoVC: HTupleViewDelegate {
             let cell = flow.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             cell.backgroundColor = UIColor.gray
             
-            cell.layoutView.snp.makeConstraints { make in
+            cell.contentView.snp.makeConstraints { make in
                 make.edges.equalToSuperview()
                 make.width.equalTo(self.tupleView.width)
                 make.height.equalTo(65)
             }
             
-            cell.separatorView.snp.makeConstraints { make in
-                make.left.bottom.equalToSuperview()
-                make.height.equalTo(1)
-                make.width.equalTo(self.tupleView.width)
-            }
+//            cell.separatorView.snp.makeConstraints { make in
+//                make.left.bottom.equalToSuperview()
+//                make.height.equalTo(1)
+//                make.width.equalTo(self.tupleView.width)
+//            }
             
             cell.imageView.snp.makeConstraints { make in
                 make.left.top.equalToSuperview().offset(10)
@@ -161,17 +161,17 @@ extension HTupleAutoVC: HTupleViewDelegate {
             let cell = flow.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             cell.backgroundColor = UIColor.gray
             
-            cell.layoutView.snp.makeConstraints { make in
+            cell.contentView.snp.makeConstraints { make in
                 make.edges.equalToSuperview()
                 make.width.equalTo(self.tupleView.width)
                 make.height.equalTo(65)
             }
             
-            cell.separatorView.snp.makeConstraints { make in
-                make.left.bottom.equalToSuperview()
-                make.height.equalTo(1)
-                make.width.equalTo(self.tupleView.width)
-            }
+//            cell.separatorView.snp.makeConstraints { make in
+//                make.left.bottom.equalToSuperview()
+//                make.height.equalTo(1)
+//                make.width.equalTo(self.tupleView.width)
+//            }
             
             cell.imageView.snp.makeConstraints { make in
                 make.left.top.equalToSuperview().offset(10)

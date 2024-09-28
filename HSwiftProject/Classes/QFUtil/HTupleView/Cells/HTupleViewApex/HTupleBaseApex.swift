@@ -47,6 +47,21 @@ class HTupleBaseApex: UICollectionReusableView {
             }
         }
     }
+    
+    /// The frame and bounds of layoutView
+    var layoutViewFrame: CGRect {
+        return self.frame
+    }
+
+    var layoutViewBounds: CGRect {
+        return self.bounds
+    }
+    
+    func HLayoutTupleApex(_ v: UIView) {
+        if !v.frame.equalTo(self.bounds) {
+            v.frame = self.bounds
+        }
+    }
 
     /// Method called during cell initialization
     func initUI() { }

@@ -43,11 +43,11 @@ class HTupleTmplCell: HTupleBaseCell {
     }()
 
     /// The frame and bounds of layoutView
-    var layoutViewFrame: CGRect {
+    override var layoutViewFrame: CGRect {
         return layoutView.frame
     }
 
-    var layoutViewBounds: CGRect {
+    override var layoutViewBounds: CGRect {
         return layoutView.bounds
     }
     
@@ -69,7 +69,7 @@ class HTupleTmplCell: HTupleBaseCell {
         }
     }
     
-    func HLayoutTupleCell(_ v: UIView) {
+    override func HLayoutTupleCell(_ v: UIView) {
         let frame = self.layoutViewBounds
         if !v.frame.equalTo(frame) {
             v.frame = frame
