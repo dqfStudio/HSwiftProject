@@ -50,8 +50,8 @@ class HNavigationBar: UIStackView, HTupleViewDelegate {
         buttonView.contentHorizontalAlignment = .left
         buttonView.backgroundColor = UIColor.clear
         buttonView.textColor = UIColor.black
-        buttonView.refreshBlock = {
-            self.tupleView.reloadTupleData()
+        buttonView.refreshBlock = { [weak self] in
+            self?.tupleView.reloadTupleData()
         }
         buttonView.addTarget(self, action: #selector(leftItemPressed))
         return buttonView
@@ -87,8 +87,8 @@ class HNavigationBar: UIStackView, HTupleViewDelegate {
         buttonView.contentHorizontalAlignment = .right
         buttonView.backgroundColor = UIColor.clear
         buttonView.textColor = UIColor.black
-        buttonView.refreshBlock = {
-            self.tupleView.reloadTupleData()
+        buttonView.refreshBlock = { [weak self] in
+            self?.tupleView.reloadTupleData()
         }
         buttonView.addTarget(self, action: #selector(rightItemPressed))
         return buttonView

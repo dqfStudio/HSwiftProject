@@ -25,11 +25,11 @@ class HActiveController: HBaseController {
     // Navigation item
     override var navigationItem: UINavigationItem {
         let naviItem = super.navigationItem
-        naviItem.leftItem.pressedBlock = {
-            self.leftNaviItemPressed()
+        naviItem.leftItem.pressedBlock = { [weak self] in
+            self?.leftNaviItemPressed()
         }
-        naviItem.rightItem.pressedBlock = {
-            self.rightNaviItemPressed()
+        naviItem.rightItem.pressedBlock = { [weak self] in
+            self?.rightNaviItemPressed()
         }
         return naviItem
     }
