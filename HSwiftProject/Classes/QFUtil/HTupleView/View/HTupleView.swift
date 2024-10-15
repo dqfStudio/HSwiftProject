@@ -89,7 +89,7 @@ class HTupleAppearance: NSObject {
     }
 }
 
-class HAppearance: NSObject {
+class HTupleObserver: NSObject {
 
     private static var hashObjects = NSHashTable<NSObject>.weakObjects()
 
