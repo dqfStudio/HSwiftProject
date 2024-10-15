@@ -47,8 +47,9 @@ class HPostVC: HViewController, HTupleViewDelegate {
     
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         if let cell = tupleView.cell(for: indexPath) as? HPostViewCell {
-            let contentSize = cell.tupleView.contentSize
-            return CGSize(width: tupleView.bounds.width, height: contentSize.height)
+//            let contentSize = cell.tupleView.contentSize
+//            return CGSize(width: tupleView.bounds.width, height: contentSize.height)
+            return cell.tupleView.contentSize
         }
         return CGSize(width: tupleView.bounds.width, height: 100)
     }
@@ -58,9 +59,9 @@ class HPostVC: HViewController, HTupleViewDelegate {
         cell.backgroundColor = .yellow
         guard indexPath.row < postList.count else { return }
         
-        cell.layoutView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
+//        cell.layoutView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
         
         // 赋值model
         let postVM = postList[indexPath.row]
