@@ -340,3 +340,35 @@ extension UIView {
     }
     
 }
+
+extension UILabel {
+    func textWidth(with height: CGFloat) -> CGFloat {
+        return self.text?.widthWithFont(self.font, constrainedToHeight: height) ?? 0
+    }
+    func textHeight(with width: CGFloat) -> CGFloat {
+        return self.text?.heightWithFont(self.font, constrainedToWidth: width) ?? 0
+    }
+    
+    func attributedTextWidth(with height: CGFloat) -> CGFloat {
+        return self.attributedText?.width(with: height) ?? 0
+    }
+    func attributedTextHeight(with width: CGFloat) -> CGFloat {
+        return self.attributedText?.height(with: width) ?? 0
+    }
+}
+
+extension UITextView {
+    func textWidth(with height: CGFloat) -> CGFloat {
+        return self.text.widthWithFont(self.font, constrainedToHeight: height)
+    }
+    func textHeight(with width: CGFloat) -> CGFloat {
+        return self.text.heightWithFont(self.font, constrainedToWidth: width)
+    }
+    
+    func attributedTextWidth(with height: CGFloat) -> CGFloat {
+        return self.attributedText?.width(with: height) ?? 0
+    }
+    func attributedTextHeight(with width: CGFloat) -> CGFloat {
+        return self.attributedText?.height(with: width) ?? 0
+    }
+}

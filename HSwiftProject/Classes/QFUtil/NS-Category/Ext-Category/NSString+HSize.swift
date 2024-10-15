@@ -113,3 +113,25 @@ extension NSString {
     }
     
 }
+
+extension NSAttributedString {
+    /**
+     *  @brief 计算文字的高度
+     *
+     *  @param font  字体(默认为系统字体)
+     *  @param width 约束宽度
+     */
+    func height(with width: CGFloat) -> CGFloat {
+        let textSize = self.boundingRect(with: CGSize(width: width, height: CGFloat.greatestFiniteMagnitude),
+                                         options: [.usesLineFragmentOrigin, .usesFontLeading],
+                                         context: nil).size
+        return ceil(textSize.height)
+    }
+    
+    func width(with height: CGFloat) -> CGFloat {
+        let textSize = self.boundingRect(with: CGSize(width: CGFloat.greatestFiniteMagnitude, height: height),
+                                         options: [.usesLineFragmentOrigin, .usesFontLeading],
+                                         context: nil).size
+        return ceil(textSize.width)
+    }
+}

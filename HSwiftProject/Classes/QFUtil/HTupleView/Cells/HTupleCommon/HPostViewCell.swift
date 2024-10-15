@@ -456,3 +456,242 @@ extension HPostViewCell {
     }
     
 }
+
+class HPostCustomViewCell: HTupleBaseCell {
+    
+    lazy var postHeaderView: HPostHeaderView = {
+        return HPostHeaderView()
+    }()
+    
+    lazy var postTextView: HPostTextView = {
+        return HPostTextView()
+    }()
+    lazy var postImageView: HPostImageView = {
+        return HPostImageView()
+    }()
+    lazy var postVideoView: HPostVideoView = {
+        return HPostVideoView()
+    }()
+    
+    lazy var postFooterView: HPostFooterView = {
+        return HPostFooterView()
+    }()
+    
+    override func initUI() {
+        self.contentView.addSubview(postHeaderView)
+        self.contentView.addSubview(postTextView)
+        self.contentView.addSubview(postImageView)
+        self.contentView.addSubview(postVideoView)
+        self.contentView.addSubview(postFooterView)
+    }
+
+}
+
+class HPostHeaderView: UIView {
+    lazy var avatarButton: HWebButtonView = {
+        let frame = CGRect(x: 0, y: 0, width: 48, height: 48)
+        let button = HWebButtonView(frame: frame)
+        button.cornerRadius = 8
+        return button
+    }()
+    
+    lazy var nameLabel: UILabel = {
+        let x = avatarButton.maxX + 12
+        let w = self.width - x
+        let h = 24.0
+        let frame = CGRect(x: x, y: 0, width: w, height: h)
+        let label = UILabel(frame: frame)
+        label.textColor = UIColor(hex: "#17191E")
+        label.font = UIFont.font(ofSize: 17.0, weight: .medium)
+        return label
+    }()
+    
+    lazy var dateLabel: UILabel = {
+        let x = avatarButton.maxX + 12
+        let y = nameLabel.maxY + 4
+        let w = self.width - x
+        let h = 20.0
+        let frame = CGRect(x: x, y: y, width: w, height: h)
+        let label = UILabel(frame: frame)
+        label.textColor = UIColor(hex: "#9B9FA8")
+        label.font = UIFont.font(ofSize: 14.0, weight: .regular)
+        return label
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setup()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setup() {
+        self.addSubview(avatarButton)
+        self.addSubview(nameLabel)
+        self.addSubview(dateLabel)
+    }
+}
+
+class HPostTextView: UIView {
+    lazy var textView: UITextView = {
+        return UITextView()
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setup()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setup() {
+        self.addSubview(textView)
+        textView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    }
+}
+
+class HPostImageView: UIView {
+    lazy var buttonView1: HWebButtonView = {
+        return HWebButtonView()
+    }()
+    lazy var buttonView2: HWebButtonView = {
+        return HWebButtonView()
+    }()
+    lazy var buttonView3: HWebButtonView = {
+        return HWebButtonView()
+    }()
+    lazy var buttonView4: HWebButtonView = {
+        return HWebButtonView()
+    }()
+    
+    lazy var buttonView5: HWebButtonView = {
+        return HWebButtonView()
+    }()
+    lazy var buttonView6: HWebButtonView = {
+        return HWebButtonView()
+    }()
+    lazy var buttonView7: HWebButtonView = {
+        return HWebButtonView()
+    }()
+    lazy var buttonView8: HWebButtonView = {
+        return HWebButtonView()
+    }()
+    lazy var buttonView9: HWebButtonView = {
+        return HWebButtonView()
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setup()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setup() {
+        self.addSubview(buttonView1)
+        self.addSubview(buttonView2)
+        self.addSubview(buttonView3)
+        self.addSubview(buttonView4)
+        self.addSubview(buttonView5)
+        self.addSubview(buttonView6)
+        self.addSubview(buttonView7)
+        self.addSubview(buttonView8)
+        self.addSubview(buttonView9)
+    }
+}
+
+class HPostVideoView: UIView {
+    lazy var buttonView: HWebButtonView = {
+        return HWebButtonView()
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setup()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setup() {
+        self.addSubview(buttonView)
+        buttonView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    }
+}
+
+class HPostFooterView: UIStackView {
+    
+    lazy var likeButton: HWebButtonView = {
+        let button = HWebButtonView(frame: .zero)
+        //button.imagePosition = .left
+        //button.imageSpace = 4.0
+        button.textColor = UIColor(hex: "#727781")
+        button.textFont = UIFont.font(ofSize: 12.0, weight: .medium)
+        //button.setImage(UIImage(named: "square_post_like"), for: .normal)
+        //button.setImage(UIImage(named: "square_post_like_sel"), for: .selected)
+        return button
+    }()
+    
+    lazy var commentButton: HWebButtonView = {
+        let button = HWebButtonView(frame: .zero)
+        //button.imagePosition = .left
+        //button.imageSpace = 4.0
+        button.textColor = UIColor(hex: "#727781")
+        button.textFont = UIFont.font(ofSize: 12.0, weight: .medium)
+        //button.setImage(UIImage(named: "square_post_comment"), for: .normal)
+        return button
+    }()
+    
+    lazy var shareButton: HWebButtonView = {
+        let button = HWebButtonView(frame: .zero)
+        //button.imagePosition = .left
+        //button.imageSpace = 4.0
+        button.textColor = UIColor(hex: "#727781")
+        button.textFont = UIFont.font(ofSize: 12.0, weight: .medium)
+        //button.setImage(UIImage(named: "square_post_share"), for: .normal)
+        return button
+    }()
+    
+    lazy var moreButton: HWebButtonView = {
+        let button = HWebButtonView(frame: .zero)
+        button.textColor = UIColor(hex: "#727781")
+        button.textFont = UIFont.font(ofSize: 12.0, weight: .medium)
+        //button.setImage(UIImage(named: "square_post_more"), for: .normal)
+        return button
+    }()
+    
+    required init() {
+        super.init(frame: .zero)
+        self.setup()
+    }
+    
+    @available(*, unavailable)
+    required init(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    required override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setup()
+    }
+    
+    private func setup() {
+        self.addArrangedSubview(likeButton)
+        self.addArrangedSubview(commentButton)
+        self.addArrangedSubview(shareButton)
+        self.addArrangedSubview(moreButton)
+        self.distribution = .equalSpacing
+    }
+    
+}
