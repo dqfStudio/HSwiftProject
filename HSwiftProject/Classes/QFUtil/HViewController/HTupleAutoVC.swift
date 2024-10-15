@@ -45,8 +45,7 @@ extension HTupleAutoVC: HTupleViewDelegate {
             cell.backgroundColor = UIColor.gray
             
             cell.layoutView.snp.makeConstraints { make in
-                make.left.top.equalToSuperview().offset(10)
-                make.right.bottom.equalToSuperview().offset(-10)
+                make.edges.equalToSuperview().inset(10)
                 make.width.equalTo(self.tupleView.width - 20)
             }
             cell.label.numberOfLines = 0
@@ -67,7 +66,7 @@ extension HTupleAutoVC: HTupleViewDelegate {
             cell.backgroundColor = UIColor.gray
             
             cell.contentView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
+                //make.edges.equalToSuperview()
                 make.width.equalTo(self.tupleView.width)
                 make.height.equalTo(65)
             }
@@ -115,7 +114,7 @@ extension HTupleAutoVC: HTupleViewDelegate {
             cell.backgroundColor = UIColor.gray
             
             cell.contentView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
+                //make.edges.equalToSuperview()
                 make.width.equalTo(self.tupleView.width)
                 make.height.equalTo(65)
             }
@@ -162,7 +161,7 @@ extension HTupleAutoVC: HTupleViewDelegate {
             cell.backgroundColor = UIColor.gray
             
             cell.contentView.snp.makeConstraints { make in
-                make.edges.equalToSuperview()
+                //make.edges.equalToSuperview()
                 make.width.equalTo(self.tupleView.width)
                 make.height.equalTo(65)
             }
