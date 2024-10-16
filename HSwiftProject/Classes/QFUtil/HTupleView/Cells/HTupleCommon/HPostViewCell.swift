@@ -459,6 +459,10 @@ extension HPostViewCell {
 
 class HPostCustomViewCell: HTupleBaseCell {
     
+    lazy var postMaskView: HPostMaskView = {
+        return HPostMaskView()
+    }()
+    
     lazy var postHeaderView: HPostHeaderView = {
         return HPostHeaderView()
     }()
@@ -483,8 +487,30 @@ class HPostCustomViewCell: HTupleBaseCell {
         self.contentView.addSubview(postImageView)
         self.contentView.addSubview(postVideoView)
         self.contentView.addSubview(postFooterView)
+        self.contentView.addSubview(postMaskView)
     }
 
+}
+
+class HPostMaskView: UIView {
+//    lazy var maskView: UIView = {
+//        return UIView()
+//    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setup()
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setup() {
+//        self.addSubview(maskView)
+//        maskView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+    }
 }
 
 class HPostHeaderView: UIView {

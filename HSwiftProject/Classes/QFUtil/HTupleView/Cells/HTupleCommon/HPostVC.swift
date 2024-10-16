@@ -161,6 +161,16 @@ class HPostVC: HViewController, HTupleViewDelegate {
             make.height.equalTo(40)
         }
         
+        if indexPath.row == 0 || indexPath.row == 2 {
+            cell.postMaskView.backgroundColor = .blue
+            cell.postMaskView.snp.makeConstraints { make in
+                make.left.right.equalToSuperview()
+                make.top.equalTo(cell.postTextView.snp.top)
+                make.width.equalTo(self.tupleView.width)
+                make.bottom.equalTo(cell.postVideoView.snp.bottom)
+            }
+        }
+        
         // contentView
         cell.contentView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
