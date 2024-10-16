@@ -504,17 +504,17 @@ class HPostCustomViewCell: HTupleBaseCell {
             make.height.equalTo(48)
         }
         
+        // postTextView
+        self.postTextView.textView.text = item.post
+        self.postTextView.textView.font = UIFont.font(ofSize: 14, weight: .regular)
+        self.postTextView.textView.textContainer.lineFragmentPadding = 0
+        self.postTextView.textView.textContainerInset = UIEdgeInsets.zero
+        self.postTextView.textView.isUserInteractionEnabled = false
+        self.postTextView.textView.isScrollEnabled = false
+        self.postTextView.textView.isEditable = false
+        self.postTextView.textView.isSelectable = true
+        
         if indexPath.row != 3 {
-            // postTextView
-            self.postTextView.textView.text = item.post
-            self.postTextView.textView.font = UIFont.font(ofSize: 14, weight: .regular)
-            self.postTextView.textView.textContainer.lineFragmentPadding = 0
-            self.postTextView.textView.textContainerInset = UIEdgeInsets.zero
-            self.postTextView.textView.isUserInteractionEnabled = false
-            self.postTextView.textView.isScrollEnabled = false
-            self.postTextView.textView.isEditable = false
-            self.postTextView.textView.isSelectable = true
-            
             let textHeight = self.postTextView.textView.textHeight(with: cellWidth)
             self.postTextView.snp.makeConstraints { make in
                 make.top.equalTo(self.postHeaderView.snp.bottom).offset(10)
@@ -522,58 +522,103 @@ class HPostCustomViewCell: HTupleBaseCell {
                 make.width.equalTo(cellWidth)
                 make.height.equalTo(textHeight)
             }
+        }else {
+            self.postTextView.snp.makeConstraints { make in
+                make.top.equalTo(self.postHeaderView.snp.bottom).offset(10)
+                make.left.right.equalToSuperview()
+                make.width.equalTo(cellWidth)
+                make.height.equalTo(0)
+            }
         }
         
         
-        self.postImageView.buttonView1.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-        self.postImageView.buttonView1.backgroundColor = .red
-        
-        self.postImageView.buttonView2.frame = CGRect(x: 110, y: 0, width: 100, height: 50)
-        self.postImageView.buttonView2.backgroundColor = .red
+//        self.postImageView.buttonView1.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+//        self.postImageView.buttonView1.backgroundColor = .red
+//        
+//        self.postImageView.buttonView2.frame = CGRect(x: 110, y: 0, width: 100, height: 50)
+//        self.postImageView.buttonView2.backgroundColor = .red
+//        
+//        if indexPath.row == 1 || indexPath.row == 3 {
+//            self.postImageView.buttonView3.frame = CGRect(x: 0, y: 60, width: 100, height: 50)
+//            self.postImageView.buttonView3.backgroundColor = .red
+//            
+//            self.postImageView.buttonView4.frame = CGRect(x: 110, y: 60, width: 100, height: 50)
+//            self.postImageView.buttonView4.backgroundColor = .red
+//            
+//            if indexPath.row == 3 {
+//                // postImageView
+//                self.postImageView.snp.makeConstraints { make in
+//                    make.top.equalTo(self.postTextView.snp.bottom).offset(10)
+//                    make.left.right.equalToSuperview()
+//                    make.width.equalTo(cellWidth)
+//                    make.height.equalTo(110)
+//                }
+//            }else {
+//                // postImageView
+//                self.postImageView.snp.makeConstraints { make in
+//                    make.top.equalTo(self.postTextView.snp.bottom).offset(10)
+//                    make.left.right.equalToSuperview()
+//                    make.width.equalTo(cellWidth)
+//                    make.height.equalTo(110)
+//                }
+//            }
+//        }else {
+//            // postImageView
+//            self.postImageView.snp.makeConstraints { make in
+//                make.top.equalTo(self.postTextView.snp.bottom).offset(10)
+//                make.left.right.equalToSuperview()
+//                make.width.equalTo(cellWidth)
+//                make.height.equalTo(50)
+//            }
+//        }
         
         if indexPath.row == 1 || indexPath.row == 3 {
+            self.postImageView.buttonView1.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
+            self.postImageView.buttonView1.backgroundColor = .red
+            
+            self.postImageView.buttonView2.frame = CGRect(x: 110, y: 0, width: 100, height: 50)
+            self.postImageView.buttonView2.backgroundColor = .red
+            
             self.postImageView.buttonView3.frame = CGRect(x: 0, y: 60, width: 100, height: 50)
             self.postImageView.buttonView3.backgroundColor = .red
             
             self.postImageView.buttonView4.frame = CGRect(x: 110, y: 60, width: 100, height: 50)
             self.postImageView.buttonView4.backgroundColor = .red
             
-            if indexPath.row == 3 {
-                // postImageView
-                self.postImageView.snp.makeConstraints { make in
-                    make.top.equalTo(self.postHeaderView.snp.bottom).offset(10)
-                    make.left.right.equalToSuperview()
-                    make.width.equalTo(cellWidth)
-                    make.height.equalTo(110)
-                }
-            }else {
-                // postImageView
-                self.postImageView.snp.makeConstraints { make in
-                    make.top.equalTo(self.postTextView.snp.bottom).offset(10)
-                    make.left.right.equalToSuperview()
-                    make.width.equalTo(cellWidth)
-                    make.height.equalTo(110)
-                }
-            }
-        }else {
             // postImageView
             self.postImageView.snp.makeConstraints { make in
                 make.top.equalTo(self.postTextView.snp.bottom).offset(10)
                 make.left.right.equalToSuperview()
                 make.width.equalTo(cellWidth)
-                make.height.equalTo(50)
+                make.height.equalTo(110)
+            }
+        }else {
+            // postImageView
+            self.postImageView.snp.makeConstraints { make in
+                make.top.equalTo(self.postTextView.snp.bottom)
+                make.left.right.equalToSuperview()
+                make.width.equalTo(cellWidth)
+                make.height.equalTo(0)
             }
         }
         
         
         // postVideoView
         self.postVideoView.backgroundColor = .red
-        
-        self.postVideoView.snp.makeConstraints { make in
-            make.top.equalTo(self.postImageView.snp.bottom).offset(10)
-            make.left.right.equalToSuperview()
-            make.width.equalTo(cellWidth)
-            make.height.equalTo(80)
+        if indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 3 {
+            self.postVideoView.snp.makeConstraints { make in
+                make.top.equalTo(self.postImageView.snp.bottom).offset(10)
+                make.left.right.equalToSuperview()
+                make.width.equalTo(cellWidth)
+                make.height.equalTo(80)
+            }
+        }else {
+            self.postVideoView.snp.makeConstraints { make in
+                make.top.equalTo(self.postImageView.snp.bottom)
+                make.left.right.equalToSuperview()
+                make.width.equalTo(cellWidth)
+                make.height.equalTo(0)
+            }
         }
         
         
@@ -590,15 +635,15 @@ class HPostCustomViewCell: HTupleBaseCell {
             make.height.equalTo(40)
         }
         
-        if indexPath.row == 0 || indexPath.row == 2 {
-            self.postMaskView.backgroundColor = .blue
-            self.postMaskView.snp.makeConstraints { make in
-                make.left.right.equalToSuperview()
-                make.top.equalTo(self.postTextView.snp.top)
-                make.width.equalTo(cellWidth)
-                make.bottom.equalTo(self.postVideoView.snp.bottom)
-            }
-        }
+//        if indexPath.row == 0 || indexPath.row == 2 {
+//            self.postMaskView.backgroundColor = .blue
+//            self.postMaskView.snp.makeConstraints { make in
+//                make.left.right.equalToSuperview()
+//                make.top.equalTo(self.postHeaderView.snp.bottom).offset(10)
+//                make.width.equalTo(cellWidth)
+//                make.bottom.equalTo(self.postFooterView.snp.top).offset(-10)
+//            }
+//        }
         
         // contentView
         self.contentView.snp.makeConstraints { make in
