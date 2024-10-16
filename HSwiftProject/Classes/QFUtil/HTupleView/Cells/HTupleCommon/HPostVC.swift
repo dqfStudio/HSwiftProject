@@ -116,25 +116,35 @@ class HPostVC: HViewController, HTupleViewDelegate {
         }
         
         
-        // postImageView
         cell.postImageView.buttonView1.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
         cell.postImageView.buttonView1.backgroundColor = .red
-        
-        cell.postImageView.snp.makeConstraints { make in
-            make.top.equalTo(cell.postTextView.snp.bottom).offset(10)
-            make.left.right.equalToSuperview()
-            make.width.equalTo(cellWidth)
-            make.height.equalTo(110)
-        }
         
         cell.postImageView.buttonView2.frame = CGRect(x: 110, y: 0, width: 100, height: 50)
         cell.postImageView.buttonView2.backgroundColor = .red
         
-        cell.postImageView.buttonView3.frame = CGRect(x: 0, y: 60, width: 100, height: 50)
-        cell.postImageView.buttonView3.backgroundColor = .red
-        
-        cell.postImageView.buttonView4.frame = CGRect(x: 110, y: 60, width: 100, height: 50)
-        cell.postImageView.buttonView4.backgroundColor = .red
+        if indexPath.row == 1 || indexPath.row == 3 {
+            cell.postImageView.buttonView3.frame = CGRect(x: 0, y: 60, width: 100, height: 50)
+            cell.postImageView.buttonView3.backgroundColor = .red
+            
+            cell.postImageView.buttonView4.frame = CGRect(x: 110, y: 60, width: 100, height: 50)
+            cell.postImageView.buttonView4.backgroundColor = .red
+            
+            // postImageView
+            cell.postImageView.snp.makeConstraints { make in
+                make.top.equalTo(cell.postTextView.snp.bottom).offset(10)
+                make.left.right.equalToSuperview()
+                make.width.equalTo(cellWidth)
+                make.height.equalTo(110)
+            }
+        }else {
+            // postImageView
+            cell.postImageView.snp.makeConstraints { make in
+                make.top.equalTo(cell.postTextView.snp.bottom).offset(10)
+                make.left.right.equalToSuperview()
+                make.width.equalTo(cellWidth)
+                make.height.equalTo(50)
+            }
+        }
         
         
         // postVideoView
