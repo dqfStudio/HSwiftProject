@@ -55,6 +55,11 @@ typealias HTupleLoadMoreBlock = () -> Void
 typealias HTupleOutsideCntBlock = () -> Void
 typealias HTupleCntSizeBlock = (_ cntSize: CGSize) -> Void
 
+class HTupleReload: NSObject {
+    var isRefresh = false //是否正在刷新
+    var needRefresh = false //是否需要刷新
+}
+
 /// This class is used for refreshing tupleView throughout the project.
 class HTupleAppearance: NSObject {
 
@@ -270,11 +275,11 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     // cell height
     var cellHeights: [Int: CGFloat] = [:]
     
-    // last reload time
-    var lastReloadIime: TimeInterval = 0
+    // delay reload
+    private var tupleReload = HTupleReload()
     
-    // refresh times
-    var reloadIfNeededTimes: Int = 1
+    // load only once
+    private var isLoadOnlyOnce = false
 
     private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
@@ -547,24 +552,34 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         }
     }
     
-    // Reload if needed
-    func reloadIfNeeded(_ delay: TimeInterval = 0.1) {
-        if self.reloadIfNeededTimes > 0 {
-            // 更新加载次数
-            self.reloadIfNeededTimes -= 1
-            // 获取当前时间戳
-            let nowReloadIime = Date().timeIntervalSince1970
-            // 前后两次时间差
-            let diffReloadIime = nowReloadIime - self.lastReloadIime
-            // 保存最新时间
-            self.lastReloadIime = nowReloadIime
-            // 延迟时间
-            var afterDelay = delay
-            // 前后两次时间差小于delay
-            if delay - diffReloadIime > 0 {
-                afterDelay = 2 * delay - diffReloadIime
+    // 只刷新一次
+    func reloadOnlyOnce(_ delay: TimeInterval = 0.1) {
+        if !self.isLoadOnlyOnce {
+            self.isLoadOnlyOnce = true
+            self.perform(#selector(reloadTupleData), with: nil, afterDelay: delay)
+        }
+    }
+    
+    // 多少秒内只刷新一次
+    func reloadIfNeeded(_ delay: TimeInterval = 2.0) {
+        if self.tupleReload.isRefresh {
+            self.tupleReload.needRefresh = true
+        }else {
+            self.reloadAsync(delay)
+        }
+    }
+    
+    private func reloadAsync(_ delay: TimeInterval) {
+        self.tupleReload.isRefresh = true
+        self.tupleReload.needRefresh = false
+        self.reloadTupleData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            guard let self = self else { return }
+            if self.tupleReload.needRefresh {
+                self.reloadAsync(delay)
+            }else {
+                self.tupleReload.isRefresh = false
             }
-            self.perform(#selector(reloadTupleData), with: nil, afterDelay: afterDelay)
         }
     }
     
