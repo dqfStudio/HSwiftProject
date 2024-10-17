@@ -271,7 +271,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     var cellHeights: [Int: CGFloat] = [:]
     
     // refresh times
-    var refreshIfNeededTimes: Int = 1
+    var reloadIfNeededTimes: Int = 1
 
     private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
@@ -546,7 +546,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     // Reload if needed
     func reloadIfNeeded(_ delay: TimeInterval = 0.1) {
-        if self.refreshIfNeededTimes > 0 {
+        if self.reloadIfNeededTimes > 0 {
             self.perform(#selector(reloadDataIfNeeded), with: nil, afterDelay: delay)
         }
     }
@@ -554,7 +554,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     @objc
     private func reloadDataIfNeeded() {
         DispatchQueue.mainAsync { [weak self] in
-            self?.refreshIfNeededTimes -= 1
+            self?.reloadIfNeededTimes -= 1
             self?.reloadData()
         }
     }
