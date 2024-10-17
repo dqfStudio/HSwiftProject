@@ -270,6 +270,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     // cell height
     var cellHeights: [Int: CGFloat] = [:]
     
+    // last reload time
+    var lastReloadIime: TimeInterval = 0
+    
     // refresh times
     var reloadIfNeededTimes: Int = 1
 
@@ -547,14 +550,27 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     // Reload if needed
     func reloadIfNeeded(_ delay: TimeInterval = 0.1) {
         if self.reloadIfNeededTimes > 0 {
-            self.perform(#selector(reloadDataIfNeeded), with: nil, afterDelay: delay)
+            // 更新加载次数
+            self.reloadIfNeededTimes -= 1
+            // 获取当前时间戳
+            let nowReloadIime = Date().timeIntervalSince1970
+            // 前后两次时间差
+            let diffReloadIime = nowReloadIime - self.lastReloadIime
+            // 保存最新时间
+            self.lastReloadIime = nowReloadIime
+            // 延迟时间
+            var afterDelay = delay
+            // 前后两次时间差小于delay
+            if delay - diffReloadIime > 0 {
+                afterDelay = 2 * delay - diffReloadIime
+            }
+            self.perform(#selector(reloadDataIfNeeded), with: nil, afterDelay: afterDelay)
         }
     }
     
     @objc
     private func reloadDataIfNeeded() {
         DispatchQueue.mainAsync { [weak self] in
-            self?.reloadIfNeededTimes -= 1
             self?.reloadData()
         }
     }
