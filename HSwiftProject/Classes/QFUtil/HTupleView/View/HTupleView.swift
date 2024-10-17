@@ -266,6 +266,12 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     // tuple align
     var tupleAlign: HTupleAlign = .default
+    
+    // cell height
+    var cellHeights: [Int: CGFloat] = [:]
+    
+    // refresh times
+    var refreshIfNeededTimes: Int = 1
 
     private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
@@ -535,6 +541,21 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             let items = self.numberOfItems(inSection: sections - 1)
             let indexPath = IndexPath(row: items - 1, section: sections - 1)
             self.scrollToItem(at: indexPath, at: .bottom, animated: animated)
+        }
+    }
+    
+    // Reload if needed
+    func reloadIfNeeded(_ delay: TimeInterval = 0.1) {
+        if self.refreshIfNeededTimes > 0 {
+            self.perform(#selector(reloadDataIfNeeded), with: nil, afterDelay: delay)
+        }
+    }
+    
+    @objc
+    private func reloadDataIfNeeded() {
+        DispatchQueue.mainAsync { [weak self] in
+            self?.refreshIfNeededTimes -= 1
+            self?.reloadData()
         }
     }
     

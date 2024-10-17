@@ -457,7 +457,7 @@ extension HPostViewCell {
     
 }
 
-class HPostCustomViewCell: HTupleBaseCell {
+class HPostCustomViewCell: HTupleTmplCell {
     
     lazy var postMaskView: HPostMaskView = {
         return HPostMaskView()
@@ -487,22 +487,24 @@ class HPostCustomViewCell: HTupleBaseCell {
         self.contentView.addSubview(postImageView)
         self.contentView.addSubview(postVideoView)
         self.contentView.addSubview(postFooterView)
-        self.contentView.addSubview(postMaskView)
+//        self.contentView.addSubview(postMaskView)
     }
     
     func updateData(item: HPostVM, cellWidth: CGFloat, indexPath: IndexPath) {
-
+        
         // postHeaderView
-        self.postHeaderView.avatarButton.backgroundColor = .red
-        self.postHeaderView.nameLabel.frame = CGRect(x: 58, y: 0, width: 300, height: 24)
-        self.postHeaderView.nameLabel.text = "postVM.name"
-        self.postHeaderView.dateLabel.frame = CGRect(x: 58, y: 26, width: 300, height: 22)
-        self.postHeaderView.dateLabel.text = "postVM.date"
-        self.postHeaderView.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
-            make.width.equalTo(cellWidth)
-            make.height.equalTo(48)
+        self.postHeaderView.makeFrame {
+            return CGRect(x: 0, y: 0, width: cellWidth, height: 48)
         }
+        self.postHeaderView.avatarButton.backgroundColor = .red
+        self.postHeaderView.nameLabel.makeFrame {
+            return CGRect(x: 58, y: 0, width: 300, height: 24)
+        }
+        self.postHeaderView.nameLabel.text = "postVM.name"
+        self.postHeaderView.dateLabel.makeFrame {
+            return CGRect(x: 58, y: 26, width: 300, height: 22)
+        }
+        self.postHeaderView.dateLabel.text = "postVM.date"
         
         // postTextView
         self.postTextView.textView.text = item.post
@@ -513,144 +515,89 @@ class HPostCustomViewCell: HTupleBaseCell {
         self.postTextView.textView.isScrollEnabled = false
         self.postTextView.textView.isEditable = false
         self.postTextView.textView.isSelectable = true
+        self.postTextView.textView.backgroundColor = .blue
         
-        if indexPath.row != 3 {
-            let textHeight = self.postTextView.textView.textHeight(with: cellWidth)
-            self.postTextView.snp.makeConstraints { make in
-                make.top.equalTo(self.postHeaderView.snp.bottom).offset(10)
-                make.left.right.equalToSuperview()
-                make.width.equalTo(cellWidth)
-                make.height.equalTo(textHeight)
-            }
-        }else {
-            self.postTextView.snp.makeConstraints { make in
-                make.top.equalTo(self.postHeaderView.snp.bottom).offset(10)
-                make.left.right.equalToSuperview()
-                make.width.equalTo(cellWidth)
-                make.height.equalTo(0)
-            }
+        let textHeight = self.postTextView.textView.textHeight(with: cellWidth)
+        self.postTextView.makeFrame {
+            var frame = CGRect.zero
+            frame.y = self.postHeaderView.maxY + 10
+            frame.width = cellWidth
+            frame.height = textHeight
+            return frame
         }
         
-        
-//        self.postImageView.buttonView1.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-//        self.postImageView.buttonView1.backgroundColor = .red
-//        
-//        self.postImageView.buttonView2.frame = CGRect(x: 110, y: 0, width: 100, height: 50)
-//        self.postImageView.buttonView2.backgroundColor = .red
-//        
-//        if indexPath.row == 1 || indexPath.row == 3 {
-//            self.postImageView.buttonView3.frame = CGRect(x: 0, y: 60, width: 100, height: 50)
-//            self.postImageView.buttonView3.backgroundColor = .red
-//            
-//            self.postImageView.buttonView4.frame = CGRect(x: 110, y: 60, width: 100, height: 50)
-//            self.postImageView.buttonView4.backgroundColor = .red
-//            
-//            if indexPath.row == 3 {
-//                // postImageView
-//                self.postImageView.snp.makeConstraints { make in
-//                    make.top.equalTo(self.postTextView.snp.bottom).offset(10)
-//                    make.left.right.equalToSuperview()
-//                    make.width.equalTo(cellWidth)
-//                    make.height.equalTo(110)
-//                }
-//            }else {
-//                // postImageView
-//                self.postImageView.snp.makeConstraints { make in
-//                    make.top.equalTo(self.postTextView.snp.bottom).offset(10)
-//                    make.left.right.equalToSuperview()
-//                    make.width.equalTo(cellWidth)
-//                    make.height.equalTo(110)
-//                }
-//            }
-//        }else {
-//            // postImageView
-//            self.postImageView.snp.makeConstraints { make in
-//                make.top.equalTo(self.postTextView.snp.bottom).offset(10)
-//                make.left.right.equalToSuperview()
-//                make.width.equalTo(cellWidth)
-//                make.height.equalTo(50)
-//            }
-//        }
-        
-        if indexPath.row == 1 || indexPath.row == 3 {
-            self.postImageView.buttonView1.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-            self.postImageView.buttonView1.backgroundColor = .red
-            
-            self.postImageView.buttonView2.frame = CGRect(x: 110, y: 0, width: 100, height: 50)
-            self.postImageView.buttonView2.backgroundColor = .red
-            
-            self.postImageView.buttonView3.frame = CGRect(x: 0, y: 60, width: 100, height: 50)
-            self.postImageView.buttonView3.backgroundColor = .red
-            
-            self.postImageView.buttonView4.frame = CGRect(x: 110, y: 60, width: 100, height: 50)
-            self.postImageView.buttonView4.backgroundColor = .red
-            
-            // postImageView
-            self.postImageView.snp.makeConstraints { make in
-                make.top.equalTo(self.postTextView.snp.bottom).offset(10)
-                make.left.right.equalToSuperview()
-                make.width.equalTo(cellWidth)
-                make.height.equalTo(110)
-            }
-        }else {
-            // postImageView
-            self.postImageView.snp.makeConstraints { make in
-                make.top.equalTo(self.postTextView.snp.bottom)
-                make.left.right.equalToSuperview()
-                make.width.equalTo(cellWidth)
-                make.height.equalTo(0)
-            }
+        // postImageView
+        self.postImageView.makeFrame {
+            var frame = CGRect.zero
+            frame.y = self.postTextView.maxY + 10
+            frame.width = cellWidth
+            frame.height = 110
+            return frame
+        }
+        self.postImageView.buttonView1.backgroundColor = .red
+        self.postImageView.buttonView1.makeFrame {
+            var frame = CGRect.zero
+            frame.width = 100
+            frame.height = 50
+            return frame
         }
         
+        self.postImageView.buttonView2.backgroundColor = .red
+        self.postImageView.buttonView2.makeFrame {
+            var frame = CGRect.zero
+            frame.x = 110
+            frame.width = 100
+            frame.height = 50
+            return frame
+        }
+        
+        self.postImageView.buttonView3.backgroundColor = .red
+        self.postImageView.buttonView3.makeFrame {
+            var frame = CGRect.zero
+            frame.y = 60
+            frame.width = 100
+            frame.height = 50
+            return frame
+        }
+        
+        self.postImageView.buttonView4.backgroundColor = .red
+        self.postImageView.buttonView4.makeFrame {
+            var frame = CGRect.zero
+            frame.x = 110
+            frame.y = 60
+            frame.width = 100
+            frame.height = 50
+            return frame
+        }
         
         // postVideoView
         self.postVideoView.backgroundColor = .red
-        if indexPath.row == 0 || indexPath.row == 2 || indexPath.row == 3 {
-            self.postVideoView.snp.makeConstraints { make in
-                make.top.equalTo(self.postImageView.snp.bottom).offset(10)
-                make.left.right.equalToSuperview()
-                make.width.equalTo(cellWidth)
-                make.height.equalTo(80)
-            }
-        }else {
-            self.postVideoView.snp.makeConstraints { make in
-                make.top.equalTo(self.postImageView.snp.bottom)
-                make.left.right.equalToSuperview()
-                make.width.equalTo(cellWidth)
-                make.height.equalTo(0)
-            }
+        self.postVideoView.makeFrame {
+            var frame = CGRect.zero
+            frame.y = self.postImageView.maxY + 10
+            frame.width = cellWidth
+            frame.height = 80
+            return frame
         }
-        
         
         // postFooterView
         self.postFooterView.likeButton.text = "喜欢"
         self.postFooterView.commentButton.text = "评论"
         self.postFooterView.shareButton.text = "分享"
         self.postFooterView.moreButton.text = "更多"
-        
-        self.postFooterView.snp.makeConstraints { make in
-            make.top.equalTo(self.postVideoView.snp.bottom).offset(10)
-            make.left.right.equalToSuperview()
-            make.width.equalTo(cellWidth)
-            make.height.equalTo(40)
+        self.postFooterView.makeFrame {
+            var frame = CGRect.zero
+            frame.y = self.postVideoView.maxY + 10
+            frame.width = cellWidth
+            frame.height = 40
+            return frame
         }
         
-//        if indexPath.row == 0 || indexPath.row == 2 {
-//            self.postMaskView.backgroundColor = .blue
-//            self.postMaskView.snp.makeConstraints { make in
-//                make.left.right.equalToSuperview()
-//                make.top.equalTo(self.postHeaderView.snp.bottom).offset(10)
-//                make.width.equalTo(cellWidth)
-//                make.bottom.equalTo(self.postFooterView.snp.top).offset(-10)
-//            }
-//        }
-        
-        // contentView
-        self.contentView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-            make.width.equalTo(cellWidth)
-            make.bottom.equalTo(self.postFooterView.snp.bottom)
+        if let tuple = self.tuple as? HTupleView {
+            tuple.cellHeights[indexPath.row] = self.postFooterView.maxY
+            tuple.reloadIfNeeded()
         }
+
     }
 
 }

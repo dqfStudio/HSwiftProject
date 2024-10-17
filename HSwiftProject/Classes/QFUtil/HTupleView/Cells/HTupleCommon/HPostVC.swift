@@ -23,7 +23,8 @@ class HPostVC: HViewController, HTupleViewDelegate {
         } mode: {
             return .delegate
         } layout: {
-            return HTupleViewLayout(.vertical, .automatic)
+//            return HTupleViewLayout(.vertical, .automatic)
+            return HTupleViewLayout(.vertical, .manual)
         }
     }()
     
@@ -65,7 +66,12 @@ class HPostVC: HViewController, HTupleViewDelegate {
 //        }
 //        return CGSize(width: tupleView.bounds.width, height: 100)
 //    }
-//    
+    
+    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
+        let height = tupleView.cellHeights[indexPath.row] ?? 1
+        return CGSize(width: tupleView.bounds.width, height: height)
+    }
+//
 //    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
 //        let cell = tuple.reuseCell(HPostViewCell.self, indexPath.stringValue, true, indexPath) as! HPostViewCell
 //        cell.backgroundColor = .yellow
@@ -76,7 +82,7 @@ class HPostVC: HViewController, HTupleViewDelegate {
 //    }
     
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HPostCustomViewCell.self, indexPath.stringValue, true, indexPath) as! HPostCustomViewCell
+        let cell = tuple.reuseCell(HPostCustomViewCell.self, nil, false, indexPath) as! HPostCustomViewCell
         cell.backgroundColor = .yellow
         
         guard indexPath.row < postList.count else { return }

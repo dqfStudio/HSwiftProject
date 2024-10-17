@@ -339,6 +339,10 @@ extension UIView {
         return nil
     }
     
+    func makeFrame(_ configure: () -> CGRect) {
+        self.frame = configure()
+    }
+    
 }
 
 extension UILabel {
