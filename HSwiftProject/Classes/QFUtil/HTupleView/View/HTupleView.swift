@@ -564,14 +564,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             if delay - diffReloadIime > 0 {
                 afterDelay = 2 * delay - diffReloadIime
             }
-            self.perform(#selector(reloadDataIfNeeded), with: nil, afterDelay: afterDelay)
-        }
-    }
-    
-    @objc
-    private func reloadDataIfNeeded() {
-        DispatchQueue.mainAsync { [weak self] in
-            self?.reloadData()
+            self.perform(#selector(reloadTupleData), with: nil, afterDelay: afterDelay)
         }
     }
     
