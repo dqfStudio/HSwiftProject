@@ -260,6 +260,7 @@
 		EB80B67E2A18A7430016648A /* HSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B67D2A18A7430016648A /* HSearchBar.swift */; };
 		EB80B6962A20BEEC0016648A /* HTextImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB80B6952A20BEEC0016648A /* HTextImageView.swift */; };
 		EB869F612B610B4900076A5D /* HTupleAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB869F602B610B4900076A5D /* HTupleAttributes.swift */; };
+		EB90BC2A2CC245BE00C392C4 /* HTupleLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB90BC292CC245BD00C392C4 /* HTupleLayout.swift */; };
 		EB9358F52AF4E5FC00716728 /* HMainController7.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9358F42AF4E5FC00716728 /* HMainController7.swift */; };
 		EB9D332B2B038F97000B8F48 /* HPullController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9D332A2B038F97000B8F48 /* HPullController.swift */; };
 		EBA53C2E2A308BF00077158D /* HWebActionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA53C2D2A308BF00077158D /* HWebActionView.swift */; };
@@ -626,6 +627,7 @@
 		EB80B67D2A18A7430016648A /* HSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSearchBar.swift; sourceTree = "<group>"; };
 		EB80B6952A20BEEC0016648A /* HTextImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextImageView.swift; sourceTree = "<group>"; };
 		EB869F602B610B4900076A5D /* HTupleAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleAttributes.swift; sourceTree = "<group>"; };
+		EB90BC292CC245BD00C392C4 /* HTupleLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleLayout.swift; sourceTree = "<group>"; };
 		EB9358F42AF4E5FC00716728 /* HMainController7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMainController7.swift; sourceTree = "<group>"; };
 		EB9D332A2B038F97000B8F48 /* HPullController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPullController.swift; sourceTree = "<group>"; };
 		EBA53C2D2A308BF00077158D /* HWebActionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebActionView.swift; sourceTree = "<group>"; };
@@ -967,6 +969,7 @@
 			isa = PBXGroup;
 			children = (
 				A289239E238B72F800E4AB75 /* HTupleView.swift */,
+				EB90BC292CC245BD00C392C4 /* HTupleLayout.swift */,
 				EBD11E4C2CA6F7C500E1E6BF /* HTupleTmplView.swift */,
 				A289239F238B72F800E4AB75 /* HTupleViewLayout.swift */,
 				EB5148972AE283A70075F737 /* HTupleViewFlowLayout.swift */,
@@ -1969,6 +1972,7 @@
 				EB3541E72BE9FF5B003B1D69 /* HNetworkResponse.swift in Sources */,
 				EBD0FB6929D02B1000808EDA /* HUserDefaults2.swift in Sources */,
 				EBD11E4B2CA6F1B200E1E6BF /* HTupleTmplApex.swift in Sources */,
+				EB90BC2A2CC245BE00C392C4 /* HTupleLayout.swift in Sources */,
 				A2294893239756A10058B939 /* HTableViewCell.swift in Sources */,
 				EB43240729B9DF9D00EDDB64 /* HResultView.swift in Sources */,
 				EBC8140729AA48C000A81431 /* HUserLiveCell.swift in Sources */,
