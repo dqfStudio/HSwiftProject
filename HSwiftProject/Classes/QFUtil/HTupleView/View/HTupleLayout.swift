@@ -19,7 +19,7 @@ class HTupleLayout: NSObject {
         return label
     }()
     
-//    func postLayout(item: SquarePostItem, tuple: HTupleView, cellWidth: CGFloat) {
+//    func post(item: SquarePostItem, tuple: HTupleView, cellWidth: CGFloat) {
 //        guard let postID = item.id, tuple.cellHeights[postID] == nil else { return }
 //        
 //        // cell height
