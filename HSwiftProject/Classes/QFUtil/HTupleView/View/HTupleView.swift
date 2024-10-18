@@ -269,17 +269,14 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     // tuple mode
     private var tupleMode: HTupleMode = .delegate
     
+    // delay reload
+    private var tupleReload = HTupleReload()
+    
     // tuple align
     var tupleAlign: HTupleAlign = .default
     
     // cell height
     var cellHeights: [Int: CGFloat] = [:]
-    
-    // delay reload
-    private var tupleReload = HTupleReload()
-    
-    // load only once
-    private var isLoadOnlyOnce = false
 
     private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
@@ -549,14 +546,6 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             let items = self.numberOfItems(inSection: sections - 1)
             let indexPath = IndexPath(row: items - 1, section: sections - 1)
             self.scrollToItem(at: indexPath, at: .bottom, animated: animated)
-        }
-    }
-    
-    // 只刷新一次
-    func reloadOnlyOnce(_ delay: TimeInterval = 0.1) {
-        if !self.isLoadOnlyOnce {
-            self.isLoadOnlyOnce = true
-            self.perform(#selector(reloadTupleData), with: nil, afterDelay: delay)
         }
     }
     

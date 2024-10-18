@@ -594,8 +594,7 @@ class HPostCustomViewCell: HTupleTmplCell {
         }
         
         if let tuple = self.tuple as? HTupleView {
-            tuple.cellHeights[indexPath.row] = self.postFooterView.maxY
-            tuple.reloadOnlyOnce()
+//            tuple.cellHeights[indexPath.row] = self.postFooterView.maxY
         }
 
     }

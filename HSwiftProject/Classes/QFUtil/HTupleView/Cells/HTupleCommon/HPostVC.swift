@@ -68,8 +68,11 @@ class HPostVC: HViewController, HTupleViewDelegate {
 //    }
     
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        let height = tupleView.cellHeights[indexPath.row] ?? 1
-        return CGSize(width: tupleView.bounds.width, height: height)
+        let item = self.postList[indexPath.item]
+        let cellWidth = self.tupleView.width(forSection: indexPath.section)
+        HTupleLayout.shared.setPost(item: item, tuple: tupleView, cellWidth: cellWidth)
+        let cellHeight = HTupleLayout.shared.getPost(item: item, tuple: tupleView)
+        return CGSize(width: cellWidth, height: cellHeight)
     }
 //
 //    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
