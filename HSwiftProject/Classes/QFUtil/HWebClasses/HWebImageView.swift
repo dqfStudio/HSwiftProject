@@ -207,9 +207,35 @@ extension HWebImageView {
             let processor = DownsamplingImageProcessor(size: cropSize)
             option.append(.processor(processor))
         }
-        
         if cache {
-            KingfisherManager.shared.cache.retrieveImage(forKey: urlString, options: option) { [weak self] result in
+            // 从缓存加载图片
+            KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case.success(let value):
+                    if value.image != nil {
+                        self._setImage(value.image)
+                        self.lastURL = url.absoluteString
+                        self.didGetImage?(self, value.image)
+                    }
+                case .failure(_):
+                    // 从网络加载图片
+                    self.kf.setImage(with: url, placeholder: placeholder, options: option, completionHandler: { [weak self] result in
+                        guard let self = self else { return }
+                        switch result {
+                        case .success(let value):
+                            self._setImage(value.image)
+                            self.lastURL = url.absoluteString
+                            self.didGetImage?(self, value.image)
+                        case .failure(let value):
+                            self.didGetError?(self, value as AnyObject)
+                        }
+                    })
+                }
+            }
+        }else {
+            // 从缓存加载图片
+            KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { [weak self] result in
                 switch result {
                 case.success(let value):
                     if value.image != nil {
@@ -220,19 +246,19 @@ extension HWebImageView {
                 case .failure(_): break
                 }
             }
+            // 从网络加载图片
+            self.kf.setImage(with: url, placeholder: placeholder, options: option, completionHandler: { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let value):
+                    self._setImage(value.image)
+                    self.lastURL = url.absoluteString
+                    self.didGetImage?(self, value.image)
+                case .failure(let value):
+                    self.didGetError?(self, value as AnyObject)
+                }
+            })
         }
-        
-        //self.kf.indicatorType = .activity
-        self.kf.setImage(with: url, placeholder: placeholder, options: option, completionHandler: { [weak self] result in
-            switch result {
-            case .success(let value):
-                self?._setImage(value.image)
-                self?.lastURL = url.absoluteString
-                self?.didGetImage?(self, value.image)
-            case .failure(let value):
-                self?.didGetError?(self, value as AnyObject)
-            }
-        })
     }
     
 }

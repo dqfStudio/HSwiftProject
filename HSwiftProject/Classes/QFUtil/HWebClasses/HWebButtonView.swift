@@ -278,7 +278,7 @@ extension HWebButtonView {
         guard let url = URL(string: urlString) else {
             return
         }
-        
+
         var option = KingfisherOptionsInfo()
         option.append(.cacheOriginalImage)
         option.append(.scaleFactor(1))
@@ -287,9 +287,37 @@ extension HWebButtonView {
             let processor = DownsamplingImageProcessor(size: cropSize)
             option.append(.processor(processor))
         }
-
         if cache {
-            KingfisherManager.shared.cache.retrieveImage(forKey: urlString, options: option) { [weak self] result in
+            // 从缓存加载图片
+            KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case.success(let value):
+                    if value.image != nil {
+                        self._setImage(value.image)
+                        self.webImageView.alpha = 1.0
+                        self.lastURL = url.absoluteString
+                        self.didGetImage?(self, value.image)
+                    }
+                case .failure(_):
+                    // 从网络加载图片
+                    self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: option, completionHandler: { [weak self] result in
+                        guard let self = self else { return }
+                        switch result {
+                        case .success(let value):
+                            self._setImage(value.image)
+                            self.webImageView.alpha = 1.0
+                            self.lastURL = url.absoluteString
+                            self.didGetImage?(self, value.image)
+                        case .failure(let value):
+                            self.didGetError?(self, value as AnyObject)
+                        }
+                    })
+                }
+            }
+        }else {
+            // 从缓存加载图片
+            KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { [weak self] result in
                 switch result {
                 case.success(let value):
                     if value.image != nil {
@@ -301,26 +329,20 @@ extension HWebButtonView {
                 case .failure(_): break
                 }
             }
-        }
-        
-        //self.webImageView.kf.indicatorType = .activity
-        self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: option, completionHandler: { [weak self] result in
-            switch result {
-            case .success(let value):
-                self?._setImage(value.image)
-                self?.lastURL = url.absoluteString
-                if value.cacheType == .none {
-                    UIView.animate(withDuration: 0.5) {
-                        self?.webImageView.alpha = 1.0
-                    }
-                }else {
-                    self?.webImageView.alpha = 1.0
+            // 从网络加载图片
+            self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: option, completionHandler: { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let value):
+                    self._setImage(value.image)
+                    self.webImageView.alpha = 1.0
+                    self.lastURL = url.absoluteString
+                    self.didGetImage?(self, value.image)
+                case .failure(let value):
+                    self.didGetError?(self, value as AnyObject)
                 }
-                self?.didGetImage?(self, value.image)
-            case .failure(let value):
-                self?.didGetError?(self, value as AnyObject)
-            }
-        })
+            })
+        }
     }
 
 }
