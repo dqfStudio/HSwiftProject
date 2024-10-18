@@ -211,14 +211,11 @@ extension HWebImageView {
             // 从缓存加载图片
             KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { [weak self] result in
                 guard let self = self else { return }
-                switch result {
-                case.success(let value):
-                    if value.image != nil {
-                        self._setImage(value.image)
-                        self.lastURL = url.absoluteString
-                        self.didGetImage?(self, value.image)
-                    }
-                case .failure(_):
+                if case.success(let value) = result, value.image != nil {
+                    self._setImage(value.image)
+                    self.lastURL = url.absoluteString
+                    self.didGetImage?(self, value.image)
+                }else {
                     // 从网络加载图片
                     self.kf.setImage(with: url, placeholder: placeholder, options: option, completionHandler: { [weak self] result in
                         guard let self = self else { return }
@@ -236,14 +233,11 @@ extension HWebImageView {
         }else {
             // 从缓存加载图片
             KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { [weak self] result in
-                switch result {
-                case.success(let value):
-                    if value.image != nil {
-                        self?._setImage(value.image)
-                        self?.lastURL = url.absoluteString
-                        self?.didGetImage?(self, value.image)
-                    }
-                case .failure(_): break
+                guard let self = self else { return }
+                if case.success(let value) = result, value.image != nil {
+                    self._setImage(value.image)
+                    self.lastURL = url.absoluteString
+                    self.didGetImage?(self, value.image)
                 }
             }
             // 从网络加载图片
