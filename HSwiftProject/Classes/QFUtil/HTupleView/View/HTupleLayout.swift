@@ -10,16 +10,14 @@ import UIKit
 
 class HTupleLayout: NSObject {
     
-    static var shared = HTupleLayout()
-    
-    private lazy var layoutLabel: UILabel = {
+    static private var layoutLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.font(ofSize: 15, weight: .regular)
         label.numberOfLines = 0
         return label
     }()
     
-    func getPost(item: HPostVM, tuple: HTupleView, cellWidth: CGFloat) -> CGFloat {
+    static func getPost(item: HPostVM, tuple: HTupleView, cellWidth: CGFloat) -> CGFloat {
         return 1.0
 //        guard let postID = item.id else { return 1.0 }
 //        let cellHeight = tuple.cellHeights[postID]
