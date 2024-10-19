@@ -39,12 +39,10 @@
 //    
 //    func reloadSubviews(_ auths: [String]) {
 //        // 移除视图
-//        self.removeArrangedSubview(nameLabel)
-//        self.authViews.forEach { authView in
-//            self.removeArrangedSubview(authView)
+//        self.arrangedSubviews.forEach { v in
+//            self.removeArrangedSubview(v)
+//            v.removeFromSuperview()
 //        }
-//        self.authViews.removeAll()
-//        self.removeArrangedSubview(rightView)
 //        
 //        // 添加name视图
 //        self.addArrangedSubview(nameLabel)
@@ -81,20 +79,19 @@
 //                        button.setImage(WithName: "profile_auth_fca")
 //                    }
 //                }
-//                self.authViews.append(button)
 //                self.addArrangedSubview(button)
 //                authWidth += authSize + authSpacing
 //            }
-//            // 添加最右边占位视图
-//            self.addArrangedSubview(rightView)
 //            // 设置间隔
-//            if let lastView = self.authViews.last {
+//            if let lastView = self.arrangedSubviews.last {
 //                let textWidth = nameLabel.textWidth(with: self.height)
 //                let spaceWidth = self.width - textWidth - authWidth
 //                if spaceWidth > 0 {
 //                    self.setCustomSpacing(spaceWidth, after: lastView)
 //                }
 //            }
+//            // 添加最右边占位视图
+//            self.addArrangedSubview(rightView)
 //        }
 //    }
 //    
