@@ -481,17 +481,77 @@ class HPostCustomViewCell: HTupleTmplCell {
         return HPostFooterView()
     }()
     
+    ///label
+    lazy var label: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14.0)
+        self.contentView.addSubview(label)
+        return label
+    }()
+    lazy var detailLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14.0)
+        self.contentView.addSubview(label)
+        return label
+    }()
+    lazy var accsryLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 14.0)
+        self.contentView.addSubview(label)
+        return label
+    }()
+    
     override func initUI() {
-        self.contentView.addSubview(postHeaderView)
-        self.contentView.addSubview(postTextView)
-        self.contentView.addSubview(postImageView)
-        self.contentView.addSubview(postVideoView)
-        self.contentView.addSubview(postFooterView)
+//        self.contentView.addSubview(postHeaderView)
+//        self.contentView.addSubview(postTextView)
+//        self.contentView.addSubview(postImageView)
+//        self.contentView.addSubview(postVideoView)
+//        self.contentView.addSubview(postFooterView)
 //        self.contentView.addSubview(postMaskView)
+        
+        self.layoutView.spacing = 10
+        self.layoutView.addArrangedSubview(label)
+        self.layoutView.addArrangedSubview(detailLabel)
+        self.layoutView.addArrangedSubview(accsryLabel)
     }
     
     func updateData(item: HPostVM, cellWidth: CGFloat, indexPath: IndexPath) {
         
+        // label
+//        if labelWidth == 0 { labelWidth = label.intrinsicContentSize.width }
+//        label.widthAnchor.constraint(equalToConstant: labelWidth).isActive = true
+//        textLayoutView.addArrangedSubview(label)
+//        if firstTextSpacing > 0 {
+//            textLayoutView.setCustomSpacing(firstTextSpacing, after: label)
+//        }
+//        
+//        if let accsryLabel = _accsryLabel {
+//            if detailWidth == 0 { detailWidth = detailLabel.intrinsicContentSize.width }
+//            detailLabel.widthAnchor.constraint(equalToConstant: detailWidth).isActive = true
+//            textLayoutView.addArrangedSubview(detailLabel)
+//            if secondTextSpacing > 0 {
+//                textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
+//            }
+//            
+//            textLayoutView.addArrangedSubview(accsryLabel)
+//        } else {
+//            if let detailLabel = _detailLabel {
+//                textLayoutView.addArrangedSubview(detailLabel)
+//            }
+//        }
+        
+//        label.text = "label"
+        label.text = "label label label label label label label label label label"
+        label.backgroundColor = .red
+        
+        detailLabel.text = "detailLabel"
+//        detailLabel.text = "detailLabel detailLabel detailLabel detailLabel detailLabel detailLabel"
+        detailLabel.backgroundColor = .blue
+        
+        self.layoutView.setCustomSpacing(30, after: detailLabel)
+        
+        
+        return
         // postHeaderView
         self.postHeaderView.makeFrame {
             return CGRect(x: 0, y: 0, width: cellWidth, height: 48)

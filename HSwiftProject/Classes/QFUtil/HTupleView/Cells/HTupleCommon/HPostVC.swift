@@ -57,7 +57,8 @@ class HPostVC: HViewController, HTupleViewDelegate {
     }
 
     func numberOfItemsInSection(_ section: Any) -> Any {
-        return postList.count
+//        return postList.count
+        return 1
     }
     
 //    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
