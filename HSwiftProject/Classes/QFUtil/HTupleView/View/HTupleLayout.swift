@@ -19,9 +19,12 @@ class HTupleLayout: NSObject {
         return label
     }()
     
-    func setPost(item: HPostVM, tuple: HTupleView, cellWidth: CGFloat) {
-//        guard let postID = item.id, tuple.cellHeights[postID] == nil else { return }
-//        
+    func getPost(item: HPostVM, tuple: HTupleView, cellWidth: CGFloat) -> CGFloat {
+        return 1.0
+//        guard let postID = item.id else { return 1.0 }
+//        let cellHeight = tuple.cellHeights[postID]
+//        guard cellHeight == nil else { return cellHeight }
+//
 //        // cell height
 //        var cellHeight = 0.0
 //        
@@ -49,12 +52,8 @@ class HTupleLayout: NSObject {
 //
 //        // 保存cell高度
 //        tuple.cellHeights[postID] = cellHeight
-    }
-    
-    func getPost(item: HPostVM, tuple: HTupleView) -> CGFloat {
-//        guard let postID = item.id else { return 1.0 }
-//        return tuple.cellHeights[postID] ?? 1.0
-        return 1.0
+//        // 返回cell高度
+//        return cellHeight
     }
     
 }
