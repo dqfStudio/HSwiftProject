@@ -16,6 +16,11 @@ private var kChatTotalPageNo = 1000000
 typealias HChatRefreshBlock = () -> Void
 typealias HChatLoadMoreBlock = () -> Void
 
+class HChatReload: NSObject {
+    var isRefresh = false //是否正在刷新
+    var needRefresh = false //是否需要刷新
+}
+
 @objc protocol HChatViewDelegate: UITableViewDelegate {
     @objc
     optional func numberOfSectionsInChatView() -> Any
@@ -26,20 +31,6 @@ typealias HChatLoadMoreBlock = () -> Void
     optional func heightForHeaderInSection(_ section: Any) -> Any
     @objc
     optional func heightForFooterInSection(_ section: Any) -> Any
-    @objc
-    optional func heightForRowAtIndexPath(_ indexPath: IndexPath) -> Any
-
-    @objc
-    optional func edgeInsetsForHeaderInSection(_ section: Any) -> Any
-    @objc
-    optional func edgeInsetsForFooterInSection(_ section: Any) -> Any
-    @objc
-    optional func edgeInsetsForRowAtIndexPath(_ indexPath: IndexPath) -> Any
-    
-    @objc
-    optional func minimumHeaderSpacingForSectionAt(_ section: Any) -> Any
-    @objc
-    optional func minimumFooterSpacingForSectionAt(_ section: Any) -> Any
     
     @objc
     optional func tableHeader(_ chat: HChatView, inSection section: Any)
@@ -56,6 +47,8 @@ typealias HChatLoadMoreBlock = () -> Void
 
 class HChatView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
+    private var chatReload = HChatReload()
+    private var cellHeights: [String: CGFloat] = [:]
     private var allReuseIdentifiers = NSMutableSet()
     private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
@@ -83,17 +76,6 @@ class HChatView: UITableView, UITableViewDelegate, UITableViewDataSource {
     override weak var dataSource: UITableViewDataSource? {
         get { return super.dataSource }
         set { _ = newValue }
-    }
-    
-    override var frame: CGRect {
-        get { return super.frame }
-        set {
-            let frame = UIRectIntegral(newValue)
-            if frame != super.frame {
-                super.frame = frame
-                self.reloadData()
-            }
-        }
     }
     
     private func setup() {
@@ -202,13 +184,6 @@ class HChatView: UITableView, UITableViewDelegate, UITableViewDataSource {
         self.mj_footer?.endRefreshing(completionBlock:completion)
     }
     
-    @objc
-    func reloadChatData() {
-        DispatchQueue.main.async { [weak self] in
-            self?.reloadData()
-        }
-    }
-    
     /// Scroll to top
     func scrollToTop(_ animated: Bool) {
         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
@@ -221,6 +196,36 @@ class HChatView: UITableView, UITableViewDelegate, UITableViewDataSource {
         let items = self.numberOfRows(inSection: sections - 1)
         let indexPath = IndexPath(row: items - 1, section: sections - 1)
         self.scrollToRow(at: indexPath, at: .bottom, animated: animated)
+    }
+    
+    // 多少秒内只刷新一次
+    func reloadIfNeeded(_ delay: TimeInterval = 2.0) {
+        if self.chatReload.isRefresh {
+            self.chatReload.needRefresh = true
+        }else {
+            self.reloadAsync(delay)
+        }
+    }
+    
+    private func reloadAsync(_ delay: TimeInterval) {
+        self.chatReload.isRefresh = true
+        self.chatReload.needRefresh = false
+        self.reloadChatData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            guard let self = self else { return }
+            if self.chatReload.needRefresh {
+                self.reloadAsync(delay)
+            }else {
+                self.chatReload.isRefresh = false
+            }
+        }
+    }
+    
+    @objc
+    func reloadChatData() {
+        DispatchQueue.mainAsync { [weak self] in
+            self?.reloadData()
+        }
     }
 
     /// Release method
@@ -238,11 +243,9 @@ class HChatView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// Register class
-    func header(_ cls: AnyClass, _ idx: Bool, _ section: Any) -> AnyObject {
+    func header(_ cls: AnyClass, _ pre: String?, _ section: Any) -> AnyObject {
         // Unique identifier
-        var identifier = "HeaderCell" + NSStringFromClass(cls)
-        // Determine whether it contains an index
-        identifier += idx ? "\(section)" : ""
+        let identifier = (pre ?? "") + NSStringFromClass(cls)
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
@@ -256,11 +259,9 @@ class HChatView: UITableView, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    func footer(_ cls: AnyClass, _ idx: Bool, _ section: Any) -> AnyObject {
+    func footer(_ cls: AnyClass, _ pre: String?, _ section: Any) -> AnyObject {
         // Unique identifier
-        var identifier = "FooterCell" + NSStringFromClass(cls)
-        // Determine whether it contains an index
-        identifier += idx ? "\(section)" : ""
+        let identifier = (pre ?? "") + NSStringFromClass(cls)
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
@@ -274,11 +275,9 @@ class HChatView: UITableView, UITableViewDelegate, UITableViewDataSource {
         return cell
     }
 
-    func cell(_ cls: AnyClass, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
+    func cell(_ cls: AnyClass, _ pre: String?, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
-        var identifier = "ItemCell" + NSStringFromClass(cls)
-        // Determine whether it contains an index
-        identifier += idx ? indexPath.stringValue : ""
+        let identifier = (pre ?? "") + NSStringFromClass(cls)
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
@@ -296,13 +295,13 @@ class HChatView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         // remove cache data
         self.allReuseIdentifiers.removeAllObjects()
+        self.cellHeights.removeAll()
         // table Style
         var sections = 1
         if let delegate = self.chatDelegate {
-            let prefix = ""
             let selector = #selector(delegate.numberOfSectionsInChatView)
-            if delegate.responds(to: selector, withPre: prefix) {
-                sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
+            if delegate.responds(to: selector) {
+                sections = delegate.performWithUnretainedValue(selector) as! Int
             }
             // Prevents quantity from being less than 1
             sections = max(sections, 1)
@@ -327,14 +326,9 @@ class HChatView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         var height: CGFloat = 0.0
         if let delegate = self.chatDelegate {
-            let selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
+            let selector = #selector(delegate.heightForHeaderInSection(_:))
             if delegate.responds(to: selector) {
                 height = delegate.performWithUnretainedValue(selector, with: section) as! CGFloat
-            } else {
-                let selector = #selector(delegate.heightForHeaderInSection(_:))
-                if delegate.responds(to: selector) {
-                    height = delegate.performWithUnretainedValue(selector, with: section) as! CGFloat
-                }
             }
             // Prevent negative size
             height = max(height, 0.0)
@@ -345,19 +339,26 @@ class HChatView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         var height: CGFloat = 0.0
         if let delegate = self.chatDelegate {
-            let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
+            let selector = #selector(delegate.heightForFooterInSection(_:))
             if delegate.responds(to: selector) {
                 height = delegate.performWithUnretainedValue(selector, with: section) as! CGFloat
-            } else {
-                let selector = #selector(delegate.heightForFooterInSection(_:))
-                if delegate.responds(to: selector) {
-                    height = delegate.performWithUnretainedValue(selector, with: section) as! CGFloat
-                }
             }
             // Prevent negative size
             height = max(height, 0.0)
         }
         return height
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let height = self.cellHeights[indexPath.stringValue] {
+            return height
+        } else {
+            return 50.0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -383,6 +384,7 @@ class HChatView: UITableView, UITableViewDelegate, UITableViewDataSource {
         // Update layout
         return self.allReuseHeaders.object(forKey: "\(section)" as NSString) as? UITableViewCell
     }
+    
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         // Call delegate method
         if let delegate = self.chatDelegate {
@@ -396,8 +398,10 @@ class HChatView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? UITableViewCell
-        if let delegate = self.chatDelegate, let cell = cell {
+        if let delegate = self.chatDelegate {
+            // Save cell height
+            self.cellHeights[indexPath.stringValue] = cell.frame.size.height
+            // Call delegate method
             let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
             if delegate.responds(to: selector) {
                 delegate.perform(selector, with: cell, with: indexPath)

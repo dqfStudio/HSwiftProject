@@ -366,7 +366,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     @objc
     func reloadTableData() {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.mainAsync { [weak self] in
             self?.reloadData()
         }
     }
