@@ -286,6 +286,8 @@
 		EBC3072F2BF8F1EF00EF8ABD /* HTupleSheetVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3072E2BF8F1EF00EF8ABD /* HTupleSheetVC+Extern.swift */; };
 		EBC3073B2BF9B1DD00EF8ABD /* HTupleAutoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3073A2BF9B1DD00EF8ABD /* HTupleAutoVC.swift */; };
 		EBC7385A2CC351C800A01E71 /* HUserAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC738592CC351C800A01E71 /* HUserAuthView.swift */; };
+		EBC7386E2CC6014400A01E71 /* HFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC7386D2CC6014300A01E71 /* HFlowView.swift */; };
+		EBC738702CC6027100A01E71 /* HFlowRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC7386F2CC6027100A01E71 /* HFlowRefresh.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
 		EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */; };
@@ -654,6 +656,8 @@
 		EBC3072E2BF8F1EF00EF8ABD /* HTupleSheetVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTupleSheetVC+Extern.swift"; sourceTree = "<group>"; };
 		EBC3073A2BF9B1DD00EF8ABD /* HTupleAutoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleAutoVC.swift; sourceTree = "<group>"; };
 		EBC738592CC351C800A01E71 /* HUserAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUserAuthView.swift; sourceTree = "<group>"; };
+		EBC7386D2CC6014300A01E71 /* HFlowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowView.swift; sourceTree = "<group>"; };
+		EBC7386F2CC6027100A01E71 /* HFlowRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowRefresh.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
 		EBC813F429AA48C000A81431 /* HUserLiveShareVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveShareVC.swift; sourceTree = "<group>"; };
@@ -814,6 +818,7 @@
 				A2294889239756770058B939 /* HTableSignal.swift */,
 				A2CC441223B3691D00DB095F /* HTableRefresh.swift */,
 				EBC306FC2BEE71BE00EF8ABD /* HChatRefresh.swift */,
+				EBC7386F2CC6027100A01E71 /* HFlowRefresh.swift */,
 			);
 			path = HTableCommon;
 			sourceTree = "<group>";
@@ -835,6 +840,7 @@
 			children = (
 				A229488D239756770058B939 /* HTableView.swift */,
 				EBC306FA2BEE6BEC00EF8ABD /* HChatView.swift */,
+				EBC7386D2CC6014300A01E71 /* HFlowView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2207,6 +2213,7 @@
 				A21887A723900832005C20BF /* HKeychainSwiftAccessOptions.swift in Sources */,
 				EBD0FB7A29D02B9600808EDA /* HUserCore.swift in Sources */,
 				A2A814B8274CCA7200FAB929 /* HPresentAnimation.swift in Sources */,
+				EBC7386E2CC6014400A01E71 /* HFlowView.swift in Sources */,
 				EBC8145D29AA53B500A81431 /* HSendAudioVC+HStatus3.swift in Sources */,
 				EBD0FB2A29CC935D00808EDA /* NSString+HChain.swift in Sources */,
 				EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */,
@@ -2232,6 +2239,7 @@
 				A2418C8F2745172A005C8125 /* NSDictionary+HUtil.swift in Sources */,
 				A26D431D2384177900F457AE /* UIScreen+HUtil.swift in Sources */,
 				A28923A9238B72F800E4AB75 /* NSObject+HSelector.swift in Sources */,
+				EBC738702CC6027100A01E71 /* HFlowRefresh.swift in Sources */,
 				A2B4307B237FF2B100795605 /* HCServiceViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
