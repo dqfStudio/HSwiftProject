@@ -258,6 +258,10 @@ extension HWebImageView {
 }
 
 extension UIImageView {
+    var doubleSize: CGSize {
+        return CGSize(width: bounds.size.width * 2, height: bounds.size.height * 2)
+    }
+    
     convenience init(named: String) {
         self.init(image: UIImage(named: named))
     }
