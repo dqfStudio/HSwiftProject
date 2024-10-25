@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 enum HTupleStyle {
     case tuple // Singleton design
@@ -283,6 +284,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     private var allAttributes = NSMapTable<NSString, HTupleAttributes>.strongToStrongObjects()
     private var allSectionInsets = NSMapTable<NSString, NSString>.strongToStrongObjects()
     private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    private var allPassedCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allReuseFooters = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
 
@@ -1007,6 +1009,12 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
                 cell.relayoutSubviews()
             }
+            // Update passed cells
+            if self.allPassedCells.count > 20 {
+                self.allPassedCells.removeAllObjects()
+                KingfisherManager.shared.cache.clearMemoryCache()
+            }
+            self.allPassedCells.setObject(cell, forKey: indexPath.nsStringValue)
             return cell!
         }else {
             // Call cell
@@ -1031,6 +1039,12 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                     cell.relayoutSubviews()
                 }
             }
+            // Update passed cells
+            if self.allPassedCells.count > 20 {
+                self.allPassedCells.removeAllObjects()
+                KingfisherManager.shared.cache.clearMemoryCache()
+            }
+            self.allPassedCells.setObject(cell, forKey: indexPath.nsStringValue)
             return cell
         }
     }
