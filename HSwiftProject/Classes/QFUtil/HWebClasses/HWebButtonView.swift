@@ -282,6 +282,7 @@ extension HWebButtonView {
         var option = KingfisherOptionsInfo()
         option.append(.cacheOriginalImage)
         option.append(.scaleFactor(1))
+        option.append(.memoryCacheExpiration(.seconds(5)))
         option.append(.transition(ImageTransition.fade(1)))
         if cropSize != .zero {
             let processor = DownsamplingImageProcessor(size: cropSize)
