@@ -1267,7 +1267,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             delegate.perform(selector, with: scrollView, with: decelerate, withPre: prefix)
         }
         // Update passed cells
-        if !decelerate, self.allPassedCells.count > 0 {
+        if !decelerate, self.allPassedCells.count > 5 {
             self.allPassedCells.removeAllObjects()
             KingfisherManager.shared.cache.clearMemoryCache()
         }
@@ -1290,7 +1290,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
         // Update passed cells
-        if self.allPassedCells.count > 0 {
+        if self.allPassedCells.count > 5 {
             self.allPassedCells.removeAllObjects()
             KingfisherManager.shared.cache.clearMemoryCache()
         }
