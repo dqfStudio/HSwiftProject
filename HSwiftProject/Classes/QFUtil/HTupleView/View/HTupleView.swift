@@ -1266,6 +1266,11 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, with: decelerate, withPre: prefix)
         }
+        // Update passed cells
+        if !decelerate, self.allPassedCells.count > 0 {
+            self.allPassedCells.removeAllObjects()
+            KingfisherManager.shared.cache.clearMemoryCache()
+        }
     }
 
     internal func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
@@ -1283,6 +1288,11 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         let selector = NSSelectorFromString("tupleViewDidEndDecelerating:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
+        }
+        // Update passed cells
+        if self.allPassedCells.count > 0 {
+            self.allPassedCells.removeAllObjects()
+            KingfisherManager.shared.cache.clearMemoryCache()
         }
     }
 
