@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 private var kFlowPageNo = 1
 private var kFlowPageSize = 20
@@ -51,6 +52,7 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     private var cellHeights: [String: CGFloat] = [:]
     private var allReuseIdentifiers = NSMutableSet()
     private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    private var allPassedCells  = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allReuseFooters = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     
@@ -370,7 +372,14 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
             }
         }
         // Call cell
-        return self.allReuseCells.object(forKey: indexPath.nsStringValue) as! UITableViewCell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? UITableViewCell
+        // Update passed cells
+        if self.allPassedCells.count > 20 {
+            self.allPassedCells.removeAllObjects()
+            KingfisherManager.shared.cache.clearMemoryCache()
+        }
+        self.allPassedCells.setObject(cell, forKey: indexPath.nsStringValue)
+        return cell!
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -416,6 +425,23 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
             if delegate.responds(to: selector) {
                 delegate.perform(selector, with: cell, with: indexPath)
             }
+        }
+    }
+    
+    /// UIScrollViewDelegate
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        // Update passed cells
+        if !decelerate, self.allPassedCells.count > 5 {
+            self.allPassedCells.removeAllObjects()
+            KingfisherManager.shared.cache.clearMemoryCache()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        // Update passed cells
+        if self.allPassedCells.count > 5 {
+            self.allPassedCells.removeAllObjects()
+            KingfisherManager.shared.cache.clearMemoryCache()
         }
     }
     
