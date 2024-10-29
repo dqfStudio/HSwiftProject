@@ -33,6 +33,55 @@
 //        return label
 //    }()
 //    
+//    private lazy var gmButton: HWebButtonView = {
+//        let button = HWebButtonView()
+//        button.setImage(WithName: "group_member_tag_gm")
+//        button.pressed = { [weak self] (sender, data) in
+//            self?.selectBlock?(.GM)
+//        }
+//        return button
+//    }()
+//    private lazy var vipButton: HWebButtonView = {
+//        let button = HWebButtonView()
+//        button.setImage(WithName: "group_member_tag_vip")
+//        button.pressed = { [weak self] (sender, data) in
+//            self?.selectBlock?(.VIP)
+//        }
+//        return button
+//    }()
+//    private lazy var popButton: HWebButtonView = {
+//        let button = HWebButtonView()
+//        button.setImage(WithName: "profile_auth_pop")
+//        button.pressed = { [weak self] (sender, data) in
+//            self?.selectBlock?(.POP)
+//        }
+//        return button
+//    }()
+//    private lazy var otcButton: HWebButtonView = {
+//        let button = HWebButtonView()
+//        button.setImage(WithName: "profile_auth_otc")
+//        button.pressed = { [weak self] (sender, data) in
+//            self?.selectBlock?(.OTC)
+//        }
+//        return button
+//    }()
+//    private lazy var ugcButton: HWebButtonView = {
+//        let button = HWebButtonView()
+//        button.setImage(WithName: "profile_auth_ugc")
+//        button.pressed = { [weak self] (sender, data) in
+//            self?.selectBlock?(.UGC)
+//        }
+//        return button
+//    }()
+//    private lazy var fcaButton: HWebButtonView = {
+//        let button = HWebButtonView()
+//        button.setImage(WithName: "profile_auth_fca")
+//        button.pressed = { [weak self] (sender, data) in
+//            self?.selectBlock?(.FCA)
+//        }
+//        return button
+//    }()
+//    
 //    private lazy var rightView: UIView = {
 //        return UIView()
 //    }()
@@ -57,29 +106,22 @@
 //            // auth宽度
 //            var authWidth = 0.0
 //            auths.forEach { auth in
-//                let button = HWebButtonView()
-//                button.pressed = { [weak self] (sender, data) in
-//                    if let userTag = UserTag(rawValue: auth) {
-//                        self?.selectBlock?(userTag)
-//                    }
-//                }
 //                if let userTag = UserTag(rawValue: auth) {
 //                    switch userTag {
 //                    case .GM:
-//                        button.setImage(WithName: "group_member_tag_gm")
+//                        self.addArrangedSubview(self.gmButton)
 //                    case .VIP:
-//                        button.setImage(WithName: "group_member_tag_vip")
+//                        self.addArrangedSubview(self.vipButton)
 //                    case .POP:
-//                        button.setImage(WithName: "profile_auth_pop")
+//                        self.addArrangedSubview(self.popButton)
 //                    case .OTC:
-//                        button.setImage(WithName: "profile_auth_otc")
+//                        self.addArrangedSubview(self.otcButton)
 //                    case .UGC:
-//                        button.setImage(WithName: "profile_auth_ugc")
+//                        self.addArrangedSubview(self.ugcButton)
 //                    case .FCA:
-//                        button.setImage(WithName: "profile_auth_fca")
+//                        self.addArrangedSubview(self.fcaButton)
 //                    }
 //                }
-//                self.addArrangedSubview(button)
 //                authWidth += authSize + authSpacing
 //            }
 //            // 设置间隔
