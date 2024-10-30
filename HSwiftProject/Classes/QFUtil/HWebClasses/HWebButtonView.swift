@@ -217,12 +217,14 @@ extension HWebButtonView {
     *
     *  @param image image
     */
-    private func _setImage(_ image: UIImage?) {
-        DispatchQueue.main.async {
+    private func _setImage(_ image: UIImage?, _ completion: @escaping () -> Void) {
+        DispatchQueue.mainAsync { [weak self] in
+            guard let self = self else { return }
             self.adjustsImageWhenHighlighted = false
             if image != nil {
                 self.webImageView.image = image
             }
+            completion()
         }
     }
 
@@ -248,17 +250,21 @@ extension HWebButtonView {
     */
     func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true, cropSize: CGSize = .zero) {
         if urlString.count == 0 {
-            self._setImage(placeholder)
-            self.lastURL = ""
-            self.didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
+            self._setImage(placeholder) { [weak self] in
+                guard let self = self else { return }
+                self.lastURL = ""
+                self.didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
+            }
             return
         }
 
         if urlString.hasPrefix("http") == false {
             let image = UIImage(named: urlString)
-            self._setImage(image)
-            self.webImageView.alpha = 1.0
-            self.didGetImage?(self, self.webImageView.image)
+            self._setImage(image) { [weak self] in
+                guard let self = self else { return }
+                self.webImageView.alpha = 1.0
+                self.didGetImage?(self, self.webImageView.image)
+            }
             return
         }
         
@@ -272,7 +278,7 @@ extension HWebButtonView {
             self.webImageView.alpha = 0
         }
 
-        //self._setImage(nil)
+        //self._setImage(nil) {}
         self.lastURL = ""
 
         guard let url = URL(string: urlString) else {
@@ -293,20 +299,24 @@ extension HWebButtonView {
             KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { [weak self] result in
                 guard let self = self else { return }
                 if case.success(let value) = result, value.image != nil {
-                    self._setImage(value.image)
-                    self.webImageView.alpha = 1.0
-                    self.lastURL = url.absoluteString
-                    self.didGetImage?(self, value.image)
+                    self._setImage(value.image) { [weak self] in
+                        guard let self = self else { return }
+                        self.webImageView.alpha = 1.0
+                        self.lastURL = url.absoluteString
+                        self.didGetImage?(self, value.image)
+                    }
                 }else {
                     // 从网络加载图片
                     self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: option, completionHandler: { [weak self] result in
                         guard let self = self else { return }
                         switch result {
                         case .success(let value):
-                            self._setImage(value.image)
-                            self.webImageView.alpha = 1.0
-                            self.lastURL = url.absoluteString
-                            self.didGetImage?(self, value.image)
+                            self._setImage(value.image) { [weak self] in
+                                guard let self = self else { return }
+                                self.webImageView.alpha = 1.0
+                                self.lastURL = url.absoluteString
+                                self.didGetImage?(self, value.image)
+                            }
                         case .failure(let value):
                             self.didGetError?(self, value as AnyObject)
                         }
@@ -318,10 +328,12 @@ extension HWebButtonView {
             KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { [weak self] result in
                 guard let self = self else { return }
                 if case.success(let value) = result, value.image != nil {
-                    self._setImage(value.image)
-                    self.webImageView.alpha = 1.0
-                    self.lastURL = url.absoluteString
-                    self.didGetImage?(self, value.image)
+                    self._setImage(value.image) { [weak self] in
+                        guard let self = self else { return }
+                        self.webImageView.alpha = 1.0
+                        self.lastURL = url.absoluteString
+                        self.didGetImage?(self, value.image)
+                    }
                 }
             }
             // 从网络加载图片
@@ -329,10 +341,12 @@ extension HWebButtonView {
                 guard let self = self else { return }
                 switch result {
                 case .success(let value):
-                    self._setImage(value.image)
-                    self.webImageView.alpha = 1.0
-                    self.lastURL = url.absoluteString
-                    self.didGetImage?(self, value.image)
+                    self._setImage(value.image) { [weak self] in
+                        guard let self = self else { return }
+                        self.webImageView.alpha = 1.0
+                        self.lastURL = url.absoluteString
+                        self.didGetImage?(self, value.image)
+                    }
                 case .failure(let value):
                     self.didGetError?(self, value as AnyObject)
                 }

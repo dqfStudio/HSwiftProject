@@ -144,11 +144,12 @@ extension HWebImageView {
     *
     *  @param image image
     */
-    private func _setImage(_ image: UIImage?) {
-        DispatchQueue.main.async {
+    private func _setImage(_ image: UIImage?, _ completion: @escaping () -> Void) {
+        DispatchQueue.mainAsync {
             if image != nil {
                 super.image = image
             }
+            completion()
         }
     }
 
@@ -174,16 +175,20 @@ extension HWebImageView {
     */
     func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true, cropSize: CGSize = .zero) {
         if urlString.count == 0 {
-            self._setImage(placeholder)
-            self.lastURL = ""
-            self.didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
+            self._setImage(placeholder) { [weak self] in
+                guard let self = self else { return }
+                self.lastURL = ""
+                self.didGetError?(self, herr(kDataFormatErrorCode, desc: "url = \(urlString)"))
+            }
             return
         }
         
         if urlString.hasPrefix("http") == false {
             let image = UIImage(named: urlString)
-            self._setImage(image)
-            self.didGetImage?(self, self.image)
+            self._setImage(image) { [weak self] in
+                guard let self = self else { return }
+                self.didGetImage?(self, self.image)
+            }
             return
         }
         
@@ -192,7 +197,7 @@ extension HWebImageView {
             return
         }
         
-        //self._setImage(nil)
+        //self._setImage(nil) {}
         self.lastURL = ""
         
         guard let url = URL(string: urlString) else {
@@ -213,18 +218,22 @@ extension HWebImageView {
             KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { [weak self] result in
                 guard let self = self else { return }
                 if case.success(let value) = result, value.image != nil {
-                    self._setImage(value.image)
-                    self.lastURL = url.absoluteString
-                    self.didGetImage?(self, value.image)
+                    self._setImage(value.image) { [weak self] in
+                        guard let self = self else { return }
+                        self.lastURL = url.absoluteString
+                        self.didGetImage?(self, value.image)
+                    }
                 }else {
                     // 从网络加载图片
                     self.kf.setImage(with: url, placeholder: placeholder, options: option, completionHandler: { [weak self] result in
                         guard let self = self else { return }
                         switch result {
                         case .success(let value):
-                            self._setImage(value.image)
-                            self.lastURL = url.absoluteString
-                            self.didGetImage?(self, value.image)
+                            self._setImage(value.image) { [weak self] in
+                                guard let self = self else { return }
+                                self.lastURL = url.absoluteString
+                                self.didGetImage?(self, value.image)
+                            }
                         case .failure(let value):
                             self.didGetError?(self, value as AnyObject)
                         }
@@ -236,9 +245,11 @@ extension HWebImageView {
             KingfisherManager.shared.cache.retrieveImage(forKey: urlString) { [weak self] result in
                 guard let self = self else { return }
                 if case.success(let value) = result, value.image != nil {
-                    self._setImage(value.image)
-                    self.lastURL = url.absoluteString
-                    self.didGetImage?(self, value.image)
+                    self._setImage(value.image) { [weak self] in
+                        guard let self = self else { return }
+                        self.lastURL = url.absoluteString
+                        self.didGetImage?(self, value.image)
+                    }
                 }
             }
             // 从网络加载图片
@@ -246,9 +257,11 @@ extension HWebImageView {
                 guard let self = self else { return }
                 switch result {
                 case .success(let value):
-                    self._setImage(value.image)
-                    self.lastURL = url.absoluteString
-                    self.didGetImage?(self, value.image)
+                    self._setImage(value.image) { [weak self] in
+                        guard let self = self else { return }
+                        self.lastURL = url.absoluteString
+                        self.didGetImage?(self, value.image)
+                    }
                 case .failure(let value):
                     self.didGetError?(self, value as AnyObject)
                 }
