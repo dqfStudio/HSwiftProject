@@ -9,14 +9,6 @@
 import UIKit
 import Kingfisher
 
-private var kFlowPageNo = 1
-private var kFlowPageSize = 20
-private var kFlowTotalPageNo = 1000000
-
-/// Refresh & LoadMore block
-typealias HFlowRefreshBlock = () -> Void
-typealias HFlowLoadMoreBlock = () -> Void
-
 class HFlowReload: NSObject {
     var isRefresh = false //是否正在刷新
     var needRefresh = false //是否需要刷新
@@ -34,27 +26,25 @@ class HFlowReload: NSObject {
     optional func heightForFooterInSection(_ section: Any) -> Any
     
     @objc
-    optional func flowHeader(_ flow: HFlowView, inSection section: Any)
+    optional func flowHeader(_ flow: HFlowView, inSection section: Any) -> UIView?
     @objc
-    optional func flowFooter(_ flow: HFlowView, inSection section: Any)
+    optional func flowFooter(_ flow: HFlowView, inSection section: Any) -> UIView?
     @objc
-    optional func flowRow(_ flow: HFlowView, atIndexPath indexPath: IndexPath)
+    optional func flowRow(_ flow: HFlowView, atIndexPath indexPath: IndexPath) -> UITableViewCell?
 
     @objc
     optional func willDisplayCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
     @objc
-    optional func didSelectCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
+    optional func didEndDisplayingCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
+    @objc
+    optional func didSelectCell(_ indexPath: IndexPath)
 }
 
 class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     private var flowReload = HFlowReload()
     private var cellHeights: [String: CGFloat] = [:]
-    private var allReuseIdentifiers = NSMutableSet()
-    private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allPassedCells  = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-    private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-    private var allReuseFooters = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
@@ -103,89 +93,6 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
         super.dataSource = self
     }
     
-    /// Page number, Default 1
-    var pageNo: Int = kFlowPageNo {
-        didSet {
-            if pageNo <= 0 {
-                pageNo = kFlowPageNo
-            }
-        }
-    }
-    
-    /// Page size, Default 20
-    var pageSize: Int = kFlowPageSize {
-        didSet {
-            if pageSize <= 0 {
-                pageSize = kFlowPageSize
-            }
-        }
-    }
-    
-    /// Total number. Default 10000
-    var totalNo: Int = kFlowTotalPageNo {
-        didSet {
-            if totalNo <= 0 {
-                totalNo = kFlowTotalPageNo
-            }
-        }
-    }
-    
-    /// Refresh header style
-    var refreshHeaderStyle: HFlowRefreshHeaderStyle = .gray
-    
-    /// Load more footer style
-    var refreshFooterStyle: HFlowRefreshFooterStyle = .style1
-
-    /// Block to refresh data
-    var refreshBlock: HFlowRefreshBlock? {
-        didSet {
-            if let refreshBlock = refreshBlock {
-                self.mj_header = HFlowRefresh.refreshHeaderWithStyle(refreshHeaderStyle) {
-                    self.pageNo = 1
-                    refreshBlock()
-                }
-            } else {
-                self.mj_header = nil
-            }
-        }
-    }
-
-    /// Block to load more data
-    var loadMoreBlock: HFlowLoadMoreBlock? {
-        didSet {
-            if let loadMoreBlock = loadMoreBlock {
-                self.pageNo = 1
-                self.mj_footer = HFlowRefresh.refreshFooterWithStyle(refreshFooterStyle) { [weak self] in
-                    guard let self = self else { return }
-                    self.pageNo += 1
-                    if self.pageSize * self.pageNo < self.totalNo {
-                        loadMoreBlock()
-                    } else {
-                        self.mj_footer?.endRefreshing()
-                    }
-                }
-            } else {
-                self.mj_footer = nil
-            }
-        }
-    }
-
-    /// Block refresh & loadMore
-    func beginRefreshing(_ completion: @escaping () -> Void) {
-        guard self.refreshBlock != nil else { return }
-        self.pageNo = 1
-        self.mj_header?.beginRefreshing(completionBlock: completion)
-    }
-
-    /// Stop refresh
-    func endRefreshing(_ completion: @escaping () -> Void) {
-        self.mj_header?.endRefreshing(completionBlock:completion)
-    }
-    
-    func endLoadMore(_ completion: @escaping () -> Void) {
-        self.mj_footer?.endRefreshing(completionBlock:completion)
-    }
-    
     /// Scroll to top
     func scrollToTop(_ animated: Bool) {
         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
@@ -230,73 +137,13 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    /// Release method
-    @objc
-    func releaseFlowBlock() {
-        DispatchQueue.global().async {
-            self.flowDelegate = nil
-            self.refreshBlock = nil
-            self.loadMoreBlock = nil
-        }
-    }
-
     deinit {
         NotificationCenter.default.removeObserver(self)
-    }
-    
-    /// Register class
-    func header(_ cls: AnyClass, _ pre: String?, _ section: Any) -> AnyObject {
-        // Unique identifier
-        let identifier = (pre ?? "") + NSStringFromClass(cls)
-        // Register cell if not already registered
-        if !self.allReuseIdentifiers.contains(identifier) {
-            self.allReuseIdentifiers.add(identifier)
-            self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
-        }
-        // Dequeue cell
-        let cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier)!
-        // Save cell
-        self.allReuseHeaders.setObject(cell, forKey: "\(section)" as NSString)
-        // Return cell
-        return cell
-    }
-    
-    func footer(_ cls: AnyClass, _ pre: String?, _ section: Any) -> AnyObject {
-        // Unique identifier
-        let identifier = (pre ?? "") + NSStringFromClass(cls)
-        // Register cell if not already registered
-        if !self.allReuseIdentifiers.contains(identifier) {
-            self.allReuseIdentifiers.add(identifier)
-            self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
-        }
-        // Dequeue cell
-        let cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier)!
-        // Save cell
-        self.allReuseFooters.setObject(cell, forKey: "\(section)" as NSString)
-        // Return cell
-        return cell
-    }
-
-    func cell(_ cls: AnyClass, _ pre: String?, _ indexPath: IndexPath) -> AnyObject {
-        // Unique identifier
-        let identifier = (pre ?? "") + NSStringFromClass(cls)
-        // Register cell if not already registered
-        if !self.allReuseIdentifiers.contains(identifier) {
-            self.allReuseIdentifiers.add(identifier)
-            self.register(cls, forCellReuseIdentifier: identifier)
-        }
-        // Dequeue cell
-        let cell = self.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
-        // Save cell
-        self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
-        // Return cell
-        return cell
     }
     
     /// The following are the delegate methods for UITableView.
     func numberOfSections(in tableView: UITableView) -> Int {
         // remove cache data
-        self.allReuseIdentifiers.removeAllObjects()
         self.cellHeights.removeAll()
         // table Style
         var sections = 1
@@ -354,9 +201,10 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         if let height = self.cellHeights[indexPath.stringValue] {
             return height
-        } else {
-            return 50.0
+        } else if tableView.estimatedRowHeight != UITableView.automaticDimension {
+            return tableView.estimatedRowHeight
         }
+        return 50.0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -364,22 +212,21 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Call delegate method
-        if let delegate = self.flowDelegate {
-            let selector = #selector(delegate.flowRow(_:atIndexPath:))
-            if delegate.responds(to: selector) {
-                delegate.perform(selector, with: self, with: indexPath)
-            }
-        }
-        // Call cell
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? UITableViewCell
         // Update passed cells
         if self.allPassedCells.count > 20 {
             self.allPassedCells.removeAllObjects()
             KingfisherManager.shared.cache.clearMemoryCache()
         }
-        self.allPassedCells.setObject(cell, forKey: indexPath.nsStringValue)
-        return cell!
+        // Call delegate method
+        if let delegate = self.flowDelegate {
+            let selector = #selector(delegate.flowRow(_:atIndexPath:))
+            if delegate.responds(to: selector) {
+                let cell = delegate.performWithUnretainedValue(selector, with: self, with: indexPath) as? UITableViewCell
+                if let cell = cell { return cell }
+            }
+        }
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.className)
+        return tableView.dequeueReusableCell(withIdentifier: UITableViewCell.className, for: indexPath)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -387,11 +234,10 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
         if let delegate = self.flowDelegate {
             let selector = #selector(delegate.flowHeader(_:inSection:))
             if delegate.responds(to: selector) {
-                delegate.perform(selector, with: self, with: section)
+                return delegate.performWithUnretainedValue(selector, with: self, with: section) as? UIView
             }
         }
-        // Update layout
-        return self.allReuseHeaders.object(forKey: "\(section)" as NSString) as? UITableViewCell
+        return nil
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -399,11 +245,10 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
         if let delegate = self.flowDelegate {
             let selector = #selector(delegate.flowFooter(_:inSection:))
             if delegate.responds(to: selector) {
-                delegate.perform(selector, with: self, with: section)
+                return delegate.performWithUnretainedValue(selector, with: self, with: section) as? UIView
             }
         }
-        // Update layout
-        return self.allReuseFooters.object(forKey: "\(section)" as NSString) as? UITableViewCell
+        return nil
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -417,13 +262,21 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? UITableViewCell
-        if let delegate = self.flowDelegate, let cell = cell {
-            let selector = #selector(delegate.didSelectCell(_:atIndexPath:))
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let delegate = self.flowDelegate {
+            let selector = #selector(delegate.didEndDisplayingCell(_:atIndexPath:))
             if delegate.responds(to: selector) {
                 delegate.perform(selector, with: cell, with: indexPath)
+            }
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let delegate = self.flowDelegate {
+            let selector = #selector(delegate.didSelectCell(_:))
+            if delegate.responds(to: selector) {
+                delegate.perform(selector, with: indexPath)
             }
         }
     }
@@ -443,24 +296,5 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
             self.allPassedCells.removeAllObjects()
             KingfisherManager.shared.cache.clearMemoryCache()
         }
-    }
-    
-}
-
-extension HFlowView {
-    func cell(_ row: Int, _ section: Int) -> AnyObject? {
-        return self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section))
-    }
-    
-    func cell(for indexPath: IndexPath) -> AnyObject? {
-        return self.allReuseCells.object(forKey: indexPath.nsStringValue)
-    }
-    
-    func header(for section: Int) -> AnyObject? {
-        return self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section))
-    }
-    
-    func footer(for section: Int) -> AnyObject? {
-        return self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section))
     }
 }
