@@ -12,6 +12,7 @@ target 'HSwiftProject' do
   pod 'Alamofire', '5.6.1'
   pod 'Kingfisher',’~> 5.9.0’
   pod 'MJRefresh',’~> 3.3.1’
+  pod 'SDWebImage', '~>5.19.0'
   # 骨架屏
   pod 'TABAnimated', '2.6.3'
 

@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import SDWebImage
 
 class HFlowReload: NSObject {
     var isRefresh = false //是否正在刷新
@@ -24,6 +25,8 @@ class HFlowReload: NSObject {
     optional func heightForHeaderInSection(_ section: Any) -> Any
     @objc
     optional func heightForFooterInSection(_ section: Any) -> Any
+    @objc
+    optional func heightForRowAtIndexPath(_ indexPath: IndexPath) -> Any
     
     @objc
     optional func flowHeader(_ flow: HFlowView, inSection section: Any) -> UIView?
@@ -38,13 +41,17 @@ class HFlowReload: NSObject {
     optional func didEndDisplayingCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
     @objc
     optional func didSelectCell(_ indexPath: IndexPath)
+    
+    /// UIScrollViewDelegate
+    @objc
+    optional func flowViewDidScroll(_ scrollView: UIScrollView)
 }
 
 class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     private var flowReload = HFlowReload()
     private var cellHeights: [String: CGFloat] = [:]
-    private var allPassedCells  = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    private var allPassedCells = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
@@ -208,6 +215,20 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if tableView.rowHeight != UITableView.automaticDimension {
+            return tableView.rowHeight
+        } else {
+            var height: CGFloat = 0.0
+            if let delegate = self.flowDelegate {
+                let selector = #selector(delegate.heightForRowAtIndexPath(_:))
+                if delegate.responds(to: selector) {
+                    height = delegate.performWithUnretainedValue(selector, with: indexPath) as! CGFloat
+                }
+                // Prevent negative size
+                height = max(height, 0.0)
+                if height > 0 { return height }
+            }
+        }
         return UITableView.automaticDimension
     }
     
@@ -215,6 +236,8 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
         // Update passed cells
         if self.allPassedCells.count > 20 {
             self.allPassedCells.removeAllObjects()
+            SDImageCache.shared.clearMemory()
+            SDImageCache.shared.clearDisk(onCompletion: {})
             KingfisherManager.shared.cache.clearMemoryCache()
         }
         // Call delegate method
@@ -282,10 +305,20 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// UIScrollViewDelegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let delegate = self.flowDelegate else { return }
+        let selector = NSSelectorFromString("flowViewDidScroll:")
+        if delegate.responds(to: selector) {
+            delegate.perform(selector, with: scrollView)
+        }
+    }
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         // Update passed cells
         if !decelerate, self.allPassedCells.count > 5 {
             self.allPassedCells.removeAllObjects()
+            SDImageCache.shared.clearMemory()
+            SDImageCache.shared.clearDisk(onCompletion: {})
             KingfisherManager.shared.cache.clearMemoryCache()
         }
     }
@@ -294,6 +327,8 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
         // Update passed cells
         if self.allPassedCells.count > 5 {
             self.allPassedCells.removeAllObjects()
+            SDImageCache.shared.clearMemory()
+            SDImageCache.shared.clearDisk(onCompletion: {})
             KingfisherManager.shared.cache.clearMemoryCache()
         }
     }
