@@ -8,44 +8,50 @@
 
 import UIKit
 
-class HTupleLabelCell: HTupleTmplCell {
+class HTupleLabelCell: HTupleBaseCell {
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
-        self.layoutView.addArrangedSubview(label)
+        label.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.contentView.addSubview(label)
         return label
     }()
 }
 
-class HTupleTextCell: HTupleTmplCell {
+class HTupleTextCell: HTupleBaseCell {
     lazy var textView: HTextView = {
         let textView = HTextView()
         textView.font = .systemFont(ofSize: 14.0)
-        self.layoutView.addArrangedSubview(textView)
+        textView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.contentView.addSubview(textView)
         return textView
     }()
 }
 
-class HTupleButtonCell: HTupleTmplCell {
+class HTupleButtonCell: HTupleBaseCell {
     lazy var buttonView: HWebButtonView = {
         let buttonView = HWebButtonView()
-        self.layoutView.addArrangedSubview(buttonView)
+        buttonView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.contentView.addSubview(buttonView)
         return buttonView
     }()
 }
 
-class HTupleImageCell: HTupleTmplCell {
+class HTupleImageCell: HTupleBaseCell {
     lazy var imageView: HWebImageView = {
         let imageView = HWebImageView()
-        self.layoutView.addArrangedSubview(imageView)
+        imageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.contentView.addSubview(imageView)
         return imageView
     }()
 }
 
-class HTupleFieldCell: HTupleTmplCell {
+class HTupleFieldCell: HTupleBaseCell {
     lazy var textField: HTextField = {
-        let textField = HTextField(frame: self.layoutView.bounds)
-        self.layoutView.addArrangedSubview(textField)
+        let textField = HTextField()
+        HLayoutTupleCell(textField)
+        textField.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.contentView.addSubview(textField)
         return textField
     }()
 }

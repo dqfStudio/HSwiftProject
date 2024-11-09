@@ -44,18 +44,18 @@ extension HTupleAutoVC: HTupleViewDelegate {
             let cell = flow.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
             cell.backgroundColor = UIColor.gray
             
-            cell.layoutView.snp.makeConstraints { make in
+            cell.contentView.snp.makeConstraints { make in
                 make.edges.equalToSuperview().inset(10)
                 make.width.equalTo(self.tupleView.width - 20)
             }
             cell.label.numberOfLines = 0
             cell.label.text = "家乐福大数据冯老师复方丹参封疆大吏撒附件打撒丽枫酒店酸辣粉大家酸辣粉离开家我拉的开发机六点多撒会计分录打扫房间领导撒附件都说了咖啡机多少啦咖啡机第三方"
             
-            cell.separatorView.snp.makeConstraints { make in
-                make.left.bottom.equalToSuperview()
-                make.width.equalTo(self.tupleView.width)
-                make.height.equalTo(1)
-            }
+//            cell.separatorView.snp.makeConstraints { make in
+//                make.left.bottom.equalToSuperview()
+//                make.width.equalTo(self.tupleView.width)
+//                make.height.equalTo(1)
+//            }
             
             cell.selectBlock = {
                 let tupleAlert = HTupleAlertVC.showRePassErrorAlert { index in }

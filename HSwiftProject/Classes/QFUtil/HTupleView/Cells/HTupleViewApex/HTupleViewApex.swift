@@ -8,52 +8,59 @@
 
 import UIKit
 
-class HTupleLabelApex: HTupleTmplApex {
+class HTupleLabelApex: HTupleBaseApex {
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
-        self.layoutView.addArrangedSubview(label)
+        label.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.addSubview(label)
         return label
     }()
 }
 
-class HTupleTextApex: HTupleTmplApex {
+class HTupleTextApex: HTupleBaseApex {
     lazy var textView: HTextView = {
         let textView = HTextView()
         textView.font = .systemFont(ofSize: 14.0)
-        self.layoutView.addArrangedSubview(textView)
+        textView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.addSubview(textView)
         return textView
     }()
 }
 
-class HTupleButtonApex: HTupleTmplApex {
+class HTupleButtonApex: HTupleBaseApex {
     lazy var buttonView: HWebButtonView = {
         let buttonView = HWebButtonView()
-        self.layoutView.addArrangedSubview(buttonView)
+        buttonView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.addSubview(buttonView)
         return buttonView
     }()
 }
 
-class HTupleImageApex: HTupleTmplApex {
+class HTupleImageApex: HTupleBaseApex {
     lazy var imageView: HWebImageView = {
         let imageView = HWebImageView()
-        self.layoutView.addArrangedSubview(imageView)
+        imageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.addSubview(imageView)
         return imageView
     }()
 }
 
-class HTupleAnimatedImageApex: HTupleTmplApex {
+class HTupleAnimatedImageApex: HTupleBaseApex {
     lazy var imageView: HAnimatedImageView = {
         let imageView = HAnimatedImageView()
-        self.layoutView.addArrangedSubview(imageView)
+        imageView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.addSubview(imageView)
         return imageView
     }()
 }
 
-class HTupleFieldApex: HTupleTmplApex {
+class HTupleFieldApex: HTupleBaseApex {
     lazy var textField: HTextField = {
-        let textField = HTextField(frame: self.layoutView.bounds)
-        self.layoutView.addArrangedSubview(textField)
+        let textField = HTextField()
+        HLayoutTupleApex(textField)
+        textField.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.addSubview(textField)
         return textField
     }()
 }

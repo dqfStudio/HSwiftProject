@@ -61,7 +61,7 @@ class HUserLiveMiddleBarView : UIView, HTupleViewDelegate {
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
         //将cell.contentView倒置
-        cell.layoutView.transform = CGAffineTransform (scaleX: 1, y: -1)
+        cell.contentView.transform = CGAffineTransform (scaleX: 1, y: -1)
         cell.setTopLine(withColor: UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 20)
         cell.label.textColor = UIColor.white
         cell.label.font = UIFont.systemFont(ofSize: 12)
