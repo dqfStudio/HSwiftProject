@@ -1,5 +1,5 @@
 //
-//  HTableSignal.swift
+//  HFlowSignal.swift
 //  HSwiftProject
 //
 //  Created by Wind on 2019/12/3.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-var kTableSkinNotify = "tableSkinNotify"
+var kFlowSkinNotify = "flowSkinNotify"
 
-typealias HTableCellSignalBlock = (_ target: AnyObject, _ signal: HTableSignal?) -> Void
+typealias HFlowCellSignalBlock = (_ target: AnyObject, _ signal: HFlowSignal?) -> Void
 
-class HTableSignal: NSObject {
+class HFlowSignal: NSObject {
     var signal: AnyObject?
     var tag: Int = 0
     var name: String?

@@ -10,10 +10,10 @@ import UIKit
 
 extension HMainController6 {
 
-    func ext_tableRow(_ table: HTableView, atIndexPath indexPath: IndexPath) {
+    func ext_flowRow(_ flow: HFlowView, atIndexPath indexPath: IndexPath) {
         switch (indexPath.row) {
         case 3:
-            let cell = table.cell(HTableViewCellHoriValue1.self, nil, true, indexPath) as! HTableViewCellHoriValue1
+            let cell = flow.cell(HFlowViewCellHoriValue1.self, nil, true, indexPath) as! HFlowViewCellHoriValue1
             cell.backgroundColor = UIColor.gray
 //            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
@@ -30,7 +30,7 @@ extension HMainController6 {
             cell.accsryLabel.textAlignment = .center
             break
         case 4:
-            let cell = table.cell(HTableFieldCell.self, nil, true, indexPath) as! HTableFieldCell
+            let cell = flow.cell(HFlowFieldCell.self, nil, true, indexPath) as! HFlowFieldCell
             cell.backgroundColor = UIColor.gray
             cell.textField.backgroundColor = UIColor.red
             
@@ -51,7 +51,7 @@ extension HMainController6 {
             }
             break
         case 5:
-            let cell = table.cell(HTableCellValue1.self, nil, true, indexPath) as! HTableCellValue1
+            let cell = flow.cell(HFlowCellValue1.self, nil, true, indexPath) as! HFlowCellValue1
             cell.backgroundColor = UIColor.gray
 //            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
@@ -64,7 +64,7 @@ extension HMainController6 {
             cell.detailTextLabel?.textAlignment = .center
             break
         case 6:
-            let cell = table.cell(HTableCellValue2.self, nil, true, indexPath) as! HTableCellValue2
+            let cell = flow.cell(HFlowCellValue2.self, nil, true, indexPath) as! HFlowCellValue2
             cell.backgroundColor = UIColor.gray
 //            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             
@@ -77,7 +77,7 @@ extension HMainController6 {
             cell.detailTextLabel?.textAlignment = .center
             break
         case 7:
-            let cell = table.cell(HTableCellSubtitle.self, nil, true, indexPath) as! HTableCellSubtitle
+            let cell = flow.cell(HFlowCellSubtitle.self, nil, true, indexPath) as! HFlowCellSubtitle
             cell.backgroundColor = UIColor.gray
 //            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
             

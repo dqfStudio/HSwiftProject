@@ -75,8 +75,8 @@ class HBaseController: UIViewController {
                 tupleView.releaseTupleBlock()
             }
             //tableView default tag 1615141312
-            if let tableView = self.view.viewWithTag(kTableDefaultTag) as? HTableView {
-                tableView.releaseTableBlock()
+            if let flowView = self.view.viewWithTag(kFlowDefaultTag) as? HFlowView {
+                flowView.releaseFlowBlock()
             }
         }
     }

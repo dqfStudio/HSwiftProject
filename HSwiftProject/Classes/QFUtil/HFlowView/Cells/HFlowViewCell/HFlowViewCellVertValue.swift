@@ -1,5 +1,5 @@
 //
-//  HTableViewApexVertValue.swift
+//  HFlowViewCellVertValue.swift
 //  HSwiftProject
 //
 //  Created by Wind on 2019/12/4.
@@ -9,7 +9,7 @@
 import UIKit
 
 /// 三个label在imageView后依次排列
-class HTableViewApexVertValue1: HTableBaseApex {
+class HFlowViewCellVertValue1: HFlowBaseCell {
 
     ///labelLabel的高度
     var labelHeight: CGFloat = 0.0
@@ -18,10 +18,14 @@ class HTableViewApexVertValue1: HTableBaseApex {
     ///accsryLabel的高度
     var accsryHeight: CGFloat = 0.0
 
+    private var _imageView: HWebImageView?
     ///显示图片
-    lazy var imageView: HWebImageView = {
-        return HWebImageView()
-    }()
+    override var imageView: HWebImageView {
+        if _imageView == nil {
+            _imageView = HWebImageView()
+        }
+        return _imageView!
+    }
 
     private var _label: UILabel?
      ///显示文字内容
@@ -176,7 +180,7 @@ class HTableViewApexVertValue1: HTableBaseApex {
 }
 
 /// 两个label在imageView后依次排列，一个在imageView之上
-class HTableViewApexVertValue2: HTableBaseApex {
+class HFlowViewCellVertValue2: HFlowBaseCell {
 
     ///labelLabel的高度
     var labelHeight: CGFloat = 0.0
@@ -185,10 +189,14 @@ class HTableViewApexVertValue2: HTableBaseApex {
     ///accsryLabel的高度
     var accsryHeight: CGFloat = 0.0
 
+    private var _imageView: HWebImageView?
     ///显示图片
-    lazy var imageView: HWebImageView = {
-        return HWebImageView()
-    }()
+    override var imageView: HWebImageView {
+        if _imageView == nil {
+            _imageView = HWebImageView()
+        }
+        return _imageView!
+    }
 
     private var _label: UILabel?
      ///显示文字内容

@@ -1,5 +1,5 @@
 //
-//  HTableViewApex.swift
+//  HFlowViewCell.swift
 //  HSwiftProject
 //
 //  Created by Wind on 2019/12/4.
@@ -8,7 +8,43 @@
 
 import UIKit
 
-class HTableLabelApex: HTableBaseApex {
+class HFlowCellValue1: HFlowBaseCell {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .value1, reuseIdentifier: reuseIdentifier)
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    override func initUI() {
+        self.selectionStyle = .none
+    }
+}
+
+class HFlowCellValue2: HFlowBaseCell {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .value2, reuseIdentifier: reuseIdentifier)
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    override func initUI() {
+        self.selectionStyle = .none
+    }
+}
+
+class HFlowCellSubtitle: HFlowBaseCell {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    override func initUI() {
+        self.selectionStyle = .none
+    }
+}
+
+class HFlowLabelCell: HFlowBaseCell {
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
@@ -17,24 +53,24 @@ class HTableLabelApex: HTableBaseApex {
     }()
     
     override func relayoutSubviews() {
-        HLayoutTableApex(self.label)
+        HLayoutTableCell(self.label)
     }
 }
 
-class HTableTextApex: HTableBaseApex {
-    lazy var textView: HTextView = {
-        let textView = HTextView()
+class HFlowTextCell: HFlowBaseCell {
+    lazy var textView: UITextView = {
+        let textView = UITextView()
         textView.font = .systemFont(ofSize: 14.0)
         self.layoutView.addSubview(textView)
         return textView
     }()
     
     override func relayoutSubviews() {
-        HLayoutTableApex(self.textView)
+        HLayoutTableCell(self.textView)
     }
 }
 
-class HTableButtonApex: HTableBaseApex {
+class HFlowButtonCell: HFlowBaseCell {
     lazy var buttonView: HWebButtonView = {
         let buttonView = HWebButtonView()
         self.layoutView.addSubview(buttonView)
@@ -42,37 +78,50 @@ class HTableButtonApex: HTableBaseApex {
     }()
     
     override func relayoutSubviews() {
-        HLayoutTableApex(self.buttonView)
+        HLayoutTableCell(self.buttonView)
     }
 }
 
-class HTableImageApex: HTableBaseApex {
-    lazy var imageView: HWebImageView = {
-        let imageView = HWebImageView()
-        self.layoutView.addSubview(imageView)
-        return imageView
-    }()
+class HFlowImageCell: HFlowBaseCell {
+    private var _imageView: HWebImageView?
+    override var imageView: HWebImageView {
+        if _imageView == nil {
+            _imageView = HWebImageView()
+            self.layoutView.addSubview(_imageView!)
+        }
+        return _imageView!
+    }
     
     override func relayoutSubviews() {
-        HLayoutTableApex(self.imageView)
+        HLayoutTableCell(self.imageView)
     }
 }
 
-class HTableFieldApex: HTableBaseApex {
+class HFlowFieldCell: HFlowBaseCell {
     lazy var textField: HTextField = {
         let textField = HTextField()
-        HLayoutTableApex(textField)
+        HLayoutTableCell(textField)
         self.layoutView.addSubview(textField)
         return textField
     }()
     
     override func relayoutSubviews() {
-        HLayoutTableApex(self.textField)
+        HLayoutTableCell(self.textField)
     }
 }
 
-class HTableViewApex: HTableBaseApex {
-
+class HFlowViewCell: HFlowBaseCell {
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .default, reuseIdentifier: reuseIdentifier)
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    override func initUI() {
+        self.selectionStyle = .none
+    }
+    
     ///label
     lazy var label: UILabel = {
         let label = UILabel()
@@ -93,7 +142,7 @@ class HTableViewApex: HTableBaseApex {
         return label
     }()
 
-
+    
     ///textView
     lazy var textView: HTextView = {
         let textView = HTextView()
@@ -114,7 +163,7 @@ class HTableViewApex: HTableBaseApex {
         return textView
     }()
 
-
+    
     ///button
     lazy var buttonView: HWebButtonView = {
         let buttonView = HWebButtonView()
@@ -132,41 +181,44 @@ class HTableViewApex: HTableBaseApex {
         return buttonView
     }()
 
-
+    
     ///imageView
-    lazy var imageView: HWebImageView = {
-        let imageView = HWebImageView()
-        self.layoutView.addSubview(imageView)
-        return imageView
-    }()
+    private var _imageView: HWebImageView?
+    override var imageView: HWebImageView {
+        if _imageView == nil {
+            _imageView = HWebImageView()
+            self.layoutView.addSubview(_imageView!)
+        }
+        return _imageView!
+    }
     lazy var detailView: HWebImageView = {
-        let imageView = HWebImageView()
-        self.layoutView.addSubview(imageView)
-        return imageView
+        let _imageView = HWebImageView()
+        self.layoutView.addSubview(_imageView)
+        return _imageView
     }()
     lazy var accsryView: HWebImageView = {
-        let imageView = HWebImageView()
-        self.layoutView.addSubview(imageView)
-        return imageView
+        let _imageView = HWebImageView()
+        self.layoutView.addSubview(_imageView)
+        return _imageView
     }()
 
-
+    
     ///textField
     lazy var textField: HTextField = {
         let textField = HTextField()
-        HLayoutTableApex(textField)
+        HLayoutTableCell(textField)
         self.layoutView.addSubview(textField)
         return textField
     }()
     lazy var detailField: HTextField = {
         let textField = HTextField()
-        HLayoutTableApex(textField)
+        HLayoutTableCell(textField)
         self.layoutView.addSubview(textField)
         return textField
     }()
     lazy var accsryField: HTextField = {
         let textField = HTextField()
-        HLayoutTableApex(textField)
+        HLayoutTableCell(textField)
         self.layoutView.addSubview(textField)
         return textField
     }()

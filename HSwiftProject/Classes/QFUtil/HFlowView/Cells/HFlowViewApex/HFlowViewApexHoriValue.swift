@@ -1,5 +1,5 @@
 //
-//  HTableViewCellHoriValue.swift
+//  HFlowViewApexHoriValue.swift
 //  HSwiftProject
 //
 //  Created by Wind on 2019/12/4.
@@ -9,7 +9,7 @@
 import UIKit
 
 ///三个label横向从左向右抱紧显示
-class HTableViewCellHoriValue1: HTableBaseCell {
+class HFlowViewApexHoriValue1: HFlowBaseApex {
     
     // 用于imageView布局
     private lazy var imageLayoutView: UIStackView = {
@@ -22,7 +22,7 @@ class HTableViewCellHoriValue1: HTableBaseCell {
     
     private var _imageView: HWebImageView?
     ///左边显示图片
-    override var imageView: HWebImageView {
+    var imageView: HWebImageView {
         if _imageView == nil {
             _imageView = HWebImageView()
         }
@@ -100,7 +100,7 @@ class HTableViewCellHoriValue1: HTableBaseCell {
     }()
     
     // arrow
-    private lazy var accsryViewExa: UIImageView = {
+    private lazy var accsryView: UIImageView = {
         let accsryView = UIImageView()
         accsryView.image = UIImage(named: "icon_tuple_arrow_right")
         accsryView.contentMode = .scaleAspectFill
@@ -214,16 +214,16 @@ class HTableViewCellHoriValue1: HTableBaseCell {
         // accsryView
         if isShowAccsryArrow {
             layoutView.addArrangedSubview(arrowLayoutView)
-            accsryViewExa.widthAnchor.constraint(equalToConstant: 7).isActive = true
-            accsryViewExa.heightAnchor.constraint(equalToConstant: 13).isActive = true
-            arrowLayoutView.addArrangedSubview(accsryViewExa)
+            accsryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
+            accsryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
+            arrowLayoutView.addArrangedSubview(accsryView)
         }
         
     }
 }
 
 ///三个label横向从右向左抱紧显示
-class HTableViewCellHoriValue2: HTableBaseCell {
+class HFlowViewApexHoriValue2: HFlowBaseApex {
     
     // 用于imageView布局
     private lazy var imageLayoutView: UIStackView = {
@@ -236,7 +236,7 @@ class HTableViewCellHoriValue2: HTableBaseCell {
     
     private var _imageView: HWebImageView?
     ///左边显示图片
-    override var imageView: HWebImageView {
+    var imageView: HWebImageView {
         if _imageView == nil {
             _imageView = HWebImageView()
         }
@@ -314,7 +314,7 @@ class HTableViewCellHoriValue2: HTableBaseCell {
     }()
     
     // arrow
-    private lazy var accsryViewExa: UIImageView = {
+    private lazy var accsryView: UIImageView = {
         let accsryView = UIImageView()
         accsryView.image = UIImage(named: "icon_tuple_arrow_right")
         accsryView.contentMode = .scaleAspectFill
@@ -427,16 +427,16 @@ class HTableViewCellHoriValue2: HTableBaseCell {
         // accsryView
         if isShowAccsryArrow {
             layoutView.addArrangedSubview(arrowLayoutView)
-            accsryViewExa.widthAnchor.constraint(equalToConstant: 7).isActive = true
-            accsryViewExa.heightAnchor.constraint(equalToConstant: 13).isActive = true
-            arrowLayoutView.addArrangedSubview(accsryViewExa)
+            accsryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
+            accsryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
+            arrowLayoutView.addArrangedSubview(accsryView)
         }
         
     }
 }
 
 ///三个label纵向显示
-class HTableViewCellHoriValue3: HTableBaseCell {
+class HFlowViewApexHoriValue3: HFlowBaseApex {
     
     // 用于imageView布局
     private lazy var imageLayoutView: UIStackView = {
@@ -449,7 +449,7 @@ class HTableViewCellHoriValue3: HTableBaseCell {
     
     private var _imageView: HWebImageView?
     ///左边显示图片
-    override var imageView: HWebImageView {
+    var imageView: HWebImageView {
         if _imageView == nil {
             _imageView = HWebImageView()
         }
@@ -520,7 +520,7 @@ class HTableViewCellHoriValue3: HTableBaseCell {
     }()
     
     // arrow
-    private lazy var accsryViewExa: UIImageView = {
+    private lazy var accsryView: UIImageView = {
         let accsryView = UIImageView()
         accsryView.image = UIImage(named: "icon_tuple_arrow_right")
         accsryView.contentMode = .scaleAspectFill
@@ -627,9 +627,9 @@ class HTableViewCellHoriValue3: HTableBaseCell {
         // accsryView
         if isShowAccsryArrow {
             layoutView.addArrangedSubview(arrowLayoutView)
-            accsryViewExa.widthAnchor.constraint(equalToConstant: 7).isActive = true
-            accsryViewExa.heightAnchor.constraint(equalToConstant: 13).isActive = true
-            arrowLayoutView.addArrangedSubview(accsryViewExa)
+            accsryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
+            accsryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
+            arrowLayoutView.addArrangedSubview(accsryView)
         }
 
     }

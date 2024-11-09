@@ -1,5 +1,5 @@
 //
-//  HTableBaseApex.swift
+//  HFlowBaseApex.swift
 //  HSwiftProject
 //
 //  Created by Wind on 2019/12/3.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class HTableBaseApex: UITableViewHeaderFooterView {
+class HFlowBaseApex: UITableViewHeaderFooterView {
     
     ///cell所在的table view
-    weak var table: UITableView?
+    weak var flow: UITableView?
     
     ///cell是否为section header
     var isHeader: Bool = false
@@ -20,7 +20,7 @@ class HTableBaseApex: UITableViewHeaderFooterView {
     var section: Any?
     
     ///信号block
-    var signalBlock: HTableCellSignalBlock?
+    var signalBlock: HFlowCellSignalBlock?
     
     
     required init?(coder: NSCoder) {

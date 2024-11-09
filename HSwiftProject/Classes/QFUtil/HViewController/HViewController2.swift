@@ -118,8 +118,8 @@
 //                tupleView.releaseTupleBlock()
 //            }
 //            //tableView default tag 1615141312
-//            if let tableView = self.view.viewWithTag(1615141312) as? HTableView {
-//                tableView.releaseTableBlock()
+//            if let flowView = self.view.viewWithTag(1615141312) as? HFlowView {
+//                flowView.releaseTableBlock()
 //            }
 //        }
 //    }

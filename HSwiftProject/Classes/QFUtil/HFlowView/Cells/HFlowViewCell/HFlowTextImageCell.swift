@@ -1,5 +1,5 @@
 //
-//  HTableTextImageApex.swift
+//  HFlowTextImageCell.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/6/4.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTableTextImageApex: HTableBaseApex {
+class HFlowTextImageCell: HFlowBaseCell {
     
     /// 左边布局View
     private lazy var leftView: UIView = {
@@ -36,7 +36,7 @@ class HTableTextImageApex: HTableBaseApex {
     
     /// imageView
     private var _imageView: HWebImageView?
-    var imageView: HWebImageView {
+    override var imageView: HWebImageView {
         if _imageView == nil {
             _imageView = HWebImageView()
         }

@@ -1,5 +1,5 @@
 //
-//  HFlowView.swift
+//  HTableView.swift
 //  HSwiftProject
 //
 //  Created by owner on 2024/10/21.
@@ -10,14 +10,14 @@ import UIKit
 import Kingfisher
 import SDWebImage
 
-class HFlowReload: NSObject {
+class HTableReload: NSObject {
     var isRefresh = false //是否正在刷新
     var needRefresh = false //是否需要刷新
 }
 
-@objc protocol HFlowViewDelegate: UITableViewDelegate {
+@objc protocol HTableViewDelegate: UITableViewDelegate {
     @objc
-    optional func numberOfSectionsInFlowView() -> Any
+    optional func numberOfSectionsInTableView() -> Any
     @objc
     optional func numberOfRowsInSection(_ section: Any) -> Any
 
@@ -29,11 +29,11 @@ class HFlowReload: NSObject {
     optional func heightForRowAtIndexPath(_ indexPath: IndexPath) -> Any
     
     @objc
-    optional func flowHeader(_ flow: HFlowView, inSection section: Any) -> UIView?
+    optional func tableHeader(_ table: HTableView, inSection section: Any) -> UIView?
     @objc
-    optional func flowFooter(_ flow: HFlowView, inSection section: Any) -> UIView?
+    optional func tableFooter(_ table: HTableView, inSection section: Any) -> UIView?
     @objc
-    optional func flowRow(_ flow: HFlowView, atIndexPath indexPath: IndexPath) -> UITableViewCell?
+    optional func tableRow(_ table: HTableView, atIndexPath indexPath: IndexPath) -> UITableViewCell?
 
     @objc
     optional func willDisplayCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
@@ -44,12 +44,12 @@ class HFlowReload: NSObject {
     
     /// UIScrollViewDelegate
     @objc
-    optional func flowViewDidScroll(_ scrollView: UIScrollView)
+    optional func tableViewDidScroll(_ scrollView: UIScrollView)
 }
 
-class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
+class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
-    private var flowReload = HFlowReload()
+    private var tableReload = HTableReload()
     private var cellHeights: [String: CGFloat] = [:]
     private var allPassedCells = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     
@@ -67,10 +67,10 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
         self.setup()
     }
     
-    private weak var flowDelegate: HFlowViewDelegate?
+    private weak var tableDelegate: HTableViewDelegate?
     override weak var delegate: UITableViewDelegate? {
         get { return super.delegate }
-        set { flowDelegate = newValue as? HFlowViewDelegate }
+        set { tableDelegate = newValue as? HTableViewDelegate }
     }
     override weak var dataSource: UITableViewDataSource? {
         get { return super.dataSource }
@@ -116,29 +116,29 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     // 多少秒内只刷新一次
     func reloadIfNeeded(_ delay: TimeInterval = 2.0) {
-        if self.flowReload.isRefresh {
-            self.flowReload.needRefresh = true
+        if self.tableReload.isRefresh {
+            self.tableReload.needRefresh = true
         }else {
             self.reloadAsync(delay)
         }
     }
     
     private func reloadAsync(_ delay: TimeInterval) {
-        self.flowReload.isRefresh = true
-        self.flowReload.needRefresh = false
-        self.reloadFlowData()
+        self.tableReload.isRefresh = true
+        self.tableReload.needRefresh = false
+        self.reloadTableData()
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
             guard let self = self else { return }
-            if self.flowReload.needRefresh {
+            if self.tableReload.needRefresh {
                 self.reloadAsync(delay)
             }else {
-                self.flowReload.isRefresh = false
+                self.tableReload.isRefresh = false
             }
         }
     }
     
     @objc
-    func reloadFlowData() {
+    func reloadTableData() {
         DispatchQueue.mainAsync { [weak self] in
             self?.reloadData()
         }
@@ -154,8 +154,8 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
         self.cellHeights.removeAll()
         // table Style
         var sections = 1
-        if let delegate = self.flowDelegate {
-            let selector = #selector(delegate.numberOfSectionsInFlowView)
+        if let delegate = self.tableDelegate {
+            let selector = #selector(delegate.numberOfSectionsInTableView)
             if delegate.responds(to: selector) {
                 sections = delegate.performWithUnretainedValue(selector) as! Int
             }
@@ -167,7 +167,7 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var items = 0
-        if let delegate = self.flowDelegate {
+        if let delegate = self.tableDelegate {
             // Get the number of items
             let selector = #selector(delegate.numberOfRowsInSection(_:))
             if delegate.responds(to: selector) {
@@ -181,7 +181,7 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         var height: CGFloat = 0.0
-        if let delegate = self.flowDelegate {
+        if let delegate = self.tableDelegate {
             let selector = #selector(delegate.heightForHeaderInSection(_:))
             if delegate.responds(to: selector) {
                 height = delegate.performWithUnretainedValue(selector, with: section) as! CGFloat
@@ -194,7 +194,7 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         var height: CGFloat = 0.0
-        if let delegate = self.flowDelegate {
+        if let delegate = self.tableDelegate {
             let selector = #selector(delegate.heightForFooterInSection(_:))
             if delegate.responds(to: selector) {
                 height = delegate.performWithUnretainedValue(selector, with: section) as! CGFloat
@@ -219,7 +219,7 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
             return tableView.rowHeight
         } else {
             var height: CGFloat = 0.0
-            if let delegate = self.flowDelegate {
+            if let delegate = self.tableDelegate {
                 let selector = #selector(delegate.heightForRowAtIndexPath(_:))
                 if delegate.responds(to: selector) {
                     height = delegate.performWithUnretainedValue(selector, with: indexPath) as! CGFloat
@@ -241,8 +241,8 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
             KingfisherManager.shared.cache.clearMemoryCache()
         }
         // Call delegate method
-        if let delegate = self.flowDelegate {
-            let selector = #selector(delegate.flowRow(_:atIndexPath:))
+        if let delegate = self.tableDelegate {
+            let selector = #selector(delegate.tableRow(_:atIndexPath:))
             if delegate.responds(to: selector) {
                 let cell = delegate.performWithUnretainedValue(selector, with: self, with: indexPath) as? UITableViewCell
                 if let cell = cell { return cell }
@@ -254,8 +254,8 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         // Call delegate method
-        if let delegate = self.flowDelegate {
-            let selector = #selector(delegate.flowHeader(_:inSection:))
+        if let delegate = self.tableDelegate {
+            let selector = #selector(delegate.tableHeader(_:inSection:))
             if delegate.responds(to: selector) {
                 return delegate.performWithUnretainedValue(selector, with: self, with: section) as? UIView
             }
@@ -265,8 +265,8 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         // Call delegate method
-        if let delegate = self.flowDelegate {
-            let selector = #selector(delegate.flowFooter(_:inSection:))
+        if let delegate = self.tableDelegate {
+            let selector = #selector(delegate.tableFooter(_:inSection:))
             if delegate.responds(to: selector) {
                 return delegate.performWithUnretainedValue(selector, with: self, with: section) as? UIView
             }
@@ -275,7 +275,7 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let delegate = self.flowDelegate {
+        if let delegate = self.tableDelegate {
             // Save cell height
             self.cellHeights[indexPath.stringValue] = cell.frame.size.height
             // Call delegate method
@@ -287,7 +287,7 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let delegate = self.flowDelegate {
+        if let delegate = self.tableDelegate {
             let selector = #selector(delegate.didEndDisplayingCell(_:atIndexPath:))
             if delegate.responds(to: selector) {
                 delegate.perform(selector, with: cell, with: indexPath)
@@ -296,7 +296,7 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let delegate = self.flowDelegate {
+        if let delegate = self.tableDelegate {
             let selector = #selector(delegate.didSelectCell(_:))
             if delegate.responds(to: selector) {
                 delegate.perform(selector, with: indexPath)
@@ -306,8 +306,8 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     /// UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let delegate = self.flowDelegate else { return }
-        let selector = NSSelectorFromString("flowViewDidScroll:")
+        guard let delegate = self.tableDelegate else { return }
+        let selector = NSSelectorFromString("tableViewDidScroll:")
         if delegate.responds(to: selector) {
             delegate.perform(selector, with: scrollView)
         }

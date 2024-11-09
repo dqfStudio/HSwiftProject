@@ -1,5 +1,5 @@
 //
-//  HTableBaseCell.swift
+//  HFlowBaseCell.swift
 //  HSwiftProject
 //
 //  Created by Wind on 2019/12/3.
@@ -10,10 +10,10 @@ import UIKit
 
 typealias HTableCellSelectBlock = () -> Void
 
-class HTableBaseCell: UITableViewCell {
+class HFlowBaseCell: UITableViewCell {
     
-    ///cell所在的table view
-    weak var table: UITableView?
+    ///cell所在的flow view
+    weak var flow: UITableView?
     
     ///cell所在的indexPath
     var indexPath: IndexPath?
@@ -25,7 +25,7 @@ class HTableBaseCell: UITableViewCell {
     var selectBlock: HTableCellSelectBlock?
     
     ///信号block
-    var signalBlock: HTableCellSignalBlock?
+    var signalBlock: HFlowCellSignalBlock?
     
     
     required init?(coder: NSCoder) {
@@ -101,7 +101,7 @@ class HTableBaseCell: UITableViewCell {
     ///刷新当前cell
     func reloadData() {
         guard let indexPath = self.indexPath else { return }
-        self.table?.reloadRows(at: [indexPath], with: .fade)
+        self.flow?.reloadRows(at: [indexPath], with: .fade)
     }
     
     /// The frame and bounds of the layout view

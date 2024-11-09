@@ -8,13 +8,13 @@
 
 import UIKit
 
-class HMainController6: HTableController {
+class HMainController6: HFlowController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.navigationBar.isHidden = true
-        self.tableView.delegate = self
+        self.flowView.delegate = self
         self.topExtendedLayout = false
     }
 

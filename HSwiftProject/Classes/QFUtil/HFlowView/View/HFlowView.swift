@@ -1,5 +1,5 @@
 //
-//  HTableView.swift
+//  HFlowView.swift
 //  HSwiftProject
 //
 //  Created by Wind on 2019/12/3.
@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import Kingfisher
+import SDWebImage
 
-private enum HTableStyle: Int {
+private enum HFlowStyle: Int {
     case `default`  // Singleton design
     case split // Split design
 }
 
-enum HTableAlign {
+enum HFlowAlign {
     case `default` // 垂直居上，水平居左
     case center // 垂直居中，水平居中
     case top(CGFloat) // 垂直距离顶部的距离，水平居中
@@ -21,63 +23,103 @@ enum HTableAlign {
     case bottom(CGFloat) // 垂直距离底部的距离，水平居中
 }
 
-var kTableDefaultTag = 1615141312
+var kFlowDefaultTag = 1615141312
 
-private var kTablePageNo = 1
-private var kTablePageSize = 20
-private var kTableTotalPageNo = 10000
+private var kFlowPageNo = 1
+private var kFlowPageSize = 20
+private var kFlowTotalPageNo = 10000
 
-private var kTableDesignKey = "table"
-private var kTableExaDesignKey = "tableExa"
+private var kFlowDesignKey = "flow"
+private var kFlowExaDesignKey = "flowExa"
 
-private var kTableStateKey: Void?
-private var kTableSignalKey: Void?
-private var kTableStateSourceKey: Void?
+private var kFlowStateKey: Void?
+private var kFlowSignalKey: Void?
+private var kFlowStateSourceKey: Void?
 
 /// Refresh & LoadMore block
-typealias HTableRefreshBlock = () -> Void
-typealias HTableLoadMoreBlock = () -> Void
+typealias HFlowRefreshBlock = () -> Void
+typealias HFlowLoadMoreBlock = () -> Void
 
-/// Split design exclusive sections block
-typealias HTableSectionExclusiveBlock = () -> NSArray
+class HFlowReload: NSObject {
+    var isRefresh = false //是否正在刷新
+    var needRefresh = false //是否需要刷新
+}
 
-/// This class is used for refreshing tableView throughout the project.
-class HTableAppearance: NSObject {
+/// This class is used for refreshing flowView throughout the project.
+class HFlowAppearance: NSObject {
     
-    private static var hashTables = NSHashTable<HTableView>.weakObjects()
+    private static var hashFlows = NSHashTable<HFlowView>.weakObjects()
     
-    static func addTable(_ anTable: HTableView) {
-        self.hashTables.add(anTable)
+    static func addFlow(_ anFlow: HFlowView) {
+        self.hashFlows.add(anFlow)
     }
-    static func refreshTables(_ completion: @escaping () -> Void) {
+    static func refreshFlows(_ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
-            let tables = self.hashTables.allObjects.reversed()
-            tables.forEach { $0.reloadTableData() }
+            let flows = self.hashFlows.allObjects.reversed()
+            flows.forEach { $0.reloadFlowData() }
             DispatchQueue.main.async { completion() }
         }
     }
-    static func refreshTable(key: String, _ completion: @escaping () -> Void) {
+    static func refreshFlow(key: String, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
-            let tables = self.hashTables.allObjects.filter { $0.reloadTableKey == key }.reversed()
-            tables.forEach { $0.reloadTableData() }
+            let flows = self.hashFlows.allObjects.filter { $0.reloadFlowKey == key }.reversed()
+            flows.forEach { $0.reloadFlowData() }
             DispatchQueue.main.async { completion() }
         }
     }
-    static func releaseTable(key: String, _ completion: @escaping () -> Void) {
+    static func releaseFlow(key: String, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
-            let tables = self.hashTables.allObjects.filter { $0.releaseTableKey == key }.reversed()
-            tables.forEach { $0.releaseTableBlock() }
+            let flows = self.hashFlows.allObjects.filter { $0.releaseFlowKey == key }.reversed()
+            flows.forEach { $0.releaseFlowBlock() }
             DispatchQueue.main.async { completion() }
         }
     }
 }
 
-@objc protocol HTableViewDelegate: UITableViewDelegate {
+class HFlowObserver: NSObject {
+
+    private static var hashObjects = NSHashTable<NSObject>.weakObjects()
+
+    static func addObserver(_ anObserver: NSObject?) {
+        if let anObserver = anObserver, !self.hashObjects.contains(anObserver) {
+            self.hashObjects.add(anObserver)
+        }
+    }
+    static func perform(key: String) {
+        let selector = NSSelectorFromString(key)
+        let objects = self.hashObjects.allObjects.reversed()
+        objects.forEach {
+            if $0.responds(to: selector) {
+                $0.perform(selector)
+            }
+        }
+    }
+    static func perform(key: String, with object: String) {
+        let selector = NSSelectorFromString(key)
+        let objects = self.hashObjects.allObjects.reversed()
+        objects.forEach {
+            if $0.responds(to: selector) {
+                $0.perform(selector, with: object)
+            }
+        }
+    }
+    static func perform(key: String, with object1: String, with object2: String) {
+        let selector = NSSelectorFromString(key)
+        let objects = self.hashObjects.allObjects.reversed()
+        objects.forEach {
+            if $0.responds(to: selector) {
+                $0.perform(selector, with: object1, with: object2)
+            }
+        }
+    }
+}
+
+@objc protocol HFlowViewDelegate: UITableViewDelegate {
     @objc
-    optional func numberOfSectionsInTableView() -> Any
+    optional func numberOfSectionsInFlowView() -> Any
     @objc
     optional func numberOfRowsInSection(_ section: Any) -> Any
 
@@ -101,29 +143,37 @@ class HTableAppearance: NSObject {
     optional func minimumFooterSpacingForSectionAt(_ section: Any) -> Any
     
     @objc
-    optional func tableHeader(_ table: HTableView, inSection section: Any)
+    optional func flowHeader(_ flow: HFlowView, inSection section: Any)
     @objc
-    optional func tableFooter(_ table: HTableView, inSection section: Any)
+    optional func flowFooter(_ flow: HFlowView, inSection section: Any)
     @objc
-    optional func tableRow(_ table: HTableView, atIndexPath indexPath: IndexPath)
+    optional func flowRow(_ flow: HFlowView, atIndexPath indexPath: IndexPath)
 
     @objc
     optional func willDisplayCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
     @objc
     optional func didSelectCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
+    
+    /// UIScrollViewDelegate
+    @objc
+    optional func flowViewDidScroll(_ scrollView: UIScrollView)
 }
 
-class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
+class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
-    // table style
-    private var tableStyle: HTableStyle = .default
+    // flow style
+    private var flowStyle: HFlowStyle = .default
     
-    // table align
-    var tableAlign: HTableAlign = .default
+    // delay reload
+    private var flowReload = HFlowReload()
+    
+    // flow align
+    var flowAlign: HFlowAlign = .default
 
     private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
     private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    private var allPassedCells  = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allReuseFooters = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     
@@ -142,21 +192,21 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// Initialization method for split
-    static func tableFrame(_ frame: () -> CGRect, exclusiveSections sections: HTableSectionExclusiveBlock) -> HTableView {
-        return HTableView(frame(), exclusiveSections: sections())
+    static func flowFrame(_ frame: () -> CGRect, exclusiveSections sections: () -> NSArray) -> HFlowView {
+        return HFlowView(frame(), exclusiveSections: sections())
     }
     
     private convenience init(_ frame: CGRect, exclusiveSections sectionPaths: NSArray) {
         self.init(frame: UIRectIntegral(frame), style: UITableView.Style.plain)
         self.sectionPaths = sectionPaths
-        self.tableStyle = .split
+        self.flowStyle = .split
         self.setup()
     }
     
-    private weak var tableDelegate: HTableViewDelegate?
+    private weak var flowDelegate: HFlowViewDelegate?
     override weak var delegate: UITableViewDelegate? {
         get { return super.delegate }
-        set { tableDelegate = newValue as? HTableViewDelegate }
+        set { flowDelegate = newValue as? HFlowViewDelegate }
     }
     override weak var dataSource: UITableViewDataSource? {
         get { return super.dataSource }
@@ -184,7 +234,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     private func updateAlign() {
         let cntSize = self.contentSize
         let cntInset = self.contentInset
-        switch tableAlign {
+        switch flowAlign {
         case .default:
             self.contentInset = UIEdgeInsets.zero
         case .center:
@@ -218,11 +268,11 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     private func setup() {
-        // Save tableView for global refresh
-        HTableAppearance.addTable(self)
+        // Save flowView for global refresh
+        HFlowAppearance.addFlow(self)
         
         // Set default tag
-        self.tag = kTableDefaultTag
+        self.tag = kFlowDefaultTag
         
         self.backgroundColor = .clear
         self.alwaysBounceVertical = true
@@ -247,43 +297,43 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// Page number, Default 1
-    var pageNo: Int = kTablePageNo {
+    var pageNo: Int = kFlowPageNo {
         didSet {
             if pageNo <= 0 {
-                pageNo = kTablePageNo
+                pageNo = kFlowPageNo
             }
         }
     }
     
     /// Page size, Default 20
-    var pageSize: Int = kTablePageSize {
+    var pageSize: Int = kFlowPageSize {
         didSet {
             if pageSize <= 0 {
-                pageSize = kTablePageSize
+                pageSize = kFlowPageSize
             }
         }
     }
     
     /// Total number. Default 10000
-    var totalNo: Int = kTableTotalPageNo {
+    var totalNo: Int = kFlowTotalPageNo {
         didSet {
             if totalNo <= 0 {
-                totalNo = kTableTotalPageNo
+                totalNo = kFlowTotalPageNo
             }
         }
     }
     
     /// Refresh header style
-    var refreshHeaderStyle: HTableRefreshHeaderStyle = .gray
+    var refreshHeaderStyle: HFlowRefreshHeaderStyle = .gray
     
     /// Load more footer style
-    var refreshFooterStyle: HTableRefreshFooterStyle = .style1
+    var refreshFooterStyle: HFlowRefreshFooterStyle = .style1
 
     /// Block to refresh data
-    var refreshBlock: HTableRefreshBlock? {
+    var refreshBlock: HFlowRefreshBlock? {
         didSet {
             if let refreshBlock = refreshBlock {
-                self.mj_header = HTableRefresh.refreshHeaderWithStyle(refreshHeaderStyle) {
+                self.mj_header = HFlowRefresh.refreshHeaderWithStyle(refreshHeaderStyle) {
                     self.pageNo = 1
                     refreshBlock()
                 }
@@ -294,11 +344,11 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
 
     /// Block to load more data
-    var loadMoreBlock: HTableLoadMoreBlock? {
+    var loadMoreBlock: HFlowLoadMoreBlock? {
         didSet {
             if let loadMoreBlock = loadMoreBlock {
                 self.pageNo = 1
-                self.mj_footer = HTableRefresh.refreshFooterWithStyle(refreshFooterStyle) { [weak self] in
+                self.mj_footer = HFlowRefresh.refreshFooterWithStyle(refreshFooterStyle) { [weak self] in
                     guard let self = self else { return }
                     self.pageNo += 1
                     if self.pageSize * self.pageNo < self.totalNo {
@@ -314,10 +364,10 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// Set the key value for release
-    var releaseTableKey: String?
+    var releaseFlowKey: String?
 
     /// Set the key value for reload
-    var reloadTableKey: String?
+    var reloadFlowKey: String?
 
     /// Block refresh & loadMore
     func beginRefreshing(_ completion: @escaping () -> Void) {
@@ -364,8 +414,31 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         set { super.separatorStyle = newValue }
     }
     
+    // 多少秒内只刷新一次
+    func reloadIfNeeded(_ delay: TimeInterval = 2.0) {
+        if self.flowReload.isRefresh {
+            self.flowReload.needRefresh = true
+        }else {
+            self.reloadAsync(delay)
+        }
+    }
+    
+    private func reloadAsync(_ delay: TimeInterval) {
+        self.flowReload.isRefresh = true
+        self.flowReload.needRefresh = false
+        self.reloadFlowData()
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            guard let self = self else { return }
+            if self.flowReload.needRefresh {
+                self.reloadAsync(delay)
+            }else {
+                self.flowReload.isRefresh = false
+            }
+        }
+    }
+    
     @objc
-    func reloadTableData() {
+    func reloadFlowData() {
         DispatchQueue.mainAsync { [weak self] in
             self?.reloadData()
         }
@@ -373,12 +446,12 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
     /// Release method
     @objc
-    func releaseTableBlock() {
+    func releaseFlowBlock() {
         DispatchQueue.global().async {
             self.releaseAllSignal()
-            self.clearTableState()
+            self.clearFlowState()
 
-            self.tableDelegate = nil
+            self.flowDelegate = nil
             self.refreshBlock = nil
             self.loadMoreBlock = nil
         }
@@ -398,9 +471,9 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         var identifier = (pre ?? "") + "HeaderCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
         identifier += idx ? "\(section)" : ""
-        // Determine if there is a table state value
-        if self.tableStyle == .split, !self.sectionPaths.contains(section) {
-            identifier += "\(self.tableState)"
+        // Determine if there is a flow state value
+        if self.flowStyle == .split, !self.sectionPaths.contains(section) {
+            identifier += "\(self.flowState)"
         }
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
@@ -408,16 +481,16 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
         }
         // Dequeue cell
-        let cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
+        let cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HFlowBaseApex
         cell.section = section
         cell.isHeader = true
-        cell.table = self
+        cell.flow = self
         // Save cell
         self.allReuseHeaders.setObject(cell, forKey: "\(section)" as NSString)
         // Call delegate method
         var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(section)
             let selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 edgeInsets = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
@@ -435,9 +508,9 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         var identifier = (pre ?? "") + "FooterCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
         identifier += idx ? "\(section)" : ""
-        // Determine if there is a table state value
-        if self.tableStyle == .split, !self.sectionPaths.contains(section) {
-            identifier += "\(self.tableState)"
+        // Determine if there is a flow state value
+        if self.flowStyle == .split, !self.sectionPaths.contains(section) {
+            identifier += "\(self.flowState)"
         }
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
@@ -445,16 +518,16 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
         }
         // Dequeue cell
-        let cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HTableBaseApex
+        let cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HFlowBaseApex
         cell.section = section
         cell.isHeader = false
-        cell.table = self
+        cell.flow = self
         // Save cell
         self.allReuseFooters.setObject(cell, forKey: "\(section)" as NSString)
         // Call delegate method
         var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(section)
             let selector = #selector(delegate.edgeInsetsForFooterInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 edgeInsets = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
@@ -472,9 +545,9 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
         identifier += idx ? indexPath.stringValue : ""
-        // Determine if there is a table state value
-        if self.tableStyle == .split, !self.sectionPaths.contains(indexPath.section) {
-            identifier += "\(self.tableState)"
+        // Determine if there is a flow state value
+        if self.flowStyle == .split, !self.sectionPaths.contains(indexPath.section) {
+            identifier += "\(self.flowState)"
         }
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
@@ -482,15 +555,15 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             self.register(cls, forCellReuseIdentifier: identifier)
         }
         // Dequeue cell
-        let cell = self.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! HTableBaseCell
+        let cell = self.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! HFlowBaseCell
         cell.indexPath = indexPath
-        cell.table = self
+        cell.flow = self
         // Save cell
         self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
         // Call delegate method
         var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(indexPath.section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(indexPath.section)
             let selector = #selector(delegate.edgeInsetsForRowAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! UIEdgeInsets
@@ -505,14 +578,14 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     /// UITableViewDatasource  & delegate
-    private func tableSplitPrefix(_ section: Any) -> String {
+    private func flowSplitPrefix(_ section: Any) -> String {
         var prefix = ""
-        if self.tableStyle == .split {
+        if self.flowStyle == .split {
             if self.sectionPaths.contains(section) {
                 let idx: Int = self.sectionPaths.index(of: section)
-                prefix = kTableExaDesignKey + "\(idx)" + "_"
+                prefix = kFlowExaDesignKey + "\(idx)" + "_"
             }else {
-                prefix = kTableDesignKey + "\(self.tableState)" + "_"
+                prefix = kFlowDesignKey + "\(self.flowState)" + "_"
             }
         }
         return prefix
@@ -522,13 +595,13 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         // remove cache data
         self.allReuseIdentifiers.removeAllObjects()
-        // table Style
+        // flow Style
         var sections = 1
-        switch self.tableStyle {
+        switch self.flowStyle {
         case .default:
-            if let delegate = self.tableDelegate {
+            if let delegate = self.flowDelegate {
                 let prefix = ""
-                let selector = #selector(delegate.numberOfSectionsInTableView)
+                let selector = #selector(delegate.numberOfSectionsInFlowView)
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
@@ -536,9 +609,9 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                 sections = max(sections, 1)
             }
         case .split:
-            if let delegate = self.tableDelegate {
-                let prefix = kTableDesignKey + "\(self.tableState)" + "_"
-                let selector = #selector(delegate.numberOfSectionsInTableView)
+            if let delegate = self.flowDelegate {
+                let prefix = kFlowDesignKey + "\(self.flowState)" + "_"
+                let selector = #selector(delegate.numberOfSectionsInFlowView)
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
@@ -551,9 +624,9 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var items = 0
-        if let delegate = self.tableDelegate {
+        if let delegate = self.flowDelegate {
             // Get the number of items
-            let prefix = self.tableSplitPrefix(section)
+            let prefix = self.flowSplitPrefix(section)
             let selector = #selector(delegate.numberOfRowsInSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 items = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! Int
@@ -567,8 +640,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         var height: CGFloat = 0.0
-        if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(section)
             let selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 height = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -586,8 +659,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         var height: CGFloat = 0.0
-        if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(section)
             let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 height = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -606,8 +679,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // The row height cannot be 0, otherwise it will crash.
         var height: CGFloat = 1.0
-        if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(indexPath.section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(indexPath.section)
             let selector = #selector(delegate.heightForRowAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 height = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGFloat
@@ -620,47 +693,55 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Call delegate method
-        if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(indexPath.section)
-            let selector = #selector(delegate.tableRow(_:atIndexPath:))
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(indexPath.section)
+            let selector = #selector(delegate.flowRow(_:atIndexPath:))
             if delegate.responds(to: selector, withPre: prefix) {
                 delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
             }
         }
         // Call cell
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTableBaseCell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HFlowBaseCell
         // Update layout
         if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
             cell.relayoutSubviews()
         }
+        // Update passed cells
+        if self.allPassedCells.count > 20 {
+            self.allPassedCells.removeAllObjects()
+            SDImageCache.shared.clearMemory()
+            SDImageCache.shared.clearDisk(onCompletion: {})
+            KingfisherManager.shared.cache.clearMemoryCache()
+        }
+        self.allPassedCells.setObject(cell, forKey: indexPath.nsStringValue)
         // Prevent crashes
         return cell!
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         // Call delegate method
-        if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(section)
             let selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 // Unique identifier
-                let identifier = "HeaderSpaceCell" + self.addressValue + "\(section)" + "\(self.tableState)"
+                let identifier = "HeaderSpaceCell" + self.addressValue + "\(section)" + "\(self.flowState)"
                 // Register cell if not already registered
                 if !self.allReuseIdentifiers.contains(identifier) {
                     self.allReuseIdentifiers.add(identifier)
-                    self.register(HTableBaseApex.self, forHeaderFooterViewReuseIdentifier: identifier)
+                    self.register(HFlowBaseApex.self, forHeaderFooterViewReuseIdentifier: identifier)
                 }
                 // Dequeue cell
                 return self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
             } else {
-                let selector = #selector(delegate.tableHeader(_:inSection:))
+                let selector = #selector(delegate.flowHeader(_:inSection:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     delegate.perform(selector, with: self, with: section, withPre: prefix)
                 }
             }
         }
         // Update layout
-        let cell = self.allReuseHeaders.object(forKey: "\(section)" as NSString) as? HTableBaseApex
+        let cell = self.allReuseHeaders.object(forKey: "\(section)" as NSString) as? HFlowBaseApex
         if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
             cell.relayoutSubviews()
         }
@@ -668,28 +749,28 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         // Call delegate method
-        if let delegate = self.tableDelegate {
-            let prefix = self.tableSplitPrefix(section)
+        if let delegate = self.flowDelegate {
+            let prefix = self.flowSplitPrefix(section)
             let selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 // Unique identifier
-                let identifier = "FooterSpaceCell" + self.addressValue + "\(section)" + "\(self.tableState)"
+                let identifier = "FooterSpaceCell" + self.addressValue + "\(section)" + "\(self.flowState)"
                 // Register cell if not already registered
                 if !self.allReuseIdentifiers.contains(identifier) {
                     self.allReuseIdentifiers.add(identifier)
-                    self.register(HTableBaseApex.self, forHeaderFooterViewReuseIdentifier: identifier)
+                    self.register(HFlowBaseApex.self, forHeaderFooterViewReuseIdentifier: identifier)
                 }
                 // Dequeue cell
                 return self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
             } else {
-                let selector = #selector(delegate.tableFooter(_:inSection:))
+                let selector = #selector(delegate.flowFooter(_:inSection:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     delegate.perform(selector, with: self, with: section, withPre: prefix)
                 }
             }
         }
         // Update layout
-        let cell = self.allReuseFooters.object(forKey: "\(section)" as NSString) as? HTableBaseApex
+        let cell = self.allReuseFooters.object(forKey: "\(section)" as NSString) as? HFlowBaseApex
         if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
             cell.relayoutSubviews()
         }
@@ -697,11 +778,11 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTableBaseCell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HFlowBaseCell
         if let willDisplayBlock = cell?.willDisplayBlock {
             willDisplayBlock()
-        }else if let delegate = self.tableDelegate, let cell = cell {
-            let prefix = self.tableSplitPrefix(indexPath.section)
+        }else if let delegate = self.flowDelegate, let cell = cell {
+            let prefix = self.flowSplitPrefix(indexPath.section)
             let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
             if delegate.responds(to: selector, withPre: prefix) {
                 delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
@@ -710,11 +791,11 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTableBaseCell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HFlowBaseCell
         if let selectBlock = cell?.selectBlock {
             selectBlock()
-        }else if let delegate = self.tableDelegate, let cell = cell {
-            let prefix = self.tableSplitPrefix(indexPath.section)
+        }else if let delegate = self.flowDelegate, let cell = cell {
+            let prefix = self.flowSplitPrefix(indexPath.section)
             let selector = #selector(delegate.didSelectCell(_:atIndexPath:))
             if delegate.responds(to: selector, withPre: prefix) {
                 delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
@@ -722,29 +803,57 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    /// UIScrollViewDelegate
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard let delegate = self.flowDelegate else { return }
+        let selector = NSSelectorFromString("flowViewDidScroll:")
+        if delegate.responds(to: selector) {
+            delegate.perform(selector, with: scrollView)
+        }
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        // Update passed cells
+        if !decelerate, self.allPassedCells.count > 5 {
+            self.allPassedCells.removeAllObjects()
+            SDImageCache.shared.clearMemory()
+            SDImageCache.shared.clearDisk(onCompletion: {})
+            KingfisherManager.shared.cache.clearMemoryCache()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        // Update passed cells
+        if self.allPassedCells.count > 5 {
+            self.allPassedCells.removeAllObjects()
+            SDImageCache.shared.clearMemory()
+            SDImageCache.shared.clearDisk(onCompletion: {})
+            KingfisherManager.shared.cache.clearMemoryCache()
+        }
+    }
 }
 
 /// Signal mechanism classification
-extension HTableView {
+extension HFlowView {
 
-    /// Signal block held by tableView
-    var signalBlock: HTableCellSignalBlock? {
-        get { return self.getAssociatedValueForKey(&kTableSignalKey) as? HTableCellSignalBlock }
-        set { self.setAssociateCopyValue(newValue, key: &kTableSignalKey) }
+    /// Signal block held by flowView
+    var signalBlock: HFlowCellSignalBlock? {
+        get { return self.getAssociatedValueForKey(&kFlowSignalKey) as? HFlowCellSignalBlock }
+        set { self.setAssociateCopyValue(newValue, key: &kFlowSignalKey) }
     }
     
-    /// Send a signal to the tableView
-    func signalToTableView(_ signal: HTableSignal?, _ completion: @escaping () -> Void) {
+    /// Send a signal to the flowView
+    func signalToFlowView(_ signal: HFlowSignal?, _ completion: @escaping () -> Void) {
         guard let signalBlock = self.signalBlock else { return }
         signalBlock(self, signal)
         completion()
     }
 
     /// Send signals to all items, items under a certain section, or a single item individually
-    func signalToAllItems(_ signal: HTableSignal?, _ completion: @escaping () -> Void) {
+    func signalToAllItems(_ signal: HFlowSignal?, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
-            let tables = self.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HTableBaseCell }
-            tables?.forEach { cell in
+            let flows = self.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HFlowBaseCell }
+            flows?.forEach { cell in
                 DispatchQueue.main.async {
                     cell.signalBlock?(cell, signal)
                 }
@@ -755,12 +864,12 @@ extension HTableView {
         }
     }
 
-    func signal(_ signal: HTableSignal?, itemSection section: Int, _ completion: @escaping () -> Void) {
+    func signal(_ signal: HFlowSignal?, itemSection section: Int, _ completion: @escaping () -> Void) {
         let items = self.numberOfRows(inSection: section)
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: items) { i in
-                let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HTableBaseCell
+                let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HFlowBaseCell
                 if let cell = cell, let signalBlock = cell.signalBlock {
                     DispatchQueue.main.async(group: group) {
                         signalBlock(cell, signal)
@@ -774,8 +883,8 @@ extension HTableView {
         }
     }
 
-    func signal(_ signal: HTableSignal?, toRow row: Int, inSection section: Int, _ completion: @escaping () -> Void) {
-        let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section)) as? HTableBaseCell
+    func signal(_ signal: HFlowSignal?, toRow row: Int, inSection section: Int, _ completion: @escaping () -> Void) {
+        let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section)) as? HFlowBaseCell
         if let cell = cell, let signalBlock = cell.signalBlock {
             signalBlock(cell, signal)
         }
@@ -783,12 +892,12 @@ extension HTableView {
     }
 
     /// Send signals to all headers or a single header individually
-    func signalToAllHeader(_ signal: HTableSignal?, _ completion: @escaping () -> Void) {
+    func signalToAllHeader(_ signal: HFlowSignal?, _ completion: @escaping () -> Void) {
         let sections = self.numberOfSections
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: sections) { i in
-                let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HTableBaseApex
+                let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HFlowBaseApex
                 if let header = header, let signalBlock = header.signalBlock {
                     DispatchQueue.main.async(group: group) {
                         signalBlock(header, signal)
@@ -802,8 +911,8 @@ extension HTableView {
         }
     }
 
-    func signal(_ signal: HTableSignal?, headerSection section: Int, _ completion: @escaping () -> Void) {
-        let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section)) as? HTableBaseApex
+    func signal(_ signal: HFlowSignal?, headerSection section: Int, _ completion: @escaping () -> Void) {
+        let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section)) as? HFlowBaseApex
         if let header = header, let signalBlock = header.signalBlock {
             signalBlock(header, signal)
         }
@@ -811,12 +920,12 @@ extension HTableView {
     }
 
     /// Send signals to all footers or a single footer separately
-    func signalToAllFooter(_ signal: HTableSignal?, _ completion: @escaping () -> Void) {
+    func signalToAllFooter(_ signal: HFlowSignal?, _ completion: @escaping () -> Void) {
         let sections = self.numberOfSections
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: sections) { i in
-                let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HTableBaseApex
+                let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HFlowBaseApex
                 if let footer = footer, let signalBlock = footer.signalBlock {
                     DispatchQueue.main.async(group: group) {
                         signalBlock(footer, signal)
@@ -830,8 +939,8 @@ extension HTableView {
         }
     }
 
-    func signal(_ signal: HTableSignal?, footerSection section: Int, _ completion: @escaping () -> Void) {
-        let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section)) as? HTableBaseApex
+    func signal(_ signal: HFlowSignal?, footerSection section: Int, _ completion: @escaping () -> Void) {
+        let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section)) as? HFlowBaseApex
         if let footer = footer, let signalBlock = footer.signalBlock {
             signalBlock(footer, signal)
         }
@@ -844,16 +953,16 @@ extension HTableView {
             self.signalBlock = nil
             //release all cell
             self.allReuseCells.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HTableBaseCell)?.signalBlock = nil
-                ($0 as? HTableBaseCell)?.selectBlock = nil
+                ($0 as? HFlowBaseCell)?.signalBlock = nil
+                ($0 as? HFlowBaseCell)?.selectBlock = nil
             }
             //release all header
             self.allReuseHeaders.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HTableBaseApex)?.signalBlock = nil
+                ($0 as? HFlowBaseApex)?.signalBlock = nil
             }
             //release all footer
             self.allReuseFooters.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HTableBaseApex)?.signalBlock = nil
+                ($0 as? HFlowBaseApex)?.signalBlock = nil
             }
         }
     }
@@ -865,32 +974,32 @@ extension HTableView {
 
 }
 
-private var Table_State_Key = "_table_"
+private var Flow_State_Key = "_flow_"
 
 /// Design data storage category for split
-extension HTableView {
+extension HFlowView {
 
-    private var tableStateSource: NSMutableDictionary {
+    private var flowStateSource: NSMutableDictionary {
         get {
-            if let dict = self.getAssociatedValueForKey(&kTableStateSourceKey) as? NSMutableDictionary {
+            if let dict = self.getAssociatedValueForKey(&kFlowStateSourceKey) as? NSMutableDictionary {
                 return dict
             } else {
                 let dict = NSMutableDictionary()
-                self.setAssociateValue(dict, key: &kTableStateSourceKey)
+                self.setAssociateValue(dict, key: &kFlowStateSourceKey)
                 return dict
             }
         }
     }
     
-    /// The state represented by tableView split design
-    var tableState: Int {
+    /// The state represented by flowView split design
+    var flowState: Int {
         get {
-            let value = self.getAssociatedValueForKey(&kTableStateKey) as? NSNumber ?? NSNumber(value: 0)
+            let value = self.getAssociatedValueForKey(&kFlowStateKey) as? NSNumber ?? NSNumber(value: 0)
             return value.intValue
         }
         set {
-            if newValue != self.tableState {
-                self.setAssociateValue(NSNumber(value: newValue), key: &kTableStateKey)
+            if newValue != self.flowState {
+                self.setAssociateValue(NSNumber(value: newValue), key: &kFlowStateKey)
                 self.reloadData()
             }
         }
@@ -898,37 +1007,37 @@ extension HTableView {
 
     /// Add a value to a certain state
     func setObject(_ anObject: Any, forKey aKey: String, state: Int) {
-        let key = aKey + Table_State_Key + "\(state)"
-        self.tableStateSource.setObject(anObject, forKey: key as NSCopying)
+        let key = aKey + Flow_State_Key + "\(state)"
+        self.flowStateSource.setObject(anObject, forKey: key as NSCopying)
     }
 
     /// Get a value of a certain state
     func object(forKey aKey: String, state: Int) -> Any? {
-        let key = aKey + Table_State_Key + "\(state)"
-        return self.tableStateSource.object(forKey: key)
+        let key = aKey + Flow_State_Key + "\(state)"
+        return self.flowStateSource.object(forKey: key)
     }
 
     /// Remove a value in a certain state
     func removeObject(forKey aKey: String, state: Int) {
-        let key = aKey + Table_State_Key + "\(state)"
-        self.tableStateSource.removeObject(forKey: key)
+        let key = aKey + Flow_State_Key + "\(state)"
+        self.flowStateSource.removeObject(forKey: key)
     }
 
     /// Remove the value of a certain state
     func removeObject(forState state: Int) {
-        let key = Table_State_Key + "\(state)"
-        for (aKey, _) in self.tableStateSource.reversed() {
+        let key = Flow_State_Key + "\(state)"
+        for (aKey, _) in self.flowStateSource.reversed() {
             let aKey = aKey as! String
             if key == aKey {
-                self.tableStateSource.removeObject(forKey: aKey)
+                self.flowStateSource.removeObject(forKey: aKey)
             }
         }
         
     }
 
     /// Remove all values ​​of the state
-    func clearTableState() {
-        self.tableStateSource.removeAllObjects()
+    func clearFlowState() {
+        self.flowStateSource.removeAllObjects()
     }
 
 }

@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import SDWebImage
 
 enum HTupleStyle {
     case tuple // Singleton design
@@ -275,9 +276,6 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     // tuple align
     var tupleAlign: HTupleAlign = .default
-    
-    // cell height
-    var cellHeights: [Int: CGFloat] = [:]
 
     private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
@@ -1012,6 +1010,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             // Update passed cells
             if self.allPassedCells.count > 20 {
                 self.allPassedCells.removeAllObjects()
+                SDImageCache.shared.clearMemory()
+                SDImageCache.shared.clearDisk(onCompletion: {})
                 KingfisherManager.shared.cache.clearMemoryCache()
             }
             self.allPassedCells.setObject(cell, forKey: indexPath.nsStringValue)
@@ -1042,6 +1042,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             // Update passed cells
             if self.allPassedCells.count > 20 {
                 self.allPassedCells.removeAllObjects()
+                SDImageCache.shared.clearMemory()
+                SDImageCache.shared.clearDisk(onCompletion: {})
                 KingfisherManager.shared.cache.clearMemoryCache()
             }
             self.allPassedCells.setObject(cell, forKey: indexPath.nsStringValue)
@@ -1269,6 +1271,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Update passed cells
         if !decelerate, self.allPassedCells.count > 5 {
             self.allPassedCells.removeAllObjects()
+            SDImageCache.shared.clearMemory()
+            SDImageCache.shared.clearDisk(onCompletion: {})
             KingfisherManager.shared.cache.clearMemoryCache()
         }
     }
@@ -1292,6 +1296,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Update passed cells
         if self.allPassedCells.count > 5 {
             self.allPassedCells.removeAllObjects()
+            SDImageCache.shared.clearMemory()
+            SDImageCache.shared.clearDisk(onCompletion: {})
             KingfisherManager.shared.cache.clearMemoryCache()
         }
     }

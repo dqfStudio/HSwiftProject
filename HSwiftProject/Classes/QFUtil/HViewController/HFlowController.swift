@@ -1,5 +1,5 @@
 //
-//  HTableController.swift
+//  HFlowController.swift
 //  HSwiftProject
 //
 //  Created by Wind on 2019/12/26.
@@ -8,10 +8,10 @@
 
 import UIKit
 
-class HTableController: HViewController, HTableViewDelegate {
+class HFlowController: HViewController, HFlowViewDelegate {
     
-    lazy var tableView: HTableView = {
-        return HTableView(frame: .zero)
+    lazy var flowView: HFlowView = {
+        return HFlowView(frame: .zero)
     }()
     
     /// Whether to use auto layout. Default is YES.
@@ -28,12 +28,12 @@ class HTableController: HViewController, HTableViewDelegate {
         if UIScreen.isIPhoneX {
             extendedInset = UIEdgeInsets(top: 0, left: 0, bottom: UIScreen.bottomBarHeight, right: 0)
         }
-        view.addSubview(tableView)
+        view.addSubview(flowView)
     }
 
     override func vcWillDisappear(_ type: HVCDisappearType) {
         if type == .pop || type == .dismiss {
-            tableView.releaseTableBlock()
+            flowView.releaseFlowBlock()
         }
     }
 
@@ -46,10 +46,10 @@ class HTableController: HViewController, HTableViewDelegate {
                 frame.size.height -= UIScreen.topBarHeight
             }
             frame.size.height -= bottomExtendedHeight
-            self.tableView.frame = frame
+            self.flowView.frame = frame
             if extendedInset != .zero {//If the value has been set
-                if self.tableView.contentInset != extendedInset {//If the set value is not equal to the current value
-                    self.tableView.contentInset = extendedInset
+                if self.flowView.contentInset != extendedInset {//If the set value is not equal to the current value
+                    self.flowView.contentInset = extendedInset
                 }
             }
         }
