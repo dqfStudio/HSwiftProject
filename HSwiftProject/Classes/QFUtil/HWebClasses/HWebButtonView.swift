@@ -461,4 +461,32 @@ extension UIImage {
         UIGraphicsEndImageContext()
         return scaledImage
     }
+    
+    func cropToCircle() -> UIImage? {
+        // 1. 获取图片的尺寸
+        let diameter = min(size.width, size.height)
+        
+        // 2. 创建一个正方形的画布，尺寸与图片的最小尺寸相同
+        let squareRect = CGRect(x: 0, y: 0, width: diameter, height: diameter)
+        
+        // 3. 创建一个位图图形上下文
+        UIGraphicsBeginImageContextWithOptions(squareRect.size, false, scale)
+        let context = UIGraphicsGetCurrentContext()
+        
+        // 4. 添加圆形路径
+        let circlePath = UIBezierPath(roundedRect: squareRect, cornerRadius: squareRect.width / 2)
+        context?.addPath(circlePath.cgPath)
+        context?.clip()
+        
+        // 5. 绘制图片
+        draw(in: squareRect)
+        
+        // 6. 从图形上下文中获取裁剪后的图片
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        
+        // 7. 结束图形上下文
+        UIGraphicsEndImageContext()
+        
+        return newImage
+    }
 }
