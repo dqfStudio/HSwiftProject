@@ -283,10 +283,10 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     private var allReuseIdentifiers = NSMutableSet()
     private var allAttributes = NSMapTable<NSString, HTupleAttributes>.strongToStrongObjects()
     private var allSectionInsets = NSMapTable<NSString, NSString>.strongToStrongObjects()
-    private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    private var allReuseCells    = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allPassedCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-    private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-    private var allReuseFooters = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    private var allReuseHeaders  = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    private var allReuseFooters  = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
