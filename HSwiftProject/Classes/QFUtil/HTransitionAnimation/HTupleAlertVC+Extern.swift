@@ -160,4 +160,63 @@ extension HTupleAlertVC {
         }
         return alertVC
     }
+    
+    // 仿原生alert通用
+    class func showAlert(message: String,
+                         confirmTitle: String? = "确定".localized(),
+                         cancelTitle: String? = "取消".localized(),
+                         completion: @escaping (_ actionStyle: Int) -> Void) {
+        
+        let alertVC = HTupleAlertVC()
+        alertVC.numberBlock = {
+            return 2
+        }
+        alertVC.heightBlock = { index in
+            if index == 0 {
+                return message.heightWithFont(UIFont.font(ofSize: 17, weight: .medium), 
+                                              constrainedToWidth: kTupleAlertWidth - 48) + 80.5
+            }
+            return 48
+        }
+        alertVC.itemBlock = { [weak alertVC] (tuple, indexPath) in
+            guard let alertVC = alertVC else { return }
+            if indexPath.row == 0 {
+                let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+                cell.edgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+                //cell.setBottomLine(withColor: UIColor.border2, lineHeight: 0.5)
+                cell.label.font = UIFont.font(ofSize: 17, weight: .medium)
+                cell.label.numberOfLines = 0
+                cell.label.textAlignment = .center
+                cell.label.textColor = UIColor.white
+                cell.label.text = message
+            }else {
+                let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
+                let frame = cell.layoutViewBounds
+                let halfWidth = cell.layoutViewBounds.width / 2
+                
+                cell.buttonView.frame = CGRect(x: 0, y: 0, width: halfWidth, height: frame.height)
+                cell.buttonView.textFont = UIFont.font(ofSize: 17, weight: .medium)
+                cell.buttonView.textColor = UIColor.white
+                cell.buttonView.text = cancelTitle
+                cell.buttonView.pressed = { [weak alertVC] (sender, data) in
+                    guard let alertVC = alertVC else { return }
+                    alertVC.naviBack()
+                }
+                
+                cell.label.frame = CGRect(x: halfWidth - 0.5, y: 0, width: 0.5, height: frame.height)
+                //cell.label.backgroundColor = UIColor.border2
+                
+                cell.detailButton.frame = CGRect(x: halfWidth, y: 0, width: halfWidth, height: frame.height)
+                cell.detailButton.textFont = UIFont.font(ofSize: 17, weight: .medium)
+                cell.detailButton.textColor = UIColor.white
+                cell.detailButton.text = confirmTitle
+                cell.detailButton.pressed = { [weak alertVC] (sender, data) in
+                    guard let alertVC = alertVC else { return }
+                    alertVC.naviBack()
+                    completion(indexPath.row)
+                }
+            }
+        }
+        UIApplication.naviTop?.presentController(alertVC, completion: nil)
+    }
 }
