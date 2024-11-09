@@ -1,5 +1,8 @@
 PODS:
   - Alamofire (5.6.1)
+  - GRDB.swift (6.23.0):
+    - GRDB.swift/standard (= 6.23.0)
+  - GRDB.swift/standard (6.23.0)
   - Kingfisher (5.9.0):
     - Kingfisher/Core (= 5.9.0)
   - Kingfisher/Core (5.9.0)
@@ -22,6 +25,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (= 5.6.1)
+  - GRDB.swift (= 6.23.0)
   - Kingfisher (~> 5.9.0)
   - MJRefresh (~> 3.3.1)
   - ReactiveCocoa
@@ -35,6 +39,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - GRDB.swift
     - Kingfisher
     - MJRefresh
     - ReactiveCocoa
@@ -49,6 +54,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
+  GRDB.swift: e819934eb2df28a6907f28d746eb3cf9c7c53b75
   Kingfisher: ff98240aebb7302bdc4f1ecd701761030ce18b16
   MJRefresh: eeda70fbf0ad277f3178cef1cd0c3532591d6237
   ReactiveCocoa: 5d10386f0ce09f922006efbf784881c5fade27c5
@@ -61,6 +67,6 @@ SPEC CHECKSUMS:
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   TABAnimated: 2503f43b82bfeaf4e78c4922630284a46d8108f5
 
-PODFILE CHECKSUM: 8bbcbfabfb97a01c0c3b38496da6e919ce157161
+PODFILE CHECKSUM: e4a7b21a4bbba28bfa40fd53185cbb37660e79fd
 
 COCOAPODS: 1.14.2

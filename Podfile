@@ -13,6 +13,7 @@ target 'HSwiftProject' do
   pod 'Kingfisher',’~> 5.9.0’
   pod 'MJRefresh',’~> 3.3.1’
   pod 'SDWebImage', '~>5.19.0'
+  pod 'GRDB.swift', '6.23.0'
   # 骨架屏
   pod 'TABAnimated', '2.6.3'
 

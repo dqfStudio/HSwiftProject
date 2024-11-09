@@ -11,7 +11,7 @@ import RxSwift
 
 class HUserLoginRequest {
     static func loadData(userID: String,
-                         success: @escaping (_ model: HUserLoginModel?) -> Void,
+                         success: @escaping (_ model: HUserInfo?) -> Void,
                          failure: @escaping (_ error: HNetworkError) -> Void) {
         let oid = "\(Int(Date().timeIntervalSince1970))"
         let param = ["operationID": oid, "userID": userID] as [String : Any]
@@ -22,7 +22,7 @@ class HUserLoginRequest {
         }
     }
     
-    static func dataHandle(_ data: String?) -> HUserLoginModel? {
+    static func dataHandle(_ data: String?) -> HUserInfo? {
 //        guard let result = data,
 //              let tmpData = kHttpCryptor ? AESEncryptor.cfbDecode(key: GlobalInfo.shared.apiKey ?? "", value: (result as? String) ?? "").data(using: .utf8) : result.data(using: .utf8),
 //              let model = try? JSONDecoder().decode(HUserLoginModel.self, from: tmpData) else {
@@ -31,9 +31,4 @@ class HUserLoginRequest {
 //        return model
         return nil
     }
-}
-
-struct HUserLoginModel: Decodable {
-    var userId: String?
-    var userName: String?
 }

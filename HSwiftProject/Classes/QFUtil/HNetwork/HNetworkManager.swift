@@ -19,7 +19,7 @@ enum KNetworkStatus: Int {
 
 class HNetworkManager: NSObject {
     
-    static let shareManager: HNetworkManager = {
+    static let share: HNetworkManager = {
         return HNetworkManager()
     }()
     
