@@ -276,6 +276,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     // tuple align
     var tupleAlign: HTupleAlign = .default
+    
+    // cell height
+    var cellHeights: [Int: CGFloat] = [:]
 
     private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
