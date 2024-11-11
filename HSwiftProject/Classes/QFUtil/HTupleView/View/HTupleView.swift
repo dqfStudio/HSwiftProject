@@ -581,6 +581,13 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             self?.reloadData()
         }
     }
+    
+    func clearAndRealodData() {
+        DispatchQueue.mainAsync { [weak self] in
+            self?.cellHeights.removeAll()
+            self?.reloadData()
+        }
+    }
 
     /// Release method
     @objc
