@@ -45,6 +45,18 @@ class HTableReload: NSObject {
     /// UIScrollViewDelegate
     @objc
     optional func tableViewDidScroll(_ scrollView: UIScrollView)
+    
+    @objc
+    optional func tableViewWillBeginDragging(_ scrollView: UIScrollView)
+    
+    @objc
+    optional func tableViewWillEndDragging(_ velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>)
+    
+    @objc
+    optional func tableViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
+    
+    @objc
+    optional func tableViewDidEndDecelerating(_ scrollView: UIScrollView)
 }
 
 class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
@@ -317,7 +329,28 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    internal func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        guard let delegate = self.tableDelegate else { return }
+        let selector = NSSelectorFromString("tableViewWillBeginDragging:")
+        if delegate.responds(to: selector) {
+            delegate.perform(selector, with: scrollView)
+        }
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        guard let delegate = self.tableDelegate else { return }
+        let selector = NSSelectorFromString("tableViewWillEndDragging:targetContentOffset:")
+        if delegate.responds(to: selector) {
+            delegate.perform(selector, with: velocity, with: targetContentOffset)
+        }
+    }
+    
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard let delegate = self.tableDelegate else { return }
+        let selector = NSSelectorFromString("tableViewDidEndDragging:willDecelerate:")
+        if delegate.responds(to: selector) {
+            delegate.perform(selector, with: scrollView, with: decelerate)
+        }
         // Update passed cells
         if !decelerate, self.allPassedCells.count > 5 {
             self.allPassedCells.removeAllObjects()
@@ -328,6 +361,11 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        guard let delegate = self.tableDelegate else { return }
+        let selector = NSSelectorFromString("tableViewDidEndDecelerating:")
+        if delegate.responds(to: selector) {
+            delegate.perform(selector, with: scrollView)
+        }
         // Update passed cells
         if self.allPassedCells.count > 5 {
             self.allPassedCells.removeAllObjects()
