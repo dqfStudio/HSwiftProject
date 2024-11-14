@@ -1011,20 +1011,23 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 }
             }
             // Call cell
-            let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
-            // Update layout
-            if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-                cell.relayoutSubviews()
+            if let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell {
+                // Update layout
+                if cell.responds(to: #selector(cell.relayoutSubviews)) {
+                    cell.relayoutSubviews()
+                }
+                // Update passed cells
+                if self.allPassedCells.count > 20 {
+                    self.allPassedCells.removeAllObjects()
+                    SDImageCache.shared.clearMemory()
+                    SDImageCache.shared.clearDisk(onCompletion: {})
+                    KingfisherManager.shared.cache.clearMemoryCache()
+                }
+                self.allPassedCells.setObject(cell, forKey: indexPath.nsStringValue)
+                return cell
             }
-            // Update passed cells
-            if self.allPassedCells.count > 20 {
-                self.allPassedCells.removeAllObjects()
-                SDImageCache.shared.clearMemory()
-                SDImageCache.shared.clearDisk(onCompletion: {})
-                KingfisherManager.shared.cache.clearMemoryCache()
-            }
-            self.allPassedCells.setObject(cell, forKey: indexPath.nsStringValue)
-            return cell!
+            self.register(HTupleBaseCell.self, forCellWithReuseIdentifier: HTupleBaseCell.className)
+            return self.dequeueReusableCell(withReuseIdentifier: HTupleBaseCell.className, for: indexPath)
         }else {
             // Call cell
             let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
@@ -1061,7 +1064,6 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     internal func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        var cell: HTupleBaseApex?
         if kind == UICollectionView.elementKindSectionHeader {
             // Call delegate method
             if let delegate = self.tupleDelegate {
@@ -1085,8 +1087,16 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 }
             }
             // Call cell
-            cell = self.allReuseHeaders.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
-        }else if (kind == UICollectionView.elementKindSectionFooter) {
+            if let cell = self.allReuseHeaders.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex {
+                // Update layout
+                if cell.responds(to: #selector(cell.relayoutSubviews)) {
+                    cell.relayoutSubviews()
+                }
+                return cell
+            }
+            self.register(HTupleBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HTupleBaseApex.className)
+            return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HTupleBaseApex.className, for: indexPath)
+        }else {
             // Call delegate method
             if let delegate = self.tupleDelegate {
                 let prefix = self.tupleSplitPrefix(indexPath.section)
@@ -1109,13 +1119,16 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 }
             }
             // Call cell
-            cell = self.allReuseFooters.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
+            if let cell = self.allReuseFooters.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex {
+                // Update layout
+                if cell.responds(to: #selector(cell.relayoutSubviews)) {
+                    cell.relayoutSubviews()
+                }
+                return cell
+            }
+            self.register(HTupleBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HTupleBaseApex.className)
+            return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HTupleBaseApex.className, for: indexPath)
         }
-        // Update layout
-        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-            cell.relayoutSubviews()
-        }
-        return cell!
     }
 
     internal func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

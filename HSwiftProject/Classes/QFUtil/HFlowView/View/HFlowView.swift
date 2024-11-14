@@ -709,21 +709,23 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
             }
         }
         // Call cell
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HFlowBaseCell
-        // Update layout
-        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-            cell.relayoutSubviews()
+        if let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HFlowBaseCell {
+            // Update layout
+            if cell.responds(to: #selector(cell.relayoutSubviews)) {
+                cell.relayoutSubviews()
+            }
+            // Update passed cells
+            if self.allPassedCells.count > 20 {
+                self.allPassedCells.removeAllObjects()
+                SDImageCache.shared.clearMemory()
+                SDImageCache.shared.clearDisk(onCompletion: {})
+                KingfisherManager.shared.cache.clearMemoryCache()
+            }
+            self.allPassedCells.setObject(cell, forKey: indexPath.nsStringValue)
+            return cell
         }
-        // Update passed cells
-        if self.allPassedCells.count > 20 {
-            self.allPassedCells.removeAllObjects()
-            SDImageCache.shared.clearMemory()
-            SDImageCache.shared.clearDisk(onCompletion: {})
-            KingfisherManager.shared.cache.clearMemoryCache()
-        }
-        self.allPassedCells.setObject(cell, forKey: indexPath.nsStringValue)
-        // Prevent crashes
-        return cell!
+        self.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.className)
+        return self.dequeueReusableCell(withIdentifier: UITableViewCell.className, for: indexPath)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

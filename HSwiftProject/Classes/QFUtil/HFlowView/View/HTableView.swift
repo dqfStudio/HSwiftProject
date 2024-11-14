@@ -252,8 +252,8 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
                 if let cell = cell { return cell }
             }
         }
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.className)
-        return tableView.dequeueReusableCell(withIdentifier: UITableViewCell.className, for: indexPath)
+        self.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.className)
+        return self.dequeueReusableCell(withIdentifier: UITableViewCell.className, for: indexPath)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
