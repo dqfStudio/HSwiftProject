@@ -447,13 +447,17 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     /// Release method
     @objc
     func releaseFlowBlock() {
-        DispatchQueue.global().async {
-            self.releaseAllSignal()
-            self.clearFlowState()
+        DispatchQueue.global().async { [weak self] in
+            self?.releaseAllSignal()
+            self?.clearFlowState()
 
-            self.flowDelegate = nil
-            self.refreshBlock = nil
-            self.loadMoreBlock = nil
+            DispatchQueue.main.async { [weak self] in
+                self?.flowDelegate = nil
+                self?.loadMoreBlock = nil
+                self?.refreshBlock = nil
+                self?.dataSource = nil
+                self?.delegate = nil
+            }
         }
     }
 
@@ -463,6 +467,10 @@ class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+        self.removeFromSuperview()
+        self.flowDelegate = nil
+        self.dataSource = nil
+        self.delegate = nil
     }
     
     /// Register class

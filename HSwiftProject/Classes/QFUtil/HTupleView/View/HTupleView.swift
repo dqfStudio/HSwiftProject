@@ -590,7 +590,6 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             self?.clearTupleState()
 
             DispatchQueue.main.async { [weak self] in
-                self?.removeFromSuperview()
                 self?.tupleDelegate = nil
                 self?.loadMoreBlock = nil
                 self?.refreshBlock = nil
@@ -631,6 +630,10 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+        self.removeFromSuperview()
+        self.tupleDelegate = nil
+        self.dataSource = nil
+        self.delegate = nil
     }
 
     /// Register class

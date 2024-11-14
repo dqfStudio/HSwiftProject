@@ -146,6 +146,10 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+        self.removeFromSuperview()
+        self.tableDelegate = nil
+        self.dataSource = nil
+        self.delegate = nil
     }
     
     /// The following are the delegate methods for UITableView.
