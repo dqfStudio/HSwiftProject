@@ -467,16 +467,18 @@ class HTupleTmplView: UICollectionView, UICollectionViewDelegate, UICollectionVi
             }
         }
         // Call cell
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
-        // Update layout
-        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-            cell.relayoutSubviews()
+        if let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell {
+            // Update layout
+            if cell.responds(to: #selector(cell.relayoutSubviews)) {
+                cell.relayoutSubviews()
+            }
+            return cell
         }
-        return cell!
+        self.register(HTupleBaseCell.self, forCellWithReuseIdentifier: HTupleBaseCell.className)
+        return self.dequeueReusableCell(withReuseIdentifier: HTupleBaseCell.className, for: indexPath)
     }
 
     internal func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        var cell: HTupleBaseApex?
         if kind == UICollectionView.elementKindSectionHeader {
             // Call delegate method
             if let delegate = self.tupleDelegate {
@@ -500,8 +502,16 @@ class HTupleTmplView: UICollectionView, UICollectionViewDelegate, UICollectionVi
                 }
             }
             // Call cell
-            cell = self.allReuseHeaders.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
-        }else if (kind == UICollectionView.elementKindSectionFooter) {
+            if let cell = self.allReuseHeaders.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex {
+                // Update layout
+                if cell.responds(to: #selector(cell.relayoutSubviews)) {
+                    cell.relayoutSubviews()
+                }
+                return cell
+            }
+            self.register(HTupleBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HTupleBaseApex.className)
+            return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HTupleBaseApex.className, for: indexPath)
+        }else {
             // Call delegate method
             if let delegate = self.tupleDelegate {
                 let prefix = self.tupleSplitPrefix(indexPath.section)
@@ -524,13 +534,16 @@ class HTupleTmplView: UICollectionView, UICollectionViewDelegate, UICollectionVi
                 }
             }
             // Call cell
-            cell = self.allReuseFooters.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex
+            if let cell = self.allReuseFooters.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex {
+                // Update layout
+                if cell.responds(to: #selector(cell.relayoutSubviews)) {
+                    cell.relayoutSubviews()
+                }
+                return cell
+            }
+            self.register(HTupleBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HTupleBaseApex.className)
+            return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HTupleBaseApex.className, for: indexPath)
         }
-        // Update layout
-        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-            cell.relayoutSubviews()
-        }
-        return cell!
     }
 
     internal func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
