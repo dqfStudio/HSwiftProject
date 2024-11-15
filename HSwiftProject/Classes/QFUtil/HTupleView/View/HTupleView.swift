@@ -271,8 +271,13 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     // tuple mode
     private var tupleMode: HTupleMode = .delegate
     
-    // delay reload
+    // delay reload tuple
     private var tupleReload = HTupleReload()
+    
+    // delay reload item
+    private var allReloadItems: [IndexPath] = []
+    private var reloadedItems: [IndexPath] = []
+    private var itemReload = HTupleReload()
     
     // tuple align
     var tupleAlign: HTupleAlign = .default
@@ -571,6 +576,42 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 self.reloadAsync(delay)
             }else {
                 self.tupleReload.isRefresh = false
+            }
+        }
+    }
+    
+    // 多少秒内只刷新一次
+    func reloadItemsIfNeeded(at indexPaths: [IndexPath], _ delay: TimeInterval = 0.25) {
+        self.allReloadItems.append(contentsOf: indexPaths)
+        
+        if self.itemReload.isRefresh {
+            self.itemReload.needRefresh = true
+        }else {
+            self.reloadItemsAsync(at: indexPaths, delay)
+        }
+    }
+    
+    private func reloadItemsAsync(at indexPaths: [IndexPath], _ delay: TimeInterval) {
+        self.itemReload.isRefresh = true
+        self.itemReload.needRefresh = false
+        self.reloadedItems.append(contentsOf: indexPaths)
+        DispatchQueue.mainAsync { [weak self] in
+            self?.reloadItems(at: indexPaths)
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+            guard let self = self else { return }
+            if self.itemReload.needRefresh {
+                // 更改标签
+                self.itemReload.needRefresh = false
+                // 将数组转换为集合，通过集合差集操作实现删除效果
+                let finalArrayAll = Array(Set(self.allReloadItems).subtracting(Set(self.reloadedItems)))
+                if !finalArrayAll.isEmpty { //递归调用
+                    self.reloadItemsAsync(at: finalArrayAll, delay)
+                }
+            }else {
+                self.itemReload.isRefresh = false
+                self.allReloadItems.removeAll()
+                self.reloadedItems.removeAll()
             }
         }
     }
