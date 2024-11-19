@@ -13,9 +13,9 @@ class HActiveView: UIStackView, HTupleViewDelegate {
     weak var activeBar: HActivebar?
     
     // 是否可以滚动
-    var contentScrollEnabled: Bool = true {
+    var isScrollEnabled: Bool = true {
         didSet {
-            tupleView.isScrollEnabled = contentScrollEnabled
+            tupleView.isScrollEnabled = isScrollEnabled
         }
     }
     
@@ -67,7 +67,7 @@ class HActiveView: UIStackView, HTupleViewDelegate {
         // 添加列表
         tupleView.delegate = self
         tupleView.isPagingEnabled = true
-        tupleView.isScrollEnabled = contentScrollEnabled
+        tupleView.isScrollEnabled = isScrollEnabled
         self.addArrangedSubview(tupleView)
     }
     
@@ -88,7 +88,7 @@ extension HActiveView {
         return self.viewControllers.count
     }
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return self.bounds.size
+        return self.tupleView.size
     }
     func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
         self.activeBar?.selectedIndex = indexPath.row
