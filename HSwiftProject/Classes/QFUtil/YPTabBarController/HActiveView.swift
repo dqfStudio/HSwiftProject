@@ -10,7 +10,20 @@ import UIKit
 
 class HActiveView: UIStackView, HTupleViewDelegate {
     
-    weak var activeBar: HActivebar?
+    private var selectedIndexs: [Int] = []
+    
+    weak var activeBar: HActivebar? {
+        didSet {
+            if let activeBar = activeBar, activeBar != oldValue {
+                // activeBar点击回调
+                activeBar.activeViewSelectBlock = { [weak self] index in
+                    guard let self = self else { return }
+                    let indexPath = IndexPath(row: index, section: 0)
+                    self.tupleView.scrollToItem(at: indexPath, at: .right, animated: false)
+                }
+            }
+        }
+    }
     
     // 是否可以滚动
     var isScrollEnabled: Bool = true {
@@ -83,12 +96,6 @@ class HActiveView: UIStackView, HTupleViewDelegate {
         viewControllers.forEach({ vc in
             self.containerViewController?.addChild(vc)
         })
-        // activeBar点击回调
-        self.activeBar?.activeViewSelectBlock = { [weak self] index in
-            guard let self = self else { return }
-            let indexPath = IndexPath(row: index, section: 0)
-            self.tupleView.scrollToItem(at: indexPath, at: .right, animated: false)
-        }
     }
 
     private var containerViewController: UIViewController? {
@@ -112,9 +119,24 @@ extension HActiveView {
     }
     func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
         self.activeBar?.selectedIndex = indexPath.row
+        // 重建生命周期
+        self.viewControllers.enumerated().forEach { (index, vc) in
+            // 只有被选中过的才需要重建生命周期
+            if self.selectedIndexs.contains(index) {
+                if indexPath.row == index {
+                    vc.viewWillAppear(true)
+                    vc.viewDidAppear(true)
+                } else {
+                    vc.viewWillDisappear(true)
+                    vc.viewDidDisappear(true)
+                }
+            }
+        }
+        // 记录是否被选中过
+        self.selectedIndexs.append(indexPath.row)
     }
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HTupleBaseCell.self, nil, false, indexPath) as! HTupleBaseCell
+        let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
         let vc = self.viewControllers[indexPath.row]
         vc.view.frame = cell.layoutViewBounds
         if vc.view.superview == nil {
