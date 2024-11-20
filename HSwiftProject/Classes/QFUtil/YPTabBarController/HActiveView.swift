@@ -21,6 +21,12 @@ class HActiveView: UIStackView, HTupleViewDelegate {
     
     var viewControllers: [UIViewController] = [] {
         didSet {
+            oldValue.forEach({ vc in
+                vc.removeFromParent()
+                if vc.isViewLoaded {
+                    vc.view.removeFromSuperview()
+                }
+            })
             self.tupleView.reloadTupleData()
         }
     }
@@ -73,6 +79,10 @@ class HActiveView: UIStackView, HTupleViewDelegate {
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
+        // 添加子vc
+        viewControllers.forEach({ vc in
+            self.containerViewController?.addChild(vc)
+        })
         // activeBar点击回调
         self.activeBar?.activeViewSelectBlock = { [weak self] index in
             guard let self = self else { return }
@@ -81,6 +91,16 @@ class HActiveView: UIStackView, HTupleViewDelegate {
         }
     }
 
+    private var containerViewController: UIViewController? {
+        var view: UIView? = self
+        while let currentView = view {
+            if let nextResponder = currentView.next as? UIViewController {
+                return nextResponder
+            }
+            view = currentView.superview
+        }
+        return nil
+    }
 }
 
 extension HActiveView {
