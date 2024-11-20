@@ -19,7 +19,8 @@ extension UINavigationItem {
             return leftItem
         }
         let buttonView = HNavigationItem(frame: .zero)
-        buttonView.titleLabel?.font = UIFont.font(ofSize: 16, weight: .regular)
+        //buttonView.contentEdgeInsets = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 0)
+        buttonView.titleLabel?.font = UIFont.font(ofSize: 17, weight: .medium)
         buttonView.contentHorizontalAlignment = .left
         buttonView.textColor = .black
         self.setAssociateValue(buttonView, key: &kHVCNaviLeftItemKey)
@@ -33,7 +34,7 @@ extension UINavigationItem {
         }
         let labelView = UILabel(frame: .zero)
         labelView.font = UIFont.font(ofSize: 17, weight: .medium)
-        labelView.textColor = UIColor.black
+        labelView.textColor = UIColor.white
         labelView.textAlignment = .center
         self.setAssociateValue(labelView, key: &kHVCNaviTitleItemKey)
         self.titleView = labelView
@@ -45,7 +46,8 @@ extension UINavigationItem {
             return rightItem
         }
         let buttonView = HNavigationItem(frame: .zero)
-        buttonView.titleLabel?.font = UIFont.font(ofSize: 16, weight: .regular)
+        //buttonView.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -8)
+        buttonView.titleLabel?.font = UIFont.font(ofSize: 17, weight: .medium)
         buttonView.contentHorizontalAlignment = .right
         buttonView.textColor = .black
         self.setAssociateValue(buttonView, key: &kHVCNaviRightItemKey)
