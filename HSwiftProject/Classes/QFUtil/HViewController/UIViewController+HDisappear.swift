@@ -59,7 +59,7 @@ extension UIViewController {
     @objc
     func naviBack(_ completion: (() -> Void)? = nil) {
         if let navi = self.navigationController {
-            if navi.isKind(of: HNavigationController.self), self.isKind(of: HBaseController.self) {
+            if navi.isKind(of: HBaseNaviController.self), self.isKind(of: HBaseController.self) {
                 switch (self.appearType) {
                 case .undefine, .present:
                     // dismiss with present animation
