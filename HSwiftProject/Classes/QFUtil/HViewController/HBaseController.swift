@@ -216,8 +216,7 @@ extension UIViewController {
     }
     
     func popChildViewController() {
-        if children.count == 1 {
-            let vc = children.last!
+        if children.count == 1, let vc = children.last {
             vc.view.removeFromSuperview()
             vc.removeFromParent()
         } else if children.count >= 2 {
