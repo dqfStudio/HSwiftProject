@@ -86,16 +86,6 @@ class HBaseController: UIViewController {
         let naviBar = self.prefersNavigationBarHidden ? 0 : UIScreen.naviBarHeight
         return statusBar + naviBar
     }
-
-    // This function is called when the left item is pressed
-    func leftNaviItemPressed() {
-        self.naviBack()
-    }
-
-    // This function is called when the right item is pressed
-    func rightNaviItemPressed() {
-        
-    }
     
     /// Navigation bar status control
     func setNeedsNavigationBarAppearanceUpdate() { }

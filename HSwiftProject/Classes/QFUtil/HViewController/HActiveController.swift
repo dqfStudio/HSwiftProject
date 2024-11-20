@@ -21,18 +21,6 @@ class HActiveController: HBaseController {
     var navigationBar: UINavigationBar? {
         return self.navigationController?.navigationBar
     }
-    
-    // Navigation item
-    override var navigationItem: UINavigationItem {
-        let naviItem = super.navigationItem
-        naviItem.leftItem.pressedBlock = { [weak self] in
-            self?.leftNaviItemPressed()
-        }
-        naviItem.rightItem.pressedBlock = { [weak self] in
-            self?.rightNaviItemPressed()
-        }
-        return naviItem
-    }
 
     /// Navigation bar status control
     override func setNeedsNavigationBarAppearanceUpdate() {

@@ -50,10 +50,9 @@ class HNavigationBar: UIStackView, HTupleViewDelegate {
         buttonView.contentHorizontalAlignment = .left
         buttonView.backgroundColor = UIColor.clear
         buttonView.textColor = UIColor.black
-        buttonView.refreshBlock = { [weak self] in
+        buttonView.refresh = { [weak self] in
             self?.tupleView.reloadTupleData()
         }
-        buttonView.addTarget(self, action: #selector(leftItemPressed))
         return buttonView
     }()
     
@@ -61,11 +60,6 @@ class HNavigationBar: UIStackView, HTupleViewDelegate {
     private var leftItemWidth: CGFloat {
         // Round up and compare size with 44
         return max(ceil(self.leftItem.intrinsicContentSize.width), 44)
-    }
-
-    @objc
-    private func leftItemPressed() {
-        leftItem.pressedBlock?()
     }
 
 
@@ -87,10 +81,9 @@ class HNavigationBar: UIStackView, HTupleViewDelegate {
         buttonView.contentHorizontalAlignment = .right
         buttonView.backgroundColor = UIColor.clear
         buttonView.textColor = UIColor.black
-        buttonView.refreshBlock = { [weak self] in
+        buttonView.refresh = { [weak self] in
             self?.tupleView.reloadTupleData()
         }
-        buttonView.addTarget(self, action: #selector(rightItemPressed))
         return buttonView
     }()
     
@@ -98,11 +91,6 @@ class HNavigationBar: UIStackView, HTupleViewDelegate {
     private var rightItemWidth: CGFloat {
         // Round up and compare size with 44
         return max(ceil(self.rightItem.intrinsicContentSize.width), 44)
-    }
-
-    @objc
-    private func rightItemPressed() {
-        rightItem.pressedBlock?()
     }
     
     // Navigation bottom line bar background color
@@ -130,11 +118,11 @@ class HNavigationBar: UIStackView, HTupleViewDelegate {
     }
     
     deinit {
-        self.leftItem.refreshBlock = nil
-        self.leftItem.pressedBlock = nil
+        self.leftItem.refresh = nil
+        self.leftItem.pressed = nil
         
-        self.rightItem.refreshBlock = nil
-        self.rightItem.pressedBlock = nil
+        self.rightItem.refresh = nil
+        self.rightItem.pressed = nil
 
         self.tupleView.releaseTupleBlock()
     }
@@ -221,12 +209,17 @@ typealias HNavigationItemBlock = () -> Void
 
 // This is a custom UIButton class that is used as a navigation item
 class HNavigationItem: UIButton {
+    
+    // Click time
+    private var pressedInterval: TimeInterval = 0.0
+    
     // It has two blocks that can be set to be executed when the button is pressed or hidden
-    var refreshBlock: HNavigationItemBlock?
-    var pressedBlock: HNavigationItemBlock?
+    var refresh: HNavigationItemBlock?
+    var pressed: HNavigationItemBlock?
 
     // It also has a disableColor property that can be set to change the background color when the button is disabled
-    var disableColor: UIColor?
+    var disableBgColor: UIColor?
+    var disableTextColor: UIColor?
 
     var title: String? {
         get { return self.title(for: .normal) }
@@ -251,19 +244,57 @@ class HNavigationItem: UIButton {
     // If the button is disabled, change the background color to the disableColor property
     override var isEnabled: Bool {
         didSet {
-            backgroundColor = isEnabled ? backgroundColor : disableColor ?? backgroundColor
+            backgroundColor = isEnabled ? backgroundColor : disableBgColor ?? backgroundColor
+            let titleColor = isEnabled ? currentTitleColor : disableTextColor ?? currentTitleColor
+            setTitleColor(titleColor, for: .normal)
             isUserInteractionEnabled = isEnabled
+        }
+    }
+    
+    required init() {
+        super.init(frame: .zero)
+        self.setup()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.setup()
+    }
+
+    required override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.setup()
+    }
+
+    private func setup() {
+        self.backgroundColor = .clear
+        self.layer.masksToBounds = true
+        self.imageView?.contentMode = .scaleAspectFit
+        self.titleLabel?.font = .systemFont(ofSize: 17.0)
+        self.titleLabel?.adjustsFontSizeToFitWidth = true
+        self.addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
+    }
+    
+    @objc
+    private func buttonPressed() {
+        guard let pressed = pressed else { return }
+        // Click time
+        if Date().timeIntervalSince1970 - pressedInterval > 0.5 {
+            // Record click time
+            pressedInterval = Date().timeIntervalSince1970
+            // Callback
+            pressed()
         }
     }
     
     override func setTitle(_ title: String?, for state: UIControl.State) {
         super.setTitle(title, for: state)
-        refreshBlock?()
+        refresh?()
     }
     
     override func setImage(_ image: UIImage?, for state: UIControl.State) {
         super.setImage(image, for: state)
-        refreshBlock?()
+        refresh?()
     }
 
 }

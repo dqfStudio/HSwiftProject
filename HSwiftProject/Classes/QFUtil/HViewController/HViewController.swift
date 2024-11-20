@@ -10,8 +10,6 @@ import UIKit
 
 class HViewController: HBaseController {
     
-    var navigationBarDisappearHidden: Bool = true
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Add custom navigation bar
@@ -26,9 +24,7 @@ class HViewController: HBaseController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if self.navigationBarDisappearHidden {
-            self.navigationController?.setNavigationBarHidden(false, animated: false)
-        }
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func viewWillLayoutSubviews() {
@@ -56,14 +52,7 @@ class HViewController: HBaseController {
         let width = self.view.width
         let height = UIScreen.topBarHeight
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
-        let naviBar = HNavigationBar(frame: frame)
-        naviBar.leftItem.pressedBlock = { [weak self] in
-            self?.leftNaviItemPressed()
-        }
-        naviBar.rightItem.pressedBlock = { [weak self] in
-            self?.rightNaviItemPressed()
-        }
-        return naviBar
+        return HNavigationBar(frame: frame)
     }()
     
     /// Navigation bar status control
