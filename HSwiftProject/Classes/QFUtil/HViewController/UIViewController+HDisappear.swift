@@ -48,12 +48,12 @@ extension UIViewController {
     @objc
     func vcWillDisappear(_ type: HVCDisappearType) { }
     
-    @objc
-    func addNaviLeftItem(_ color: UIColor = UIColor.white) {
-        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "hvc_back_icon"), style: .plain, target: self, action: #selector(naviBack))
-        leftBarButtonItem.tintColor = color
-        self.navigationItem.leftBarButtonItem = leftBarButtonItem
-    }
+//    @objc
+//    func addNaviLeftItem(_ color: UIColor = UIColor.white) {
+//        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "hvc_back_icon"), style: .plain, target: self, action: #selector(naviBack))
+//        leftBarButtonItem.tintColor = color
+//        self.navigationItem.leftBarButtonItem = leftBarButtonItem
+//    }
     
     /// Return event processing
     @objc
