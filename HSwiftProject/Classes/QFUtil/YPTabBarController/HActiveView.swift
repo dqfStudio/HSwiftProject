@@ -40,10 +40,6 @@ class HActiveView: UIStackView, HTupleViewDelegate {
                     vc.view.removeFromSuperview()
                 }
             }
-            // 添加子vc
-            viewControllers.forEach { vc in
-                self.containerViewController?.addChild(vc)
-            }
             self.tupleView.reloadTupleData()
         }
     }
@@ -92,6 +88,14 @@ class HActiveView: UIStackView, HTupleViewDelegate {
         tupleView.isPagingEnabled = true
         tupleView.isScrollEnabled = isScrollEnabled
         self.addArrangedSubview(tupleView)
+    }
+    
+    override func didMoveToSuperview() {
+        super.didMoveToSuperview()
+        // 添加子vc
+        viewControllers.forEach { vc in
+            self.containerViewController?.addChild(vc)
+        }
     }
 
     private var containerViewController: UIViewController? {
