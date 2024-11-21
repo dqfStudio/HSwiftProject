@@ -119,6 +119,14 @@ extension HActiveView {
     }
     func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
         self.activeBar?.selectedIndex = indexPath.row
+        // 添加view
+        let vc = self.viewControllers[indexPath.row]
+        vc.view.frame = cell.layoutViewBounds
+        if vc.view.superview == nil {
+            cell.contentView.addSubview(vc.view)
+            // 记录是否被选中过
+            self.selectedIndexs.append(indexPath.row)
+        }
         // 重建生命周期
         self.viewControllers.enumerated().forEach { (index, vc) in
             // 只有被选中过的才需要重建生命周期
@@ -132,15 +140,8 @@ extension HActiveView {
                 }
             }
         }
-        // 记录是否被选中过
-        self.selectedIndexs.append(indexPath.row)
     }
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath) as! HTupleBaseCell
-        let vc = self.viewControllers[indexPath.row]
-        vc.view.frame = cell.layoutViewBounds
-        if vc.view.superview == nil {
-            cell.contentView.addSubview(vc.view)
-        }
+        _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
     }
 }
