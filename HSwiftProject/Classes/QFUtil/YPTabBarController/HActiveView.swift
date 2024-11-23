@@ -160,7 +160,7 @@ extension HActiveView {
     func tupleViewDidScroll(_ scrollView: UIScrollView) {
         let currentCntOffset = scrollView.contentOffset
         if currentCntOffset.x < previousCntOffset.x { //向左滑
-            let lastIndex =  self.viewControllers.count - 1
+            let lastIndex = self.viewControllers.count - 1
             if self.activeBar?.selectedIndex == lastIndex { //最后一个cell
                 let distance = currentCntOffset.x - scrollView.width * CGFloat(lastIndex)
                 if distance > scrollThreshold { //滑动距离大于阈值
