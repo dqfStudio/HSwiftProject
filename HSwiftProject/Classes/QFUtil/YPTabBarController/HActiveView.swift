@@ -23,7 +23,7 @@ class HActiveView: UIStackView, HTupleViewDelegate {
     // 记录滚动偏移量
     var previousCntOffset = CGPoint.zero
     // 滚动阈值
-    var scrollThreshold: CGFloat = 20.0
+    var scrollThreshold: CGFloat = 10.0
     
     weak var activeBar: HActivebar? {
         didSet {
