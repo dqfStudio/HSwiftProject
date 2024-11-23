@@ -194,7 +194,7 @@ class HActivebar: UIStackView, HTupleViewDelegate {
         
         // 顶部间隔线
         if direction == .horizontal {
-            self.insertSubview(topSeparator, belowSubview: tupleView)
+            self.insertSubview(topSeparator, aboveSubview: tupleView)
         }
         
         // 底部间隔线
