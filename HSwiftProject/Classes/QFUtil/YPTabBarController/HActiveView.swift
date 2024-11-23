@@ -8,9 +8,22 @@
 
 import UIKit
 
+enum HActiveScrollDirection {
+    case left
+    case right
+}
+
+typealias HActiveScrollBlock = (_ direction: HActiveScrollDirection) -> Void
+
 class HActiveView: UIStackView, HTupleViewDelegate {
     
     private var selectedIndexs: [Int] = []
+    // 滚动回调
+    var scrollBlock: HActiveScrollBlock?
+    // 记录滚动偏移量
+    var previousCntOffset = CGPoint.zero
+    // 滚动阈值
+    var scrollThreshold: CGFloat = 20.0
     
     weak var activeBar: HActivebar? {
         didSet {
@@ -143,5 +156,30 @@ extension HActiveView {
     }
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         _ = tuple.reuseCell(HTupleBaseCell.self, nil, true, indexPath)
+    }
+    func tupleViewDidScroll(_ scrollView: UIScrollView) {
+        let currentCntOffset = scrollView.contentOffset
+        if currentCntOffset.x < previousCntOffset.x { //向左滑
+            let lastIndex =  self.viewControllers.count - 1
+            if self.activeBar?.selectedIndex == lastIndex { //最后一个cell
+                let distance = currentCntOffset.x - scrollView.width * CGFloat(lastIndex)
+                if distance > scrollThreshold { //滑动距离大于阈值
+                    // 最后一个cell，正在往左滑动，已滑出阈值距离
+                    self.exclusive(exc: "leftScrollThreshold", delay: 1.0) { [weak self] in
+                        self?.scrollBlock?(.left)
+                    }
+                }
+            }
+        } else if currentCntOffset.x > previousCntOffset.x { //向右滑
+            if self.activeBar?.selectedIndex == 0 { //第一个cell
+                if currentCntOffset.x < -scrollThreshold { //滑动距离大于阈值
+                    // 在第一个cell，正在往右滑动，已滑出阈值距离
+                    self.exclusive(exc: "rightScrollThreshold", delay: 1.0) { [weak self] in
+                        self?.scrollBlock?(.right)
+                    }
+                }
+            }
+        }
+        previousCntOffset = currentCntOffset
     }
 }
