@@ -53,8 +53,10 @@ class HActivebar: UIStackView, HTupleViewDelegate {
     
     //***********header和footer的间隔************//
     
-    var headerSpacing: CGFloat = 1.0 //section最左边间隔
-    var footerSpacing: CGFloat = 1.0 //section最右边间隔
+    var topSpacing: CGFloat = 0.0 //section最上边间隔
+    var bottomSpacing: CGFloat = 0.0 //section最下边间隔
+    var leftSpacing: CGFloat = 0.0 //section最左边间隔
+    var rightSpacing: CGFloat = 0.0 //section最右边间隔
     
     
     //**************item之间的间隔**************//
@@ -228,7 +230,7 @@ extension HActivebar {
     
     @objc
     func tuple0_insetForSection(_ section: Any) -> Any {
-        return UIEdgeInsets(top: headerSpacing, left: 0, bottom: footerSpacing, right: 0)
+        return UIEdgeInsets(top: topSpacing, left: leftSpacing, bottom: bottomSpacing, right: rightSpacing)
     }
     
     @objc
@@ -286,7 +288,7 @@ extension HActivebar {
     
     @objc
     func tuple1_insetForSection(_ section: Any) -> Any {
-        return UIEdgeInsets(top: 0, left: headerSpacing, bottom: 0, right: footerSpacing)
+        return UIEdgeInsets(top: topSpacing, left: leftSpacing, bottom: bottomSpacing, right: rightSpacing)
     }
     
     @objc

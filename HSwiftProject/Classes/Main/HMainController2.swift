@@ -19,8 +19,8 @@ class HMainController2: HViewController {
         let naviBar = HActivebar(frame: frame, direction: .horizontal)
         naviBar.backgroundColor = .yellow
         
-        naviBar.headerSpacing = 16
-        naviBar.footerSpacing = 16
+        naviBar.topSpacing = 16
+        naviBar.bottomSpacing = 16
         naviBar.itemSpacing = 10
         naviBar.indicatorWidth = 20
         naviBar.indicatorHeight = 3
