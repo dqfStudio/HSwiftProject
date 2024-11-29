@@ -9,6 +9,15 @@
 import UIKit
 import Kingfisher
 
+enum HWebGetImageStyle {
+    case local //本地图片
+    case origin //控件原有图片
+    case cache //缓存图片
+    case network //网络图片
+}
+
+typealias HWebGetImageBlock = (_ sender: Any?, _ data: Any?, _ style: HWebGetImageStyle) -> Void
+
 class HWebImageView: UIImageView {
     
     var imageSize: CGSize = .zero {
@@ -44,8 +53,8 @@ class HWebImageView: UIImageView {
     var hasImage: Bool {
         return super.image != nil
     }
-    var didGetImage: Callback?
     var didGetError: Callback?
+    var didGetImage: HWebGetImageBlock?
     
     private var lastURL: String = ""
     // Click time
@@ -187,13 +196,13 @@ extension HWebImageView {
             let image = UIImage(named: urlString)
             self._setImage(image) { [weak self] in
                 guard let self = self else { return }
-                self.didGetImage?(self, self.image)
+                self.didGetImage?(self, self.image, .local)
             }
             return
         }
         
         if self.image != nil && self.lastURL == urlString {
-            self.didGetImage?(self, self.image)
+            self.didGetImage?(self, self.image, .origin)
             return
         }
         
@@ -221,7 +230,7 @@ extension HWebImageView {
                     self._setImage(value.image) { [weak self] in
                         guard let self = self else { return }
                         self.lastURL = url.absoluteString
-                        self.didGetImage?(self, value.image)
+                        self.didGetImage?(self, value.image, .cache)
                     }
                 }else {
                     // 从网络加载图片
@@ -232,7 +241,7 @@ extension HWebImageView {
                             self._setImage(value.image) { [weak self] in
                                 guard let self = self else { return }
                                 self.lastURL = url.absoluteString
-                                self.didGetImage?(self, value.image)
+                                self.didGetImage?(self, value.image, .network)
                             }
                         case .failure(let value):
                             self.didGetError?(self, value as AnyObject)
@@ -248,7 +257,7 @@ extension HWebImageView {
                     self._setImage(value.image) { [weak self] in
                         guard let self = self else { return }
                         self.lastURL = url.absoluteString
-                        self.didGetImage?(self, value.image)
+                        self.didGetImage?(self, value.image, .cache)
                     }
                 }
             }
@@ -260,7 +269,7 @@ extension HWebImageView {
                     self._setImage(value.image) { [weak self] in
                         guard let self = self else { return }
                         self.lastURL = url.absoluteString
-                        self.didGetImage?(self, value.image)
+                        self.didGetImage?(self, value.image, .network)
                     }
                 case .failure(let value):
                     self.didGetError?(self, value as AnyObject)

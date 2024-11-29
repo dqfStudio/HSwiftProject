@@ -53,8 +53,8 @@ class HWebButtonView: UIButton {
         return webImageView.image != nil
     }
     var pressed: Callback?
-    var didGetImage: Callback?
     var didGetError: Callback?
+    var didGetImage: HWebGetImageBlock?
 
     private var lastURL: String = ""
     // Click time
@@ -263,14 +263,14 @@ extension HWebButtonView {
             self._setImage(image) { [weak self] in
                 guard let self = self else { return }
                 self.webImageView.alpha = 1.0
-                self.didGetImage?(self, self.webImageView.image)
+                self.didGetImage?(self, image, .local)
             }
             return
         }
         
         if self.webImageView.image != nil && self.lastURL == urlString {
             self.webImageView.alpha = 1.0
-            self.didGetImage?(self, self.webImageView.image)
+            self.didGetImage?(self, self.webImageView.image, .origin)
             return
         }
 
@@ -303,7 +303,7 @@ extension HWebButtonView {
                         guard let self = self else { return }
                         self.webImageView.alpha = 1.0
                         self.lastURL = url.absoluteString
-                        self.didGetImage?(self, value.image)
+                        self.didGetImage?(self, value.image, .cache)
                     }
                 }else {
                     // 从网络加载图片
@@ -315,7 +315,7 @@ extension HWebButtonView {
                                 guard let self = self else { return }
                                 self.webImageView.alpha = 1.0
                                 self.lastURL = url.absoluteString
-                                self.didGetImage?(self, value.image)
+                                self.didGetImage?(self, value.image, .network)
                             }
                         case .failure(let value):
                             self.didGetError?(self, value as AnyObject)
@@ -332,7 +332,7 @@ extension HWebButtonView {
                         guard let self = self else { return }
                         self.webImageView.alpha = 1.0
                         self.lastURL = url.absoluteString
-                        self.didGetImage?(self, value.image)
+                        self.didGetImage?(self, value.image, .cache)
                     }
                 }
             }
@@ -345,7 +345,7 @@ extension HWebButtonView {
                         guard let self = self else { return }
                         self.webImageView.alpha = 1.0
                         self.lastURL = url.absoluteString
-                        self.didGetImage?(self, value.image)
+                        self.didGetImage?(self, value.image, .network)
                     }
                 case .failure(let value):
                     self.didGetError?(self, value as AnyObject)
