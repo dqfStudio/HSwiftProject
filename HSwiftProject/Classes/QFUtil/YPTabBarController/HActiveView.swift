@@ -17,7 +17,6 @@ typealias HActiveScrollBlock = (_ direction: HActiveScrollDirection) -> Void
 
 class HActiveView: UIStackView, HTupleViewDelegate {
     
-    private var selectedIndexs: [Int] = []
     // 滚动回调
     var scrollBlock: HActiveScrollBlock?
     // 记录滚动偏移量
@@ -132,26 +131,26 @@ extension HActiveView {
     }
     func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
         self.activeBar?.selectedIndex = indexPath.row
+        // 获取相应vc
+        let vc1 = self.viewControllers[indexPath.row]
+        vc1.view.frame = cell.layoutViewBounds
+        var isVc1FirstLoad = false
         // 添加view
-        let vc = self.viewControllers[indexPath.row]
-        vc.view.frame = cell.layoutViewBounds
-        if vc.view.superview == nil {
-            cell.contentView.addSubview(vc.view)
-            // 记录是否被选中过
-            self.selectedIndexs.append(indexPath.row)
+        if vc1.view.superview == nil {
+            isVc1FirstLoad = true
+            cell.contentView.addSubview(vc1.view)
         }
         // 重建生命周期
-        if self.selectedIndexs.count > 1 {
-            self.viewControllers.enumerated().forEach { (index, vc) in
-                // 只有被选中过的才需要重建生命周期
-                if self.selectedIndexs.contains(index) {
-                    if indexPath.row == index {
-                        vc.viewWillAppear(true)
-                        vc.viewDidAppear(true)
-                    } else {
-                        vc.viewWillDisappear(true)
-                        vc.viewDidDisappear(true)
+        self.viewControllers.enumerated().forEach { (index, vc2) in
+            if vc2.isViewLoaded {
+                if vc1 == vc2 {
+                    if !isVc1FirstLoad {
+                        vc2.viewWillAppear(true)
+                        vc2.viewDidAppear(true)
                     }
+                } else {
+                    vc2.viewWillDisappear(true)
+                    vc2.viewDidDisappear(true)
                 }
             }
         }
