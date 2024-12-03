@@ -18,7 +18,7 @@ typealias HActiveScrollBlock = (_ direction: HActiveScrollDirection) -> Void
 class HActiveView: UIStackView, HTupleViewDelegate {
     
     // 选中index列表
-    var selectedIndexs: [Int] = []
+    private var selectedIndexs: [Int] = []
     // 滚动回调
     var scrollBlock: HActiveScrollBlock?
     // 记录滚动偏移量
