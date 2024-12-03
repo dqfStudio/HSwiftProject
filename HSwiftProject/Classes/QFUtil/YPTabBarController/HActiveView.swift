@@ -17,6 +17,8 @@ typealias HActiveScrollBlock = (_ direction: HActiveScrollDirection) -> Void
 
 class HActiveView: UIStackView, HTupleViewDelegate {
     
+    // 选中index列表
+    var selectedIndexs: [Int] = []
     // 滚动回调
     var scrollBlock: HActiveScrollBlock?
     // 记录滚动偏移量
@@ -147,9 +149,13 @@ extension HActiveView {
     }
     func didEndDisplayingCell(_ cell: HTupleBaseCell, forItemAtIndexPath indexPath: IndexPath) {
         // 重建生命周期
-        let vc = self.viewControllers[indexPath.row]
-        vc.viewWillDisappear(true)
-        vc.viewDidDisappear(true)
+        if !self.selectedIndexs.contains(indexPath.row) {
+            self.selectedIndexs.append(indexPath.row)
+        }else {
+            let vc = self.viewControllers[indexPath.row]
+            vc.viewWillDisappear(true)
+            vc.viewDidDisappear(true)
+        }
     }
     func tupleViewDidScroll(_ scrollView: UIScrollView) {
         let currentCntOffset = scrollView.contentOffset
