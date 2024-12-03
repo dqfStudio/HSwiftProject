@@ -141,15 +141,17 @@ extension HActiveView {
             self.selectedIndexs.append(indexPath.row)
         }
         // 重建生命周期
-        self.viewControllers.enumerated().forEach { (index, vc) in
-            // 只有被选中过的才需要重建生命周期
-            if self.selectedIndexs.contains(index) {
-                if indexPath.row == index {
-                    vc.viewWillAppear(true)
-                    vc.viewDidAppear(true)
-                } else {
-                    vc.viewWillDisappear(true)
-                    vc.viewDidDisappear(true)
+        if self.selectedIndexs.count > 1 {
+            self.viewControllers.enumerated().forEach { (index, vc) in
+                // 只有被选中过的才需要重建生命周期
+                if self.selectedIndexs.contains(index) {
+                    if indexPath.row == index {
+                        vc.viewWillAppear(true)
+                        vc.viewDidAppear(true)
+                    } else {
+                        vc.viewWillDisappear(true)
+                        vc.viewDidDisappear(true)
+                    }
                 }
             }
         }
