@@ -245,11 +245,16 @@ extension HActivebar {
     }
     
     @objc
+    func tuple0_minimumInteritemSpacingForSectionAt(_ section: Any) -> Any {
+        return itemSpacing
+    }
+    
+    @objc
     func tuple0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         // cell回调
         self.itemBlock?(tuple, indexPath)
         
-        let cell = tuple.cell(indexPath.row, indexPath.section) as! HTupleTmplCell
+        let cell = tuple.cell(indexPath.row, indexPath.section) as! HTupleBaseCell
         let bounds = cell.layoutViewBounds
         
         // Set the font and color of the title based on whether it is selected or not
@@ -303,11 +308,16 @@ extension HActivebar {
     }
     
     @objc
+    func tuple1_minimumInteritemSpacingForSectionAt(_ section: Any) -> Any {
+        return itemSpacing
+    }
+    
+    @objc
     func tuple1_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         // cell回调
         self.itemBlock?(tuple, indexPath)
         
-        let cell = tuple.cell(indexPath.row, indexPath.section) as! HTupleTmplCell
+        let cell = tuple.cell(indexPath.row, indexPath.section) as! HTupleBaseCell
         let bounds = cell.layoutViewBounds
         
         // Set the font and color of the title based on whether it is selected or not
