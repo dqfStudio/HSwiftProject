@@ -217,6 +217,17 @@ class HActivebar: UIStackView, HTupleViewDelegate {
     func reloadData() {
         self.tupleView.reloadTupleData()
     }
+    
+    // 选中某个item，仅供内部HActiveView
+    func selectBlock(_ item: Int) {
+        if self.selectedIndex != item {
+            self.willSelectBlock?(item)
+            self.selectedIndex = item
+            self.didSelectBlock?(item)
+        }else {
+            self.reSelectBlock?(item)
+        }
+    }
 
 }
 

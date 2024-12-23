@@ -130,7 +130,8 @@ extension HActiveView {
         return self.tupleView.size
     }
     func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
-        self.activeBar?.selectedIndex = indexPath.row
+        // 选中某个item，仅供内部HActiveView
+        self.activeBar?.selectBlock(indexPath.row)
         // 获取相应vc
         let vc1 = self.viewControllers[indexPath.row]
         vc1.view.frame = cell.layoutViewBounds

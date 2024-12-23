@@ -77,18 +77,18 @@ extension String {
         return self.trimmingCharacters(in: .whitespaces)
     }
     
-    func md5() -> String? {
-        if let concat_str = self.cString(using: String.Encoding.utf8) {
-            var result = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
-            CC_MD5(concat_str, CC_LONG(strlen(concat_str)), &result)
-            var hash = ""
-            for i in 0..<Int(CC_MD5_DIGEST_LENGTH) {
-                hash += String(format: "%02x", result[i])
-            }
-            return hash
-        }
-        return nil
-    }
+//    func md5() -> String? {
+//        if let concat_str = self.cString(using: String.Encoding.utf8) {
+//            var result = [UInt8](repeating: 0, count: Int(CC_MD5_DIGEST_LENGTH))
+//            CC_MD5(concat_str, CC_LONG(strlen(concat_str)), &result)
+//            var hash = ""
+//            for i in 0..<Int(CC_MD5_DIGEST_LENGTH) {
+//                hash += String(format: "%02x", result[i])
+//            }
+//            return hash
+//        }
+//        return nil
+//    }
     
     func subString(to: Int) -> String {
         var to = to

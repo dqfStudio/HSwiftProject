@@ -263,6 +263,40 @@
 		EB90BC2A2CC245BE00C392C4 /* HTupleLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB90BC292CC245BD00C392C4 /* HTupleLayout.swift */; };
 		EB9358F52AF4E5FC00716728 /* HMainController7.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9358F42AF4E5FC00716728 /* HMainController7.swift */; };
 		EB9D332B2B038F97000B8F48 /* HPullController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9D332A2B038F97000B8F48 /* HPullController.swift */; };
+		EBA167892D16C85D00DD2088 /* HAdvertsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167882D16C85C00DD2088 /* HAdvertsVC.swift */; };
+		EBA1678B2D16C9A000DD2088 /* HAdvertsVC+HSingle.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA1678A2D16C9A000DD2088 /* HAdvertsVC+HSingle.swift */; };
+		EBA167AC2D16CC0E00DD2088 /* GSAVPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA1678E2D16CC0E00DD2088 /* GSAVPlayerViewController.swift */; };
+		EBA167AD2D16CC0E00DD2088 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167902D16CC0E00DD2088 /* Int+Extensions.swift */; };
+		EBA167AE2D16CC0E00DD2088 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167912D16CC0E00DD2088 /* String+Extensions.swift */; };
+		EBA167AF2D16CC0E00DD2088 /* AVPlayer+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167922D16CC0E00DD2088 /* AVPlayer+Extensions.swift */; };
+		EBA167B02D16CC0E00DD2088 /* AVAssetResourceLoadingRequest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167932D16CC0E00DD2088 /* AVAssetResourceLoadingRequest+Extensions.swift */; };
+		EBA167B12D16CC0E00DD2088 /* AVPlayerItem+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167942D16CC0E00DD2088 /* AVPlayerItem+Extensions.swift */; };
+		EBA167B22D16CC0E00DD2088 /* URL+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167952D16CC0E00DD2088 /* URL+Extensions.swift */; };
+		EBA167B32D16CC0E00DD2088 /* Float+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167962D16CC0E00DD2088 /* Float+Extensions.swift */; };
+		EBA167B42D16CC0E00DD2088 /* Double+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167972D16CC0E00DD2088 /* Double+Extensions.swift */; };
+		EBA167B52D16CC0E00DD2088 /* VideoCacheAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167992D16CC0E00DD2088 /* VideoCacheAction.swift */; };
+		EBA167B62D16CC0E00DD2088 /* VideoCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA1679A2D16CC0E00DD2088 /* VideoCacheManager.swift */; };
+		EBA167B72D16CC0E00DD2088 /* VideoCacheConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA1679B2D16CC0E00DD2088 /* VideoCacheConfiguration.swift */; };
+		EBA167B82D16CC0E00DD2088 /* VideoCacheHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA1679C2D16CC0E00DD2088 /* VideoCacheHandler.swift */; };
+		EBA167B92D16CC0E00DD2088 /* VideoDownloaderHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA1679E2D16CC0E00DD2088 /* VideoDownloaderHandler.swift */; };
+		EBA167BA2D16CC0E00DD2088 /* VideoDownloadInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA1679F2D16CC0E00DD2088 /* VideoDownloadInfo.swift */; };
+		EBA167BB2D16CC0E00DD2088 /* VideoDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167A02D16CC0E00DD2088 /* VideoDownloader.swift */; };
+		EBA167BC2D16CC0E00DD2088 /* VideoDownloaderSessionDelegateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167A12D16CC0E00DD2088 /* VideoDownloaderSessionDelegateHandler.swift */; };
+		EBA167BD2D16CC0E00DD2088 /* VideoInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167A32D16CC0E00DD2088 /* VideoInfo.swift */; };
+		EBA167BE2D16CC0E00DD2088 /* VideoRequestLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167A42D16CC0E00DD2088 /* VideoRequestLoader.swift */; };
+		EBA167BF2D16CC0E00DD2088 /* VideoLoadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167A52D16CC0E00DD2088 /* VideoLoadManager.swift */; };
+		EBA167C02D16CC0E00DD2088 /* VideoPreloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167A62D16CC0E00DD2088 /* VideoPreloadManager.swift */; };
+		EBA167C12D16CC0E00DD2088 /* VideoLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167A72D16CC0E00DD2088 /* VideoLoader.swift */; };
+		EBA167C22D16CC0E00DD2088 /* VideoPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167A92D16CC0E00DD2088 /* VideoPlayerView.swift */; };
+		EBA167C32D16CC0E00DD2088 /* VideoFullscreenTransitioner.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167AA2D16CC0E00DD2088 /* VideoFullscreenTransitioner.swift */; };
+		EBA167C42D16CC0E00DD2088 /* VideoFullscreenPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA167AB2D16CC0E00DD2088 /* VideoFullscreenPlayerView.swift */; };
+		EBA167C82D17026D00DD2088 /* IMG_1446.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA167C72D17026D00DD2088 /* IMG_1446.png */; };
+		EBA167CC2D170A0100DD2088 /* IMG_2133.MOV in Resources */ = {isa = PBXBuildFile; fileRef = EBA167CB2D170A0100DD2088 /* IMG_2133.MOV */; };
+		EBA167CE2D17133700DD2088 /* 9884b499.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA167CD2D17133700DD2088 /* 9884b499.png */; };
+		EBA167D02D1717BD00DD2088 /* 20241221.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA167CF2D1717BD00DD2088 /* 20241221.png */; };
+		EBA167D22D171E3D00DD2088 /* 202412213.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA167D12D171E3D00DD2088 /* 202412213.png */; };
+		EBA167D42D17BEAD00DD2088 /* 2024222.png in Resources */ = {isa = PBXBuildFile; fileRef = EBA167D32D17BEAD00DD2088 /* 2024222.png */; };
+		EBA167D62D17CA1400DD2088 /* video.mov in Resources */ = {isa = PBXBuildFile; fileRef = EBA167D52D17CA1400DD2088 /* video.mov */; };
 		EBA337A82CDF109B005CF023 /* UIImage+Wechat.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA337A72CDF109B005CF023 /* UIImage+Wechat.swift */; };
 		EBA337AA2CDF3A4E005CF023 /* HUserInfoMngr.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA337A92CDF3A4E005CF023 /* HUserInfoMngr.swift */; };
 		EBA337AC2CDF3D9A005CF023 /* DBManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBA337AB2CDF3D9A005CF023 /* DBManager.swift */; };
@@ -636,6 +670,40 @@
 		EB90BC292CC245BD00C392C4 /* HTupleLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleLayout.swift; sourceTree = "<group>"; };
 		EB9358F42AF4E5FC00716728 /* HMainController7.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMainController7.swift; sourceTree = "<group>"; };
 		EB9D332A2B038F97000B8F48 /* HPullController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPullController.swift; sourceTree = "<group>"; };
+		EBA167882D16C85C00DD2088 /* HAdvertsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HAdvertsVC.swift; sourceTree = "<group>"; };
+		EBA1678A2D16C9A000DD2088 /* HAdvertsVC+HSingle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HAdvertsVC+HSingle.swift"; sourceTree = "<group>"; };
+		EBA1678E2D16CC0E00DD2088 /* GSAVPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GSAVPlayerViewController.swift; sourceTree = "<group>"; };
+		EBA167902D16CC0E00DD2088 /* Int+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
+		EBA167912D16CC0E00DD2088 /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		EBA167922D16CC0E00DD2088 /* AVPlayer+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVPlayer+Extensions.swift"; sourceTree = "<group>"; };
+		EBA167932D16CC0E00DD2088 /* AVAssetResourceLoadingRequest+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVAssetResourceLoadingRequest+Extensions.swift"; sourceTree = "<group>"; };
+		EBA167942D16CC0E00DD2088 /* AVPlayerItem+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AVPlayerItem+Extensions.swift"; sourceTree = "<group>"; };
+		EBA167952D16CC0E00DD2088 /* URL+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URL+Extensions.swift"; sourceTree = "<group>"; };
+		EBA167962D16CC0E00DD2088 /* Float+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Float+Extensions.swift"; sourceTree = "<group>"; };
+		EBA167972D16CC0E00DD2088 /* Double+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Double+Extensions.swift"; sourceTree = "<group>"; };
+		EBA167992D16CC0E00DD2088 /* VideoCacheAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCacheAction.swift; sourceTree = "<group>"; };
+		EBA1679A2D16CC0E00DD2088 /* VideoCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCacheManager.swift; sourceTree = "<group>"; };
+		EBA1679B2D16CC0E00DD2088 /* VideoCacheConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCacheConfiguration.swift; sourceTree = "<group>"; };
+		EBA1679C2D16CC0E00DD2088 /* VideoCacheHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCacheHandler.swift; sourceTree = "<group>"; };
+		EBA1679E2D16CC0E00DD2088 /* VideoDownloaderHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDownloaderHandler.swift; sourceTree = "<group>"; };
+		EBA1679F2D16CC0E00DD2088 /* VideoDownloadInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDownloadInfo.swift; sourceTree = "<group>"; };
+		EBA167A02D16CC0E00DD2088 /* VideoDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDownloader.swift; sourceTree = "<group>"; };
+		EBA167A12D16CC0E00DD2088 /* VideoDownloaderSessionDelegateHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoDownloaderSessionDelegateHandler.swift; sourceTree = "<group>"; };
+		EBA167A32D16CC0E00DD2088 /* VideoInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoInfo.swift; sourceTree = "<group>"; };
+		EBA167A42D16CC0E00DD2088 /* VideoRequestLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoRequestLoader.swift; sourceTree = "<group>"; };
+		EBA167A52D16CC0E00DD2088 /* VideoLoadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoLoadManager.swift; sourceTree = "<group>"; };
+		EBA167A62D16CC0E00DD2088 /* VideoPreloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPreloadManager.swift; sourceTree = "<group>"; };
+		EBA167A72D16CC0E00DD2088 /* VideoLoader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoLoader.swift; sourceTree = "<group>"; };
+		EBA167A92D16CC0E00DD2088 /* VideoPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoPlayerView.swift; sourceTree = "<group>"; };
+		EBA167AA2D16CC0E00DD2088 /* VideoFullscreenTransitioner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoFullscreenTransitioner.swift; sourceTree = "<group>"; };
+		EBA167AB2D16CC0E00DD2088 /* VideoFullscreenPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoFullscreenPlayerView.swift; sourceTree = "<group>"; };
+		EBA167C72D17026D00DD2088 /* IMG_1446.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_1446.png; sourceTree = "<group>"; };
+		EBA167CB2D170A0100DD2088 /* IMG_2133.MOV */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = IMG_2133.MOV; sourceTree = "<group>"; };
+		EBA167CD2D17133700DD2088 /* 9884b499.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 9884b499.png; sourceTree = "<group>"; };
+		EBA167CF2D1717BD00DD2088 /* 20241221.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 20241221.png; sourceTree = "<group>"; };
+		EBA167D12D171E3D00DD2088 /* 202412213.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 202412213.png; sourceTree = "<group>"; };
+		EBA167D32D17BEAD00DD2088 /* 2024222.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2024222.png; sourceTree = "<group>"; };
+		EBA167D52D17CA1400DD2088 /* video.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = video.mov; sourceTree = "<group>"; };
 		EBA337A72CDF109B005CF023 /* UIImage+Wechat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Wechat.swift"; sourceTree = "<group>"; };
 		EBA337A92CDF3A4E005CF023 /* HUserInfoMngr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUserInfoMngr.swift; sourceTree = "<group>"; };
 		EBA337AB2CDF3D9A005CF023 /* DBManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManager.swift; sourceTree = "<group>"; };
@@ -1194,6 +1262,7 @@
 		A2B43058237FF2B100795605 /* QFUtil */ = {
 			isa = PBXGroup;
 			children = (
+				EBA1678C2D16CC0E00DD2088 /* GSPlayer */,
 				EB3541C52BE8C7D3003B1D69 /* HChat */,
 				EB05977A2A0DF1820016ACD8 /* HChatTableView */,
 				EBD0FB3429CCA33E00808EDA /* HNotification */,
@@ -1335,6 +1404,15 @@
 				A2B4306D237FF2B100795605 /* HMenuViewController.swift */,
 				A22948A4239798000058B939 /* HMainController1.swift */,
 				A22948A62397980A0058B939 /* HMainController2.swift */,
+				EBA167882D16C85C00DD2088 /* HAdvertsVC.swift */,
+				EBA1678A2D16C9A000DD2088 /* HAdvertsVC+HSingle.swift */,
+				EBA167D52D17CA1400DD2088 /* video.mov */,
+				EBA167D32D17BEAD00DD2088 /* 2024222.png */,
+				EBA167D12D171E3D00DD2088 /* 202412213.png */,
+				EBA167CF2D1717BD00DD2088 /* 20241221.png */,
+				EBA167CD2D17133700DD2088 /* 9884b499.png */,
+				EBA167CB2D170A0100DD2088 /* IMG_2133.MOV */,
+				EBA167C72D17026D00DD2088 /* IMG_1446.png */,
 				A22948A82397985B0058B939 /* HMainController3.swift */,
 				A22948AA2397986C0058B939 /* HMainController3+HSection0.swift */,
 				A22948AC2397987A0058B939 /* HMainController3+HSection1.swift */,
@@ -1512,6 +1590,86 @@
 				EB43243529C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift */,
 			);
 			path = HAtrribute;
+			sourceTree = "<group>";
+		};
+		EBA1678C2D16CC0E00DD2088 /* GSPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				EBA1678D2D16CC0E00DD2088 /* MacOS */,
+				EBA1678F2D16CC0E00DD2088 /* Extension */,
+				EBA167982D16CC0E00DD2088 /* Cache */,
+				EBA1679D2D16CC0E00DD2088 /* Download */,
+				EBA167A22D16CC0E00DD2088 /* Loader */,
+				EBA167A82D16CC0E00DD2088 /* View */,
+			);
+			path = GSPlayer;
+			sourceTree = "<group>";
+		};
+		EBA1678D2D16CC0E00DD2088 /* MacOS */ = {
+			isa = PBXGroup;
+			children = (
+				EBA1678E2D16CC0E00DD2088 /* GSAVPlayerViewController.swift */,
+			);
+			path = MacOS;
+			sourceTree = "<group>";
+		};
+		EBA1678F2D16CC0E00DD2088 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				EBA167902D16CC0E00DD2088 /* Int+Extensions.swift */,
+				EBA167912D16CC0E00DD2088 /* String+Extensions.swift */,
+				EBA167922D16CC0E00DD2088 /* AVPlayer+Extensions.swift */,
+				EBA167932D16CC0E00DD2088 /* AVAssetResourceLoadingRequest+Extensions.swift */,
+				EBA167942D16CC0E00DD2088 /* AVPlayerItem+Extensions.swift */,
+				EBA167952D16CC0E00DD2088 /* URL+Extensions.swift */,
+				EBA167962D16CC0E00DD2088 /* Float+Extensions.swift */,
+				EBA167972D16CC0E00DD2088 /* Double+Extensions.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		EBA167982D16CC0E00DD2088 /* Cache */ = {
+			isa = PBXGroup;
+			children = (
+				EBA167992D16CC0E00DD2088 /* VideoCacheAction.swift */,
+				EBA1679A2D16CC0E00DD2088 /* VideoCacheManager.swift */,
+				EBA1679B2D16CC0E00DD2088 /* VideoCacheConfiguration.swift */,
+				EBA1679C2D16CC0E00DD2088 /* VideoCacheHandler.swift */,
+			);
+			path = Cache;
+			sourceTree = "<group>";
+		};
+		EBA1679D2D16CC0E00DD2088 /* Download */ = {
+			isa = PBXGroup;
+			children = (
+				EBA1679E2D16CC0E00DD2088 /* VideoDownloaderHandler.swift */,
+				EBA1679F2D16CC0E00DD2088 /* VideoDownloadInfo.swift */,
+				EBA167A02D16CC0E00DD2088 /* VideoDownloader.swift */,
+				EBA167A12D16CC0E00DD2088 /* VideoDownloaderSessionDelegateHandler.swift */,
+			);
+			path = Download;
+			sourceTree = "<group>";
+		};
+		EBA167A22D16CC0E00DD2088 /* Loader */ = {
+			isa = PBXGroup;
+			children = (
+				EBA167A32D16CC0E00DD2088 /* VideoInfo.swift */,
+				EBA167A42D16CC0E00DD2088 /* VideoRequestLoader.swift */,
+				EBA167A52D16CC0E00DD2088 /* VideoLoadManager.swift */,
+				EBA167A62D16CC0E00DD2088 /* VideoPreloadManager.swift */,
+				EBA167A72D16CC0E00DD2088 /* VideoLoader.swift */,
+			);
+			path = Loader;
+			sourceTree = "<group>";
+		};
+		EBA167A82D16CC0E00DD2088 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EBA167A92D16CC0E00DD2088 /* VideoPlayerView.swift */,
+				EBA167AA2D16CC0E00DD2088 /* VideoFullscreenTransitioner.swift */,
+				EBA167AB2D16CC0E00DD2088 /* VideoFullscreenPlayerView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		EBC307172BF8ACA600EF8ABD /* XTransitionAnimation */ = {
@@ -1824,9 +1982,11 @@
 				A26D43332386914500F457AE /* hvc_back_icon@2x.png in Resources */,
 				EB4323E029B988A400EDDB64 /* loading_new_2@2x.png in Resources */,
 				EBC8143C29AA52FE00A81431 /* mdeia-reduce.png in Resources */,
+				EBA167D42D17BEAD00DD2088 /* 2024222.png in Resources */,
 				A2B42FF1237CFFAB00795605 /* di_index_h@3x.png in Resources */,
 				EB4323D729B988A400EDDB64 /* loading_new_3@2x.png in Resources */,
 				A2B43000237D005C00795605 /* di_login_h@3x.png in Resources */,
+				EBA167CC2D170A0100DD2088 /* IMG_2133.MOV in Resources */,
 				A2B43006237D005C00795605 /* di_login@3x.png in Resources */,
 				A2B42FEF237CFFAB00795605 /* di_index@3x.png in Resources */,
 				A2B43005237D005C00795605 /* di_kf_h@2x.png in Resources */,
@@ -1836,14 +1996,17 @@
 				A28923BE238BCB6200E4AB75 /* icon_tuple_xx_white@2x.png in Resources */,
 				EB4323DC29B988A400EDDB64 /* loading_new_9@2x.png in Resources */,
 				EB4323D129B988A400EDDB64 /* icon_no_server@3x.png in Resources */,
+				EBA167D02D1717BD00DD2088 /* 20241221.png in Resources */,
 				A2B42FFE237D005C00795605 /* di_login_h@2x.png in Resources */,
 				EB4323DE29B988A400EDDB64 /* loading_new_10@2x.png in Resources */,
 				EB4323D329B988A400EDDB64 /* icon_load_nothing@2x.png in Resources */,
 				A28923C1238BCB6200E4AB75 /* icon_tuple_arrow_down@2x.png in Resources */,
+				EBA167C82D17026D00DD2088 /* IMG_1446.png in Resources */,
 				EB4323E629B988A400EDDB64 /* loading_new_6@2x.png in Resources */,
 				A26D43322386914500F457AE /* hvc_back_icon@3x.png in Resources */,
 				A2B42FEE237CFFAB00795605 /* di_index@2x.png in Resources */,
 				EB4323E229B988A400EDDB64 /* loading_gif_black.gif in Resources */,
+				EBA167D22D171E3D00DD2088 /* 202412213.png in Resources */,
 				EB4323E729B988A400EDDB64 /* loading_new_11@2x.png in Resources */,
 				A2B43001237D005C00795605 /* di_more_h@2x.png in Resources */,
 				EB4323D629B988A400EDDB64 /* loading_new_14@2x.png in Resources */,
@@ -1870,6 +2033,7 @@
 				EB4323D029B988A400EDDB64 /* icon_no_network@2x.png in Resources */,
 				A2B42FD3237CED5A00795605 /* Main.storyboard in Resources */,
 				EBC8140529AA48C000A81431 /* live_bg_icon.png in Resources */,
+				EBA167D62D17CA1400DD2088 /* video.mov in Resources */,
 				A2B42FF0237CFFAB00795605 /* di_index_h@2x.png in Resources */,
 				A2A7A94223FE3B500090EFD3 /* HCyclePageControlCurrentDot@2x.png in Resources */,
 				EB4323D429B988A400EDDB64 /* icon_no_server@2x.png in Resources */,
@@ -1877,6 +2041,7 @@
 				EB4323E429B988A400EDDB64 /* loading_new_4@2x.png in Resources */,
 				A28923C0238BCB6200E4AB75 /* icon_tuple_xx_gray@2x.png in Resources */,
 				EB4323D229B988A400EDDB64 /* icon_load_nothing@3x.png in Resources */,
+				EBA167CE2D17133700DD2088 /* 9884b499.png in Resources */,
 				EB4323DA29B988A400EDDB64 /* loading_new_16@2x.png in Resources */,
 				A258395723B4E34600881941 /* di_zhuce@3x.png in Resources */,
 				A2B43002237D005C00795605 /* di_more@3x.png in Resources */,
@@ -1956,6 +2121,7 @@
 				A2B4308323801C4E00795605 /* HWebButtonView.swift in Sources */,
 				A26D43172383DE5800F457AE /* UIColor+HUtil.swift in Sources */,
 				EB80B66E2A122A940016648A /* HScrollbar.swift in Sources */,
+				EBA167892D16C85D00DD2088 /* HAdvertsVC.swift in Sources */,
 				EBD0FB3A29CD461E00808EDA /* AppDelegate+NotifyService.swift in Sources */,
 				EBC8140A29AA48C000A81431 /* HUserLiveCell+HSection0.swift in Sources */,
 				EBA337AA2CDF3A4E005CF023 /* HUserInfoMngr.swift in Sources */,
@@ -1979,6 +2145,7 @@
 				A28B652323FD26CE00B6B638 /* HNetworkManager.swift in Sources */,
 				EBD0FB3829CCA8D800808EDA /* HRemoteNotification.swift in Sources */,
 				EB9358F52AF4E5FC00716728 /* HMainController7.swift in Sources */,
+				EBA167BF2D16CC0E00DD2088 /* VideoLoadManager.swift in Sources */,
 				EBA53C382A38AF000077158D /* HWebButtonView2.swift in Sources */,
 				EBA53C2E2A308BF00077158D /* HWebActionView.swift in Sources */,
 				EB4323F029B988C100EDDB64 /* HAlertFormatter.swift in Sources */,
@@ -1994,6 +2161,7 @@
 				EB90BC2A2CC245BE00C392C4 /* HTupleLayout.swift in Sources */,
 				A2294893239756A10058B939 /* HFlowViewCell.swift in Sources */,
 				EB43240729B9DF9D00EDDB64 /* HResultView.swift in Sources */,
+				EBA167B52D16CC0E00DD2088 /* VideoCacheAction.swift in Sources */,
 				EBC8140729AA48C000A81431 /* HUserLiveCell.swift in Sources */,
 				EB5A87F62CECD6E300AC5D17 /* HActiveView.swift in Sources */,
 				EB43244929C5B8E700EDDB64 /* UIImage+HUtil.swift in Sources */,
@@ -2013,6 +2181,7 @@
 				A286251623EAB8DD00E81781 /* HCountDownButton.swift in Sources */,
 				EBD0FB6C29D02B1000808EDA /* HDefaultsCore+Extern.swift in Sources */,
 				EBC3072D2BF8F1C200EF8ABD /* HTupleSheetVC.swift in Sources */,
+				EBA167BA2D16CC0E00DD2088 /* VideoDownloadInfo.swift in Sources */,
 				EB80B6962A20BEEC0016648A /* HTextImageView.swift in Sources */,
 				EB3541CB2BE8CBEF003B1D69 /* MessageInfo.swift in Sources */,
 				EBD0FB9E29DB00B300808EDA /* HMainController6+UI.swift in Sources */,
@@ -2046,12 +2215,14 @@
 				A229488E239756770058B939 /* HFlowBaseApex.swift in Sources */,
 				EB3541962BD61A75003B1D69 /* HBaseController.swift in Sources */,
 				EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */,
+				EBA167BB2D16CC0E00DD2088 /* VideoDownloader.swift in Sources */,
 				EB1C8D7B2C02CDFD00ADF411 /* HPostCommentViewApex.swift in Sources */,
 				A22948B1239798960058B939 /* HMainController4.swift in Sources */,
 				EBD213CF2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift in Sources */,
 				A229489D23975CE40058B939 /* HFlowViewCellVertValue.swift in Sources */,
 				A26D431523839C2800F457AE /* UIApplication+HUtil.swift in Sources */,
 				A21887A923900832005C20BF /* HTegKeychainConstants.swift in Sources */,
+				EBA167B22D16CC0E00DD2088 /* URL+Extensions.swift in Sources */,
 				A2B43078237FF2B100795605 /* NSObject+HExclusive.swift in Sources */,
 				A265D9FF239250F6001F39B0 /* HTabContentView.swift in Sources */,
 				EBA337A82CDF109B005CF023 /* UIImage+Wechat.swift in Sources */,
@@ -2063,6 +2234,8 @@
 				EBD0FB3129CCA16400808EDA /* AppDelegate+WindowService.swift in Sources */,
 				EBED9CA52A4C3C8600E590DE /* HTupleBannerApex.swift in Sources */,
 				EBD58F982C26C2250049E03E /* HModelManager.swift in Sources */,
+				EBA167C32D16CC0E00DD2088 /* VideoFullscreenTransitioner.swift in Sources */,
+				EBA167AF2D16CC0E00DD2088 /* AVPlayer+Extensions.swift in Sources */,
 				A2A814BE274D6C3000FAB929 /* HPushAnimation.swift in Sources */,
 				A2A814C0274E030100FAB929 /* HSheetController.swift in Sources */,
 				EBED9CA62A4C3C8600E590DE /* HTupleBannerCell.swift in Sources */,
@@ -2076,6 +2249,7 @@
 				EBC8145929AA539E00A81431 /* HSendAudioVC+HStatus1.swift in Sources */,
 				A28923A3238B72F800E4AB75 /* HTupleBaseCell.swift in Sources */,
 				A22948AF239798870058B939 /* HMainController3+HSection2.swift in Sources */,
+				EBA167B02D16CC0E00DD2088 /* AVAssetResourceLoadingRequest+Extensions.swift in Sources */,
 				EB43243A29C588A400EDDB64 /* HTextViewer.swift in Sources */,
 				EB4323F429B98C9400EDDB64 /* HNaviToastView.swift in Sources */,
 				EBC8146129AA53C600A81431 /* HSendAudioVC+HStatus5.swift in Sources */,
@@ -2095,8 +2269,10 @@
 				A2B43074237FF2B100795605 /* UIView+HPrinter.swift in Sources */,
 				A250DF1223FFC2AB009F5E47 /* HTupleViewBannerApex.swift in Sources */,
 				EB80B67E2A18A7430016648A /* HSearchBar.swift in Sources */,
+				EBA167B72D16CC0E00DD2088 /* VideoCacheConfiguration.swift in Sources */,
 				EB1209912A86110E00E5F045 /* HPostCommentVM.swift in Sources */,
 				A2A814B6274CC23C00FAB929 /* HTransitionAnimation.swift in Sources */,
+				EBA167C42D16CC0E00DD2088 /* VideoFullscreenPlayerView.swift in Sources */,
 				EBC3072B2BF8F19200EF8ABD /* HTupleDropVC+Extern.swift in Sources */,
 				A2A7A93923FE2E150090EFD3 /* HAbstractDotView.swift in Sources */,
 				A26D43392386C0A000F457AE /* UINavigationController+HUtil.swift in Sources */,
@@ -2129,6 +2305,7 @@
 				EBC307142BF8914000EF8ABD /* HTransitionAnimator.swift in Sources */,
 				EBC3071D2BF8AD7B00EF8ABD /* XPresentationController.swift in Sources */,
 				EBED9CCA2A4D339700E590DE /* HDotIndicatorBar.swift in Sources */,
+				EBA167B82D16CC0E00DD2088 /* VideoCacheHandler.swift in Sources */,
 				EBD0FB6B29D02B1000808EDA /* HUserStore.swift in Sources */,
 				EBD0FB3629CCA34800808EDA /* HLocalNotification.swift in Sources */,
 				EB5998E02C0DACB40021241C /* SLNodeModel.swift in Sources */,
@@ -2137,9 +2314,11 @@
 				EBD0FBA029DB00D100808EDA /* HMainController6+Event.swift in Sources */,
 				A2A814B2274C081B00FAB929 /* HTransitionHeader.swift in Sources */,
 				A28A022823EE62D6000556A2 /* HTupleViewTextLoopCell.swift in Sources */,
+				EBA167C12D16CC0E00DD2088 /* VideoLoader.swift in Sources */,
 				A28B652123FD215500B6B638 /* HNetworkDAO.swift in Sources */,
 				EBC306CD2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift in Sources */,
 				A26D432B23856F8900F457AE /* NSTimer+HUtil.swift in Sources */,
+				EBA167B42D16CC0E00DD2088 /* Double+Extensions.swift in Sources */,
 				EB3541E32BE9E9A8003B1D69 /* Network10008API.swift in Sources */,
 				A265DA052394B6F7001F39B0 /* UIScrollView+HTab.swift in Sources */,
 				A2B42FCE237CED5A00795605 /* SceneDelegate.swift in Sources */,
@@ -2153,11 +2332,14 @@
 				A2A814B4274C0E2000FAB929 /* HTupleHeader.swift in Sources */,
 				EBA53C3A2A3B47240077158D /* HWebImageView2.swift in Sources */,
 				EBC307292BF8F16000EF8ABD /* HTupleDropVC.swift in Sources */,
+				EBA167BC2D16CC0E00DD2088 /* VideoDownloaderSessionDelegateHandler.swift in Sources */,
 				EB1209872A84CC8300E5F045 /* HPostVM.swift in Sources */,
 				EB12097F2A827AF200E5F045 /* HPostFooter.swift in Sources */,
 				A26D43192383E23300F457AE /* NSString+HUtil.swift in Sources */,
+				EBA167B92D16CC0E00DD2088 /* VideoDownloaderHandler.swift in Sources */,
 				A22948A5239798000058B939 /* HMainController1.swift in Sources */,
 				A2188797238FD3D6005C20BF /* HGameCategoryVC+HSection1.swift in Sources */,
+				EBA167C22D16CC0E00DD2088 /* VideoPlayerView.swift in Sources */,
 				A2A7A93B23FE36440090EFD3 /* HAnimatedDotView.swift in Sources */,
 				A26D434923879FB900F457AE /* Router.swift in Sources */,
 				EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */,
@@ -2172,15 +2354,18 @@
 				EB3541E92BEA0073003B1D69 /* HUserLoginRequest.swift in Sources */,
 				A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */,
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,
+				EBA167AE2D16CC0E00DD2088 /* String+Extensions.swift in Sources */,
 				EB0597712A0B6B990016ACD8 /* HNavigationBar.swift in Sources */,
 				A229489923975BA80058B939 /* HTupleViewApexVertValue.swift in Sources */,
 				EBD0FB0B29CA938900808EDA /* HAssetModel.swift in Sources */,
 				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue.swift in Sources */,
 				EB50428F2A2C348D007E9FC7 /* HFlowTextImageApex.swift in Sources */,
+				EBA167BD2D16CC0E00DD2088 /* VideoInfo.swift in Sources */,
 				EB3541DD2BE9B8AA003B1D69 /* HNetworkHeader.swift in Sources */,
 				A265D9FB2390B8EB001F39B0 /* HTabItem.swift in Sources */,
 				EBD0FB3E29CD4DE100808EDA /* AppDelegate+UserService.swift in Sources */,
 				EBD0FB9029DA786C00808EDA /* HInputBoxView.swift in Sources */,
+				EBA167AD2D16CC0E00DD2088 /* Int+Extensions.swift in Sources */,
 				A28DF9BA23FF77350065418F /* HCollectionViewCell.swift in Sources */,
 				EB4323F629B9AF7200EDDB64 /* HWaitingView.swift in Sources */,
 				EB43240929B9F47600EDDB64 /* HProgressHUD.swift in Sources */,
@@ -2190,6 +2375,7 @@
 				EB869F612B610B4900076A5D /* HTupleAttributes.swift in Sources */,
 				A2CC441123B360AE00DB095F /* HTupleRefresh.swift in Sources */,
 				EB43240D29C1B70400EDDB64 /* UIView+HAlert.swift in Sources */,
+				EBA167C02D16CC0E00DD2088 /* VideoPreloadManager.swift in Sources */,
 				A26D433D2386C76D00F457AE /* NSObject+HSafeMessy.swift in Sources */,
 				A28923B0238BC2D100E4AB75 /* HTupleViewCellVertValue.swift in Sources */,
 				EB1C8D932C04753300ADF411 /* HTupleMultiCell.swift in Sources */,
@@ -2199,13 +2385,17 @@
 				EBC8146729AA53E600A81431 /* HAcceptVideoVC+HStatus2.swift in Sources */,
 				A26D432F23868AFE00F457AE /* UIViewController+HDisappear.swift in Sources */,
 				A21887A823900832005C20BF /* HKeychainSwift.swift in Sources */,
+				EBA167BE2D16CC0E00DD2088 /* VideoRequestLoader.swift in Sources */,
 				EBC8145B29AA53AD00A81431 /* HSendAudioVC+HStatus2.swift in Sources */,
 				EBC8145329AA530B00A81431 /* HMultiMediaVC.swift in Sources */,
 				EBD213D72A655FB800C31E2D /* HActiveController.swift in Sources */,
+				EBA1678B2D16C9A000DD2088 /* HAdvertsVC+HSingle.swift in Sources */,
 				A22948B8239798EC0058B939 /* HLoginController.swift in Sources */,
 				EBD0FB6F29D02B1000808EDA /* HUserCore+Extern.swift in Sources */,
+				EBA167B62D16CC0E00DD2088 /* VideoCacheManager.swift in Sources */,
 				A28A022A23EE65B7000556A2 /* HTupleViewTextLoopApex.swift in Sources */,
 				EBC8146929AA53ED00A81431 /* HAcceptVideoVC+HStatus3.swift in Sources */,
+				EBA167B32D16CC0E00DD2088 /* Float+Extensions.swift in Sources */,
 				A28923A5238B72F800E4AB75 /* HTupleSignal.swift in Sources */,
 				A22948A92397985B0058B939 /* HMainController3.swift in Sources */,
 				A2B43077237FF2B100795605 /* NSObject+HUtil.swift in Sources */,
@@ -2221,6 +2411,7 @@
 				A229488F239756770058B939 /* HFlowSignal.swift in Sources */,
 				EBA6472B2A875D1B00897D76 /* HStackBar.swift in Sources */,
 				EB3541A02BDA2CFA003B1D69 /* HActiveView2.swift in Sources */,
+				EBA167B12D16CC0E00DD2088 /* AVPlayerItem+Extensions.swift in Sources */,
 				A2B4307A237FF2B100795605 /* HMenuViewController.swift in Sources */,
 				A21887A723900832005C20BF /* HKeychainSwiftAccessOptions.swift in Sources */,
 				EBD0FB7A29D02B9600808EDA /* HUserCore.swift in Sources */,
@@ -2251,6 +2442,7 @@
 				A2418C8F2745172A005C8125 /* NSDictionary+HUtil.swift in Sources */,
 				A26D431D2384177900F457AE /* UIScreen+HUtil.swift in Sources */,
 				A28923A9238B72F800E4AB75 /* NSObject+HSelector.swift in Sources */,
+				EBA167AC2D16CC0E00DD2088 /* GSAVPlayerViewController.swift in Sources */,
 				EBC738702CC6027100A01E71 /* HFlowRefresh.swift in Sources */,
 				A2B4307B237FF2B100795605 /* HCServiceViewController.swift in Sources */,
 			);
