@@ -57,6 +57,8 @@ class HWebButtonView: UIButton {
     var didGetImage: HWebGetImageBlock?
 
     private var lastURL: String = ""
+    // 扩大点击区域的额外边距
+    var extraEdgeInsets = UIEdgeInsets.zero
     // Click time
     private var pressedInterval: TimeInterval = 0.0
 
@@ -175,6 +177,11 @@ class HWebButtonView: UIButton {
             titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageWidth, bottom: 0, right: imageWidth)
             imageEdgeInsets = UIEdgeInsets(top: 0, left: titleWidth, bottom: 0, right: -titleWidth)
         }
+    }
+    
+    override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+        let largerBounds = bounds.inset(by: extraEdgeInsets)
+        return largerBounds.contains(point)
     }
 
 }
