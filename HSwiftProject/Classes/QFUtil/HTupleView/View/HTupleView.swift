@@ -1048,7 +1048,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 let prefix = self.tupleSplitPrefix(indexPath.section)
                 let selector: Selector = #selector(delegate.tupleItem(_:atIndexPath:))
                 if delegate.responds(to: selector, withPre: prefix) {
-                    delegate.performWithUnretainedValue(selector, with: self, with: indexPath, withPre: prefix)
+                    delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
                 }
             }
             // Call cell
