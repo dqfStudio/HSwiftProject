@@ -229,7 +229,7 @@ extension HWebImageView {
                 if case.success(let value) = result, value.image != nil {
                     self._setImage(value.image) { [weak self] in
                         guard let self = self else { return }
-                        self.lastURL = url.absoluteString
+                        self.lastURL = urlString
                         self.didGetImage?(self, value.image, .cache)
                     }
                 }else {
@@ -240,7 +240,7 @@ extension HWebImageView {
                         case .success(let value):
                             self._setImage(value.image) { [weak self] in
                                 guard let self = self else { return }
-                                self.lastURL = url.absoluteString
+                                self.lastURL = urlString
                                 self.didGetImage?(self, value.image, .network)
                             }
                         case .failure(let value):
@@ -256,7 +256,7 @@ extension HWebImageView {
                 if case.success(let value) = result, value.image != nil {
                     self._setImage(value.image) { [weak self] in
                         guard let self = self else { return }
-                        self.lastURL = url.absoluteString
+                        self.lastURL = urlString
                         self.didGetImage?(self, value.image, .cache)
                     }
                 }
@@ -268,7 +268,7 @@ extension HWebImageView {
                 case .success(let value):
                     self._setImage(value.image) { [weak self] in
                         guard let self = self else { return }
-                        self.lastURL = url.absoluteString
+                        self.lastURL = urlString
                         self.didGetImage?(self, value.image, .network)
                     }
                 case .failure(let value):

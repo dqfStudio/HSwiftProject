@@ -309,7 +309,7 @@ extension HWebButtonView {
                     self._setImage(value.image) { [weak self] in
                         guard let self = self else { return }
                         self.webImageView.alpha = 1.0
-                        self.lastURL = url.absoluteString
+                        self.lastURL = urlString
                         self.didGetImage?(self, value.image, .cache)
                     }
                 }else {
@@ -321,7 +321,7 @@ extension HWebButtonView {
                             self._setImage(value.image) { [weak self] in
                                 guard let self = self else { return }
                                 self.webImageView.alpha = 1.0
-                                self.lastURL = url.absoluteString
+                                self.lastURL = urlString
                                 self.didGetImage?(self, value.image, .network)
                             }
                         case .failure(let value):
@@ -338,7 +338,7 @@ extension HWebButtonView {
                     self._setImage(value.image) { [weak self] in
                         guard let self = self else { return }
                         self.webImageView.alpha = 1.0
-                        self.lastURL = url.absoluteString
+                        self.lastURL = urlString
                         self.didGetImage?(self, value.image, .cache)
                     }
                 }
@@ -351,7 +351,7 @@ extension HWebButtonView {
                     self._setImage(value.image) { [weak self] in
                         guard let self = self else { return }
                         self.webImageView.alpha = 1.0
-                        self.lastURL = url.absoluteString
+                        self.lastURL = urlString
                         self.didGetImage?(self, value.image, .network)
                     }
                 case .failure(let value):
