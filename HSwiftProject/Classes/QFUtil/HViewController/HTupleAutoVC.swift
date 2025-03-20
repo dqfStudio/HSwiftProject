@@ -42,12 +42,89 @@ extension HTupleAutoVC: HTupleViewDelegate {
         switch indexPath.row {
         case 0:
             let cell = flow.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
-            cell.backgroundColor = UIColor.gray
+            cell.label.backgroundColor = UIColor.yellow
+            
+            cell.contentView.backgroundColor = UIColor.red
+//            cell.contentView.snp.makeConstraints { make in
+//                make.edges.equalToSuperview().inset(10)
+//                make.width.equalTo(flow.width - 20)
+//            }
+//            
+//            cell.label.snp.makeConstraints { make in
+//                make.edges.equalToSuperview()
+//            }
+            
             
             cell.contentView.snp.makeConstraints { make in
-                make.edges.equalToSuperview().inset(10)
-                make.width.equalTo(self.tupleView.width - 20)
+                make.edges.equalToSuperview()
             }
+            
+            cell.label.snp.makeConstraints { make in
+                make.edges.equalToSuperview().inset(10)
+                make.width.equalTo(flow.width - 20)
+            }
+            
+//            cell.contentView.snp.makeConstraints { make in
+////                make.edges.equalToSuperview().inset(10)
+//                make.top.left.equalToSuperview().offset(10)
+//                make.bottom.equalToSuperview().offset(-10)
+//                make.right.equalToSuperview()
+//                make.width.equalTo(flow.width - 20)
+//            }
+            
+//            cell.contentView.snp.makeConstraints { make in
+//                make.edges.equalToSuperview()
+//            }
+            
+//            cell.label.snp.makeConstraints { make in
+////                make.edges.equalToSuperview().inset(10)
+////                make.width.equalTo(self.tupleView.width - 20)
+//                make.top.left.equalToSuperview().offset(10)
+////                make.bottom.right.equalToSuperview().offset(-10)
+//                make.bottom.equalToSuperview().offset(-10)
+//                make.right.equalToSuperview().offset(-20)
+//                make.width.equalTo(self.tupleView.width)
+////                make.width.equalToSuperview()
+//            }
+            
+//            cell.label.snp.makeConstraints { make in
+////                make.edges.equalToSuperview().inset(10)
+////                make.width.equalTo(self.tupleView.width - 20)
+//                make.top.left.equalToSuperview().offset(10)
+//                make.bottom.equalToSuperview().offset(-10)
+////                make.bottom.equalToSuperview().offset(-10)
+//                make.right.equalToSuperview().offset(0)
+//                make.width.equalTo(flow.width - 20)
+////                make.width.equalToSuperview()
+//            }
+            
+            
+            
+//            cell.label.snp.makeConstraints { make in
+//                make.top.left.equalToSuperview().offset(10)
+//                make.bottom.equalToSuperview().offset(-10)
+//                make.right.equalToSuperview().offset(-20)
+//            }
+            
+//            cell.label.snp.makeConstraints { make in
+//                make.top.left.equalToSuperview().offset(10)
+//                make.right.equalToSuperview().offset(-20)
+//                make.bottom.greaterThanOrEqualToSuperview().offset(-10)
+//                // 确保 label 可以根据内容调整高度
+//                make.height.greaterThanOrEqualTo(0)
+//            }
+            
+//            cell.label.translatesAutoresizingMaskIntoConstraints = false
+//            cell.label.snp.makeConstraints { make in
+//                make.top.left.equalToSuperview().offset(10)
+//                make.right.equalToSuperview().offset(-20)
+////                make.bottom.greaterThanOrEqualToSuperview().offset(-10)
+//                make.bottom.equalToSuperview().offset(-10)
+////                make.height.greaterThanOrEqualTo(0)
+//            }
+//            cell.label.preferredMaxLayoutWidth = cell.contentView.bounds.width - 30
+            
+            
             cell.label.numberOfLines = 0
             cell.label.text = "家乐福大数据冯老师复方丹参封疆大吏撒附件打撒丽枫酒店酸辣粉大家酸辣粉离开家我拉的开发机六点多撒会计分录打扫房间领导撒附件都说了咖啡机多少啦咖啡机第三方"
             
@@ -63,12 +140,18 @@ extension HTupleAutoVC: HTupleViewDelegate {
             }
         case 1:
             let cell = flow.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
-            cell.backgroundColor = UIColor.gray
+            cell.contentView.backgroundColor = UIColor.gray
+            
+//            cell.contentView.snp.makeConstraints { make in
+//                //make.edges.equalToSuperview()
+//                make.width.equalTo(self.tupleView.width)
+//                make.height.equalTo(65)
+//            }
             
             cell.contentView.snp.makeConstraints { make in
-                //make.edges.equalToSuperview()
-                make.width.equalTo(self.tupleView.width)
-                make.height.equalTo(65)
+                make.edges.equalToSuperview().inset(10)
+                make.width.equalTo(flow.width - 20)
+//                make.height.equalTo(65)
             }
             
 //            cell.separatorView.snp.makeConstraints { make in

@@ -1,5 +1,5 @@
 //
-//  HTupleView.swift
+//  HCollView.swift
 //  HSwiftProject
 //
 //  Created by Wind on 2019/11/22.
@@ -10,27 +10,17 @@ import UIKit
 import Kingfisher
 import SDWebImage
 
-enum HTupleStyle {
-    case tuple // Singleton design
+enum HCollStyle {
+    case coll // Singleton design
     case split // Split design
 }
 
-enum HTupleMode {
-    case delegate  // Delegate design
-    case block  // Block design
-}
-
-enum HTupleDirection {
+enum HCollDirection {
     case vertical // Vertical design
     case horizontal // Horizontal design
 }
 
-enum HTupleItemLayout {
-    case manual // Manual
-    case automatic // Automatic，只能在HTupleMode的delegate模式下使用
-}
-
-enum HTupleAlign {
+enum HCollAlign {
     case `default` // 垂直居上，水平居左
     case center // 垂直居中，水平居中
     case top(CGFloat) // 垂直距离顶部的距离，水平居中
@@ -38,111 +28,73 @@ enum HTupleAlign {
     case bottom(CGFloat) // 垂直距离底部的距离，水平居中
 }
 
-var kTupleDefaultTag = 1213141516
+var kCollDefaultTag = 1213141516
 
-private var kTuplePageNo = 1
-private var kTuplePageSize = 20
-private var kTupleTotalPageNo = 10000
+private var kCollPageNo = 1
+private var kCollPageSize = 20
+private var kCollTotalPageNo = 10000
 
-private var kTupleDesignKey = "tuple"
-private var kTupleExaDesignKey = "tupleExa"
+private var kCollDesignKey = "coll"
+private var kCollExaDesignKey = "collExa"
 
-private var kTupleStateKey: Void?
-private var kTupleSignalKey: Void?
-private var kTupleStateSourceKey: Void?
+private var kCollStateKey: Void?
+private var kCollSignalKey: Void?
+private var kCollStateSourceKey: Void?
 
 /// Refresh & LoadMore block
-typealias HTupleRefreshBlock = () -> Void
-typealias HTupleLoadMoreBlock = () -> Void
-typealias HTupleOutsideCntBlock = () -> Void
-typealias HTupleCntSizeBlock = (_ cntSize: CGSize) -> Void
+typealias HCollRefreshBlock = () -> Void
+typealias HCollLoadMoreBlock = () -> Void
+typealias HCollOutsideCntBlock = () -> Void
+typealias HCollCntSizeBlock = (_ cntSize: CGSize) -> Void
 
-class HTupleReload: NSObject {
+class HCollReload: NSObject {
     var isRefresh = false //是否正在刷新
     var needRefresh = false //是否需要刷新
 }
 
-/// This class is used for refreshing tupleView throughout the project.
-class HTupleAppearance: NSObject {
+/// This class is used for refreshing collView throughout the project.
+class HCollAppearance: NSObject {
 
-    private static var hashTuples = NSHashTable<HTupleView>.weakObjects()
+    private static var hashColls = NSHashTable<HCollView>.weakObjects()
 
-    static func addTuple(_ anTuple: HTupleView) {
-        self.hashTuples.add(anTuple)
+    static func addColl(_ anColl: HCollView) {
+        self.hashColls.add(anColl)
     }
-    static func refreshTuples(_ completion: @escaping () -> Void) {
+    static func refreshColls(_ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
-            let tuples = self.hashTuples.allObjects.reversed()
-            tuples.forEach { $0.reloadTupleData() }
+            let colls = self.hashColls.allObjects.reversed()
+            colls.forEach { $0.reloadCollData() }
             DispatchQueue.main.async { completion() }
         }
     }
-    static func refreshTuple(key: String, _ completion: @escaping () -> Void) {
+    static func refreshColl(key: String, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
-            let tuples = self.hashTuples.allObjects.filter { $0.reloadTupleKey == key }.reversed()
-            tuples.forEach { $0.reloadTupleData() }
+            let colls = self.hashColls.allObjects.filter { $0.reloadCollKey == key }.reversed()
+            colls.forEach { $0.reloadCollData() }
             DispatchQueue.main.async { completion() }
         }
     }
-    static func releaseTuple(key: String, _ completion: @escaping () -> Void) {
+    static func releaseColl(key: String, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async {
             // Execute in reverse order
-            let tuples = self.hashTuples.allObjects.filter { $0.releaseTupleKey == key }.reversed()
-            tuples.forEach { $0.releaseTupleBlock() }
+            let colls = self.hashColls.allObjects.filter { $0.releaseCollKey == key }.reversed()
+            colls.forEach { $0.releaseCollBlock() }
             DispatchQueue.main.async { completion() }
         }
     }
 }
 
-class HTupleObserver: NSObject {
-
-    private static var hashObjects = NSHashTable<NSObject>.weakObjects()
-
-    static func addObserver(_ anObserver: NSObject?) {
-        if let anObserver = anObserver, !self.hashObjects.contains(anObserver) {
-            self.hashObjects.add(anObserver)
-        }
-    }
-    static func perform(key: String) {
-        let selector = NSSelectorFromString(key)
-        let objects = self.hashObjects.allObjects.reversed()
-        objects.forEach {
-            if $0.responds(to: selector) {
-                $0.perform(selector)
-            }
-        }
-    }
-    static func perform(key: String, with object: String) {
-        let selector = NSSelectorFromString(key)
-        let objects = self.hashObjects.allObjects.reversed()
-        objects.forEach {
-            if $0.responds(to: selector) {
-                $0.perform(selector, with: object)
-            }
-        }
-    }
-    static func perform(key: String, with object1: String, with object2: String) {
-        let selector = NSSelectorFromString(key)
-        let objects = self.hashObjects.allObjects.reversed()
-        objects.forEach {
-            if $0.responds(to: selector) {
-                $0.perform(selector, with: object1, with: object2)
-            }
-        }
-    }
-}
-
-@objc protocol HTupleViewDelegate: UICollectionViewDelegate {
+@objc protocol HCollViewDelegate: UICollectionViewDelegate {
     @objc
-    optional func numberOfSectionsInTupleView() -> Any
+    optional func numberOfSectionsInCollView() -> Any
     @objc
     optional func numberOfItemsInSection(_ section: Any) -> Any
-    /// layout == HTupleViewFlowLayout
+    /// layout == HCollViewFlowLayout
     @objc
     optional func numberOfColumnsInSection(_ section: Any) -> Any
-    /// layout == HTupleViewLayout
+    /// layout == HCollViewLayout
     @objc
     optional func colorForSection(_ section: Any) -> UIColor
 
@@ -152,13 +104,6 @@ class HTupleObserver: NSObject {
     optional func sizeForFooterInSection(_ section: Any) -> Any
     @objc
     optional func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any
-
-    @objc
-    optional func edgeInsetsForHeaderInSection(_ section: Any) -> Any
-    @objc
-    optional func edgeInsetsForFooterInSection(_ section: Any) -> Any
-    @objc
-    optional func edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any
 
     @objc
     optional func minimumHeaderSpacingForSectionAt(_ section: Any) -> Any
@@ -173,20 +118,17 @@ class HTupleObserver: NSObject {
     optional func insetForSection(_ section: Any) -> Any
     
     @objc
-    optional func tupleHeader(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
+    optional func collHeader(_ coll: HCollView, atIndexPath indexPath: IndexPath)
     @objc
-    optional func tupleFooter(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
+    optional func collFooter(_ coll: HCollView, atIndexPath indexPath: IndexPath)
     @objc
-    optional func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
-    
-    @objc
-    optional func attributeForItemAtIndexPath(_ tuple: HTupleView, atIndexPath indexPath: IndexPath)
+    optional func collItem(_ coll: HCollView, atIndexPath indexPath: IndexPath)
 
     @objc
-    optional func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath)
-    
+    optional func willDisplayCell(_ cell: HCollBaseCell, atIndexPath indexPath: IndexPath)
+
     @objc
-    optional func didSelectCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath)
+    optional func didSelectCell(_ cell: HCollBaseCell, atIndexPath indexPath: IndexPath)
 
     /// UICollectionViewDelegate
     @objc
@@ -205,55 +147,55 @@ class HTupleObserver: NSObject {
     @objc
     optional func willDisplayElementKind(_ elementKind: String, atIndexPath indexPath: IndexPath)
     @objc
-    optional func didEndDisplayingCell(_ cell: HTupleBaseCell, forItemAtIndexPath indexPath: IndexPath)
+    optional func didEndDisplayingCell(_ cell: HCollBaseCell, forItemAtIndexPath indexPath: IndexPath)
     @objc
     optional func didEndDisplayingElementOfKind(_ elementKind: String, atIndexPath indexPath: IndexPath)
 
     /// UIScrollViewDelegate
     @objc
-    optional func tupleViewDidScroll(_ scrollView: UIScrollView)
+    optional func collViewDidScroll(_ scrollView: UIScrollView)
     @objc
-    optional func tupleViewDidZoom(_ scrollView: UIScrollView)
+    optional func collViewDidZoom(_ scrollView: UIScrollView)
 
     @objc
-    optional func tupleViewWillBeginDragging(_ scrollView: UIScrollView)
+    optional func collViewWillBeginDragging(_ scrollView: UIScrollView)
 
     @objc
-    optional func tupleViewWillEndDragging(_ velocity: CGPoint, targetContentOffset: CGPoint)
+    optional func collViewWillEndDragging(_ velocity: CGPoint, targetContentOffset: CGPoint)
 
     @objc
-    optional func tupleViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
+    optional func collViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
 
     @objc
-    optional func tupleViewWillBeginDecelerating(_ scrollView: UIScrollView)
+    optional func collViewWillBeginDecelerating(_ scrollView: UIScrollView)
     @objc
-    optional func tupleViewDidEndDecelerating(_ scrollView: UIScrollView)
+    optional func collViewDidEndDecelerating(_ scrollView: UIScrollView)
 
     @objc
-    optional func tupleViewDidEndScrollingAnimation(_ scrollView: UIScrollView)
+    optional func collViewDidEndScrollingAnimation(_ scrollView: UIScrollView)
 
     @objc
-    optional func tupleViewForZoomingInScrollView(_ scrollView: UIScrollView) -> UIView?
+    optional func collViewForZoomingInScrollView(_ scrollView: UIScrollView) -> UIView?
     @objc
-    optional func tupleViewWillBeginZooming(_ scrollView: UIScrollView, withView view: UIView?)
+    optional func collViewWillBeginZooming(_ scrollView: UIScrollView, withView view: UIView?)
     @objc
-    optional func tupleViewDidEndZooming(_ view: UIView?, atScale scale: CGFloat)
+    optional func collViewDidEndZooming(_ view: UIView?, atScale scale: CGFloat)
 
     @objc
-    optional func tupleViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool
+    optional func collViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool
     @objc
-    optional func tupleViewDidScrollToTop(_ scrollView: UIScrollView)
+    optional func collViewDidScrollToTop(_ scrollView: UIScrollView)
 
     @objc
-    optional func tupleViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView)
+    optional func collViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView)
 }
 
-class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, HTupleViewLayoutDelegate {
+class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     private var flowLayout: UICollectionViewFlowLayout?
 
     // 获取到实际内容大小时的回调
-    var cntSizeBlock: HTupleCntSizeBlock?
+    var cntSizeBlock: HCollCntSizeBlock?
     private var oldCntSize: CGSize = .zero {
         didSet {
             if oldCntSize != oldValue {
@@ -263,31 +205,27 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     // 实际内容之外的区域被点击回调
-    var outsideCntBlock: HTupleOutsideCntBlock?
+    var outsideCntBlock: HCollOutsideCntBlock?
 
-    // tuple style
-    private var tupleStyle: HTupleStyle = .tuple
+    // coll style
+    private var collStyle: HCollStyle = .coll
     
-    // tuple mode
-    private var tupleMode: HTupleMode = .delegate
-    
-    // delay reload tuple
-    private var tupleReload = HTupleReload()
+    // delay reload coll
+    private var collReload = HCollReload()
     
     // delay reload item
     private var allReloadItems: [IndexPath] = []
     private var reloadedItems: [IndexPath] = []
-    private var itemReload = HTupleReload()
+    private var itemReload = HCollReload()
     
-    // tuple align
-    var tupleAlign: HTupleAlign = .default
+    // coll align
+    var collAlign: HCollAlign = .default
     
     // cell height
     var cellHeights: [Int: CGFloat] = [:]
 
     private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
-    private var allAttributes = NSMapTable<NSString, HTupleAttributes>.strongToStrongObjects()
     private var allSectionInsets = NSMapTable<NSString, NSString>.strongToStrongObjects()
     private var allReuseCells    = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     private var allPassedCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
@@ -301,7 +239,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     /// Default scrolling direction is vertical
     convenience init(frame: CGRect) {
-        self.init(frame: frame, collectionViewLayout: HTupleViewLayout(.vertical, .manual))
+        self.init(frame: frame, collectionViewLayout: HCollViewLayout(.vertical))
     }
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
@@ -310,25 +248,24 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         self.setup()
     }
 
-    static func splitFrame(_ frame: () -> CGRect, mode: () -> HTupleMode, exclusiveSections sections: () -> NSArray, layout: () -> UICollectionViewFlowLayout) -> HTupleView {
-        return HTupleView(frame(), style: .split, mode: mode(), exclusiveSections: sections(), layout: layout())
+    static func splitFrame(_ frame: () -> CGRect, exclusiveSections sections: () -> NSArray, layout: () -> UICollectionViewFlowLayout) -> HCollView {
+        return HCollView(frame(), style: .split, exclusiveSections: sections(), layout: layout())
     }
     
-    static func tupleFrame(_ frame: () -> CGRect, mode: () -> HTupleMode, layout: () -> UICollectionViewFlowLayout) -> HTupleView {
-        return HTupleView(frame(), style: .tuple, mode: mode(), exclusiveSections: [], layout: layout())
+    static func collFrame(_ frame: () -> CGRect, layout: () -> UICollectionViewFlowLayout) -> HCollView {
+        return HCollView(frame(), style: .coll, exclusiveSections: [], layout: layout())
     }
 
-    private convenience init(_ frame: CGRect, style: HTupleStyle, mode: HTupleMode, exclusiveSections sectionPaths: NSArray, layout: UICollectionViewFlowLayout) {
+    private convenience init(_ frame: CGRect, style: HCollStyle, exclusiveSections sectionPaths: NSArray, layout: UICollectionViewFlowLayout) {
         self.init(frame: UIRectIntegral(frame), collectionViewLayout: layout)
         self.sectionPaths = sectionPaths
-        self.tupleStyle = style
-        self.tupleMode = mode
+        self.collStyle = style
     }
 
-    private weak var tupleDelegate: HTupleViewDelegate?
+    private weak var collDelegate: HCollViewDelegate?
     weak override var delegate: UICollectionViewDelegate? {
         get { return super.delegate }
-        set { tupleDelegate = newValue as? HTupleViewDelegate }
+        set { collDelegate = newValue as? HCollViewDelegate }
     }
     weak override var dataSource: UICollectionViewDataSource? {
         get { return super.dataSource }
@@ -355,8 +292,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     private func updateAlign() {
         let cntSize = self.contentSize
         let cntInset = self.contentInset
-        self.oldCntSize = cntSize //保存contentSize
-        switch tupleAlign {
+        switch collAlign {
         case .default:
             self.contentInset = UIEdgeInsets.zero
         case .center:
@@ -390,11 +326,11 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     private func setup() {
-        // Save tupleView for global refresh
-        HTupleAppearance.addTuple(self)
+        // Save collView for global refresh
+        HCollAppearance.addColl(self)
 
         // Set default tag
-        self.tag = kTupleDefaultTag
+        self.tag = kCollDefaultTag
 
         if self.flowLayout?.scrollDirection == .vertical {
             self.enableVerticalBounce()
@@ -414,43 +350,43 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     /// Page number, Default 1
-    var pageNo: Int = kTuplePageNo {
+    var pageNo: Int = kCollPageNo {
         didSet {
             if pageNo <= 0 {
-                pageNo = kTuplePageNo
+                pageNo = kCollPageNo
             }
         }
     }
 
     /// Page size, Default 20
-    var pageSize: Int = kTuplePageSize {
+    var pageSize: Int = kCollPageSize {
         didSet {
             if pageSize <= 0 {
-                pageSize = kTuplePageSize
+                pageSize = kCollPageSize
             }
         }
     }
 
     /// Total number. Default 10000
-    var totalNo: Int = kTupleTotalPageNo {
+    var totalNo: Int = kCollTotalPageNo {
         didSet {
             if totalNo <= 0 {
-                totalNo = kTupleTotalPageNo
+                totalNo = kCollTotalPageNo
             }
         }
     }
 
     /// Refresh header style
-    var refreshHeaderStyle: HTupleRefreshHeaderStyle = .gray
+    var refreshHeaderStyle: HCollRefreshHeaderStyle = .gray
 
     /// Load more footer style
-    var refreshFooterStyle: HTupleRefreshFooterStyle = .style1
+    var refreshFooterStyle: HCollRefreshFooterStyle = .style1
 
     /// Block to refresh data
-    var refreshBlock: HTupleRefreshBlock? {
+    var refreshBlock: HCollRefreshBlock? {
         didSet {
             if let refreshBlock = refreshBlock {
-                self.mj_header = HTupleRefresh.refreshHeaderWithStyle(refreshHeaderStyle) { [weak self] in
+                self.mj_header = HCollRefresh.refreshHeaderWithStyle(refreshHeaderStyle) { [weak self] in
                     guard let self = self else { return }
                     self.pageNo = 1
                     refreshBlock()
@@ -462,11 +398,11 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     /// Block to load more data
-    var loadMoreBlock: HTupleLoadMoreBlock? {
+    var loadMoreBlock: HCollLoadMoreBlock? {
         didSet {
             if let loadMoreBlock = loadMoreBlock {
                 self.pageNo = 1
-                self.mj_footer = HTupleRefresh.refreshFooterWithStyle(refreshFooterStyle) { [weak self] in
+                self.mj_footer = HCollRefresh.refreshFooterWithStyle(refreshFooterStyle) { [weak self] in
                     guard let self = self else { return }
                     self.pageNo += 1
                     if self.pageSize * self.pageNo < self.totalNo {
@@ -482,10 +418,10 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     /// Set the key value for release
-    var releaseTupleKey: String?
+    var releaseCollKey: String?
 
     /// Set the key value for reload
-    var reloadTupleKey: String?
+    var reloadCollKey: String?
 
     /// Block refresh & loadMore
     func beginRefreshing(_ completion: @escaping () -> Void) {
@@ -526,16 +462,6 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         self.alwaysBounceHorizontal = false
         self.alwaysBounceVertical = true
     }
-
-    func enableBounce() {
-        self.bounces = true
-        self.alwaysBounceHorizontal = true
-        self.alwaysBounceVertical = true
-    }
-
-    func disableBounce() {
-        self.bounces = false
-    }
     
     /// Scroll to top
     func scrollToTop(_ animated: Bool) {
@@ -559,23 +485,23 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     
     // 多少秒内只刷新一次
     func reloadIfNeeded(_ delay: TimeInterval = 2.0) {
-        if self.tupleReload.isRefresh {
-            self.tupleReload.needRefresh = true
+        if self.collReload.isRefresh {
+            self.collReload.needRefresh = true
         }else {
             self.reloadAsync(delay)
         }
     }
     
     private func reloadAsync(_ delay: TimeInterval) {
-        self.tupleReload.isRefresh = true
-        self.tupleReload.needRefresh = false
-        self.reloadTupleData()
+        self.collReload.isRefresh = true
+        self.collReload.needRefresh = false
+        self.reloadCollData()
         DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
             guard let self = self else { return }
-            if self.tupleReload.needRefresh {
+            if self.collReload.needRefresh {
                 self.reloadAsync(delay)
             }else {
-                self.tupleReload.isRefresh = false
+                self.collReload.isRefresh = false
             }
         }
     }
@@ -617,7 +543,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     @objc
-    func reloadTupleData() {
+    func reloadCollData() {
         DispatchQueue.mainAsync { [weak self] in
             self?.reloadData()
         }
@@ -625,13 +551,13 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     /// Release method
     @objc
-    func releaseTupleBlock() {
+    func releaseCollBlock() {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             self?.releaseAllSignal()
-            self?.clearTupleState()
+            self?.clearCollState()
 
             DispatchQueue.main.async { [weak self] in
-                self?.tupleDelegate = nil
+                self?.collDelegate = nil
                 self?.loadMoreBlock = nil
                 self?.refreshBlock = nil
                 self?.dataSource = nil
@@ -672,7 +598,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     deinit {
         NotificationCenter.default.removeObserver(self)
         self.removeFromSuperview()
-        self.tupleDelegate = nil
+        self.collDelegate = nil
         self.dataSource = nil
         self.delegate = nil
     }
@@ -684,9 +610,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         var identifier = (pre ?? "") + "HeaderCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
         identifier += idx ? indexPath.stringValue : ""
-        // Determine if there is a tuple state value
-        if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
-            identifier += "\(self.tupleState)"
+        // Determine if there is a coll state value
+        if self.collStyle == .split, !self.sectionPaths.contains(indexPath.section) {
+            identifier += "\(self.collState)"
         }
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
@@ -694,25 +620,12 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             self.register(cls, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier)
         }
         // Dequeue cell
-        let cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath) as! HTupleBaseApex
+        let cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath) as! HCollBaseApex
         cell.indexPath = indexPath
         cell.isHeader = true
-        cell.tuple = self
+        cell.coll = self
         // Save cell
         self.allReuseHeaders.setObject(cell, forKey: IndexPath.nsStringValue(0, indexPath.section))
-        // Call delegate method
-        var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
-            let selector: Selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath.section, withPre: prefix) as! UIEdgeInsets
-            }
-        }
-        // Set properties
-        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-            cell.edgeInsets = edgeInsets
-        }
         // Return cell
         return cell
     }
@@ -723,9 +636,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         var identifier = (pre ?? "") + "FooterCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
         identifier += idx ? indexPath.stringValue : ""
-        // Determine if there is a tuple state value
-        if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
-            identifier += "\(self.tupleState)"
+        // Determine if there is a coll state value
+        if self.collStyle == .split, !self.sectionPaths.contains(indexPath.section) {
+            identifier += "\(self.collState)"
         }
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
@@ -733,25 +646,12 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             self.register(cls, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier)
         }
         // Dequeue cell
-        let cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath) as! HTupleBaseApex
+        let cell = self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath) as! HCollBaseApex
         cell.indexPath = indexPath
         cell.isHeader = false
-        cell.tuple = self
+        cell.coll = self
         // Save cell
         self.allReuseFooters.setObject(cell, forKey: IndexPath.nsStringValue(0, indexPath.section))
-        // Call delegate method
-        var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
-            let selector = #selector(delegate.edgeInsetsForFooterInSection(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath.section, withPre: prefix) as! UIEdgeInsets
-            }
-        }
-        // Set properties
-        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-            cell.edgeInsets = edgeInsets
-        }
         // Return cell
         return cell
     }
@@ -762,9 +662,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
         identifier += idx ? indexPath.stringValue : ""
-        // Determine if there is a tuple state value
-        if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
-            identifier += "\(self.tupleState)"
+        // Determine if there is a coll state value
+        if self.collStyle == .split, !self.sectionPaths.contains(indexPath.section) {
+            identifier += "\(self.collState)"
         }
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
@@ -772,70 +672,34 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             self.register(cls, forCellWithReuseIdentifier: identifier)
         }
         // Dequeue cell
-        let cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! HTupleBaseCell
+        let cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! HCollBaseCell
         cell.indexPath = indexPath
-        cell.tuple = self
+        cell.coll = self
         // Save cell
         self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
-        // Call delegate method
-        var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
-            let selector = #selector(delegate.edgeInsetsForItemAtIndexPath(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! UIEdgeInsets
-            }
-        }
-        // Set properties
-        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-            cell.edgeInsets = edgeInsets
-        }
         // Return cell
         return cell
-    }
-    
-    func attribute(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> HTupleAttributes {
-        // Unique identifier
-        var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
-        // Determine whether it contains an index
-        identifier += idx ? indexPath.stringValue : ""
-        // Determine if there is a tuple state value
-        if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
-            identifier += "\(self.tupleState)"
-        }
-        // Register cell if not already registered
-        let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
-        guard let attribute = self.allAttributes.object(forKey: attributeKey) else {
-            if !self.allReuseIdentifiers.contains(identifier) {
-                self.allReuseIdentifiers.add(identifier)
-                self.register(cls, forCellWithReuseIdentifier: identifier)
-            }
-            let attribute = HTupleAttributes(identifier)
-            self.allAttributes.setObject(attribute, forKey: attributeKey)
-            return attribute
-        }
-        return attribute
     }
 
     /// UICollectionViewDatasource  & delegate
     private func scrollSplitPrefix() -> String {
         var prefix = ""
-        if self.tupleStyle == .split {
-            if self.sectionPaths.contains(self.tupleState) {
-                prefix = kTupleDesignKey + "\(self.tupleState)" + "_"
+        if self.collStyle == .split {
+            if self.sectionPaths.contains(self.collState) {
+                prefix = kCollDesignKey + "\(self.collState)" + "_"
             }
         }
         return prefix
     }
     
-    func tupleSplitPrefix(_ section: Int) -> String {
+    func collSplitPrefix(_ section: Int) -> String {
         var prefix = ""
-        if self.tupleStyle == .split {
+        if self.collStyle == .split {
             if self.sectionPaths.contains(section) {
                 let idx = self.sectionPaths.index(of: section)
-                prefix = kTupleExaDesignKey + "\(idx)" + "_"
+                prefix = kCollExaDesignKey + "\(idx)" + "_"
             }else {
-                prefix = kTupleDesignKey + "\(self.tupleState)" + "_"
+                prefix = kCollDesignKey + "\(self.collState)" + "_"
             }
         }
         return prefix
@@ -846,14 +710,13 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // remove cache data
         self.allReuseIdentifiers.removeAllObjects()
         self.allSectionInsets.removeAllObjects()
-        self.allAttributes.removeAllObjects()
-        // tuple Style
+        // coll Style
         var sections = 1
-        switch self.tupleStyle {
-        case .tuple:
-            if let delegate = self.tupleDelegate {
+        switch self.collStyle {
+        case .coll:
+            if let delegate = self.collDelegate {
                 let prefix = ""
-                let selector = #selector(delegate.numberOfSectionsInTupleView)
+                let selector = #selector(delegate.numberOfSectionsInCollView)
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
@@ -861,9 +724,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 sections = max(sections, 1)
             }
         case .split:
-            if let delegate = self.tupleDelegate {
-                let prefix = kTupleDesignKey + "\(self.tupleState)" + "_"
-                let selector = #selector(delegate.numberOfSectionsInTupleView)
+            if let delegate = self.collDelegate {
+                let prefix = kCollDesignKey + "\(self.collState)" + "_"
+                let selector = #selector(delegate.numberOfSectionsInCollView)
                 if delegate.responds(to: selector, withPre: prefix) {
                     sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
                 }
@@ -876,9 +739,9 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     internal func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var items = 0
-        if let delegate = self.tupleDelegate {
+        if let delegate = self.collDelegate {
             // Get the number of items
-            let prefix = self.tupleSplitPrefix(section)
+            let prefix = self.collSplitPrefix(section)
             let itemSelector: Selector = #selector(delegate.numberOfItemsInSection(_:))
             if delegate.responds(to: itemSelector, withPre: prefix) {
                 items = delegate.performWithUnretainedValue(itemSelector, with: section, withPre: prefix) as! Int
@@ -898,12 +761,12 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         return items
     }
     
-    /// layout == HTupleViewFlowLayout
+    /// layout == HCollViewFlowLayout
     internal func collectionView(_ collectionView: UICollectionView, numberOfColumnsInSection section: Int) -> Int {
         var items = 2
-        if let delegate = self.tupleDelegate {
+        if let delegate = self.collDelegate {
             // Get the number of items
-            let prefix = self.tupleSplitPrefix(section)
+            let prefix = self.collSplitPrefix(section)
             let itemSelector: Selector = #selector(delegate.numberOfColumnsInSection(_:))
             if delegate.responds(to: itemSelector, withPre: prefix) {
                 items = delegate.performWithUnretainedValue(itemSelector, with: section, withPre: prefix) as! Int
@@ -915,10 +778,10 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         return items
     }
 
-    /// layout == HTupleViewLayout
+    /// layout == HCollViewLayout
     internal func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, colorForSectionAt section: NSInteger) -> UIColor {
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(section)
+        if let delegate = self.collDelegate {
+            let prefix = self.collSplitPrefix(section)
             let selector = #selector(delegate.colorForSection(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIColor
@@ -928,8 +791,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(section)
+        if let delegate = self.collDelegate {
+            let prefix = self.collSplitPrefix(section)
             let selector = #selector(delegate.minimumLineSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -939,8 +802,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(section)
+        if let delegate = self.collDelegate {
+            let prefix = self.collSplitPrefix(section)
             let selector = #selector(delegate.minimumInteritemSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -961,8 +824,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         var size = CGSize.zero
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(section)
+        if let delegate = self.collDelegate {
+            let prefix = self.collSplitPrefix(section)
             let selector: Selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 let spacing: CGFloat = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -986,8 +849,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         var size = CGSize.zero
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(section)
+        if let delegate = self.collDelegate {
+            let prefix = self.collSplitPrefix(section)
             let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 let spacing: CGFloat = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
@@ -1012,86 +875,30 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         //item size cannot be zero, otherwise it will crash
         var size = CGSize(width: 1.0, height: 1.0)
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
-            // Delegate status
-            if self.tupleMode == .delegate {
-                let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
-                }
-                // Prevent negative size
-                if size.width <= 0 { size.width = 1.0 }
-                if size.height <= 0 { size.height = 1.0 }
-            } else {// block status
-                // Call cell delegate method
-                let selector = #selector(delegate.attributeForItemAtIndexPath(_:atIndexPath:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
-                }
-                let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
-                let attribute = self.allAttributes.object(forKey: attributeKey)
-                size = attribute?.size ?? .zero
-                // Prevent negative size
-                if size.width <= 0 { size.width = 1.0 }
-                if size.height <= 0 { size.height = 1.0 }
+        if let delegate = self.collDelegate {
+            let prefix = self.collSplitPrefix(indexPath.section)
+            let selector = #selector(delegate.sizeForItemAtIndexPath(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                size = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGSize
             }
+            // Prevent negative size
+            if size.width <= 0 { size.width = 1.0 }
+            if size.height <= 0 { size.height = 1.0 }
         }
         return UISizeIntegral(size)
     }
 
     internal func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // Delegate status
-        if self.tupleMode == .delegate {
-            // Call delegate method
-            if let delegate = self.tupleDelegate {
-                let prefix = self.tupleSplitPrefix(indexPath.section)
-                let selector: Selector = #selector(delegate.tupleItem(_:atIndexPath:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
-                }
+        // Call delegate method
+        if let delegate = self.collDelegate {
+            let prefix = self.collSplitPrefix(indexPath.section)
+            let selector: Selector = #selector(delegate.collItem(_:atIndexPath:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
             }
-            // Call cell
-            if let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell {
-                // Update layout
-                if cell.responds(to: #selector(cell.relayoutSubviews)) {
-                    cell.relayoutSubviews()
-                }
-                // Update passed cells
-                if self.allPassedCells.count > 20 {
-                    self.allPassedCells.removeAllObjects()
-                    SDImageCache.shared.clearMemory()
-                    SDImageCache.shared.clearDisk(onCompletion: {})
-                    KingfisherManager.shared.cache.clearMemoryCache()
-                }
-                self.allPassedCells.setObject(cell, forKey: indexPath.nsStringValue)
-                return cell
-            }
-            self.register(HTupleBaseCell.self, forCellWithReuseIdentifier: HTupleBaseCell.className)
-            return self.dequeueReusableCell(withReuseIdentifier: HTupleBaseCell.className, for: indexPath)
-        }else {
-            // Call cell
-            let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
-            let attribute = self.allAttributes.object(forKey: attributeKey)
-            let identifier = attribute?.identifier ?? ""
-            let cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! HTupleBaseCell
-            if let attribute = attribute {
-                // Dequeue cell
-                cell.indexPath = indexPath
-                cell.tuple = self
-                // Save cell
-                self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
-                // Set properties
-                if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-                    cell.edgeInsets = attribute.edgeInsets
-                }
-                // Call cell
-                attribute.cellBlock?(self, cell)
-                // Update layout
-                if cell.responds(to: #selector(cell.relayoutSubviews)) {
-                    cell.relayoutSubviews()
-                }
-            }
+        }
+        // Call cell
+        if let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HCollBaseCell {
             // Update passed cells
             if self.allPassedCells.count > 20 {
                 self.allPassedCells.removeAllObjects()
@@ -1102,82 +909,76 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             self.allPassedCells.setObject(cell, forKey: indexPath.nsStringValue)
             return cell
         }
+        self.register(HCollBaseCell.self, forCellWithReuseIdentifier: HCollBaseCell.className)
+        return self.dequeueReusableCell(withReuseIdentifier: HCollBaseCell.className, for: indexPath)
     }
 
     internal func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
             // Call delegate method
-            if let delegate = self.tupleDelegate {
-                let prefix = self.tupleSplitPrefix(indexPath.section)
+            if let delegate = self.collDelegate {
+                let prefix = self.collSplitPrefix(indexPath.section)
                 let selector: Selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     // Unique identifier
-                    let identifier = "HeaderSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.tupleState)"
+                    let identifier = "HeaderSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.collState)"
                     // Register cell if not already registered
                     if !self.allReuseIdentifiers.contains(identifier) {
                         self.allReuseIdentifiers.add(identifier)
-                        self.register(HTupleBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier)
+                        self.register(HCollBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier)
                     }
                     // Dequeue cell
                     return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier, for: indexPath)
                 } else {
-                    let selector: Selector = #selector(delegate.tupleHeader(_:atIndexPath:))
+                    let selector: Selector = #selector(delegate.collHeader(_:atIndexPath:))
                     if delegate.responds(to: selector, withPre: prefix) {
                         delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
                     }
                 }
             }
             // Call cell
-            if let cell = self.allReuseHeaders.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex {
-                // Update layout
-                if cell.responds(to: #selector(cell.relayoutSubviews)) {
-                    cell.relayoutSubviews()
-                }
+            if let cell = self.allReuseHeaders.object(forKey: indexPath.nsStringValue) as? HCollBaseApex {
                 return cell
             }
-            self.register(HTupleBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HTupleBaseApex.className)
-            return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HTupleBaseApex.className, for: indexPath)
+            self.register(HCollBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HCollBaseApex.className)
+            return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HCollBaseApex.className, for: indexPath)
         }else {
             // Call delegate method
-            if let delegate = self.tupleDelegate {
-                let prefix = self.tupleSplitPrefix(indexPath.section)
+            if let delegate = self.collDelegate {
+                let prefix = self.collSplitPrefix(indexPath.section)
                 let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     // Unique identifier
-                    let identifier = "FooterSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.tupleState)"
+                    let identifier = "FooterSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.collState)"
                     // Register cell if not already registered
                     if !self.allReuseIdentifiers.contains(identifier) {
                         self.allReuseIdentifiers.add(identifier)
-                        self.register(HTupleBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier)
+                        self.register(HCollBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier)
                     }
                     // Dequeue cell
                     return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier, for: indexPath)
                 } else {
-                    let selector: Selector = #selector(delegate.tupleFooter(_:atIndexPath:))
+                    let selector: Selector = #selector(delegate.collFooter(_:atIndexPath:))
                     if delegate.responds(to: selector, withPre: prefix) {
                         delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
                     }
                 }
             }
             // Call cell
-            if let cell = self.allReuseFooters.object(forKey: indexPath.nsStringValue) as? HTupleBaseApex {
-                // Update layout
-                if cell.responds(to: #selector(cell.relayoutSubviews)) {
-                    cell.relayoutSubviews()
-                }
+            if let cell = self.allReuseFooters.object(forKey: indexPath.nsStringValue) as? HCollBaseApex {
                 return cell
             }
-            self.register(HTupleBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HTupleBaseApex.className)
-            return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HTupleBaseApex.className, for: indexPath)
+            self.register(HCollBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HCollBaseApex.className)
+            return self.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HCollBaseApex.className, for: indexPath)
         }
     }
 
     internal func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HCollBaseCell
         if let willDisplayBlock = cell?.willDisplayBlock {
             willDisplayBlock()
-        }else if let delegate = self.tupleDelegate, let cell = cell {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
+        }else if let delegate = self.collDelegate, let cell = cell {
+            let prefix = self.collSplitPrefix(indexPath.section)
             let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
             if delegate.responds(to: selector, withPre: prefix) {
                 delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
@@ -1186,11 +987,11 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HTupleBaseCell
+        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HCollBaseCell
         if let selectBlock = cell?.selectBlock {
             selectBlock()
-        }else if let delegate = self.tupleDelegate, let cell = cell {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
+        }else if let delegate = self.collDelegate, let cell = cell {
+            let prefix = self.collSplitPrefix(indexPath.section)
             let selector = #selector(delegate.didSelectCell(_:atIndexPath:))
             if delegate.responds(to: selector, withPre: prefix) {
                 delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
@@ -1200,8 +1001,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     /// UICollectionViewDelegate
     internal func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
+        if let delegate = self.collDelegate {
+            let prefix = self.collSplitPrefix(indexPath.section)
             let selector = #selector(delegate.shouldHighlightItemAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
@@ -1211,8 +1012,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(indexPath.section)
+        guard let delegate = self.collDelegate else { return }
+        let prefix = self.collSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didHighlightItemAtIndexPath(_:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: indexPath, withPre: prefix)
@@ -1220,8 +1021,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(indexPath.section)
+        guard let delegate = self.collDelegate else { return }
+        let prefix = self.collSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didUnhighlightItemAtIndexPath(_:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: indexPath, withPre: prefix)
@@ -1229,8 +1030,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
+        if let delegate = self.collDelegate {
+            let prefix = self.collSplitPrefix(indexPath.section)
             let selector = #selector(delegate.shouldSelectItemAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
@@ -1240,8 +1041,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
-        if let delegate = self.tupleDelegate {
-            let prefix = self.tupleSplitPrefix(indexPath.section)
+        if let delegate = self.collDelegate {
+            let prefix = self.collSplitPrefix(indexPath.section)
             let selector = #selector(delegate.shouldDeselectItemAtIndexPath(_:))
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! Bool
@@ -1251,8 +1052,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(indexPath.section)
+        guard let delegate = self.collDelegate else { return }
+        let prefix = self.collSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didDeselectItemAtIndexPath(_:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: indexPath, withPre: prefix)
@@ -1260,8 +1061,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     internal func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-        guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(indexPath.section)
+        guard let delegate = self.collDelegate else { return }
+        let prefix = self.collSplitPrefix(indexPath.section)
         let selector = #selector(delegate.willDisplayElementKind(_:atIndexPath:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: elementKind, with: indexPath, withPre: prefix)
@@ -1269,8 +1070,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(indexPath.section)
+        guard let delegate = self.collDelegate else { return }
+        let prefix = self.collSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didEndDisplayingCell(_:forItemAtIndexPath:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
@@ -1278,8 +1079,8 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
-        guard let delegate = self.tupleDelegate else { return }
-        let prefix = self.tupleSplitPrefix(indexPath.section)
+        guard let delegate = self.collDelegate else { return }
+        let prefix = self.collSplitPrefix(indexPath.section)
         let selector = #selector(delegate.didEndDisplayingElementOfKind(_:atIndexPath:))
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: elementKind, with: indexPath, withPre: prefix)
@@ -1288,46 +1089,46 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 
     /// UIScrollViewDelegate
     internal func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.collDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidScroll:")
+        let selector = NSSelectorFromString("collViewDidScroll:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
     
     internal func scrollViewDidZoom(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.collDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidZoom:")
+        let selector = NSSelectorFromString("collViewDidZoom:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
 
     internal func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.collDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewWillBeginDragging:")
+        let selector = NSSelectorFromString("collViewWillBeginDragging:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
 
     internal func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.collDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        //let selector = NSSelectorFromString("tupleViewWillEndDragging:withVelocity:targetContentOffset:")
-        let selector = NSSelectorFromString("tupleViewWillEndDragging:targetContentOffset:")
+        //let selector = NSSelectorFromString("collViewWillEndDragging:withVelocity:targetContentOffset:")
+        let selector = NSSelectorFromString("collViewWillEndDragging:targetContentOffset:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: velocity, with: targetContentOffset, withPre: prefix)
         }
     }
 
     internal func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.collDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidEndDragging:willDecelerate:")
+        let selector = NSSelectorFromString("collViewDidEndDragging:willDecelerate:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, with: decelerate, withPre: prefix)
         }
@@ -1341,18 +1142,18 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     internal func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.collDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewWillBeginDecelerating:")
+        let selector = NSSelectorFromString("collViewWillBeginDecelerating:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
     
     internal func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.collDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidEndDecelerating:")
+        let selector = NSSelectorFromString("collViewDidEndDecelerating:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
@@ -1366,18 +1167,18 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
 
     internal func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.collDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidEndScrollingAnimation:")
+        let selector = NSSelectorFromString("collViewDidEndScrollingAnimation:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
 
     internal func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        if let delegate = self.tupleDelegate {
+        if let delegate = self.collDelegate {
             let prefix = self.scrollSplitPrefix()
-            let selector = NSSelectorFromString("tupleViewForZoomingInScrollView:")
+            let selector = NSSelectorFromString("collViewForZoomingInScrollView:")
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: scrollView, withPre: prefix) as? UIView
             }
@@ -1386,27 +1187,27 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.collDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewWillBeginZooming:withView:")
+        let selector = NSSelectorFromString("collViewWillBeginZooming:withView:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, with: view as Any, withPre: prefix)
         }
     }
     
     internal func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.collDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidEndZooming:atScale:")
+        let selector = NSSelectorFromString("collViewDidEndZooming:atScale:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: view as Any, with: scale, withPre: prefix)
         }
     }
 
     internal func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-        if let delegate = self.tupleDelegate {
+        if let delegate = self.collDelegate {
             let prefix = self.scrollSplitPrefix()
-            let selector = NSSelectorFromString("tupleViewShouldScrollToTop:")
+            let selector = NSSelectorFromString("collViewShouldScrollToTop:")
             if delegate.responds(to: selector, withPre: prefix) {
                 return delegate.performWithUnretainedValue(selector, with: scrollView, withPre: prefix) as! Bool
             }
@@ -1415,18 +1216,18 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
     }
     
     internal func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.collDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidScrollToTop:")
+        let selector = NSSelectorFromString("collViewDidScrollToTop:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
     }
 
     internal func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
-        guard let delegate = self.tupleDelegate else { return }
+        guard let delegate = self.collDelegate else { return }
         let prefix = self.scrollSplitPrefix()
-        let selector = NSSelectorFromString("tupleViewDidChangeAdjustedContentInset:")
+        let selector = NSSelectorFromString("collViewDidChangeAdjustedContentInset:")
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
@@ -1435,26 +1236,26 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
 }
 
 /// Signal mechanism classification
-extension HTupleView {
+extension HCollView {
 
-    /// The signal block held by tupleView
-    var signalBlock: HTupleCellSignalBlock? {
-        get { return self.getAssociatedValueForKey(&kTupleSignalKey) as? HTupleCellSignalBlock }
-        set { self.setAssociateCopyValue(newValue, key: &kTupleSignalKey) }
+    /// The signal block held by collView
+    var signalBlock: HCollCellSignalBlock? {
+        get { return self.getAssociatedValueForKey(&kCollSignalKey) as? HCollCellSignalBlock }
+        set { self.setAssociateCopyValue(newValue, key: &kCollSignalKey) }
     }
 
-    /// Send signal to tupleView
-    func signalToTupleView(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
+    /// Send signal to collView
+    func signalToCollView(_ signal: HCollSignal?, _ completion: @escaping () -> Void) {
         guard let signalBlock = self.signalBlock else { return }
         signalBlock(self, signal)
         completion()
     }
 
     /// Send signals to all items, items under a certain section, or a single item individually
-    func signalToAllItems(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
+    func signalToAllItems(_ signal: HCollSignal?, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            let tuples = self?.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HTupleBaseCell }
-            tuples?.forEach { cell in
+            let colls = self?.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HCollBaseCell }
+            colls?.forEach { cell in
                 DispatchQueue.main.async { [weak cell] in
                     guard let cell = cell else { return }
                     cell.signalBlock?(cell, signal)
@@ -1466,12 +1267,12 @@ extension HTupleView {
         }
     }
 
-    func signal(_ signal: HTupleSignal?, itemSection section: Int, _ completion: @escaping () -> Void) {
+    func signal(_ signal: HCollSignal?, itemSection section: Int, _ completion: @escaping () -> Void) {
         let items = self.numberOfItems(inSection: section)
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: items) { [weak self] i in
-                let cell = self?.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HTupleBaseCell
+                let cell = self?.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HCollBaseCell
                 if let cell = cell, let signalBlock = cell.signalBlock {
                     DispatchQueue.main.async(group: group) { [weak cell] in
                         guard let cell = cell else { return }
@@ -1486,8 +1287,8 @@ extension HTupleView {
         }
     }
 
-    func signal(_ signal: HTupleSignal?, toRow row: Int, inSection section: Int, _ completion: @escaping () -> Void) {
-        let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section)) as? HTupleBaseCell
+    func signal(_ signal: HCollSignal?, toRow row: Int, inSection section: Int, _ completion: @escaping () -> Void) {
+        let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section)) as? HCollBaseCell
         if let cell = cell, let signalBlock = cell.signalBlock {
             signalBlock(cell, signal)
         }
@@ -1495,12 +1296,12 @@ extension HTupleView {
     }
 
     /// Send signals to all headers or a single header individually
-    func signalToAllHeader(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
+    func signalToAllHeader(_ signal: HCollSignal?, _ completion: @escaping () -> Void) {
         let sections = self.numberOfSections
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: sections) { [weak self] i in
-                let header = self?.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HTupleBaseApex
+                let header = self?.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HCollBaseApex
                 if let header = header, let signalBlock = header.signalBlock {
                     DispatchQueue.main.async(group: group) { [weak header] in
                         guard let header = header else { return }
@@ -1515,8 +1316,8 @@ extension HTupleView {
         }
     }
 
-    func signal(_ signal: HTupleSignal?, headerSection section: Int, _ completion: @escaping () -> Void) {
-        let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section)) as? HTupleBaseApex
+    func signal(_ signal: HCollSignal?, headerSection section: Int, _ completion: @escaping () -> Void) {
+        let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section)) as? HCollBaseApex
         if let header = header, let signalBlock = header.signalBlock {
             signalBlock(header, signal)
         }
@@ -1524,12 +1325,12 @@ extension HTupleView {
     }
 
     /// Send signals to all footers or a single footer individually
-    func signalToAllFooter(_ signal: HTupleSignal?, _ completion: @escaping () -> Void) {
+    func signalToAllFooter(_ signal: HCollSignal?, _ completion: @escaping () -> Void) {
         let sections = self.numberOfSections
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
             DispatchQueue.concurrentPerform(iterations: sections) { [weak self] i in
-                let footer = self?.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HTupleBaseApex
+                let footer = self?.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HCollBaseApex
                 if let footer = footer, let signalBlock = footer.signalBlock {
                     DispatchQueue.main.async(group: group) { [weak footer] in
                         guard let footer = footer else { return }
@@ -1544,8 +1345,8 @@ extension HTupleView {
         }
     }
 
-    func signal(_ signal: HTupleSignal?, footerSection section: Int, _ completion: @escaping () -> Void) {
-        let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section)) as? HTupleBaseApex
+    func signal(_ signal: HCollSignal?, footerSection section: Int, _ completion: @escaping () -> Void) {
+        let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section)) as? HCollBaseApex
         if let footer = footer, let signalBlock = footer.signalBlock {
             signalBlock(footer, signal)
         }
@@ -1559,23 +1360,17 @@ extension HTupleView {
             self.signalBlock = nil
             //release all cell
             self.allReuseCells.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HTupleBaseCell)?.signalBlock = nil
-                ($0 as? HTupleBaseCell)?.selectBlock = nil
-                ($0 as? HTupleBaseCell)?.willDisplayBlock = nil
+                ($0 as? HCollBaseCell)?.signalBlock = nil
+                ($0 as? HCollBaseCell)?.selectBlock = nil
+                ($0 as? HCollBaseCell)?.willDisplayBlock = nil
             }
             //release all header
             self.allReuseHeaders.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HTupleBaseApex)?.signalBlock = nil
+                ($0 as? HCollBaseApex)?.signalBlock = nil
             }
             //release all footer
             self.allReuseFooters.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HTupleBaseApex)?.signalBlock = nil
-            }
-            //delegate status
-            if self.tupleMode == .block {
-                self.allAttributes.objectEnumerator()?.allObjects.forEach {
-                    ($0 as? HTupleAttributes)?.cellBlock = nil
-                }
+                ($0 as? HCollBaseApex)?.signalBlock = nil
             }
         }
     }
@@ -1645,32 +1440,32 @@ extension HTupleView {
 
 }
 
-private var Tuple_State_Key = "_tuple_"
+private var Coll_State_Key = "_coll_"
 
 /// Design data storage category for split
-extension HTupleView {
+extension HCollView {
 
-    private var tupleStateSource: NSMutableDictionary {
+    private var collStateSource: NSMutableDictionary {
         get {
-            if let dict = self.getAssociatedValueForKey(&kTupleStateSourceKey) as? NSMutableDictionary {
+            if let dict = self.getAssociatedValueForKey(&kCollStateSourceKey) as? NSMutableDictionary {
                 return dict
             } else {
                 let dict = NSMutableDictionary()
-                self.setAssociateValue(dict, key: &kTupleStateSourceKey)
+                self.setAssociateValue(dict, key: &kCollStateSourceKey)
                 return dict
             }
         }
     }
 
-    /// The state represented by the tupleView split design
-    var tupleState: Int {
+    /// The state represented by the collView split design
+    var collState: Int {
         get {
-            let value = self.getAssociatedValueForKey(&kTupleStateKey) as? NSNumber ?? NSNumber(value: 0)
+            let value = self.getAssociatedValueForKey(&kCollStateKey) as? NSNumber ?? NSNumber(value: 0)
             return value.intValue
         }
         set {
-            if newValue != self.tupleState {
-                self.setAssociateValue(NSNumber(value: newValue), key: &kTupleStateKey)
+            if newValue != self.collState {
+                self.setAssociateValue(NSNumber(value: newValue), key: &kCollStateKey)
                 self.reloadData()
             }
         }
@@ -1678,36 +1473,36 @@ extension HTupleView {
 
     /// Add a value to a certain state
     func setObject(_ anObject: Any, forKey aKey: String, state: Int) {
-        let key = aKey + Tuple_State_Key + "\(state)"
-        self.tupleStateSource.setObject(anObject, forKey: key as NSCopying)
+        let key = aKey + Coll_State_Key + "\(state)"
+        self.collStateSource.setObject(anObject, forKey: key as NSCopying)
     }
 
     /// Get a value of a certain state
     func object(forKey aKey: String, state: Int) -> Any? {
-        let key = aKey + Tuple_State_Key + "\(state)"
-        return self.tupleStateSource.object(forKey: key)
+        let key = aKey + Coll_State_Key + "\(state)"
+        return self.collStateSource.object(forKey: key)
     }
 
     /// Remove a value in a certain state
     func removeObject(forKey aKey: String, state: Int) {
-        let key = aKey + Tuple_State_Key + "\(state)"
-        self.tupleStateSource.removeObject(forKey: key)
+        let key = aKey + Coll_State_Key + "\(state)"
+        self.collStateSource.removeObject(forKey: key)
     }
 
     /// Delete the value of a certain state
     func removeObject(forState state: Int) {
-        let key = Tuple_State_Key + "\(state)"
-        for (aKey, _) in self.tupleStateSource.reversed() {
+        let key = Coll_State_Key + "\(state)"
+        for (aKey, _) in self.collStateSource.reversed() {
             let aKey = aKey as! String
             if key == aKey {
-                self.tupleStateSource.removeObject(forKey: aKey)
+                self.collStateSource.removeObject(forKey: aKey)
             }
         }
     }
 
     /// Remove all values ​​of the state
-    func clearTupleState() {
-        self.tupleStateSource.removeAllObjects()
+    func clearCollState() {
+        self.collStateSource.removeAllObjects()
     }
 
 }

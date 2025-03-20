@@ -135,15 +135,15 @@ class HRegisterController: HViewController, HTupleViewDelegate {
     @objc
     func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {       
         let cell = tuple.reuseCell(HTupleTmplCell.self, nil, true, indexPath) as! HTupleTmplCell
-//        let tabBar = cell.viewWithTag(12345) as? HTabBar
-//        if tabBar == nil {
-//            cell.addSubview(self.tabBarView)
-//        }
-        let toolbar = cell.viewWithTag(12345) as? HToolbar
-        if toolbar == nil {
-            cell.addSubview(self.toolbar)
-            self.toolbar.centerInSuperView()
+        let tabBar = cell.viewWithTag(12345) as? HTabBar
+        if tabBar == nil {
+            cell.addSubview(self.tabBarView)
         }
+//        let toolbar = cell.viewWithTag(12345) as? HToolbar
+//        if toolbar == nil {
+//            cell.addSubview(self.toolbar)
+//            self.toolbar.centerInSuperView()
+//        }
     }
 
 }

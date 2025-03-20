@@ -405,6 +405,23 @@
 		EBED9CA52A4C3C8600E590DE /* HTupleBannerApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */; };
 		EBED9CA62A4C3C8600E590DE /* HTupleBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CA42A4C3C8500E590DE /* HTupleBannerCell.swift */; };
 		EBED9CCA2A4D339700E590DE /* HDotIndicatorBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CC92A4D339700E590DE /* HDotIndicatorBar.swift */; };
+		EBEF30162D8C5C1400930730 /* HCollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30152D8C5C1400930730 /* HCollView.swift */; };
+		EBEF30182D8C63E600930730 /* HCollViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30172D8C63E600930730 /* HCollViewLayout.swift */; };
+		EBEF301A2D8C64B600930730 /* HCollViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30192D8C64B600930730 /* HCollViewFlowLayout.swift */; };
+		EBEF30252D8C683200930730 /* HCollViewCellHoriValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30222D8C683200930730 /* HCollViewCellHoriValue.swift */; };
+		EBEF30262D8C683200930730 /* HCollViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30212D8C683200930730 /* HCollViewCell.swift */; };
+		EBEF30272D8C683200930730 /* HCollBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF301D2D8C683200930730 /* HCollBaseCell.swift */; };
+		EBEF30282D8C683200930730 /* HCollTextImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF301F2D8C683200930730 /* HCollTextImageCell.swift */; };
+		EBEF30292D8C683200930730 /* HCollViewCellVertValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30232D8C683200930730 /* HCollViewCellVertValue.swift */; };
+		EBEF30332D8C684200930730 /* HCollTmplApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF302E2D8C684200930730 /* HCollTmplApex.swift */; };
+		EBEF30342D8C684200930730 /* HCollBaseApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF302B2D8C684200930730 /* HCollBaseApex.swift */; };
+		EBEF30352D8C684200930730 /* HCollViewApexHoriValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30302D8C684200930730 /* HCollViewApexHoriValue.swift */; };
+		EBEF30362D8C684200930730 /* HCollViewApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF302F2D8C684200930730 /* HCollViewApex.swift */; };
+		EBEF30372D8C684200930730 /* HCollViewApexVertValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30312D8C684200930730 /* HCollViewApexVertValue.swift */; };
+		EBEF30382D8C684200930730 /* HCollTextImageApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF302D2D8C684200930730 /* HCollTextImageApex.swift */; };
+		EBEF303A2D8C6BA100930730 /* HCollSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30392D8C6BA100930730 /* HCollSignal.swift */; };
+		EBEF303C2D8C6EBF00930730 /* HCollRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF303B2D8C6EBF00930730 /* HCollRefresh.swift */; };
+		EBEF303E2D8C755E00930730 /* HCollTmplCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF303D2D8C755E00930730 /* HCollTmplCell.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -812,6 +829,23 @@
 		EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleBannerApex.swift; sourceTree = "<group>"; };
 		EBED9CA42A4C3C8500E590DE /* HTupleBannerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleBannerCell.swift; sourceTree = "<group>"; };
 		EBED9CC92A4D339700E590DE /* HDotIndicatorBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDotIndicatorBar.swift; sourceTree = "<group>"; };
+		EBEF30152D8C5C1400930730 /* HCollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollView.swift; sourceTree = "<group>"; };
+		EBEF30172D8C63E600930730 /* HCollViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollViewLayout.swift; sourceTree = "<group>"; };
+		EBEF30192D8C64B600930730 /* HCollViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollViewFlowLayout.swift; sourceTree = "<group>"; };
+		EBEF301D2D8C683200930730 /* HCollBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollBaseCell.swift; sourceTree = "<group>"; };
+		EBEF301F2D8C683200930730 /* HCollTextImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollTextImageCell.swift; sourceTree = "<group>"; };
+		EBEF30212D8C683200930730 /* HCollViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollViewCell.swift; sourceTree = "<group>"; };
+		EBEF30222D8C683200930730 /* HCollViewCellHoriValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollViewCellHoriValue.swift; sourceTree = "<group>"; };
+		EBEF30232D8C683200930730 /* HCollViewCellVertValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollViewCellVertValue.swift; sourceTree = "<group>"; };
+		EBEF302B2D8C684200930730 /* HCollBaseApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollBaseApex.swift; sourceTree = "<group>"; };
+		EBEF302D2D8C684200930730 /* HCollTextImageApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollTextImageApex.swift; sourceTree = "<group>"; };
+		EBEF302E2D8C684200930730 /* HCollTmplApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollTmplApex.swift; sourceTree = "<group>"; };
+		EBEF302F2D8C684200930730 /* HCollViewApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollViewApex.swift; sourceTree = "<group>"; };
+		EBEF30302D8C684200930730 /* HCollViewApexHoriValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollViewApexHoriValue.swift; sourceTree = "<group>"; };
+		EBEF30312D8C684200930730 /* HCollViewApexVertValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollViewApexVertValue.swift; sourceTree = "<group>"; };
+		EBEF30392D8C6BA100930730 /* HCollSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollSignal.swift; sourceTree = "<group>"; };
+		EBEF303B2D8C6EBF00930730 /* HCollRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollRefresh.swift; sourceTree = "<group>"; };
+		EBEF303D2D8C755E00930730 /* HCollTmplCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollTmplCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -969,6 +1003,8 @@
 		A2892394238B72F800E4AB75 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				EBEF301B2D8C67B900930730 /* HCollViewApex */,
+				EBEF301C2D8C67B900930730 /* HCollViewCell */,
 				A2892395238B72F800E4AB75 /* HTupleViewApex */,
 				A2892397238B72F800E4AB75 /* HTupleViewCell */,
 				A2892399238B72F800E4AB75 /* HTupleCommon */,
@@ -1012,9 +1048,11 @@
 				A289239A238B72F800E4AB75 /* HGeometry.swift */,
 				A2A814B3274C0E2000FAB929 /* HTupleHeader.swift */,
 				A289239B238B72F800E4AB75 /* HTupleSignal.swift */,
+				EBEF30392D8C6BA100930730 /* HCollSignal.swift */,
 				EB869F602B610B4900076A5D /* HTupleAttributes.swift */,
 				A289239C238B72F800E4AB75 /* NSIndexPath+HUtil.swift */,
 				A2CC441023B360AE00DB095F /* HTupleRefresh.swift */,
+				EBEF303B2D8C6EBF00930730 /* HCollRefresh.swift */,
 				A2A814C4274F56C400FAB929 /* UIView+HUtil.swift */,
 				EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */,
 				EB80B6732A15C8ED0016648A /* HLabel.swift */,
@@ -1052,10 +1090,13 @@
 			isa = PBXGroup;
 			children = (
 				A289239E238B72F800E4AB75 /* HTupleView.swift */,
+				EBEF30152D8C5C1400930730 /* HCollView.swift */,
 				EB90BC292CC245BD00C392C4 /* HTupleLayout.swift */,
 				EBD11E4C2CA6F7C500E1E6BF /* HTupleTmplView.swift */,
 				A289239F238B72F800E4AB75 /* HTupleViewLayout.swift */,
+				EBEF30172D8C63E600930730 /* HCollViewLayout.swift */,
 				EB5148972AE283A70075F737 /* HTupleViewFlowLayout.swift */,
+				EBEF30192D8C64B600930730 /* HCollViewFlowLayout.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1916,6 +1957,32 @@
 			path = HUserModel;
 			sourceTree = "<group>";
 		};
+		EBEF301B2D8C67B900930730 /* HCollViewApex */ = {
+			isa = PBXGroup;
+			children = (
+				EBEF302B2D8C684200930730 /* HCollBaseApex.swift */,
+				EBEF302D2D8C684200930730 /* HCollTextImageApex.swift */,
+				EBEF302E2D8C684200930730 /* HCollTmplApex.swift */,
+				EBEF302F2D8C684200930730 /* HCollViewApex.swift */,
+				EBEF30302D8C684200930730 /* HCollViewApexHoriValue.swift */,
+				EBEF30312D8C684200930730 /* HCollViewApexVertValue.swift */,
+			);
+			path = HCollViewApex;
+			sourceTree = "<group>";
+		};
+		EBEF301C2D8C67B900930730 /* HCollViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				EBEF301D2D8C683200930730 /* HCollBaseCell.swift */,
+				EBEF301F2D8C683200930730 /* HCollTextImageCell.swift */,
+				EBEF303D2D8C755E00930730 /* HCollTmplCell.swift */,
+				EBEF30212D8C683200930730 /* HCollViewCell.swift */,
+				EBEF30222D8C683200930730 /* HCollViewCellHoriValue.swift */,
+				EBEF30232D8C683200930730 /* HCollViewCellVertValue.swift */,
+			);
+			path = HCollViewCell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2129,6 +2196,7 @@
 				A22948BC2397990B0058B939 /* HRegisterController+KS.swift in Sources */,
 				EB05977C2A0DF18F0016ACD8 /* HChatTableView.swift in Sources */,
 				EBC8147129AA541200A81431 /* HSendVideoVC+HStatus2.swift in Sources */,
+				EBEF30182D8C63E600930730 /* HCollViewLayout.swift in Sources */,
 				EB1C8D772C02A82200ADF411 /* HPostViewCell.swift in Sources */,
 				EBC8147529AA541F00A81431 /* HSendVideoVC+HStatus4.swift in Sources */,
 				A26D4323238526BA00F457AE /* UIViewController+HUtil.swift in Sources */,
@@ -2333,12 +2401,14 @@
 				EBA53C3A2A3B47240077158D /* HWebImageView2.swift in Sources */,
 				EBC307292BF8F16000EF8ABD /* HTupleDropVC.swift in Sources */,
 				EBA167BC2D16CC0E00DD2088 /* VideoDownloaderSessionDelegateHandler.swift in Sources */,
+				EBEF30162D8C5C1400930730 /* HCollView.swift in Sources */,
 				EB1209872A84CC8300E5F045 /* HPostVM.swift in Sources */,
 				EB12097F2A827AF200E5F045 /* HPostFooter.swift in Sources */,
 				A26D43192383E23300F457AE /* NSString+HUtil.swift in Sources */,
 				EBA167B92D16CC0E00DD2088 /* VideoDownloaderHandler.swift in Sources */,
 				A22948A5239798000058B939 /* HMainController1.swift in Sources */,
 				A2188797238FD3D6005C20BF /* HGameCategoryVC+HSection1.swift in Sources */,
+				EBEF301A2D8C64B600930730 /* HCollViewFlowLayout.swift in Sources */,
 				EBA167C22D16CC0E00DD2088 /* VideoPlayerView.swift in Sources */,
 				A2A7A93B23FE36440090EFD3 /* HAnimatedDotView.swift in Sources */,
 				A26D434923879FB900F457AE /* Router.swift in Sources */,
@@ -2353,6 +2423,7 @@
 				EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */,
 				EB3541E92BEA0073003B1D69 /* HUserLoginRequest.swift in Sources */,
 				A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */,
+				EBEF303C2D8C6EBF00930730 /* HCollRefresh.swift in Sources */,
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,
 				EBA167AE2D16CC0E00DD2088 /* String+Extensions.swift in Sources */,
 				EB0597712A0B6B990016ACD8 /* HNavigationBar.swift in Sources */,
@@ -2385,8 +2456,20 @@
 				EBC8146729AA53E600A81431 /* HAcceptVideoVC+HStatus2.swift in Sources */,
 				A26D432F23868AFE00F457AE /* UIViewController+HDisappear.swift in Sources */,
 				A21887A823900832005C20BF /* HKeychainSwift.swift in Sources */,
+				EBEF30252D8C683200930730 /* HCollViewCellHoriValue.swift in Sources */,
+				EBEF30262D8C683200930730 /* HCollViewCell.swift in Sources */,
+				EBEF30272D8C683200930730 /* HCollBaseCell.swift in Sources */,
+				EBEF30282D8C683200930730 /* HCollTextImageCell.swift in Sources */,
+				EBEF30292D8C683200930730 /* HCollViewCellVertValue.swift in Sources */,
 				EBA167BE2D16CC0E00DD2088 /* VideoRequestLoader.swift in Sources */,
 				EBC8145B29AA53AD00A81431 /* HSendAudioVC+HStatus2.swift in Sources */,
+				EBEF30332D8C684200930730 /* HCollTmplApex.swift in Sources */,
+				EBEF303A2D8C6BA100930730 /* HCollSignal.swift in Sources */,
+				EBEF30342D8C684200930730 /* HCollBaseApex.swift in Sources */,
+				EBEF30352D8C684200930730 /* HCollViewApexHoriValue.swift in Sources */,
+				EBEF30362D8C684200930730 /* HCollViewApex.swift in Sources */,
+				EBEF30372D8C684200930730 /* HCollViewApexVertValue.swift in Sources */,
+				EBEF30382D8C684200930730 /* HCollTextImageApex.swift in Sources */,
 				EBC8145329AA530B00A81431 /* HMultiMediaVC.swift in Sources */,
 				EBD213D72A655FB800C31E2D /* HActiveController.swift in Sources */,
 				EBA1678B2D16C9A000DD2088 /* HAdvertsVC+HSingle.swift in Sources */,
@@ -2443,6 +2526,7 @@
 				A26D431D2384177900F457AE /* UIScreen+HUtil.swift in Sources */,
 				A28923A9238B72F800E4AB75 /* NSObject+HSelector.swift in Sources */,
 				EBA167AC2D16CC0E00DD2088 /* GSAVPlayerViewController.swift in Sources */,
+				EBEF303E2D8C755E00930730 /* HCollTmplCell.swift in Sources */,
 				EBC738702CC6027100A01E71 /* HFlowRefresh.swift in Sources */,
 				A2B4307B237FF2B100795605 /* HCServiceViewController.swift in Sources */,
 			);

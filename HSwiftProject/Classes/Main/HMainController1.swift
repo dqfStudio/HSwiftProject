@@ -82,8 +82,8 @@ class HMainController1: HViewController {
         let activeFrame = CGRect(x: 0, y: activeY, width: self.view.width, height: activeH)
         let activeView = HActiveView(frame: activeFrame)
         
-        let tupleVC = HTupleController()
         let flowVC = HTupleAutoVC()
+        let tupleVC = HTupleController()
         let chatVC = HChatsMsgVC()
         let postVC = HPostVC()
         
