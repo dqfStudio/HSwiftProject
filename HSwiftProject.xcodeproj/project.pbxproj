@@ -422,6 +422,8 @@
 		EBEF303A2D8C6BA100930730 /* HCollSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30392D8C6BA100930730 /* HCollSignal.swift */; };
 		EBEF303C2D8C6EBF00930730 /* HCollRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF303B2D8C6EBF00930730 /* HCollRefresh.swift */; };
 		EBEF303E2D8C755E00930730 /* HCollTmplCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF303D2D8C755E00930730 /* HCollTmplCell.swift */; };
+		EBEF30402D8D379D00930730 /* HCollLayoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF303F2D8D379D00930730 /* HCollLayoutCell.swift */; };
+		EBEF30422D8D389500930730 /* HCollLayoutApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30412D8D389500930730 /* HCollLayoutApex.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -846,6 +848,8 @@
 		EBEF30392D8C6BA100930730 /* HCollSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollSignal.swift; sourceTree = "<group>"; };
 		EBEF303B2D8C6EBF00930730 /* HCollRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollRefresh.swift; sourceTree = "<group>"; };
 		EBEF303D2D8C755E00930730 /* HCollTmplCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollTmplCell.swift; sourceTree = "<group>"; };
+		EBEF303F2D8D379D00930730 /* HCollLayoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollLayoutCell.swift; sourceTree = "<group>"; };
+		EBEF30412D8D389500930730 /* HCollLayoutApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollLayoutApex.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1963,6 +1967,7 @@
 				EBEF302B2D8C684200930730 /* HCollBaseApex.swift */,
 				EBEF302E2D8C684200930730 /* HCollTmplApex.swift */,
 				EBEF302F2D8C684200930730 /* HCollViewApex.swift */,
+				EBEF30412D8D389500930730 /* HCollLayoutApex.swift */,
 				EBEF302D2D8C684200930730 /* HCollTextImageApex.swift */,
 				EBEF30302D8C684200930730 /* HCollViewApexHoriValue.swift */,
 				EBEF30312D8C684200930730 /* HCollViewApexVertValue.swift */,
@@ -1976,6 +1981,7 @@
 				EBEF301D2D8C683200930730 /* HCollBaseCell.swift */,
 				EBEF303D2D8C755E00930730 /* HCollTmplCell.swift */,
 				EBEF30212D8C683200930730 /* HCollViewCell.swift */,
+				EBEF303F2D8D379D00930730 /* HCollLayoutCell.swift */,
 				EBEF301F2D8C683200930730 /* HCollTextImageCell.swift */,
 				EBEF30222D8C683200930730 /* HCollViewCellHoriValue.swift */,
 				EBEF30232D8C683200930730 /* HCollViewCellVertValue.swift */,
@@ -2375,6 +2381,7 @@
 				EBED9CCA2A4D339700E590DE /* HDotIndicatorBar.swift in Sources */,
 				EBA167B82D16CC0E00DD2088 /* VideoCacheHandler.swift in Sources */,
 				EBD0FB6B29D02B1000808EDA /* HUserStore.swift in Sources */,
+				EBEF30422D8D389500930730 /* HCollLayoutApex.swift in Sources */,
 				EBD0FB3629CCA34800808EDA /* HLocalNotification.swift in Sources */,
 				EB5998E02C0DACB40021241C /* SLNodeModel.swift in Sources */,
 				A26D43412386CD9000F457AE /* NSTimer+HSafeUtil.swift in Sources */,
@@ -2507,6 +2514,7 @@
 				A2A7A94723FE3B5E0090EFD3 /* HPageControl.swift in Sources */,
 				A2A7A93D23FE3A790090EFD3 /* HDotView.swift in Sources */,
 				A2B43075237FF2B100795605 /* HPrinterManager.swift in Sources */,
+				EBEF30402D8D379D00930730 /* HCollLayoutCell.swift in Sources */,
 				A22948A323975FB10058B939 /* HFlowViewApexHoriValue.swift in Sources */,
 				EBC307162BF8A65A00EF8ABD /* HTransitionAnimator2.swift in Sources */,
 				A2A7A94923FE8A400090EFD3 /* HCycleScrollView.swift in Sources */,
