@@ -35,25 +35,39 @@ class HCollBaseApex: UICollectionReusableView {
         self.initUI()
     }
     
-    /// The layout view loaded on the content view
-    lazy var layoutView: UIStackView = {
-        let stackView = UIStackView(frame: self.bounds)
-        stackView.axis = .horizontal
-        stackView.distribution = .fill
-        stackView.alignment = .fill
-        self.addSubview(stackView)
-        return stackView
-    }()
+    /// The edge insets of the cell.
+    @objc override var edgeInsets: UIEdgeInsets {
+        get {
+            let edgeInsetsString = self.getAssociatedValueForKey(&kViewEdgeInsetsKey) as? String ?? NSCoder.string(for: UIEdgeInsets.zero)
+            return NSCoder.uiEdgeInsets(for: edgeInsetsString)
+        }
+        set {
+            if edgeInsets != newValue {
+                self.setAssociateValue(NSCoder.string(for: newValue), key: &kViewEdgeInsetsKey)
+            }
+        }
+    }
     
-    /// The separator view loaded on the content view
-    lazy var separator: UIView = {
-        let separator = UIView(frame: self.bounds)
-        separator.backgroundColor = UIColor(hex: "#E9E9E9")
-        self.addSubview(separator)
-        return separator
-    }()
+    /// The frame and bounds of layoutView
+    var layoutViewFrame: CGRect {
+        return self.frame
+    }
+
+    var layoutViewBounds: CGRect {
+        return self.bounds
+    }
+    
+    func HLayoutCollApex(_ v: UIView) {
+        if !v.frame.equalTo(self.bounds) {
+            v.frame = self.bounds
+        }
+    }
 
     /// Method called during cell initialization
     func initUI() { }
+    
+    /// Used by subclasses to update subview layout
+    @objc
+    func relayoutSubviews() { }
 
 }

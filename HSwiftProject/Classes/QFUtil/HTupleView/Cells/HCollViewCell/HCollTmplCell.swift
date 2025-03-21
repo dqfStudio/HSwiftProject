@@ -10,99 +10,75 @@ import UIKit
 
 class HCollTmplCell: HCollBaseCell {
     
-    ///label
-    lazy var label: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14.0)
-        self.layoutView.addArrangedSubview(label)
-        return label
+    /// The edge insets of the cell.
+    @objc override var edgeInsets: UIEdgeInsets {
+        get {
+            let edgeInsetsString = self.getAssociatedValueForKey(&kViewEdgeInsetsKey) as? String ?? NSCoder.string(for: UIEdgeInsets.zero)
+            return NSCoder.uiEdgeInsets(for: edgeInsetsString)
+        }
+        set {
+            if edgeInsets != newValue {
+                layoutView.frame = self.bounds.inset(by: newValue)
+                self.setAssociateValue(NSCoder.string(for: newValue), key: &kViewEdgeInsetsKey)
+            }
+        }
+    }
+
+    /// The layout view loaded on the content view
+    lazy var layoutView: UIStackView = {
+        let stackView = UIStackView(frame: self.bounds)
+        stackView.axis = .horizontal
+        stackView.distribution = .fill
+        stackView.alignment = .fill
+        stackView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.contentView.addSubview(stackView)
+        return stackView
     }()
-    lazy var detailLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14.0)
-        self.layoutView.addArrangedSubview(label)
-        return label
-    }()
-    lazy var accsryLabel: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 14.0)
-        self.layoutView.addArrangedSubview(label)
-        return label
+    
+    /// The separator view loaded on the content view
+    lazy var separatorView: HCellApexSeparator = {
+        let separator = HCellApexSeparator(frame: self.bounds)
+        self.contentView.addSubview(separator)
+        return separator
     }()
 
-    
-    ///textView
-    lazy var textView: HTextView = {
-        let textView = HTextView()
-        textView.font = .systemFont(ofSize: 14.0)
-        self.layoutView.addArrangedSubview(textView)
-        return textView
-    }()
-    lazy var detailText: HTextView = {
-        let textView = HTextView()
-        textView.font = .systemFont(ofSize: 14.0)
-        self.layoutView.addArrangedSubview(textView)
-        return textView
-    }()
-    lazy var accsryText: HTextView = {
-        let textView = HTextView()
-        textView.font = .systemFont(ofSize: 14.0)
-        self.layoutView.addArrangedSubview(textView)
-        return textView
-    }()
+    /// The frame and bounds of layoutView
+    override var layoutViewFrame: CGRect {
+        return layoutView.frame
+    }
 
+    override var layoutViewBounds: CGRect {
+        return layoutView.bounds
+    }
     
-    ///button
-    lazy var buttonView: HWebButtonView = {
-        let buttonView = HWebButtonView()
-        self.layoutView.addArrangedSubview(buttonView)
-        return buttonView
-    }()
-    lazy var detailButton: HWebButtonView = {
-        let buttonView = HWebButtonView()
-        self.layoutView.addArrangedSubview(buttonView)
-        return buttonView
-    }()
-    lazy var accsryButton: HWebButtonView = {
-        let buttonView = HWebButtonView()
-        self.layoutView.addArrangedSubview(buttonView)
-        return buttonView
-    }()
-
+    private var _activity: UIActivityIndicatorView?
+    var activity: UIActivityIndicatorView {
+        if let activity = _activity {
+            return activity
+        } else {
+            if #available(iOS 13.0, *) {
+                _activity = UIActivityIndicatorView(style: .medium)
+            } else {
+                _activity = UIActivityIndicatorView(style: .gray)
+            }
+            let centerX = self.contentView.bounds.width / 2
+            let centerY = self.contentView.bounds.height / 2
+            _activity!.center = CGPoint(x: centerX, y: centerY)
+            self.contentView.addSubview(_activity!)
+            return _activity!
+        }
+    }
     
-    ///imageView
-    lazy var imageView: HWebImageView = {
-        let imageView = HWebImageView()
-        self.layoutView.addArrangedSubview(imageView)
-        return imageView
-    }()
-    lazy var detailView: HWebImageView = {
-        let imageView = HWebImageView()
-        self.layoutView.addArrangedSubview(imageView)
-        return imageView
-    }()
-    lazy var accsryView: HWebImageView = {
-        let imageView = HWebImageView()
-        self.layoutView.addArrangedSubview(imageView)
-        return imageView
-    }()
-
-    
-    ///textField
-    lazy var textField: HTextField = {
-        let textField = HTextField()
-        self.layoutView.addArrangedSubview(textField)
-        return textField
-    }()
-    lazy var detailField: HTextField = {
-        let textField = HTextField()
-        self.layoutView.addArrangedSubview(textField)
-        return textField
-    }()
-    lazy var accsryField: HTextField = {
-        let textField = HTextField()
-        self.layoutView.addArrangedSubview(textField)
-        return textField
-    }()
+    override func HLayoutCollCell(_ v: UIView) {
+        let frame = self.layoutViewBounds
+        if !v.frame.equalTo(frame) {
+            v.frame = frame
+        }
+        if let activity = _activity {
+            let centerX = self.contentView.bounds.width / 2
+            let centerY = self.contentView.bounds.height / 2
+            activity.center = CGPoint(x: centerX, y: centerY)
+        }
+    }
     
 }

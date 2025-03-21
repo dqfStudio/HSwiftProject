@@ -20,6 +20,11 @@ enum HCollDirection {
     case horizontal // Horizontal design
 }
 
+enum HCollItemLayout {
+    case manual // Manual
+    case automatic // Automatic
+}
+
 enum HCollAlign {
     case `default` // 垂直居上，水平居左
     case center // 垂直居中，水平居中
@@ -86,6 +91,44 @@ class HCollAppearance: NSObject {
     }
 }
 
+class HCollObserver: NSObject {
+
+    private static var hashObjects = NSHashTable<NSObject>.weakObjects()
+
+    static func addObserver(_ anObserver: NSObject?) {
+        if let anObserver = anObserver, !self.hashObjects.contains(anObserver) {
+            self.hashObjects.add(anObserver)
+        }
+    }
+    static func perform(key: String) {
+        let selector = NSSelectorFromString(key)
+        let objects = self.hashObjects.allObjects.reversed()
+        objects.forEach {
+            if $0.responds(to: selector) {
+                $0.perform(selector)
+            }
+        }
+    }
+    static func perform(key: String, with object: String) {
+        let selector = NSSelectorFromString(key)
+        let objects = self.hashObjects.allObjects.reversed()
+        objects.forEach {
+            if $0.responds(to: selector) {
+                $0.perform(selector, with: object)
+            }
+        }
+    }
+    static func perform(key: String, with object1: String, with object2: String) {
+        let selector = NSSelectorFromString(key)
+        let objects = self.hashObjects.allObjects.reversed()
+        objects.forEach {
+            if $0.responds(to: selector) {
+                $0.perform(selector, with: object1, with: object2)
+            }
+        }
+    }
+}
+
 @objc protocol HCollViewDelegate: UICollectionViewDelegate {
     @objc
     optional func numberOfSectionsInCollView() -> Any
@@ -104,6 +147,13 @@ class HCollAppearance: NSObject {
     optional func sizeForFooterInSection(_ section: Any) -> Any
     @objc
     optional func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any
+
+    @objc
+    optional func edgeInsetsForHeaderInSection(_ section: Any) -> Any
+    @objc
+    optional func edgeInsetsForFooterInSection(_ section: Any) -> Any
+    @objc
+    optional func edgeInsetsForItemAtIndexPath(_ indexPath: IndexPath) -> Any
 
     @objc
     optional func minimumHeaderSpacingForSectionAt(_ section: Any) -> Any
@@ -126,7 +176,7 @@ class HCollAppearance: NSObject {
 
     @objc
     optional func willDisplayCell(_ cell: HCollBaseCell, atIndexPath indexPath: IndexPath)
-
+    
     @objc
     optional func didSelectCell(_ cell: HCollBaseCell, atIndexPath indexPath: IndexPath)
 
@@ -190,7 +240,7 @@ class HCollAppearance: NSObject {
     optional func collViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView)
 }
 
-class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, HCollViewLayoutDelegate {
 
     private var flowLayout: UICollectionViewFlowLayout?
 
@@ -292,6 +342,7 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
     private func updateAlign() {
         let cntSize = self.contentSize
         let cntInset = self.contentInset
+        self.oldCntSize = cntSize //保存contentSize
         switch collAlign {
         case .default:
             self.contentInset = UIEdgeInsets.zero
@@ -462,6 +513,16 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
         self.alwaysBounceHorizontal = false
         self.alwaysBounceVertical = true
     }
+
+    func enableBounce() {
+        self.bounces = true
+        self.alwaysBounceHorizontal = true
+        self.alwaysBounceVertical = true
+    }
+
+    func disableBounce() {
+        self.bounces = false
+    }
     
     /// Scroll to top
     func scrollToTop(_ animated: Bool) {
@@ -626,6 +687,19 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
         cell.coll = self
         // Save cell
         self.allReuseHeaders.setObject(cell, forKey: IndexPath.nsStringValue(0, indexPath.section))
+        // Call delegate method
+        var edgeInsets: UIEdgeInsets = .zero
+        if let delegate = self.collDelegate {
+            let prefix = self.collSplitPrefix(indexPath.section)
+            let selector: Selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath.section, withPre: prefix) as! UIEdgeInsets
+            }
+        }
+        // Set properties
+        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
+            cell.edgeInsets = edgeInsets
+        }
         // Return cell
         return cell
     }
@@ -652,6 +726,19 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
         cell.coll = self
         // Save cell
         self.allReuseFooters.setObject(cell, forKey: IndexPath.nsStringValue(0, indexPath.section))
+        // Call delegate method
+        var edgeInsets: UIEdgeInsets = .zero
+        if let delegate = self.collDelegate {
+            let prefix = self.collSplitPrefix(indexPath.section)
+            let selector = #selector(delegate.edgeInsetsForFooterInSection(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath.section, withPre: prefix) as! UIEdgeInsets
+            }
+        }
+        // Set properties
+        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
+            cell.edgeInsets = edgeInsets
+        }
         // Return cell
         return cell
     }
@@ -677,6 +764,19 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
         cell.coll = self
         // Save cell
         self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
+        // Call delegate method
+        var edgeInsets: UIEdgeInsets = .zero
+        if let delegate = self.collDelegate {
+            let prefix = self.collSplitPrefix(indexPath.section)
+            let selector = #selector(delegate.edgeInsetsForItemAtIndexPath(_:))
+            if delegate.responds(to: selector, withPre: prefix) {
+                edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! UIEdgeInsets
+            }
+        }
+        // Set properties
+        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
+            cell.edgeInsets = edgeInsets
+        }
         // Return cell
         return cell
     }
@@ -899,6 +999,10 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
         }
         // Call cell
         if let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HCollBaseCell {
+            // Update layout
+            if cell.responds(to: #selector(cell.relayoutSubviews)) {
+                cell.relayoutSubviews()
+            }
             // Update passed cells
             if self.allPassedCells.count > 20 {
                 self.allPassedCells.removeAllObjects()
@@ -938,6 +1042,10 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
             }
             // Call cell
             if let cell = self.allReuseHeaders.object(forKey: indexPath.nsStringValue) as? HCollBaseApex {
+                // Update layout
+                if cell.responds(to: #selector(cell.relayoutSubviews)) {
+                    cell.relayoutSubviews()
+                }
                 return cell
             }
             self.register(HCollBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HCollBaseApex.className)
@@ -966,6 +1074,10 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
             }
             // Call cell
             if let cell = self.allReuseFooters.object(forKey: indexPath.nsStringValue) as? HCollBaseApex {
+                // Update layout
+                if cell.responds(to: #selector(cell.relayoutSubviews)) {
+                    cell.relayoutSubviews()
+                }
                 return cell
             }
             self.register(HCollBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: HCollBaseApex.className)
