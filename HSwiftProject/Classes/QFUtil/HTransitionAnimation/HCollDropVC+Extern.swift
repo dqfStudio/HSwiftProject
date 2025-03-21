@@ -1,5 +1,5 @@
 //
-//  HTupleDropVC+Extern.swift
+//  HCollDropVC+Extern.swift
 //  HSwiftProject
 //
 //  Created by owner on 2024/5/18.
@@ -8,18 +8,18 @@
 
 import UIKit
 
-extension HTupleDropVC {
+extension HCollDropVC {
     @discardableResult
-    static func showPacketSheet(_ containVip: Bool, completion: @escaping (_ actionStyle: Int) -> Void) -> HTupleDropVC {
-        let dropVC = HTupleDropVC(topSpacing: 0)
+    static func showPacketSheet(_ containVip: Bool, completion: @escaping (_ actionStyle: Int) -> Void) -> HCollDropVC {
+        let dropVC = HCollDropVC(topSpacing: 0)
         dropVC.numberBlock = {
             return containVip ? 4 : 3
         }
         dropVC.heightBlock = { index in
             return 56
         }
-        dropVC.itemBlock = { (tuple: HTupleView, indexPath: IndexPath) in
-            let cell = tuple.reuseCell(HTupleLabelCell.self, nil, true, indexPath) as! HTupleLabelCell
+        dropVC.itemBlock = { (coll: HCollView, indexPath: IndexPath) in
+            let cell = coll.reuseCell(HCollLabelCell.self, nil, true, indexPath) as! HCollLabelCell
             cell.edgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
             cell.label.font = UIFont.font(ofSize: 16, weight: .regular)
             cell.label.textAlignment = .center

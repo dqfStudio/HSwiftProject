@@ -70,9 +70,9 @@ class HBaseController: UIViewController {
     
     override func vcWillDisappear(_ type: HVCDisappearType) {
         if type == .pop || type == .dismiss {
-            //tupleView default tag 1213141516
-            if let tupleView = self.view.viewWithTag(kTupleDefaultTag) as? HTupleView {
-                tupleView.releaseTupleBlock()
+            //collView default tag 1213141516
+            if let collView = self.view.viewWithTag(kCollDefaultTag) as? HCollView {
+                collView.releaseCollBlock()
             }
             //tableView default tag 1615141312
             if let flowView = self.view.viewWithTag(kFlowDefaultTag) as? HFlowView {

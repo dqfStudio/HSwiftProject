@@ -1,5 +1,5 @@
 //
-//  HTupleAlertVC.swift
+//  HCollAlertVC.swift
 //  HSwiftProject
 //
 //  Created by owner on 2024/5/18.
@@ -8,27 +8,27 @@
 
 import UIKit
 
-typealias HTupleAlertNumberBlock = () -> Int
-typealias HTupleAlertInsetBlock = () -> UIEdgeInsets
-typealias HTupleAlertHeightBlock = (_ index: Int) -> CGFloat
-typealias HTupleAlertItemBlock = (_ tuple: HTupleView, _ indexPath: IndexPath) -> Void
+typealias HCollAlertNumberBlock = () -> Int
+typealias HCollAlertInsetBlock = () -> UIEdgeInsets
+typealias HCollAlertHeightBlock = (_ index: Int) -> CGFloat
+typealias HCollAlertItemBlock = (_ coll: HCollView, _ indexPath: IndexPath) -> Void
 
-let kTupleAlertWidth: CGFloat = 291.0
+let kCollAlertWidth: CGFloat = 291.0
 
-class HTupleAlertVC: HBaseController, HTupleViewDelegate {
+class HCollAlertVC: HBaseController, HCollViewDelegate {
     
     let itemsHeight = NSMutableDictionary()
-    var numberBlock: HTupleAlertNumberBlock?
-    var insetBlock: HTupleAlertInsetBlock?
-    var heightBlock: HTupleAlertHeightBlock?
-    var itemBlock: HTupleAlertItemBlock?
+    var numberBlock: HCollAlertNumberBlock?
+    var insetBlock: HCollAlertInsetBlock?
+    var heightBlock: HCollAlertHeightBlock?
+    var itemBlock: HCollAlertItemBlock?
     
     override var containerSize: CGSize {
         // 执行block
         self.performBlocks()
         // 计算高度
         let height = self.itemsHeight.allValues.reduce(0, { $0 + ($1 as! CGFloat) })
-        return CGSize(width: kTupleAlertWidth, height: height)
+        return CGSize(width: kCollAlertWidth, height: height)
     }
     
     // 转场动画内容视图阴影部分颜色
@@ -44,29 +44,29 @@ class HTupleAlertVC: HBaseController, HTupleViewDelegate {
         return true
     }
 
-    private lazy var tupleView: HTupleView = {
+    private lazy var collView: HCollView = {
         var frame = CGRect.zero
         frame.size = self.containerSize
-        let tupleView = HTupleView(frame: frame)
-        tupleView.backgroundColor = UIColor.red
-        tupleView.isScrollEnabled = false
-        tupleView.cornerRadius = 14
-        //tupleView.setBoarderWith(0.5, color: UIColor.black)
-        tupleView.disableBounce()
-        return tupleView
+        let collView = HCollView(frame: frame)
+        collView.backgroundColor = UIColor.red
+        collView.isScrollEnabled = false
+        collView.cornerRadius = 14
+        //collView.setBoarderWith(0.5, color: UIColor.black)
+        collView.disableBounce()
+        return collView
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
-        self.tupleView.delegate = self
-        self.view.addSubview(self.tupleView)
+        self.collView.delegate = self
+        self.view.addSubview(self.collView)
     }
 
     override func vcWillDisappear(_ type: HVCDisappearType) {
         if type == .pop || type == .dismiss {
-            self.tupleView.releaseTupleBlock()
+            self.collView.releaseCollBlock()
         }
     }
     
@@ -83,7 +83,7 @@ class HTupleAlertVC: HBaseController, HTupleViewDelegate {
 
 }
 
-extension HTupleAlertVC {
+extension HCollAlertVC {
 
     func numberOfItemsInSection(_ section: Any) -> Any {
         return self.numberBlock?() ?? 0
@@ -94,13 +94,13 @@ extension HTupleAlertVC {
     }
     
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        let width = self.tupleView.width(forSection: indexPath.section)
+        let width = self.collView.width(forSection: indexPath.section)
         let height = self.heightBlock?(indexPath.row) ?? 1.0
         return CGSize(width: width, height: height)
     }
     
-    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        self.itemBlock?(tuple, indexPath)
+    func collItem(_ coll: HCollView, atIndexPath indexPath: IndexPath) {
+        self.itemBlock?(coll, indexPath)
     }
 
 }

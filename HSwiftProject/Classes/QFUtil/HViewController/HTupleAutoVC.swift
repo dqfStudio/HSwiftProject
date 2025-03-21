@@ -135,8 +135,8 @@ extension HTupleAutoVC: HTupleViewDelegate {
 //            }
             
             cell.selectBlock = {
-                let tupleAlert = HTupleAlertVC.showRePassErrorAlert { index in }
-                self.presentController(tupleAlert, completion: nil)
+                let collAlert = HCollAlertVC.showRePassErrorAlert { index in }
+                self.presentController(collAlert, completion: nil)
             }
         case 1:
             let cell = flow.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell

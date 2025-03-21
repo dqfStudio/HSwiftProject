@@ -1,5 +1,5 @@
 //
-//  HTupleDropVC.swift
+//  HCollSheetVC.swift
 //  HSwiftProject
 //
 //  Created by owner on 2024/5/18.
@@ -8,22 +8,22 @@
 
 import UIKit
 
-typealias HTupleDropNumberBlock = () -> Int
-typealias HTupleDropInsetBlock = () -> UIEdgeInsets
-typealias HTupleDropHeightBlock = (_ index: Int) -> CGFloat
-typealias HTupleDropItemBlock = (_ tuple: HTupleView, _ indexPath: IndexPath) -> Void
+typealias HCollSheetNumberBlock = () -> Int
+typealias HCollSheetInsetBlock = () -> UIEdgeInsets
+typealias HCollSheetHeightBlock = (_ index: Int) -> CGFloat
+typealias HCollSheetItemBlock = (_ coll: HCollView, _ indexPath: IndexPath) -> Void
 
-class HTupleDropVC: HViewController, HTupleViewDelegate {
+class HCollSheetVC: HViewController, HCollViewDelegate {
     
     let itemsHeight = NSMutableDictionary()
-    var numberBlock: HTupleDropNumberBlock?
-    var insetBlock: HTupleDropInsetBlock?
-    var heightBlock: HTupleDropHeightBlock?
-    var itemBlock: HTupleDropItemBlock?
-    var topHeight = UIScreen.statusBarHeight
+    var numberBlock: HCollSheetNumberBlock?
+    var insetBlock: HCollSheetInsetBlock?
+    var heightBlock: HCollSheetHeightBlock?
+    var itemBlock: HCollSheetItemBlock?
+    var bottomHeight = UIScreen.bottomBarHeight
 
-    init(topSpacing: CGFloat) {
-        self.topHeight += topSpacing
+    init(bottomSpacing: CGFloat) {
+        self.bottomHeight += bottomSpacing
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -38,27 +38,27 @@ class HTupleDropVC: HViewController, HTupleViewDelegate {
         // 计算高度
         var height = self.itemsHeight.allValues.reduce(0, { $0 + ($1 as! CGFloat) })
         // 加上底部间隔
-        height += self.topHeight
+        height += self.bottomHeight
         return CGSize(width: UIScreen.width, height: height)
     }
     
     override var presentType: HTransitionStyle {
-        return .drop
+        return .sheet
     }
     
     override var isShadowDismiss: Bool {
         return true
     }
 
-    private lazy var tupleView: HTupleView = {
+    private lazy var collView: HCollView = {
         var frame = CGRect.zero
         frame.size = self.containerSize
-        let tupleView = HTupleView(frame: frame)
-        tupleView.backgroundColor = UIColor.black
-        tupleView.isScrollEnabled = false
-        tupleView.setCornerRadiiOnBottom(16)
-        tupleView.disableBounce()
-        return tupleView
+        let collView = HCollView(frame: frame)
+        collView.backgroundColor = UIColor.black
+        collView.isScrollEnabled = false
+        collView.setCornerRadiiOnTop(16)
+        collView.disableBounce()
+        return collView
     }()
 
     override func viewDidLoad() {
@@ -66,13 +66,13 @@ class HTupleDropVC: HViewController, HTupleViewDelegate {
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
         self.navigationBar.isHidden = true
-        self.tupleView.delegate = self
-        self.view.addSubview(self.tupleView)
+        self.collView.delegate = self
+        self.view.addSubview(self.collView)
     }
 
     override func vcWillDisappear(_ type: HVCDisappearType) {
         if type == .pop || type == .dismiss {
-            self.tupleView.releaseTupleBlock()
+            self.collView.releaseCollBlock()
         }
     }
     
@@ -89,7 +89,7 @@ class HTupleDropVC: HViewController, HTupleViewDelegate {
 
 }
 
-extension HTupleDropVC {
+extension HCollSheetVC {
 
     func numberOfItemsInSection(_ section: Any) -> Any {
         return self.numberBlock?() ?? 0
@@ -99,18 +99,14 @@ extension HTupleDropVC {
         return self.insetBlock?() ?? UIEdgeInsets.zero
     }
     
-    func minimumHeaderSpacingForSectionAt(_ section: Any) -> Any {
-        return self.topHeight
-    }
-    
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        let width = self.tupleView.width(forSection: indexPath.section)
+        let width = self.collView.width(forSection: indexPath.section)
         let height = self.heightBlock?(indexPath.row) ?? 1.0
         return CGSize(width: width, height: height)
     }
     
-    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        self.itemBlock?(tuple, indexPath)
+    func collItem(_ coll: HCollView, atIndexPath indexPath: IndexPath) {
+        self.itemBlock?(coll, indexPath)
     }
 
 }
