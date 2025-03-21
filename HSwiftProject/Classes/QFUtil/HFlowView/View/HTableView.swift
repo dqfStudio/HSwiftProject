@@ -67,7 +67,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     // delay reload item
     private var allReloadItems: [IndexPath] = []
     private var reloadedItems: [IndexPath] = []
-    private var itemReload = HFlowReload()
+    private var itemReload = HTableReload()
     
     private var cellHeights: [String: CGFloat] = [:]
     private var allPassedCells = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
