@@ -58,11 +58,11 @@ class HCollReload: NSObject {
 }
 
 /// This class is used for refreshing collView throughout the project.
-class HCollAppearance: NSObject {
+class HCollObserver: NSObject {
 
     private static var hashColls = NSHashTable<HCollView>.weakObjects()
 
-    static func addColl(_ anColl: HCollView) {
+    static func addObserver(_ anColl: HCollView) {
         self.hashColls.add(anColl)
     }
     static func refreshColls(_ completion: @escaping () -> Void) {
@@ -87,44 +87,6 @@ class HCollAppearance: NSObject {
             let colls = self.hashColls.allObjects.filter { $0.releaseCollKey == key }.reversed()
             colls.forEach { $0.releaseCollBlock() }
             DispatchQueue.main.async { completion() }
-        }
-    }
-}
-
-class HCollObserver: NSObject {
-
-    private static var hashObjects = NSHashTable<NSObject>.weakObjects()
-
-    static func addObserver(_ anObserver: NSObject?) {
-        if let anObserver = anObserver, !self.hashObjects.contains(anObserver) {
-            self.hashObjects.add(anObserver)
-        }
-    }
-    static func perform(key: String) {
-        let selector = NSSelectorFromString(key)
-        let objects = self.hashObjects.allObjects.reversed()
-        objects.forEach {
-            if $0.responds(to: selector) {
-                $0.perform(selector)
-            }
-        }
-    }
-    static func perform(key: String, with object: String) {
-        let selector = NSSelectorFromString(key)
-        let objects = self.hashObjects.allObjects.reversed()
-        objects.forEach {
-            if $0.responds(to: selector) {
-                $0.perform(selector, with: object)
-            }
-        }
-    }
-    static func perform(key: String, with object1: String, with object2: String) {
-        let selector = NSSelectorFromString(key)
-        let objects = self.hashObjects.allObjects.reversed()
-        objects.forEach {
-            if $0.responds(to: selector) {
-                $0.perform(selector, with: object1, with: object2)
-            }
         }
     }
 }
@@ -378,7 +340,7 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
 
     private func setup() {
         // Save collView for global refresh
-        HCollAppearance.addColl(self)
+        HCollObserver.addObserver(self)
 
         // Set default tag
         self.tag = kCollDefaultTag
