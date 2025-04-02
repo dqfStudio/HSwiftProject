@@ -71,6 +71,10 @@ class HMainController1: HViewController {
         return activeBar
     }()
     
+    func add(_ a: Int, _ b: Int) -> Int {
+        return a + b
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
