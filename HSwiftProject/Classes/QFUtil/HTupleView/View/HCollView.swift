@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 import Kingfisher
 import SDWebImage
 
@@ -57,36 +58,63 @@ class HCollReload: NSObject {
     var needRefresh = false //是否需要刷新
 }
 
+/// 定义观察者协议
+@objc protocol HCollObserverProtocol: NSObjectProtocol {
+    @objc
+    optional func refreshColl()
+    
+    @objc
+    optional func releaseColl()
+}
+
 /// This class is used for refreshing collView throughout the project.
 class HCollObserver: NSObject {
 
-    private static var hashColls = NSHashTable<HCollView>.weakObjects()
+    private static var hashObjects = NSHashTable<HCollObserverProtocol>.weakObjects()
 
-    static func addObserver(_ anColl: HCollView) {
-        self.hashColls.add(anColl)
+    static func addObserver(_ anObserver: HCollObserverProtocol?) {
+        if let anObserver = anObserver, !self.hashObjects.contains(anObserver) {
+            self.hashObjects.add(anObserver)
+        }
     }
     static func refreshColls(_ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInteractive).async {
-            // Execute in reverse order
-            let colls = self.hashColls.allObjects.reversed()
-            colls.forEach { $0.reloadCollData() }
-            DispatchQueue.main.async { completion() }
+        Task {
+            let colls = self.hashObjects.allObjects.filter { $0 is HCollView }.reversed()
+            for coll in colls {
+                if let coll = coll as? HCollView {
+                    await MainActor.run {
+                        coll.reloadData()
+                    }
+                }
+            }
+            await MainActor.run {
+                completion()
+            }
         }
     }
-    static func refreshColl(key: String, _ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInteractive).async {
-            // Execute in reverse order
-            let colls = self.hashColls.allObjects.filter { $0.reloadCollKey == key }.reversed()
-            colls.forEach { $0.reloadCollData() }
-            DispatchQueue.main.async { completion() }
-        }
-    }
-    static func releaseColl(key: String, _ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInteractive).async {
-            // Execute in reverse order
-            let colls = self.hashColls.allObjects.filter { $0.releaseCollKey == key }.reversed()
-            colls.forEach { $0.releaseCollBlock() }
-            DispatchQueue.main.async { completion() }
+    static func perform(key: String, with object1: String? = nil, with object2: String? = nil, _ completion: @escaping () -> Void) {
+        Task {
+            let selector = NSSelectorFromString(key)
+            let objects = self.hashObjects.allObjects.reversed()
+            for object in objects {
+                if object.responds(to: selector) {
+                    await MainActor.run {
+                        switch (object1, object2) {
+                        case let (objc1?, objc2?):
+                            _ = object.perform(selector, with: objc1, with: objc2)
+                        case let (objc1?, nil):
+                            _ = object.perform(selector, with: objc1)
+                        case let (nil, objc2?):
+                            _ = object.perform(selector, with: objc2)
+                        case (nil, nil):
+                            _ = object.perform(selector)
+                        }
+                    }
+                }
+            }
+            await MainActor.run {
+                completion()
+            }
         }
     }
 }
@@ -202,7 +230,7 @@ class HCollObserver: NSObject {
     optional func collViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView)
 }
 
-class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, HCollViewLayoutDelegate {
+class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDataSource, HCollViewLayoutDelegate, HCollObserverProtocol {
 
     private var flowLayout: UICollectionViewFlowLayout?
 
@@ -224,6 +252,12 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
     
     // delay reload coll
     private var collReload = HCollReload()
+    
+    // 用于发送刷新列表的事件
+    let refreshSubject = PassthroughSubject<Void, Never>()
+    
+    // 用于存储订阅关系，避免提前释放
+    private var cancellables = Set<AnyCancellable>()
     
     // delay reload item
     private var allReloadItems: [IndexPath] = []
@@ -360,6 +394,15 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
         }
         super.delegate = self
         super.dataSource = self
+        
+        // 配置节流操作
+        refreshSubject
+            .throttle(for: .seconds(2), scheduler: RunLoop.main, latest: true)
+            .sink { [weak self] in
+                self?.reloadData()
+            }
+            .store(in: &cancellables)
+
     }
 
     /// Page number, Default 1
