@@ -426,6 +426,7 @@
 		EBEF30422D8D389500930730 /* HCollLayoutApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30412D8D389500930730 /* HCollLayoutApex.swift */; };
 		EBEF30442D8DA95300930730 /* HCollMultiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30432D8DA95300930730 /* HCollMultiCell.swift */; };
 		EBEF30462D8DA9D200930730 /* HCollMultiApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30452D8DA9D200930730 /* HCollMultiApex.swift */; };
+		EBEF30682DA1435B00930730 /* HGlobalObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30672DA1435B00930730 /* HGlobalObserver.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -873,6 +874,7 @@
 		EBEF30452D8DA9D200930730 /* HCollMultiApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollMultiApex.swift; sourceTree = "<group>"; };
 		EBEF304F2D9A46C300930730 /* HSwiftProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HSwiftProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBEF305C2D9A46F200930730 /* HSwiftProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HSwiftProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBEF30672DA1435B00930730 /* HGlobalObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGlobalObserver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -1101,6 +1103,7 @@
 				EBEF303B2D8C6EBF00930730 /* HCollRefresh.swift */,
 				A2A814C4274F56C400FAB929 /* UIView+HUtil.swift */,
 				EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */,
+				EBEF30672DA1435B00930730 /* HGlobalObserver.swift */,
 				EB80B6732A15C8ED0016648A /* HLabel.swift */,
 				EB80B66B2A1130E00016648A /* HToolbar.swift */,
 				EB80B66D2A122A940016648A /* HScrollbar.swift */,
@@ -2389,6 +2392,7 @@
 				EB43241629C34BB800EDDB64 /* HFormCell.swift in Sources */,
 				EBC8146329AA53D100A81431 /* HAcceptVideoVC.swift in Sources */,
 				EBC8147329AA541800A81431 /* HSendVideoVC+HStatus3.swift in Sources */,
+				EBEF30682DA1435B00930730 /* HGlobalObserver.swift in Sources */,
 				A26D432123842C9400F457AE /* UIGestureRecognizer+HUtil.swift in Sources */,
 				EB80B6742A15C8ED0016648A /* HLabel.swift in Sources */,
 				EBD58F962C26B6BD0049E03E /* HUserModelMngr.swift in Sources */,
