@@ -16,7 +16,7 @@ import Foundation
     optional func releaseColl()
 }
 
-// 定义枚举来表示协议中的方法
+// 定义观察者枚举
 enum HGlobalObserverType {
     case refreshColl
     case releaseColl
