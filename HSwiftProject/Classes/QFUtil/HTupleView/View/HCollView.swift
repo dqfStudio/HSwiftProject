@@ -62,6 +62,8 @@ class HCollReload: NSObject {
 class HCollObserver: NSObject {
     static let shared = HCollObserver()
     private var observers = NSHashTable<HCollView>.weakObjects()
+    
+    private override init() { }
 
     func addObserver(_ observer: HCollView) {
         guard !observers.contains(observer) else { return }
