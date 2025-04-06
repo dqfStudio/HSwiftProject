@@ -60,21 +60,19 @@ class HCollReload: NSObject {
 
 /// This class is used for refreshing collView throughout the project.
 class HCollObserver: NSObject {
+    static let shared = HCollObserver()
+    private var observers = NSHashTable<HCollView>.weakObjects()
 
-    private static var hashObjects = NSHashTable<HCollView>.weakObjects()
-
-    static func addObserver(_ anObserver: HCollView?) {
-        if let anObserver = anObserver, !self.hashObjects.contains(anObserver) {
-            self.hashObjects.add(anObserver)
-        }
+    func addObserver(_ observer: HCollView) {
+        guard !observers.contains(observer) else { return }
+        observers.add(observer)
     }
     
-    static func refreshColls(_ completion: @escaping () -> Void) {
+    func refreshColls(_ completion: @escaping () -> Void) {
         Task {
-            let colls = self.hashObjects.allObjects.reversed()
-            for coll in colls {
+            for observer in observers.allObjects.reversed() {
                 await MainActor.run {
-                    coll.reloadData()
+                    observer.reloadData()
                 }
             }
             await MainActor.run {
@@ -339,7 +337,7 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
 
     private func setup() {
         // Save collView for global refresh
-        HCollObserver.addObserver(self)
+        HCollObserver.shared.addObserver(self)
 
         // Set default tag
         self.tag = kCollDefaultTag
