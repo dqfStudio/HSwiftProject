@@ -1,8 +1,8 @@
 //
-//  HCollRefresh.swift
+//  HCollView+Refresh.swift
 //  HSwiftProject
 //
-//  Created by owner on 2025/3/20.
+//  Created by owner on 2025/4/6.
 //  Copyright © 2025 wind. All rights reserved.
 //
 

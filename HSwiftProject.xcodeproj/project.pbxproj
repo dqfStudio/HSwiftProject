@@ -420,7 +420,6 @@
 		EBEF30372D8C684200930730 /* HCollViewApexVertValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30312D8C684200930730 /* HCollViewApexVertValue.swift */; };
 		EBEF30382D8C684200930730 /* HCollTextImageApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF302D2D8C684200930730 /* HCollTextImageApex.swift */; };
 		EBEF303A2D8C6BA100930730 /* HCollSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30392D8C6BA100930730 /* HCollSignal.swift */; };
-		EBEF303C2D8C6EBF00930730 /* HCollRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF303B2D8C6EBF00930730 /* HCollRefresh.swift */; };
 		EBEF303E2D8C755E00930730 /* HCollTmplCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF303D2D8C755E00930730 /* HCollTmplCell.swift */; };
 		EBEF30402D8D379D00930730 /* HCollLayoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF303F2D8D379D00930730 /* HCollLayoutCell.swift */; };
 		EBEF30422D8D389500930730 /* HCollLayoutApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30412D8D389500930730 /* HCollLayoutApex.swift */; };
@@ -432,6 +431,7 @@
 		EBEF307C2DA2842D00930730 /* HCollView+Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF307B2DA2842D00930730 /* HCollView+Header.swift */; };
 		EBEF307E2DA2846D00930730 /* HCollView+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF307D2DA2846D00930730 /* HCollView+State.swift */; };
 		EBEF30802DA284E800930730 /* HCollView+Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF307F2DA284E800930730 /* HCollView+Signal.swift */; };
+		EBEF30822DA28B7D00930730 /* HCollView+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30812DA28B7D00930730 /* HCollView+Refresh.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -871,7 +871,6 @@
 		EBEF30302D8C684200930730 /* HCollViewApexHoriValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollViewApexHoriValue.swift; sourceTree = "<group>"; };
 		EBEF30312D8C684200930730 /* HCollViewApexVertValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollViewApexVertValue.swift; sourceTree = "<group>"; };
 		EBEF30392D8C6BA100930730 /* HCollSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollSignal.swift; sourceTree = "<group>"; };
-		EBEF303B2D8C6EBF00930730 /* HCollRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollRefresh.swift; sourceTree = "<group>"; };
 		EBEF303D2D8C755E00930730 /* HCollTmplCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollTmplCell.swift; sourceTree = "<group>"; };
 		EBEF303F2D8D379D00930730 /* HCollLayoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollLayoutCell.swift; sourceTree = "<group>"; };
 		EBEF30412D8D389500930730 /* HCollLayoutApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollLayoutApex.swift; sourceTree = "<group>"; };
@@ -885,6 +884,7 @@
 		EBEF307B2DA2842D00930730 /* HCollView+Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Header.swift"; sourceTree = "<group>"; };
 		EBEF307D2DA2846D00930730 /* HCollView+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+State.swift"; sourceTree = "<group>"; };
 		EBEF307F2DA284E800930730 /* HCollView+Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Signal.swift"; sourceTree = "<group>"; };
+		EBEF30812DA28B7D00930730 /* HCollView+Refresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Refresh.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -1110,7 +1110,6 @@
 				EB869F602B610B4900076A5D /* HTupleAttributes.swift */,
 				A289239C238B72F800E4AB75 /* NSIndexPath+HUtil.swift */,
 				A2CC441023B360AE00DB095F /* HTupleRefresh.swift */,
-				EBEF303B2D8C6EBF00930730 /* HCollRefresh.swift */,
 				A2A814C4274F56C400FAB929 /* UIView+HUtil.swift */,
 				EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */,
 				EB80B6732A15C8ED0016648A /* HLabel.swift */,
@@ -1153,6 +1152,7 @@
 				EBEF307D2DA2846D00930730 /* HCollView+State.swift */,
 				EBEF307F2DA284E800930730 /* HCollView+Signal.swift */,
 				EBEF307B2DA2842D00930730 /* HCollView+Header.swift */,
+				EBEF30812DA28B7D00930730 /* HCollView+Refresh.swift */,
 				EBEF30792DA283DF00930730 /* HCollView+Observer.swift */,
 				EB90BC292CC245BD00C392C4 /* HTupleLayout.swift */,
 				EBD11E4C2CA6F7C500E1E6BF /* HTupleTmplView.swift */,
@@ -2572,7 +2572,6 @@
 				EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */,
 				EB3541E92BEA0073003B1D69 /* HUserLoginRequest.swift in Sources */,
 				A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */,
-				EBEF303C2D8C6EBF00930730 /* HCollRefresh.swift in Sources */,
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,
 				EBA167AE2D16CC0E00DD2088 /* String+Extensions.swift in Sources */,
 				EB0597712A0B6B990016ACD8 /* HNavigationBar.swift in Sources */,
@@ -2670,6 +2669,7 @@
 				EBD0FB2829CC91AF00808EDA /* UIImage+QRCode.swift in Sources */,
 				EB3541B82BE7D052003B1D69 /* HBaseNaviController.swift in Sources */,
 				EB3541C02BE865AA003B1D69 /* HTupleStackView.swift in Sources */,
+				EBEF30822DA28B7D00930730 /* HCollView+Refresh.swift in Sources */,
 				EB4323F229B98BE300EDDB64 /* UIAlertController+HUtil.swift in Sources */,
 				A28923A6238B72F800E4AB75 /* NSIndexPath+HUtil.swift in Sources */,
 				A28923AE238B750000E4AB75 /* HTextField.swift in Sources */,
