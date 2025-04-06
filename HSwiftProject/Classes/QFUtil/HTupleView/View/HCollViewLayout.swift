@@ -33,14 +33,18 @@ class HCollViewLayout: UICollectionViewFlowLayout {
     
     private var decorationViewAttrs: [UICollectionViewLayoutAttributes] = [UICollectionViewLayoutAttributes]()
     
-    convenience init(_ direction: HCollDirection = .vertical) {
+    convenience init(_ direction: HCollDirection = .vertical, _ itemLayout: HCollItemLayout = .manual) {
         self.init()
         if direction == .horizontal {
             self.scrollDirection = .horizontal
         }else {
             self.scrollDirection = .vertical
         }
-        self.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        if itemLayout == .manual {
+            self.estimatedItemSize = CGSize.zero
+        }else {
+            self.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        }
     }
 
     override func prepare() {
