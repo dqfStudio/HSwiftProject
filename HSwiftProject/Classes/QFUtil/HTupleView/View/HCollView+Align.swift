@@ -10,6 +10,12 @@ import UIKit
 
 // 策略模式：对齐策略协议
 protocol HCollAlignStrategy {
+    /// 计算指定视图的内容内边距
+    /// - Parameters:
+    ///   - view: 要计算内边距的视图
+    ///   - cntSize: 视图的内容大小
+    ///   - cntInset: 视图当前的内容内边距
+    /// - Returns: 计算后的内容内边距
     func calculateCntInset(for view: HCollView, cntSize: CGSize, cntInset: UIEdgeInsets) -> UIEdgeInsets
 }
 
