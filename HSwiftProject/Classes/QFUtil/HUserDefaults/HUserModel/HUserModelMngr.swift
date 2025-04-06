@@ -14,7 +14,7 @@ class HUserModelMngr: HModelManager {
     var operateUser: GetOperateUser? {
         didSet {
             operateUser?.valueChange = { [weak self] in
-                self?.perform(key: "modelChangeAction")
+                self?.perform(key: "modelChangeAction") {}
             }
         }
     }
