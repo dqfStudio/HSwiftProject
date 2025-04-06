@@ -427,6 +427,11 @@
 		EBEF30442D8DA95300930730 /* HCollMultiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30432D8DA95300930730 /* HCollMultiCell.swift */; };
 		EBEF30462D8DA9D200930730 /* HCollMultiApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30452D8DA9D200930730 /* HCollMultiApex.swift */; };
 		EBEF30742DA2679800930730 /* HGlobalObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30732DA2679800930730 /* HGlobalObserver.swift */; };
+		EBEF30762DA2746400930730 /* HCollView+Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30752DA2746400930730 /* HCollView+Align.swift */; };
+		EBEF307A2DA283DF00930730 /* HCollView+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30792DA283DF00930730 /* HCollView+Observer.swift */; };
+		EBEF307C2DA2842D00930730 /* HCollView+Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF307B2DA2842D00930730 /* HCollView+Header.swift */; };
+		EBEF307E2DA2846D00930730 /* HCollView+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF307D2DA2846D00930730 /* HCollView+State.swift */; };
+		EBEF30802DA284E800930730 /* HCollView+Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF307F2DA284E800930730 /* HCollView+Signal.swift */; };
 		F117DC3F24BEC812781CBFDD /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9ADCF505CCD6B194D7FAA67B /* Pods_HSwiftProject.framework */; };
 /* End PBXBuildFile section */
 
@@ -875,6 +880,11 @@
 		EBEF304F2D9A46C300930730 /* HSwiftProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HSwiftProjectTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBEF305C2D9A46F200930730 /* HSwiftProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HSwiftProjectUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBEF30732DA2679800930730 /* HGlobalObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGlobalObserver.swift; sourceTree = "<group>"; };
+		EBEF30752DA2746400930730 /* HCollView+Align.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Align.swift"; sourceTree = "<group>"; };
+		EBEF30792DA283DF00930730 /* HCollView+Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Observer.swift"; sourceTree = "<group>"; };
+		EBEF307B2DA2842D00930730 /* HCollView+Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Header.swift"; sourceTree = "<group>"; };
+		EBEF307D2DA2846D00930730 /* HCollView+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+State.swift"; sourceTree = "<group>"; };
+		EBEF307F2DA284E800930730 /* HCollView+Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Signal.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -1139,6 +1149,11 @@
 			children = (
 				A289239E238B72F800E4AB75 /* HTupleView.swift */,
 				EBEF30152D8C5C1400930730 /* HCollView.swift */,
+				EBEF30752DA2746400930730 /* HCollView+Align.swift */,
+				EBEF307D2DA2846D00930730 /* HCollView+State.swift */,
+				EBEF307F2DA284E800930730 /* HCollView+Signal.swift */,
+				EBEF307B2DA2842D00930730 /* HCollView+Header.swift */,
+				EBEF30792DA283DF00930730 /* HCollView+Observer.swift */,
 				EB90BC292CC245BD00C392C4 /* HTupleLayout.swift */,
 				EBD11E4C2CA6F7C500E1E6BF /* HTupleTmplView.swift */,
 				A289239F238B72F800E4AB75 /* HTupleViewLayout.swift */,
@@ -2490,6 +2505,8 @@
 				EBD0FBA229DB00DE00808EDA /* HMainController6+Cell.swift in Sources */,
 				EB3541B62BE7C760003B1D69 /* HActiveNaviController.swift in Sources */,
 				A28A022623EE55EB000556A2 /* HTextLoopView.swift in Sources */,
+				EBEF307C2DA2842D00930730 /* HCollView+Header.swift in Sources */,
+				EBEF30802DA284E800930730 /* HCollView+Signal.swift in Sources */,
 				EBEF30442D8DA95300930730 /* HCollMultiCell.swift in Sources */,
 				A2B43073237FF2B100795605 /* HCommonDefine.swift in Sources */,
 				EB5998E22C0DAD500021241C /* SLNodeTableViewCell.swift in Sources */,
@@ -2539,6 +2556,7 @@
 				EBA167B92D16CC0E00DD2088 /* VideoDownloaderHandler.swift in Sources */,
 				A22948A5239798000058B939 /* HMainController1.swift in Sources */,
 				A2188797238FD3D6005C20BF /* HGameCategoryVC+HSection1.swift in Sources */,
+				EBEF30762DA2746400930730 /* HCollView+Align.swift in Sources */,
 				EBEF301A2D8C64B600930730 /* HCollViewFlowLayout.swift in Sources */,
 				EBA167C22D16CC0E00DD2088 /* VideoPlayerView.swift in Sources */,
 				A2A7A93B23FE36440090EFD3 /* HAnimatedDotView.swift in Sources */,
@@ -2588,6 +2606,7 @@
 				A26D432F23868AFE00F457AE /* UIViewController+HDisappear.swift in Sources */,
 				A21887A823900832005C20BF /* HKeychainSwift.swift in Sources */,
 				EBEF30252D8C683200930730 /* HCollViewCellHoriValue.swift in Sources */,
+				EBEF307E2DA2846D00930730 /* HCollView+State.swift in Sources */,
 				EBEF30262D8C683200930730 /* HCollViewCell.swift in Sources */,
 				EBEF30272D8C683200930730 /* HCollBaseCell.swift in Sources */,
 				EBEF30282D8C683200930730 /* HCollTextImageCell.swift in Sources */,
@@ -2617,6 +2636,7 @@
 				EBC8145529AA537700A81431 /* HSendAudioVC.swift in Sources */,
 				EBC8146529AA53DE00A81431 /* HAcceptVideoVC+HStatus1.swift in Sources */,
 				A2A7A93323FE29470090EFD3 /* HTupleViewMarqueeCell.swift in Sources */,
+				EBEF307A2DA283DF00930730 /* HCollView+Observer.swift in Sources */,
 				A229489723975AE80058B939 /* HTupleViewApex.swift in Sources */,
 				EB3541E52BE9FE02003B1D69 /* IPServer.swift in Sources */,
 				EB1209852A8365E500E5F045 /* HPostVC.swift in Sources */,

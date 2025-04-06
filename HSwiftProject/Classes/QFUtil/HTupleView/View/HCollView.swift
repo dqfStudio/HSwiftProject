@@ -11,79 +11,6 @@ import Combine
 import Kingfisher
 import SDWebImage
 
-enum HCollStyle {
-    case coll // Singleton design
-    case split // Split design
-}
-
-enum HCollDirection {
-    case vertical // Vertical design
-    case horizontal // Horizontal design
-}
-
-enum HCollItemLayout {
-    case manual // Manual
-    case automatic // Automatic
-}
-
-enum HCollAlign {
-    case `default` // 垂直居上，水平居左
-    case center // 垂直居中，水平居中
-    case top(CGFloat) // 垂直距离顶部的距离，水平居中
-    case ratio(CGFloat) // 垂直距离顶部的比例，水平居中
-    case bottom(CGFloat) // 垂直距离底部的距离，水平居中
-}
-
-var kCollDefaultTag = 1213141516
-
-private var kCollPageNo = 1
-private var kCollPageSize = 20
-private var kCollTotalPageNo = 10000
-
-private var kCollDesignKey = "coll"
-private var kCollExaDesignKey = "collExa"
-
-private var kCollStateKey: Void?
-private var kCollSignalKey: Void?
-private var kCollStateSourceKey: Void?
-
-/// Refresh & LoadMore block
-typealias HCollRefreshBlock = () -> Void
-typealias HCollLoadMoreBlock = () -> Void
-typealias HCollOutsideCntBlock = () -> Void
-typealias HCollCntSizeBlock = (_ cntSize: CGSize) -> Void
-
-class HCollReload: NSObject {
-    var isRefresh = false //是否正在刷新
-    var needRefresh = false //是否需要刷新
-}
-
-/// This class is used for refreshing collView throughout the project.
-class HCollObserver: NSObject {
-    static let shared = HCollObserver()
-    private var observers = NSHashTable<HCollView>.weakObjects()
-    
-    private override init() { }
-
-    func addObserver(_ observer: HCollView) {
-        guard !observers.contains(observer) else { return }
-        observers.add(observer)
-    }
-    
-    func refreshColls(_ completion: @escaping () -> Void) {
-        Task {
-            for observer in observers.allObjects.reversed() {
-                await MainActor.run {
-                    observer.reloadData()
-                }
-            }
-            await MainActor.run {
-                completion()
-            }
-        }
-    }
-}
-
 @objc protocol HCollViewDelegate: UICollectionViewDelegate {
     @objc
     optional func numberOfSectionsInCollView() -> Any
@@ -230,18 +157,24 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
     private var itemReload = HCollReload()
     
     // coll align
-    var collAlign: HCollAlign = .default
+    private var alignStrategy: HCollAlignStrategy = HCollDefaultAlignStrategy()
+    var collAlign: HCollAlign = .default {
+        didSet {
+            alignStrategy = HCollAlignStrategyFactory.createStrategy(for: collAlign)
+            updateAlign()
+        }
+    }
     
     // cell height
     var cellHeights: [Int: CGFloat] = [:]
 
     private var sectionPaths = NSArray()
     private var allReuseIdentifiers = NSMutableSet()
-    private var allSectionInsets = NSMapTable<NSString, NSString>.strongToStrongObjects()
-    private var allReuseCells    = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-    private var allPassedCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-    private var allReuseHeaders  = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-    private var allReuseFooters  = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    var allSectionInsets = NSMapTable<NSString, NSString>.strongToStrongObjects()
+    var allReuseCells    = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    var allPassedCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    var allReuseHeaders  = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    var allReuseFooters  = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
@@ -304,37 +237,7 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
         let cntSize = self.contentSize
         let cntInset = self.contentInset
         self.oldCntSize = cntSize //保存contentSize
-        switch collAlign {
-        case .default:
-            self.contentInset = UIEdgeInsets.zero
-        case .center:
-            let originX = (self.width - cntSize.width) / 2
-            let originY = (self.height - cntSize.height) / 2
-            self.contentInset = UIEdgeInsets(top: max(originY, 0),
-                                             left: max(originX, 0),
-                                             bottom: cntInset.bottom,
-                                             right: cntInset.right)
-        case .top(let top):
-            let originX = (self.width - cntSize.width) / 2
-            self.contentInset = UIEdgeInsets(top: top,
-                                             left: max(originX, 0),
-                                             bottom: cntInset.bottom,
-                                             right: cntInset.right)
-        case .ratio(let ratio):
-            let originX = (self.width - cntSize.width) / 2
-            let originY = (self.height - cntSize.height) * ratio
-            self.contentInset = UIEdgeInsets(top: max(originY, 0),
-                                             left: max(originX, 0),
-                                             bottom: cntInset.bottom,
-                                             right: cntInset.right)
-        case .bottom(let bottom):
-            let originX = (self.width - cntSize.width) / 2
-            let originY = self.height - cntSize.height - bottom
-            self.contentInset = UIEdgeInsets(top: max(originY, 0),
-                                             left: max(originX, 0),
-                                             bottom: cntInset.bottom,
-                                             right: cntInset.right)
-        }
+        self.contentInset = alignStrategy.calculateCntInset(for: self, cntSize: cntSize, cntInset: cntInset)
     }
 
     private func setup() {
@@ -437,12 +340,6 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
             }
         }
     }
-
-    /// Set the key value for release
-    var releaseCollKey: String?
-
-    /// Set the key value for reload
-    var reloadCollKey: String?
 
     /// Block refresh & loadMore
     func beginRefreshing(_ completion: @escaping () -> Void) {
@@ -628,6 +525,7 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+        HCollObserver.shared.removeObserver(self)
         self.removeFromSuperview()
         self.collDelegate = nil
         self.dataSource = nil
@@ -1313,278 +1211,6 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
         if delegate.responds(to: selector, withPre: prefix) {
             delegate.perform(selector, with: scrollView, withPre: prefix)
         }
-    }
-
-}
-
-/// Signal mechanism classification
-extension HCollView {
-
-    /// The signal block held by collView
-    var signalBlock: HCollCellSignalBlock? {
-        get { return self.getAssociatedValueForKey(&kCollSignalKey) as? HCollCellSignalBlock }
-        set { self.setAssociateCopyValue(newValue, key: &kCollSignalKey) }
-    }
-
-    /// Send signal to collView
-    func signalToCollView(_ signal: HCollSignal?, _ completion: @escaping () -> Void) {
-        guard let signalBlock = self.signalBlock else { return }
-        signalBlock(self, signal)
-        completion()
-    }
-
-    /// Send signals to all items, items under a certain section, or a single item individually
-    func signalToAllItems(_ signal: HCollSignal?, _ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            let colls = self?.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HCollBaseCell }
-            colls?.forEach { cell in
-                DispatchQueue.main.async { [weak cell] in
-                    guard let cell = cell else { return }
-                    cell.signalBlock?(cell, signal)
-                }
-            }
-            DispatchQueue.main.async {
-                completion()
-            }
-        }
-    }
-
-    func signal(_ signal: HCollSignal?, itemSection section: Int, _ completion: @escaping () -> Void) {
-        let items = self.numberOfItems(inSection: section)
-        DispatchQueue.global(qos: .userInteractive).async {
-            let group = DispatchGroup()
-            DispatchQueue.concurrentPerform(iterations: items) { [weak self] i in
-                let cell = self?.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HCollBaseCell
-                if let cell = cell, let signalBlock = cell.signalBlock {
-                    DispatchQueue.main.async(group: group) { [weak cell] in
-                        guard let cell = cell else { return }
-                        signalBlock(cell, signal)
-                    }
-                }
-            }
-            group.wait()
-            DispatchQueue.main.async {
-                completion()
-            }
-        }
-    }
-
-    func signal(_ signal: HCollSignal?, toRow row: Int, inSection section: Int, _ completion: @escaping () -> Void) {
-        let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section)) as? HCollBaseCell
-        if let cell = cell, let signalBlock = cell.signalBlock {
-            signalBlock(cell, signal)
-        }
-        completion()
-    }
-
-    /// Send signals to all headers or a single header individually
-    func signalToAllHeader(_ signal: HCollSignal?, _ completion: @escaping () -> Void) {
-        let sections = self.numberOfSections
-        DispatchQueue.global(qos: .userInteractive).async {
-            let group = DispatchGroup()
-            DispatchQueue.concurrentPerform(iterations: sections) { [weak self] i in
-                let header = self?.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HCollBaseApex
-                if let header = header, let signalBlock = header.signalBlock {
-                    DispatchQueue.main.async(group: group) { [weak header] in
-                        guard let header = header else { return }
-                        signalBlock(header, signal)
-                    }
-                }
-            }
-            group.wait()
-            DispatchQueue.main.async {
-                completion()
-            }
-        }
-    }
-
-    func signal(_ signal: HCollSignal?, headerSection section: Int, _ completion: @escaping () -> Void) {
-        let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section)) as? HCollBaseApex
-        if let header = header, let signalBlock = header.signalBlock {
-            signalBlock(header, signal)
-        }
-        completion()
-    }
-
-    /// Send signals to all footers or a single footer individually
-    func signalToAllFooter(_ signal: HCollSignal?, _ completion: @escaping () -> Void) {
-        let sections = self.numberOfSections
-        DispatchQueue.global(qos: .userInteractive).async {
-            let group = DispatchGroup()
-            DispatchQueue.concurrentPerform(iterations: sections) { [weak self] i in
-                let footer = self?.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HCollBaseApex
-                if let footer = footer, let signalBlock = footer.signalBlock {
-                    DispatchQueue.main.async(group: group) { [weak footer] in
-                        guard let footer = footer else { return }
-                        signalBlock(footer, signal)
-                    }
-                }
-            }
-            group.wait()
-            DispatchQueue.main.async {
-                completion()
-            }
-        }
-    }
-
-    func signal(_ signal: HCollSignal?, footerSection section: Int, _ completion: @escaping () -> Void) {
-        let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section)) as? HCollBaseApex
-        if let footer = footer, let signalBlock = footer.signalBlock {
-            signalBlock(footer, signal)
-        }
-        completion()
-    }
-
-    /// Release all signal blocks
-    func releaseAllSignal() {
-        DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            guard let self = self else { return }
-            self.signalBlock = nil
-            //release all cell
-            self.allReuseCells.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HCollBaseCell)?.signalBlock = nil
-                ($0 as? HCollBaseCell)?.selectBlock = nil
-                ($0 as? HCollBaseCell)?.willDisplayBlock = nil
-            }
-            //release all header
-            self.allReuseHeaders.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HCollBaseApex)?.signalBlock = nil
-            }
-            //release all footer
-            self.allReuseFooters.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HCollBaseApex)?.signalBlock = nil
-            }
-        }
-    }
-
-    /// Get cell based on the given row and section
-    func cell(_ row: Int, _ section: Int) -> AnyObject? {
-        return self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section))
-    }
-    
-    func cell(for indexPath: IndexPath) -> AnyObject? {
-        return self.allReuseCells.object(forKey: indexPath.nsStringValue)
-    }
-    
-    func header(for section: Int) -> AnyObject? {
-        return self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section))
-    }
-    
-    func footer(for section: Int) -> AnyObject? {
-        return self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section))
-    }
-
-    /// Get the width, height, and size of a certain section
-    func width(forSection section: Int) -> CGFloat {
-        var width: CGFloat = self.width
-        let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
-        if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
-            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
-            width -= edgeInsets.left + edgeInsets.right
-            width = max(width, 0) // Ensure width is not less than 0
-        }
-        return width
-    }
-
-    func heigh(forSection section: Int) -> CGFloat {
-        var height: CGFloat = self.height
-        let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
-        if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
-            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
-            height -= edgeInsets.top + edgeInsets.bottom
-            height = max(height, 0) // Ensure width is not less than 0
-        }
-        return height
-    }
-
-    func size(forSection section: Int) -> CGSize {
-        var size: CGSize = self.size
-        let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
-        if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
-            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
-            size.width -= edgeInsets.left + edgeInsets.right
-            size.height -= edgeInsets.top + edgeInsets.bottom
-            size.width = max(size.width, 0) // Ensure that the width is not less than 0
-            size.height = max(size.height, 0) // Ensure that the height is not less than 0
-        }
-        return size
-    }
-
-    /// Calculate the width of the item based on the number and index passed in
-    func fixSlit(withWidth width: CGFloat, colCount: Int, index: Int) -> CGFloat {
-        let itemWidth: CGFloat = width / CGFloat(colCount)
-        let realItemWidth: CGFloat = itemWidth.rounded(.down)
-        if index == colCount - 1 {
-            return width - realItemWidth * CGFloat(index)
-        }
-        return realItemWidth
-    }
-
-}
-
-private var Coll_State_Key = "_coll_"
-
-/// Design data storage category for split
-extension HCollView {
-
-    private var collStateSource: NSMutableDictionary {
-        get {
-            if let dict = self.getAssociatedValueForKey(&kCollStateSourceKey) as? NSMutableDictionary {
-                return dict
-            } else {
-                let dict = NSMutableDictionary()
-                self.setAssociateValue(dict, key: &kCollStateSourceKey)
-                return dict
-            }
-        }
-    }
-
-    /// The state represented by the collView split design
-    var collState: Int {
-        get {
-            let value = self.getAssociatedValueForKey(&kCollStateKey) as? NSNumber ?? NSNumber(value: 0)
-            return value.intValue
-        }
-        set {
-            if newValue != self.collState {
-                self.setAssociateValue(NSNumber(value: newValue), key: &kCollStateKey)
-                self.reloadData()
-            }
-        }
-    }
-
-    /// Add a value to a certain state
-    func setObject(_ anObject: Any, forKey aKey: String, state: Int) {
-        let key = aKey + Coll_State_Key + "\(state)"
-        self.collStateSource.setObject(anObject, forKey: key as NSCopying)
-    }
-
-    /// Get a value of a certain state
-    func object(forKey aKey: String, state: Int) -> Any? {
-        let key = aKey + Coll_State_Key + "\(state)"
-        return self.collStateSource.object(forKey: key)
-    }
-
-    /// Remove a value in a certain state
-    func removeObject(forKey aKey: String, state: Int) {
-        let key = aKey + Coll_State_Key + "\(state)"
-        self.collStateSource.removeObject(forKey: key)
-    }
-
-    /// Delete the value of a certain state
-    func removeObject(forState state: Int) {
-        let key = Coll_State_Key + "\(state)"
-        for (aKey, _) in self.collStateSource.reversed() {
-            let aKey = aKey as! String
-            if key == aKey {
-                self.collStateSource.removeObject(forKey: aKey)
-            }
-        }
-    }
-
-    /// Remove all values ​​of the state
-    func clearCollState() {
-        self.collStateSource.removeAllObjects()
     }
 
 }
