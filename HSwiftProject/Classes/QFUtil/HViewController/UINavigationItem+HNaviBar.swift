@@ -14,45 +14,52 @@ private var kHVCNaviRightItemKey: Void?
 
 extension UINavigationItem {
     
-    var leftItem: HNavigationItem {
-        if let leftItem = self.getAssociatedValueForKey(&kHVCNaviLeftItemKey) as? HNavigationItem {
-            return leftItem
+    // 创建和设置关联对象
+    private func createOrGetAssociatedObject<T: UIView>(key: UnsafeRawPointer, creationBlock: () -> T, setupBlock: (T) -> Void) -> T {
+        if let associatedObject = self.getAssociatedValueForKey(key) as? T {
+            return associatedObject
         }
-        let buttonView = HNavigationItem(frame: .zero)
-        //buttonView.contentEdgeInsets = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 0)
-        buttonView.titleLabel?.font = UIFont.font(ofSize: 17, weight: .medium)
-        buttonView.contentHorizontalAlignment = .left
-        buttonView.textColor = .black
-        self.setAssociateValue(buttonView, key: &kHVCNaviLeftItemKey)
-        self.leftBarButtonItem = UIBarButtonItem(customView: buttonView)
-        return buttonView
+        let object = creationBlock()
+        setupBlock(object)
+        self.setAssociateValue(object, key: key)
+        return object
+    }
+    
+    var leftItem: HNavigationItem {
+        return createOrGetAssociatedObject(key: &kHVCNaviLeftItemKey) {
+            let buttonView = HNavigationItem(frame: .zero)
+            //buttonView.contentEdgeInsets = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 0)
+            buttonView.titleLabel?.font = UIFont.font(ofSize: 17, weight: .medium)
+            buttonView.contentHorizontalAlignment = .left
+            buttonView.textColor = .black
+            return buttonView
+        } setupBlock: { [weak self] buttonView in
+            self?.leftBarButtonItem = UIBarButtonItem(customView: buttonView)
+        }
     }
     
     var titleItem: UILabel {
-        if let titleItem = self.getAssociatedValueForKey(&kHVCNaviTitleItemKey) as? UILabel {
-            return titleItem
+        return createOrGetAssociatedObject(key: &kHVCNaviTitleItemKey) {
+            let labelView = UILabel(frame: .zero)
+            labelView.font = UIFont.font(ofSize: 17, weight: .medium)
+            labelView.textColor = UIColor.white
+            labelView.textAlignment = .center
+            return labelView
+        } setupBlock: { [weak self] labelView in
+            self?.titleView = labelView
         }
-        let labelView = UILabel(frame: .zero)
-        labelView.font = UIFont.font(ofSize: 17, weight: .medium)
-        labelView.textColor = UIColor.white
-        labelView.textAlignment = .center
-        self.setAssociateValue(labelView, key: &kHVCNaviTitleItemKey)
-        self.titleView = labelView
-        return labelView
     }
     
     var rightItem: HNavigationItem {
-        if let rightItem = self.getAssociatedValueForKey(&kHVCNaviRightItemKey) as? HNavigationItem {
-            return rightItem
+        return createOrGetAssociatedObject(key: &kHVCNaviRightItemKey) {
+            let buttonView = HNavigationItem(frame: .zero)
+            //buttonView.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -8)
+            buttonView.titleLabel?.font = UIFont.font(ofSize: 17, weight: .medium)
+            buttonView.contentHorizontalAlignment = .right
+            buttonView.textColor = .black
+            return buttonView
+        } setupBlock: { [weak self] buttonView in
+            self?.rightBarButtonItem = UIBarButtonItem(customView: buttonView)
         }
-        let buttonView = HNavigationItem(frame: .zero)
-        //buttonView.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -8)
-        buttonView.titleLabel?.font = UIFont.font(ofSize: 17, weight: .medium)
-        buttonView.contentHorizontalAlignment = .right
-        buttonView.textColor = .black
-        self.setAssociateValue(buttonView, key: &kHVCNaviRightItemKey)
-        self.rightBarButtonItem = UIBarButtonItem(customView: buttonView)
-        return buttonView
     }
-
 }
