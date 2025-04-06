@@ -55,11 +55,11 @@ class HCollBaseCell: UICollectionViewCell {
     
     /// The frame and bounds of layoutView
     var layoutViewFrame: CGRect {
-        return self.frame
+        return self.contentView.frame
     }
 
     var layoutViewBounds: CGRect {
-        return self.bounds
+        return self.contentView.bounds
     }
     
     /// Refresh the current cell
