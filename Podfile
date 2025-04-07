@@ -1,5 +1,5 @@
-# Uncomment the next line to define a global platform for your project
-# platform :ios, '9.0'
+# Uncomment the next line to define a global platform for your project'
+platform :ios, '13.0'
 
 target 'HSwiftProject' do
   # Comment the next line if you don't want to use dynamic frameworks
@@ -25,6 +25,7 @@ target 'HSwiftProject' do
   pod 'RxCocoa', '6.1.0'
 
   pod 'ReactiveCocoa'
+  pod 'OpenIMSDK'
 
   # 代码规范
   pod 'SwiftLint', '0.43.1', configurations: ['Debug']

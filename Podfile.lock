@@ -6,7 +6,39 @@ PODS:
   - Kingfisher (5.9.0):
     - Kingfisher/Core (= 5.9.0)
   - Kingfisher/Core (5.9.0)
+  - MJExtension (3.4.2)
   - MJRefresh (3.3.1)
+  - "OpenIMSDK (3.8.3+3)":
+    - MJExtension
+    - "OpenIMSDK/Callbacker (= 3.8.3+3)"
+    - "OpenIMSDK/CallbackProxy (= 3.8.3+3)"
+    - "OpenIMSDK/Interface (= 3.8.3+3)"
+    - "OpenIMSDK/Model (= 3.8.3+3)"
+    - "OpenIMSDK/Utils (= 3.8.3+3)"
+    - "OpenIMSDKCore (= 3.8.3+3)"
+  - "OpenIMSDK/Callbacker (3.8.3+3)":
+    - MJExtension
+    - OpenIMSDK/Model
+    - OpenIMSDK/Utils
+    - "OpenIMSDKCore (= 3.8.3+3)"
+  - "OpenIMSDK/CallbackProxy (3.8.3+3)":
+    - MJExtension
+    - OpenIMSDK/Utils
+    - "OpenIMSDKCore (= 3.8.3+3)"
+  - "OpenIMSDK/Interface (3.8.3+3)":
+    - MJExtension
+    - OpenIMSDK/Callbacker
+    - OpenIMSDK/CallbackProxy
+    - OpenIMSDK/Model
+    - "OpenIMSDKCore (= 3.8.3+3)"
+  - "OpenIMSDK/Model (3.8.3+3)":
+    - MJExtension
+    - OpenIMSDK/Utils
+    - "OpenIMSDKCore (= 3.8.3+3)"
+  - "OpenIMSDK/Utils (3.8.3+3)":
+    - MJExtension
+    - "OpenIMSDKCore (= 3.8.3+3)"
+  - "OpenIMSDKCore (3.8.3+3)"
   - ReactiveCocoa (12.0.0):
     - ReactiveSwift (~> 7.0)
   - ReactiveSwift (7.1.1)
@@ -28,6 +60,7 @@ DEPENDENCIES:
   - GRDB.swift (= 6.23.0)
   - Kingfisher (~> 5.9.0)
   - MJRefresh (~> 3.3.1)
+  - OpenIMSDK
   - ReactiveCocoa
   - RxCocoa (= 6.1.0)
   - RxSwift (= 6.1.0)
@@ -41,7 +74,10 @@ SPEC REPOS:
     - Alamofire
     - GRDB.swift
     - Kingfisher
+    - MJExtension
     - MJRefresh
+    - OpenIMSDK
+    - OpenIMSDKCore
     - ReactiveCocoa
     - ReactiveSwift
     - RxCocoa
@@ -56,7 +92,10 @@ SPEC CHECKSUMS:
   Alamofire: 87bd8c952f9a4454320fce00d9cc3de57bcadaf5
   GRDB.swift: e819934eb2df28a6907f28d746eb3cf9c7c53b75
   Kingfisher: ff98240aebb7302bdc4f1ecd701761030ce18b16
+  MJExtension: e97d164cb411aa9795cf576093a1fa208b4a8dd8
   MJRefresh: eeda70fbf0ad277f3178cef1cd0c3532591d6237
+  OpenIMSDK: 3505fab896ba392e27f6909460f08e41ce1d956f
+  OpenIMSDKCore: 75caba22be8ee484011f367711178312bd64a17d
   ReactiveCocoa: 5d10386f0ce09f922006efbf784881c5fade27c5
   ReactiveSwift: 477d3f5bc2eb3cbbba1c1636505752b83bef93b1
   RxCocoa: 5c51f02d562cbd94629f6c26cf0c80fe4ab8d343
@@ -67,6 +106,6 @@ SPEC CHECKSUMS:
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   TABAnimated: 2503f43b82bfeaf4e78c4922630284a46d8108f5
 
-PODFILE CHECKSUM: e4a7b21a4bbba28bfa40fd53185cbb37660e79fd
+PODFILE CHECKSUM: f252f4664f14468a3762edad55de01f7d183634a
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.16.2
