@@ -17,21 +17,21 @@ class HTableReload: NSObject {
 
 @objc protocol HTableViewDelegate: UITableViewDelegate {
     @objc
-    optional func numberOfSectionsInTableView() -> Any
+    optional func numberOfSectionsInTableView() -> Int
     @objc
-    optional func numberOfRowsInSection(_ section: Any) -> Any
+    optional func numberOfRowsInSection(_ section: Int) -> Int
 
     @objc
-    optional func heightForHeaderInSection(_ section: Any) -> Any
+    optional func heightForHeaderInSection(_ section: Int) -> CGFloat
     @objc
-    optional func heightForFooterInSection(_ section: Any) -> Any
+    optional func heightForFooterInSection(_ section: Int) -> CGFloat
     @objc
-    optional func heightForRowAtIndexPath(_ indexPath: IndexPath) -> Any
+    optional func heightForRowAtIndexPath(_ indexPath: IndexPath) -> CGFloat
     
     @objc
-    optional func tableHeader(_ table: HTableView, inSection section: Any) -> UIView?
+    optional func tableHeader(_ table: HTableView, inSection section: Int) -> UIView?
     @objc
-    optional func tableFooter(_ table: HTableView, inSection section: Any) -> UIView?
+    optional func tableFooter(_ table: HTableView, inSection section: Int) -> UIView?
     @objc
     optional func tableRow(_ table: HTableView, atIndexPath indexPath: IndexPath) -> UITableViewCell?
 
@@ -211,57 +211,23 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         // remove cache data
         self.cellHeights.removeAll()
-        // table Style
-        var sections = 1
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.numberOfSectionsInTableView)
-            if delegate.responds(to: selector) {
-                sections = delegate.performWithUnretainedValue(selector) as! Int
-            }
-            // Prevents quantity from being less than 1
-            sections = max(sections, 1)
-        }
-        return sections
+        let sections = tableDelegate?.numberOfSectionsInTableView?() ?? 1
+        return max(sections, 1)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var items = 0
-        if let delegate = self.tableDelegate {
-            // Get the number of items
-            let selector = #selector(delegate.numberOfRowsInSection(_:))
-            if delegate.responds(to: selector) {
-                items = delegate.performWithUnretainedValue(selector, with: section) as! Int
-            }
-            // Prevents quantity from being less than 0
-            items = max(items, 0)
-        }
-        return items
+        let items = tableDelegate?.numberOfRowsInSection?(section) ?? 0
+        return max(items, 0)
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        var height: CGFloat = 0.0
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.heightForHeaderInSection(_:))
-            if delegate.responds(to: selector) {
-                height = delegate.performWithUnretainedValue(selector, with: section) as! CGFloat
-            }
-            // Prevent negative size
-            height = max(height, 0.0)
-        }
-        return height
+        let height = tableDelegate?.heightForHeaderInSection?(section) ?? 0.0
+        return max(height, 0.0)
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        var height: CGFloat = 0.0
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.heightForFooterInSection(_:))
-            if delegate.responds(to: selector) {
-                height = delegate.performWithUnretainedValue(selector, with: section) as! CGFloat
-            }
-            // Prevent negative size
-            height = max(height, 0.0)
-        }
-        return height
+        let height = tableDelegate?.heightForFooterInSection?(section) ?? 0.0
+        return max(height, 0.0)
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -277,16 +243,10 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
         if tableView.rowHeight != UITableView.automaticDimension {
             return tableView.rowHeight
         } else {
-            var height: CGFloat = 0.0
-            if let delegate = self.tableDelegate {
-                let selector = #selector(delegate.heightForRowAtIndexPath(_:))
-                if delegate.responds(to: selector) {
-                    height = delegate.performWithUnretainedValue(selector, with: indexPath) as! CGFloat
-                }
-                // Prevent negative size
-                height = max(height, 0.0)
-                if height > 0 { return height }
-            }
+            var height = tableDelegate?.heightForRowAtIndexPath?(indexPath) ?? 0.0
+            // Prevent negative size
+            height = max(height, 0.0)
+            if height > 0 { return height }
         }
         return UITableView.automaticDimension
     }
@@ -300,100 +260,52 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
             KingfisherManager.shared.cache.clearMemoryCache()
         }
         // Call delegate method
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.tableRow(_:atIndexPath:))
-            if delegate.responds(to: selector) {
-                let cell = delegate.performWithUnretainedValue(selector, with: self, with: indexPath) as? UITableViewCell
-                if let cell = cell { return cell }
-            }
+        let cell = tableDelegate?.tableRow?(self, atIndexPath: indexPath)
+        guard let cell = cell else {
+            self.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.className)
+            return self.dequeueReusableCell(withIdentifier: UITableViewCell.className, for: indexPath)
         }
-        self.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.className)
-        return self.dequeueReusableCell(withIdentifier: UITableViewCell.className, for: indexPath)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        // Call delegate method
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.tableHeader(_:inSection:))
-            if delegate.responds(to: selector) {
-                return delegate.performWithUnretainedValue(selector, with: self, with: section) as? UIView
-            }
-        }
-        return nil
+        return tableDelegate?.tableHeader?(self, inSection: section)
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        // Call delegate method
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.tableFooter(_:inSection:))
-            if delegate.responds(to: selector) {
-                return delegate.performWithUnretainedValue(selector, with: self, with: section) as? UIView
-            }
-        }
-        return nil
+        return tableDelegate?.tableFooter?(self, inSection: section)
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let delegate = self.tableDelegate {
-            // Save cell height
-            self.cellHeights[indexPath.stringValue] = cell.frame.size.height
-            // Call delegate method
-            let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
-            if delegate.responds(to: selector) {
-                delegate.perform(selector, with: cell, with: indexPath)
-            }
-        }
+        // Save cell height
+        self.cellHeights[indexPath.stringValue] = cell.frame.size.height
+        // Call delegate method
+        self.tableDelegate?.willDisplayCell?(cell, atIndexPath: indexPath)
     }
     
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.didEndDisplayingCell(_:atIndexPath:))
-            if delegate.responds(to: selector) {
-                delegate.perform(selector, with: cell, with: indexPath)
-            }
-        }
+        tableDelegate?.didEndDisplayingCell?(cell, atIndexPath: indexPath)
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let delegate = self.tableDelegate {
-            let selector = #selector(delegate.didSelectCell(_:))
-            if delegate.responds(to: selector) {
-                delegate.perform(selector, with: indexPath)
-            }
-        }
+        tableDelegate?.didSelectCell?(indexPath)
     }
     
     /// UIScrollViewDelegate
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let delegate = self.tableDelegate else { return }
-        let selector = NSSelectorFromString("tableViewDidScroll:")
-        if delegate.responds(to: selector) {
-            delegate.perform(selector, with: scrollView)
-        }
+        tableDelegate?.tableViewDidScroll?(scrollView)
     }
     
     internal func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        guard let delegate = self.tableDelegate else { return }
-        let selector = NSSelectorFromString("tableViewWillBeginDragging:")
-        if delegate.responds(to: selector) {
-            delegate.perform(selector, with: scrollView)
-        }
+        tableDelegate?.tableViewWillBeginDragging?(scrollView)
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        guard let delegate = self.tableDelegate else { return }
-        let selector = NSSelectorFromString("tableViewWillEndDragging:targetContentOffset:")
-        if delegate.responds(to: selector) {
-            delegate.perform(selector, with: velocity, with: targetContentOffset)
-        }
+        tableDelegate?.tableViewWillEndDragging?(velocity, targetContentOffset: targetContentOffset)
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        guard let delegate = self.tableDelegate else { return }
-        let selector = NSSelectorFromString("tableViewDidEndDragging:willDecelerate:")
-        if delegate.responds(to: selector) {
-            delegate.perform(selector, with: scrollView, with: decelerate)
-        }
+        tableDelegate?.tableViewDidEndDragging?(scrollView, willDecelerate: decelerate)
         // Update passed cells
         if !decelerate, self.allPassedCells.count > 5 {
             self.allPassedCells.removeAllObjects()
@@ -404,11 +316,7 @@ class HTableView: UITableView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        guard let delegate = self.tableDelegate else { return }
-        let selector = NSSelectorFromString("tableViewDidEndDecelerating:")
-        if delegate.responds(to: selector) {
-            delegate.perform(selector, with: scrollView)
-        }
+        tableDelegate?.tableViewDidEndDecelerating?(scrollView)
         // Update passed cells
         if self.allPassedCells.count > 5 {
             self.allPassedCells.removeAllObjects()
