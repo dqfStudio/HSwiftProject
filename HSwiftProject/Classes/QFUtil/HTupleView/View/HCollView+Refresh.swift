@@ -18,7 +18,7 @@ enum HCollRefreshFooterStyle : Int {
     case style2 = 1
 }
 
-class HCollRefresh : NSObject {
+class HCollRefresh: NSObject {
     static func refreshHeaderWithStyle(_ style: HCollRefreshHeaderStyle, refreshingBlock: @escaping MJRefreshComponentAction) -> MJRefreshHeader {
         switch (style) {
         case HCollRefreshHeaderStyle.gray:
