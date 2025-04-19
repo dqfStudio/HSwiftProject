@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-    objectVersion = 55;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -402,6 +402,7 @@
 		EBD213E72A6B859500C31E2D /* HSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD213E62A6B859500C31E2D /* HSkeletonView.swift */; };
 		EBD58F962C26B6BD0049E03E /* HUserModelMngr.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD58F952C26B6BC0049E03E /* HUserModelMngr.swift */; };
 		EBD58F982C26C2250049E03E /* HModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD58F972C26C2250049E03E /* HModelManager.swift */; };
+		EBE797662DB3803800C7438F /* HValidationStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBE797652DB3803800C7438F /* HValidationStrategy.swift */; };
 		EBED9CA52A4C3C8600E590DE /* HTupleBannerApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */; };
 		EBED9CA62A4C3C8600E590DE /* HTupleBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CA42A4C3C8500E590DE /* HTupleBannerCell.swift */; };
 		EBED9CCA2A4D339700E590DE /* HDotIndicatorBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBED9CC92A4D339700E590DE /* HDotIndicatorBar.swift */; };
@@ -853,6 +854,7 @@
 		EBD213E62A6B859500C31E2D /* HSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSkeletonView.swift; sourceTree = "<group>"; };
 		EBD58F952C26B6BC0049E03E /* HUserModelMngr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUserModelMngr.swift; sourceTree = "<group>"; };
 		EBD58F972C26C2250049E03E /* HModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HModelManager.swift; sourceTree = "<group>"; };
+		EBE797652DB3803800C7438F /* HValidationStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HValidationStrategy.swift; sourceTree = "<group>"; };
 		EBED9CA32A4C3C8500E590DE /* HTupleBannerApex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleBannerApex.swift; sourceTree = "<group>"; };
 		EBED9CA42A4C3C8500E590DE /* HTupleBannerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleBannerCell.swift; sourceTree = "<group>"; };
 		EBED9CC92A4D339700E590DE /* HDotIndicatorBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HDotIndicatorBar.swift; sourceTree = "<group>"; };
@@ -1178,6 +1180,7 @@
 				A28923AD238B750000E4AB75 /* HTextField.swift */,
 				EB23D99529DFC6F800C96CAC /* HTextView.swift */,
 				A286251523EAB8DD00E81781 /* HCountDownButton.swift */,
+				EBE797652DB3803800C7438F /* HValidationStrategy.swift */,
 				A28C314823EBB4D80050CDA1 /* HVerifyCodeView.swift */,
 			);
 			path = TextField;
@@ -2511,6 +2514,7 @@
 				A2B43073237FF2B100795605 /* HCommonDefine.swift in Sources */,
 				EB5998E22C0DAD500021241C /* SLNodeTableViewCell.swift in Sources */,
 				EB5998DE2C0DAC980021241C /* HNodeModelTableView.swift in Sources */,
+				EBE797662DB3803800C7438F /* HValidationStrategy.swift in Sources */,
 				A2B42FCC237CED5A00795605 /* AppDelegate.swift in Sources */,
 				EBC8140929AA48C000A81431 /* HUserLiveCell+HSection1.swift in Sources */,
 				EBC3073B2BF9B1DD00EF8ABD /* HTupleAutoVC.swift in Sources */,
