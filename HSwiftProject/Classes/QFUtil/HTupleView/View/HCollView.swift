@@ -519,10 +519,6 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
         return true
     }
 
-    private var addressValue: String {
-        return String(format: "%p", self)
-    }
-
     deinit {
         NotificationCenter.default.removeObserver(self)
         HCollObserver.shared.removeObserver(self)
@@ -536,13 +532,11 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
     @discardableResult
     func reuseHeader(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
-        var identifier = (pre ?? "") + "HeaderCell" + NSStringFromClass(cls) + self.addressValue
+        var identifier = (pre ?? "") + NSStringFromClass(cls)
         // Determine whether it contains an index
         identifier += idx ? indexPath.stringValue : ""
         // Determine if there is a coll state value
-        if self.collStyle == .split, !self.sectionPaths.contains(indexPath.section) {
-            identifier += "\(self.collState)"
-        }
+        identifier += "\(self.collState)"
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
@@ -575,13 +569,11 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
     @discardableResult
     func reuseFooter(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
-        var identifier = (pre ?? "") + "FooterCell" + NSStringFromClass(cls) + self.addressValue
+        var identifier = (pre ?? "") + NSStringFromClass(cls)
         // Determine whether it contains an index
         identifier += idx ? indexPath.stringValue : ""
         // Determine if there is a coll state value
-        if self.collStyle == .split, !self.sectionPaths.contains(indexPath.section) {
-            identifier += "\(self.collState)"
-        }
+        identifier += "\(self.collState)"
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
@@ -614,13 +606,11 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
     @discardableResult
     func reuseCell(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
         // Unique identifier
-        var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
+        var identifier = (pre ?? "") + NSStringFromClass(cls)
         // Determine whether it contains an index
         identifier += idx ? indexPath.stringValue : ""
         // Determine if there is a coll state value
-        if self.collStyle == .split, !self.sectionPaths.contains(indexPath.section) {
-            identifier += "\(self.collState)"
-        }
+        identifier += "\(self.collState)"
         // Register cell if not already registered
         if !self.allReuseIdentifiers.contains(identifier) {
             self.allReuseIdentifiers.add(identifier)
@@ -893,7 +883,7 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
                 let selector: Selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     // Unique identifier
-                    let identifier = "HeaderSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.collState)"
+                    let identifier = indexPath.stringValue + "\(self.collState)"
                     // Register cell if not already registered
                     if !self.allReuseIdentifiers.contains(identifier) {
                         self.allReuseIdentifiers.add(identifier)
@@ -925,7 +915,7 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
                 let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     // Unique identifier
-                    let identifier = "FooterSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.collState)"
+                    let identifier = indexPath.stringValue + "\(self.collState)"
                     // Register cell if not already registered
                     if !self.allReuseIdentifiers.contains(identifier) {
                         self.allReuseIdentifiers.add(identifier)
