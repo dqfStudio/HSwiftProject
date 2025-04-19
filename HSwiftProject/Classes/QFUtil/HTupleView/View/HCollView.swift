@@ -169,7 +169,10 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
     var cellHeights: [Int: CGFloat] = [:]
 
     private var sectionPaths = NSArray()
-    private var allReuseIdentifiers = NSMutableSet()
+    private var allHeaderIdentifiers = NSMutableSet()
+    private var allFooterIdentifiers = NSMutableSet()
+    private var allCellIdentifiers = NSMutableSet()
+    
     var allSectionInsets = NSMapTable<NSString, NSString>.strongToStrongObjects()
     var allReuseCells    = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
     var allPassedCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
@@ -538,8 +541,8 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
         // Determine if there is a coll state value
         identifier += "\(self.collState)"
         // Register cell if not already registered
-        if !self.allReuseIdentifiers.contains(identifier) {
-            self.allReuseIdentifiers.add(identifier)
+        if !self.allHeaderIdentifiers.contains(identifier) {
+            self.allHeaderIdentifiers.add(identifier)
             self.register(cls, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier)
         }
         // Dequeue cell
@@ -575,8 +578,8 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
         // Determine if there is a coll state value
         identifier += "\(self.collState)"
         // Register cell if not already registered
-        if !self.allReuseIdentifiers.contains(identifier) {
-            self.allReuseIdentifiers.add(identifier)
+        if !self.allFooterIdentifiers.contains(identifier) {
+            self.allFooterIdentifiers.add(identifier)
             self.register(cls, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier)
         }
         // Dequeue cell
@@ -612,8 +615,8 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
         // Determine if there is a coll state value
         identifier += "\(self.collState)"
         // Register cell if not already registered
-        if !self.allReuseIdentifiers.contains(identifier) {
-            self.allReuseIdentifiers.add(identifier)
+        if !self.allCellIdentifiers.contains(identifier) {
+            self.allCellIdentifiers.add(identifier)
             self.register(cls, forCellWithReuseIdentifier: identifier)
         }
         // Dequeue cell
@@ -666,7 +669,9 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
     /// The following are UICollectionView delegate methods
     internal func numberOfSections(in collectionView: UICollectionView) -> Int {
         // remove cache data
-        self.allReuseIdentifiers.removeAllObjects()
+        self.allHeaderIdentifiers.removeAllObjects()
+        self.allFooterIdentifiers.removeAllObjects()
+        self.allCellIdentifiers.removeAllObjects()
         self.allSectionInsets.removeAllObjects()
         // coll Style
         var sections = 1
@@ -885,8 +890,8 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
                     // Unique identifier
                     let identifier = indexPath.stringValue + "\(self.collState)"
                     // Register cell if not already registered
-                    if !self.allReuseIdentifiers.contains(identifier) {
-                        self.allReuseIdentifiers.add(identifier)
+                    if !self.allHeaderIdentifiers.contains(identifier) {
+                        self.allHeaderIdentifiers.add(identifier)
                         self.register(HCollBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: identifier)
                     }
                     // Dequeue cell
@@ -917,8 +922,8 @@ class HCollView: UICollectionView, UICollectionViewDelegate, UICollectionViewDat
                     // Unique identifier
                     let identifier = indexPath.stringValue + "\(self.collState)"
                     // Register cell if not already registered
-                    if !self.allReuseIdentifiers.contains(identifier) {
-                        self.allReuseIdentifiers.add(identifier)
+                    if !self.allFooterIdentifiers.contains(identifier) {
+                        self.allFooterIdentifiers.add(identifier)
                         self.register(HCollBaseApex.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: identifier)
                     }
                     // Dequeue cell
