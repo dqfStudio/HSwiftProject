@@ -143,12 +143,14 @@ class HFlowViewApexHoriValue1: HFlowBaseApex {
         if let imageView = _imageView {
             
             var imageFrame = frame
-            if imageView.imageSize != .zero {
-                imageFrame.size = imageView.imageSize
-            } else {
-                imageFrame.width = frame.height
-                imageFrame = imageFrame.inset(by: imageView.edgeInsets)
-            }
+//            if imageView.imageSize != .zero {
+//                imageFrame.size = imageView.imageSize
+//            } else {
+//                imageFrame.width = frame.height
+//                imageFrame = imageFrame.inset(by: imageView.edgeInsets)
+//            }
+            imageFrame.width = frame.height
+            imageFrame = imageFrame.inset(by: imageView.edgeInsets)
             
             imageView.widthAnchor.constraint(equalToConstant: imageFrame.width).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageFrame.height).isActive = true
@@ -195,12 +197,14 @@ class HFlowViewApexHoriValue1: HFlowBaseApex {
         if let detailView = _detailView {
 
             var detailFrame = frame
-            if detailView.imageSize != .zero {
-                detailFrame.size = detailView.imageSize
-            } else {
-                detailFrame.width = frame.height
-                detailFrame = detailFrame.inset(by: detailView.edgeInsets)
-            }
+//            if detailView.imageSize != .zero {
+//                detailFrame.size = detailView.imageSize
+//            } else {
+//                detailFrame.width = frame.height
+//                detailFrame = detailFrame.inset(by: detailView.edgeInsets)
+//            }
+            detailFrame.width = frame.height
+            detailFrame = detailFrame.inset(by: detailView.edgeInsets)
             
             detailView.widthAnchor.constraint(equalToConstant: detailFrame.width).isActive = true
             detailView.heightAnchor.constraint(equalToConstant: detailFrame.height).isActive = true
@@ -358,12 +362,14 @@ class HFlowViewApexHoriValue2: HFlowBaseApex {
         if let imageView = _imageView {
 
             var imageFrame = frame
-            if imageView.imageSize != .zero {
-                imageFrame.size = imageView.imageSize
-            } else {
-                imageFrame.width = frame.height
-                imageFrame = imageFrame.inset(by: imageView.edgeInsets)
-            }
+//            if imageView.imageSize != .zero {
+//                imageFrame.size = imageView.imageSize
+//            } else {
+//                imageFrame.width = frame.height
+//                imageFrame = imageFrame.inset(by: imageView.edgeInsets)
+//            }
+            imageFrame.width = frame.height
+            imageFrame = imageFrame.inset(by: imageView.edgeInsets)
             
             imageView.widthAnchor.constraint(equalToConstant: imageFrame.width).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageFrame.height).isActive = true
@@ -408,12 +414,14 @@ class HFlowViewApexHoriValue2: HFlowBaseApex {
         if let detailView = _detailView {
 
             var detailFrame = frame
-            if detailView.imageSize != .zero {
-                detailFrame.size = detailView.imageSize
-            } else {
-                detailFrame.width = frame.height
-                detailFrame = detailFrame.inset(by: detailView.edgeInsets)
-            }
+//            if detailView.imageSize != .zero {
+//                detailFrame.size = detailView.imageSize
+//            } else {
+//                detailFrame.width = frame.height
+//                detailFrame = detailFrame.inset(by: detailView.edgeInsets)
+//            }
+            detailFrame.width = frame.height
+            detailFrame = detailFrame.inset(by: detailView.edgeInsets)
             
             detailView.widthAnchor.constraint(equalToConstant: detailFrame.width).isActive = true
             detailView.heightAnchor.constraint(equalToConstant: detailFrame.height).isActive = true
@@ -564,12 +572,14 @@ class HFlowViewApexHoriValue3: HFlowBaseApex {
         if let imageView = _imageView {
 
             var imageFrame = frame
-            if imageView.imageSize != .zero {
-                imageFrame.size = imageView.imageSize
-            } else {
-                imageFrame.width = frame.height
-                imageFrame = imageFrame.inset(by: imageView.edgeInsets)
-            }
+//            if imageView.imageSize != .zero {
+//                imageFrame.size = imageView.imageSize
+//            } else {
+//                imageFrame.width = frame.height
+//                imageFrame = imageFrame.inset(by: imageView.edgeInsets)
+//            }
+            imageFrame.width = frame.height
+            imageFrame = imageFrame.inset(by: imageView.edgeInsets)
             
             imageView.widthAnchor.constraint(equalToConstant: imageFrame.width).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: imageFrame.height).isActive = true
@@ -608,12 +618,14 @@ class HFlowViewApexHoriValue3: HFlowBaseApex {
         if let detailView = _detailView {
 
             var detailFrame = frame
-            if detailView.imageSize != .zero {
-                detailFrame.size = detailView.imageSize
-            } else {
-                detailFrame.width = frame.height
-                detailFrame = detailFrame.inset(by: detailView.edgeInsets)
-            }
+//            if detailView.imageSize != .zero {
+//                detailFrame.size = detailView.imageSize
+//            } else {
+//                detailFrame.width = frame.height
+//                detailFrame = detailFrame.inset(by: detailView.edgeInsets)
+//            }
+            detailFrame.width = frame.height
+            detailFrame = detailFrame.inset(by: detailView.edgeInsets)
             
             detailView.widthAnchor.constraint(equalToConstant: detailFrame.width).isActive = true
             detailView.heightAnchor.constraint(equalToConstant: detailFrame.height).isActive = true

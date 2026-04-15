@@ -14,9 +14,7 @@ extension DispatchQueue {
         if Thread.isMainThread {
             block()
         } else {
-            DispatchQueue.main.async {
-                block()
-            }
+            DispatchQueue.main.async(execute: block)
         }
     }
 }

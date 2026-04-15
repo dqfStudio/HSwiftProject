@@ -17,6 +17,9 @@ target 'HSwiftProject' do
   # 骨架屏
   pod 'TABAnimated', '2.6.3'
 
+  # lottie动画
+  pod 'lottie-ios', '3.5.0'
+
   # 布局
   pod 'SnapKit', '5.0.1'
   pod 'FlexLayout'
@@ -25,9 +28,11 @@ target 'HSwiftProject' do
   # Rx
   pod 'RxSwift', '6.1.0'
   pod 'RxCocoa', '6.1.0'
+  pod 'SnapKitExtend'
 
   pod 'ReactiveCocoa'
   pod 'OpenIMSDK'
+  pod 'CombineCocoa'
 
   # 代码规范
   # pod 'SwiftLint', '0.43.1', configurations: ['Debug']

@@ -199,7 +199,7 @@ extension HPullController {
             var button = cell.viewWithTag(12345) as? HWebButtonView
             if button == nil {
                 button = HWebButtonView(frame: cell.layoutViewBounds)
-                button!.imageSpace = 8
+//                button!.imageSpace = 8
                 button!.tag = 12345
                 button!.textFont = UIFont.font(ofSize: 16, weight: .regular)
                 button!.textColor = UIColor.black
