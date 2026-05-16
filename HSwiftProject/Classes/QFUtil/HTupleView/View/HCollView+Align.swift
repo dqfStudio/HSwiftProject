@@ -22,7 +22,7 @@ protocol HCollAlignStrategy {
 // 策略模式：默认对齐策略
 struct HCollDefaultAlignStrategy: HCollAlignStrategy {
     func calculateCntInset(for view: HCollView, cntSize: CGSize, cntInset: UIEdgeInsets) -> UIEdgeInsets {
-        return .zero
+        .zero
     }
 }
 
@@ -31,10 +31,12 @@ struct HCollCenterAlignStrategy: HCollAlignStrategy {
     func calculateCntInset(for view: HCollView, cntSize: CGSize, cntInset: UIEdgeInsets) -> UIEdgeInsets {
         let originX = (view.width - cntSize.width) / 2
         let originY = (view.height - cntSize.height) / 2
-        return UIEdgeInsets(top: max(originY, 0),
-                            left: max(originX, 0),
-                            bottom: cntInset.bottom,
-                            right: cntInset.right)
+        return UIEdgeInsets(
+            top: max(originY, 0),
+            left: max(originX, 0),
+            bottom: cntInset.bottom,
+            right: cntInset.right
+        )
     }
 }
 
@@ -43,14 +45,17 @@ struct HCollTopAlignStrategy: HCollAlignStrategy {
     let top: CGFloat
     
     init(top: CGFloat) {
-        self.top = top
+        self.top = max(top, 0) // 确保顶部边距非负
     }
+    
     func calculateCntInset(for view: HCollView, cntSize: CGSize, cntInset: UIEdgeInsets) -> UIEdgeInsets {
         let originX = (view.width - cntSize.width) / 2
-        return UIEdgeInsets(top: top,
-                            left: max(originX, 0),
-                            bottom: cntInset.bottom,
-                            right: cntInset.right)
+        return UIEdgeInsets(
+            top: top,
+            left: max(originX, 0),
+            bottom: cntInset.bottom,
+            right: cntInset.right
+        )
     }
 }
 
@@ -59,15 +64,18 @@ struct HCollRatioAlignStrategy: HCollAlignStrategy {
     let ratio: CGFloat
     
     init(ratio: CGFloat) {
-        self.ratio = ratio
+        self.ratio = max(0, min(ratio, 1)) // 确保比例在 0-1 之间
     }
+    
     func calculateCntInset(for view: HCollView, cntSize: CGSize, cntInset: UIEdgeInsets) -> UIEdgeInsets {
         let originX = (view.width - cntSize.width) / 2
         let originY = (view.height - cntSize.height) * ratio
-        return UIEdgeInsets(top: max(originY, 0),
-                            left: max(originX, 0),
-                            bottom: cntInset.bottom,
-                            right: cntInset.right)
+        return UIEdgeInsets(
+            top: max(originY, 0),
+            left: max(originX, 0),
+            bottom: cntInset.bottom,
+            right: cntInset.right
+        )
     }
 }
 
@@ -76,15 +84,18 @@ struct HCollBottomAlignStrategy: HCollAlignStrategy {
     let bottom: CGFloat
     
     init(bottom: CGFloat) {
-        self.bottom = bottom
+        self.bottom = max(bottom, 0) // 确保底部边距非负
     }
+    
     func calculateCntInset(for view: HCollView, cntSize: CGSize, cntInset: UIEdgeInsets) -> UIEdgeInsets {
         let originX = (view.width - cntSize.width) / 2
         let originY = view.height - cntSize.height - bottom
-        return UIEdgeInsets(top: max(originY, 0),
-                            left: max(originX, 0),
-                            bottom: cntInset.bottom,
-                            right: cntInset.right)
+        return UIEdgeInsets(
+            top: max(originY, 0),
+            left: max(originX, 0),
+            bottom: cntInset.bottom,
+            right: cntInset.right
+        )
     }
 }
 
@@ -93,15 +104,15 @@ class HCollAlignStrategyFactory {
     static func createStrategy(for align: HCollAlign) -> HCollAlignStrategy {
         switch align {
         case .default:
-            return HCollDefaultAlignStrategy()
+            HCollDefaultAlignStrategy()
         case .center:
-            return HCollCenterAlignStrategy()
+            HCollCenterAlignStrategy()
         case .top(let top):
-            return HCollTopAlignStrategy(top: top)
+            HCollTopAlignStrategy(top: top)
         case .ratio(let ratio):
-            return HCollRatioAlignStrategy(ratio: ratio)
+            HCollRatioAlignStrategy(ratio: ratio)
         case .bottom(let bottom):
-            return HCollBottomAlignStrategy(bottom: bottom)
+            HCollBottomAlignStrategy(bottom: bottom)
         }
     }
 }

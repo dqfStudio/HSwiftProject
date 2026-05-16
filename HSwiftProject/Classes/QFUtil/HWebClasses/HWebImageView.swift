@@ -1,6 +1,6 @@
 //
 //  HWebImageView.swift
-//  HSwiftProject
+//  FreeChat
 //
 //  Created by Wind on 2019/11/18.
 //  Copyright © 2019 wind. All rights reserved.
@@ -8,6 +8,7 @@
 
 import UIKit
 import Kingfisher
+import SDWebImage
 
 enum HWebGetImageStyle {
     case local //本地图片
@@ -170,8 +171,11 @@ extension HWebImageView {
     *  @param syncLoadCache Synchronously read cache
     *
     */
-    func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true, cropSize: CGSize = .zero) {
-        self.setImageUrlString(url.absoluteString, placeholder: placeholder, syncLoadCache: cache, cropSize: cropSize)
+    func setAvatarUrl(_ url: URL, placeholder: UIImage? = nil) {
+        self.setImageUrl(url, placeholder: placeholder, syncLoadCache: false)
+    }
+    func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = false) {
+        self.setImageUrlString(url.absoluteString, placeholder: placeholder, syncLoadCache: cache)
     }
     
     /**
@@ -182,7 +186,10 @@ extension HWebImageView {
     *  @param syncLoadCache whether to read cache synchronously
     *
     */
-    func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true, cropSize: CGSize = .zero) {
+    func setAvatarUrlString(_ urlString: String, placeholder: UIImage? = nil) {
+        self.setImageUrlString(urlString, placeholder: placeholder, syncLoadCache: false)
+    }
+    func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = false, cropSize: CGSize = .zero) {
         if urlString.count == 0 {
             self._setImage(placeholder) { [weak self] in
                 guard let self = self else { return }
@@ -234,7 +241,7 @@ extension HWebImageView {
                     }
                 }else {
                     // 从网络加载图片
-                    self.kf.setImage(with: url, placeholder: placeholder, options: option, completionHandler: { [weak self] result in
+                    self.kf.setImage(with: url, placeholder: placeholder, options: option) { [weak self] result in
                         guard let self = self else { return }
                         switch result {
                         case .success(let value):
@@ -246,7 +253,7 @@ extension HWebImageView {
                         case .failure(let value):
                             self.didGetError?(self, value as AnyObject)
                         }
-                    })
+                    }
                 }
             }
         }else {
@@ -262,7 +269,7 @@ extension HWebImageView {
                 }
             }
             // 从网络加载图片
-            self.kf.setImage(with: url, placeholder: placeholder, options: option, completionHandler: { [weak self] result in
+            self.kf.setImage(with: url, placeholder: placeholder, options: option) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let value):
@@ -274,8 +281,18 @@ extension HWebImageView {
                 case .failure(let value):
                     self.didGetError?(self, value as AnyObject)
                 }
-            })
+            }
         }
+    }
+    
+    /**
+    *  可以根据指定大小压缩图片
+    */
+    func setAvatarCompressUrlString(_ urlString: String, placeholder: UIImage? = nil, size: CGSize = CGSize(width: 50, height: 50)) {
+        self.setCompressUrlString(urlString, placeholder: placeholder, syncLoadCache: false, size: size)
+    }
+    func setCompressUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = false, size: CGSize = CGSize(width: 50, height: 50)) {
+        self.setImageUrlString(urlString, placeholder: placeholder, syncLoadCache: cache, cropSize: size)
     }
     
 }

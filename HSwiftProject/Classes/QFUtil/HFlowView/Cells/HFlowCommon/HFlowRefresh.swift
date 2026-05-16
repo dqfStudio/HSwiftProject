@@ -19,11 +19,11 @@ enum HFlowRefreshFooterStyle : Int {
 }
 
 class HFlowRefresh : NSObject {
-    static func refreshHeaderWithStyle(_ style: HFlowRefreshHeaderStyle, refreshingBlock: @escaping MJRefreshComponentAction) -> MJRefreshHeader {
+    static func refreshHeaderWithStyle(_ style: HFlowRefreshHeaderStyle, block: @escaping MJRefreshComponentAction, isAutomaticallyChangeAlpha: Bool = true) -> MJRefreshHeader {
         switch (style) {
         case HFlowRefreshHeaderStyle.gray:
-            let header: MJRefreshNormalHeader = MJRefreshNormalHeader(refreshingBlock: refreshingBlock)
-            header.isAutomaticallyChangeAlpha = true
+            let header: MJRefreshNormalHeader = MJRefreshNormalHeader(refreshingBlock: block)
+            header.isAutomaticallyChangeAlpha = isAutomaticallyChangeAlpha
             header.lastUpdatedTimeLabel?.isHidden = true
             header.stateLabel?.isHidden = true
             if #available(iOS 13.0, *) {
@@ -33,8 +33,8 @@ class HFlowRefresh : NSObject {
             }
             return header
         case HFlowRefreshHeaderStyle.white:
-            let header: MJRefreshNormalHeader = MJRefreshNormalHeader(refreshingBlock: refreshingBlock)
-            header.isAutomaticallyChangeAlpha = true
+            let header: MJRefreshNormalHeader = MJRefreshNormalHeader(refreshingBlock: block)
+            header.isAutomaticallyChangeAlpha = isAutomaticallyChangeAlpha
             header.lastUpdatedTimeLabel?.isHidden = true
             header.stateLabel?.isHidden = true
             if #available(iOS 13.0, *) {
@@ -46,20 +46,32 @@ class HFlowRefresh : NSObject {
         }
     }
     
-    static func refreshFooterWithStyle(_ style: HFlowRefreshFooterStyle, refreshingBlock: @escaping MJRefreshComponentAction) -> MJRefreshFooter {
+    static func refreshFooterWithStyle(_ style: HFlowRefreshFooterStyle, block: @escaping MJRefreshComponentAction) -> MJRefreshFooter {
         switch (style) {
         case HFlowRefreshFooterStyle.style1:
-            let footer: MJRefreshAutoNormalFooter = MJRefreshAutoNormalFooter(refreshingBlock: refreshingBlock)
+            let footer: MJRefreshAutoNormalFooter = MJRefreshAutoNormalFooter(refreshingBlock: block)
             footer.setTitle("暂无更多数据", for: MJRefreshState.noMoreData)
             footer.setTitle("", for: MJRefreshState.idle)
             footer.isRefreshingTitleHidden = true
             return footer
         case HFlowRefreshFooterStyle.style2:
-            let footer: MJRefreshAutoNormalFooter = MJRefreshAutoNormalFooter(refreshingBlock: refreshingBlock)
+            let footer: MJRefreshAutoNormalFooter = MJRefreshAutoNormalFooter(refreshingBlock: block)
             footer.setTitle("我们也是有底线的", for: MJRefreshState.noMoreData)
             footer.setTitle("", for: MJRefreshState.idle)
             footer.isRefreshingTitleHidden = true
             return footer
         }
+    }
+    
+    static func customRefreshHeader(block: @escaping MJRefreshComponentAction, customView: UIView) -> MJRefreshHeader {
+        let header = MJRefreshHeader(refreshingBlock: block)
+        header.addSubview(customView)
+        return header
+    }
+    
+    static func customRefreshFooter(block: @escaping MJRefreshComponentAction, customView: UIView) -> MJRefreshFooter {
+        let footer = MJRefreshFooter(refreshingBlock: block)
+        footer.addSubview(customView)
+        return footer
     }
 }

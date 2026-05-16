@@ -9,7 +9,7 @@
 import UIKit
 
 class HTupleTmplCell: HTupleBaseCell {
-    
+
     /// The edge insets of the cell.
     @objc override var edgeInsets: UIEdgeInsets {
         get {
@@ -18,8 +18,8 @@ class HTupleTmplCell: HTupleBaseCell {
         }
         set {
             if edgeInsets != newValue {
-                layoutView.frame = self.bounds.inset(by: newValue)
                 self.setAssociateValue(NSCoder.string(for: newValue), key: &kViewEdgeInsetsKey)
+                self.setNeedsLayout()
             }
         }
     }
@@ -34,7 +34,7 @@ class HTupleTmplCell: HTupleBaseCell {
         self.contentView.addSubview(stackView)
         return stackView
     }()
-    
+
     /// The separator view loaded on the content view
     lazy var separatorView: HCellApexSeparator = {
         let separator = HCellApexSeparator(frame: self.bounds)
@@ -50,7 +50,7 @@ class HTupleTmplCell: HTupleBaseCell {
     override var layoutViewBounds: CGRect {
         return layoutView.bounds
     }
-    
+
     private var _activity: UIActivityIndicatorView?
     var activity: UIActivityIndicatorView {
         if let activity = _activity {
@@ -68,7 +68,12 @@ class HTupleTmplCell: HTupleBaseCell {
             return _activity!
         }
     }
-    
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutView.frame = bounds.inset(by: edgeInsets)
+    }
+
     override func HLayoutTupleCell(_ v: UIView) {
         let frame = self.layoutViewBounds
         if !v.frame.equalTo(frame) {
@@ -80,5 +85,4 @@ class HTupleTmplCell: HTupleBaseCell {
             activity.center = CGPoint(x: centerX, y: centerY)
         }
     }
-    
 }

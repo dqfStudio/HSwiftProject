@@ -103,11 +103,21 @@ class HFlowTextImageCell: HFlowBaseCell {
     // 在accsryLabel后面添加自定义间隔
     var accsrySpacing: CGFloat = 0.0
     
+    private var didSetup = false
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        setup()
+        if !didSetup {
+            setup()
+            didSetup = true
+        }
     }
-    
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        didSetup = false
+    }
+
     private func setup() {
         
         /// 左边布局View

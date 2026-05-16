@@ -13,21 +13,21 @@ class HAbstractDotView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         NSException(name: NSExceptionName.internalInconsistencyException,
-                    reason: NSString(format: "You must override %@ in %@", NSStringFromSelector(#function), self.className) as String,
+                    reason: NSString(format: "You must override %@ in %@", NSStringFromSelector(#function), NSStringFromClass(type(of: self))) as String,
                     userInfo: nil).raise()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         NSException(name: NSExceptionName.internalInconsistencyException,
-                    reason: NSString(format: "You must override %@ in %@", NSStringFromSelector(#function), self.className) as String,
+                    reason: NSString(format: "You must override %@ in %@", NSStringFromSelector(#function), NSStringFromClass(type(of: self))) as String,
                     userInfo: nil).raise()
     }
     
     @objc
     func changeActivityState(_ active: Bool) {
         NSException(name: NSExceptionName.internalInconsistencyException,
-                    reason: NSString(format: "You must override %@ in %@", NSStringFromSelector(#function), self.className) as String,
+                    reason: NSString(format: "You must override %@ in %@", NSStringFromSelector(#function), NSStringFromClass(type(of: self))) as String,
                     userInfo: nil).raise()
     }
 

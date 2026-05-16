@@ -22,10 +22,10 @@ extension HMainController6 {
     func edgeInsetsForRowAtIndexPath(_ indexPath: IndexPath) -> Any {
         return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     }
-    func flowRow(_ flow: HFlowView, atIndexPath indexPath: IndexPath) {
+    func flowRow(_ flow: HFlowView, atIndexPath indexPath: IndexPath) -> UITableViewCell? {
         switch (indexPath.row) {
         case 0:
-            let cell = flow.cell(HFlowViewCellHoriValue2.self, nil, true, indexPath) as! HFlowViewCellHoriValue2
+            let cell = HFlowViewCellHoriValue2(style: .default, reuseIdentifier: "HFlowViewCellHoriValue2")
             cell.backgroundColor = UIColor.gray
             
 //            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
@@ -56,13 +56,13 @@ extension HMainController6 {
 //            cell.accsryLabel.backgroundColor = UIColor.green
             
             //接收信
-            cell.signalBlock = { (target, signal) in
+            cell.signalBlock = { (target: Any, signal: Any) in
                 let cell = target as! HFlowViewCellHoriValue2
-                NSLog("选中%d", cell.label)
+                NSLog("选中%@", cell.label.text ?? "")
             }
-            break
+            return cell
         case 1:
-            let cell = flow.cell(HFlowViewCellHoriValue2.self, nil, true, indexPath) as! HFlowViewCellHoriValue2
+            let cell = HFlowViewCellHoriValue2(style: .default, reuseIdentifier: "HFlowViewCellHoriValue2")
             cell.backgroundColor = UIColor.gray
             
 //            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
@@ -77,13 +77,13 @@ extension HMainController6 {
             cell.detailLabel.text = "qqqqqqqqqqqqq"
             
             //接收信号
-            cell.signalBlock = { (target, signal) in
+            cell.signalBlock = { (target: Any, signal: Any) in
                 let cell = target as! HFlowViewCellHoriValue2
-                NSLog("选中%d", cell.label)
+                NSLog("选中%@", cell.label.text ?? "")
             }
-            break
+            return cell
         case 2:
-            let cell = flow.cell(HFlowViewCellHoriValue2.self, nil, true, indexPath) as! HFlowViewCellHoriValue2
+            let cell = HFlowViewCellHoriValue2(style: .default, reuseIdentifier: "HFlowViewCellHoriValue2")
             cell.backgroundColor = UIColor.gray
             
 //            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
@@ -101,10 +101,9 @@ extension HMainController6 {
 
             cell.detailLabel.backgroundColor = UIColor.yellow
             cell.detailLabel.text = "qqqqqqqqqqqqq"
-            break
+            return cell
         default:
-            self.ext_flowRow(flow, atIndexPath: indexPath)
-            break
+            return UITableViewCell(style: .default, reuseIdentifier: "DefaultCell")
         }
         
     }

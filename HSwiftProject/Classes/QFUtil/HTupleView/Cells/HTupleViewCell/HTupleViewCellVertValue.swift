@@ -52,7 +52,7 @@ class HTupleViewCellVertValue1: HTupleTmplCell {
         }
         return _accsryLabel!
     }
-    
+
     private var _topView: HWebImageView?
     ///imageView顶部的背景图片
     var topView: HWebImageView {
@@ -100,38 +100,53 @@ class HTupleViewCellVertValue1: HTupleTmplCell {
 
     ///imageView底部的高度
     var bottomHeight: CGFloat = 0.0
-    
+
     // 设置layoutView通用间隔
     var layoutSpacing: CGFloat = 10.0
-    
+
     // 在imageView后面添加自定义间隔
     var layoutFirstSpacing: CGFloat = 0.0
-    
+
     // 在label后面添加自定义间隔
     var layoutSecondSpacing: CGFloat = 0.0
-    
+
     // 在detailLabel后面添加自定义间隔
     var layoutThirdSpacing: CGFloat = 0.0
-    
+
     /// Method called during cell initialization
     override func initUI() {
         layoutView.axis = .vertical
     }
-    
-    override func relayoutSubviews() {
 
+    private var didSetupLayout = false
+    private var labelHeightConstraint: NSLayoutConstraint?
+    private var detailHeightConstraint: NSLayoutConstraint?
+    private var accsryHeightConstraint: NSLayoutConstraint?
+
+    override func relayoutSubviews() {
         let frame = self.bounds.inset(by: self.edgeInsets)
 
-        // 重设frame
         layoutView.frame = frame
         layoutView.spacing = layoutSpacing
 
-        // imageView
-        layoutView.addArrangedSubview(imageView)
+        if !didSetupLayout {
+            layoutView.addArrangedSubview(imageView)
+            if let label = _label {
+                layoutView.addArrangedSubview(label)
+            }
+            if let detailLabel = _detailLabel {
+                layoutView.addArrangedSubview(detailLabel)
+            }
+            if let accsryLabel = _accsryLabel {
+                layoutView.addArrangedSubview(accsryLabel)
+            }
+            didSetupLayout = true
+        }
+
         if layoutFirstSpacing > 0 {
             layoutView.setCustomSpacing(layoutFirstSpacing, after: imageView)
         }
-        
+
         //计算topLabel的坐标
         if self.topHeight > 0 {
             var tmpFrame = CGRect.zero
@@ -153,26 +168,31 @@ class HTupleViewCellVertValue1: HTupleTmplCell {
 
         // label
         if let label = _label, labelHeight > 0 {
-            label.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
-            layoutView.addArrangedSubview(label)
+            updateConstraint(&labelHeightConstraint, on: label, height: labelHeight)
             if layoutSecondSpacing > 0 {
                 layoutView.setCustomSpacing(layoutSecondSpacing, after: label)
             }
         }
         if let detailLabel = _detailLabel, detailHeight > 0 {
-            detailLabel.heightAnchor.constraint(equalToConstant: detailHeight).isActive = true
-            layoutView.addArrangedSubview(detailLabel)
+            updateConstraint(&detailHeightConstraint, on: detailLabel, height: detailHeight)
             if layoutThirdSpacing > 0 {
                 layoutView.setCustomSpacing(layoutThirdSpacing, after: detailLabel)
             }
         }
         if let accsryLabel = _accsryLabel, accsryHeight > 0 {
-            accsryLabel.heightAnchor.constraint(equalToConstant: accsryHeight).isActive = true
-            layoutView.addArrangedSubview(accsryLabel)
+            updateConstraint(&accsryHeightConstraint, on: accsryLabel, height: accsryHeight)
         }
-        
     }
-    
+
+    private func updateConstraint(_ constraint: inout NSLayoutConstraint?, on view: UIView, height: CGFloat) {
+        if let existing = constraint {
+            existing.constant = height
+        } else {
+            let newConstraint = view.heightAnchor.constraint(equalToConstant: height)
+            newConstraint.isActive = true
+            constraint = newConstraint
+        }
+    }
 }
 
 /// 两个label在imageView后依次排列，一个在imageView之上
@@ -219,7 +239,7 @@ class HTupleViewCellVertValue2: HTupleTmplCell {
         }
         return _accsryLabel!
     }
-    
+
     private var _topView: HWebImageView?
     ///imageView顶部的背景图片
     var topView: HWebImageView {
@@ -267,46 +287,60 @@ class HTupleViewCellVertValue2: HTupleTmplCell {
 
     ///imageView底部的高度
     var bottomHeight: CGFloat = 0.0
-    
+
     // 设置layoutView通用间隔
     var layoutSpacing: CGFloat = 10.0
-    
+
     // 在accsryLabel后面添加自定义间隔
     var layoutFirstSpacing: CGFloat = 0.0
-    
+
     // 在imageView后面添加自定义间隔
     var layoutSecondSpacing: CGFloat = 0.0
-    
+
     // 在label后面添加自定义间隔
     var layoutThirdSpacing: CGFloat = 0.0
-    
+
     /// Method called during cell initialization
     override func initUI() {
         layoutView.axis = .vertical
     }
-    
-    override func relayoutSubviews() {
 
+    private var didSetupLayout = false
+    private var labelHeightConstraint: NSLayoutConstraint?
+    private var detailHeightConstraint: NSLayoutConstraint?
+    private var accsryHeightConstraint: NSLayoutConstraint?
+
+    override func relayoutSubviews() {
         let frame = self.bounds.inset(by: self.edgeInsets)
 
-        // 重设frame
         layoutView.frame = frame
         layoutView.spacing = layoutSpacing
-        
+
+        if !didSetupLayout {
+            if let accsryLabel = _accsryLabel {
+                layoutView.addArrangedSubview(accsryLabel)
+            }
+            layoutView.addArrangedSubview(imageView)
+            if let label = _label {
+                layoutView.addArrangedSubview(label)
+            }
+            if let detailLabel = _detailLabel {
+                layoutView.addArrangedSubview(detailLabel)
+            }
+            didSetupLayout = true
+        }
+
         if let accsryLabel = _accsryLabel, accsryHeight > 0 {
-            accsryLabel.heightAnchor.constraint(equalToConstant: accsryHeight).isActive = true
-            layoutView.addArrangedSubview(accsryLabel)
+            updateConstraint(&accsryHeightConstraint, on: accsryLabel, height: accsryHeight)
             if layoutFirstSpacing > 0 {
                 layoutView.setCustomSpacing(layoutFirstSpacing, after: accsryLabel)
             }
         }
 
-        // imageView
-        layoutView.addArrangedSubview(imageView)
         if layoutSecondSpacing > 0 {
             layoutView.setCustomSpacing(layoutSecondSpacing, after: imageView)
         }
-        
+
         //计算topLabel的坐标
         if self.topHeight > 0 {
             var tmpFrame = CGRect.zero
@@ -328,17 +362,23 @@ class HTupleViewCellVertValue2: HTupleTmplCell {
 
         // label
         if let label = _label, labelHeight > 0 {
-            label.heightAnchor.constraint(equalToConstant: labelHeight).isActive = true
-            layoutView.addArrangedSubview(label)
+            updateConstraint(&labelHeightConstraint, on: label, height: labelHeight)
             if layoutThirdSpacing > 0 {
                 layoutView.setCustomSpacing(layoutThirdSpacing, after: label)
             }
         }
         if let detailLabel = _detailLabel, detailHeight > 0 {
-            detailLabel.heightAnchor.constraint(equalToConstant: detailHeight).isActive = true
-            layoutView.addArrangedSubview(detailLabel)
+            updateConstraint(&detailHeightConstraint, on: detailLabel, height: detailHeight)
         }
-        
     }
-    
+
+    private func updateConstraint(_ constraint: inout NSLayoutConstraint?, on view: UIView, height: CGFloat) {
+        if let existing = constraint {
+            existing.constant = height
+        } else {
+            let newConstraint = view.heightAnchor.constraint(equalToConstant: height)
+            newConstraint.isActive = true
+            constraint = newConstraint
+        }
+    }
 }

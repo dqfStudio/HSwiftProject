@@ -1,1094 +1,761 @@
 //
 //  HFlowView.swift
-//  HSwiftProject
+//  FreeChat
 //
-//  Created by Wind on 2019/12/3.
-//  Copyright © 2019 wind. All rights reserved.
+//  Created by owner on 2024/11/5.
 //
 
 import UIKit
 import Kingfisher
 import SDWebImage
+import Combine
+import MJRefresh
 
-private enum HFlowStyle: Int {
-    case `default`  // Singleton design
-    case split // Split design
-}
-
-enum HFlowAlign {
-    case `default` // 垂直居上，水平居左
-    case center // 垂直居中，水平居中
-    case top(CGFloat) // 垂直距离顶部的距离，水平居中
-    case ratio(CGFloat) // 垂直距离顶部的比例，水平居中
-    case bottom(CGFloat) // 垂直距离底部的距离，水平居中
-}
-
-var kFlowDefaultTag = 1615141312
-
-private var kFlowPageNo = 1
-private var kFlowPageSize = 20
-private var kFlowTotalPageNo = 10000
-
-private var kFlowDesignKey = "flow"
-private var kFlowExaDesignKey = "flowExa"
-
-private var kFlowStateKey: Void?
-private var kFlowSignalKey: Void?
-private var kFlowStateSourceKey: Void?
-
-/// Refresh & LoadMore block
-typealias HFlowRefreshBlock = () -> Void
-typealias HFlowLoadMoreBlock = () -> Void
-
+/// 用于控制刷新状态的辅助类
 class HFlowReload: NSObject {
-    var isRefresh = false //是否正在刷新
-    var needRefresh = false //是否需要刷新
+    /// 是否正在刷新
+    var isRefresh = false
+    /// 是否需要刷新
+    var needRefresh = false
 }
 
-/// This class is used for refreshing flowView throughout the project.
-class HFlowAppearance: NSObject {
+/// 关联对象的键
+private var RefreshControlHandlerKey: UInt8 = 0
+private var paginationManagerKey: UInt8 = 0
+
+/// HFlowView 的代理协议，用于提供数据和处理事件
+@MainActor
+protocol HFlowViewDelegate: UITableViewDelegate {
+    /// 返回 FlowView 中的 section 数量
+    /// - Returns: section 数量
+    func numberOfSectionsInFlowView() -> Int
     
-    private static var hashFlows = NSHashTable<HFlowView>.weakObjects()
+    /// 返回指定 section 中的 row 数量
+    /// - Parameter section: section 索引
+    /// - Returns: row 数量
+    func numberOfRowsInSection(_ section: Int) -> Int
+
+    /// 返回指定 section 的 header 高度
+    /// - Parameter section: section 索引
+    /// - Returns: header 高度
+    func heightForHeaderInSection(_ section: Int) -> CGFloat
     
-    static func addFlow(_ anFlow: HFlowView) {
-        self.hashFlows.add(anFlow)
-    }
-    static func refreshFlows(_ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInteractive).async {
-            // Execute in reverse order
-            let flows = self.hashFlows.allObjects.reversed()
-            flows.forEach { $0.reloadFlowData() }
-            DispatchQueue.main.async { completion() }
-        }
-    }
-    static func refreshFlow(key: String, _ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInteractive).async {
-            // Execute in reverse order
-            let flows = self.hashFlows.allObjects.filter { $0.reloadFlowKey == key }.reversed()
-            flows.forEach { $0.reloadFlowData() }
-            DispatchQueue.main.async { completion() }
-        }
-    }
-    static func releaseFlow(key: String, _ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInteractive).async {
-            // Execute in reverse order
-            let flows = self.hashFlows.allObjects.filter { $0.releaseFlowKey == key }.reversed()
-            flows.forEach { $0.releaseFlowBlock() }
-            DispatchQueue.main.async { completion() }
-        }
-    }
-}
-
-class HFlowObserver: NSObject {
-
-    private static var hashObjects = NSHashTable<NSObject>.weakObjects()
-
-    static func addObserver(_ anObserver: NSObject?) {
-        if let anObserver = anObserver, !self.hashObjects.contains(anObserver) {
-            self.hashObjects.add(anObserver)
-        }
-    }
-    static func perform(key: String) {
-        let selector = NSSelectorFromString(key)
-        let objects = self.hashObjects.allObjects.reversed()
-        objects.forEach {
-            if $0.responds(to: selector) {
-                $0.perform(selector)
-            }
-        }
-    }
-    static func perform(key: String, with object: String) {
-        let selector = NSSelectorFromString(key)
-        let objects = self.hashObjects.allObjects.reversed()
-        objects.forEach {
-            if $0.responds(to: selector) {
-                $0.perform(selector, with: object)
-            }
-        }
-    }
-    static func perform(key: String, with object1: String, with object2: String) {
-        let selector = NSSelectorFromString(key)
-        let objects = self.hashObjects.allObjects.reversed()
-        objects.forEach {
-            if $0.responds(to: selector) {
-                $0.perform(selector, with: object1, with: object2)
-            }
-        }
-    }
-}
-
-@objc protocol HFlowViewDelegate: UITableViewDelegate {
-    @objc
-    optional func numberOfSectionsInFlowView() -> Any
-    @objc
-    optional func numberOfRowsInSection(_ section: Any) -> Any
-
-    @objc
-    optional func heightForHeaderInSection(_ section: Any) -> Any
-    @objc
-    optional func heightForFooterInSection(_ section: Any) -> Any
-    @objc
-    optional func heightForRowAtIndexPath(_ indexPath: IndexPath) -> Any
-
-    @objc
-    optional func edgeInsetsForHeaderInSection(_ section: Any) -> Any
-    @objc
-    optional func edgeInsetsForFooterInSection(_ section: Any) -> Any
-    @objc
-    optional func edgeInsetsForRowAtIndexPath(_ indexPath: IndexPath) -> Any
+    /// 返回指定 section 的 footer 高度
+    /// - Parameter section: section 索引
+    /// - Returns: footer 高度
+    func heightForFooterInSection(_ section: Int) -> CGFloat
     
-    @objc
-    optional func minimumHeaderSpacingForSectionAt(_ section: Any) -> Any
-    @objc
-    optional func minimumFooterSpacingForSectionAt(_ section: Any) -> Any
+    /// 返回指定 indexPath 的 row 高度
+    /// - Parameter indexPath: 索引路径
+    /// - Returns: row 高度
+    func heightForRowAtIndexPath(_ indexPath: IndexPath) -> CGFloat
     
-    @objc
-    optional func flowHeader(_ flow: HFlowView, inSection section: Any)
-    @objc
-    optional func flowFooter(_ flow: HFlowView, inSection section: Any)
-    @objc
-    optional func flowRow(_ flow: HFlowView, atIndexPath indexPath: IndexPath)
+    /// 返回指定 section 的 header 视图
+    /// - Parameters:
+    ///   - flow: HFlowView 实例
+    ///   - section: section 索引
+    /// - Returns: header 视图
+    func flowHeader(_ flow: HFlowView, inSection section: Int) -> UIView?
+    
+    /// 返回指定 section 的 footer 视图
+    /// - Parameters:
+    ///   - flow: HFlowView 实例
+    ///   - section: section 索引
+    /// - Returns: footer 视图
+    func flowFooter(_ flow: HFlowView, inSection section: Int) -> UIView?
+    
+    /// 返回指定 indexPath 的 cell
+    /// - Parameters:
+    ///   - flow: HFlowView 实例
+    ///   - indexPath: 索引路径
+    /// - Returns: UITableViewCell 实例
+    func flowRow(_ flow: HFlowView, atIndexPath indexPath: IndexPath) -> UITableViewCell?
 
-    @objc
-    optional func willDisplayCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
-    @objc
-    optional func didSelectCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
+    /// 当 cell 将要显示时调用
+    /// - Parameters:
+    ///   - cell: 将要显示的 cell
+    ///   - indexPath: 索引路径
+    func willDisplayCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
+    
+    /// 当 cell 结束显示时调用
+    /// - Parameters:
+    ///   - cell: 结束显示的 cell
+    ///   - indexPath: 索引路径
+    func didEndDisplayingCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath)
+    
+    /// 当 cell 被选中时调用
+    /// - Parameter indexPath: 索引路径
+    func didSelectCell(_ indexPath: IndexPath)
     
     /// UIScrollViewDelegate
-    @objc
-    optional func flowViewDidScroll(_ scrollView: UIScrollView)
+    
+    /// 当滚动视图滚动时调用
+    /// - Parameter scrollView: 滚动视图
+    func flowViewDidScroll(_ scrollView: UIScrollView)
+    
+    /// 当滚动视图滚动到顶部时调用
+    /// - Parameter scrollView: 滚动视图
+    func flowViewDidScrollToTop(_ scrollView: UIScrollView)
+    
+    /// 当滚动视图开始拖动时调用
+    /// - Parameter scrollView: 滚动视图
+    func flowViewWillBeginDragging(_ scrollView: UIScrollView)
+    
+    /// 当滚动视图将要结束拖动时调用
+    /// - Parameters:
+    ///   - velocity: 滚动速度
+    ///   - targetContentOffset: 目标内容偏移量
+    func flowViewWillEndDragging(_ velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>)
+    
+    /// 当滚动视图结束拖动时调用
+    /// - Parameters:
+    ///   - scrollView: 滚动视图
+    ///   - willDecelerate: 是否会减速
+    func flowViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool)
+    
+    /// 当滚动视图结束减速时调用
+    /// - Parameter scrollView: 滚动视图
+    func flowViewDidEndDecelerating(_ scrollView: UIScrollView)
+    
+    /// 当性能统计数据更新时调用
+    /// - Parameter statistics: 性能统计数据
+    func performanceStatisticsUpdated(_ statistics: HFlowPerformanceStatistics)
 }
 
+// 提供默认实现
+extension HFlowViewDelegate {
+    func numberOfSectionsInFlowView() -> Int { 1 }
+    func numberOfRowsInSection(_ section: Int) -> Int { 0 }
+    func heightForHeaderInSection(_ section: Int) -> CGFloat { 0.0 }
+    func heightForFooterInSection(_ section: Int) -> CGFloat { 0.0 }
+    func heightForRowAtIndexPath(_ indexPath: IndexPath) -> CGFloat { 0.0 }
+    func flowHeader(_ flow: HFlowView, inSection section: Int) -> UIView? { nil }
+    func flowFooter(_ flow: HFlowView, inSection section: Int) -> UIView? { nil }
+    func flowRow(_ flow: HFlowView, atIndexPath indexPath: IndexPath) -> UITableViewCell? { nil }
+    func willDisplayCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {}
+    func didEndDisplayingCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {}
+    func didSelectCell(_ indexPath: IndexPath) {}
+    func flowViewDidScroll(_ scrollView: UIScrollView) {}
+    func flowViewDidScrollToTop(_ scrollView: UIScrollView) {}
+    func flowViewWillBeginDragging(_ scrollView: UIScrollView) {}
+    func flowViewWillEndDragging(_ velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {}
+    func flowViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {}
+    func flowViewDidEndDecelerating(_ scrollView: UIScrollView) {}
+    func performanceStatisticsUpdated(_ statistics: HFlowPerformanceStatistics) {}
+}
+
+/**
+ HFlowView 是一个基于 UITableView 的流式布局视图，提供了更灵活的数据管理和刷新控制
+ 
+ 主要特性：
+ - 支持多 section 和多 row
+ - 支持自定义 header 和 footer
+ - 支持自动高度计算
+ - 支持滚动到顶部和底部
+ - 支持异步刷新和防抖
+ - 支持内存管理和缓存优化
+ - 支持下拉刷新和上拉加载更多
+ - 支持动画效果
+ - 支持空视图显示
+ - 支持预加载功能
+
+ 所有回调都在主线程执行，确保 UI 操作的安全性。
+ */
+@MainActor
 class HFlowView: UITableView, UITableViewDelegate, UITableViewDataSource {
     
-    // flow style
-    private var flowStyle: HFlowStyle = .default
+    // MARK: - Constants
+    internal enum Constants {
+        /// 空视图标签值
+        static let emptyViewTag = 9999
+        
+        /// 默认预估高度
+        static let defaultEstimatedHeight: CGFloat = 50.0
+        
+        /// 刷新节流间隔（秒）
+        static let defaultRefreshThrottleInterval: TimeInterval = 0.1
+
+        /// Item 刷新节流间隔（秒）
+        static let defaultItemRefreshThrottleInterval: TimeInterval = 0.016
+        
+        /// Cell 尺寸最小值（防止崩溃）
+        static let minCellDimension: CGFloat = 1.0
+    }
     
-    // delay reload flow
+    // MARK: - Private Properties
+    
+    /// 用于控制整体刷新状态
     private var flowReload = HFlowReload()
     
-    // delay reload item
-    private var allReloadItems: [IndexPath] = []
-    private var reloadedItems: [IndexPath] = []
+    /// 用于存储需要刷新的 indexPath
+    private var allReloadItems: Set<IndexPath> = []
+    
+    /// 用于存储已经刷新的 indexPath
+    private var reloadedItems: Set<IndexPath> = []
+    
+    /// 用于控制 item 刷新状态
     private var itemReload = HFlowReload()
     
-    // flow align
-    var flowAlign: HFlowAlign = .default
-
-    private var sectionPaths = NSArray()
-    private var allReuseIdentifiers = NSMutableSet()
-    private var allReuseCells   = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-    private var allPassedCells  = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-    private var allReuseHeaders = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
-    private var allReuseFooters = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
+    /// 用于处理待刷新的队列
+    private var pendingReloadQueue: [Set<IndexPath>] = []
     
+    /// 标记是否正在处理刷新队列
+    private var isProcessingReloadQueue = false
+    
+    /// 标记是否已被销毁
+    private var isDeallocating = false
+    
+    // MARK: - Combine Properties
+    
+    /// 用于节流刷新的 Subject
+    let refreshSubject = PassthroughSubject<Void, Never>()
+
+    /// 用于存储 Combine 订阅
+    var cancellables = Set<AnyCancellable>()
+    
+    /// 刷新节流间隔
+    public var refreshThrottleInterval: TimeInterval = Constants.defaultRefreshThrottleInterval
+    
+    
+    // MARK: - Managers
+    
+    /// 刷新管理器
+    internal lazy var refreshManager: HFlowRefreshManager = {
+        return HFlowRefreshManager(flowView: self)
+    }()
+    
+    /// 缓存管理器
+    internal lazy var cacheManager: HFlowCacheManager = {
+        return HFlowCacheManager(flowView: self)
+    }()
+    
+    /// 预加载管理器
+    internal lazy var preloadManager: HFlowPreloadManager = {
+        return HFlowPreloadManager(flowView: self)
+    }()
+
+    
+    // MARK: - Animation Properties
+    
+    /// 是否启用动画效果
+    public var enableAnimations = true
+    
+    // MARK: - Initialization
+    
+    /// 禁用通过 Interface Builder 初始化
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
+    /// 使用指定的 frame 初始化 HFlowView
+    /// - Parameter frame: 视图的 frame
     convenience init(frame: CGRect) {
         self.init(frame: frame, style: .plain)
     }
     
+    /// 使用指定的 frame 和 style 初始化 HFlowView
+    /// - Parameters:
+    ///   - frame: 视图的 frame
+    ///   - style: 表格的样式
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
-        self.setup()
+        setup()
     }
     
-    /// Initialization method for split
-    static func flowFrame(_ frame: () -> CGRect, exclusiveSections sections: () -> NSArray) -> HFlowView {
-        return HFlowView(frame(), exclusiveSections: sections())
-    }
+    // MARK: - Properties
     
-    private convenience init(_ frame: CGRect, exclusiveSections sectionPaths: NSArray) {
-        self.init(frame: UIRectIntegral(frame), style: UITableView.Style.plain)
-        self.sectionPaths = sectionPaths
-        self.flowStyle = .split
-        self.setup()
-    }
+    /// HFlowView 的代理
+    internal weak var flowDelegate: HFlowViewDelegate?
     
-    private weak var flowDelegate: HFlowViewDelegate?
+    /// 重写 delegate 属性，将其转换为 HFlowViewDelegate
     override weak var delegate: UITableViewDelegate? {
-        get { return super.delegate }
-        set { flowDelegate = newValue as? HFlowViewDelegate }
+        get { flowDelegate }
+        set { 
+            flowDelegate = newValue as? HFlowViewDelegate
+            // 确保 super.delegate 始终指向 self，以处理 UITableView 的回调
+            super.delegate = self
+        }
     }
+    
+    /// 重写 dataSource 属性，始终返回 self
     override weak var dataSource: UITableViewDataSource? {
-        get { return super.dataSource }
-        set { _ = newValue }
+        get { self }
+        set { /* 忽略外部设置，始终使用 self 作为 dataSource */ }
     }
     
-    override var frame: CGRect {
-        get { return super.frame }
-        set {
-            let frame = UIRectIntegral(newValue)
-            if frame != super.frame {
-                super.frame = frame
+    /// 通知代理性能数据更新
+    /// - Parameter statistics: 性能统计数据
+    func notifyPerformanceStatisticsUpdated(_ statistics: HFlowPerformanceStatistics) {
+        flowDelegate?.performanceStatisticsUpdated(statistics)
+    }
+
+    
+    /// 滚动到顶部
+    /// - Parameter animated: 是否使用动画
+    func scrollToTop(_ animated: Bool) {
+        let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
+        scrollRectToVisible(rect, animated: animated)
+    }
+
+    /// 滚动到底部
+    /// - Parameter animated: 是否使用动画
+    func scrollToBottom(_ animated: Bool) {
+        let sections = numberOfSections
+        guard sections > 0 else { return }
+        let items = numberOfRows(inSection: sections - 1)
+        guard items > 0 else { return }
+        let indexPath = IndexPath(row: items - 1, section: sections - 1)
+        scrollToRow(at: indexPath, at: .bottom, animated: animated)
+    }
+    
+    /// 配置下拉刷新
+    /// - Parameters:
+    ///   - tintColor: 刷新控件的颜色
+    ///   - title: 刷新控件的标题
+    ///   - handler: 刷新回调
+    func setupRefreshControl(tintColor: UIColor = .gray, title: String? = nil, handler: @escaping () -> Void) {
+        refreshManager.setupRefresh(headerStyle: .gray, block: handler)
+    }
+    
+    /// 结束下拉刷新
+    func endRefreshing() {
+        refreshManager.endRefreshing {}
+    }
+    
+    /// 开始下拉刷新
+    func beginRefreshing() {
+        refreshManager.beginRefreshing {}
+    }
+    
+    /// 配置上拉加载更多
+    /// - Parameter handler: 加载更多回调
+    func setupLoadMore(handler: @escaping () -> Void) {
+        refreshManager.setupLoadMore(footerStyle: .style1, block: handler)
+    }
+    
+    /// 结束上拉加载更多
+    func endLoadingMore() {
+        refreshManager.endLoadMore {}
+    }
+    
+    /// 插入新的 row
+    /// - Parameters:
+    ///   - indexPaths: 要插入的 indexPath 数组
+    ///   - animation: 动画效果
+    override func insertRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation = .automatic) {
+        guard !isDeallocating else { return }
+        if enableAnimations {
+            super.insertRows(at: indexPaths, with: animation)
+        } else {
+            super.insertRows(at: indexPaths, with: .none)
+        }
+    }
+    
+    /// 删除 row
+    /// - Parameters:
+    ///   - indexPaths: 要删除的 indexPath 数组
+    ///   - animation: 动画效果
+    override func deleteRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation = .automatic) {
+        guard !isDeallocating else { return }
+        if enableAnimations {
+            super.deleteRows(at: indexPaths, with: animation)
+        } else {
+            super.deleteRows(at: indexPaths, with: .none)
+        }
+    }
+    
+    /// 重新加载 row
+    /// - Parameters:
+    ///   - indexPaths: 要重新加载的 indexPath 数组
+    ///   - animation: 动画效果
+    override func reloadRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation = .automatic) {
+        guard !isDeallocating else { return }
+        if enableAnimations {
+            super.reloadRows(at: indexPaths, with: animation)
+        } else {
+            super.reloadRows(at: indexPaths, with: .none)
+        }
+    }
+    
+    /// 批量安全插入（无动画，防崩溃）
+    func batchInsertRows(at indexPaths: [IndexPath]) {
+        guard !isDeallocating, !indexPaths.isEmpty else { return }
+        performBatchUpdates({
+            insertRows(at: indexPaths, with: .none)
+        }, completion: nil)
+    }
+
+    /// 批量安全删除
+    func batchDeleteRows(at indexPaths: [IndexPath]) {
+        guard !isDeallocating, !indexPaths.isEmpty else { return }
+        performBatchUpdates({
+            deleteRows(at: indexPaths, with: .none)
+        }, completion: nil)
+    }
+
+    /// 高并发消息防抖插入 — 16ms 内合并所有插入
+    private var pendingInsertions: [IndexPath] = []
+    private var insertDebounceWorkItem: DispatchWorkItem?
+
+    func debouncedInsertRows(at indexPaths: [IndexPath]) {
+        guard !isDeallocating else { return }
+        pendingInsertions.append(contentsOf: indexPaths)
+        insertDebounceWorkItem?.cancel()
+        let workItem = DispatchWorkItem { [weak self] in
+            guard let self = self, !self.isDeallocating else { return }
+            let batch = self.pendingInsertions
+            self.pendingInsertions.removeAll()
+            self.batchInsertRows(at: batch)
+        }
+        insertDebounceWorkItem = workItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(16), execute: workItem)
+    }
+
+    /// 增量刷新 — 替换全量 reloadData，避免主线程卡死
+    func reloadFlowDataIncremental(changedSections: IndexSet? = nil) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self, !self.isDeallocating else { return }
+            let sections = changedSections ?? IndexSet(integersIn: 0..<self.numberOfSections)
+            if sections.count > self.numberOfSections / 2 || self.numberOfSections <= 1 {
                 self.reloadData()
-            }
-        }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        // 更新对齐方式
-        self.updateAlign()
-    }
-    
-    // 更新对齐方式
-    private func updateAlign() {
-        let cntSize = self.contentSize
-        let cntInset = self.contentInset
-        switch flowAlign {
-        case .default:
-            self.contentInset = UIEdgeInsets.zero
-        case .center:
-            let originX = (self.width - cntSize.width) / 2
-            let originY = (self.height - cntSize.height) / 2
-            self.contentInset = UIEdgeInsets(top: max(originY, 0),
-                                             left: max(originX, 0),
-                                             bottom: cntInset.bottom,
-                                             right: cntInset.right)
-        case .top(let top):
-            let originX = (self.width - cntSize.width) / 2
-            self.contentInset = UIEdgeInsets(top: top,
-                                             left: max(originX, 0),
-                                             bottom: cntInset.bottom,
-                                             right: cntInset.right)
-        case .ratio(let ratio):
-            let originX = (self.width - cntSize.width) / 2
-            let originY = (self.height - cntSize.height) * ratio
-            self.contentInset = UIEdgeInsets(top: max(originY, 0),
-                                             left: max(originX, 0),
-                                             bottom: cntInset.bottom,
-                                             right: cntInset.right)
-        case .bottom(let bottom):
-            let originX = (self.width - cntSize.width) / 2
-            let originY = self.height - cntSize.height - bottom
-            self.contentInset = UIEdgeInsets(top: max(originY, 0),
-                                             left: max(originX, 0),
-                                             bottom: cntInset.bottom,
-                                             right: cntInset.right)
-        }
-    }
-    
-    private func setup() {
-        // Save flowView for global refresh
-        HFlowAppearance.addFlow(self)
-        
-        // Set default tag
-        self.tag = kFlowDefaultTag
-        
-        self.backgroundColor = .clear
-        self.alwaysBounceVertical = true
-        self.keyboardDismissMode = .onDrag
-        self.showsVerticalScrollIndicator = false
-        self.showsHorizontalScrollIndicator = false
-
-        if #available(iOS 11.0, *) {
-            self.contentInsetAdjustmentBehavior = .never
-        }
-        if #available(iOS 15.0, *) {
-            self.sectionHeaderTopPadding = 0.0
-        }
-        
-        self.estimatedRowHeight = 0.0
-        self.estimatedSectionHeaderHeight = 0.0
-        self.estimatedSectionFooterHeight = 0.0
-        
-        self.tableFooterView = UIView()
-        super.delegate = self
-        super.dataSource = self
-    }
-    
-    /// Page number, Default 1
-    var pageNo: Int = kFlowPageNo {
-        didSet {
-            if pageNo <= 0 {
-                pageNo = kFlowPageNo
-            }
-        }
-    }
-    
-    /// Page size, Default 20
-    var pageSize: Int = kFlowPageSize {
-        didSet {
-            if pageSize <= 0 {
-                pageSize = kFlowPageSize
-            }
-        }
-    }
-    
-    /// Total number. Default 10000
-    var totalNo: Int = kFlowTotalPageNo {
-        didSet {
-            if totalNo <= 0 {
-                totalNo = kFlowTotalPageNo
-            }
-        }
-    }
-    
-    /// Refresh header style
-    var refreshHeaderStyle: HFlowRefreshHeaderStyle = .gray
-    
-    /// Load more footer style
-    var refreshFooterStyle: HFlowRefreshFooterStyle = .style1
-
-    /// Block to refresh data
-    var refreshBlock: HFlowRefreshBlock? {
-        didSet {
-            if let refreshBlock = refreshBlock {
-                self.mj_header = HFlowRefresh.refreshHeaderWithStyle(refreshHeaderStyle) {
-                    self.pageNo = 1
-                    refreshBlock()
-                }
             } else {
-                self.mj_header = nil
+                self.performBatchUpdates({
+                    self.reloadSections(sections, with: .none)
+                }, completion: nil)
             }
+            self.updateEmptyView()
         }
     }
 
-    /// Block to load more data
-    var loadMoreBlock: HFlowLoadMoreBlock? {
-        didSet {
-            if let loadMoreBlock = loadMoreBlock {
-                self.pageNo = 1
-                self.mj_footer = HFlowRefresh.refreshFooterWithStyle(refreshFooterStyle) { [weak self] in
-                    guard let self = self else { return }
-                    self.pageNo += 1
-                    if self.pageSize * self.pageNo < self.totalNo {
-                        loadMoreBlock()
-                    } else {
-                        self.mj_footer?.endRefreshing()
-                    }
-                }
-            } else {
-                self.mj_footer = nil
-            }
-        }
+    /// 在指定时间内只刷新一次，用于防抖
+    /// - Parameter delay: 延迟时间，默认为 0.1 秒（聊天场景优化）
+    func reloadIfNeeded(_ delay: TimeInterval = Constants.defaultRefreshThrottleInterval) {
+        refreshSubject.send()
     }
     
-    /// Set the key value for release
-    var releaseFlowKey: String?
-
-    /// Set the key value for reload
-    var reloadFlowKey: String?
-
-    /// Block refresh & loadMore
-    func beginRefreshing(_ completion: @escaping () -> Void) {
-        guard self.refreshBlock != nil else { return }
-        self.pageNo = 1
-        self.mj_header?.beginRefreshing(completionBlock: completion)
-    }
-
-    /// Stop refresh
-    func endRefreshing(_ completion: @escaping () -> Void) {
-        self.mj_header?.endRefreshing(completionBlock:completion)
-    }
-    
-    func endLoadMore(_ completion: @escaping () -> Void) {
-        self.mj_footer?.endRefreshing(completionBlock:completion)
-    }
-    
-    /// Bounce method
-    func enableHorizontalBounce() {
-        self.bounces = true
-        self.alwaysBounceHorizontal = true
-        self.alwaysBounceVertical = false
-    }
-
-    func enableVerticalBounce() {
-        self.bounces = true
-        self.alwaysBounceHorizontal = false
-        self.alwaysBounceVertical = true
-    }
-
-    func enableBounce() {
-        self.bounces = true
-        self.alwaysBounceHorizontal = true
-        self.alwaysBounceVertical = true
-    }
-
-    func disableBounce() {
-        self.bounces = false
-    }
-    
-    // Hide the system UITableViewCell's separator style
-    override var separatorStyle: UITableViewCell.SeparatorStyle {
-        get { return super.separatorStyle }
-        set { super.separatorStyle = newValue }
-    }
-    
-    // 多少秒内只刷新一次
-    func reloadIfNeeded(_ delay: TimeInterval = 2.0) {
-        if self.flowReload.isRefresh {
-            self.flowReload.needRefresh = true
-        }else {
-            self.reloadAsync(delay)
-        }
-    }
-    
-    private func reloadAsync(_ delay: TimeInterval) {
-        self.flowReload.isRefresh = true
-        self.flowReload.needRefresh = false
-        self.reloadFlowData()
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
-            guard let self = self else { return }
-            if self.flowReload.needRefresh {
-                self.reloadAsync(delay)
-            }else {
-                self.flowReload.isRefresh = false
-            }
-        }
-    }
-    
-    // 多少秒内只刷新一次
-    func reloadItemsIfNeeded(at indexPaths: [IndexPath], _ delay: TimeInterval = 0.25) {
-        self.allReloadItems.append(contentsOf: indexPaths)
+    /// 在指定时间内只刷新指定的 item，用于防抖
+    /// - Parameters:
+    ///   - indexPaths: 需要刷新的 indexPath 数组
+    ///   - delay: 延迟时间，默认为 0.25 秒
+    func reloadItemsIfNeeded(at indexPaths: [IndexPath], _ delay: TimeInterval = Constants.defaultItemRefreshThrottleInterval) {
+        guard !isDeallocating else { return }
+        let indexPathSet = Set(indexPaths)
+        allReloadItems.formUnion(indexPathSet)
         
-        if self.itemReload.isRefresh {
-            self.itemReload.needRefresh = true
-        }else {
-            self.reloadItemsAsync(at: indexPaths, delay)
-        }
-    }
-    
-    private func reloadItemsAsync(at indexPaths: [IndexPath], _ delay: TimeInterval) {
-        self.itemReload.isRefresh = true
-        self.itemReload.needRefresh = false
-        self.reloadedItems.append(contentsOf: indexPaths)
-        DispatchQueue.mainAsync { [weak self] in
-            self?.reloadRows(at: indexPaths, with: .none)
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
-            guard let self = self else { return }
-            if self.itemReload.needRefresh {
-                // 更改标签
-                self.itemReload.needRefresh = false
-                // 将数组转换为集合，通过集合差集操作实现删除效果
-                let finalArrayAll = Array(Set(self.allReloadItems).subtracting(Set(self.reloadedItems)))
-                if !finalArrayAll.isEmpty { //递归调用
-                    self.reloadItemsAsync(at: finalArrayAll, delay)
-                }
-            }else {
-                self.itemReload.isRefresh = false
-                self.allReloadItems.removeAll()
-                self.reloadedItems.removeAll()
-            }
-        }
-    }
-    
-    @objc
-    func reloadFlowData() {
-        DispatchQueue.mainAsync { [weak self] in
-            self?.reloadData()
+        // 将刷新任务添加到队列
+        pendingReloadQueue.append(indexPathSet)
+        
+        // 如果队列未在处理中，开始处理
+        if !isProcessingReloadQueue {
+            processReloadQueue(delay: delay)
         }
     }
 
-    /// Release method
-    @objc
-    func releaseFlowBlock() {
-        DispatchQueue.global().async { [weak self] in
-            self?.releaseAllSignal()
-            self?.clearFlowState()
-
-            DispatchQueue.main.async { [weak self] in
-                self?.flowDelegate = nil
-                self?.loadMoreBlock = nil
-                self?.refreshBlock = nil
-                self?.dataSource = nil
-                self?.delegate = nil
-            }
+    /// 处理刷新队列
+    /// - Parameter delay: 延迟时间
+    private func processReloadQueue(delay: TimeInterval) {
+        guard !isDeallocating, !pendingReloadQueue.isEmpty else {
+            isProcessingReloadQueue = false
+            return
         }
-    }
-
-    private var addressValue: String {
-        return String(format: "%p", self)
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-        self.removeFromSuperview()
-        self.flowDelegate = nil
-        self.dataSource = nil
-        self.delegate = nil
-    }
-    
-    /// Register class
-    func header(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ section: Any) -> AnyObject {
-        // Unique identifier
-        var identifier = (pre ?? "") + "HeaderCell" + NSStringFromClass(cls) + self.addressValue
-        // Determine whether it contains an index
-        identifier += idx ? "\(section)" : ""
-        // Determine if there is a flow state value
-        if self.flowStyle == .split, !self.sectionPaths.contains(section) {
-            identifier += "\(self.flowState)"
-        }
-        // Register cell if not already registered
-        if !self.allReuseIdentifiers.contains(identifier) {
-            self.allReuseIdentifiers.add(identifier)
-            self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
-        }
-        // Dequeue cell
-        let cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HFlowBaseApex
-        cell.section = section
-        cell.isHeader = true
-        cell.flow = self
-        // Save cell
-        self.allReuseHeaders.setObject(cell, forKey: "\(section)" as NSString)
-        // Call delegate method
-        var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.flowDelegate {
-            let prefix = self.flowSplitPrefix(section)
-            let selector = #selector(delegate.edgeInsetsForHeaderInSection(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                edgeInsets = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
-            }
-        }
-        // Set properties
-        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-            cell.edgeInsets = edgeInsets
-        }
-        return cell
-    }
-    
-    func footer(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ section: Any) -> AnyObject {
-        // Unique identifier
-        var identifier = (pre ?? "") + "FooterCell" + NSStringFromClass(cls) + self.addressValue
-        // Determine whether it contains an index
-        identifier += idx ? "\(section)" : ""
-        // Determine if there is a flow state value
-        if self.flowStyle == .split, !self.sectionPaths.contains(section) {
-            identifier += "\(self.flowState)"
-        }
-        // Register cell if not already registered
-        if !self.allReuseIdentifiers.contains(identifier) {
-            self.allReuseIdentifiers.add(identifier)
-            self.register(cls, forHeaderFooterViewReuseIdentifier: identifier)
-        }
-        // Dequeue cell
-        let cell = self.dequeueReusableHeaderFooterView(withIdentifier: identifier) as! HFlowBaseApex
-        cell.section = section
-        cell.isHeader = false
-        cell.flow = self
-        // Save cell
-        self.allReuseFooters.setObject(cell, forKey: "\(section)" as NSString)
-        // Call delegate method
-        var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.flowDelegate {
-            let prefix = self.flowSplitPrefix(section)
-            let selector = #selector(delegate.edgeInsetsForFooterInSection(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                edgeInsets = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! UIEdgeInsets
-            }
-        }
-        // Set properties
-        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-            cell.edgeInsets = edgeInsets
-        }
-        return cell
-    }
-
-    func cell(_ cls: AnyClass, _ pre: String?, _ idx: Bool, _ indexPath: IndexPath) -> AnyObject {
-        // Unique identifier
-        var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
-        // Determine whether it contains an index
-        identifier += idx ? indexPath.stringValue : ""
-        // Determine if there is a flow state value
-        if self.flowStyle == .split, !self.sectionPaths.contains(indexPath.section) {
-            identifier += "\(self.flowState)"
-        }
-        // Register cell if not already registered
-        if !self.allReuseIdentifiers.contains(identifier) {
-            self.allReuseIdentifiers.add(identifier)
-            self.register(cls, forCellReuseIdentifier: identifier)
-        }
-        // Dequeue cell
-        let cell = self.dequeueReusableCell(withIdentifier: identifier, for: indexPath) as! HFlowBaseCell
-        cell.indexPath = indexPath
-        cell.flow = self
-        // Save cell
-        self.allReuseCells.setObject(cell, forKey: indexPath.nsStringValue)
-        // Call delegate method
-        var edgeInsets: UIEdgeInsets = .zero
-        if let delegate = self.flowDelegate {
-            let prefix = self.flowSplitPrefix(indexPath.section)
-            let selector = #selector(delegate.edgeInsetsForRowAtIndexPath(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                edgeInsets = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! UIEdgeInsets
-            }
-        }
-        // Set properties
-        if cell.responds(to: #selector(setter: cell.edgeInsets)) {
-            cell.edgeInsets = edgeInsets
-        }
-        // Return cell
-        return cell
-    }
-    
-    /// UITableViewDatasource  & delegate
-    private func flowSplitPrefix(_ section: Any) -> String {
-        var prefix = ""
-        if self.flowStyle == .split {
-            if self.sectionPaths.contains(section) {
-                let idx: Int = self.sectionPaths.index(of: section)
-                prefix = kFlowExaDesignKey + "\(idx)" + "_"
-            }else {
-                prefix = kFlowDesignKey + "\(self.flowState)" + "_"
-            }
-        }
-        return prefix
-    }
-    
-    /// The following are the delegate methods for UITableView.
-    func numberOfSections(in tableView: UITableView) -> Int {
-        // remove cache data
-        self.allReuseIdentifiers.removeAllObjects()
-        // flow Style
-        var sections = 1
-        switch self.flowStyle {
-        case .default:
-            if let delegate = self.flowDelegate {
-                let prefix = ""
-                let selector = #selector(delegate.numberOfSectionsInFlowView)
-                if delegate.responds(to: selector, withPre: prefix) {
-                    sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
-                }
-                // Prevents quantity from being less than 1
-                sections = max(sections, 1)
-            }
-        case .split:
-            if let delegate = self.flowDelegate {
-                let prefix = kFlowDesignKey + "\(self.flowState)" + "_"
-                let selector = #selector(delegate.numberOfSectionsInFlowView)
-                if delegate.responds(to: selector, withPre: prefix) {
-                    sections = delegate.performWithUnretainedValue(selector, withPre: prefix) as! Int
-                }
-                // Prevents quantity from being less than 1
-                sections = max(sections, 1)
-            }
-        }
-        return sections
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var items = 0
-        if let delegate = self.flowDelegate {
-            // Get the number of items
-            let prefix = self.flowSplitPrefix(section)
-            let selector = #selector(delegate.numberOfRowsInSection(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                items = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! Int
-            }
+        
+        isProcessingReloadQueue = true
+        
+        // 取出队列中的所有待刷新项
+        let allItemsToReload = pendingReloadQueue.flatMap { $0 }
+        let uniqueItemsToReload = Array(Set(allItemsToReload))
+        
+        // 清空队列
+        pendingReloadQueue.removeAll()
+        
+        // 执行刷新
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self, !self.isDeallocating else { return }
+            self.reloadRows(at: uniqueItemsToReload, with: .none)
             
-            // Prevents quantity from being less than 0
-            items = max(items, 0)
+            // 延迟后检查是否有新的刷新任务
+            DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
+                guard let self = self, !self.isDeallocating else { return }
+                // 处理完当前批次后，继续处理队列
+                self.processReloadQueue(delay: delay)
+            }
         }
-        return items
+    }
+    
+    /// 异步刷新所有数据
+    func reloadFlowData() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self, !self.isDeallocating else { return }
+            self.reloadData()
+            self.updateEmptyView()
+        }
+    }
+    
+
+    
+    // MARK: - Private Methods
+    
+    /// 检查是否需要加载更多
+    private func checkLoadMore() {
+        // 如果启用了预加载，则不需要此方法，因为预加载会处理
+        guard !preloadManager.enablePreloading else { return }
+        
+        let contentOffset = contentOffset.y
+        let contentHeight = contentSize.height
+        let frameHeight = frame.size.height
+        
+        // 当滚动到底部时，触发加载更多
+        if contentOffset + frameHeight >= contentHeight - 100.0 {
+            mj_footer?.beginRefreshing()
+        }
     }
 
+    
+    /// 析构方法，清理资源
+    deinit {
+        isDeallocating = true
+        NotificationCenter.default.removeObserver(self)
+        flowDelegate = nil
+        // 清空所有数组，释放内存
+        allReloadItems.removeAll()
+        reloadedItems.removeAll()
+        pendingReloadQueue.removeAll()
+        // 清理 Combine 订阅
+        cancellables.removeAll()
+    }
+    
+    // MARK: - UITableViewDataSource
+    
+    /// 返回表格的 section 数量
+    /// - Parameter tableView: UITableView 实例
+    /// - Returns: section 数量
+    func numberOfSections(in tableView: UITableView) -> Int {
+        // table Style
+        let sections = flowDelegate?.numberOfSectionsInFlowView() ?? 1
+        // Prevents quantity from being less than 1
+        return max(sections, 1)
+    }
+    
+    /// 返回指定 section 的 row 数量
+    /// - Parameters:
+    ///   - tableView: UITableView 实例
+    ///   - section: section 索引
+    /// - Returns: row 数量
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let items = flowDelegate?.numberOfRowsInSection(section) ?? 0
+        // Prevents quantity from being less than 0
+        return max(items, 0)
+    }
+
+    /// 返回指定 section 的 header 高度
+    /// - Parameters:
+    ///   - tableView: UITableView 实例
+    ///   - section: section 索引
+    /// - Returns: header 高度
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        var height: CGFloat = 0.0
-        if let delegate = self.flowDelegate {
-            let prefix = self.flowSplitPrefix(section)
-            let selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                height = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
-            } else {
-                let selector = #selector(delegate.heightForHeaderInSection(_:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    height = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
-                }
-            }
-            // Prevent negative size
-            height = max(height, 0.0)
-        }
-        return height
+        let height = flowDelegate?.heightForHeaderInSection(section) ?? 0.0
+        // Prevent negative size
+        return max(height, 0.0)
     }
 
+    /// 返回指定 section 的 footer 高度
+    /// - Parameters:
+    ///   - tableView: UITableView 实例
+    ///   - section: section 索引
+    /// - Returns: footer 高度
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        var height: CGFloat = 0.0
-        if let delegate = self.flowDelegate {
-            let prefix = self.flowSplitPrefix(section)
-            let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                height = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
-            } else {
-                let selector = #selector(delegate.heightForFooterInSection(_:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    height = delegate.performWithUnretainedValue(selector, with: section, withPre: prefix) as! CGFloat
-                }
-            }
-            // Prevent negative size
-            height = max(height, 0.0)
-        }
-        return height
+        let height = flowDelegate?.heightForFooterInSection(section) ?? 0.0
+        // Prevent negative size
+        return max(height, 0.0)
     }
     
+    /// 返回指定 indexPath 的预估高度
+    /// - Parameters:
+    ///   - tableView: UITableView 实例
+    ///   - indexPath: 索引路径
+    /// - Returns: 预估高度
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        if let height = cacheManager.getCachedCellHeight(for: indexPath) {
+            return height
+        } else if tableView.estimatedRowHeight != UITableView.automaticDimension {
+            return tableView.estimatedRowHeight
+        }
+        return Constants.defaultEstimatedHeight
+    }
+    
+    /// 返回指定 indexPath 的实际高度
+    /// - Parameters:
+    ///   - tableView: UITableView 实例
+    ///   - indexPath: 索引路径
+    /// - Returns: 实际高度
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // The row height cannot be 0, otherwise it will crash.
-        var height: CGFloat = 1.0
-        if let delegate = self.flowDelegate {
-            let prefix = self.flowSplitPrefix(indexPath.section)
-            let selector = #selector(delegate.heightForRowAtIndexPath(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                height = delegate.performWithUnretainedValue(selector, with: indexPath, withPre: prefix) as! CGFloat
-            }
+        if tableView.rowHeight != UITableView.automaticDimension {
+            return tableView.rowHeight
+        } else {
+            let height = flowDelegate?.heightForRowAtIndexPath(indexPath) ?? 0.0
             // Prevent negative size
-            if height <= 0 { height = 1.0 }
+            let validHeight = max(height, 0.0)
+            if validHeight > 0 { return validHeight }
         }
-        return height
+        return UITableView.automaticDimension
     }
     
+    
+    /// 返回指定 indexPath 的 cell
+    /// - Parameters:
+    ///   - tableView: UITableView 实例
+    ///   - indexPath: 索引路径
+    /// - Returns: UITableViewCell 实例
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // Call delegate method
-        if let delegate = self.flowDelegate {
-            let prefix = self.flowSplitPrefix(indexPath.section)
-            let selector = #selector(delegate.flowRow(_:atIndexPath:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
-            }
-        }
-        // Call cell
-        if let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HFlowBaseCell {
-            // Update layout
-            if cell.responds(to: #selector(cell.relayoutSubviews)) {
-                cell.relayoutSubviews()
-            }
-            // Update passed cells
-            if self.allPassedCells.count > 20 {
-                self.allPassedCells.removeAllObjects()
-                SDImageCache.shared.clearMemory()
-                SDImageCache.shared.clearDisk(onCompletion: {})
-                KingfisherManager.shared.cache.clearMemoryCache()
-            }
-            self.allPassedCells.setObject(cell, forKey: indexPath.nsStringValue)
+        if let cell = flowDelegate?.flowRow(self, atIndexPath: indexPath) {
+            // 设置cell的无障碍支持
+            setupAccessibilityForCell(cell, at: indexPath)
             return cell
         }
-        self.register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.className)
-        return self.dequeueReusableCell(withIdentifier: UITableViewCell.className, for: indexPath)
+        register(UITableViewCell.self, forCellReuseIdentifier: UITableViewCell.className)
+        return dequeueReusableCell(withIdentifier: UITableViewCell.className, for: indexPath)
     }
     
+    /// 返回指定 section 的 header 视图
+    /// - Parameters:
+    ///   - tableView: UITableView 实例
+    ///   - section: section 索引
+    /// - Returns: header 视图
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         // Call delegate method
-        if let delegate = self.flowDelegate {
-            let prefix = self.flowSplitPrefix(section)
-            let selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                // Unique identifier
-                let identifier = "HeaderSpaceCell" + self.addressValue + "\(section)" + "\(self.flowState)"
-                // Register cell if not already registered
-                if !self.allReuseIdentifiers.contains(identifier) {
-                    self.allReuseIdentifiers.add(identifier)
-                    self.register(HFlowBaseApex.self, forHeaderFooterViewReuseIdentifier: identifier)
-                }
-                // Dequeue cell
-                return self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
-            } else {
-                let selector = #selector(delegate.flowHeader(_:inSection:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    delegate.perform(selector, with: self, with: section, withPre: prefix)
-                }
-            }
-        }
-        // Update layout
-        let cell = self.allReuseHeaders.object(forKey: "\(section)" as NSString) as? HFlowBaseApex
-        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-            cell.relayoutSubviews()
-        }
-        return cell
+        return flowDelegate?.flowHeader(self, inSection: section)
     }
+    
+    /// 返回指定 section 的 footer 视图
+    /// - Parameters:
+    ///   - tableView: UITableView 实例
+    ///   - section: section 索引
+    /// - Returns: footer 视图
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         // Call delegate method
-        if let delegate = self.flowDelegate {
-            let prefix = self.flowSplitPrefix(section)
-            let selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                // Unique identifier
-                let identifier = "FooterSpaceCell" + self.addressValue + "\(section)" + "\(self.flowState)"
-                // Register cell if not already registered
-                if !self.allReuseIdentifiers.contains(identifier) {
-                    self.allReuseIdentifiers.add(identifier)
-                    self.register(HFlowBaseApex.self, forHeaderFooterViewReuseIdentifier: identifier)
-                }
-                // Dequeue cell
-                return self.dequeueReusableHeaderFooterView(withIdentifier: identifier)
-            } else {
-                let selector = #selector(delegate.flowFooter(_:inSection:))
-                if delegate.responds(to: selector, withPre: prefix) {
-                    delegate.perform(selector, with: self, with: section, withPre: prefix)
-                }
-            }
-        }
-        // Update layout
-        let cell = self.allReuseFooters.object(forKey: "\(section)" as NSString) as? HFlowBaseApex
-        if let cell = cell, cell.responds(to: #selector(cell.relayoutSubviews)) {
-            cell.relayoutSubviews()
-        }
-        return cell
+        return flowDelegate?.flowFooter(self, inSection: section)
     }
 
+    /// 当 cell 将要显示时调用
+    /// - Parameters:
+    ///   - tableView: UITableView 实例
+    ///   - cell: 将要显示的 cell
+    ///   - indexPath: 索引路径
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HFlowBaseCell
-        if let willDisplayBlock = cell?.willDisplayBlock {
-            willDisplayBlock()
-        }else if let delegate = self.flowDelegate, let cell = cell {
-            let prefix = self.flowSplitPrefix(indexPath.section)
-            let selector = #selector(delegate.willDisplayCell(_:atIndexPath:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
-            }
-        }
-    }
-
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let cell = self.allReuseCells.object(forKey: indexPath.nsStringValue) as? HFlowBaseCell
-        if let selectBlock = cell?.selectBlock {
-            selectBlock()
-        }else if let delegate = self.flowDelegate, let cell = cell {
-            let prefix = self.flowSplitPrefix(indexPath.section)
-            let selector = #selector(delegate.didSelectCell(_:atIndexPath:))
-            if delegate.responds(to: selector, withPre: prefix) {
-                delegate.perform(selector, with: cell, with: indexPath, withPre: prefix)
-            }
-        }
-    }
-    
-    /// UIScrollViewDelegate
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        guard let delegate = self.flowDelegate else { return }
-        let selector = NSSelectorFromString("flowViewDidScroll:")
-        if delegate.responds(to: selector) {
-            delegate.perform(selector, with: scrollView)
-        }
-    }
-    
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        // Update passed cells
-        if !decelerate, self.allPassedCells.count > 5 {
-            self.allPassedCells.removeAllObjects()
-            SDImageCache.shared.clearMemory()
-            SDImageCache.shared.clearDisk(onCompletion: {})
-            KingfisherManager.shared.cache.clearMemoryCache()
-        }
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        // Update passed cells
-        if self.allPassedCells.count > 5 {
-            self.allPassedCells.removeAllObjects()
-            SDImageCache.shared.clearMemory()
-            SDImageCache.shared.clearDisk(onCompletion: {})
-            KingfisherManager.shared.cache.clearMemoryCache()
-        }
-    }
-}
-
-/// Signal mechanism classification
-extension HFlowView {
-
-    /// Signal block held by flowView
-    var signalBlock: HFlowCellSignalBlock? {
-        get { return self.getAssociatedValueForKey(&kFlowSignalKey) as? HFlowCellSignalBlock }
-        set { self.setAssociateCopyValue(newValue, key: &kFlowSignalKey) }
-    }
-    
-    /// Send a signal to the flowView
-    func signalToFlowView(_ signal: HFlowSignal?, _ completion: @escaping () -> Void) {
-        guard let signalBlock = self.signalBlock else { return }
-        signalBlock(self, signal)
-        completion()
-    }
-
-    /// Send signals to all items, items under a certain section, or a single item individually
-    func signalToAllItems(_ signal: HFlowSignal?, _ completion: @escaping () -> Void) {
-        DispatchQueue.global(qos: .userInteractive).async {
-            let flows = self.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HFlowBaseCell }
-            flows?.forEach { cell in
-                DispatchQueue.main.async {
-                    cell.signalBlock?(cell, signal)
-                }
-            }
-            DispatchQueue.main.async {
-                completion()
-            }
-        }
-    }
-
-    func signal(_ signal: HFlowSignal?, itemSection section: Int, _ completion: @escaping () -> Void) {
-        let items = self.numberOfRows(inSection: section)
-        DispatchQueue.global(qos: .userInteractive).async {
-            let group = DispatchGroup()
-            DispatchQueue.concurrentPerform(iterations: items) { i in
-                let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HFlowBaseCell
-                if let cell = cell, let signalBlock = cell.signalBlock {
-                    DispatchQueue.main.async(group: group) {
-                        signalBlock(cell, signal)
-                    }
-                }
-            }
-            group.wait()
-            DispatchQueue.main.async {
-                completion()
-            }
-        }
-    }
-
-    func signal(_ signal: HFlowSignal?, toRow row: Int, inSection section: Int, _ completion: @escaping () -> Void) {
-        let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section)) as? HFlowBaseCell
-        if let cell = cell, let signalBlock = cell.signalBlock {
-            signalBlock(cell, signal)
-        }
-        completion()
-    }
-
-    /// Send signals to all headers or a single header individually
-    func signalToAllHeader(_ signal: HFlowSignal?, _ completion: @escaping () -> Void) {
-        let sections = self.numberOfSections
-        DispatchQueue.global(qos: .userInteractive).async {
-            let group = DispatchGroup()
-            DispatchQueue.concurrentPerform(iterations: sections) { i in
-                let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HFlowBaseApex
-                if let header = header, let signalBlock = header.signalBlock {
-                    DispatchQueue.main.async(group: group) {
-                        signalBlock(header, signal)
-                    }
-                }
-            }
-            group.wait()
-            DispatchQueue.main.async {
-                completion()
-            }
-        }
-    }
-
-    func signal(_ signal: HFlowSignal?, headerSection section: Int, _ completion: @escaping () -> Void) {
-        let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section)) as? HFlowBaseApex
-        if let header = header, let signalBlock = header.signalBlock {
-            signalBlock(header, signal)
-        }
-        completion()
-    }
-
-    /// Send signals to all footers or a single footer separately
-    func signalToAllFooter(_ signal: HFlowSignal?, _ completion: @escaping () -> Void) {
-        let sections = self.numberOfSections
-        DispatchQueue.global(qos: .userInteractive).async {
-            let group = DispatchGroup()
-            DispatchQueue.concurrentPerform(iterations: sections) { i in
-                let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HFlowBaseApex
-                if let footer = footer, let signalBlock = footer.signalBlock {
-                    DispatchQueue.main.async(group: group) {
-                        signalBlock(footer, signal)
-                    }
-                }
-            }
-            group.wait()
-            DispatchQueue.main.async {
-                completion()
-            }
-        }
-    }
-
-    func signal(_ signal: HFlowSignal?, footerSection section: Int, _ completion: @escaping () -> Void) {
-        let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section)) as? HFlowBaseApex
-        if let footer = footer, let signalBlock = footer.signalBlock {
-            signalBlock(footer, signal)
-        }
-        completion()
-    }
-
-    /// Release all signal blocks
-    func releaseAllSignal() {
-        DispatchQueue.global().async {
-            self.signalBlock = nil
-            //release all cell
-            self.allReuseCells.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HFlowBaseCell)?.signalBlock = nil
-                ($0 as? HFlowBaseCell)?.selectBlock = nil
-            }
-            //release all header
-            self.allReuseHeaders.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HFlowBaseApex)?.signalBlock = nil
-            }
-            //release all footer
-            self.allReuseFooters.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HFlowBaseApex)?.signalBlock = nil
-            }
-        }
-    }
-
-    /// Get cell based on the given row and section
-    func cell(_ row: Int, _ section: Int) -> AnyObject? {
-        return self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section))
-    }
-
-}
-
-private var Flow_State_Key = "_flow_"
-
-/// Design data storage category for split
-extension HFlowView {
-
-    private var flowStateSource: NSMutableDictionary {
-        get {
-            if let dict = self.getAssociatedValueForKey(&kFlowStateSourceKey) as? NSMutableDictionary {
-                return dict
-            } else {
-                let dict = NSMutableDictionary()
-                self.setAssociateValue(dict, key: &kFlowStateSourceKey)
-                return dict
-            }
-        }
-    }
-    
-    /// The state represented by flowView split design
-    var flowState: Int {
-        get {
-            let value = self.getAssociatedValueForKey(&kFlowStateKey) as? NSNumber ?? NSNumber(value: 0)
-            return value.intValue
-        }
-        set {
-            if newValue != self.flowState {
-                self.setAssociateValue(NSNumber(value: newValue), key: &kFlowStateKey)
-                self.reloadData()
-            }
-        }
-    }
-
-    /// Add a value to a certain state
-    func setObject(_ anObject: Any, forKey aKey: String, state: Int) {
-        let key = aKey + Flow_State_Key + "\(state)"
-        self.flowStateSource.setObject(anObject, forKey: key as NSCopying)
-    }
-
-    /// Get a value of a certain state
-    func object(forKey aKey: String, state: Int) -> Any? {
-        let key = aKey + Flow_State_Key + "\(state)"
-        return self.flowStateSource.object(forKey: key)
-    }
-
-    /// Remove a value in a certain state
-    func removeObject(forKey aKey: String, state: Int) {
-        let key = aKey + Flow_State_Key + "\(state)"
-        self.flowStateSource.removeObject(forKey: key)
-    }
-
-    /// Remove the value of a certain state
-    func removeObject(forState state: Int) {
-        let key = Flow_State_Key + "\(state)"
-        for (aKey, _) in self.flowStateSource.reversed() {
-            let aKey = aKey as! String
-            if key == aKey {
-                self.flowStateSource.removeObject(forKey: aKey)
-            }
-        }
+        // 关闭离屏渲染优化
+        cell.layer.shouldRasterize = false
+        cell.layer.drawsAsynchronously = true
+        // Save cell height to cache
+        cacheManager.cacheCellHeight(cell.frame.size.height, for: indexPath)
         
+        // 添加cell进入动画
+        addEnterAnimation(to: cell, at: indexPath)
+        
+        // 触发预渲染
+        preRenderCell(at: indexPath)
+        
+        // Call delegate method
+        flowDelegate?.willDisplayCell(cell, atIndexPath: indexPath)
+    }
+    
+    /// 当 cell 结束显示时调用
+    /// - Parameters:
+    ///   - tableView: UITableView 实例
+    ///   - cell: 结束显示的 cell
+    ///   - indexPath: 索引路径
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        flowDelegate?.didEndDisplayingCell(cell, atIndexPath: indexPath)
     }
 
-    /// Remove all values ​​of the state
-    func clearFlowState() {
-        self.flowStateSource.removeAllObjects()
+    /// 当 cell 被选中时调用
+    /// - Parameters:
+    ///   - tableView: UITableView 实例
+    ///   - indexPath: 索引路径
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        flowDelegate?.didSelectCell(indexPath)
+    }
+    
+    // MARK: - UIScrollViewDelegate
+    
+    /// 当滚动视图滚动时调用
+    /// - Parameter scrollView: 滚动视图
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        flowDelegate?.flowViewDidScroll(scrollView)
+        // 检查是否需要加载更多
+        checkLoadMore()
+        // 检查是否需要预加载
+        if preloadManager.enablePreloading {
+            preloadManager.checkPreload()
+        }
+        // 处理智能预加载
+        handleScrollForSmartPreloading(scrollView)
+    }
+    
+
+    
+    /// 当滚动视图滚动到顶部时调用
+    /// - Parameter scrollView: 滚动视图
+    func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        flowDelegate?.flowViewDidScrollToTop(scrollView)
+    }
+    
+    /// 当滚动视图开始拖动时调用
+    /// - Parameter scrollView: 滚动视图
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        flowDelegate?.flowViewWillBeginDragging(scrollView)
+    }
+    
+    /// 当滚动视图将要结束拖动时调用
+    /// - Parameters:
+    ///   - scrollView: 滚动视图
+    ///   - velocity: 滚动速度
+    ///   - targetContentOffset: 目标内容偏移量
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        flowDelegate?.flowViewWillEndDragging(velocity, targetContentOffset: targetContentOffset)
+    }
+    
+    /// 当滚动视图结束拖动时调用
+    /// - Parameters:
+    ///   - scrollView: 滚动视图
+    ///   - willDecelerate: 是否会减速
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        flowDelegate?.flowViewDidEndDragging(scrollView, willDecelerate: decelerate)
+        if !decelerate {
+            checkCacheCleanup()
+            trimDistantCells()
+        }
     }
 
+    /// 当滚动视图结束减速时调用
+    /// - Parameter scrollView: 滚动视图
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        flowDelegate?.flowViewDidEndDecelerating(scrollView)
+        checkCacheCleanup()
+        trimDistantCells()
+    }
+
+    // MARK: - Memory Control
+
+    /// 释放远离可见区域的预渲染缓存和布局缓存
+    private func trimDistantCells() {
+        guard let visibleIndexPaths = indexPathsForVisibleRows, !visibleIndexPaths.isEmpty else { return }
+        guard let firstVisible = visibleIndexPaths.first, let lastVisible = visibleIndexPaths.last else { return }
+        let keepRange = 50
+        let minSafeRow = max(0, firstVisible.row - keepRange)
+        let maxSafeRow = lastVisible.row + keepRange
+
+        // 清理预渲染缓存
+        preRenderLock.lock()
+        preRenderedCells = preRenderedCells.filter { indexPath, _ in
+            indexPath.row >= minSafeRow && indexPath.row <= maxSafeRow
+        }
+        preRenderLock.unlock()
+
+        // 清理异步布局缓存
+        layoutCacheStore.filter { indexPath in
+            indexPath.row >= minSafeRow && indexPath.row <= maxSafeRow
+        }
+    }
 }

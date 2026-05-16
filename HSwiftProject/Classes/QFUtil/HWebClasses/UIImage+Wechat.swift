@@ -1,9 +1,8 @@
 //
 //  UIImage+Wechat.swift
-//  HSwiftProject
+//  FreeChat
 //
-//  Created by owner on 2024/11/9.
-//  Copyright © 2024 wind. All rights reserved.
+//  Created by owner on 2024/6/12.
 //
 
 import UIKit

@@ -9,7 +9,7 @@
 import UIKit
 
 class HCollTmplApex: HCollBaseApex {
-    
+
     /// The edge insets of the cell.
     @objc override var edgeInsets: UIEdgeInsets {
         get {
@@ -18,8 +18,8 @@ class HCollTmplApex: HCollBaseApex {
         }
         set {
             if edgeInsets != newValue {
-                layoutView.frame = self.bounds.inset(by: newValue)
                 self.setAssociateValue(NSCoder.string(for: newValue), key: &kViewEdgeInsetsKey)
+                self.setNeedsLayout()
             }
         }
     }
@@ -34,7 +34,7 @@ class HCollTmplApex: HCollBaseApex {
         self.addSubview(stackView)
         return stackView
     }()
-    
+
     /// The separator view loaded on the content view
     lazy var separatorView: HCellApexSeparator = {
         let separator = HCellApexSeparator(frame: self.bounds)
@@ -69,6 +69,11 @@ class HCollTmplApex: HCollBaseApex {
         }
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutView.frame = bounds.inset(by: edgeInsets)
+    }
+
     override func HLayoutCollApex(_ v: UIView) {
         let frame = self.layoutViewBounds
         if !v.frame.equalTo(frame) {
@@ -80,5 +85,4 @@ class HCollTmplApex: HCollBaseApex {
             activity.center = CGPoint(x: centerX, y: centerY)
         }
     }
-
 }

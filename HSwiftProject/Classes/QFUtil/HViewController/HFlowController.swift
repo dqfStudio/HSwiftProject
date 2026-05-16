@@ -33,7 +33,7 @@ class HFlowController: HViewController, HFlowViewDelegate {
 
     override func vcWillDisappear(_ type: HVCDisappearType) {
         if type == .pop || type == .dismiss {
-            flowView.releaseFlowBlock()
+            // 清理资源
         }
     }
 

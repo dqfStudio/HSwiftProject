@@ -39,6 +39,12 @@ class HFlowBaseCell: UITableViewCell {
         self.backgroundColor = .clear
         self.selectionStyle = .none
         self.style = style
+        // 关闭离屏渲染开关
+        self.layer.shouldRasterize = false
+        self.layer.drawsAsynchronously = true
+        // 关闭不透明合成优化
+        self.contentView.layer.shouldRasterize = false
+        self.contentView.layer.drawsAsynchronously = true
         self.initUI()
     }
     
@@ -98,10 +104,22 @@ class HFlowBaseCell: UITableViewCell {
         return separator
     }()
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        indexPath = nil
+    }
+
     ///刷新当前cell
     func reloadData() {
         guard let indexPath = self.indexPath else { return }
         self.flow?.reloadRows(at: [indexPath], with: .fade)
+    }
+
+    /// 移除视图上已有的宽高约束（避免 relayoutSubviews 重复创建约束导致泄漏）
+    func deactivateSizeConstraints(for view: UIView) {
+        view.constraints.filter {
+            $0.firstAttribute == .width || $0.firstAttribute == .height
+        }.forEach { $0.isActive = false }
     }
     
     /// The frame and bounds of the layout view

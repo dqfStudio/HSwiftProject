@@ -9,49 +9,75 @@
 import UIKit
 
 extension HCollView {
-
-    /// The signal block held by collView
+    /// HCollView 持有的信号闭包
     var signalBlock: HCollCellSignalBlock? {
-        get { return self.getAssociatedValueForKey(&kCollSignalKey) as? HCollCellSignalBlock }
-        set { self.setAssociateCopyValue(newValue, key: &kCollSignalKey) }
+        get { return objc_getAssociatedObject(self, kCollSignalKey) as? HCollCellSignalBlock }
+        set { objc_setAssociatedObject(self, kCollSignalKey, newValue, .OBJC_ASSOCIATION_COPY) }
     }
 
-    /// Send signal to collView
+    /// 向 HCollView 发送信号
+    /// - Parameters:
+    ///   - signal: 要发送的信号
+    ///   - completion: 发送完成后的回调
     func signalToCollView(_ signal: HCollSignal?, _ completion: @escaping () -> Void) {
-        guard let signalBlock = self.signalBlock else { return }
+        guard let signalBlock = signalBlock else { 
+            completion()
+            return 
+        }
         signalBlock(self, signal)
         completion()
     }
 
-    /// Send signals to all items, items under a certain section, or a single item individually
+    /// 向所有 item 发送信号
+    /// - Parameters:
+    ///   - signal: 要发送的信号
+    ///   - completion: 发送完成后的回调
     func signalToAllItems(_ signal: HCollSignal?, _ completion: @escaping () -> Void) {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
-            let colls = self?.allReuseCells.objectEnumerator()?.allObjects.compactMap { $0 as? HCollBaseCell }
-            colls?.forEach { cell in
+            guard let self = self else { 
+                DispatchQueue.main.async { completion() }
+                return 
+            }
+            
+            self.allReuseCells.cache.values.forEach { weakCell in
+            if let cell = weakCell.value.value {
                 DispatchQueue.main.async { [weak cell] in
-                    guard let cell = cell else { return }
-                    cell.signalBlock?(cell, signal)
+                    if let cell = cell {
+                        cell.signalBlock?(cell, signal)
+                    }
                 }
             }
+        }
+            
             DispatchQueue.main.async {
                 completion()
             }
         }
     }
 
+    /// 向指定 section 的所有 item 发送信号
+    /// - Parameters:
+    ///   - signal: 要发送的信号
+    ///   - section: 目标 section
+    ///   - completion: 发送完成后的回调
     func signal(_ signal: HCollSignal?, itemSection section: Int, _ completion: @escaping () -> Void) {
-        let items = self.numberOfItems(inSection: section)
+        let items = numberOfItems(inSection: section)
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
+            
             DispatchQueue.concurrentPerform(iterations: items) { [weak self] i in
-                let cell = self?.allReuseCells.object(forKey: IndexPath.nsStringValue(i, section)) as? HCollBaseCell
-                if let cell = cell, let signalBlock = cell.signalBlock {
+                guard let self = self else { return }
+                
+                let weakCell = self.allReuseCells.get(IndexPath.stringValue(i, section))
+                if let cell = weakCell?.value {
                     DispatchQueue.main.async(group: group) { [weak cell] in
-                        guard let cell = cell else { return }
-                        signalBlock(cell, signal)
+                        if let cell = cell {
+                            cell.signalBlock?(cell, signal)
+                        }
                     }
                 }
             }
+            
             group.wait()
             DispatchQueue.main.async {
                 completion()
@@ -59,28 +85,43 @@ extension HCollView {
         }
     }
 
+    /// 向指定的 item 发送信号
+    /// - Parameters:
+    ///   - signal: 要发送的信号
+    ///   - row: 目标 row
+    ///   - section: 目标 section
+    ///   - completion: 发送完成后的回调
     func signal(_ signal: HCollSignal?, toRow row: Int, inSection section: Int, _ completion: @escaping () -> Void) {
-        let cell = self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section)) as? HCollBaseCell
-        if let cell = cell, let signalBlock = cell.signalBlock {
-            signalBlock(cell, signal)
+        guard let cell = allReuseCells.get(IndexPath.stringValue(row, section))?.value else {
+            completion()
+            return
         }
+        cell.signalBlock?(cell, signal)
         completion()
     }
 
-    /// Send signals to all headers or a single header individually
+    /// 向所有 header 发送信号
+    /// - Parameters:
+    ///   - signal: 要发送的信号
+    ///   - completion: 发送完成后的回调
     func signalToAllHeader(_ signal: HCollSignal?, _ completion: @escaping () -> Void) {
-        let sections = self.numberOfSections
+        let sections = numberOfSections
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
+            
             DispatchQueue.concurrentPerform(iterations: sections) { [weak self] i in
-                let header = self?.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, i)) as? HCollBaseApex
-                if let header = header, let signalBlock = header.signalBlock {
+                guard let self = self else { return }
+                
+                let weakHeader = self.allReuseHeaders.get(IndexPath.stringValue(0, i))
+                if let header = weakHeader?.value {
                     DispatchQueue.main.async(group: group) { [weak header] in
-                        guard let header = header else { return }
-                        signalBlock(header, signal)
+                        if let header = header {
+                            header.signalBlock?(header, signal)
+                        }
                     }
                 }
             }
+            
             group.wait()
             DispatchQueue.main.async {
                 completion()
@@ -88,28 +129,42 @@ extension HCollView {
         }
     }
 
+    /// 向指定 section 的 header 发送信号
+    /// - Parameters:
+    ///   - signal: 要发送的信号
+    ///   - section: 目标 section
+    ///   - completion: 发送完成后的回调
     func signal(_ signal: HCollSignal?, headerSection section: Int, _ completion: @escaping () -> Void) {
-        let header = self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section)) as? HCollBaseApex
-        if let header = header, let signalBlock = header.signalBlock {
-            signalBlock(header, signal)
+        guard let header = allReuseHeaders.get(IndexPath.stringValue(0, section))?.value else {
+            completion()
+            return
         }
+        header.signalBlock?(header, signal)
         completion()
     }
 
-    /// Send signals to all footers or a single footer individually
+    /// 向所有 footer 发送信号
+    /// - Parameters:
+    ///   - signal: 要发送的信号
+    ///   - completion: 发送完成后的回调
     func signalToAllFooter(_ signal: HCollSignal?, _ completion: @escaping () -> Void) {
-        let sections = self.numberOfSections
+        let sections = numberOfSections
         DispatchQueue.global(qos: .userInteractive).async {
             let group = DispatchGroup()
+            
             DispatchQueue.concurrentPerform(iterations: sections) { [weak self] i in
-                let footer = self?.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, i)) as? HCollBaseApex
-                if let footer = footer, let signalBlock = footer.signalBlock {
+                guard let self = self else { return }
+                
+                let weakFooter = self.allReuseFooters.get(IndexPath.stringValue(0, i))
+                if let footer = weakFooter?.value {
                     DispatchQueue.main.async(group: group) { [weak footer] in
-                        guard let footer = footer else { return }
-                        signalBlock(footer, signal)
+                        if let footer = footer {
+                            footer.signalBlock?(footer, signal)
+                        }
                     }
                 }
             }
+            
             group.wait()
             DispatchQueue.main.async {
                 completion()
@@ -117,57 +172,83 @@ extension HCollView {
         }
     }
 
+    /// 向指定 section 的 footer 发送信号
+    /// - Parameters:
+    ///   - signal: 要发送的信号
+    ///   - section: 目标 section
+    ///   - completion: 发送完成后的回调
     func signal(_ signal: HCollSignal?, footerSection section: Int, _ completion: @escaping () -> Void) {
-        let footer = self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section)) as? HCollBaseApex
-        if let footer = footer, let signalBlock = footer.signalBlock {
-            signalBlock(footer, signal)
+        guard let footer = allReuseFooters.get(IndexPath.stringValue(0, section))?.value else {
+            completion()
+            return
         }
+        footer.signalBlock?(footer, signal)
         completion()
     }
 
-    /// Release all signal blocks
+    /// 释放所有信号闭包
     func releaseAllSignal() {
         DispatchQueue.global(qos: .userInteractive).async { [weak self] in
             guard let self = self else { return }
+            
+            // 释放 HCollView 自身的信号闭包
             self.signalBlock = nil
-            //release all cell
-            self.allReuseCells.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HCollBaseCell)?.signalBlock = nil
-                ($0 as? HCollBaseCell)?.selectBlock = nil
-                ($0 as? HCollBaseCell)?.willDisplayBlock = nil
+            
+            // 释放所有 cell 的信号闭包
+            self.allReuseCells.cache.values.forEach {
+                $0.value.value?.signalBlock = nil
+                $0.value.value?.selectBlock = nil
+                $0.value.value?.willDisplayBlock = nil
             }
-            //release all header
-            self.allReuseHeaders.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HCollBaseApex)?.signalBlock = nil
+            
+            // 释放所有 header 的信号闭包
+            self.allReuseHeaders.cache.values.forEach {
+                $0.value.value?.signalBlock = nil
             }
-            //release all footer
-            self.allReuseFooters.objectEnumerator()?.allObjects.forEach {
-                ($0 as? HCollBaseApex)?.signalBlock = nil
+            
+            // 释放所有 footer 的信号闭包
+            self.allReuseFooters.cache.values.forEach {
+                $0.value.value?.signalBlock = nil
             }
         }
     }
 
-    /// Get cell based on the given row and section
+    /// 根据指定的 row 和 section 获取 cell
+    /// - Parameters:
+    ///   - row: 目标 row
+    ///   - section: 目标 section
+    /// - Returns: 对应的 cell 实例
     func cell(_ row: Int, _ section: Int) -> AnyObject? {
-        return self.allReuseCells.object(forKey: IndexPath.nsStringValue(row, section))
+        return allReuseCells.get(IndexPath.stringValue(row, section))?.value
     }
     
+    /// 根据 indexPath 获取 cell
+    /// - Parameter indexPath: 目标 indexPath
+    /// - Returns: 对应的 cell 实例
     func cell(for indexPath: IndexPath) -> AnyObject? {
-        return self.allReuseCells.object(forKey: indexPath.nsStringValue)
+        return allReuseCells.get("\(indexPath.section)-\(indexPath.row)")?.value
     }
     
+    /// 根据 section 获取 header
+    /// - Parameter section: 目标 section
+    /// - Returns: 对应的 header 实例
     func header(for section: Int) -> AnyObject? {
-        return self.allReuseHeaders.object(forKey: IndexPath.nsStringValue(0, section))
+        return allReuseHeaders.get(IndexPath.stringValue(0, section))?.value
     }
     
+    /// 根据 section 获取 footer
+    /// - Parameter section: 目标 section
+    /// - Returns: 对应的 footer 实例
     func footer(for section: Int) -> AnyObject? {
-        return self.allReuseFooters.object(forKey: IndexPath.nsStringValue(0, section))
+        return allReuseFooters.get(IndexPath.stringValue(0, section))?.value
     }
 
-    /// Get the width, height, and size of a certain section
+    /// 获取指定 section 的宽度
+    /// - Parameter section: section 索引
+    /// - Returns: section 的宽度
     func width(forSection section: Int) -> CGFloat {
-        var width: CGFloat = self.width
-        let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
+        var width: CGFloat = self.bounds.width
+        let edgeInsetsString = self.allSectionInsets["\(section)"]
         if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
             let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
             width -= edgeInsets.left + edgeInsets.right
@@ -176,38 +257,18 @@ extension HCollView {
         return width
     }
 
-    func heigh(forSection section: Int) -> CGFloat {
-        var height: CGFloat = self.height
-        let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
+    /// 获取指定 section 的高度
+    /// - Parameter section: section 索引
+    /// - Returns: section 的高度
+    func height(forSection section: Int) -> CGFloat {
+        var height: CGFloat = self.bounds.height
+        let edgeInsetsString = self.allSectionInsets["\(section)"]
         if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
             let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
             height -= edgeInsets.top + edgeInsets.bottom
-            height = max(height, 0) // Ensure width is not less than 0
+            height = max(height, 0) // Ensure height is not less than 0
         }
         return height
-    }
-
-    func size(forSection section: Int) -> CGSize {
-        var size: CGSize = self.size
-        let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
-        if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
-            let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
-            size.width -= edgeInsets.left + edgeInsets.right
-            size.height -= edgeInsets.top + edgeInsets.bottom
-            size.width = max(size.width, 0) // Ensure that the width is not less than 0
-            size.height = max(size.height, 0) // Ensure that the height is not less than 0
-        }
-        return size
-    }
-
-    /// Calculate the width of the item based on the number and index passed in
-    func fixSlit(withWidth width: CGFloat, colCount: Int, index: Int) -> CGFloat {
-        let itemWidth: CGFloat = width / CGFloat(colCount)
-        let realItemWidth: CGFloat = itemWidth.rounded(.down)
-        if index == colCount - 1 {
-            return width - realItemWidth * CGFloat(index)
-        }
-        return realItemWidth
     }
 
 }

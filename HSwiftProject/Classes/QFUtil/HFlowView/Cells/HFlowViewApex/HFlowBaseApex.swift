@@ -90,4 +90,10 @@ class HFlowBaseApex: UITableViewHeaderFooterView {
     @objc
     func relayoutSubviews() { }
 
+    /// 移除视图上已有的宽高约束（避免 relayoutSubviews 重复创建约束导致泄漏）
+    func deactivateSizeConstraints(for view: UIView) {
+        view.constraints.filter {
+            $0.firstAttribute == .width || $0.firstAttribute == .height
+        }.forEach { $0.isActive = false }
+    }
 }

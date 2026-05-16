@@ -10,79 +10,80 @@ import UIKit
 
 class HBaseNaviController: UINavigationController, UIGestureRecognizerDelegate {
 
-    /// Lazy load
-    private var blackList = [UIViewController]()
+    // MARK: - Properties
+    
+    /// 全屏返回手势黑名单
+    private var fullScreenPopBlackList = [UIViewController]()
 
-    /// Public
+    // MARK: - Public Methods
+    
+    /// 添加到全屏返回手势黑名单
     func addFullScreenPopBlackListItem(_ viewController: UIViewController) {
-        blackList.append(viewController)
+        fullScreenPopBlackList.append(viewController)
     }
 
+    /// 从全屏返回手势黑名单移除
     func removeFromFullScreenPopBlackList(_ viewController: UIViewController) {
-        blackList.removeAll(where: { $0 === viewController })
+        fullScreenPopBlackList.removeAll(where: { $0 === viewController })
     }
 
-    /// Life cycle
+    // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Set related properties
-        self.pvc_initialize()
+        initialize()
     }
     
-    // Set related properties
-    private func pvc_initialize() {
-        // Set the default style to UIModalPresentationFullScreen
-        //self.modalPresentationStyle = .fullScreen
-        // Turn off dark mode
+    /// 初始化设置
+    private func initialize() {
+        // 关闭暗黑模式
         if #available(iOS 13.0, *) {
-            self.overrideUserInterfaceStyle = .light
+            overrideUserInterfaceStyle = .light
         }
     }
 
-    // 实现类似系统自带的边缘触发手势返回的效果
-    func handleNaviTransition() {
-        // Turn off the edge trigger gesture to prevent conflicts with the original edge gesture
-        self.interactivePopGestureRecognizer?.isEnabled = false
-        // 添加边缘手势识别器UIScreenEdgePanGestureRecognizer
+    // MARK: - Gesture Handling
+    
+    /// 处理导航过渡
+    func setupEdgePanGesture() {
+        // 关闭系统边缘触发手势，防止与自定义边缘手势冲突
+        interactivePopGestureRecognizer?.isEnabled = false
+        
+        // 添加边缘手势识别器
         let edgePanGesture = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(handleEdgePanGesture))
-        edgePanGesture.edges = .left //设置手势响应的边缘
-        self.view.addGestureRecognizer(edgePanGesture)
+        edgePanGesture.edges = .left
+        view.addGestureRecognizer(edgePanGesture)
     }
     
+    /// 处理边缘滑动手势
     @objc
-    func handleEdgePanGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
-        guard gesture.state == .changed else {
-            return
-        }
-        guard let topVC = self.topViewController, !self.blackList.contains(topVC) else {
-            return
-        }
-        guard let isTransitioning = self.value(forKeyPath: "_isTransitioning") as? Bool, isTransitioning else {
-            return
-        }
+    private func handleEdgePanGesture(_ gesture: UIScreenEdgePanGestureRecognizer) {
+        guard gesture.state == .changed else { return }
+        guard let topVC = topViewController, !fullScreenPopBlackList.contains(topVC) else { return }
+        guard children.count > 1 else { return }
+        
         let location = gesture.location(in: gesture.view)
-        guard location.x > 0 else {
-            return
-        }
-        if self.children.count > 1 {
-            self.naviBack()
-        }
+        guard location.x > 0 else { return }
+        
+        naviBack()
     }
 
 }
 
-// MARK: - Landscape and portrait
+// MARK: - Orientation Handling
 extension HBaseNaviController {
-    // Whether to rotate automatically, returning YES can rotate automatically
+    /// 是否自动旋转
     override var shouldAutorotate: Bool {
-        return self.topViewController?.shouldAutorotate ?? false
+        topViewController?.shouldAutorotate ?? false
     }
-    // Return the supported direction
+    
+    /// 支持的方向
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return self.topViewController?.supportedInterfaceOrientations ?? .portrait
+        topViewController?.supportedInterfaceOrientations ?? .portrait
     }
-    // This is the preferred direction
+    
+    /// 首选方向
     override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation {
-        return self.topViewController?.preferredInterfaceOrientationForPresentation ?? .portrait
+        topViewController?.preferredInterfaceOrientationForPresentation ?? .portrait
     }
 }

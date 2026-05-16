@@ -1,6 +1,6 @@
 //
 //  HWebButtonView.swift
-//  HSwiftProject
+//  FreeChat
 //
 //  Created by Wind on 2019/11/16.
 //  Copyright © 2019 wind. All rights reserved.
@@ -74,6 +74,16 @@ class HWebButtonView: UIButton {
         }
         return _webImageView!
     }
+    
+    lazy var activity: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView(frame: self.bounds)
+        activity.isUserInteractionEnabled = false
+        activity.backgroundColor = UIColor.lightGray
+        activity.style = .medium
+        activity.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.addSubview(activity)
+        return activity
+    }()
 
     required init() {
         super.init(frame: .zero)
@@ -145,35 +155,27 @@ class HWebButtonView: UIButton {
     }
 
     private func updatePosition() {
-        var imageWidth  = imageView?.bounds.width ?? 0
-        let imageHeight = imageView?.bounds.height ?? 0
-        var titleWidth  = titleLabel?.bounds.width ?? 0
-        let titleHeight = titleLabel?.bounds.height ?? 0
         switch imagePosition {
         case .top:
-            titleEdgeInsets = UIEdgeInsets(top: (titleHeight + imageSpace) * 0.5,
-                                           left: -imageWidth * 0.5,
-                                           bottom: -imageSpace,
-                                           right: imageWidth * 0.5)
-            imageEdgeInsets = UIEdgeInsets(top: 0,
-                                           left: titleWidth * 0.5,
-                                           bottom: imageHeight + imageSpace,
-                                           right: -titleWidth * 0.5)
+            let imageWidth = imageView?.bounds.width ?? 0
+            let titleWidth = titleLabel?.bounds.width ?? 0
+            let titleHeight = titleLabel?.bounds.height ?? 0
+            let imageHeight = imageView?.bounds.height ?? 0
+            titleEdgeInsets = UIEdgeInsets(top: (titleHeight + imageSpace) * 0.5, left: -imageWidth * 0.5, bottom: -imageSpace, right: imageWidth * 0.5)
+            imageEdgeInsets = UIEdgeInsets(top: 0, left: titleWidth * 0.5, bottom: imageHeight + imageSpace, right: -titleWidth * 0.5)
         case .left:
             titleEdgeInsets = UIEdgeInsets(top: 0, left: imageSpace, bottom: 0, right: 0)
             imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: imageSpace)
         case .bottom:
-            titleEdgeInsets = UIEdgeInsets(top: -(titleHeight + imageSpace) * 0.5,
-                                           left: -imageWidth * 0.5,
-                                           bottom: imageSpace,
-                                           right: imageWidth * 0.5)
-            imageEdgeInsets = UIEdgeInsets(top: imageHeight + imageSpace,
-                                           left: titleWidth * 0.5,
-                                           bottom: 0,
-                                           right: -titleWidth * 0.5)
+            let imageWidth = imageView?.bounds.width ?? 0
+            let titleWidth = titleLabel?.bounds.width ?? 0
+            let titleHeight = titleLabel?.bounds.height ?? 0
+            let imageHeight = imageView?.bounds.height ?? 0
+            titleEdgeInsets = UIEdgeInsets(top: -(titleHeight + imageSpace) * 0.5, left: -imageWidth * 0.5, bottom: imageSpace, right: imageWidth * 0.5)
+            imageEdgeInsets = UIEdgeInsets(top: imageHeight + imageSpace, left: titleWidth * 0.5, bottom: 0, right: -titleWidth * 0.5)
         case .right:
-            imageWidth += imageSpace * 0.5
-            titleWidth += imageSpace * 0.5
+            let imageWidth = (imageView?.bounds.width ?? 0) + imageSpace * 0.5
+            let titleWidth = (titleLabel?.bounds.width ?? 0) + imageSpace * 0.5
             titleEdgeInsets = UIEdgeInsets(top: 0, left: -imageWidth, bottom: 0, right: imageWidth)
             imageEdgeInsets = UIEdgeInsets(top: 0, left: titleWidth, bottom: 0, right: -titleWidth)
         }
@@ -243,8 +245,11 @@ extension HWebButtonView {
     *  @param syncLoadCache Synchronously read cache
     *
     */
-    func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true, cropSize: CGSize = .zero) {
-        self.setImageUrlString(url.absoluteString, placeholder: placeholder, syncLoadCache: cache, cropSize: cropSize)
+    func setAvatarUrl(_ url: URL, placeholder: UIImage? = nil) {
+        self.setImageUrl(url, placeholder: placeholder, syncLoadCache: false)
+    }
+    func setImageUrl(_ url: URL, placeholder: UIImage? = nil, syncLoadCache cache: Bool = false) {
+        self.setImageUrlString(url.absoluteString, placeholder: placeholder, syncLoadCache: cache)
     }
 
     /**
@@ -255,7 +260,10 @@ extension HWebButtonView {
     *  @param syncLoadCache whether to read cache synchronously
     *
     */
-    func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = true, cropSize: CGSize = .zero) {
+    func setAvatarUrlString(_ urlString: String, placeholder: UIImage? = nil) {
+        self.setImageUrlString(urlString, placeholder: placeholder, syncLoadCache: false)
+    }
+    func setImageUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = false, cropSize: CGSize = .zero) {
         if urlString.count == 0 {
             self._setImage(placeholder) { [weak self] in
                 guard let self = self else { return }
@@ -314,7 +322,7 @@ extension HWebButtonView {
                     }
                 }else {
                     // 从网络加载图片
-                    self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: option, completionHandler: { [weak self] result in
+                    self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: option) { [weak self] result in
                         guard let self = self else { return }
                         switch result {
                         case .success(let value):
@@ -327,7 +335,7 @@ extension HWebButtonView {
                         case .failure(let value):
                             self.didGetError?(self, value as AnyObject)
                         }
-                    })
+                    }
                 }
             }
         }else {
@@ -344,7 +352,7 @@ extension HWebButtonView {
                 }
             }
             // 从网络加载图片
-            self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: option, completionHandler: { [weak self] result in
+            self.webImageView.kf.setImage(with: url, placeholder: placeholder, options: option) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let value):
@@ -357,8 +365,18 @@ extension HWebButtonView {
                 case .failure(let value):
                     self.didGetError?(self, value as AnyObject)
                 }
-            })
+            }
         }
+    }
+    
+    /**
+    *  可以根据指定大小压缩图片
+    */
+    func setAvatarCompressUrlString(_ urlString: String, placeholder: UIImage? = nil, size: CGSize = CGSize(width: 50, height: 50)) {
+        self.setCompressUrlString(urlString, placeholder: placeholder, syncLoadCache: false, size: size)
+    }
+    func setCompressUrlString(_ urlString: String, placeholder: UIImage? = nil, syncLoadCache cache: Bool = false, size: CGSize = CGSize(width: 50, height: 50)) {
+        self.setImageUrlString(urlString, placeholder: placeholder, syncLoadCache: cache, cropSize: size)
     }
 
 }

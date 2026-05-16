@@ -178,7 +178,7 @@ class HTupleTmplView: UICollectionView, UICollectionViewDelegate, UICollectionVi
         // Unique identifier
         var identifier = (pre ?? "") + "HeaderCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
-        identifier += idx ? indexPath.stringValue : ""
+        identifier += idx ? "\(indexPath.section)-\(indexPath.row)" : ""
         // Determine if there is a tuple state value
         if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
             identifier += "\(self.tupleState)"
@@ -217,7 +217,7 @@ class HTupleTmplView: UICollectionView, UICollectionViewDelegate, UICollectionVi
         // Unique identifier
         var identifier = (pre ?? "") + "FooterCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
-        identifier += idx ? indexPath.stringValue : ""
+        identifier += idx ? "\(indexPath.section)-\(indexPath.row)" : ""
         // Determine if there is a tuple state value
         if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
             identifier += "\(self.tupleState)"
@@ -256,7 +256,7 @@ class HTupleTmplView: UICollectionView, UICollectionViewDelegate, UICollectionVi
         // Unique identifier
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
-        identifier += idx ? indexPath.stringValue : ""
+        identifier += idx ? "\(indexPath.section)-\(indexPath.row)" : ""
         // Determine if there is a tuple state value
         if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
             identifier += "\(self.tupleState)"
@@ -486,7 +486,7 @@ class HTupleTmplView: UICollectionView, UICollectionViewDelegate, UICollectionVi
                 let selector: Selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     // Unique identifier
-                    let identifier = "HeaderSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.tupleState)"
+                    let identifier = "HeaderSpaceCell" + self.addressValue + "\(indexPath.section)-\(indexPath.row)" + "\(self.tupleState)"
                     // Register cell if not already registered
                     if !self.allReuseIdentifiers.contains(identifier) {
                         self.allReuseIdentifiers.add(identifier)
@@ -518,7 +518,7 @@ class HTupleTmplView: UICollectionView, UICollectionViewDelegate, UICollectionVi
                 let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     // Unique identifier
-                    let identifier = "FooterSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.tupleState)"
+                    let identifier = "FooterSpaceCell" + self.addressValue + "\(indexPath.section)-\(indexPath.row)" + "\(self.tupleState)"
                     // Register cell if not already registered
                     if !self.allReuseIdentifiers.contains(identifier) {
                         self.allReuseIdentifiers.add(identifier)

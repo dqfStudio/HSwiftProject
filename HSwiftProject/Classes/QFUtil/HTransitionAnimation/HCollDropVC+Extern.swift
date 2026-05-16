@@ -19,7 +19,7 @@ extension HCollDropVC {
             return 56
         }
         dropVC.itemBlock = { (coll: HCollView, indexPath: IndexPath) in
-            let cell = coll.reuseCell(HCollLabelCell.self, nil, true, indexPath) as! HCollLabelCell
+            let cell = coll.reuseCell(HCollLabelCell.self, "" as String?, true, indexPath)
             cell.edgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
             cell.label.font = UIFont.font(ofSize: 16, weight: .regular)
             cell.label.textAlignment = .center

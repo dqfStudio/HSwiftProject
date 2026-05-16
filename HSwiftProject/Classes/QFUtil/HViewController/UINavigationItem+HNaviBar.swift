@@ -1,5 +1,5 @@
 //
-//  HNavigationBar3.swift
+//  UINavigationItem+HNaviBar.swift
 //  HSwiftProject
 //
 //  Created by owner on 2023/7/17.
@@ -8,27 +8,35 @@
 
 import UIKit
 
+// MARK: - Associated Objects
+
 private var kHVCNaviLeftItemKey: Void?
 private var kHVCNaviTitleItemKey: Void?
 private var kHVCNaviRightItemKey: Void?
 
+// MARK: - UINavigationItem Extension
+
 extension UINavigationItem {
     
-    // 创建和设置关联对象
+    // MARK: - Private Methods
+    
+    /// 创建或获取关联对象
     private func createOrGetAssociatedObject<T: UIView>(key: UnsafeRawPointer, creationBlock: () -> T, setupBlock: (T) -> Void) -> T {
-        if let associatedObject = self.getAssociatedValueForKey(key) as? T {
+        if let associatedObject = getAssociatedValueForKey(key) as? T {
             return associatedObject
         }
         let object = creationBlock()
         setupBlock(object)
-        self.setAssociateValue(object, key: key)
+        setAssociateValue(object, key: key)
         return object
     }
     
+    // MARK: - Properties
+    
+    /// 左侧导航项
     var leftItem: HNavigationItem {
         return createOrGetAssociatedObject(key: &kHVCNaviLeftItemKey) {
             let buttonView = HNavigationItem(frame: .zero)
-            //buttonView.contentEdgeInsets = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 0)
             buttonView.titleLabel?.font = UIFont.font(ofSize: 17, weight: .medium)
             buttonView.contentHorizontalAlignment = .left
             buttonView.textColor = .black
@@ -38,11 +46,12 @@ extension UINavigationItem {
         }
     }
     
+    /// 标题项
     var titleItem: UILabel {
         return createOrGetAssociatedObject(key: &kHVCNaviTitleItemKey) {
             let labelView = UILabel(frame: .zero)
             labelView.font = UIFont.font(ofSize: 17, weight: .medium)
-            labelView.textColor = UIColor.white
+            labelView.textColor = .white
             labelView.textAlignment = .center
             return labelView
         } setupBlock: { [weak self] labelView in
@@ -50,10 +59,10 @@ extension UINavigationItem {
         }
     }
     
+    /// 右侧导航项
     var rightItem: HNavigationItem {
         return createOrGetAssociatedObject(key: &kHVCNaviRightItemKey) {
             let buttonView = HNavigationItem(frame: .zero)
-            //buttonView.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -8)
             buttonView.titleLabel?.font = UIFont.font(ofSize: 17, weight: .medium)
             buttonView.contentHorizontalAlignment = .right
             buttonView.textColor = .black

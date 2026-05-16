@@ -113,16 +113,16 @@ class HMainController2: HViewController {
         return
         
         HUserDefaults.setUserCoreKey("23234")
-        
-        HUserDefaults.defaults.set("ff", forKey: "ee")
-        HUserDefaults.defaults.object(forKey: "ee")
-        HUserDefaults.defaults.removeObject(forKey: "ee")
-        HUserDefaults.defaults.synchronize()
-        
-        HUserDefaults.user.set("ww", forKey: "rr")
-        HUserDefaults.user.object(forKey: "rr")
-        HUserDefaults.user.removeObject(forKey: "rr")
-        HUserDefaults.user.synchronize()
+//        
+//        HUserDefaults.defaults.set("ff", forKey: "ee")
+//        HUserDefaults.defaults.object(forKey: "ee")
+//        HUserDefaults.defaults.removeObject(forKey: "ee")
+//        HUserDefaults.defaults.synchronize()
+//        
+//        HUserDefaults.user.set("ww", forKey: "rr")
+//        HUserDefaults.user.object(forKey: "rr")
+//        HUserDefaults.user.removeObject(forKey: "rr")
+//        HUserDefaults.user.synchronize()
         
         HUserDefaults.user.userId = "11"
         HUserDefaults.user.isUserFirstLaunch = true

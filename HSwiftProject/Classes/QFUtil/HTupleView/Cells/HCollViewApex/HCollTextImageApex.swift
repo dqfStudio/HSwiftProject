@@ -9,22 +9,22 @@
 import UIKit
 
 class HCollTextImageApex: HCollTmplApex {
-    
+
     /// 左边布局View
     private lazy var leftView: UIView = {
         return UIView()
     }()
-    
+
     /// 右边布局View
     private lazy var rightView: UIView = {
         return UIView()
     }()
-    
+
     /// 中间label、detailLabel和accsryLabel布局View
     private lazy var textLayoutView: UIStackView = {
         return UIStackView()
     }()
-    
+
     // 用于imageView布局
     private lazy var imageLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -33,7 +33,7 @@ class HCollTextImageApex: HCollTmplApex {
         stackView.alignment = .center
         return stackView
     }()
-    
+
     /// imageView
     private var _imageView: HWebImageView?
     var imageView: HWebImageView {
@@ -42,7 +42,7 @@ class HCollTextImageApex: HCollTmplApex {
         }
         return _imageView!
     }
-    
+
     /// label
     private var _label: UILabel?
     var label: UILabel {
@@ -52,7 +52,7 @@ class HCollTextImageApex: HCollTmplApex {
         }
         return _label!
     }
-    
+
     /// detailLabel
     private var _detailLabel: UILabel?
     var detailLabel: UILabel {
@@ -62,7 +62,7 @@ class HCollTextImageApex: HCollTmplApex {
         }
         return _detailLabel!
     }
-    
+
     /// accsryLabel
     private var _accsryLabel: UILabel?
     var accsryLabel: UILabel {
@@ -72,7 +72,7 @@ class HCollTextImageApex: HCollTmplApex {
         }
         return _accsryLabel!
     }
-    
+
     // 用于imageView布局
     private lazy var detailLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -81,7 +81,7 @@ class HCollTextImageApex: HCollTmplApex {
         stackView.alignment = .center
         return stackView
     }()
-    
+
     /// imageView
     private var _detailView: HWebImageView?
     var detailView: HWebImageView {
@@ -90,61 +90,66 @@ class HCollTextImageApex: HCollTmplApex {
         }
         return _detailView!
     }
-    
+
     // 在imageView后面添加自定义间隔
     var imageSpacing: CGFloat = 0.0
-    
+
     // 在label后面添加自定义间隔
     var labelSpacing: CGFloat = 0.0
-    
+
     // 在detailLabel后面添加自定义间隔
     var detailSpacing: CGFloat = 0.0
-    
+
     // 在accsryLabel后面添加自定义间隔
     var accsrySpacing: CGFloat = 0.0
-    
+
+    private var didSetup = false
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        setup()
+        if !didSetup {
+            setup()
+            didSetup = true
+        }
+        relayout()
     }
-    
+
     private func setup() {
-        
-        /// 左边布局View
         self.layoutView.addArrangedSubview(leftView)
-        
-        /// 中间label、detailLabel和accsryLabel布局View
         self.layoutView.addArrangedSubview(textLayoutView)
-         
-        /// imageView
+        self.layoutView.addArrangedSubview(rightView)
+
         if let imageView = _imageView {
             imageLayoutView.addArrangedSubview(imageView)
             textLayoutView.addArrangedSubview(imageLayoutView)
-            textLayoutView.setCustomSpacing(imageSpacing, after: imageLayoutView)
         }
-        /// label
         if let label = _label {
             textLayoutView.addArrangedSubview(label)
-            textLayoutView.setCustomSpacing(labelSpacing, after: label)
         }
-        /// detailLabel
         if let detailLabel = _detailLabel {
             textLayoutView.addArrangedSubview(detailLabel)
-            textLayoutView.setCustomSpacing(detailSpacing, after: detailLabel)
         }
-        /// accsryLabel
         if let accsryLabel = _accsryLabel {
             textLayoutView.addArrangedSubview(accsryLabel)
-            textLayoutView.setCustomSpacing(accsrySpacing, after: accsryLabel)
         }
-        
-        /// detailView
         if let detailView = _detailView {
             detailLayoutView.addArrangedSubview(detailView)
             textLayoutView.addArrangedSubview(detailLayoutView)
         }
-        
-        /// 根据label、detailLabel和accsryLabel的实际大小进行约束布局
+    }
+
+    private func relayout() {
+        textLayoutView.setCustomSpacing(imageSpacing, after: imageLayoutView)
+        if let _ = _label {
+            textLayoutView.setCustomSpacing(labelSpacing, after: label)
+        }
+        if let _ = _detailLabel {
+            textLayoutView.setCustomSpacing(detailSpacing, after: detailLabel)
+        }
+        if let _ = _accsryLabel {
+            textLayoutView.setCustomSpacing(accsrySpacing, after: accsryLabel)
+        }
+
         var textWidth = 0.0
         if let label = _label {
             textWidth += label.intrinsicContentSize.width
@@ -162,14 +167,9 @@ class HCollTextImageApex: HCollTmplApex {
             textWidth += detailView.intrinsicContentSize.width
         }
         textWidth += imageSpacing + labelSpacing + detailSpacing + accsrySpacing
-        textWidth = ceil(textWidth)//向上取整
-        
-        /// 右边布局View
-        self.layoutView.addArrangedSubview(rightView)
-        
-        /// 左右两边的间隔
+        textWidth = ceil(textWidth)
+
         let space = (self.layoutView.width - textWidth) / 2
         if space >= 0 { self.layoutView.spacing = space }
-        
     }
 }

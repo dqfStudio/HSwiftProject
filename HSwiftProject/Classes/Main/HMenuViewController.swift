@@ -48,7 +48,8 @@ class HMenuViewController: HTabBarController {
         mainVC4.h_tabItemImage = UIImage(named: "di_index")
         mainVC4.h_tabItemSelectedImage = UIImage(named: "di_index_h")
         
-        let mainVC5 = HMainController7()
+//        let mainVC5 = HMainController7()
+        let mainVC5 = WaterfallViewController()
         mainVC5.h_tabItemTitle = "第五页"
         mainVC5.h_tabItemImage = UIImage(named: "di_index")
         mainVC5.h_tabItemSelectedImage = UIImage(named: "di_index_h")

@@ -176,13 +176,14 @@ class HFlowViewCellHoriValue1: HFlowBaseCell {
         }
         
         if let accsryLabel = _accsryLabel {
-            if detailWidth == 0 { detailWidth = detailLabel.intrinsicContentSize.width }
-            detailLabel.widthAnchor.constraint(equalToConstant: detailWidth).isActive = true
-            textLayoutView.addArrangedSubview(detailLabel)
-            if secondTextSpacing > 0 {
-                textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
+            if let detailLabel = _detailLabel {
+                if detailWidth == 0 { detailWidth = detailLabel.intrinsicContentSize.width }
+                detailLabel.widthAnchor.constraint(equalToConstant: detailWidth).isActive = true
+                textLayoutView.addArrangedSubview(detailLabel)
+                if secondTextSpacing > 0 {
+                    textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
+                }
             }
-            
             textLayoutView.addArrangedSubview(accsryLabel)
         } else {
             if let detailLabel = _detailLabel {

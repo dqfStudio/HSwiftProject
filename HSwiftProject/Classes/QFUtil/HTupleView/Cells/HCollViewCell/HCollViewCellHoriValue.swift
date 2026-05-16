@@ -10,7 +10,7 @@ import UIKit
 
 ///三个label横向从左向右抱紧显示
 class HCollViewCellHoriValue1: HCollTmplCell {
-    
+
     // 用于imageView布局
     private lazy var imageLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -19,7 +19,7 @@ class HCollViewCellHoriValue1: HCollTmplCell {
         stackView.alignment = .center
         return stackView
     }()
-    
+
     private var _imageView: HWebImageView?
     ///左边显示图片
     var imageView: HWebImageView {
@@ -28,7 +28,7 @@ class HCollViewCellHoriValue1: HCollTmplCell {
         }
         return _imageView!
     }
-    
+
     // 用于text布局
     lazy var textLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -38,20 +38,20 @@ class HCollViewCellHoriValue1: HCollTmplCell {
         stackView.spacing = 5
         return stackView
     }()
-    
+
     ///label的宽度
     var labelWidth: CGFloat = 0.0
-    
+
     ///detailLabel的宽度
     var detailWidth: CGFloat = 0.0
-    
+
     ///显示文字内容
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
         return label
     }()
-    
+
     private var _detailLabel: UILabel?
     ///显示文字内容详情
     var detailLabel: UILabel {
@@ -61,7 +61,7 @@ class HCollViewCellHoriValue1: HCollTmplCell {
         }
         return _detailLabel!
     }
-    
+
     private var _accsryLabel: UILabel?
     ///显示文字内容附加信息
     var accsryLabel: UILabel {
@@ -71,7 +71,7 @@ class HCollViewCellHoriValue1: HCollTmplCell {
         }
         return _accsryLabel!
     }
-    
+
     // 用于detailView布局
     private lazy var detailLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -80,7 +80,7 @@ class HCollViewCellHoriValue1: HCollTmplCell {
         stackView.alignment = .center
         return stackView
     }()
-    
+
     private var _detailView: HWebImageView?
     ///右边显示图片
     var detailView: HWebImageView {
@@ -89,7 +89,7 @@ class HCollViewCellHoriValue1: HCollTmplCell {
         }
         return _detailView!
     }
-    
+
     // 用于arrow布局
     private lazy var arrowLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -98,7 +98,7 @@ class HCollViewCellHoriValue1: HCollTmplCell {
         stackView.alignment = .center
         return stackView
     }()
-    
+
     // arrow
     private lazy var accsryView: UIImageView = {
         let accsryView = UIImageView()
@@ -106,42 +106,52 @@ class HCollViewCellHoriValue1: HCollTmplCell {
         accsryView.contentMode = .scaleAspectFill
         return accsryView
     }()
-    
+
     ///是否显示右边箭头
     var isShowAccsryArrow: Bool = false
-    
+
     // 设置layoutView通用间隔
     var layoutSpacing: CGFloat = 10.0
-    
+
     // 在imageView后面添加自定义间隔
     var layoutFirstSpacing: CGFloat = 0.0
-    
+
     // 在textLayoutView后面添加自定义间隔
     var layoutSecondSpacing: CGFloat = 0.0
-    
+
     // 在detailView后面添加自定义间隔
     var layoutThirdSpacing: CGFloat = 0.0
-    
+
     // 设置textLayoutView通用间隔
     var textSpacing: CGFloat = 5.0
-    
+
     // 在label后面添加自定义间隔
     var firstTextSpacing: CGFloat = 0.0
-    
+
     // 在detailLabel后面添加自定义间隔
     var secondTextSpacing: CGFloat = 0.0
-    
+
+    private var didSetupLayout = false
+    private var imageWidthConstraint: NSLayoutConstraint?
+    private var imageHeightConstraint: NSLayoutConstraint?
+    private var labelWidthConstraint: NSLayoutConstraint?
+    private var detailLabelWidthConstraint: NSLayoutConstraint?
+    private var detailWidthConstraint: NSLayoutConstraint?
+    private var detailHeightConstraint: NSLayoutConstraint?
+    private var accsryWidthConstraint: NSLayoutConstraint?
+    private var accsryHeightConstraint: NSLayoutConstraint?
+
     override func relayoutSubviews() {
-        
+
         let frame = self.bounds.inset(by: self.edgeInsets)
-        
+
         // 重设frame
         layoutView.frame = frame
         layoutView.spacing = layoutSpacing
 
         // imageView
         if let imageView = _imageView {
-            
+
             var imageFrame = frame
             if imageView.imageSize != .zero {
                 imageFrame.size = imageView.imageSize
@@ -149,47 +159,55 @@ class HCollViewCellHoriValue1: HCollTmplCell {
                 imageFrame.width = frame.height
                 imageFrame = imageFrame.inset(by: imageView.edgeInsets)
             }
-            
-            imageView.widthAnchor.constraint(equalToConstant: imageFrame.width).isActive = true
-            imageView.heightAnchor.constraint(equalToConstant: imageFrame.height).isActive = true
-            imageLayoutView.addArrangedSubview(imageView)
-            
-            layoutView.addArrangedSubview(imageLayoutView)
+
+            updateConstraint(&imageWidthConstraint, on: imageView, attr: .width, constant: imageFrame.width)
+            updateConstraint(&imageHeightConstraint, on: imageView, attr: .height, constant: imageFrame.height)
+
+            if !didSetupLayout {
+                imageLayoutView.addArrangedSubview(imageView)
+                layoutView.addArrangedSubview(imageLayoutView)
+            }
+
             if layoutFirstSpacing > 0 {
                 layoutView.setCustomSpacing(layoutFirstSpacing, after: imageLayoutView)
             }
         }
-        
+
         // textLayoutView
-        layoutView.addArrangedSubview(textLayoutView)
+        if !didSetupLayout {
+            layoutView.addArrangedSubview(textLayoutView)
+        }
         textLayoutView.spacing = textSpacing
         if layoutSecondSpacing > 0 {
             layoutView.setCustomSpacing(layoutSecondSpacing, after: textLayoutView)
         }
-        
+
         // label
-        if labelWidth == 0 { labelWidth = label.intrinsicContentSize.width }
-        label.widthAnchor.constraint(equalToConstant: labelWidth).isActive = true
-        textLayoutView.addArrangedSubview(label)
+        let actualLabelWidth = labelWidth == 0 ? label.intrinsicContentSize.width : labelWidth
+        updateConstraint(&labelWidthConstraint, on: label, attr: .width, constant: actualLabelWidth)
+        if !didSetupLayout {
+            textLayoutView.addArrangedSubview(label)
+        }
         if firstTextSpacing > 0 {
             textLayoutView.setCustomSpacing(firstTextSpacing, after: label)
         }
-        
+
         if let accsryLabel = _accsryLabel {
-            if detailWidth == 0 { detailWidth = detailLabel.intrinsicContentSize.width }
-            detailLabel.widthAnchor.constraint(equalToConstant: detailWidth).isActive = true
-            textLayoutView.addArrangedSubview(detailLabel)
+            let actualDetailWidth = detailWidth == 0 ? detailLabel.intrinsicContentSize.width : detailWidth
+            updateConstraint(&detailLabelWidthConstraint, on: detailLabel, attr: .width, constant: actualDetailWidth)
+            if !didSetupLayout {
+                textLayoutView.addArrangedSubview(detailLabel)
+                textLayoutView.addArrangedSubview(accsryLabel)
+            }
             if secondTextSpacing > 0 {
                 textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
             }
-            
-            textLayoutView.addArrangedSubview(accsryLabel)
         } else {
-            if let detailLabel = _detailLabel {
+            if let detailLabel = _detailLabel, !didSetupLayout {
                 textLayoutView.addArrangedSubview(detailLabel)
             }
         }
-        
+
         // detailView
         if let detailView = _detailView {
 
@@ -200,12 +218,15 @@ class HCollViewCellHoriValue1: HCollTmplCell {
                 detailFrame.width = frame.height
                 detailFrame = detailFrame.inset(by: detailView.edgeInsets)
             }
-            
-            detailView.widthAnchor.constraint(equalToConstant: detailFrame.width).isActive = true
-            detailView.heightAnchor.constraint(equalToConstant: detailFrame.height).isActive = true
-            detailLayoutView.addArrangedSubview(detailView)
-            
-            layoutView.addArrangedSubview(detailLayoutView)
+
+            updateConstraint(&detailWidthConstraint, on: detailView, attr: .width, constant: detailFrame.width)
+            updateConstraint(&detailHeightConstraint, on: detailView, attr: .height, constant: detailFrame.height)
+
+            if !didSetupLayout {
+                detailLayoutView.addArrangedSubview(detailView)
+                layoutView.addArrangedSubview(detailLayoutView)
+            }
+
             if layoutThirdSpacing > 0 {
                 layoutView.setCustomSpacing(layoutThirdSpacing, after: detailLayoutView)
             }
@@ -213,18 +234,21 @@ class HCollViewCellHoriValue1: HCollTmplCell {
 
         // accsryView
         if isShowAccsryArrow {
-            layoutView.addArrangedSubview(arrowLayoutView)
-            accsryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
-            accsryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
-            arrowLayoutView.addArrangedSubview(accsryView)
+            if !didSetupLayout {
+                layoutView.addArrangedSubview(arrowLayoutView)
+                arrowLayoutView.addArrangedSubview(accsryView)
+            }
+            updateConstraint(&accsryWidthConstraint, on: accsryView, attr: .width, constant: 7)
+            updateConstraint(&accsryHeightConstraint, on: accsryView, attr: .height, constant: 13)
         }
-        
+
+        didSetupLayout = true
     }
 }
 
 ///三个label横向从右向左抱紧显示
 class HCollViewCellHoriValue2: HCollTmplCell {
-    
+
     // 用于imageView布局
     private lazy var imageLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -233,7 +257,7 @@ class HCollViewCellHoriValue2: HCollTmplCell {
         stackView.alignment = .center
         return stackView
     }()
-    
+
     private var _imageView: HWebImageView?
     ///左边显示图片
     var imageView: HWebImageView {
@@ -242,7 +266,7 @@ class HCollViewCellHoriValue2: HCollTmplCell {
         }
         return _imageView!
     }
-    
+
     // 用于text布局
     lazy var textLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -252,20 +276,20 @@ class HCollViewCellHoriValue2: HCollTmplCell {
         stackView.spacing = 5
         return stackView
     }()
-    
+
     ///detailLabel的宽度
     var detailWidth: CGFloat = 0.0
-    
+
     ///accsryLabel的宽度
     var accsryWidth: CGFloat = 0.0
-    
+
     ///显示文字内容
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
         return label
     }()
-    
+
     private var _detailLabel: UILabel?
     ///显示文字内容详情
     var detailLabel: UILabel {
@@ -275,7 +299,7 @@ class HCollViewCellHoriValue2: HCollTmplCell {
         }
         return _detailLabel!
     }
-    
+
     private var _accsryLabel: UILabel?
     ///显示文字内容附加信息
     var accsryLabel: UILabel {
@@ -285,7 +309,7 @@ class HCollViewCellHoriValue2: HCollTmplCell {
         }
         return _accsryLabel!
     }
-    
+
     // 用于detailView布局
     private lazy var detailLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -294,7 +318,7 @@ class HCollViewCellHoriValue2: HCollTmplCell {
         stackView.alignment = .center
         return stackView
     }()
-    
+
     private var _detailView: HWebImageView?
     ///右边显示图片
     var detailView: HWebImageView {
@@ -303,7 +327,7 @@ class HCollViewCellHoriValue2: HCollTmplCell {
         }
         return _detailView!
     }
-    
+
     // 用于arrow布局
     private lazy var arrowLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -312,7 +336,7 @@ class HCollViewCellHoriValue2: HCollTmplCell {
         stackView.alignment = .center
         return stackView
     }()
-    
+
     // arrow
     private lazy var accsryView: UIImageView = {
         let accsryView = UIImageView()
@@ -320,35 +344,45 @@ class HCollViewCellHoriValue2: HCollTmplCell {
         accsryView.contentMode = .scaleAspectFill
         return accsryView
     }()
-    
+
     ///是否显示右边箭头
     var isShowAccsryArrow: Bool = false
-    
+
     // 设置layoutView通用间隔
     var layoutSpacing: CGFloat = 10.0
-    
+
     // 在imageView后面添加自定义间隔
     var layoutFirstSpacing: CGFloat = 0.0
-    
+
     // 在textLayoutView后面添加自定义间隔
     var layoutSecondSpacing: CGFloat = 0.0
-    
+
     // 在detailView后面添加自定义间隔
     var layoutThirdSpacing: CGFloat = 0.0
-    
+
     // 设置textLayoutView通用间隔
     var textSpacing: CGFloat = 5.0
-    
+
     // 在label后面添加自定义间隔
     var firstTextSpacing: CGFloat = 0.0
-    
+
     // 在detailLabel后面添加自定义间隔
     var secondTextSpacing: CGFloat = 0.0
-    
+
+    private var didSetupLayout = false
+    private var imageWidthConstraint: NSLayoutConstraint?
+    private var imageHeightConstraint: NSLayoutConstraint?
+    private var detailLabelWidthConstraint: NSLayoutConstraint?
+    private var accsryLabelWidthConstraint: NSLayoutConstraint?
+    private var detailWidthConstraint: NSLayoutConstraint?
+    private var detailHeightConstraint: NSLayoutConstraint?
+    private var accsryWidthConstraint: NSLayoutConstraint?
+    private var accsryHeightConstraint: NSLayoutConstraint?
+
     override func relayoutSubviews() {
-        
+
         let frame = self.bounds.inset(by: self.edgeInsets)
-        
+
         // 重设frame
         layoutView.frame = frame
         layoutView.spacing = layoutSpacing
@@ -363,46 +397,57 @@ class HCollViewCellHoriValue2: HCollTmplCell {
                 imageFrame.width = frame.height
                 imageFrame = imageFrame.inset(by: imageView.edgeInsets)
             }
-            
-            imageView.widthAnchor.constraint(equalToConstant: imageFrame.width).isActive = true
-            imageView.heightAnchor.constraint(equalToConstant: imageFrame.height).isActive = true
-            imageLayoutView.addArrangedSubview(imageView)
-            
-            layoutView.addArrangedSubview(imageLayoutView)
+
+            updateConstraint(&imageWidthConstraint, on: imageView, attr: .width, constant: imageFrame.width)
+            updateConstraint(&imageHeightConstraint, on: imageView, attr: .height, constant: imageFrame.height)
+
+            if !didSetupLayout {
+                imageLayoutView.addArrangedSubview(imageView)
+                layoutView.addArrangedSubview(imageLayoutView)
+            }
+
             if layoutFirstSpacing > 0 {
                 layoutView.setCustomSpacing(layoutFirstSpacing, after: imageLayoutView)
             }
         }
-        
+
         // textLayoutView
-        layoutView.addArrangedSubview(textLayoutView)
+        if !didSetupLayout {
+            layoutView.addArrangedSubview(textLayoutView)
+        }
         textLayoutView.spacing = textSpacing
         if layoutSecondSpacing > 0 {
             layoutView.setCustomSpacing(layoutSecondSpacing, after: textLayoutView)
         }
-        
+
         // label
-        textLayoutView.addArrangedSubview(label)
+        if !didSetupLayout {
+            textLayoutView.addArrangedSubview(label)
+        }
         if firstTextSpacing > 0 {
             textLayoutView.setCustomSpacing(firstTextSpacing, after: label)
         }
-        
+
         if let detailLabel = _detailLabel {
             if detailWidth > 0 {
-                detailLabel.widthAnchor.constraint(equalToConstant: detailWidth).isActive = true
+                updateConstraint(&detailLabelWidthConstraint, on: detailLabel, attr: .width, constant: detailWidth)
             }
-            textLayoutView.addArrangedSubview(detailLabel)
+            if !didSetupLayout {
+                textLayoutView.addArrangedSubview(detailLabel)
+            }
             if secondTextSpacing > 0 {
                 textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
             }
         }
         if let accsryLabel = _accsryLabel {
             if accsryWidth > 0 {
-                accsryLabel.widthAnchor.constraint(equalToConstant: accsryWidth).isActive = true
+                updateConstraint(&accsryLabelWidthConstraint, on: accsryLabel, attr: .width, constant: accsryWidth)
             }
-            textLayoutView.addArrangedSubview(accsryLabel)
+            if !didSetupLayout {
+                textLayoutView.addArrangedSubview(accsryLabel)
+            }
         }
-        
+
         // detailView
         if let detailView = _detailView {
 
@@ -413,12 +458,15 @@ class HCollViewCellHoriValue2: HCollTmplCell {
                 detailFrame.width = frame.height
                 detailFrame = detailFrame.inset(by: detailView.edgeInsets)
             }
-            
-            detailView.widthAnchor.constraint(equalToConstant: detailFrame.width).isActive = true
-            detailView.heightAnchor.constraint(equalToConstant: detailFrame.height).isActive = true
-            detailLayoutView.addArrangedSubview(detailView)
-            
-            layoutView.addArrangedSubview(detailLayoutView)
+
+            updateConstraint(&detailWidthConstraint, on: detailView, attr: .width, constant: detailFrame.width)
+            updateConstraint(&detailHeightConstraint, on: detailView, attr: .height, constant: detailFrame.height)
+
+            if !didSetupLayout {
+                detailLayoutView.addArrangedSubview(detailView)
+                layoutView.addArrangedSubview(detailLayoutView)
+            }
+
             if layoutThirdSpacing > 0 {
                 layoutView.setCustomSpacing(layoutThirdSpacing, after: detailLayoutView)
             }
@@ -426,18 +474,21 @@ class HCollViewCellHoriValue2: HCollTmplCell {
 
         // accsryView
         if isShowAccsryArrow {
-            layoutView.addArrangedSubview(arrowLayoutView)
-            accsryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
-            accsryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
-            arrowLayoutView.addArrangedSubview(accsryView)
+            if !didSetupLayout {
+                layoutView.addArrangedSubview(arrowLayoutView)
+                arrowLayoutView.addArrangedSubview(accsryView)
+            }
+            updateConstraint(&accsryWidthConstraint, on: accsryView, attr: .width, constant: 7)
+            updateConstraint(&accsryHeightConstraint, on: accsryView, attr: .height, constant: 13)
         }
-        
+
+        didSetupLayout = true
     }
 }
 
 ///三个label纵向显示
 class HCollViewCellHoriValue3: HCollTmplCell {
-    
+
     // 用于imageView布局
     private lazy var imageLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -446,7 +497,7 @@ class HCollViewCellHoriValue3: HCollTmplCell {
         stackView.alignment = .center
         return stackView
     }()
-    
+
     private var _imageView: HWebImageView?
     ///左边显示图片
     var imageView: HWebImageView {
@@ -455,7 +506,7 @@ class HCollViewCellHoriValue3: HCollTmplCell {
         }
         return _imageView!
     }
-    
+
     // 用于text布局
     lazy var textLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -464,14 +515,14 @@ class HCollViewCellHoriValue3: HCollTmplCell {
         stackView.alignment = .fill
         return stackView
     }()
-    
+
     ///显示文字内容
     lazy var label: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14.0)
         return label
     }()
-    
+
     private var _detailLabel: UILabel?
     ///显示文字内容详情
     var detailLabel: UILabel {
@@ -481,7 +532,7 @@ class HCollViewCellHoriValue3: HCollTmplCell {
         }
         return _detailLabel!
     }
-    
+
     private var _accsryLabel: UILabel?
     ///显示文字内容附加信息
     var accsryLabel: UILabel {
@@ -491,7 +542,7 @@ class HCollViewCellHoriValue3: HCollTmplCell {
         }
         return _accsryLabel!
     }
-    
+
     // 用于detailView布局
     private lazy var detailLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -500,7 +551,7 @@ class HCollViewCellHoriValue3: HCollTmplCell {
         stackView.alignment = .center
         return stackView
     }()
-    
+
     private var _detailView: HWebImageView?
     ///文字右边，箭头左边显示图片
     var detailView: HWebImageView {
@@ -509,7 +560,7 @@ class HCollViewCellHoriValue3: HCollTmplCell {
         }
         return _detailView!
     }
-    
+
     // 用于arrow布局
     private lazy var arrowLayoutView: UIStackView = {
         let stackView = UIStackView()
@@ -518,7 +569,7 @@ class HCollViewCellHoriValue3: HCollTmplCell {
         stackView.alignment = .center
         return stackView
     }()
-    
+
     // arrow
     private lazy var accsryView: UIImageView = {
         let accsryView = UIImageView()
@@ -526,35 +577,43 @@ class HCollViewCellHoriValue3: HCollTmplCell {
         accsryView.contentMode = .scaleAspectFill
         return accsryView
     }()
-    
+
     ///是否显示右边箭头
     var isShowAccsryArrow: Bool = false
-    
+
     // 设置layoutView通用间隔
     var layoutSpacing: CGFloat = 10.0
-    
+
     // 在imageView后面添加自定义间隔
     var layoutFirstSpacing: CGFloat = 0.0
-    
+
     // 在textLayoutView后面添加自定义间隔
     var layoutSecondSpacing: CGFloat = 0.0
-    
+
     // 在detailView后面添加自定义间隔
     var layoutThirdSpacing: CGFloat = 0.0
-    
+
     // 设置textLayoutView通用间隔
     var textSpacing: CGFloat = 0.0
-    
+
     // 在label后面添加自定义间隔
     var firstTextSpacing: CGFloat = 0.0
-    
+
     // 在detailLabel后面添加自定义间隔
     var secondTextSpacing: CGFloat = 0.0
-    
+
+    private var didSetupLayout = false
+    private var imageWidthConstraint: NSLayoutConstraint?
+    private var imageHeightConstraint: NSLayoutConstraint?
+    private var detailWidthConstraint: NSLayoutConstraint?
+    private var detailHeightConstraint: NSLayoutConstraint?
+    private var accsryWidthConstraint: NSLayoutConstraint?
+    private var accsryHeightConstraint: NSLayoutConstraint?
+
     override func relayoutSubviews() {
-        
+
         let frame = self.bounds.inset(by: self.edgeInsets)
-        
+
         // 重设frame
         layoutView.frame = frame
         layoutView.spacing = layoutSpacing
@@ -569,40 +628,47 @@ class HCollViewCellHoriValue3: HCollTmplCell {
                 imageFrame.width = frame.height
                 imageFrame = imageFrame.inset(by: imageView.edgeInsets)
             }
-            
-            imageView.widthAnchor.constraint(equalToConstant: imageFrame.width).isActive = true
-            imageView.heightAnchor.constraint(equalToConstant: imageFrame.height).isActive = true
-            imageLayoutView.addArrangedSubview(imageView)
-            
-            layoutView.addArrangedSubview(imageLayoutView)
+
+            updateConstraint(&imageWidthConstraint, on: imageView, attr: .width, constant: imageFrame.width)
+            updateConstraint(&imageHeightConstraint, on: imageView, attr: .height, constant: imageFrame.height)
+
+            if !didSetupLayout {
+                imageLayoutView.addArrangedSubview(imageView)
+                layoutView.addArrangedSubview(imageLayoutView)
+            }
+
             if layoutFirstSpacing > 0 {
                 layoutView.setCustomSpacing(layoutFirstSpacing, after: imageLayoutView)
             }
         }
-        
+
         // textLayoutView
-        layoutView.addArrangedSubview(textLayoutView)
+        if !didSetupLayout {
+            layoutView.addArrangedSubview(textLayoutView)
+        }
         textLayoutView.spacing = textSpacing
         if layoutSecondSpacing > 0 {
             layoutView.setCustomSpacing(layoutSecondSpacing, after: textLayoutView)
         }
-        
+
         // label
-        textLayoutView.addArrangedSubview(label)
+        if !didSetupLayout {
+            textLayoutView.addArrangedSubview(label)
+        }
         if firstTextSpacing > 0 {
             textLayoutView.setCustomSpacing(firstTextSpacing, after: label)
         }
-        
-        if let detailLabel = _detailLabel {
+
+        if let detailLabel = _detailLabel, !didSetupLayout {
             textLayoutView.addArrangedSubview(detailLabel)
             if secondTextSpacing > 0 {
                 textLayoutView.setCustomSpacing(secondTextSpacing, after: detailLabel)
             }
         }
-        if let accsryLabel = _accsryLabel {
+        if let accsryLabel = _accsryLabel, !didSetupLayout {
             textLayoutView.addArrangedSubview(accsryLabel)
         }
-        
+
         // detailView
         if let detailView = _detailView {
 
@@ -613,12 +679,15 @@ class HCollViewCellHoriValue3: HCollTmplCell {
                 detailFrame.width = frame.height
                 detailFrame = detailFrame.inset(by: detailView.edgeInsets)
             }
-            
-            detailView.widthAnchor.constraint(equalToConstant: detailFrame.width).isActive = true
-            detailView.heightAnchor.constraint(equalToConstant: detailFrame.height).isActive = true
-            detailLayoutView.addArrangedSubview(detailView)
-            
-            layoutView.addArrangedSubview(detailLayoutView)
+
+            updateConstraint(&detailWidthConstraint, on: detailView, attr: .width, constant: detailFrame.width)
+            updateConstraint(&detailHeightConstraint, on: detailView, attr: .height, constant: detailFrame.height)
+
+            if !didSetupLayout {
+                detailLayoutView.addArrangedSubview(detailView)
+                layoutView.addArrangedSubview(detailLayoutView)
+            }
+
             if layoutThirdSpacing > 0 {
                 layoutView.setCustomSpacing(layoutThirdSpacing, after: detailLayoutView)
             }
@@ -626,12 +695,30 @@ class HCollViewCellHoriValue3: HCollTmplCell {
 
         // accsryView
         if isShowAccsryArrow {
-            layoutView.addArrangedSubview(arrowLayoutView)
-            accsryView.widthAnchor.constraint(equalToConstant: 7).isActive = true
-            accsryView.heightAnchor.constraint(equalToConstant: 13).isActive = true
-            arrowLayoutView.addArrangedSubview(accsryView)
+            if !didSetupLayout {
+                layoutView.addArrangedSubview(arrowLayoutView)
+                arrowLayoutView.addArrangedSubview(accsryView)
+            }
+            updateConstraint(&accsryWidthConstraint, on: accsryView, attr: .width, constant: 7)
+            updateConstraint(&accsryHeightConstraint, on: accsryView, attr: .height, constant: 13)
         }
 
+        didSetupLayout = true
     }
+}
 
+private func updateConstraint(_ constraint: inout NSLayoutConstraint?, on view: UIView, attr: NSLayoutConstraint.Attribute, constant: CGFloat) {
+    if let existing = constraint, existing.firstAttribute == attr {
+        existing.constant = constant
+    } else {
+        constraint?.isActive = false
+        let newConstraint = NSLayoutConstraint(
+            item: view, attribute: attr,
+            relatedBy: .equal,
+            toItem: nil, attribute: .notAnAttribute,
+            multiplier: 1, constant: constant
+        )
+        newConstraint.isActive = true
+        constraint = newConstraint
+    }
 }

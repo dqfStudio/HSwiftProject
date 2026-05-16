@@ -5,269 +5,200 @@
 //  Created by Wind on 2019/11/28.
 //  Copyright © 2019 wind. All rights reserved.
 //
+//  HUserStore is responsible for persisting SENSITIVE user credentials to Keychain.
+//  Non-sensitive user data (profile info, preferences) should live in HUserCore (UserDefaults).
+//
+//  Persistence flow:
+//    Login  → isLogin = true  → saveUser()   → Keychain.set(JSON, forKey: userId)
+//    Logout → isLogin = false → removeUser() → Keychain.delete + resetFields()
+//    Launch → HUserStore.defaults → tries to restore from Keychain, restores isLogin = true if found
+//
+//  Why Codable instead of NSCoding + Mirror:
+//    • Type-safe: compiler catches field renames / deletions at compile time
+//    • No KVC: Bool/Int fields survive encode/decode correctly (no decodeObject pitfall)
+//    • JSON payload is human-readable during debugging
+//    • Eliminates requiringSecureCoding:false risk
+//    • isLogin excluded from CodingKeys → restore never triggers didSet side-effects
+//
+// ─────────────────────────────────────────────────────────────
+// Usage Guide
+// ─────────────────────────────────────────────────────────────
+//
+//  【登录】设置用户信息后再设 isLogin = true，触发自动保存
+//
+//    HUserStore.defaults.userId   = "u_123"
+//    HUserStore.defaults.userName = "张三"
+//    HUserStore.defaults.password = "secret"
+//    HUserStore.defaults.isLogin  = true      // → saveUser() 写入 Keychain
+//
+//  【读取】
+//
+//    let uid  = HUserStore.defaults.userId     // Optional<String>
+//    let name = HUserStore.defaults.userName
+//    let loggedIn = HUserStore.defaults.isLogin
+//
+//  【退出登录】
+//
+//    HUserStore.defaults.isLogin = false       // → removeUser() 删除 Keychain + 字段置 nil
+//
+//  【App 启动自动恢复】
+//
+//    // HUserStore.defaults 在首次访问时自动尝试从 Keychain 恢复。
+//    // 恢复成功时 isLogin 自动置为 true，无需手动判断。
+//    if HUserStore.defaults.isLogin {
+//        // 用户已登录，直接进入主页
+//    }
+//
+//  【新增持久化字段】
+//
+//    // 1. 在 Fields 区添加属性
+//    var avatar: String?
+//    // 2. 在 CodingKeys 里同步添加（否则该字段不会被保存）
+//    case avatar
 
 import UIKit
 
-private var KUSER = "H_USER_DEFAULTS"
+// MARK: - Constants
 
-//class HUserStore: NSObject, NSCoding {
-//
-//    /** 是否登录 */
-//    var isLogin: Bool = false {
-//        didSet {
-//            if isLogin != oldValue {
-//                isLogin ? saveUser() : removeUser()
-//            }
-//        }
-//    }
-//
-//    /** 用户ID */
-//    var userId: String?
-//    var userName: String?
-//
-//    /** 密码 */
-//    var password: String?
-//
-//    
-//    required init?(coder aDecoder: NSCoder) {
-//        super.init()
-//        let properties = Mirror(reflecting: self).children
-//        for property in properties {
-//            if let propertyName = property.label,
-//               let propertyValue = aDecoder.decodeObject(forKey: propertyName) {
-//                self.setValue(propertyValue, forKey: propertyName)
-//            }
-//        }
-//    }
-//
-//    func encode(with aCoder: NSCoder) {
-//        let properties = Mirror(reflecting: self).children
-//        for property in properties {
-//            if let propertyName = property.label {
-//                let propertyValue = property.value
-//                aCoder.encode(propertyValue, forKey: propertyName)
-//            }
-//        }
-//    }
-//
-//    static var defaults: HUserStore = {
-//        if let defaultsUserId = HKeychainSwift.defaults.get(KUSER), !defaultsUserId.isEmpty,
-//            let data = HKeychainSwift.defaults.getData(defaultsUserId),
-//            let share = try? NSKeyedUnarchiver.unarchivedObject(ofClass: HUserStore.self, from: data),
-//            share.responds(to: #selector(loadObserver)) {
-//            share.loadObserver()
-//            return share
-//        } else {
-//            let share = HUserStore()
-//            share.loadObserver()
-//            share.initData()
-//            return share
-//        }
-//    }()
-//    
-//    override init() {
-//        super.init()
-//    }
-//
-//    private static var defaultsUserId: String? {
-//        return HUserStore.defaults.userId
-//    }
-//
-//    @objc
-//    private func loadObserver() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(saveUser), name: UIApplication.willTerminateNotification, object: nil)
-//    }
-//    
-//    /// 默认初始属性值
-//    private func initData() {
-//        let dataSource = ["userId": "2222", "userName": "张三", "password": "123456"]
-//        dataSource.forEach { (key, value) in
-//            self.setValue(value, forKey: key)
-//        }
-//    }
-//
-//    @objc
-//    private func saveUser() {
-//        guard isLogin else { return }
-//        if let defaultsUserId = HUserStore.defaultsUserId, !defaultsUserId.isEmpty,
-//           let data = try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false) {
-//            HKeychainSwift.defaults.set(data, forKey: defaultsUserId)
-//            HKeychainSwift.defaults.set(defaultsUserId, forKey: KUSER)
-//            HKeychainSwift.defaults.synchronizable = true
-//        }
-//    }
-//
-//    /// 登出的时候需要移除用户信息
-//    private func removeUser() {
-//        //删除记录的登录标志
-//        HKeychainSwift.defaults.delete(KUSER)
-//        HKeychainSwift.defaults.synchronizable = true
-//        //清空所有属性值
-//        cleanProperties()
-//    }
-//
-//    /// 清空属性值
-//    private func cleanProperties() {
-//        let properties = Mirror(reflecting: self).children
-//        for property in properties {
-//            if let propertyName = property.label {
-//                let propertyValue = property.value
-//                switch propertyValue {
-//                case is NSString:
-//                    self.setValue("", forKey: propertyName)
-//                case is NSNumber:
-//                    self.setValue(NSNumber(), forKey: propertyName)
-//                case is NSDictionary:
-//                    self.setValue([:], forKey: propertyName)
-//                case is NSArray:
-//                    self.setValue([], forKey: propertyName)
-//                default:
-//                    self.setValue(nil, forKey: propertyName)
-//                }
-//            }
-//        }
-//        //加载默认初始属性值
-//        initData()
-//    }
-//
-//    /// 如果属性和字典中的key不一致，可以重写此方法 / 或者readonly
-//    /// 不一致的key和对应的value都会通过这个方法返回，可以在此方法中做特殊处理
-//    override func setValue(_ value: Any?, forUndefinedKey key: String) {
-//        //NSLog(@"-------> forUndefinedKey:%@  value:%@",key,value)
-//    }
-//
-//    ///线上环境链接
-//    func setBaseLink(_ baseLink: String) {
-//        UserDefaults.standard.set(baseLink, forKey: "baseLink")
-//        UserDefaults.standard.synchronize()
-//    }
-//    func baseLink() -> String? {
-//        UserDefaults.standard.object(forKey: "baseLink") as? String
-//    }
-//
-//}
+/// Keychain key that records the currently active userId,
+/// so the correct user record can be restored on next launch.
+private let kUserIndexKey = "H_USER_DEFAULTS"
 
-class HUserStore: NSObject, NSCoding {
-    // 是否登录
+// MARK: - HUserStore
+
+class HUserStore: NSObject, Codable {
+
+    // MARK: - Fields
+
+    // NOTE: isLogin is intentionally excluded from Codable (see CodingKeys).
+    // It is a runtime-only flag; persisting it would cause removeUser() to fire
+    // silently the next time the store is restored from Keychain.
+
+    /// Runtime login flag. Not persisted to Keychain.
+    /// Setting to true  → saveUser()   (writes JSON to Keychain)
+    /// Setting to false → removeUser() (deletes Keychain entry + resets fields)
     var isLogin: Bool = false {
         didSet {
-            if isLogin != oldValue {
-                isLogin ? saveUser() : removeUser()
-            }
+            guard isLogin != oldValue else { return }
+            isLogin ? saveUser() : removeUser()
         }
     }
 
-    // 用户ID
+    /// Unique identifier for this user. Also used as the Keychain storage key.
     var userId: String?
+
+    /// Display name.
     var userName: String?
-    // 密码
+
+    /// Sensitive credential — stored in Keychain only, never in UserDefaults.
     var password: String?
 
-    // 单例
+    // MARK: - Codable
+
+    // isLogin is intentionally excluded: it is a runtime flag, not a persisted value.
+    // Persisting it would trigger didSet (saveUser/removeUser) silently on next restore.
+    //
+    // ⚠️ When adding a new persisted field, you MUST add it here too.
+    //    Fields missing from CodingKeys will be silently ignored during encode/decode.
+    private enum CodingKeys: String, CodingKey {
+        case userId, userName, password
+        // case newField   ← add new persisted fields here
+    }
+
+    // MARK: - Singleton
+
+    /// Shared instance. Automatically restored from Keychain on first access.
+    /// If a previous session is found, isLogin is set to true automatically.
     static let defaults: HUserStore = {
-        if let defaultsUserId = HKeychainSwift.defaults.get(KUSER),
-           let data = HKeychainSwift.defaults.getData(defaultsUserId),
-           let store = try? NSKeyedUnarchiver.unarchivedObject(ofClass: HUserStore.self, from: data) {
-            return store
+        let store: HUserStore
+        if let restored = HUserStore.restore() {
+            store = restored
+            // Bypass didSet by using the underlying setter directly via a flag.
+            // We must NOT go through isLogin = true here because saveUser() would
+            // fire before the notification observer is registered (observer is added below).
+            store._isLoginRestored = true
+        } else {
+            store = HUserStore()
         }
-        let newStore = HUserStore()
-        newStore.initData()
-        return newStore
+        store.setupNotificationObserver()
+        // Now that observer is registered, reflect restored login state safely.
+        if store._isLoginRestored {
+            store.isLogin = true
+        }
+        return store
     }()
 
-    // 初始化
+    // Internal flag used only during singleton init to avoid premature saveUser() call.
+    private var _isLoginRestored = false
+
+    // MARK: - Init
+
     override init() {
         super.init()
-        setupNotificationObserver()
     }
 
-    // 初始化属性
-    private func initData() {
-        userId = "2222"
-        userName = "张三"
-        password = "123456"
+    // MARK: - Keychain Persistence
+
+    /// Tries to decode a previously saved HUserStore from Keychain.
+    /// Returns nil when no record exists or the JSON is malformed.
+    private static func restore() -> HUserStore? {
+        guard
+            let userId = HKeychainSwift.defaults.get(kUserIndexKey),
+            !userId.isEmpty,
+            let data = HKeychainSwift.defaults.getData(userId),
+            let store = try? JSONDecoder().decode(HUserStore.self, from: data)
+        else { return nil }
+        return store
     }
 
-    // 注册通知监听
-    private func setupNotificationObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(saveUser), name: UIApplication.willTerminateNotification, object: nil)
-    }
-
-    // 保存用户信息
+    /// Encodes self as JSON and writes it to Keychain under userId.
+    /// synchronizable must be set BEFORE the write call so that iCloud
+    /// sync is applied at item-creation time (not after).
     @objc
     private func saveUser() {
-        guard isLogin, let userId = userId else { return }
-        if let data = try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false) {
-            HKeychainSwift.defaults.set(data, forKey: userId)
-            HKeychainSwift.defaults.set(userId, forKey: KUSER)
-            HKeychainSwift.defaults.synchronizable = true
-        }
+        guard isLogin, let userId = userId, !userId.isEmpty else { return }
+        guard let data = try? JSONEncoder().encode(self) else { return }
+        HKeychainSwift.defaults.synchronizable = true   // must precede set()
+        HKeychainSwift.defaults.set(data, forKey: userId)
+        HKeychainSwift.defaults.set(userId, forKey: kUserIndexKey)
     }
 
-    // 移除用户信息
+    /// Deletes all Keychain entries for this user and resets fields to nil.
     private func removeUser() {
-        HKeychainSwift.defaults.delete(KUSER)
-        HKeychainSwift.defaults.synchronizable = true
-        cleanProperties()
-    }
-
-    // 清空属性值
-    private func cleanProperties() {
-        let mirror = Mirror(reflecting: self)
-        for child in mirror.children {
-            if let propertyName = child.label {
-                let defaultValue: Any? = {
-                    switch child.value {
-                    case is String:
-                        return ""
-                    case is NSNumber:
-                        return NSNumber()
-                    case is [AnyHashable: Any]:
-                        return [:]
-                    case is [Any]:
-                        return []
-                    default:
-                        return nil
-                    }
-                }()
-                setValue(defaultValue, forKey: propertyName)
-            }
+        HKeychainSwift.defaults.synchronizable = true   // must precede delete()
+        HKeychainSwift.defaults.delete(kUserIndexKey)
+        if let userId = userId {
+            HKeychainSwift.defaults.delete(userId)
         }
-        initData()
+        resetFields()
     }
 
-    // 编码方法
-    func encode(with aCoder: NSCoder) {
-        let mirror = Mirror(reflecting: self)
-        for child in mirror.children {
-            if let propertyName = child.label {
-                aCoder.encode(child.value, forKey: propertyName)
-            }
-        }
+    /// Resets all persisted fields to nil.
+    /// Does NOT touch isLogin to avoid recursive didSet triggers.
+    private func resetFields() {
+        userId   = nil
+        userName = nil
+        password = nil
     }
 
-    // 解码方法
-    required init?(coder aDecoder: NSCoder) {
-        super.init()
-        let mirror = Mirror(reflecting: self)
-        for child in mirror.children {
-            if let propertyName = child.label {
-                let decodedValue = aDecoder.decodeObject(forKey: propertyName)
-                setValue(decodedValue, forKey: propertyName)
-            }
-        }
-    }
+    // MARK: - App Lifecycle
 
-    // 设置线上环境链接
-    func setBaseLink(_ baseLink: String) {
-        UserDefaults.standard.set(baseLink, forKey: "baseLink")
-        // 在 iOS 9 之后，synchronize 会自动调用，不需要手动调用
-        // UserDefaults.standard.synchronize()
-    }
-
-    // 获取线上环境链接
-    func baseLink() -> String? {
-        return UserDefaults.standard.string(forKey: "baseLink")
+    private func setupNotificationObserver() {
+        // willTerminate: called when user explicitly quits via app switcher
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(saveUser),
+            name: UIApplication.willTerminateNotification,
+            object: nil
+        )
+        // didEnterBackground: iOS may kill the app without willTerminate;
+        // saving here ensures data is persisted before suspension.
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(saveUser),
+            name: UIApplication.didEnterBackgroundNotification,
+            object: nil
+        )
     }
 
     deinit {

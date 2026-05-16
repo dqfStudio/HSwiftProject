@@ -80,19 +80,19 @@ extension HPostCommentViewApex {
     
     @objc
     func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HTupleTmplCell.self, indexPath.stringValue, true, indexPath) as! HTupleTmplCell
+        let cell = tuple.reuseCell(HTupleTmplCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleTmplCell
         let frame = cell.layoutViewBounds
         
         var headerView = cell.layoutView.viewWithTag(121314) as? HPostCommentHeader
         if headerView == nil {
             headerView = HPostCommentHeader(frame: frame)
             headerView!.tag = 121314
-            headerView!.avatarButton.pressed = { (sender, data) in
+            headerView!.avatarButton.pressed = { (sender: Any, data: Any) in
                 NSLog("")
             }
             cell.layoutView.addSubview(headerView!)
         }
-        headerView!.avatarButton.backgroundColor = .red
+        headerView!.avatarButton.backgroundColor = UIColor.red
         headerView!.nameLabel.text = "张三"
         headerView!.dateLabel.text = "2023-08-10"
         
@@ -127,7 +127,7 @@ extension HPostCommentViewApex {
     
     @objc
     func tupleExa1_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HTupleLabelCell.self, indexPath.stringValue, true, indexPath) as! HTupleLabelCell
+        let cell = tuple.reuseCell(HTupleLabelCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleLabelCell
         cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
         cell.label.textColor = UIColor(hex: "#17191E")
         cell.label.numberOfLines = 0
@@ -170,13 +170,13 @@ extension HPostCommentViewApex {
     func tupleExa2_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         // 是否已经翻译过了
         if postVM.postTranslate == .isTranslated {
-            let cell = tuple.reuseCell(HTupleLabelCell.self, indexPath.stringValue, true, indexPath) as! HTupleLabelCell
+            let cell = tuple.reuseCell(HTupleLabelCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleLabelCell
             cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
             cell.label.textColor = UIColor(hex: "#17191E")
             cell.label.numberOfLines = 0
             cell.label.text = postVM.post
         } else {
-            let cell = tuple.reuseCell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
+            let cell = tuple.reuseCell(HTupleViewCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleViewCell
             
             let frame = cell.layoutViewBounds
             let width = "翻译内容".widthWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToHeight: postTranslateSpace - 8.0)
@@ -186,7 +186,7 @@ extension HPostCommentViewApex {
             cell.buttonView.textColor = UIColor(hex: "#3879FC")
             cell.buttonView.text = "翻译内容"
             
-            cell.buttonView.pressed = { (sender, data) in
+            cell.buttonView.pressed = { (sender: Any, data: Any) in
                 // 是否已经翻译过了
                 self.postVM.postTranslate = .isTranslated
                 // 刷新tuple view
@@ -219,7 +219,7 @@ extension HPostCommentViewApex {
     
     @objc
     func tupleExa3_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
+        let cell = tuple.reuseCell(HTupleViewCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleViewCell
         let frame = cell.layoutViewBounds
         
         let string1 = "14小时前"
@@ -272,7 +272,7 @@ extension HPostCommentViewApex {
     
     @objc
     func tupleExa4_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
+        let cell = tuple.reuseCell(HTupleViewCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleViewCell
         let frame = cell.layoutViewBounds
         
         let ff = true
@@ -285,7 +285,7 @@ extension HPostCommentViewApex {
             cell.buttonView.textFont = UIFont.font(ofSize: 14, weight: .medium)
             cell.buttonView.textColor = UIColor(hex: "#727781")
             cell.buttonView.text = string
-            cell.buttonView.pressed = { (sender, data) in
+            cell.buttonView.pressed = { (sender: Any, data: Any) in
                 // 刷新tuple view
                 UIView.performWithoutAnimation {
                     // 更多按钮高度
@@ -301,7 +301,7 @@ extension HPostCommentViewApex {
             cell.buttonView.textFont = UIFont.font(ofSize: 14, weight: .medium)
             cell.buttonView.textColor = UIColor(hex: "#727781")
             cell.buttonView.text = string1
-            cell.buttonView.pressed = { (sender, data) in
+            cell.buttonView.pressed = { (sender: Any, data: Any) in
                 // 刷新tuple view
                 UIView.performWithoutAnimation {
                     self.tupleView.reloadData()
@@ -315,7 +315,7 @@ extension HPostCommentViewApex {
             cell.detailButton.textFont = UIFont.font(ofSize: 14, weight: .medium)
             cell.detailButton.textColor = UIColor(hex: "#727781")
             cell.detailButton.text = string2
-            cell.detailButton.pressed = { (sender, data) in
+            cell.detailButton.pressed = { (sender: Any, data: Any) in
                 // 刷新tuple view
                 UIView.performWithoutAnimation {
                     self.tupleView.reloadData()
@@ -345,7 +345,7 @@ extension HPostCommentViewApex {
     
     @objc
     func tupleExa5_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        _ = tuple.reuseCell(HTupleTmplCell.self, indexPath.stringValue, true, indexPath) as! HTupleTmplCell
+        _ = tuple.reuseCell(HTupleTmplCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleTmplCell
     }
     
 }

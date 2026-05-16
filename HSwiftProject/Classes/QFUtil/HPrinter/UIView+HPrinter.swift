@@ -35,7 +35,7 @@ extension UIView {
     private func logAction() {
         
         if self.isSystemClass(self.classForCoder) == false {
-            print("HPrinting-->className:\(self.className)\n")
+            print("HPrinting-->className:\(NSStringFromClass(type(of: self)))\n")
         }
         
         if let loginfo = self.logInfo(), !loginfo.isEmpty {
@@ -53,11 +53,11 @@ extension UIView {
         }
         
         if let superview = self.superview, self.isSystemClass(superview.classForCoder) == false {
-            print("HPrinting-->super[1]ClassName:\(superview.className)\n")
+            print("HPrinting-->super[1]ClassName:\(NSStringFromClass(type(of: superview)))\n")
         }else if let superview = self.superview?.superview, self.isSystemClass(superview.classForCoder) == false {
-            print("HPrinting-->super[2]ClassName:\(superview.className)\n")
+            print("HPrinting-->super[2]ClassName:\(NSStringFromClass(type(of: superview)))\n")
         }else if let superview = self.superview?.superview?.superview, self.isSystemClass(superview.classForCoder) == false {
-            print("HPrinting-->super[3]ClassName:\(superview.className)\n")
+            print("HPrinting-->super[3]ClassName:\(NSStringFromClass(type(of: superview)))\n")
         }
         
         self.logVC()

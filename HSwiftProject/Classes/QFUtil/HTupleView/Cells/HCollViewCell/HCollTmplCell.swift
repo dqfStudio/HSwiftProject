@@ -18,10 +18,15 @@ class HCollTmplCell: HCollBaseCell {
         }
         set {
             if edgeInsets != newValue {
-                layoutView.frame = self.bounds.inset(by: newValue)
                 self.setAssociateValue(NSCoder.string(for: newValue), key: &kViewEdgeInsetsKey)
+                self.setNeedsLayout()
             }
         }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutView.frame = bounds.inset(by: edgeInsets)
     }
 
     /// The layout view loaded on the content view

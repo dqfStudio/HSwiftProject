@@ -80,8 +80,8 @@ class HPostCommentVC: HViewController, HTupleViewDelegate {
     }
 
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HPostCommentViewCell.self, indexPath.stringValue, true, indexPath) as! HPostCommentViewCell
-        cell.backgroundColor = .green
+        let cell = tuple.reuseCell(HPostCommentViewCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HPostCommentViewCell
+        cell.backgroundColor = UIColor.green
         guard indexPath.row < postList.count else { return }
 
         cell.layoutView.snp.makeConstraints { make in

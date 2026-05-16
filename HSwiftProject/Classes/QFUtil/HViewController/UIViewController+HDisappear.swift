@@ -8,174 +8,155 @@
 
 import UIKit
 
-// Define the HVCAppearType enumeration to represent the appearance of a view controller
+// MARK: - Enums
+
+/// 视图控制器出现类型
 @objc
-enum HVCAppearType : Int {
+enum HVCAppearType: Int {
+    /// 未定义
     case undefine = 0
+    /// 模态展示
     case present  = 1
+    /// 导航推入
     case push     = 2
 }
 
-// Define the HVCDisappearType enumeration to represent the disappearance of a view controller
+/// 视图控制器消失类型
 @objc
-enum HVCDisappearType : Int {
+enum HVCDisappearType: Int {
+    /// 未定义
     case undefine = 0
+    /// 导航推入（被新页面覆盖）
     case push     = 1
+    /// 导航弹出
     case pop      = 2
+    /// 模态消失
     case dismiss  = 3
 }
 
-// Define the private variable kHVCAppearTypeKey
+// MARK: - Associated Objects
+
 private var kHVCAppearTypeKey: Void?
-//private var kNaviLeftItemKey:  Void?
-//private var kNaviRightItemKey: Void?
+
+// MARK: - UIViewController Extension
 
 extension UIViewController {
 
-    // Get the appearance of the view controller
+    // MARK: - Properties
+    
+    /// 视图控制器出现类型
     var appearType: HVCAppearType {
         get {
-            let value = self.getAssociatedValueForKey(&kHVCAppearTypeKey) as? NSNumber ?? NSNumber(value: 0)
-            return HVCAppearType(rawValue: value.intValue) ?? .undefine
+            let value = getAssociatedValueForKey(&kHVCAppearTypeKey) as? Int ?? 0
+            return HVCAppearType(rawValue: value) ?? .undefine
         }
         set {
-            // Set the appearance of the view controller
-            self.setAssociateValue(NSNumber(value: newValue.rawValue), key: &kHVCAppearTypeKey)
+            setAssociateValue(newValue.rawValue, key: &kHVCAppearTypeKey)
         }
     }
 
-    // The view controller is about to disappear
+    // MARK: - Methods
+    
+    /// 视图控制器即将消失
     @objc
     func vcWillDisappear(_ type: HVCDisappearType) { }
     
-//    @objc
-//    func addNaviLeftItem(_ color: UIColor = UIColor.white) {
-//        let leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "hvc_back_icon"), style: .plain, target: self, action: #selector(naviBack))
-//        leftBarButtonItem.tintColor = color
-//        self.navigationItem.leftBarButtonItem = leftBarButtonItem
-//    }
-    
-    /// Return event processing
+    /// 返回事件处理
     @objc
     func naviBack(_ completion: (() -> Void)? = nil) {
-        if let navi = self.navigationController {
-            if navi.isKind(of: HBaseNaviController.self), self.isKind(of: HBaseController.self) {
-                switch (self.appearType) {
-                case .undefine, .present:
-                    // dismiss with present animation
-                    self.dismiss(animated: true, completion: {
-                        completion?()
-                    })
-                    return
-                case .push:
-                    // pop view controller with push animation
-                    completion?()
-                    navi.popViewController(animated: true)
-                    return
-                default:
-                    break
-                }
+        // 优先判断是否存在导航控制器
+        guard let navi = navigationController else {
+            dismiss(animated: true, completion: completion)
+            return
+        }
+        
+        // 判断是否为自定义导航+自定义控制器
+        let isCustomNavAndVC = navi is HBaseNaviController && self is HBaseController
+        
+        if isCustomNavAndVC {
+            // 按 appearType 分支处理
+            switch appearType {
+            case .push:
+                navi.popViewController(animated: true)
+                completion?()
+            case .undefine, .present:
+                fallthrough
+            default:
+                dismiss(animated: true, completion: completion)
+            }
+        } else {
+            // 非自定义导航/控制器：判断是否可 pop
+            let canPop = navi.viewControllers.count > 1 && navi.topViewController === self
+            if canPop {
+                navi.popViewController(animated: true)
+                completion?()
             } else {
-                let viewcontrollers = navi.viewControllers
-                let topViewController = navi.topViewController
-                if viewcontrollers.count > 1 && topViewController == self {
-                    // pop view controller with push animation
-                    completion?()
-                    navi.popViewController(animated: true)
-                    return
-                }
+                dismiss(animated: true, completion: completion)
             }
         }
-        // dismiss with present animation
-        self.dismiss(animated: true, completion: {
-            completion?()
-        })
     }
-    
-    /*
-    var leftBarButtonItem: UIBarButtonItem? {
-        get { return self.getAssociatedValueForKey(&kNaviLeftItemKey) as? UIBarButtonItem }
-        set {
-            if let view = newValue?.customView, view.isKind(of: UIButton.self) {
-                let button = view as! UIButton
-                button.contentEdgeInsets = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 0)
-            }else {
-                newValue?.imageInsets = UIEdgeInsets(top: 0, left: -8, bottom: 0, right: 0)
-            }
-            self.navigationItem.leftBarButtonItem = newValue
-            self.setAssociateValue(newValue, key: &kNaviLeftItemKey)
-        }
-    }
-    
-    var rightBarButtonItem: UIBarButtonItem? {
-        get { return self.getAssociatedValueForKey(&kNaviRightItemKey) as? UIBarButtonItem }
-        set {
-            if let view = newValue?.customView, view.isKind(of: UIButton.self) {
-                let button = view as! UIButton
-                button.contentEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -8)
-            }else {
-                newValue?.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: -8)
-            }
-            self.navigationItem.rightBarButtonItem = newValue
-            self.setAssociateValue(newValue, key: &kNaviRightItemKey)
-        }
-    }
-     */
 
 }
 
+// MARK: - HViewController Extension
 
 extension HViewController {
     
-    // Override the present method
+    /// 重写 present 方法
     open override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-        // Set the appearance of the view controller to present
+        // 设置视图控制器的出现类型为 present
         viewControllerToPresent.appearType = .present
         super.present(viewControllerToPresent, animated: flag, completion: completion)
     }
     
-    // Override the dismiss method
+    /// 重写 dismiss 方法
     open override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
-        super.dismiss(animated: flag, completion: completion)
-        // Get all the view controllers in the navigation controller
-        guard let viewControllers = self.navigationController?.viewControllers else {
-            // If there is no navigation controller, the disappearance of the view controller is dismiss
-            self.vcWillDisappear(.dismiss)
-            return
+        super.dismiss(animated: flag) { [weak self] in
+            completion?()
+            // 处理消失事件
+            self?.handleDismissEvent()
         }
-        // Traverse all the view controllers in the navigation controller and set the disappearance of the view controller to dismiss
-        viewControllers.forEach { vc in
-            vc.vcWillDisappear(.dismiss)
+    }
+    
+    /// 处理 dismiss 事件
+    private func handleDismissEvent() {
+        if let viewControllers = navigationController?.viewControllers {
+            // 遍历导航控制器中的所有视图控制器，设置它们的消失类型为 dismiss
+            viewControllers.forEach { $0.vcWillDisappear(.dismiss) }
+        } else {
+            // 如果没有导航控制器，当前视图控制器的消失类型为 dismiss
+            vcWillDisappear(.dismiss)
         }
     }
     
 }
 
+// MARK: - HNavigationController Extension
+
 extension HNavigationController {
     
-    // Override the popViewController method
+    /// 重写 popViewController 方法
     @discardableResult
     open override func popViewController(animated: Bool) -> UIViewController? {
         guard let popVC = super.popViewController(animated: animated) else {
             return nil
         }
-        if popVC.isKind(of: UIViewController.self) {
-            // If the view controller is a subclass of UIViewController, set the disappearance of the view controller to pop
-            popVC.vcWillDisappear(.pop)
-        }
+        
+        // 设置弹出视图控制器的消失类型为 pop
+        popVC.vcWillDisappear(.pop)
         return popVC
     }
     
-    // Override the pushViewController method
+    /// 重写 pushViewController 方法
     open override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        if let topVC = self.topViewController, topVC.isKind(of: UIViewController.self) {
-            // If the top view controller of the navigation controller is a subclass of UIViewController, set the disappearance of the view controller to push
-            topVC.vcWillDisappear(.push)
-        }
+        // 设置顶部视图控制器的消失类型为 push
+        topViewController?.vcWillDisappear(.push)
+        
+        // 如果导航栈不为空，设置新视图控制器的出现类型为 push
         if !viewControllers.isEmpty {
-            // If the stack of the navigation controller is not empty, set the appearance of the view controller to push
             viewController.appearType = .push
         }
+        
         super.pushViewController(viewController, animated: animated)
     }
     

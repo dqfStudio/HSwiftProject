@@ -103,48 +103,53 @@ class HTextImageView: UIStackView {
     // 在accsryLabel后面添加自定义间隔
     var accsrySpacing: CGFloat = 0.0
     
+    private var didSetup = false
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        setup()
+        if !didSetup {
+            setup()
+            didSetup = true
+        }
+        relayout()
     }
-    
+
     private func setup() {
-        
-        /// 左边布局View
         self.addArrangedSubview(leftView)
-        
-        /// 中间label、detailLabel和accsryLabel布局View
         self.addArrangedSubview(textLayoutView)
-         
-        /// imageView
+        self.addArrangedSubview(rightView)
+
         if let imageView = _imageView {
             imageLayoutView.addArrangedSubview(imageView)
             textLayoutView.addArrangedSubview(imageLayoutView)
-            textLayoutView.setCustomSpacing(imageSpacing, after: imageLayoutView)
         }
-        /// label
         if let label = _label {
             textLayoutView.addArrangedSubview(label)
-            textLayoutView.setCustomSpacing(labelSpacing, after: label)
         }
-        /// detailLabel
         if let detailLabel = _detailLabel {
             textLayoutView.addArrangedSubview(detailLabel)
-            textLayoutView.setCustomSpacing(detailSpacing, after: detailLabel)
         }
-        /// accsryLabel
         if let accsryLabel = _accsryLabel {
             textLayoutView.addArrangedSubview(accsryLabel)
-            textLayoutView.setCustomSpacing(accsrySpacing, after: accsryLabel)
         }
-        
-        /// detailView
         if let detailView = _detailView {
             detailLayoutView.addArrangedSubview(detailView)
             textLayoutView.addArrangedSubview(detailLayoutView)
         }
-        
-        /// 根据label、detailLabel和accsryLabel的实际大小进行约束布局
+    }
+
+    private func relayout() {
+        textLayoutView.setCustomSpacing(imageSpacing, after: imageLayoutView)
+        if let _ = _label {
+            textLayoutView.setCustomSpacing(labelSpacing, after: label)
+        }
+        if let _ = _detailLabel {
+            textLayoutView.setCustomSpacing(detailSpacing, after: detailLabel)
+        }
+        if let _ = _accsryLabel {
+            textLayoutView.setCustomSpacing(accsrySpacing, after: accsryLabel)
+        }
+
         var textWidth = 0.0
         if let label = _label {
             textWidth += label.intrinsicContentSize.width
@@ -162,15 +167,10 @@ class HTextImageView: UIStackView {
             textWidth += detailView.intrinsicContentSize.width
         }
         textWidth += imageSpacing + labelSpacing + detailSpacing + accsrySpacing
-        textWidth = ceil(textWidth)//向上取整
-        
-        /// 右边布局View
-        self.addArrangedSubview(rightView)
-        
-        /// 左右两边的间隔
+        textWidth = ceil(textWidth)
+
         let space = (self.width - textWidth) / 2
         if space >= 0 { self.spacing = space }
-        
     }
     
 }

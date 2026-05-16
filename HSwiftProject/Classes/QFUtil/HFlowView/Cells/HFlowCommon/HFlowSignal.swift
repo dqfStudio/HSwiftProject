@@ -8,7 +8,7 @@
 
 import UIKit
 
-var kFlowSkinNotify = "flowSkinNotify"
+let kFlowSkinNotify = "flowSkinNotify"
 
 typealias HFlowCellSignalBlock = (_ target: AnyObject, _ signal: HFlowSignal?) -> Void
 

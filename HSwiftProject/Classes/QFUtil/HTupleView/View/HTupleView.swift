@@ -683,7 +683,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Unique identifier
         var identifier = (pre ?? "") + "HeaderCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
-        identifier += idx ? indexPath.stringValue : ""
+        identifier += idx ? "\(indexPath.section)-\(indexPath.row)" : ""
         // Determine if there is a tuple state value
         if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
             identifier += "\(self.tupleState)"
@@ -722,7 +722,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Unique identifier
         var identifier = (pre ?? "") + "FooterCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
-        identifier += idx ? indexPath.stringValue : ""
+        identifier += idx ? "\(indexPath.section)-\(indexPath.row)" : ""
         // Determine if there is a tuple state value
         if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
             identifier += "\(self.tupleState)"
@@ -761,7 +761,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Unique identifier
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
-        identifier += idx ? indexPath.stringValue : ""
+        identifier += idx ? "\(indexPath.section)-\(indexPath.row)" : ""
         // Determine if there is a tuple state value
         if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
             identifier += "\(self.tupleState)"
@@ -798,13 +798,13 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
         // Unique identifier
         var identifier = (pre ?? "") + "ItemCell" + NSStringFromClass(cls) + self.addressValue
         // Determine whether it contains an index
-        identifier += idx ? indexPath.stringValue : ""
+        identifier += idx ? "\(indexPath.section)-\(indexPath.row)" : ""
         // Determine if there is a tuple state value
         if self.tupleStyle == .split, !self.sectionPaths.contains(indexPath.section) {
             identifier += "\(self.tupleState)"
         }
         // Register cell if not already registered
-        let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
+        let attributeKey = "\(indexPath.section)-\(indexPath.row)" + "\(self.tupleState)" as NSString
         guard let attribute = self.allAttributes.object(forKey: attributeKey) else {
             if !self.allReuseIdentifiers.contains(identifier) {
                 self.allReuseIdentifiers.add(identifier)
@@ -1029,7 +1029,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 if delegate.responds(to: selector, withPre: prefix) {
                     delegate.perform(selector, with: self, with: indexPath, withPre: prefix)
                 }
-                let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
+                let attributeKey = "\(indexPath.section)-\(indexPath.row)" + "\(self.tupleState)" as NSString
                 let attribute = self.allAttributes.object(forKey: attributeKey)
                 size = attribute?.size ?? .zero
                 // Prevent negative size
@@ -1071,7 +1071,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
             return self.dequeueReusableCell(withReuseIdentifier: HTupleBaseCell.className, for: indexPath)
         }else {
             // Call cell
-            let attributeKey = indexPath.stringValue + "\(self.tupleState)" as NSString
+            let attributeKey = "\(indexPath.section)-\(indexPath.row)" + "\(self.tupleState)" as NSString
             let attribute = self.allAttributes.object(forKey: attributeKey)
             let identifier = attribute?.identifier ?? ""
             let cell = self.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! HTupleBaseCell
@@ -1112,7 +1112,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 let selector: Selector = #selector(delegate.minimumHeaderSpacingForSectionAt(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     // Unique identifier
-                    let identifier = "HeaderSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.tupleState)"
+                    let identifier = "HeaderSpaceCell" + self.addressValue + "\(indexPath.section)-\(indexPath.row)" + "\(self.tupleState)"
                     // Register cell if not already registered
                     if !self.allReuseIdentifiers.contains(identifier) {
                         self.allReuseIdentifiers.add(identifier)
@@ -1144,7 +1144,7 @@ class HTupleView: UICollectionView, UICollectionViewDelegate, UICollectionViewDa
                 let selector: Selector = #selector(delegate.minimumFooterSpacingForSectionAt(_:))
                 if delegate.responds(to: selector, withPre: prefix) {
                     // Unique identifier
-                    let identifier = "FooterSpaceCell" + self.addressValue + indexPath.stringValue + "\(self.tupleState)"
+                    let identifier = "FooterSpaceCell" + self.addressValue + "\(indexPath.section)-\(indexPath.row)" + "\(self.tupleState)"
                     // Register cell if not already registered
                     if !self.allReuseIdentifiers.contains(identifier) {
                         self.allReuseIdentifiers.add(identifier)
@@ -1599,7 +1599,7 @@ extension HTupleView {
 
     /// Get the width, height, and size of a certain section
     func width(forSection section: Int) -> CGFloat {
-        var width: CGFloat = self.width
+        var width: CGFloat = self.bounds.width
         let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
         if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
             let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)
@@ -1609,8 +1609,8 @@ extension HTupleView {
         return width
     }
 
-    func heigh(forSection section: Int) -> CGFloat {
-        var height: CGFloat = self.height
+    func height(forSection section: Int) -> CGFloat {
+        var height: CGFloat = self.bounds.height
         let edgeInsetsString = self.allSectionInsets.object(forKey: "\(section)" as NSString) as? String
         if let edgeInsetsString = edgeInsetsString, !edgeInsetsString.isEmpty {
             let edgeInsets = UIEdgeInsetsFromString(edgeInsetsString)

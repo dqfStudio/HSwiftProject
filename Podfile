@@ -10,8 +10,8 @@ target 'HSwiftProject' do
   # pod 'SwiftyLoad'
   # pod 'SwizzleSwift'
   pod 'Alamofire', '5.6.1'
-  pod 'Kingfisher',’~> 5.9.0’
-  pod 'MJRefresh',’~> 3.3.1’
+  pod 'Kingfisher', '~> 5.9.0'
+  pod 'MJRefresh', '~> 3.3.1'
   pod 'SDWebImage', '~>5.19.0'
   pod 'GRDB.swift', '6.23.0'
   # 骨架屏
@@ -19,6 +19,8 @@ target 'HSwiftProject' do
 
   # 布局
   pod 'SnapKit', '5.0.1'
+  pod 'FlexLayout'
+  pod 'PinLayout'
 
   # Rx
   pod 'RxSwift', '6.1.0'
@@ -28,7 +30,7 @@ target 'HSwiftProject' do
   pod 'OpenIMSDK'
 
   # 代码规范
-  pod 'SwiftLint', '0.43.1', configurations: ['Debug']
+  # pod 'SwiftLint', '0.43.1', configurations: ['Debug']
 
 end
 

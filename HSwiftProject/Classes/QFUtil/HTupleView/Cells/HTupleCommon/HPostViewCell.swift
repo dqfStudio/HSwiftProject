@@ -82,19 +82,19 @@ extension HPostViewCell {
     
     @objc
     func tupleExa0_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HTupleTmplCell.self, indexPath.stringValue, true, indexPath) as! HTupleTmplCell
+        let cell = tuple.reuseCell(HTupleTmplCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleTmplCell
         let frame = cell.layoutViewBounds
         
         var headerView = cell.layoutView.viewWithTag(121314) as? HPostHeader
         if headerView == nil {
             headerView = HPostHeader(frame: frame)
             headerView!.tag = 121314
-            headerView!.avatarButton.pressed = { (sender, data) in
+            headerView!.avatarButton.pressed = { (sender: Any, data: Any) in
                 NSLog("")
             }
             cell.layoutView.addSubview(headerView!)
         }
-        headerView!.avatarButton.backgroundColor = .red
+        headerView!.avatarButton.backgroundColor = UIColor.red
         headerView!.nameLabel.text = "张三"
         headerView!.dateLabel.text = "2023-08-10"
         
@@ -152,20 +152,20 @@ extension HPostViewCell {
         switch indexPath.row {
         case 0: //内容
             if postVM.postExtend == .extend {
-                let cell = tuple.reuseCell(HTupleLabelCell.self, indexPath.stringValue + "notExtended", true, indexPath) as! HTupleLabelCell
+                let cell = tuple.reuseCell(HTupleLabelCell.self, "\(indexPath.section)-\(indexPath.row)" + "notExtended", true, indexPath) as! HTupleLabelCell
                 cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
                 cell.label.textColor = UIColor(hex: "#17191E")
                 cell.label.numberOfLines = 3
                 cell.label.text = postVM.post
             } else {
-                let cell = tuple.reuseCell(HTupleLabelCell.self, indexPath.stringValue + "isExtended", true, indexPath) as! HTupleLabelCell
+                let cell = tuple.reuseCell(HTupleLabelCell.self, "\(indexPath.section)-\(indexPath.row)" + "isExtended", true, indexPath) as! HTupleLabelCell
                 cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
                 cell.label.textColor = UIColor(hex: "#17191E")
                 cell.label.numberOfLines = 0
                 cell.label.text = postVM.post
             }
         case 1: //更多
-            let cell = tuple.reuseCell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
+            let cell = tuple.reuseCell(HTupleViewCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleViewCell
             cell.edgeInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
             
             let frame = cell.layoutViewBounds
@@ -175,7 +175,7 @@ extension HPostViewCell {
             cell.buttonView.textFont = UIFont.font(ofSize: 14, weight: .regular)
             cell.buttonView.textColor = UIColor(hex: "#3879FC")
             cell.buttonView.text = "显示更多"
-            cell.buttonView.pressed = { (sender, data) in
+            cell.buttonView.pressed = { (sender: Any, data: Any) in
                 self.postVM.postExtend = .isExtended
                 // 刷新tuple view
                 UIView.performWithoutAnimation {
@@ -224,13 +224,13 @@ extension HPostViewCell {
     func tupleExa2_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         // 是否已经翻译过了
         if postVM.postTranslate == .isTranslated {
-            let cell = tuple.reuseCell(HTupleLabelCell.self, indexPath.stringValue, true, indexPath) as! HTupleLabelCell
+            let cell = tuple.reuseCell(HTupleLabelCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleLabelCell
             cell.label.font = UIFont.font(ofSize: 14, weight: .regular)
             cell.label.textColor = UIColor(hex: "#17191E")
             cell.label.numberOfLines = 0
             cell.label.text = postVM.post
         } else {
-            let cell = tuple.reuseCell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
+            let cell = tuple.reuseCell(HTupleViewCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleViewCell
             
             let frame = cell.layoutViewBounds
             let width = "翻译内容".widthWithFont(UIFont.font(ofSize: 14, weight: .regular), constrainedToHeight: postTranslateSpace - 8.0)
@@ -240,7 +240,7 @@ extension HPostViewCell {
             cell.buttonView.textColor = UIColor(hex: "#3879FC")
             cell.buttonView.text = "翻译内容"
             
-            cell.buttonView.pressed = { (sender, data) in
+            cell.buttonView.pressed = { (sender: Any, data: Any) in
                 // 是否已经翻译过了
                 self.postVM.postTranslate = .isTranslated
                 // 刷新tuple view
@@ -298,49 +298,49 @@ extension HPostViewCell {
     func tupleExa3_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         if indexPath.row == 0 {
             
-            let cell = tuple.reuseCell(HTupleViewCell.self, indexPath.stringValue, true, indexPath) as! HTupleViewCell
+            let cell = tuple.reuseCell(HTupleViewCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleViewCell
             let frame = cell.layoutViewBounds
             cell.buttonView.frame = frame
-            cell.buttonView.backgroundColor = .red
+            cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.text = "图片"
             cell.buttonView.cornerRadius = 8.0
             cell.buttonView.isUserInteractionEnabled = true
-            cell.buttonView.pressed = { (sender, data) in
+            cell.buttonView.pressed = { (sender: Any, data: Any) in
                 NSLog("图片")
             }
             
         } else if indexPath.row == 1 {
             
-            let cell = tuple.reuseCell(HTupleButtonCell.self, indexPath.stringValue, true, indexPath) as! HTupleButtonCell
-            cell.buttonView.backgroundColor = .red
+            let cell = tuple.reuseCell(HTupleButtonCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleButtonCell
+            cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.text = "图片"
             cell.buttonView.cornerRadius = 8.0
             cell.buttonView.isUserInteractionEnabled = true
-            cell.buttonView.pressed = { (sender, data) in
+            cell.buttonView.pressed = { (sender: Any, data: Any) in
                 NSLog("图片")
             }
 
         }  else if indexPath.row == 2 {
             
-            let cell = tuple.reuseCell(HTupleButtonCell.self, indexPath.stringValue, true, indexPath) as! HTupleButtonCell
+            let cell = tuple.reuseCell(HTupleButtonCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleButtonCell
             
             //四张图片时由于布局的特殊性，多添加了一个item
             if let count = postVM.imageUrls?.count, count == 4 {
                 cell.buttonView.isUserInteractionEnabled = false
             } else {
-                cell.buttonView.backgroundColor = .red
+                cell.buttonView.backgroundColor = UIColor.red
                 cell.buttonView.isUserInteractionEnabled = true
                 cell.buttonView.text = "图片"
                 cell.buttonView.cornerRadius = 8.0
-                cell.buttonView.pressed = { (sender, data) in
+                cell.buttonView.pressed = { (sender: Any, data: Any) in
                     NSLog("图片")
                 }
             }
             
         } else {
             
-            let cell = tuple.reuseCell(HTupleButtonCell.self, indexPath.stringValue, true, indexPath) as! HTupleButtonCell
-            cell.buttonView.backgroundColor = .red
+            let cell = tuple.reuseCell(HTupleButtonCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleButtonCell
+            cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.isUserInteractionEnabled = true
             cell.buttonView.text = "图片"
             cell.buttonView.cornerRadius = 8.0
@@ -348,14 +348,14 @@ extension HPostViewCell {
             //四张图片时由于布局的特殊性，多添加了一个item
             if let count = postVM.imageUrls?.count, count == 4 {
                 
-                cell.buttonView.pressed = { (sender, data) in
+                cell.buttonView.pressed = { (sender: Any, data: Any) in
                     //let row = indexPath.row - 1
                     NSLog("图片")
                 }
                 
             } else {
                 
-                cell.buttonView.pressed = { (sender, data) in
+                cell.buttonView.pressed = { (sender: Any, data: Any) in
                     //let row = indexPath.row
                     NSLog("图片")
                 }
@@ -394,11 +394,11 @@ extension HPostViewCell {
     
     @objc
     func tupleExa4_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HTupleButtonCell.self, indexPath.stringValue, true, indexPath) as! HTupleButtonCell
-        cell.buttonView.backgroundColor = .red
+        let cell = tuple.reuseCell(HTupleButtonCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleButtonCell
+        cell.buttonView.backgroundColor = UIColor.red
         cell.buttonView.text = "视频"
         cell.buttonView.cornerRadius = 8.0
-        cell.buttonView.pressed = { (sender, data) in
+        cell.buttonView.pressed = { (sender: Any, data: Any) in
             NSLog("视频")
         }
     }
@@ -424,27 +424,27 @@ extension HPostViewCell {
     
     @objc
     func tupleExa5_tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-        let cell = tuple.reuseCell(HTupleTmplCell.self, indexPath.stringValue, true, indexPath) as! HTupleTmplCell
+        let cell = tuple.reuseCell(HTupleTmplCell.self, "\(indexPath.section)-\(indexPath.row)", true, indexPath) as! HTupleTmplCell
         let frame = cell.layoutViewBounds
         
         var footerView = cell.layoutView.viewWithTag(131415) as? HPostFooter
         if footerView == nil {
             footerView = HPostFooter(frame: frame)
             footerView!.tag = 131415
-            footerView!.likeButton.pressed = { (sender, data) in
+            footerView!.likeButton.pressed = { (sender: Any, data: Any) in
                 NSLog("like")
             }
             
-            footerView!.commentButton.pressed = { (sender, data) in
+            footerView!.commentButton.pressed = { (sender: Any, data: Any) in
                 NSLog("comment")
                 self.viewController?.navigationController?.pushViewController(HPostCommentVC(), animated: true)
             }
             
-            footerView!.shareButton.pressed = { (sender, data) in
+            footerView!.shareButton.pressed = { (sender: Any, data: Any) in
                 NSLog("share")
             }
             
-            footerView!.moreButton.pressed = { (sender, data) in
+            footerView!.moreButton.pressed = { (sender: Any, data: Any) in
                 NSLog("more")
             }
             cell.layoutView.addSubview(footerView!)
@@ -542,7 +542,7 @@ class HPostCustomViewCell: HTupleTmplCell {
         
 //        label.text = "label"
         label.text = "label label label label label label label label label label"
-        label.backgroundColor = .red
+        label.backgroundColor = UIColor.red
         
         detailLabel.text = "detailLabel"
 //        detailLabel.text = "detailLabel detailLabel detailLabel detailLabel detailLabel detailLabel"
@@ -556,7 +556,7 @@ class HPostCustomViewCell: HTupleTmplCell {
         self.postHeaderView.makeFrame {
             return CGRect(x: 0, y: 0, width: cellWidth, height: 48)
         }
-        self.postHeaderView.avatarButton.backgroundColor = .red
+        self.postHeaderView.avatarButton.backgroundColor = UIColor.red
         self.postHeaderView.nameLabel.makeFrame {
             return CGRect(x: 58, y: 0, width: 300, height: 24)
         }
@@ -594,7 +594,7 @@ class HPostCustomViewCell: HTupleTmplCell {
             frame.height = 110
             return frame
         }
-        self.postImageView.buttonView1.backgroundColor = .red
+        self.postImageView.buttonView1.backgroundColor = UIColor.red
         self.postImageView.buttonView1.makeFrame {
             var frame = CGRect.zero
             frame.width = 100
@@ -602,7 +602,7 @@ class HPostCustomViewCell: HTupleTmplCell {
             return frame
         }
         
-        self.postImageView.buttonView2.backgroundColor = .red
+        self.postImageView.buttonView2.backgroundColor = UIColor.red
         self.postImageView.buttonView2.makeFrame {
             var frame = CGRect.zero
             frame.x = 110
@@ -611,7 +611,7 @@ class HPostCustomViewCell: HTupleTmplCell {
             return frame
         }
         
-        self.postImageView.buttonView3.backgroundColor = .red
+        self.postImageView.buttonView3.backgroundColor = UIColor.red
         self.postImageView.buttonView3.makeFrame {
             var frame = CGRect.zero
             frame.y = 60
@@ -620,7 +620,7 @@ class HPostCustomViewCell: HTupleTmplCell {
             return frame
         }
         
-        self.postImageView.buttonView4.backgroundColor = .red
+        self.postImageView.buttonView4.backgroundColor = UIColor.red
         self.postImageView.buttonView4.makeFrame {
             var frame = CGRect.zero
             frame.x = 110
@@ -631,7 +631,7 @@ class HPostCustomViewCell: HTupleTmplCell {
         }
         
         // postVideoView
-        self.postVideoView.backgroundColor = .red
+        self.postVideoView.backgroundColor = UIColor.red
         self.postVideoView.makeFrame {
             var frame = CGRect.zero
             frame.y = self.postImageView.maxY + 10

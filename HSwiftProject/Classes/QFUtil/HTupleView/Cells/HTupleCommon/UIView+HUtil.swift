@@ -61,8 +61,8 @@ extension UIView {
     }
     
     var centerY: CGFloat {
-        get { return self.center.x }
-        set { self.center = CGPoint(x: self.center.y, y: newValue) }
+        get { return self.center.y }
+        set { self.center = CGPoint(x: self.center.x, y: newValue) }
     }
     
     var minX: CGFloat {

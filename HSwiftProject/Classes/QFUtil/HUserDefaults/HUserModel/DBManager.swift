@@ -8,82 +8,135 @@
 
 import GRDB
 
-/// 数据库表名
+// MARK: - TableName
+
+/// All database table name constants in one place.
+/// Suffix tables that are per-user with the userId so different accounts
+/// never share rows (e.g. "FCWalletAddrBookItem_u_123").
 struct TableName {
-    static let addressbook = "FCWalletAddrBookItem_"
-    static let TransNomalRecord = "TransNomalRecord_"
-    static let TransERC20Record = "TransERC20Record_"
-    static let systemContacts = "SystemContacts_" //系统通讯录
-    static let messageTranslate = "MessageTranslate_1"
-    
-    //im table
-    static let chatMessageLogs = "chat_message_logs"
-    static let kGroupInfoListKey = "group_Info_list"
-    static let kGroupMembers = "group_members_"
-    static let kUserInfo = "user_info"
-    
-    //audio path
-    static let audioCathcPath = "freechat_audio_catch_path"
+    static let addressbook        = "FCWalletAddrBookItem_"
+    static let transNormalRecord  = "TransNomalRecord_"
+    static let transERC20Record   = "TransERC20Record_"
+    static let systemContacts     = "SystemContacts_"
+    static let messageTranslate   = "MessageTranslate_1"
+
+    // IM tables
+    static let chatMessageLogs    = "chat_message_logs"
+    static let groupInfoList      = "group_Info_list"
+    static let groupMembers       = "group_members_"
+    static let userInfo           = "user_info"
+
+    // Audio cache
+    static let audioCachePath = "freechat_audio_catch_path"
 }
+
+// MARK: - DBConfiguration (shared)
+
+/// Shared GRDB Configuration used by all database queues in this app.
+/// Centralised here so busyMode / prepareDatabase hooks stay consistent.
+private func makeDBConfiguration() -> Configuration {
+    var config = Configuration()
+    // Wait up to 5 s when another write holds the lock before returning an error.
+    config.busyMode = .timeout(5.0)
+    return config
+}
+
+// MARK: - DBManager  (app-wide, user-independent data)
 
 class DBManager: NSObject {
-    /// 数据库路径
-    private static var dbPath: String = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first!.appending("/freechat.db")
-    
-    /// 配置数据库
-    private static var configuration: Configuration = {
-        var config = Configuration()
-        // 设置超时
-        config.busyMode = Database.BusyMode.timeout(5.0)
-        // 试图访问锁着的数据
-//        config.busyMode = Database.BusyMode.immediateError
-        return config
+
+    // MARK: - Path
+
+    /// Resolves the Documents directory at call-time instead of at class-load-time,
+    /// and avoids the force-unwrap crash when the sandbox is unavailable.
+    private static var dbPath: String? {
+        FileManager.default
+            .urls(for: .documentDirectory, in: .userDomainMask)
+            .first?
+            .appendingPathComponent("freechat.db")
+            .path
+    }
+
+    // MARK: - Queue
+
+    /// Shared DatabaseQueue for app-wide (non-user-specific) tables.
+    /// Returns nil and logs if the database file cannot be opened.
+    static let dbQueue: DatabaseQueue? = {
+        guard let path = DBManager.dbPath else {
+            print("[DBManager] ❌ Could not resolve Documents directory.")
+            return nil
+        }
+        do {
+            let queue = try DatabaseQueue(path: path, configuration: makeDBConfiguration())
+            queue.releaseMemory()
+            return queue
+        } catch {
+            print("[DBManager] ❌ Failed to open database at \(path): \(error)")
+            return nil
+        }
     }()
     
-    // MARK: - 创建数据库
-    /// 用户多线程事务处理
-    static var dbQueue: DatabaseQueue = {
-        // 创建数据库
-        let db = try! DatabaseQueue(path: DBManager.dbPath, configuration: DBManager.configuration)
-        db.releaseMemory()
-        // 设备版本
-        return db
-    }()
 }
 
-// MARK: - IM DB
+// MARK: - UserDBManager  (per-user data, isolated by userId)
+
 class UserDBManager {
-    /// 数据库路径
-    static func dbPath() -> String? {
-//        guard !IMController.shared.uid.isEmpty else { return nil }
-//        let dbName = "FCC_\(IMController.shared.uid).db"
-        let dbName = "FCC_张三.db"
-        return NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.documentDirectory, FileManager.SearchPathDomainMask.userDomainMask, true).first?.appending("/\(dbName)")
+
+    // MARK: - Lock
+
+    private static let lock = NSLock()
+
+    // MARK: - Cached queue
+
+    private static var _dbQueue: DatabaseQueue?
+
+    // MARK: - Path
+
+    /// Returns the database path for the currently active user.
+    /// The userId must be set (non-empty) before calling this.
+    /// Replace the hard-coded fallback with your real userId source, e.g.:
+    ///   IMController.shared.uid
+    static func dbPath(for userId: String) -> String? {
+        guard !userId.isEmpty else { return nil }
+        return FileManager.default
+            .urls(for: .documentDirectory, in: .userDomainMask)
+            .first?
+            .appendingPathComponent("FCC_\(userId).db")
+            .path
     }
-    
-    /// 配置数据库
-    private static var configuration: Configuration = {
-        var config = Configuration()
-        // 设置超时
-        config.busyMode = Database.BusyMode.timeout(5.0)
-        // 试图访问锁着的数据
-//        config.busyMode = Database.BusyMode.immediateError
-        return config
-    }()
-    
-    // MARK: - 创建数据库
-    /// 用户多线程事务处理
-    static var dbQueue: DatabaseQueue?
-    static func getDBQueue() -> DatabaseQueue? {
-        if let dbQueue = dbQueue {
-            return dbQueue
-        } else {
-            guard let dbPath = UserDBManager.dbPath() else { return nil }
-            // 创建数据库
-            let db = try! DatabaseQueue(path: dbPath, configuration: UserDBManager.configuration)
-            db.releaseMemory()
-            dbQueue = db
-            return db
+
+    // MARK: - Queue (thread-safe lazy init)
+
+    /// Returns the DatabaseQueue for the current user, creating it on first call.
+    /// Thread-safe: protected by NSLock to prevent duplicate queue creation.
+    ///
+    /// Call `resetDBQueue()` when the user logs out or switches accounts so the
+    /// next call opens a fresh database for the new userId.
+    static func getDBQueue(userId: String) -> DatabaseQueue? {
+        lock.lock(); defer { lock.unlock() }
+
+        if let existing = _dbQueue { return existing }
+
+        guard let path = dbPath(for: userId) else {
+            print("[UserDBManager] ❌ Empty userId — cannot resolve database path.")
+            return nil
         }
+        do {
+            let queue = try DatabaseQueue(path: path, configuration: makeDBConfiguration())
+            queue.releaseMemory()
+            _dbQueue = queue
+            return queue
+        } catch {
+            print("[UserDBManager] ❌ Failed to open user database at \(path): \(error)")
+            return nil
+        }
+    }
+
+    /// Closes the current user's database queue.
+    /// Must be called on logout or account switch to prevent data leakage
+    /// between accounts.
+    static func resetDBQueue() {
+        lock.lock(); defer { lock.unlock() }
+        _dbQueue = nil
     }
 }

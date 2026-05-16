@@ -27,18 +27,18 @@ class HViewController: HBaseController {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        //Reset the frame of the top bar
-        if self.orientation != UIDevice.current.orientation {
-            self.orientation = UIDevice.current.orientation
-            // Refresh the navigation bar
-            let width = self.view.width
-            let height = UIScreen.topBarHeight
-            let frame = CGRect(x: 0, y: 0, width: width, height: height)
-            self.navigationBar.frame = frame
-        }
-    }
+//    override func viewWillLayoutSubviews() {
+//        super.viewWillLayoutSubviews()
+//        //Reset the frame of the top bar
+//        if self.orientation != UIDevice.current.orientation {
+//            self.orientation = UIDevice.current.orientation
+//            // Refresh the navigation bar
+//            let width = self.view.width
+//            let height = UIScreen.topBarHeight
+//            let frame = CGRect(x: 0, y: 0, width: width, height: height)
+//            self.navigationBar.frame = frame
+//        }
+//    }
     
     override var title: String? {
         didSet {

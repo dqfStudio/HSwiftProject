@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 class HUserDefaults2: NSObject {
 
     fileprivate static let standard = HUserDefaults2()
@@ -25,6 +24,22 @@ class HUserDefaults2: NSObject {
     private static func defaultKey(for selector: Selector) -> String {
         let selName = NSStringFromSelector(selector)
         return mapping[selName]!.name
+    }
+    
+    /// 获取所有属性
+    private static var properties: [Property] {
+        var count: UInt32 = 0
+        guard let properties = class_copyPropertyList(HUserDefaults2.self, &count) else {
+            return []
+        }
+        defer { free(properties) }
+        
+        var result = [Property]()
+        for i in 0..<Int(count) {
+            let property = properties[i]
+            result.append(Property(x: property))
+        }
+        return result
     }
 }
 

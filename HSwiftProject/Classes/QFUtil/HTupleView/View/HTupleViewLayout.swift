@@ -92,7 +92,7 @@ class HTupleViewLayout: UICollectionViewFlowLayout {
     // The original method with the addition of removing the spacing line between cells
     override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
         guard let attrs = super.layoutAttributesForElements(in: rect) else { return nil }
-        let decorationViewAttrsInRect = decorationViewAttrs.filter { $0.frame == rect }
+        let decorationViewAttrsInRect = decorationViewAttrs.filter { $0.frame.intersects(rect) }
         return attrs + decorationViewAttrsInRect
     }
     

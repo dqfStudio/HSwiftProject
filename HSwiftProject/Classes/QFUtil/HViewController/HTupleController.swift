@@ -150,7 +150,7 @@ extension HTupleController {
 
                 cell.imageView.backgroundColor = UIColor.red
                 cell.imageView.image = UIImage(named: "icon_no_server")
-                cell.imageView.imageSize = CGSize(width: 25, height: 25)
+//                cell.imageView.imageSize = CGSize(width: 25, height: 25)
                 cell.imageView.cornerRadius = 25 / 2
 
                 cell.label.backgroundColor = UIColor.green
@@ -163,7 +163,7 @@ extension HTupleController {
                 cell.accsryLabel.text = "accessoryLabel"
 
                 cell.detailView.backgroundColor = UIColor.red
-                cell.detailView.imageSize = CGSize(width: 25, height: 25)
+//                cell.detailView.imageSize = CGSize(width: 25, height: 25)
                 cell.detailView.setImage(WithName: "icon_no_server")
                 cell.detailView.cornerRadius = 25 / 2
 
@@ -178,7 +178,7 @@ extension HTupleController {
 //                cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
                 //cell.imageView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
-                cell.imageView.imageSize = CGSize(width: 25, height: 25)
+//                cell.imageView.imageSize = CGSize(width: 25, height: 25)
                 cell.imageView.backgroundColor = UIColor.red
                 cell.imageView.setImage(WithName: "icon_no_server")
                 cell.imageView.cornerRadius = 25 / 2
@@ -193,7 +193,7 @@ extension HTupleController {
                 cell.accsryLabel.text = "accessoryLabel"
 
                 //cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
-                cell.detailView.imageSize = CGSize(width: 25, height: 25)
+//                cell.detailView.imageSize = CGSize(width: 25, height: 25)
                 cell.detailView.backgroundColor = UIColor.red
                 cell.detailView.setImage(WithName: "icon_no_server")
                 cell.detailView.cornerRadius = 25 / 2
@@ -206,7 +206,7 @@ extension HTupleController {
 //                cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 
                 //cell.imageView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
-                cell.imageView.imageSize = CGSize(width: 25, height: 25)
+//                cell.imageView.imageSize = CGSize(width: 25, height: 25)
                 cell.imageView.backgroundColor = UIColor.red
                 cell.imageView.setImage(WithName: "icon_no_server")
                 cell.imageView.cornerRadius = 25 / 2
@@ -221,7 +221,7 @@ extension HTupleController {
                 cell.accsryLabel.text = "accessoryLabel"
 
                 //cell.detailView.edgeInsets = UIEdgeInsets(top: 10, left: 20, bottom: 10, right: 0)
-                cell.detailView.imageSize = CGSize(width: 25, height: 25)
+//                cell.detailView.imageSize = CGSize(width: 25, height: 25)
                 cell.detailView.backgroundColor = UIColor.red
                 cell.detailView.setImage(WithName: "icon_no_server")
                 cell.detailView.cornerRadius = 25 / 2
