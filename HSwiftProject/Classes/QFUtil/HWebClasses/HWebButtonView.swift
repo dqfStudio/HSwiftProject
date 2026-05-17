@@ -197,7 +197,7 @@ extension HWebButtonView {
             updateSubviews()
         }
     }
-    func setImage(WithName fileName: String) {
+    func setImage(named fileName: String) {
         if let image = UIImage(named: fileName) {
             self.setImage(image, for: .normal)
             self.adjustsImageWhenHighlighted = false

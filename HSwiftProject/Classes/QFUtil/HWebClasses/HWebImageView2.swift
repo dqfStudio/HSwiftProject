@@ -218,7 +218,7 @@
 ////    *
 ////    *  @param fileName The name of the image
 ////    */
-////    func setImage(WithName: _ fileName: String) {
+////    func setImage(named: _ fileName: String) {
 ////        if fileName.count > 0 {
 ////            self.setImage(UIImage(named: fileName))
 ////        }

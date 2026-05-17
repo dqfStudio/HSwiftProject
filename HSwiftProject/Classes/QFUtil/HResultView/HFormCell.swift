@@ -96,7 +96,7 @@ class HFormCell: HTupleTmplCell, HTupleViewDelegate {
             let model = modelArr[index]
             
             if let icon = model.icon {
-                cell.buttonView.setImage(WithName: icon)
+                cell.buttonView.setImage(named: icon)
             }
             cell.buttonView.text = model.title
             

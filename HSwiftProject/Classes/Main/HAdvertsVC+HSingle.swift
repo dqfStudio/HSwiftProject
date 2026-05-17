@@ -32,7 +32,7 @@ extension HAdvertsVC {
         let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
         let cellBounds = cell.layoutViewBounds
         cell.imageView.frame = cellBounds
-        cell.imageView.setImage(WithName: "IMG_1446")
+        cell.imageView.setImage(named: "IMG_1446")
         
         // 视频
         if self.videoView.superview == nil {
@@ -58,7 +58,7 @@ extension HAdvertsVC {
         }
         
         cell.detailView.alpha = 0.95
-        cell.detailView.setImage(WithName: "2024222")
+        cell.detailView.setImage(named: "2024222")
         
         // 标题
         //cell.label.text = "绿蛙叫嚣 蔡正元怒呛"
@@ -105,7 +105,7 @@ extension HAdvertsVC {
         let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
         let cellBounds = cell.layoutViewBounds
         cell.imageView.frame = cellBounds
-        cell.imageView.setImage(WithName: "IMG_1446")
+        cell.imageView.setImage(named: "IMG_1446")
         
         // 视频
         if self.videoView.superview == nil {
@@ -131,7 +131,7 @@ extension HAdvertsVC {
         }
         
         cell.detailView.alpha = 0.95
-        cell.detailView.setImage(WithName: "2024222")
+        cell.detailView.setImage(named: "2024222")
         
         // 标题
         //cell.label.text = "绿蛙叫嚣 蔡正元怒呛"

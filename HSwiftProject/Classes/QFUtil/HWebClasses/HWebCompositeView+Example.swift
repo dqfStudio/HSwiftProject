@@ -81,7 +81,7 @@ extension HWebCompositeView {
         view.imagePosition = .top
         
         // 设置本地图片
-        view.setImage(WithName: "icon")
+        view.setImage(named: "icon")
         
         return view
     }
@@ -97,7 +97,7 @@ extension HWebCompositeView {
         view.imagePosition = .bottom
         
         // 设置本地图片
-        view.setImage(WithName: "icon")
+        view.setImage(named: "icon")
         
         return view
     }
@@ -113,7 +113,7 @@ extension HWebCompositeView {
         view.imagePosition = .right
         
         // 设置本地图片
-        view.setImage(WithName: "icon")
+        view.setImage(named: "icon")
         
         return view
     }
@@ -130,7 +130,7 @@ extension HWebCompositeView {
         view.extraEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         
         // 设置本地图片
-        view.setImage(WithName: "icon")
+        view.setImage(named: "icon")
         
         // 设置点击事件
         view.pressed = { sender, data in
@@ -183,23 +183,12 @@ extension HWebCompositeView {
             .animationDuration(0.2)
         
         // 设置本地图片
-        view.setImage(WithName: "icon")
+        view.setImage(named: "icon")
         
-        // 设置点击事件，切换状态
+        // 点击事件：只需处理业务逻辑，状态切换由内部自动完成
         view.pressed = { sender, data in
             guard let compositeView = sender as? HWebCompositeView else { return }
-            switch compositeView.state {
-            case .normal:
-                compositeView.state = .selected
-            case .selected:
-                compositeView.state = .normal
-            case .disabled:
-                break
-            case .highlighted:
-                compositeView.state = .normal
-            case .loading:
-                break
-            }
+            print("点击了视图，当前状态：\(compositeView.state)")
         }
         
         return view
@@ -218,7 +207,7 @@ extension HWebCompositeView {
             .viewBorderColor(.lightGray)
         
         // 设置本地图片
-        view.setImage(WithName: "icon")
+        view.setImage(named: "icon")
         
         // 设置点击事件
         view.pressed = { sender, data in
@@ -248,7 +237,7 @@ extension HWebCompositeView {
             .imagePosition(.left)
         
         // 设置本地图片
-        view.setImage(WithName: "icon")
+        view.setImage(named: "icon")
         
         // 设置可访问性属性
         view.accessibilityLabel = "可访问性示例"
@@ -271,7 +260,7 @@ extension HWebCompositeView {
             .viewBorderColor(.lightGray)
         
         // 设置本地图片
-        view.setImage(WithName: "icon")
+        view.setImage(named: "icon")
         
         // 设置点击事件
         view.pressed = { sender, data in
@@ -312,7 +301,7 @@ extension HWebCompositeView {
             .imagePosition(.center)
         
         // 设置本地图片
-        view.setImage(WithName: "icon")
+        view.setImage(named: "icon")
         
         return view
     }
@@ -329,7 +318,7 @@ extension HWebCompositeView {
             .imagePosition(.textWrap)
         
         // 设置本地图片
-        view.setImage(WithName: "icon")
+        view.setImage(named: "icon")
         
         return view
     }
@@ -346,7 +335,7 @@ extension HWebCompositeView {
             .viewCornerRadius(8)
         
         // 设置本地图片
-        view.setImage(WithName: "icon")
+        view.setImage(named: "icon")
         
         // 设置渐变背景
         view.gradientBackgroundColors = [UIColor.blue.cgColor, UIColor.purple.cgColor]

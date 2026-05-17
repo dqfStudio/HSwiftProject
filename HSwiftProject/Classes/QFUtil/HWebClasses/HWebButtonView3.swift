@@ -315,7 +315,7 @@
 //            self.setImage(image, for: .normal)
 //        }
 //    }
-//    public func setImage(WithName fileName: String) {
+//    public func setImage(named fileName: String) {
 //        if fileName.count > 0 {
 //            self.setImage(image, for: .normal)
 //        }

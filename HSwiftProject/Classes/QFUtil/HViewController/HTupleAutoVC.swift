@@ -166,7 +166,7 @@ extension HTupleAutoVC: HTupleViewDelegate {
                 make.width.height.equalTo(45)
             }
             cell.imageView.backgroundColor = UIColor.red
-            cell.imageView.setImage(WithName: "icon_no_server")
+            cell.imageView.setImage(named: "icon_no_server")
             
             cell.label.backgroundColor = UIColor.red
             cell.label.snp.makeConstraints { make in
@@ -214,7 +214,7 @@ extension HTupleAutoVC: HTupleViewDelegate {
                 make.width.height.equalTo(45)
             }
             cell.imageView.backgroundColor = UIColor.red
-            cell.imageView.setImage(WithName: "icon_no_server")
+            cell.imageView.setImage(named: "icon_no_server")
             
             cell.label.backgroundColor = UIColor.red
             cell.label.snp.makeConstraints { make in
@@ -238,7 +238,7 @@ extension HTupleAutoVC: HTupleViewDelegate {
                 make.height.equalTo(13)
                 make.centerY.equalToSuperview()
             }
-            cell.detailView.setImage(WithName: "icon_tuple_arrow_right")
+            cell.detailView.setImage(named: "icon_tuple_arrow_right")
         case 3:
             let cell = flow.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             cell.backgroundColor = UIColor.gray
@@ -261,7 +261,7 @@ extension HTupleAutoVC: HTupleViewDelegate {
                 make.width.height.equalTo(45)
             }
             cell.imageView.backgroundColor = UIColor.red
-            cell.imageView.setImage(WithName: "icon_no_server")
+            cell.imageView.setImage(named: "icon_no_server")
             
             cell.label.backgroundColor = UIColor.red
             cell.label.snp.makeConstraints { make in
@@ -285,7 +285,7 @@ extension HTupleAutoVC: HTupleViewDelegate {
                 make.centerY.equalToSuperview()
             }
             cell.detailView.backgroundColor = UIColor.red
-            cell.detailView.setImage(WithName: "icon_no_server")
+            cell.detailView.setImage(named: "icon_no_server")
 
             cell.accsryView.snp.makeConstraints { make in
                 make.left.equalTo(cell.detailView.snp.right).offset(10)
@@ -293,7 +293,7 @@ extension HTupleAutoVC: HTupleViewDelegate {
                 make.height.equalTo(13)
                 make.centerY.equalToSuperview()
             }
-            cell.accsryView.setImage(WithName: "icon_tuple_arrow_right")
+            cell.accsryView.setImage(named: "icon_tuple_arrow_right")
         default:
             break
         }

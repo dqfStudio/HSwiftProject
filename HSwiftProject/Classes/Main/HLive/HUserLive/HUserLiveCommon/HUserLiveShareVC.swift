@@ -114,7 +114,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {        
         let cell = tuple.reuseCell(HTupleViewCellVertValue1.self, nil, true, indexPath) as! HTupleViewCellVertValue1
         cell.imageView.backgroundColor = UIColor.red
-        cell.imageView.setImage(WithName: "icon_no_server")
+        cell.imageView.setImage(named: "icon_no_server")
         cell.labelHeight = 25
         cell.label.text = "Item"
         cell.label.textColor = UIColor.black

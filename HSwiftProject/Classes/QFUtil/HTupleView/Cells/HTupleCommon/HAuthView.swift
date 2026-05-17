@@ -94,7 +94,7 @@ extension HAuthView {
             if indexPath.row <= self.auths.count {
                 let authIndex = indexPath.row - 1
                 let auth = self.auths[authIndex]
-                //cell.imageView.setImage(WithName: auth)
+                //cell.imageView.setImage(named: auth)
                 cell.selectBlock = { [weak self] in
                     self?.selectBlock?(auth)
                 }

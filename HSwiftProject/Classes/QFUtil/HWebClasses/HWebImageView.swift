@@ -131,7 +131,7 @@ extension HWebImageView {
             self.image = image
         }
     }
-    func setImage(WithName fileName: String) {
+    func setImage(named fileName: String) {
         if let image = UIImage(named: fileName) {
             self.image = image
         }

@@ -35,7 +35,7 @@ extension HAcceptVideoVC {
             let cell = tuple.reuseCell(HTupleViewCell.self, nil, true, indexPath) as! HTupleViewCell
             let frame = CGRect(x: 20, y: UIScreen.naviBarHeight + 15, width: 30, height: 30)
             cell.buttonView.frame = frame
-            cell.buttonView.setImage(WithName: "mdeia-reduce")
+            cell.buttonView.setImage(named: "mdeia-reduce")
             cell.buttonView.pressed = { (sender, data) in
                 self.dismiss(animated: true)
             }
@@ -56,7 +56,7 @@ extension HAcceptVideoVC {
             
             let frame1 = CGRect(x: bounds.size.width / 2 - kAcceptVideoHeight1 / 2, y: 0, width: kAcceptVideoHeight1, height: kAcceptVideoHeight1)
             cell.buttonView.frame = frame1
-            cell.buttonView.setImage(WithName: "mdeia-button")
+            cell.buttonView.setImage(named: "mdeia-button")
             cell.buttonView.pressed = { (sender, data) in
                 
             }
@@ -75,7 +75,7 @@ extension HAcceptVideoVC {
 
             let frame1 = CGRect(x: bounds.size.width / 2 - 40 - kAcceptVideoHeight1, y: 0, width: kAcceptVideoHeight1, height: kAcceptVideoHeight1)
             cell.buttonView.frame = frame1
-            cell.buttonView.setImage(WithName: "mdeia-button")
+            cell.buttonView.setImage(named: "mdeia-button")
             cell.buttonView.pressed = { (sender, data) in
                 
             }
@@ -90,7 +90,7 @@ extension HAcceptVideoVC {
             
             let frame3 = CGRect(x: bounds.size.width / 2 + 40, y: 0, width: kAcceptVideoHeight1, height: kAcceptVideoHeight1)
             cell.detailButton.frame = frame3
-            cell.detailButton.setImage(WithName: "mdeia-button")
+            cell.detailButton.setImage(named: "mdeia-button")
             cell.detailButton.pressed = { (sender, data) in
                 
             }
@@ -109,7 +109,7 @@ extension HAcceptVideoVC {
 
             let frame1 = CGRect(x: 40, y: 5, width: kAcceptVideoHeight1, height: kAcceptVideoHeight1)
             cell.buttonView.frame = frame1
-            cell.buttonView.setImage(WithName: "mdeia-button")
+            cell.buttonView.setImage(named: "mdeia-button")
             cell.buttonView.pressed = { (sender, data) in
                 
             }
@@ -124,7 +124,7 @@ extension HAcceptVideoVC {
             
             let frame3 = CGRect(x: bounds.size.width / 2 - kAcceptVideoHeight2 / 2, y: 0, width: kAcceptVideoHeight2, height: kAcceptVideoHeight2)
             cell.detailButton.frame = frame3
-            cell.detailButton.setImage(WithName: "mdeia-button")
+            cell.detailButton.setImage(named: "mdeia-button")
             cell.detailButton.pressed = { (sender, data) in
                 
             }
@@ -138,7 +138,7 @@ extension HAcceptVideoVC {
             
             let frame5 = CGRect(x: bounds.size.width - 40 - kAcceptVideoHeight1, y: 5, width: kAcceptVideoHeight1, height: kAcceptVideoHeight1)
             cell.accsryButton.frame = frame5
-            cell.accsryButton.setImage(WithName: "mdeia-button")
+            cell.accsryButton.setImage(named: "mdeia-button")
             cell.accsryButton.pressed = { (sender, data) in
                 
             }

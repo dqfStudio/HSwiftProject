@@ -165,6 +165,7 @@
 		A2B4308D23825BBE00795605 /* HWebImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B4308C23825BBE00795605 /* HWebImageView.swift */; };
 		A2B4308F2382CC8A00795605 /* UIDevice+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B4308E2382CC8A00795605 /* UIDevice+HUtil.swift */; };
 		A2CC441123B360AE00DB095F /* HTupleRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CC441023B360AE00DB095F /* HTupleRefresh.swift */; };
+		D21B4874780840369106F789 /* HTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A803975014A6432D909B07EE /* HTextFieldView.swift */; };
 		EB05976B2A09F02B0016ACD8 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05976A2A09F02B0016ACD8 /* CGRect.swift */; };
 		EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */; };
 		EB0597712A0B6B990016ACD8 /* HNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0597702A0B6B990016ACD8 /* HNavigationBar.swift */; };
@@ -350,6 +351,7 @@
 		EBAA51682FB8543E004DF5D8 /* HWebCompositeViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51612FB8543E004DF5D8 /* HWebCompositeViewTests.swift */; };
 		EBAA51692FB8543E004DF5D8 /* HWebLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51632FB8543E004DF5D8 /* HWebLayoutManager.swift */; };
 		EBAA516A2FB8543E004DF5D8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EBAA51642FB8543E004DF5D8 /* README.md */; };
+		EBAA51762FB9B43E004DF5D8 /* HTextFieldView_UsageGuide.md in Resources */ = {isa = PBXBuildFile; fileRef = EBAA51752FB9B43E004DF5D8 /* HTextFieldView_UsageGuide.md */; };
 		EBBCF3D92E2FE30F00421DB8 /* DPMStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBCF3D82E2FE30F00421DB8 /* DPMStackView.swift */; };
 		EBBCF40D2E536C2500421DB8 /* WaterfallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBCF40C2E536C2400421DB8 /* WaterfallViewController.swift */; };
 		EBC306CD2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */; };
@@ -665,6 +667,7 @@
 		A2B4308C23825BBE00795605 /* HWebImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebImageView.swift; sourceTree = "<group>"; };
 		A2B4308E2382CC8A00795605 /* UIDevice+HUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+HUtil.swift"; sourceTree = "<group>"; };
 		A2CC441023B360AE00DB095F /* HTupleRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleRefresh.swift; sourceTree = "<group>"; };
+		A803975014A6432D909B07EE /* HTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextFieldView.swift; sourceTree = "<group>"; };
 		EB05976A2A09F02B0016ACD8 /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCellApexSeparator.swift; sourceTree = "<group>"; };
 		EB0597702A0B6B990016ACD8 /* HNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar.swift; sourceTree = "<group>"; };
@@ -850,6 +853,7 @@
 		EBAA51622FB8543E004DF5D8 /* HWebImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebImageLoader.swift; sourceTree = "<group>"; };
 		EBAA51632FB8543E004DF5D8 /* HWebLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebLayoutManager.swift; sourceTree = "<group>"; };
 		EBAA51642FB8543E004DF5D8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		EBAA51752FB9B43E004DF5D8 /* HTextFieldView_UsageGuide.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = HTextFieldView_UsageGuide.md; sourceTree = "<group>"; };
 		EBBCF3D82E2FE30F00421DB8 /* DPMStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMStackView.swift; sourceTree = "<group>"; };
 		EBBCF40C2E536C2400421DB8 /* WaterfallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallViewController.swift; sourceTree = "<group>"; };
 		EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extern.swift"; sourceTree = "<group>"; };
@@ -1300,6 +1304,8 @@
 			isa = PBXGroup;
 			children = (
 				A28923AD238B750000E4AB75 /* HTextField.swift */,
+				A803975014A6432D909B07EE /* HTextFieldView.swift */,
+				EBAA51752FB9B43E004DF5D8 /* HTextFieldView_UsageGuide.md */,
 				EB23D99529DFC6F800C96CAC /* HTextView.swift */,
 				A286251523EAB8DD00E81781 /* HCountDownButton.swift */,
 				EBE797652DB3803800C7438F /* HValidationStrategy.swift */,
@@ -2339,6 +2345,7 @@
 				A26D43332386914500F457AE /* hvc_back_icon@2x.png in Resources */,
 				EB4323E029B988A400EDDB64 /* loading_new_2@2x.png in Resources */,
 				EBC8143C29AA52FE00A81431 /* mdeia-reduce.png in Resources */,
+				EBAA51762FB9B43E004DF5D8 /* HTextFieldView_UsageGuide.md in Resources */,
 				EBA167D42D17BEAD00DD2088 /* 2024222.png in Resources */,
 				A2B42FF1237CFFAB00795605 /* di_index_h@3x.png in Resources */,
 				EBAA516A2FB8543E004DF5D8 /* README.md in Resources */,
@@ -2889,6 +2896,7 @@
 				EB4323F229B98BE300EDDB64 /* UIAlertController+HUtil.swift in Sources */,
 				A28923A6238B72F800E4AB75 /* NSIndexPath+HUtil.swift in Sources */,
 				A28923AE238B750000E4AB75 /* HTextField.swift in Sources */,
+				D21B4874780840369106F789 /* HTextFieldView.swift in Sources */,
 				EBA6472D2A87704900897D76 /* HGroupbar.swift in Sources */,
 				A2418C8F2745172A005C8125 /* NSDictionary+HUtil.swift in Sources */,
 				A26D431D2384177900F457AE /* UIScreen+HUtil.swift in Sources */,

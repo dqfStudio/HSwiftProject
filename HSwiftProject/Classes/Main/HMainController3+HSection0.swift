@@ -34,7 +34,7 @@ extension HMainController3 {
         tmpFrame.size.width = tmpFrame.height
         cell.imageView.frame = tmpFrame
         cell.imageView.backgroundColor = UIColor.red
-        cell.imageView.setImage(WithName: "icon_no_server")
+        cell.imageView.setImage(named: "icon_no_server")
         
         var tmpFrame2: CGRect = frame
         tmpFrame2.origin.x += tmpFrame.maxX + 10

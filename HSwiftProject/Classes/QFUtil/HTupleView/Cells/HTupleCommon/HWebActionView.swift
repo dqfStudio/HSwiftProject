@@ -404,7 +404,7 @@ extension HWebActionView {
     *
     *  @param fileName The name of the image
     */
-    func setImage(WithName fileName: String) {
+    func setImage(named fileName: String) {
         if let image = UIImage(named: fileName) {
             self._setImage(image)
         }else {

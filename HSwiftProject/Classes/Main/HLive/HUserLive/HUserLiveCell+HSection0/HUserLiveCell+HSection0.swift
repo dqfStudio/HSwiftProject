@@ -96,7 +96,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             cell.imageView.frame = tmpFrame
             cell.imageView.backgroundColor = .red
             cell.imageView.cornerRadius = tmpFrame.width / 2
-            cell.imageView.setImage(WithName: "icon_no_server")
+            cell.imageView.setImage(named: "icon_no_server")
             
             
             var tmpFrame2 = frame
@@ -148,7 +148,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             let cell = tuple.reuseCell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
-            cell.buttonView.setImage(WithName: "icon_no_server")
+            cell.buttonView.setImage(named: "icon_no_server")
             cell.buttonView.pressed = { (sender, data) in
 //            self.viewController?.present(HAlertController(), animated: true, completion: {
 //
@@ -162,7 +162,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             let cell = tuple.reuseCell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
-            cell.buttonView.setImage(WithName: "icon_no_server")
+            cell.buttonView.setImage(named: "icon_no_server")
             cell.buttonView.pressed = { (sender, data) in
 //            self.viewController?.present(HAlertController(), animated: true, completion: {
 //
@@ -176,7 +176,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             let cell = tuple.reuseCell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
-            cell.buttonView.setImage(WithName: "icon_no_server")
+            cell.buttonView.setImage(named: "icon_no_server")
             cell.buttonView.pressed = { (sender, data) in
 //            self.viewController?.present(HAlertController(), animated: true, completion: {
 //
@@ -190,7 +190,7 @@ class HUserLiveTopHeaderView : UIView, HTupleViewDelegate {
             let cell = tuple.reuseCell(HTupleButtonCell.self, nil, true, indexPath) as! HTupleButtonCell
             cell.buttonView.backgroundColor = UIColor.red
             cell.buttonView.cornerRadius = cell.buttonView.width / 2
-            cell.buttonView.setImage(WithName: "icon_no_server")
+            cell.buttonView.setImage(named: "icon_no_server")
             cell.buttonView.pressed = { (sender, data) in
 //            self.viewController?.present(HAlertController(), animated: true, completion: {
 //

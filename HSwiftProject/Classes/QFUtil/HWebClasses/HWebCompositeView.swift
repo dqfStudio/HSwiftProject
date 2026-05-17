@@ -175,6 +175,7 @@ class HWebCompositeView: UIView {
     // MARK: - 状态管理
     
     /// 视图状态
+    /// 点击后由内部自动在 .normal ↔ .selected 之间切换
     var state: HWebCompositeViewState = .normal {
         didSet {
             updateStateAppearance()
@@ -649,6 +650,15 @@ class HWebCompositeView: UIView {
         if Date().timeIntervalSince1970 - pressedInterval > 0.5 {
             // 记录点击时间
             pressedInterval = Date().timeIntervalSince1970
+            // 自动切换状态：.normal ↔ .selected
+            switch state {
+            case .normal:
+                state = .selected
+            case .selected:
+                state = .normal
+            default:
+                break
+            }
             // 执行点击动画
             performTapAnimation()
             // 回调
@@ -1637,18 +1647,8 @@ extension HWebCompositeView {
         HWebImageLoader.preloadImages(with: urls)
     }
     
-    // 设置本地图片
-    func setImage(WithFile fileName: String) {
-        do {
-            try HWebImageLoader.loadLocalImage(with: fileName, imageView: imageView)
-            updateSubviews()
-        } catch let error {
-            didGetError?(self, error as AnyObject)
-            imageLoadStatus?(self, .failure, error)
-        }
-    }
-    
-    func setImage(WithName fileName: String) {
+    // 设置本地图片（从 Asset Catalog）
+    func setImage(named fileName: String) {
         do {
             try HWebImageLoader.loadAssetImage(with: fileName, imageView: imageView)
             updateSubviews()

@@ -29,7 +29,7 @@ class HUserLiveVC: HViewController, HTupleViewDelegate {
         inputField.placeholder = "请输入内容..."
         
         // Left padding (invisible spacer)
-        inputField.setLeftView(inputField.leftLabel, width: 10)
+//        inputField.setLeftView(inputField.leftLabel, width: 10)
 
         // 去掉键盘上的toolBar
         inputField.inputAccessoryView = UIView()
@@ -39,7 +39,7 @@ class HUserLiveVC: HViewController, HTupleViewDelegate {
         inputField.rightLabel.text = "完成"
         inputField.rightLabel.textAlignment = .center
         inputField.rightLabel.font = .systemFont(ofSize: 17.0)
-        inputField.setRightView(inputField.rightLabel, width: 60)
+//        inputField.setRightView(inputField.rightLabel, width: 60)
 
         inputField.rightLabel.addSingleTapGesture(withBlock: { sender in
             // Force hide keyboard

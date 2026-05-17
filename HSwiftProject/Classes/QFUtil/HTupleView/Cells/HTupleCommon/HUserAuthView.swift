@@ -35,7 +35,7 @@
 //    
 //    private lazy var gmButton: HWebButtonView = {
 //        let button = HWebButtonView()
-//        button.setImage(WithName: "group_member_tag_gm")
+//        button.setImage(named: "group_member_tag_gm")
 //        button.pressed = { [weak self] (sender, data) in
 //            self?.selectBlock?(.GM)
 //        }
@@ -43,7 +43,7 @@
 //    }()
 //    private lazy var vipButton: HWebButtonView = {
 //        let button = HWebButtonView()
-//        button.setImage(WithName: "group_member_tag_vip")
+//        button.setImage(named: "group_member_tag_vip")
 //        button.pressed = { [weak self] (sender, data) in
 //            self?.selectBlock?(.VIP)
 //        }
@@ -51,7 +51,7 @@
 //    }()
 //    private lazy var popButton: HWebButtonView = {
 //        let button = HWebButtonView()
-//        button.setImage(WithName: "profile_auth_pop")
+//        button.setImage(named: "profile_auth_pop")
 //        button.pressed = { [weak self] (sender, data) in
 //            self?.selectBlock?(.POP)
 //        }
@@ -59,7 +59,7 @@
 //    }()
 //    private lazy var otcButton: HWebButtonView = {
 //        let button = HWebButtonView()
-//        button.setImage(WithName: "profile_auth_otc")
+//        button.setImage(named: "profile_auth_otc")
 //        button.pressed = { [weak self] (sender, data) in
 //            self?.selectBlock?(.OTC)
 //        }
@@ -67,7 +67,7 @@
 //    }()
 //    private lazy var ugcButton: HWebButtonView = {
 //        let button = HWebButtonView()
-//        button.setImage(WithName: "profile_auth_ugc")
+//        button.setImage(named: "profile_auth_ugc")
 //        button.pressed = { [weak self] (sender, data) in
 //            self?.selectBlock?(.UGC)
 //        }
@@ -75,7 +75,7 @@
 //    }()
 //    private lazy var fcaButton: HWebButtonView = {
 //        let button = HWebButtonView()
-//        button.setImage(WithName: "profile_auth_fca")
+//        button.setImage(named: "profile_auth_fca")
 //        button.pressed = { [weak self] (sender, data) in
 //            self?.selectBlock?(.FCA)
 //        }

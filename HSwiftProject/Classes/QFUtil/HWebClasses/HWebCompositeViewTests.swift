@@ -205,7 +205,7 @@
 //        
 //        // 测试设置本地图片
 //        let testImageName = "icon"
-//        compositeView.setImage(WithName: testImageName)
+//        compositeView.setImage(named: testImageName)
 //        // 无法直接测试图片是否加载成功，因为需要实际的图片资源
 //    }
 //    

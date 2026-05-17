@@ -149,7 +149,7 @@ class HMainController2: HViewController {
 //        webButtonView.renderColor = .yellow
         webButtonView.imageSpace = 10
         webButtonView.image = UIImage(named: "hvc_back_icon")
-//        webButtonView.setImage(WithName: "hvc_back_icon")
+//        webButtonView.setImage(named: "hvc_back_icon")
 //        webButtonView.imageSize = CGSize(width: 23, height: 23)
         
 //        webButtonView.imageView.backgroundColor = .green
@@ -176,7 +176,7 @@ class HMainController2: HViewController {
         webActionView.imagePosition = .left
 //        webActionView.renderColor = .yellow
         webActionView.imageSpace = 10
-        webActionView.setImage(WithName: "hvc_back_icon")
+        webActionView.setImage(named: "hvc_back_icon")
 //        webActionView.imageSize = CGSize(width: 23, height: 23)
         
 //        webActionView.imageView.backgroundColor = .green
