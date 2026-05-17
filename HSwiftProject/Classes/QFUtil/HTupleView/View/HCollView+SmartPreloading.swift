@@ -202,12 +202,8 @@ extension HCollView {
         smartPreloadingManager.preloadDistance = preloadDistance
         
         // 监听滚动事件，在滚动时检查是否需要预加载
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(scrollViewDidScroll),
-            name: UIScrollView.didScrollNotification,
-            object: self
-        )
+        // UIScrollView.didScrollNotification 不存在，使用 UIScrollViewDelegate 替代
+        self.delegate = self
     }
     
     /// 禁用智能预加载
@@ -217,7 +213,7 @@ extension HCollView {
         smartPreloadingManager.clearBrowsingHistory()
         
         // 移除滚动事件监听
-        NotificationCenter.default.removeObserver(self, name: UIScrollView.didScrollNotification, object: self)
+        // UIScrollView.didScrollNotification 不存在
     }
     
     /// 预加载数据

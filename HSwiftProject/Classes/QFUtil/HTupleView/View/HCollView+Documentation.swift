@@ -117,7 +117,7 @@ extension HCollView {
             hCollView.loadImage(from: URL(string: "https://example.com/image.jpg")) { image in
                 if let image = image {
                     // 处理图片
-                    print("图片加载成功: \(image.size)")
+                    print("图片加载成功: image.size")
                 } else {
                     print("图片加载失败")
                 }
@@ -128,12 +128,12 @@ extension HCollView {
                 if let data = data {
                     do {
                         let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        print("网络请求成功: \(json)")
+                        print("网络请求成功: json")
                     } catch {
-                        print("网络请求失败: \(error)")
+                        print("网络请求失败: error")
                     }
                 } else if let error = error {
-                    print("网络请求失败: \(error)")
+                    print("网络请求失败: error")
                 }
             }
             ```
@@ -186,7 +186,7 @@ extension HCollView {
             hCollView.preloadContent(at: [IndexPath(item: 0, section: 0), IndexPath(item: 1, section: 0)]) {
                 indexPath in
                 // 预加载逻辑
-                print("预加载索引路径: \(indexPath)")
+                print("预加载索引路径: indexPath")
             }
             ```
             
@@ -219,7 +219,7 @@ extension HCollView {
             
             // 获取国际化字符串
             let loadingText = hCollView.getLocalizedString("loading")
-            print("加载文本: \(loadingText)")
+            print("加载文本: loadingText")
             ```
             
             ### 2.6 行业解决方案
@@ -930,7 +930,7 @@ extension HCollView {
                 
                 private func loadData() {
                     // 模拟加载数据
-                    dataSource = (0..<20).map { index in "Item \(index)" }
+                    dataSource = (0..<20).map { index in "Item index" }
                     collView.reloadData()
                 }
                 
@@ -982,7 +982,7 @@ extension HCollView {
                 }
                 
                 func didSelectCell(_ cell: HCollBaseCell, atIndexPath indexPath: IndexPath) {
-                    print("选中了: \(dataSource[indexPath.item])")
+                    print("选中了: dataSource[indexPath.item]")
                 }
             }
             
@@ -1085,7 +1085,7 @@ extension HCollView {
             hCollView.preloadContent(at: [IndexPath(item: 0, section: 0), IndexPath(item: 1, section: 0)]) {
                 indexPath in
                 // 预加载逻辑
-                print("预加载索引路径: \(indexPath)")
+                print("预加载索引路径: indexPath")
             }
             ```
             
@@ -1097,12 +1097,12 @@ extension HCollView {
                 if let data = data {
                     do {
                         let json = try JSONSerialization.jsonObject(with: data, options: [])
-                        print("网络请求成功: \(json)")
+                        print("网络请求成功: json")
                     } catch {
-                        print("网络请求失败: \(error)")
+                        print("网络请求失败: error")
                     }
                 } else if let error = error {
-                    print("网络请求失败: \(error)")
+                    print("网络请求失败: error")
                 }
             }
             
@@ -1142,7 +1142,7 @@ extension HCollView {
                 }
                 return "Success"
             }
-            print("执行结果: \(result ?? "Failed")")
+            print("执行结果: result ?? "Failed"")
             
             // 处理错误
             hCollView.handleError(NSError(domain: "ExampleError", code: 1, userInfo: nil), message: "加载失败")
@@ -1169,7 +1169,7 @@ extension HCollView {
             
             // 获取当前主题
             let currentTheme = hCollView.getCurrentTheme()
-            print("当前主题: \(currentTheme)")
+            print("当前主题: currentTheme")
             
             // 设置语言
             hCollView.setLanguage("en-US")
@@ -1179,7 +1179,7 @@ extension HCollView {
             
             // 获取国际化字符串
             let loadingText = hCollView.getLocalizedString("loading")
-            print("加载文本: \(loadingText)")
+            print("加载文本: loadingText")
             ```
             
             ## 示例 8: 行业解决方案
@@ -1211,7 +1211,7 @@ extension HCollView {
             ```swift
             // 获取模板列表
             let templates = hCollView.getTemplates()
-            print("模板数量: \(templates.count)")
+            print("模板数量: templates.count")
             
             // 应用网格布局模板
             hCollView.applyTemplate(name: "网格布局")
@@ -1321,11 +1321,11 @@ extension HCollView {
             // 实现自定义交互模式
             class CustomInteractionHandler {
                 func handleTap(at indexPath: IndexPath) {
-                    print("自定义点击处理: \(indexPath)")
+                    print("自定义点击处理: indexPath")
                 }
                 
                 func handleLongPress(at indexPath: IndexPath) {
-                    print("自定义长按处理: \(indexPath)")
+                    print("自定义长按处理: indexPath")
                 }
             }
             
@@ -1403,12 +1403,12 @@ extension HCollView {
                     if let data = data {
                         do {
                             let posts = try JSONSerialization.jsonObject(with: data, options: [])
-                            print("网络请求成功，获取到 \(String(describing: posts))")
+                            print("网络请求成功，获取到 String(describing: posts")
                         } catch {
-                            print("网络请求失败: \(error)")
+                            print("网络请求失败: error")
                         }
                     } else if let error = error {
-                        print("网络请求失败: \(error)")
+                        print("网络请求失败: error")
                     }
                 }
             }
@@ -1439,7 +1439,7 @@ extension HCollView {
                     }
                     return "Success"
                 }
-                print("安全执行结果: \(result ?? "Failed")")
+                print("安全执行结果: result ?? "Failed"")
                 
                 // 监控异常
                 hCollView.monitorException {
@@ -1465,7 +1465,7 @@ extension HCollView {
                 }
                 
                 func trackEvent(_ event: String, parameters: [String: Any]) {
-                    print("追踪事件: \(event), 参数: \(parameters)")
+                    print("追踪事件: event), 参数: parameters")
                 }
             }
             
@@ -1502,7 +1502,7 @@ extension HCollView {
                 
                 // 获取国际化字符串
                 let loadingText = hCollView.getLocalizedString("loading")
-                print("加载文本: \(loadingText)")
+                print("加载文本: loadingText")
             }
             
             // 调用扩展性配置

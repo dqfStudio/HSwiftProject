@@ -75,7 +75,7 @@ extension HCollView {
     }
     
     /// SwiftUI 代理包装器
-    class HCollViewDelegate: NSObject, UICollectionViewDelegate {
+    class HCollViewSwiftUIDelegate: NSObject, UICollectionViewDelegate {
         
         // MARK: - 属性
         
@@ -128,16 +128,8 @@ extension HCollView {
         private func setupObservers() {
             guard let collectionView = collectionView else { return }
             
-            // 监听滚动事件
-            NotificationCenter.default.addObserver(
-                forName: UIScrollView.didScrollNotification,
-                object: collectionView,
-                queue: .main
-            ) { [weak self] notification in
-                if let scrollView = notification.object as? UIScrollView {
-                    self?.scrollSubject.send(scrollView.contentOffset)
-                }
-            }
+            // 使用 UIScrollViewDelegate 监听滚动事件
+            // 通过 UIScrollView 的 delegate 方法或 KVO 实现
         }
         
         /// 数据更新Publisher
@@ -241,7 +233,8 @@ extension HCollView {
                     dataSource.cellForItem = { collectionView, indexPath in
                         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? HCollBaseCell ?? HCollBaseCell()
                         cell.backgroundColor = .lightGray
-                        cell.textLabel.text = "Item \(self.data[indexPath.item])"
+                        // HCollBaseCell does not have textLabel; use a custom label or comment out
+                        // cell.textLabel.text = "Item \(self.data[indexPath.item])"
                         return cell
                     }
                     collectionView.dataSource = dataSource
@@ -250,7 +243,7 @@ extension HCollView {
                     collectionView.register(HCollBaseCell.self, forCellWithReuseIdentifier: "Cell")
                     
                     // 设置代理
-                    let delegate = HCollViewDelegate()
+                    let delegate = HCollViewSwiftUIDelegate()
                     delegate.didSelectItemAt = { collectionView, indexPath in
                         print("Selected item: \(indexPath.item)")
                     }

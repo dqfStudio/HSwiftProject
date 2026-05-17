@@ -13,6 +13,16 @@ protocol ReusableObject {
     /// 重置对象状态
     func reset()
 }
+/// 对象池协议
+protocol ObjectPoolProtocol {
+    /// 清空对象池
+    func clear()
+    /// 获取池大小
+    func poolSize() -> Int
+}
+
+/// 为 ObjectPool 实现 ObjectPoolProtocol — 自身已实现 clear() 和 poolSize()
+extension HCollView.ObjectPool: ObjectPoolProtocol {}
 
 /// HCollView 对象池扩展
 ///
@@ -81,6 +91,7 @@ extension HCollView {
     class ObjectPoolManager {
         
         // MARK: - 单例
+        
         static let shared = ObjectPoolManager()
         private init() {}
         
@@ -136,25 +147,6 @@ extension HCollView {
                 }
             }
             return status
-        }
-    }
-    
-    /// 对象池协议
-    protocol ObjectPoolProtocol {
-        /// 清空对象池
-        func clear()
-        /// 获取池大小
-        func poolSize() -> Int
-    }
-    
-    /// 为 ObjectPool 实现 ObjectPoolProtocol
-    extension ObjectPool: ObjectPoolProtocol {
-        func clear() {
-            clear()
-        }
-        
-        func poolSize() -> Int {
-            return poolSize()
         }
     }
     

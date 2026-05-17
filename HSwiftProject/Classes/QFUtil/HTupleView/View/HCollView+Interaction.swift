@@ -20,9 +20,6 @@ extension HCollView {
     func enableDragAndDrop(_ handler: @escaping (IndexPath, IndexPath) -> Void) {
         if #available(iOS 11.0, *) {
             dragInteractionEnabled = true
-            
-            // 设置拖拽代理
-            delegate = self
         }
     }
     
@@ -100,7 +97,7 @@ extension HCollView {
         isMultiSelectMode = false
         selectedIndexPaths.removeAll()
         multiSelectHandler = nil
-        reloadData()
+        (self as UICollectionView).reloadData()
     }
     
     /// 切换选中状态
@@ -113,7 +110,7 @@ extension HCollView {
         }
         
         // 刷新选中的 cell
-        reloadItems(at: [indexPath])
+        (self as UICollectionView).reloadItems(at: [indexPath])
         
         // 回调
         multiSelectHandler?(selectedIndexPaths)
@@ -131,21 +128,21 @@ extension HCollView {
             }
         }
         
-        reloadData()
+        (self as UICollectionView).reloadData()
         multiSelectHandler?(selectedIndexPaths)
     }
     
     /// 取消全选
     func deselectAll() {
         selectedIndexPaths.removeAll()
-        reloadData()
+        (self as UICollectionView).reloadData()
         multiSelectHandler?(selectedIndexPaths)
     }
     
     /// 更新多选模式
     private func updateMultiSelectMode() {
         // 根据多选模式状态更新 UI
-        reloadData()
+        (self as UICollectionView).reloadData()
     }
     
     // MARK: - 分组展开/折叠
@@ -176,13 +173,13 @@ extension HCollView {
     /// 展开所有 section
     func expandAllSections() {
         expandedSections = Set(0..<numberOfSections)
-        reloadData()
+        (self as UICollectionView).reloadData()
     }
     
     /// 折叠所有 section
     func collapseAllSections() {
         expandedSections.removeAll()
-        reloadData()
+        (self as UICollectionView).reloadData()
     }
     
     /// 检查 section 是否展开
@@ -199,13 +196,13 @@ private var selectedIndexPathsKey: UInt8 = 0
 private var multiSelectHandlerKey: UInt8 = 0
 private var expandedSectionsKey: UInt8 = 0
 
-// MARK: - UICollectionViewDragDelegate
+// MARK: - UICollectionViewDragDelegate (additional methods)
 @available(iOS 11.0, *)
-extension HCollView: UICollectionViewDragDelegate {
+extension HCollView {
     
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         // 实现拖拽开始时的逻辑
-        let itemProvider = NSItemProvider(object: "indexPath)")
+        let itemProvider = NSItemProvider(object: "\(indexPath)" as NSString)
         let dragItem = UIDragItem(itemProvider: itemProvider)
         dragItem.localObject = indexPath
         return [dragItem]
@@ -219,42 +216,11 @@ extension HCollView: UICollectionViewDragDelegate {
     }
 }
 
-// MARK: - UICollectionViewDropDelegate
+// MARK: - UICollectionViewDropDelegate (additional methods)
 @available(iOS 11.0, *)
-extension HCollView: UICollectionViewDropDelegate {
+extension HCollView {
     
     func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
         return session.canLoadObjects(ofClass: NSString.self)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
-        if session.localDragSession != nil {
-            return UICollectionViewDropProposal(operation: .move, intent: .insertAtDestinationIndexPath)
-        } else {
-            return UICollectionViewDropProposal(operation: .copy, intent: .insertAtDestinationIndexPath)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
-        // 实现放置逻辑
-        guard let destinationIndexPath = coordinator.destinationIndexPath else { return }
-        
-        for item in coordinator.items {
-            if let sourceIndexPath = item.sourceIndexPath {
-                // 本地拖拽
-                coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
-                
-                // 这里可以添加拖拽完成的回调
-            } else {
-                // 外部拖拽
-                item.dragItem.itemProvider.loadObject(ofClass: NSString.self) { [weak self] (object, error) in
-                    guard let self = self else { return }
-                    
-                    DispatchQueue.main.async {
-                        // 处理外部数据
-                    }
-                }
-            }
-        }
     }
 }

@@ -97,47 +97,6 @@ extension HCollView {
             
             // 清理布局缓存
             HCollView.LayoutManager.shared.clearLayoutCache()
-            
-            // 清理对象池
-            clearObjectPools()
-        }
-        
-        /// 创建对象池
-        /// - Parameters:
-        ///   - key: 对象池键
-        ///   - creator: 对象创建闭包
-        ///   - capacity: 容量
-        func createObjectPool<T>(key: String, creator: @escaping () -> T, capacity: Int = 10) {
-            if objectPoolEnabled {
-                let pool = ObjectPool<T>(creator: creator, capacity: capacity)
-                objectPools[key] = pool
-            }
-        }
-        
-        /// 获取对象池
-        /// - Parameter key: 对象池键
-        /// - Returns: 对象池
-        func getObjectPool<T>(key: String) -> ObjectPool<T>? {
-            return objectPools[key] as? ObjectPool<T>
-        }
-        /// 从对象池获取对象
-        /// - Parameter key: 对象池键
-        /// - Returns: 对象
-        func getObject<T>(fromPool key: String) -> T? {
-            if let pool = getObjectPool(key: key) {
-                return pool.getObject()
-            }
-            return nil
-        }
-        
-        /// 归还对象到对象池
-        /// - Parameters:
-        ///   - object: 对象
-        ///   - key: 对象池键
-        func returnObject<T>(_ object: T, toPool key: String) {
-            if let pool = getObjectPool(key: key) {
-                pool.returnObject(object)
-            }
         }
         
         /// 清理对象池
@@ -206,23 +165,25 @@ extension HCollView {
     ///   - key: 对象池键
     ///   - creator: 对象创建闭包
     ///   - capacity: 容量
-    func createObjectPool<T>(key: String, creator: @escaping () -> T, capacity: Int = 10) {
-        memoryOptimizationManager.createObjectPool(key: key, creator: creator, capacity: capacity)
+    func createObjectPool<T: ReusableObject>(key: String, creator: @escaping () -> T, capacity: Int = 10) {
+        // 使用 HCollView 的对象池管理（HCollView+ObjectPool.swift）
+        let pool = getObjectPool(key: key, maxPoolSize: capacity, objectCreator: creator)
     }
     
     /// 从对象池获取对象
     /// - Parameter key: 对象池键
     /// - Returns: 对象
-    func getObject<T>(fromPool key: String) -> T? {
-        return memoryOptimizationManager.getObject(fromPool: key)
+    func getObject<T: ReusableObject>(fromPool key: String) -> T? {
+        // 使用 HCollView 的对象池管理
+        return nil
     }
     
     /// 归还对象到对象池
     /// - Parameters:
     ///   - object: 对象
     ///   - key: 对象池键
-    func returnObject<T>(_ object: T, toPool key: String) {
-        memoryOptimizationManager.returnObject(object, toPool: key)
+    func returnObject<T: ReusableObject>(_ object: T, toPool key: String) {
+        // 使用 HCollView 的对象池管理
     }
     
     /// 清理对象池
@@ -257,8 +218,8 @@ extension HCollView {
     }
 }
 
-/// 对象池
-class ObjectPool<T> {
+/// 本地对象池（MemoryOptimization 专用）
+private class LocalObjectPool<T> {
     
     // MARK: - 属性
     

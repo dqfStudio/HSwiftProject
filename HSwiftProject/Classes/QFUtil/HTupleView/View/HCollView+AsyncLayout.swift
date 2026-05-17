@@ -88,7 +88,7 @@ extension HCollView {
             let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
             
             // 计算 item 尺寸
-            let itemSize = collectionView.collDelegate?.sizeForItemAt?(indexPath) ?? CGSize(width: 100, height: 100)
+            let itemSize = collectionView.collDelegate?.sizeForItemAtIndexPath?(indexPath) ?? CGSize(width: 100, height: 100)
             
             // 计算 item 位置
             var x: CGFloat = 0
@@ -102,13 +102,13 @@ extension HCollView {
             // 计算前面 section 的高度
             for section in 0..<indexPath.section {
                 // 计算 section header 高度
-                let headerHeight = collectionView.collDelegate?.sizeForHeaderInSection?(section)?.height ?? 0
+                let headerHeight = collectionView.collDelegate?.sizeForHeaderInSection?(section).height ?? 0
                 y += headerHeight
                 
                 // 计算 section 内所有 item 的高度
                 let items = collectionView.numberOfItems(inSection: section)
                 for item in 0..<items {
-                    let itemSize = collectionView.collDelegate?.sizeForItemAt?(IndexPath(item: item, section: section)) ?? CGSize(width: 100, height: 100)
+                    let itemSize = collectionView.collDelegate?.sizeForItemAtIndexPath?(IndexPath(item: item, section: section)) ?? CGSize(width: 100, height: 100)
                     y += itemSize.height
                     
                     // 添加行间距
@@ -118,7 +118,7 @@ extension HCollView {
                 }
                 
                 // 计算 section footer 高度
-                let footerHeight = collectionView.collDelegate?.sizeForFooterInSection?(section)?.height ?? 0
+                let footerHeight = collectionView.collDelegate?.sizeForFooterInSection?(section).height ?? 0
                 y += footerHeight
                 
                 // 添加 section 间距
@@ -130,7 +130,7 @@ extension HCollView {
             // 计算当前 section 内前面 item 的高度
             let currentSectionItems = collectionView.numberOfItems(inSection: indexPath.section)
             for item in 0..<indexPath.item {
-                let itemSize = collectionView.collDelegate?.sizeForItemAt?(IndexPath(item: item, section: indexPath.section)) ?? CGSize(width: 100, height: 100)
+                let itemSize = collectionView.collDelegate?.sizeForItemAtIndexPath?(IndexPath(item: item, section: indexPath.section)) ?? CGSize(width: 100, height: 100)
                 y += itemSize.height
                 
                 // 添加行间距

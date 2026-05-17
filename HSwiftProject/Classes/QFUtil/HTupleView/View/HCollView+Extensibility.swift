@@ -10,7 +10,7 @@ import UIKit
 
 /// HCollView 扩展性扩展
 ///
-/// 提供插件系统、主题系统和国际化支持等功能
+/// 提供统一的插件系统、主题系统和国际化支持等功能
 extension HCollView {
     
     /// 扩展性管理器
@@ -23,10 +23,10 @@ extension HCollView {
         // MARK: - 属性
         
         /// 插件列表
-        private var plugins: [String: HCollViewPlugin] = [:]
+        private var plugins: [String: HCollViewExtPlugin] = [:]
         
         /// 主题
-        private var currentTheme: HCollViewTheme = DefaultTheme()
+        private var currentTheme: HCollViewExtTheme = ExtDefaultTheme()
         
         /// 语言
         private var currentLanguage: String = "zh-CN"
@@ -57,14 +57,14 @@ extension HCollView {
         /// - Parameters:
         ///   - plugin: 插件
         ///   - key: 插件键
-        func registerPlugin(_ plugin: HCollViewPlugin, forKey key: String) {
+        func registerExtPlugin(_ plugin: HCollViewExtPlugin, forKey key: String) {
             plugins[key] = plugin
             plugin.setup(self)
         }
         
         /// 移除插件
         /// - Parameter key: 插件键
-        func removePlugin(forKey key: String) {
+        func removeExtPlugin(forKey key: String) {
             if let plugin = plugins[key] {
                 plugin.teardown()
                 plugins.removeValue(forKey: key)
@@ -74,7 +74,7 @@ extension HCollView {
         /// 获取插件
         /// - Parameter key: 插件键
         /// - Returns: 插件
-        func getPlugin(forKey key: String) -> HCollViewPlugin? {
+        func getExtPlugin(forKey key: String) -> HCollViewExtPlugin? {
             return plugins[key]
         }
         
@@ -82,7 +82,7 @@ extension HCollView {
         /// - Parameters:
         ///   - method: 方法名
         ///   - parameters: 参数
-        func callPlugins(method: String, parameters: [Any] = []) {
+        func callExtPlugins(method: String, parameters: [Any] = []) {
             for plugin in plugins.values {
                 plugin.callMethod(method, parameters: parameters)
             }
@@ -90,25 +90,25 @@ extension HCollView {
         
         /// 设置主题
         /// - Parameter theme: 主题
-        func setTheme(_ theme: HCollViewTheme) {
+        func setExtTheme(_ theme: HCollViewExtTheme) {
             currentTheme = theme
         }
         
         /// 获取当前主题
         /// - Returns: 当前主题
-        func getCurrentTheme() -> HCollViewTheme {
+        func getCurrentExtTheme() -> HCollViewExtTheme {
             return currentTheme
         }
         
         /// 设置语言
         /// - Parameter language: 语言代码
-        func setLanguage(_ language: String) {
+        func setExtLanguage(_ language: String) {
             currentLanguage = language
         }
         
         /// 获取当前语言
         /// - Returns: 当前语言代码
-        func getCurrentLanguage() -> String {
+        func getCurrentExtLanguage() -> String {
             return currentLanguage
         }
         
@@ -137,7 +137,7 @@ extension HCollView {
         }
         
         /// 清理插件
-        func clearPlugins() {
+        func clearExtPlugins() {
             for plugin in plugins.values {
                 plugin.teardown()
             }
@@ -154,54 +154,54 @@ extension HCollView {
     /// - Parameters:
     ///   - plugin: 插件
     ///   - key: 插件键
-    func registerPlugin(_ plugin: HCollViewPlugin, forKey key: String) {
-        extensibilityManager.registerPlugin(plugin, forKey: key)
+    func registerExtPlugin(_ plugin: HCollViewExtPlugin, forKey key: String) {
+        extensibilityManager.registerExtPlugin(plugin, forKey: key)
     }
     
     /// 移除插件
     /// - Parameter key: 插件键
-    func removePlugin(forKey key: String) {
-        extensibilityManager.removePlugin(forKey: key)
+    func removeExtPlugin(forKey key: String) {
+        extensibilityManager.removeExtPlugin(forKey: key)
     }
     
     /// 获取插件
     /// - Parameter key: 插件键
     /// - Returns: 插件
-    func getPlugin(forKey key: String) -> HCollViewPlugin? {
-        return extensibilityManager.getPlugin(forKey: key)
+    func getExtPlugin(forKey key: String) -> HCollViewExtPlugin? {
+        return extensibilityManager.getExtPlugin(forKey: key)
     }
     
     /// 调用所有插件的方法
     /// - Parameters:
     ///   - method: 方法名
     ///   - parameters: 参数
-    func callPlugins(method: String, parameters: [Any] = []) {
-        extensibilityManager.callPlugins(method: method, parameters: parameters)
+    func callExtPlugins(method: String, parameters: [Any] = []) {
+        extensibilityManager.callExtPlugins(method: method, parameters: parameters)
     }
     
-    /// 设置主题
+    /// 设置扩展主题
     /// - Parameter theme: 主题
-    func setTheme(_ theme: HCollViewTheme) {
-        extensibilityManager.setTheme(theme)
-        applyTheme()
+    func setExtTheme(_ theme: HCollViewExtTheme) {
+        extensibilityManager.setExtTheme(theme)
+        applyExtTheme()
     }
     
-    /// 获取当前主题
+    /// 获取当前扩展主题
     /// - Returns: 当前主题
-    func getCurrentTheme() -> HCollViewTheme {
-        return extensibilityManager.getCurrentTheme()
+    func getCurrentExtTheme() -> HCollViewExtTheme {
+        return extensibilityManager.getCurrentExtTheme()
     }
     
-    /// 设置语言
+    /// 设置扩展语言
     /// - Parameter language: 语言代码
-    func setLanguage(_ language: String) {
-        extensibilityManager.setLanguage(language)
+    func setExtLanguage(_ language: String) {
+        extensibilityManager.setExtLanguage(language)
     }
     
-    /// 获取当前语言
+    /// 获取当前扩展语言
     /// - Returns: 当前语言代码
-    func getCurrentLanguage() -> String {
-        return extensibilityManager.getCurrentLanguage()
+    func getCurrentExtLanguage() -> String {
+        return extensibilityManager.getCurrentExtLanguage()
     }
     
     /// 添加国际化字符串
@@ -221,33 +221,33 @@ extension HCollView {
         return extensibilityManager.getLocalizedString(key, forLanguage: language)
     }
     
-    /// 应用主题
-    private func applyTheme() {
-        let theme = getCurrentTheme()
+    /// 应用扩展主题
+    private func applyExtTheme() {
+        let theme = getCurrentExtTheme()
         
         // 应用主题到集合视图
-        backgroundColor = theme.backgroundColor
-        tintColor = theme.tintColor
+        backgroundColor = theme.extBackgroundColor
+        tintColor = theme.extTintColor
         
         // 应用主题到单元格
         // 这里需要根据实际情况实现
     }
     
-    /// 清理插件
-    func clearPlugins() {
-        extensibilityManager.clearPlugins()
+    /// 清理扩展插件
+    func clearExtPlugins() {
+        extensibilityManager.clearExtPlugins()
     }
 }
 
-/// HCollView 插件协议
-protocol HCollViewPlugin {
+/// HCollView 扩展插件协议
+protocol HCollViewExtPlugin {
     
     /// 初始化
     init()
     
     /// 设置
     /// - Parameter manager: 扩展性管理器
-    func setup(_ manager: ExtensibilityManager)
+    func setup(_ manager: HCollView.ExtensibilityManager)
     
     /// 拆卸
     func teardown()
@@ -259,89 +259,89 @@ protocol HCollViewPlugin {
     func callMethod(_ method: String, parameters: [Any])
 }
 
-/// HCollView 主题协议
-protocol HCollViewTheme {
+/// HCollView 扩展主题协议
+protocol HCollViewExtTheme {
     
     /// 背景颜色
-    var backgroundColor: UIColor { get }
+    var extBackgroundColor: UIColor { get }
     
     /// 主题色
-    var tintColor: UIColor { get }
+    var extTintColor: UIColor { get }
     
     /// 文本颜色
-    var textColor: UIColor { get }
+    var extTextColor: UIColor { get }
     
     /// 副标题颜色
-    var secondaryTextColor: UIColor { get }
+    var extSecondaryTextColor: UIColor { get }
     
     /// 边框颜色
-    var borderColor: UIColor { get }
+    var extBorderColor: UIColor { get }
     
     /// 边框宽度
-    var borderWidth: CGFloat { get }
+    var extBorderWidth: CGFloat { get }
     
     /// 圆角半径
-    var cornerRadius: CGFloat { get }
+    var extCornerRadius: CGFloat { get }
     
     /// 阴影颜色
-    var shadowColor: UIColor { get }
+    var extShadowColor: UIColor { get }
     
     /// 阴影偏移
-    var shadowOffset: CGSize { get }
+    var extShadowOffset: CGSize { get }
     
     /// 阴影半径
-    var shadowRadius: CGFloat { get }
+    var extShadowRadius: CGFloat { get }
     
     /// 阴影不透明度
-    var shadowOpacity: Float { get }
+    var extShadowOpacity: Float { get }
 }
 
-/// 默认主题
-class DefaultTheme: HCollViewTheme {
+/// 默认扩展主题
+class ExtDefaultTheme: HCollViewExtTheme {
     
-    var backgroundColor: UIColor { return .white }
-    var tintColor: UIColor { return .blue }
-    var textColor: UIColor { return .black }
-    var secondaryTextColor: UIColor { return .gray }
-    var borderColor: UIColor { return .lightGray }
-    var borderWidth: CGFloat { return 1.0 }
-    var cornerRadius: CGFloat { return 8.0 }
-    var shadowColor: UIColor { return .black }
-    var shadowOffset: CGSize { return CGSize(width: 0, height: 2) }
-    var shadowRadius: CGFloat { return 4.0 }
-    var shadowOpacity: Float { return 0.2 }
+    var extBackgroundColor: UIColor { return .white }
+    var extTintColor: UIColor { return .blue }
+    var extTextColor: UIColor { return .black }
+    var extSecondaryTextColor: UIColor { return .gray }
+    var extBorderColor: UIColor { return .lightGray }
+    var extBorderWidth: CGFloat { return 1.0 }
+    var extCornerRadius: CGFloat { return 8.0 }
+    var extShadowColor: UIColor { return .black }
+    var extShadowOffset: CGSize { return CGSize(width: 0, height: 2) }
+    var extShadowRadius: CGFloat { return 4.0 }
+    var extShadowOpacity: Float { return 0.2 }
 }
 
-/// 暗黑主题
-class DarkTheme: HCollViewTheme {
+/// 暗黑扩展主题
+class ExtDarkTheme: HCollViewExtTheme {
     
-    var backgroundColor: UIColor { return .black }
-    var tintColor: UIColor { return .blue }
-    var textColor: UIColor { return .white }
-    var secondaryTextColor: UIColor { return .lightGray }
-    var borderColor: UIColor { return .darkGray }
-    var borderWidth: CGFloat { return 1.0 }
-    var cornerRadius: CGFloat { return 8.0 }
-    var shadowColor: UIColor { return .white }
-    var shadowOffset: CGSize { return CGSize(width: 0, height: 2) }
-    var shadowRadius: CGFloat { return 4.0 }
-    var shadowOpacity: Float { return 0.1 }
+    var extBackgroundColor: UIColor { return .black }
+    var extTintColor: UIColor { return .blue }
+    var extTextColor: UIColor { return .white }
+    var extSecondaryTextColor: UIColor { return .lightGray }
+    var extBorderColor: UIColor { return .darkGray }
+    var extBorderWidth: CGFloat { return 1.0 }
+    var extCornerRadius: CGFloat { return 8.0 }
+    var extShadowColor: UIColor { return .white }
+    var extShadowOffset: CGSize { return CGSize(width: 0, height: 2) }
+    var extShadowRadius: CGFloat { return 4.0 }
+    var extShadowOpacity: Float { return 0.1 }
 }
 
-/// 示例插件
-class ExamplePlugin: HCollViewPlugin {
+/// 示例扩展插件
+class ExtExamplePlugin: HCollViewExtPlugin {
     
     required init() {}
     
-    func setup(_ manager: ExtensibilityManager) {
-        print("ExamplePlugin setup")
+    func setup(_ manager: HCollView.ExtensibilityManager) {
+        print("ExtExamplePlugin setup")
     }
     
     func teardown() {
-        print("ExamplePlugin teardown")
+        print("ExtExamplePlugin teardown")
     }
     
     func callMethod(_ method: String, parameters: [Any]) {
-        print("ExamplePlugin callMethod: \(method), parameters: \(parameters)")
+        print("ExtExamplePlugin callMethod: \(method), parameters: \(parameters)")
     }
 }

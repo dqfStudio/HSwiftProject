@@ -12,7 +12,7 @@ import UIKit
 enum HCollViewLayoutPreset {
     case grid(columns: Int)          // 网格布局
     case list                        // 列表布局
-    case waterfall                   // 瀑布流布局
+    case waterfall                   // 瀑布流布局（使用 HCollViewLayout）
     case horizontalScroll            // 水平滚动布局
     case staggeredGrid(columns: Int) // 交错网格布局
 }
@@ -39,17 +39,18 @@ extension HCollView {
         }
     }
     
-    /// 应用网格布局
+    /// 应用网格布局 — 支持 self-sizing
     /// - Parameter columns: 列数
     private func applyGridLayout(columns: Int) {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
-        // 计算 item 宽度
         let padding: CGFloat = 10
         let itemWidth = (bounds.width - padding * 2 - CGFloat(columns - 1) * 10) / CGFloat(columns)
         
-        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        // 设置 estimatedItemSize 启用 self-sizing
+        // 宽度固定，高度用 estimated，cell 的 preferredLayoutAttributesFitting 会返回真实高度
+        layout.estimatedItemSize = CGSize(width: itemWidth, height: itemWidth)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
@@ -58,15 +59,13 @@ extension HCollView {
         flowLayout = layout
     }
     
-    /// 应用列表布局
+    /// 应用列表布局 — 支持 self-sizing
     private func applyListLayout() {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
         
-        // 列表项高度
-        let itemHeight: CGFloat = 80
-        
-        layout.itemSize = CGSize(width: bounds.width - 20, height: itemHeight)
+        // estimatedItemSize 启动 self-sizing，宽度占满，高度由 cell 自己决定
+        layout.estimatedItemSize = CGSize(width: bounds.width - 20, height: 80)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 0
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
@@ -75,20 +74,12 @@ extension HCollView {
         flowLayout = layout
     }
     
-    /// 应用瀑布流布局
+    /// 应用瀑布流布局 — 使用 HCollViewLayout 的瀑布流模式
     private func applyWaterfallLayout() {
-        // 这里使用 UICollectionViewFlowLayout 模拟瀑布流布局
-        // 实际项目中可以使用专门的瀑布流布局库
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
+        let layout = HCollViewLayout()
+        // 不设置 estimatedItemSize，使用瀑布流模式（全量计算）
         
-        // 计算 item 宽度（2列）
         let padding: CGFloat = 10
-        let itemWidth = (bounds.width - padding * 2 - 10) / 2
-        
-        // 注意：瀑布流布局需要动态计算 item 高度
-        // 这里设置一个默认高度，实际使用时需要在代理方法中返回真实高度
-        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
@@ -102,7 +93,6 @@ extension HCollView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         
-        // 水平滚动项宽度
         let itemWidth: CGFloat = 200
         let itemHeight: CGFloat = bounds.height - 20
         
@@ -114,25 +104,19 @@ extension HCollView {
         setCollectionViewLayout(layout, animated: true)
         flowLayout = layout
         
-        // 启用水平弹跳
         enableHorizontalBounce()
     }
     
-    /// 应用交错网格布局
+    /// 应用交错网格布局 — 使用 HCollViewLayout 实现瀑布流效果
     /// - Parameter columns: 列数
     private func applyStaggeredGridLayout(columns: Int) {
-        // 这里使用 UICollectionViewFlowLayout 模拟交错网格布局
-        // 实际项目中可以使用专门的交错网格布局库
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        
-        // 计算 item 宽度
+        // 使用 HCollViewLayout 的 self-sizing 模式
+        let layout = HCollViewLayout()
         let padding: CGFloat = 10
         let itemWidth = (bounds.width - padding * 2 - CGFloat(columns - 1) * 10) / CGFloat(columns)
         
-        // 注意：交错网格布局需要动态计算 item 高度
-        // 这里设置一个默认高度，实际使用时需要在代理方法中返回真实高度
-        layout.itemSize = CGSize(width: itemWidth, height: itemWidth)
+        // 设置 estimatedItemSize 启用 self-sizing 模式
+        layout.estimatedItemSize = CGSize(width: itemWidth, height: itemWidth)
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: padding, left: padding, bottom: padding, right: padding)
@@ -165,7 +149,6 @@ extension HCollView {
         setCollectionViewLayout(layout, animated: true)
         flowLayout = layout
         
-        // 根据滚动方向调整弹跳行为
         if scrollDirection == .vertical {
             enableVerticalBounce()
         } else {

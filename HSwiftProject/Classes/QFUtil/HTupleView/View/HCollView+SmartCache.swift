@@ -66,10 +66,14 @@ extension HCollView {
             switch currentMemoryLevel {
             case .critical:
                 // Only clear on critical — the memory warning handler already purges caches
-                collectionView.cleanupAllCache()
+                Task { @MainActor in
+                    collectionView.handleMemoryWarning()
+                }
             case .high:
                 // Evict stale weak references but keep live ones
-                collectionView.cleanupInvalidWeakReferences()
+                Task { @MainActor in
+                    collectionView.cleanupInvalidWeakReferences()
+                }
             case .medium, .low:
                 break
             }

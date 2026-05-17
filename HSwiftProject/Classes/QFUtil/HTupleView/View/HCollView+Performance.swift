@@ -30,17 +30,17 @@ extension HCollView {
             return
         }
         
-        performBatchUpdates {
+        performBatchUpdates { [self] in
             if !indexPathsToInsert.isEmpty {
-                self.insertItems(at: indexPathsToInsert)
+                (self as UICollectionView).insertItems(at: indexPathsToInsert)
             }
             
             if !indexPathsToDelete.isEmpty {
-                self.deleteItems(at: indexPathsToDelete)
+                (self as UICollectionView).deleteItems(at: indexPathsToDelete)
             }
             
             if !indexPathsToReload.isEmpty {
-                self.reloadItems(at: indexPathsToReload)
+                (self as UICollectionView).reloadItems(at: indexPathsToReload)
             }
         } completion: {
             completion?($0)

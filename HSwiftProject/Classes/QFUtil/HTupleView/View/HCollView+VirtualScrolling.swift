@@ -140,7 +140,7 @@ extension HCollView {
     func enableVirtualScrolling(totalItems: Int, defaultCellHeight: CGFloat = 100.0) {
         virtualScrollingManager.totalItems = totalItems
         virtualScrollingManager.defaultCellHeight = defaultCellHeight
-        estimatedItemSize = CGSize(width: bounds.width - 20, height: defaultCellHeight)
+        (self.collectionViewLayout as? UICollectionViewFlowLayout)?.estimatedItemSize = CGSize(width: bounds.width - 20, height: defaultCellHeight)
     }
 
     /// 禁用虚拟滚动

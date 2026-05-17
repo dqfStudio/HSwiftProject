@@ -13,7 +13,20 @@ import UIKit
     func collectionView(_ collectionView: UICollectionView, layout: UICollectionViewLayout, colorForSectionAt section: NSInteger) -> UIColor
 }
 
-/// 自定义瀑布流布局类
+/// 布局模式
+enum HCollViewLayoutMode {
+    /// 瀑布流模式：prepare() 中全量计算所有 item，通过 sizeForItemAtIndexPath 获取高度
+    case waterfall
+    /// Self-sizing 模式：prepare() 中用估计高度占位，由 cell 的 preferredLayoutAttributesFitting 返回真实高度
+    /// 适用于 cell 使用 Auto Layout / SnapKit 布局的场景，图片下载后自动撑高
+    case selfSizing
+}
+
+/// HCollView 自定义布局
+///
+/// 两种布局模式：
+/// - `.waterfall`：多列瀑布流，全量计算，高度由 sizeForItemAtIndexPath 决定
+/// - `.selfSizing`：单列或多列，支持 self-sizing（estimatedItemSize），cell 自动撑高
 ///
 /// 支持特性:
 /// - 多列瀑布流布局,每个 Section 可独立配置列数
@@ -21,15 +34,12 @@ import UIKit
 /// - Section 背景色扩展(Decoration View)
 /// - 动态 Item 高度,自动排列到最短列
 /// - Section 配置缓存,提升性能
-///
-/// 使用示例:
-/// ```swift
-/// let layout = HCollViewLayout()
-/// let collectionView = HCollView(frame: frame, collectionViewLayout: layout)
-/// collectionView.sectionHeadersPinToVisibleBounds = true // 启用 Header 吸顶
-/// // 实现 HCollViewLayoutDelegate 协议设置背景色
-/// ```
 class HCollViewLayout: UICollectionViewFlowLayout {
+    
+    // MARK: - Public Properties
+    
+    /// 布局模式，默认 waterfall
+    var layoutMode: HCollViewLayoutMode = .waterfall
     
     // MARK: - Constants
     
@@ -96,11 +106,6 @@ class HCollViewLayout: UICollectionViewFlowLayout {
         self.sectionConfigs.removeAll(keepingCapacity: false)
 
         guard let collView = self.collectionView as? HCollView else {
-            #if DEBUG
-            assertionFailure("HCollViewLayout requires HCollView")
-            #else
-            print("⚠️ Warning: HCollViewLayout requires HCollView")
-            #endif
             return
         }
         
@@ -120,7 +125,6 @@ class HCollViewLayout: UICollectionViewFlowLayout {
         }
         
         for section in 0..<sectionCount {
-            // 缓存 Section 配置
             let backgroundColor = self.fetchBackgroundColor(for: section, collectionView: collView)
             
             let config = SectionConfig(
@@ -139,7 +143,7 @@ class HCollViewLayout: UICollectionViewFlowLayout {
             
             let itemCount = collView.numberOfItems(inSection: section)
 
-            // 处理 Header
+            // 处理 Header（两种模式共用）
             if config.headerSize.width > 0 && config.headerSize.height > 0 {
                 let headerIndexPath = IndexPath(item: 0, section: section)
                 let headerAttri = UICollectionViewLayoutAttributes(
@@ -166,18 +170,32 @@ class HCollViewLayout: UICollectionViewFlowLayout {
                 self.columnHeights.append(self.cntHeight)
             }
             
-            // 记录 section 起始位置,用于背景色计算
             let sectionStartY = self.cntHeight
             
-            // 处理 Items
-            for item in 0..<itemCount {
-                let indexPath = IndexPath(item: item, section: section)
-                if let attri = self.layoutAttributesForItem(at: indexPath) {
-                    self.attrsArray.append(attri)
+            switch layoutMode {
+            case .waterfall:
+                // ── 瀑布流模式 ──
+                // 全量计算所有 item，高度由 sizeForItemAtIndexPath 决定
+                for item in 0..<itemCount {
+                    let indexPath = IndexPath(item: item, section: section)
+                    if let attri = self.waterfallLayoutAttributesForItem(at: indexPath) {
+                        self.attrsArray.append(attri)
+                    }
+                }
+                
+            case .selfSizing:
+                // ── Self-sizing 模式 ──
+                // 用 estimatedItemSize 占位，系统通过 preferredLayoutAttributesFitting 获取真实高度
+                let estimatedH = max(estimatedItemSize.height, LayoutConstants.minItemHeight)
+                for item in 0..<itemCount {
+                    let indexPath = IndexPath(item: item, section: section)
+                    if let attri = selfSizingLayoutAttributesForItem(at: indexPath, estimatedHeight: estimatedH) {
+                        self.attrsArray.append(attri)
+                    }
                 }
             }
             
-            // 处理 Footer
+            // 处理 Footer（两种模式共用）
             if config.footerSize.width > 0 && config.footerSize.height > 0 {
                 let footerIndexPath = IndexPath(item: 0, section: section)
                 let footerAttri = UICollectionViewLayoutAttributes(
@@ -212,21 +230,16 @@ class HCollViewLayout: UICollectionViewFlowLayout {
             return self.attrsArray + self.decorationAttrsArray
         }
         
-        // 获取可见的常规 attributes (items, headers, footers)
         let visibleAttrs = self.attrsArray.filter { $0.frame.intersects(rect) }
-        
-        // 获取可见的装饰 attributes (section backgrounds)
         let visibleDecorationAttrs = self.decorationAttrsArray.filter { $0.frame.intersects(rect) }
         
         var resultAttrs = visibleAttrs + visibleDecorationAttrs
         
-        // 如果未启用吸顶,直接返回
         guard collView.sectionHeadersPinToVisibleBounds || 
               collView.sectionFootersPinToVisibleBounds else {
             return resultAttrs
         }
         
-        // 深拷贝 visible attributes,避免修改原始数据
         var adjustedAttrs = visibleAttrs.map { $0.copy() as! UICollectionViewLayoutAttributes }
         
         if collView.sectionHeadersPinToVisibleBounds {
@@ -237,28 +250,24 @@ class HCollViewLayout: UICollectionViewFlowLayout {
             adjustStickyFooters(&adjustedAttrs, visibleRect: rect)
         }
         
-        // 合并调整后的 attributes 和装饰 attributes
         return adjustedAttrs + visibleDecorationAttrs
     }
     
     override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        guard let collView = self.collectionView as? HCollView else {
-            #if DEBUG
-            assertionFailure("HCollViewLayout requires HCollView")
-            #else
-            print("⚠️ Warning: HCollViewLayout requires HCollView")
-            #endif
-            return nil
+        switch layoutMode {
+        case .waterfall:
+            return waterfallLayoutAttributesForItem(at: indexPath)
+        case .selfSizing:
+            let estimatedH = max(estimatedItemSize.height, LayoutConstants.minItemHeight)
+            return selfSizingLayoutAttributesForItem(at: indexPath, estimatedHeight: estimatedH)
         }
-
-        guard let config = self.sectionConfigs[indexPath.section] else {
-            #if DEBUG
-            assertionFailure("Section config not found for section \(indexPath.section)")
-            #else
-            print("⚠️ Warning: Section config not found for section \(indexPath.section)")
-            #endif
-            return nil
-        }
+    }
+    
+    // MARK: - Waterfall Mode
+    
+    private func waterfallLayoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
+        guard let collView = self.collectionView as? HCollView,
+              let config = self.sectionConfigs[indexPath.section] else { return nil }
         
         self.columnCount = config.columnCount
         self.lineSpacing = config.lineSpacing
@@ -271,44 +280,28 @@ class HCollViewLayout: UICollectionViewFlowLayout {
         let rowWidth = collWidth - self.sectionInsets.left - self.sectionInsets.right - rowSpacing
         let itemWidth = rowWidth / CGFloat(self.columnCount)
         
-        // 验证 item 尺寸
         let itemSize = collView.collectionView(collView, layout: self, sizeForItemAt: indexPath)
         guard itemSize.width >= LayoutConstants.minItemWidth &&
-              itemSize.height >= LayoutConstants.minItemHeight else {
-            #if DEBUG
-            assertionFailure("Invalid item size at \(indexPath)")
-            #else
-            print("⚠️ Warning: Invalid item size at \(indexPath)")
-            #endif
-            return nil
-        }
+              itemSize.height >= LayoutConstants.minItemHeight else { return nil }
         
-        // 确保 columnHeights 已初始化
         if self.columnHeights.isEmpty {
             for _ in 0..<self.columnCount {
                 self.columnHeights.append(self.lastCntHeight)
             }
         }
-        
         guard !self.columnHeights.isEmpty else { return nil }
         
-        // 找到高度最小的列
         guard let (minItemIndex, minItemHeight) = self.columnHeights.enumerated()
-            .min(by: { $0.element < $1.element }) else {
-            return nil
-        }
+            .min(by: { $0.element < $1.element }) else { return nil }
         
         let itemX = self.sectionInsets.left + CGFloat(minItemIndex) * (itemWidth + self.interitemSpacing)
         var itemY = minItemHeight
-        
-        // 非首行添加行间距
         if abs(itemY - self.lastCntHeight) > LayoutConstants.floatEpsilon {
             itemY += self.lineSpacing
         }
 
         attri.frame = CGRect(x: itemX, y: itemY, width: itemWidth, height: itemSize.height)
         self.columnHeights[minItemIndex] = attri.frame.maxY
-        
         if let maxHeight = self.columnHeights.max() {
             self.cntHeight = maxHeight
         }
@@ -316,14 +309,83 @@ class HCollViewLayout: UICollectionViewFlowLayout {
         return attri
     }
     
+    // MARK: - Self-Sizing Mode
+    
+    private func selfSizingLayoutAttributesForItem(at indexPath: IndexPath, estimatedHeight: CGFloat) -> UICollectionViewLayoutAttributes? {
+        guard let collView = self.collectionView as? HCollView,
+              let config = self.sectionConfigs[indexPath.section] else { return nil }
+        
+        self.columnCount = config.columnCount
+        self.lineSpacing = config.lineSpacing
+        self.interitemSpacing = config.interitemSpacing
+        self.sectionInsets = config.sectionInsets
+
+        let attri = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+        let collWidth = collView.bounds.width
+        let rowSpacing = CGFloat(self.columnCount - 1) * self.interitemSpacing
+        let rowWidth = collWidth - self.sectionInsets.left - self.sectionInsets.right - rowSpacing
+        let itemWidth = rowWidth / CGFloat(self.columnCount)
+        
+        if self.columnHeights.isEmpty {
+            for _ in 0..<self.columnCount {
+                self.columnHeights.append(self.lastCntHeight)
+            }
+        }
+        guard !self.columnHeights.isEmpty else { return nil }
+        
+        guard let (minItemIndex, minItemHeight) = self.columnHeights.enumerated()
+            .min(by: { $0.element < $1.element }) else { return nil }
+        
+        let itemX = self.sectionInsets.left + CGFloat(minItemIndex) * (itemWidth + self.interitemSpacing)
+        var itemY = minItemHeight
+        if abs(itemY - self.lastCntHeight) > LayoutConstants.floatEpsilon {
+            itemY += self.lineSpacing
+        }
+        
+        attri.frame = CGRect(x: itemX, y: itemY, width: itemWidth, height: estimatedHeight)
+        self.columnHeights[minItemIndex] = attri.frame.maxY
+        if let maxHeight = self.columnHeights.max() {
+            self.cntHeight = maxHeight
+        }
+        
+        return attri
+    }
+    
+    // MARK: - Self-sizing support via preferredLayoutAttributesFitting
+    
+    override func shouldInvalidateLayout(forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes,
+                                          withOriginalAttributes originalAttributes: UICollectionViewLayoutAttributes) -> Bool {
+        guard layoutMode == .selfSizing else { return false }
+        return abs(preferredAttributes.frame.height - originalAttributes.frame.height) > LayoutConstants.floatEpsilon
+    }
+    
+    override func invalidationContext(forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes,
+                                       withOriginalAttributes originalAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutInvalidationContext {
+        let context = super.invalidationContext(forPreferredLayoutAttributes: preferredAttributes,
+                                                 withOriginalAttributes: originalAttributes)
+        
+        if layoutMode == .selfSizing {
+            let indexPath = originalAttributes.indexPath
+            context.invalidateItems(at: [indexPath])
+            let section = indexPath.section
+            context.invalidateSupplementaryElements(
+                ofKind: UICollectionView.elementKindSectionHeader,
+                at: [IndexPath(item: 0, section: section)]
+            )
+            context.invalidateSupplementaryElements(
+                ofKind: UICollectionView.elementKindSectionFooter,
+                at: [IndexPath(item: 0, section: section)]
+            )
+        }
+        
+        return context
+    }
+    
     override func layoutAttributesForSupplementaryView(ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        // 此方法不应在 prepare() 外被调用
-        // 所有 attributes 已在 prepare() 中生成
         return nil
     }
     
     override func layoutAttributesForDecorationView(ofKind decorationViewKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-        // 返回对应的 decoration view attributes
         return self.decorationAttrsArray.first { 
             $0.indexPath == indexPath && $0.representedElementKind == decorationViewKind 
         }
@@ -336,10 +398,8 @@ class HCollViewLayout: UICollectionViewFlowLayout {
     
     // MARK: - Sticky Header/Footer Logic
     
-    /// 调整吸顶 Header 的位置
     private func adjustStickyHeaders(_ attrs: inout [UICollectionViewLayoutAttributes], 
                                      visibleRect: CGRect) {
-        // 提取并排序所有 header
         let headerData = attrs.compactMap { attr -> (IndexPath, UICollectionViewLayoutAttributes)? in
             guard attr.representedElementKind == UICollectionView.elementKindSectionHeader else { return nil }
             return (attr.indexPath, attr)
@@ -349,33 +409,18 @@ class HCollViewLayout: UICollectionViewFlowLayout {
         
         for (index, (_, headerAttr)) in headerData.enumerated() {
             let originalFrame = headerAttr.frame
+            if originalFrame.maxY <= visibleRect.minY { continue }
+            if originalFrame.origin.y >= visibleRect.maxY { break }
             
-            // 跳过完全滚出的 header
-            if originalFrame.maxY <= visibleRect.minY {
-                continue
-            }
-            
-            // 未进入可视区域的停止处理
-            if originalFrame.origin.y >= visibleRect.maxY {
-                break
-            }
-            
-            // 需要吸顶
             if originalFrame.origin.y < visibleRect.minY {
                 var stickyY = visibleRect.minY
-                
-                // 检查下一个 header 是否会把它顶出去
                 if index + 1 < headerData.count {
                     let nextOriginalY = headerData[index + 1].1.frame.origin.y
-                    
                     if nextOriginalY < visibleRect.maxY {
                         let maxStickyY = nextOriginalY - originalFrame.height
-                        if stickyY > maxStickyY {
-                            stickyY = maxStickyY
-                        }
+                        if stickyY > maxStickyY { stickyY = maxStickyY }
                     }
                 }
-                
                 var newFrame = originalFrame
                 newFrame.origin.y = stickyY
                 headerAttr.frame = newFrame
@@ -383,10 +428,8 @@ class HCollViewLayout: UICollectionViewFlowLayout {
         }
     }
     
-    /// 调整吸底 Footer 的位置
     private func adjustStickyFooters(_ attrs: inout [UICollectionViewLayoutAttributes], 
                                      visibleRect: CGRect) {
-        // 提取并排序所有 footer
         let footerData = attrs.compactMap { attr -> (IndexPath, UICollectionViewLayoutAttributes)? in
             guard attr.representedElementKind == UICollectionView.elementKindSectionFooter else { return nil }
             return (attr.indexPath, attr)
@@ -394,32 +437,17 @@ class HCollViewLayout: UICollectionViewFlowLayout {
         
         guard !footerData.isEmpty else { return }
         
-        // 从后往前遍历
         for (index, (_, footerAttr)) in footerData.enumerated().reversed() {
             let originalFrame = footerAttr.frame
+            if originalFrame.origin.y >= visibleRect.maxY { continue }
+            if originalFrame.maxY <= visibleRect.minY { break }
             
-            // 跳过完全滚出下方的 footer
-            if originalFrame.origin.y >= visibleRect.maxY {
-                continue
-            }
-            
-            // 未进入可视区域的停止处理
-            if originalFrame.maxY <= visibleRect.minY {
-                break
-            }
-            
-            // 需要吸底
             if originalFrame.maxY > visibleRect.maxY {
                 var stickyY = visibleRect.maxY - originalFrame.height
-                
-                // 检查上一个 footer
                 if index > 0 {
                     let prevMaxY = footerData[index - 1].1.frame.maxY
-                    if stickyY < prevMaxY {
-                        stickyY = prevMaxY
-                    }
+                    if stickyY < prevMaxY { stickyY = prevMaxY }
                 }
-                
                 var newFrame = originalFrame
                 newFrame.origin.y = stickyY
                 footerAttr.frame = newFrame
@@ -429,7 +457,6 @@ class HCollViewLayout: UICollectionViewFlowLayout {
     
     // MARK: - Section Background Helper
     
-    /// 获取 Section 背景色
     private func fetchBackgroundColor(for section: Int, collectionView: HCollView) -> UIColor? {
         if let delegate = collectionView.delegate as? HCollViewLayoutDelegate {
             return delegate.collectionView(collectionView, layout: self, colorForSectionAt: section)
@@ -437,53 +464,39 @@ class HCollViewLayout: UICollectionViewFlowLayout {
         return nil
     }
     
-    /// 创建 Section 背景色 Decoration View
     private func createSectionBackground(for section: Int, 
                                         startY: CGFloat, 
                                         endY: CGFloat, 
                                         config: SectionConfig, 
                                         itemAttributes: [UICollectionViewLayoutAttributes]?) {
-        // 如果没有设置背景色,不创建 decoration view
         guard config.backgroundColor != nil && config.backgroundColor != .clear else { return }
-        
         guard let collView = self.collectionView else { return }
         
-        // 计算 background frame
         var backgroundFrame: CGRect
-        
         if let items = itemAttributes, !items.isEmpty {
-            // 有 items,根据 items 范围计算
             let firstItem = items.min(by: { $0.frame.minY < $1.frame.minY })
             let lastItem = items.max(by: { $0.frame.maxY < $1.frame.maxY })
-            
             if let first = firstItem, let last = lastItem {
                 var unionFrame = first.frame.union(last.frame)
                 unionFrame.origin.x -= config.sectionInsets.left
                 unionFrame.origin.y -= config.sectionInsets.top
                 unionFrame.size.width += config.sectionInsets.left + config.sectionInsets.right
                 unionFrame.size.height += config.sectionInsets.top + config.sectionInsets.bottom
-                
-                // 宽度占满 collectionView
                 unionFrame.origin.x = 0
                 unionFrame.size.width = collView.bounds.width
-                
                 backgroundFrame = unionFrame
             } else {
-                // fallback
                 backgroundFrame = CGRect(x: 0, y: startY, width: collView.bounds.width, height: endY - startY)
             }
         } else {
-            // 没有 items,使用 header/footer 范围
             backgroundFrame = CGRect(x: 0, y: startY, width: collView.bounds.width, height: endY - startY)
         }
         
-        // 创建 decoration attributes
         let indexPath = IndexPath(item: 0, section: section)
         let attr = HCollSectionBackgroundAttributes(forDecorationViewOfKind: LayoutConstants.sectionColorKind, with: indexPath)
         attr.frame = backgroundFrame
         attr.zIndex = -1
         attr.backgroundColor = config.backgroundColor
-        
         self.decorationAttrsArray.append(attr)
     }
     
@@ -491,41 +504,32 @@ class HCollViewLayout: UICollectionViewFlowLayout {
     
     override func shouldInvalidateLayout(forBoundsChange newBounds: CGRect) -> Bool {
         let oldBounds = self.collectionView?.bounds ?? .zero
-        
-        // 只在宽度变化时完全重新布局(如旋转屏幕)
         if abs(newBounds.width - oldBounds.width) > LayoutConstants.floatEpsilon {
             return true
         }
-        
-        // 高度变化(滚动)不需要重新 prepare
         return false
     }
     
     override func invalidationContext(forBoundsChange newBounds: CGRect) -> UICollectionViewLayoutInvalidationContext {
-        let context = super.invalidationContext(forBoundsChange: newBounds)
-        return context
+        return super.invalidationContext(forBoundsChange: newBounds)
     }
 }
 
 // MARK: - Supporting Classes
 
-/// 支持背景色的 Layout Attributes
 private class HCollSectionBackgroundAttributes: UICollectionViewLayoutAttributes {
     var backgroundColor: UIColor?
-    
     override func copy(with zone: NSZone? = nil) -> Any {
         let copy = super.copy(with: zone) as! HCollSectionBackgroundAttributes
         copy.backgroundColor = self.backgroundColor
         return copy
     }
-    
     override func isEqual(_ object: Any?) -> Bool {
         guard let other = object as? HCollSectionBackgroundAttributes else { return false }
         return super.isEqual(other) && self.backgroundColor == other.backgroundColor
     }
 }
 
-/// Section 背景视图
 private class HCollSectionBackgroundView: UICollectionReusableView {
     override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
         super.apply(layoutAttributes)

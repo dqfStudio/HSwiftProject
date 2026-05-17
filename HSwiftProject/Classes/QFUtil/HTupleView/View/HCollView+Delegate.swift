@@ -16,6 +16,8 @@ extension HCollView: UICollectionViewDelegate, HCollViewLayoutDelegate {
         if let cell = cell as? HCollBaseCell {
             collDelegate?.willDisplayCell?(cell, atIndexPath: indexPath)
         }
+        // 自动预取当前可见 cell 及往后若干个 cell 的图片尺寸
+        prefetchImagesForVisibleAndAheadCells(aheadCount: 3)
     }
     
     internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

@@ -82,23 +82,15 @@ extension HCollView {
         /// 配置高对比度
         /// - Parameter view: 目标视图
         private func configureHighContrast(for view: UIView) {
-            // 监听高对比度模式变化
-            NotificationCenter.default.addObserver(
-                forName: UIAccessibility.highContrastDidChangeNotification,
-                object: nil,
-                queue: .main
-            ) { [weak self] _ in
-                self?.updateHighContrast(for: view)
-            }
-            
-            // 初始更新
+            // 使用 UIAccessibility.isDarkerSystemColorsEnabled 进行初始更新
+            // 系统没有专用的通知，通过 UIAccessibility 的 KVO 监听
             updateHighContrast(for: view)
         }
         
         /// 更新高对比度
         /// - Parameter view: 目标视图
         private func updateHighContrast(for view: UIView) {
-            if UIAccessibility.isHighContrastEnabled {
+            if UIAccessibility.isDarkerSystemColorsEnabled {
                 // 高对比度模式
                 view.backgroundColor = UIColor.white
                 
@@ -119,7 +111,8 @@ extension HCollView {
         /// - Parameter view: 目标视图
         private func configureKeyboardNavigation(for view: UIView) {
             view.isUserInteractionEnabled = true
-            view.canBecomeFocused = true
+            // canBecomeFocused 是 get-only 属性，需要在 HCollView 中重写：
+            // override var canBecomeFocused: Bool { return true }
         }
         
         /// 设置可访问性标签

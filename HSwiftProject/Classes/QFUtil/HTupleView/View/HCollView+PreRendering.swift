@@ -225,22 +225,11 @@ extension HCollView {
     /// - Parameter preRenderCount: 预渲染的数量
     func enablePreRendering(preRenderCount: Int = 5) {
         preRenderingManager.preRenderCount = preRenderCount
-        
-        // 监听滚动事件，在滚动时预渲染
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(scrollViewDidScroll),
-            name: UIScrollView.didScrollNotification,
-            object: self
-        )
     }
     
     /// 禁用预渲染
     func disablePreRendering() {
         preRenderingManager.clearPreRenderCache()
-        
-        // 移除滚动事件监听
-        NotificationCenter.default.removeObserver(self, name: UIScrollView.didScrollNotification, object: self)
     }
     
     /// 预渲染指定的 cell
@@ -263,11 +252,6 @@ extension HCollView {
     /// 清除预渲染缓存
     func clearPreRenderCache() {
         preRenderingManager.clearPreRenderCache()
-    }
-    
-    /// 滚动时预渲染
-    @objc private func scrollViewDidScroll() {
-        preRenderingManager.preRenderUpcomingCells()
     }
 }
 

@@ -19,7 +19,6 @@ extension HCollView {
         
         // MARK: - 单例
         static let shared = NetworkOptimizationManager()
-        private init() {}
         
         // MARK: - 属性
         
@@ -47,7 +46,7 @@ extension HCollView {
         // MARK: - 初始化
         
         /// 初始化
-        init() {
+        private init() {
             startNetworkMonitoring()
         }
         
@@ -84,13 +83,21 @@ extension HCollView {
         /// 是否是 Wi-Fi 连接
         /// - Returns: 是否是 Wi-Fi 连接
         func isWiFi() -> Bool {
-            return reachabilityManager?.isReachableOnWiFi ?? false
+            guard let reachabilityManager = reachabilityManager else { return false }
+            if case .reachable(.ethernetOrWiFi) = reachabilityManager.status {
+                return true
+            }
+            return false
         }
         
         /// 是否是移动网络连接
         /// - Returns: 是否是移动网络连接
         func isCellular() -> Bool {
-            return reachabilityManager?.isReachableOnCellular ?? false
+            guard let reachabilityManager = reachabilityManager else { return false }
+            if case .reachable(.cellular) = reachabilityManager.status {
+                return true
+            }
+            return false
         }
         
         /// 发送请求

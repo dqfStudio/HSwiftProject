@@ -18,7 +18,6 @@ extension HCollView {
         
         // MARK: - 单例
         static let shared = DeviceAdaptationManager()
-        private init() {}
         
         // MARK: - 属性
         
@@ -59,28 +58,28 @@ extension HCollView {
         // MARK: - 初始化
         
         /// 初始化
-        init() {
+        private init() {
             // 检测设备类型
-            deviceType = detectDeviceType()
+            deviceType = Self.detectDeviceType()
             
             // 检测屏幕尺寸
             screenSize = UIScreen.main.bounds.size
             
             // 检测屏幕类型
-            screenType = detectScreenType()
+            screenType = Self.detectScreenType()
             
             // 检测是否是高刷新率屏幕
-            isHighRefreshRateScreen = detectHighRefreshRateScreen()
+            isHighRefreshRateScreen = Self.detectHighRefreshRateScreen()
             
             // 检测屏幕刷新率
-            screenRefreshRate = detectScreenRefreshRate()
+            screenRefreshRate = Self.detectScreenRefreshRate()
         }
         
         // MARK: - 方法
         
         /// 检测设备类型
         /// - Returns: 设备类型
-        private func detectDeviceType() -> DeviceType {
+        private static func detectDeviceType() -> DeviceType {
             let device = UIDevice.current
             
             if device.userInterfaceIdiom == .phone {
@@ -98,14 +97,14 @@ extension HCollView {
         
         /// 检测屏幕类型
         /// - Returns: 屏幕类型
-        private func detectScreenType() -> ScreenType {
+        private static func detectScreenType() -> ScreenType {
             // 检测折叠屏
             if UIDevice.current.hasFoldableDisplay {
                 return .foldable
             }
             
             // 检测高刷新率屏幕
-            if detectHighRefreshRateScreen() {
+            if Self.detectHighRefreshRateScreen() {
                 return .highRefreshRate
             }
             
@@ -114,7 +113,7 @@ extension HCollView {
         
         /// 检测是否是高刷新率屏幕
         /// - Returns: 是否是高刷新率屏幕
-        private func detectHighRefreshRateScreen() -> Bool {
+        private static func detectHighRefreshRateScreen() -> Bool {
             if #available(iOS 13.0, *) {
                 return UIScreen.main.maximumFramesPerSecond > 60
             } else {
@@ -124,7 +123,7 @@ extension HCollView {
         
         /// 检测屏幕刷新率
         /// - Returns: 屏幕刷新率
-        private func detectScreenRefreshRate() -> Double {
+        private static func detectScreenRefreshRate() -> Double {
             if #available(iOS 13.0, *) {
                 return Double(UIScreen.main.maximumFramesPerSecond)
             } else {
@@ -203,7 +202,7 @@ extension HCollView {
         /// - Parameter collectionView: 集合视图
         private func adaptToHighRefreshRateScreen(_ collectionView: HCollView) {
             // 启用预渲染
-            collectionView.prefetchingEnabled = true
+            collectionView.isPrefetchingEnabled = true
             
             // 优化动画
             if #available(iOS 10.0, *) {
@@ -386,7 +385,7 @@ extension UIDevice {
     /// 是否有折叠屏
     var hasFoldableDisplay: Bool {
         if #available(iOS 14.0, *) {
-            return traitCollection.horizontalSizeClass == .compact && traitCollection.verticalSizeClass == .compact
+            return UIScreen.main.traitCollection.horizontalSizeClass == .compact && UIScreen.main.traitCollection.verticalSizeClass == .compact
         } else {
             return false
         }
@@ -395,7 +394,7 @@ extension UIDevice {
     /// 是否处于折叠状态
     var isFolded: Bool {
         if #available(iOS 14.0, *) {
-            return traitCollection.horizontalSizeClass == .compact
+            return UIScreen.main.traitCollection.horizontalSizeClass == .compact
         } else {
             return true
         }

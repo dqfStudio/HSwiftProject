@@ -8,6 +8,16 @@
 
 import UIKit
 
+/// 模板布局类型
+enum TMLayoutType {
+    case grid, waterfall, timeline, card, masonry, horizontal, vertical, flow
+}
+
+/// 模板交互模式
+enum TMInteractionMode {
+    case normal, dragDrop, swipe, multiSelect
+}
+
 /// HCollView 模板市场扩展
 ///
 /// 提供各种布局和交互模板，方便用户快速使用
@@ -48,13 +58,6 @@ extension HCollView {
                 layout: .grid,
                 interactionMode: .normal
             )
-            
-            // 配置模板
-            template.configure {
-                hCollView in
-                hCollView.setLayout(.grid, configuration: ["columns": 3, "itemSize": CGSize(width: 100, height: 100), "spacing": 10])
-            }
-            
             return template
         }
         
@@ -67,13 +70,6 @@ extension HCollView {
                 layout: .waterfall,
                 interactionMode: .normal
             )
-            
-            // 配置模板
-            template.configure {
-                hCollView in
-                hCollView.setLayout(.waterfall, configuration: ["columns": 2, "spacing": 10])
-            }
-            
             return template
         }
         
@@ -86,13 +82,6 @@ extension HCollView {
                 layout: .timeline,
                 interactionMode: .normal
             )
-            
-            // 配置模板
-            template.configure {
-                hCollView in
-                hCollView.setLayout(.timeline, configuration: ["lineColor": UIColor.gray, "lineWidth": 2, "spacing": 20])
-            }
-            
             return template
         }
         
@@ -105,13 +94,6 @@ extension HCollView {
                 layout: .card,
                 interactionMode: .normal
             )
-            
-            // 配置模板
-            template.configure {
-                hCollView in
-                hCollView.setLayout(.card, configuration: ["cornerRadius": 8, "shadowColor": UIColor.black, "shadowOffset": CGSize(width: 0, height: 2), "shadowRadius": 4, "shadowOpacity": 0.2, "spacing": 15])
-            }
-            
             return template
         }
         
@@ -124,13 +106,6 @@ extension HCollView {
                 layout: .masonry,
                 interactionMode: .normal
             )
-            
-            // 配置模板
-            template.configure {
-                hCollView in
-                hCollView.setLayout(.masonry, configuration: ["columns": 3, "spacing": 5])
-            }
-            
             return template
         }
         
@@ -143,13 +118,6 @@ extension HCollView {
                 layout: .horizontal,
                 interactionMode: .normal
             )
-            
-            // 配置模板
-            template.configure {
-                hCollView in
-                hCollView.setLayout(.horizontal, configuration: ["itemSize": CGSize(width: 150, height: 100), "spacing": 10])
-            }
-            
             return template
         }
         
@@ -162,13 +130,6 @@ extension HCollView {
                 layout: .vertical,
                 interactionMode: .normal
             )
-            
-            // 配置模板
-            template.configure {
-                hCollView in
-                hCollView.setLayout(.vertical, configuration: ["itemSize": CGSize(width: 300, height: 100), "spacing": 10])
-            }
-            
             return template
         }
         
@@ -181,14 +142,6 @@ extension HCollView {
                 layout: .flow,
                 interactionMode: .dragDrop
             )
-            
-            // 配置模板
-            template.configure {
-                hCollView in
-                hCollView.setLayout(.flow, configuration: ["itemSize": CGSize(width: 100, height: 100), "spacing": 10])
-                hCollView.enableDragDrop()
-            }
-            
             return template
         }
         
@@ -201,25 +154,6 @@ extension HCollView {
                 layout: .flow,
                 interactionMode: .swipe
             )
-            
-            // 配置模板
-            template.configure {
-                hCollView in
-                hCollView.setLayout(.flow, configuration: ["itemSize": CGSize(width: 300, height: 100), "spacing": 10])
-                hCollView.addSwipeActions {
-                    [
-                        UIContextualAction(style: .destructive, title: "删除") { (action, view, completion) in
-                            // 处理删除操作
-                            completion(true)
-                        },
-                        UIContextualAction(style: .normal, title: "编辑") { (action, view, completion) in
-                            // 处理编辑操作
-                            completion(true)
-                        }
-                    ]
-                }
-            }
-            
             return template
         }
         
@@ -232,14 +166,6 @@ extension HCollView {
                 layout: .grid,
                 interactionMode: .multiSelect
             )
-            
-            // 配置模板
-            template.configure {
-                hCollView in
-                hCollView.setLayout(.grid, configuration: ["columns": 3, "itemSize": CGSize(width: 100, height: 100), "spacing": 10])
-                hCollView.setInteractionMode(.multiSelect)
-            }
-            
             return template
         }
         
@@ -296,10 +222,10 @@ class HCollViewTemplate {
     let description: String
     
     /// 模板布局
-    let layout: LayoutType
+    let layout: TMLayoutType
     
     /// 模板交互模式
-    let interactionMode: InteractionMode
+    let interactionMode: TMInteractionMode
     
     /// 配置闭包
     private var configuration: ((HCollView) -> Void)?
@@ -312,7 +238,7 @@ class HCollViewTemplate {
     ///   - description: 模板描述
     ///   - layout: 模板布局
     ///   - interactionMode: 模板交互模式
-    init(name: String, description: String, layout: LayoutType, interactionMode: InteractionMode) {
+    init(name: String, description: String, layout: TMLayoutType, interactionMode: TMInteractionMode) {
         self.name = name
         self.description = description
         self.layout = layout
@@ -330,13 +256,7 @@ class HCollViewTemplate {
     /// 应用模板
     /// - Parameter hCollView: 集合视图
     func apply(to hCollView: HCollView) {
-        // 设置布局
-        hCollView.setLayout(layout)
-        
-        // 设置交互模式
-        hCollView.setInteractionMode(interactionMode)
-        
-        // 执行配置
+        // 执行配置（setLayout/setInteractionMode 等由业务闭包调用）
         configuration?(hCollView)
     }
     

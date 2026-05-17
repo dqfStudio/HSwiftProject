@@ -15,7 +15,7 @@ import MJRefresh
 ///
 /// 继承自 UICollectionViewDelegate，提供额外的数据源和布局配置方法。
 /// 所有回调都在主线程执行。
-@MainActor
+//@MainActor
 @objc protocol HCollViewDelegate: UICollectionViewDelegate {
     /// 返回 section 数量
     /// - Returns: section 的数量，默认为 1
@@ -198,7 +198,6 @@ import MJRefresh
 /// - 支持节流刷新，避免频繁刷新导致的性能问题
 ///
 /// 所有回调都在主线程执行，确保 UI 操作的安全性。
-@MainActor
 class HCollView: UICollectionView {
     
     // MARK: - Constants

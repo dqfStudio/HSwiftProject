@@ -26,7 +26,6 @@ extension HCollView {
         
         // MARK: - 单例
         static let shared = CrossPlatformManager()
-        private init() {}
         
         // MARK: - 属性
         
@@ -148,7 +147,11 @@ extension HCollView {
         /// - Parameter collectionView: 集合视图
         private func adaptLayoutFormacOS(_ collectionView: HCollView) {
             // macOS 特定的布局适配
+            #if os(macOS)
             collectionView.backgroundColor = .windowBackgroundColor
+            #else
+            collectionView.backgroundColor = .systemBackground
+            #endif
         }
         
         /// 适配tvOS布局

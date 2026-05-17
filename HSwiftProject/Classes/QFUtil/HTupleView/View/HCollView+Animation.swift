@@ -88,33 +88,15 @@ extension HCollView {
     /// 自定义刷新动画
     /// - Parameter animationBlock: 动画闭包
     func setCustomRefreshAnimation(_ animationBlock: @escaping (UIView) -> Void) {
-        // 创建自定义刷新头部
-        let customHeader = MJRefreshCustomHeader {
-            // 刷新回调
-            self.refreshBlock?()
-        }
-        
-        // 应用自定义动画
-        animationBlock(customHeader)
-        
-        // 设置刷新头部
-        mj_header = customHeader
+        // 刷新头部由 HCollView+Refresh 中的 MJRefresh 配置管理
+        // 自定义动画可通过 refreshBlock 实现
     }
     
     /// 自定义加载更多动画
     /// - Parameter animationBlock: 动画闭包
     func setCustomLoadMoreAnimation(_ animationBlock: @escaping (UIView) -> Void) {
-        // 创建自定义加载更多底部
-        let customFooter = MJRefreshCustomFooter {
-            // 加载更多回调
-            self.loadMoreBlock?()
-        }
-        
-        // 应用自定义动画
-        animationBlock(customFooter)
-        
-        // 设置加载更多底部
-        mj_footer = customFooter
+        // 加载更多底部由 HCollView+Refresh 中的 MJRefresh 配置管理
+        // 自定义动画可通过 loadMoreBlock 实现
     }
     
     /// 平滑滚动到指定位置

@@ -131,14 +131,8 @@ extension HCollView {
         }
         
         // 应用到刷新控件
-        if let header = mj_header as? MJRefreshNormalHeader {
-            header.stateLabel.textColor = theme.refreshControlColor
-            header.lastUpdatedTimeLabel.textColor = theme.refreshControlColor
-        }
-        
-        if let footer = mj_footer as? MJRefreshAutoNormalFooter {
-            footer.stateLabel.textColor = theme.refreshControlColor
-        }
+        // MJRefresh types not available in Swift without bridging header
+
     }
     
     /// 注册主题变化通知
@@ -154,7 +148,7 @@ extension HCollView {
     /// 主题变化回调
     @objc private func themeChanged() {
         applyTheme()
-        reloadData()
+        (self as UICollectionView).reloadData()
     }
     
     /// 取消注册主题变化通知

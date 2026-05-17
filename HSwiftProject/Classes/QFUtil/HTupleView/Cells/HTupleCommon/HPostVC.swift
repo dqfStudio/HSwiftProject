@@ -10,11 +10,6 @@ import UIKit
 
 class HPostVC: HViewController, HTupleViewDelegate {
     
-//    lazy var tupleView: HTupleView = {
-//        var frame = UIScreen.bound
-//        frame.size.height -= UIScreen.topBarHeight + (UIScreen.bottomBarHeight + 10)
-//        return HTupleView(frame: frame)
-//    }()
     lazy var tupleView: HTupleView = {
         var frame = UIScreen.bound
         frame.size.height -= UIScreen.topBarHeight + (UIScreen.bottomBarHeight + 10)
@@ -23,7 +18,6 @@ class HPostVC: HViewController, HTupleViewDelegate {
         } mode: {
             return .delegate
         } layout: {
-//            return HTupleViewLayout(.vertical, .automatic)
             return HTupleViewLayout(.vertical, .manual)
         }
     }()
@@ -36,7 +30,7 @@ class HPostVC: HViewController, HTupleViewDelegate {
                                 "jdflsakjfljsaflkjsal"]
     
     var postList: [HPostVM] = [HPostVM]()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationBar.isHidden = true
@@ -49,53 +43,41 @@ class HPostVC: HViewController, HTupleViewDelegate {
         sourceData.forEach { item in
             let postVM = HPostVM()
             postVM.post = item
-            postVM.imageUrls = ["11", "22", "33", "44"]
+            postVM.imageUrls = [
+                "https://picsum.photos/seed/1/400/600",
+                "https://picsum.photos/seed/2/600/400",
+                "https://picsum.photos/seed/3/300/300",
+            ]
             postVM.videoUrl = "11"
             postList.append(postVM)
         }
         
-    }
-
-    func numberOfItemsInSection(_ section: Any) -> Any {
-//        return postList.count
-        return 1
+        self.tupleView.reloadData()
+        
     }
     
-//    func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-//        if let cell = tupleView.cell(for: indexPath) as? HPostViewCell {
-//            return cell.tupleView.contentSize
-//        }
-//        return CGSize(width: tupleView.bounds.width, height: 100)
-//    }
+    func numberOfItemsInSection(_ section: Any) -> Any {
+        return postList.count
+    }
     
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
         let item = self.postList[indexPath.item]
         let cellWidth = self.tupleView.width(forSection: indexPath.section)
-        let cellHeight = HTupleLayout.getPost(item: item, tuple: tupleView, cellWidth: cellWidth)
+        let cellHeight = HTupleLayout.getPost(item: item, tuple: tupleView, cellWidth: cellWidth, at: indexPath)
         return CGSize(width: cellWidth, height: cellHeight)
     }
-//
-//    func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
-//        let cell = tuple.reuseCell(HPostViewCell.self, indexPath.stringValue, true, indexPath) as! HPostViewCell
-//        cell.backgroundColor = .yellow
-//        guard indexPath.row < postList.count else { return }
-//        // 赋值model
-//        let postVM = postList[indexPath.row]
-//        cell.postVM = postVM
-//    }
     
     func tupleItem(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         let cell = tuple.reuseCell(HPostCustomViewCell.self, nil, false, indexPath) as! HPostCustomViewCell
         cell.backgroundColor = .yellow
         
         guard indexPath.row < postList.count else { return }
-        let postVM = postList[indexPath.row] //赋值model
+        let postVM = postList[indexPath.row]
         cell.updateData(item: postVM, cellWidth: tuple.width, indexPath: indexPath)
     }
     
     func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
-        // 添加间隔线
-        if indexPath.row != sourceData.count - 1 {
+        if indexPath.row != postList.count - 1 {
             cell.setBottomLine(withColor: .red, paddingLeft: 16, paddingRight: 16)
         } else {
             cell.bottomLineLayer?.removeFromSuperlayer()

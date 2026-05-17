@@ -236,16 +236,6 @@ extension HCollView {
         stabilityManager.clearAllLogs()
     }
     
-    /// 启用崩溃防护
-    func enableCrashProtection() {
-        stabilityManager.enableCrashProtection()
-    }
-    
-    /// 禁用崩溃防护
-    func disableCrashProtection() {
-        stabilityManager.disableCrashProtection()
-    }
-    
     /// 启用错误处理
     func enableErrorHandling() {
         stabilityManager.enableErrorHandling()
@@ -267,16 +257,13 @@ extension HCollView {
     }
     
     /// 重载数据（带崩溃防护）
-    override func reloadData() {
-        safeExecute {
-            super.reloadData()
-        }
-    }
+    /// 注意：reloadData 由 HCollView+Reload.swift 提供带清理功能的 override
+    /// - Warning: 这里的 reloadData override 已被移除，因多个 extension 不能重复 override 同一方法
     
     /// 重载部分数据（带崩溃防护）
     /// - Parameters:
     ///   - indexPaths: 要重载的索引路径
-    func reloadItems(at indexPaths: [IndexPath]) {
+    override func reloadItems(at indexPaths: [IndexPath]) {
         safeExecute {
             super.reloadItems(at: indexPaths)
         }
@@ -285,7 +272,7 @@ extension HCollView {
     /// 插入项目（带崩溃防护）
     /// - Parameters:
     ///   - indexPaths: 要插入的索引路径
-    func insertItems(at indexPaths: [IndexPath]) {
+    override func insertItems(at indexPaths: [IndexPath]) {
         safeExecute {
             super.insertItems(at: indexPaths)
         }
@@ -294,7 +281,7 @@ extension HCollView {
     /// 删除项目（带崩溃防护）
     /// - Parameters:
     ///   - indexPaths: 要删除的索引路径
-    func deleteItems(at indexPaths: [IndexPath]) {
+    override func deleteItems(at indexPaths: [IndexPath]) {
         safeExecute {
             super.deleteItems(at: indexPaths)
         }
@@ -304,7 +291,7 @@ extension HCollView {
     /// - Parameters:
     ///   - indexPath: 源索引路径
     ///   - newIndexPath: 目标索引路径
-    func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {
+    override func moveItem(at indexPath: IndexPath, to newIndexPath: IndexPath) {
         safeExecute {
             super.moveItem(at: indexPath, to: newIndexPath)
         }

@@ -24,6 +24,7 @@ extension HCollView {
         
         /// 获取电商解决方案
         /// - Returns: 电商解决方案
+        @MainActor
         func getECommerceSolution() -> HCollViewSolution {
             let solution = HCollViewSolution(
                 name: "电商解决方案",
@@ -46,14 +47,12 @@ extension HCollView {
                 hCollView.setLayout(.grid, configuration: ["columns": 2, "itemSize": CGSize(width: 150, height: 200)])
                 
                 // 添加滑动操作
-                hCollView.addSwipeActions {
-                    [
-                        UIContextualAction(style: .normal, title: "加入购物车") { (action, view, completion) in
-                            // 处理加入购物车操作
-                            completion(true)
-                        }
-                    ]
-                }
+                hCollView.addSwipeActions([
+                    UIContextualAction(style: .normal, title: "加入购物车") { (action, view, completion) in
+                        // 处理加入购物车操作
+                        completion(true)
+                    }
+                ], position: .trailing)
                 
                 // 启用网络状态适应
                 hCollView.enableNetworkStateAdaptation()
@@ -64,6 +63,7 @@ extension HCollView {
         
         /// 获取新闻解决方案
         /// - Returns: 新闻解决方案
+        @MainActor
         func getNewsSolution() -> HCollViewSolution {
             let solution = HCollViewSolution(
                 name: "新闻解决方案",
@@ -97,6 +97,7 @@ extension HCollView {
         
         /// 获取社交媒体解决方案
         /// - Returns: 社交媒体解决方案
+        @MainActor
         func getSocialMediaSolution() -> HCollViewSolution {
             let solution = HCollViewSolution(
                 name: "社交媒体解决方案",
@@ -130,6 +131,7 @@ extension HCollView {
         
         /// 获取图片库解决方案
         /// - Returns: 图片库解决方案
+        @MainActor
         func getPhotoGallerySolution() -> HCollViewSolution {
             let solution = HCollViewSolution(
                 name: "图片库解决方案",
@@ -166,6 +168,7 @@ extension HCollView {
         
         /// 获取视频应用解决方案
         /// - Returns: 视频应用解决方案
+        @MainActor
         func getVideoAppSolution() -> HCollViewSolution {
             let solution = HCollViewSolution(
                 name: "视频应用解决方案",
@@ -199,6 +202,7 @@ extension HCollView {
         
         /// 获取企业应用解决方案
         /// - Returns: 企业应用解决方案
+        @MainActor
         func getEnterpriseAppSolution() -> HCollViewSolution {
             let solution = HCollViewSolution(
                 name: "企业应用解决方案",
@@ -232,6 +236,7 @@ extension HCollView {
         
         /// 获取教育应用解决方案
         /// - Returns: 教育应用解决方案
+        @MainActor
         func getEducationAppSolution() -> HCollViewSolution {
             let solution = HCollViewSolution(
                 name: "教育应用解决方案",
@@ -265,6 +270,7 @@ extension HCollView {
         
         /// 获取医疗应用解决方案
         /// - Returns: 医疗应用解决方案
+        @MainActor
         func getMedicalAppSolution() -> HCollViewSolution {
             let solution = HCollViewSolution(
                 name: "医疗应用解决方案",
@@ -372,13 +378,13 @@ class HCollViewSolution {
     let features: [String]
     
     /// 推荐布局
-    let recommendedLayout: LayoutType
+    let recommendedLayout: HCollView.LayoutType
     
     /// 推荐交互模式
-    let recommendedInteractionMode: InteractionMode
+    let recommendedInteractionMode: HCollView.InteractionMode
     
     /// 配置闭包
-    private var configuration: ((HCollView) -> Void)?
+    private var configuration: (@MainActor (HCollView) -> Void)?
     
     // MARK: - 初始化
     
@@ -389,7 +395,7 @@ class HCollViewSolution {
     ///   - features: 解决方案特性
     ///   - layout: 推荐布局
     ///   - interactionMode: 推荐交互模式
-    init(name: String, description: String, features: [String], layout: LayoutType, interactionMode: InteractionMode) {
+    init(name: String, description: String, features: [String], layout: HCollView.LayoutType, interactionMode: HCollView.InteractionMode) {
         self.name = name
         self.description = description
         self.features = features
@@ -401,12 +407,14 @@ class HCollViewSolution {
     
     /// 配置解决方案
     /// - Parameter configuration: 配置闭包
-    func configure(_ configuration: @escaping (HCollView) -> Void) {
+    @MainActor
+    func configure(_ configuration: @escaping @MainActor (HCollView) -> Void) {
         self.configuration = configuration
     }
     
     /// 应用解决方案
     /// - Parameter hCollView: 集合视图
+    @MainActor
     func apply(to hCollView: HCollView) {
         // 设置推荐布局
         hCollView.setLayout(recommendedLayout)

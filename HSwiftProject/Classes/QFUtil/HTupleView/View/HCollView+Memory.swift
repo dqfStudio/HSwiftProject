@@ -65,6 +65,9 @@ extension HCollView {
     
     /// 内存警告处理
     @objc func handleMemoryWarning() {
+        // 清理图片尺寸缓存
+        HCollImageSizeCache.shared.clear()
+        
         // 清理图片缓存（仅内存）
         clearImageCaches()
             

@@ -136,9 +136,9 @@ class HCollViewExampleController: UIViewController, HCollViewDelegate {
         collView.enablePreloading()
         
         // 创建对象池
-        collView.createObjectPool(key: "cellPool") { 
-            HCollBaseCell()
-        }
+        // collView.createObjectPool(key: "cellPool") { 
+        //     HCollBaseCell()
+        // }
     }
     
     private func setupNetworkOptimization() {
@@ -165,14 +165,14 @@ class HCollViewExampleController: UIViewController, HCollViewDelegate {
     
     private func setupExtensibility() {
         // 注册插件
-        let examplePlugin = ExamplePlugin()
-        collView.registerPlugin(examplePlugin, forKey: "examplePlugin")
+        let examplePlugin = ExtExamplePlugin()
+        collView.registerExtPlugin(examplePlugin, forKey: "examplePlugin")
         
         // 设置主题
-        collView.setTheme(DefaultTheme())
+        collView.setExtTheme(ExtDefaultTheme())
         
         // 设置语言
-        collView.setLanguage("zh-CN")
+        collView.setExtLanguage("zh-CN")
     }
     
     private func loadData() {
@@ -240,18 +240,14 @@ class HCollViewExampleController: UIViewController, HCollViewDelegate {
         })
         
         alertController.addAction(UIAlertAction(title: "滑动操作模式", style: .default) { _ in
-            self.collView.addSwipeActions {
-                [
-                    UIContextualAction(style: .destructive, title: "删除") { (action, view, completion) in
-                        // 处理删除操作
-                        completion(true)
-                    },
-                    UIContextualAction(style: .normal, title: "编辑") { (action, view, completion) in
-                        // 处理编辑操作
-                        completion(true)
-                    }
-                ]
-            }
+            self.collView.addSwipeActions([
+                UIContextualAction(style: .destructive, title: "删除") { (action, view, completion) in
+                    completion(true)
+                },
+                UIContextualAction(style: .normal, title: "编辑") { (action, view, completion) in
+                    completion(true)
+                }
+            ], position: .trailing)
         })
         
         alertController.addAction(UIAlertAction(title: "多选模式", style: .default) { _ in

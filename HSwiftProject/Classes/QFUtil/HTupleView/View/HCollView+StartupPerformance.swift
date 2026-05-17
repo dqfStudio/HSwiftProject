@@ -108,8 +108,10 @@ extension HCollView {
             
             // 预加载布局
             registerLazyLoadingTask {
-                // 预加载布局
-                collectionView.layoutManager.createLayout(.flow)
+                // 预加载布局 — layoutManager 是 @MainActor 属性
+                Task { @MainActor in
+                    collectionView.layoutManager.createLayout(.flow)
+                }
             }
             
             // 预加载缓存

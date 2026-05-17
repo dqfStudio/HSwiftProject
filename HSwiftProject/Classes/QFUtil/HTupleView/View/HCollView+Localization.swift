@@ -18,10 +18,9 @@ extension HCollView {
         
         // MARK: - 单例
         static let shared = LocalizationManager()
-        private init() {}
         
         // MARK: - 属性
-        
+
         /// 当前语言
         private var currentLanguage: String = ""
         
@@ -34,7 +33,7 @@ extension HCollView {
         // MARK: - 初始化
         
         /// 初始化
-        init() {
+        private init() {
             loadLocalizedStrings()
             setCurrentLanguage()
         }
@@ -169,8 +168,7 @@ extension HCollView {
         /// 检查是否是RTL语言
         /// - Returns: 是否是RTL语言
         func isRTLLanguage() -> Bool {
-            let locale = Locale(identifier: currentLanguage)
-            return locale.characterDirection(forLanguage: currentLanguage) == .rightToLeft
+            return Locale.characterDirection(forLanguage: currentLanguage) == .rightToLeft
         }
     }
     

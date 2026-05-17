@@ -47,7 +47,7 @@ extension HCollView {
         private var imageCache: NSCache<NSString, UIImage> = NSCache()
         
         /// 视频缓存
-        private var videoCache: NSCache<NSString, URL> = NSCache()
+        private var videoCache: NSCache<NSString, NSURL> = NSCache()
         
         // MARK: - 方法
         
@@ -90,13 +90,13 @@ extension HCollView {
             
             // 检查缓存
             if let cachedVideo = videoCache.object(forKey: cacheKey) {
-                completion(cachedVideo)
+                completion(cachedVideo as URL)
                 return
             }
             
             // 加载视频（实际应用中应该下载到本地）
             // 这里简化处理，直接返回原始 URL
-            videoCache.setObject(url, forKey: cacheKey)
+            videoCache.setObject(url as NSURL, forKey: cacheKey)
             completion(url)
         }
         

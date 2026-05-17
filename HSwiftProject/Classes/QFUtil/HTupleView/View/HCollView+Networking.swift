@@ -210,7 +210,7 @@ extension HCollView {
         params["page"] = page
         params["pageSize"] = pageSize
         
-        networkManager.get(url, parameters: params) { [weak self] data, error in
+        networkManager.get(url, parameters: params) { data, error in
             DispatchQueue.main.async {
                 if let error = error {
                     completion(nil, error)
@@ -219,10 +219,5 @@ extension HCollView {
                 }
             }
         }
-    }
-    
-    /// 清除网络缓存
-    func clearNetworkCache() {
-        networkManager.clearCache()
     }
 }

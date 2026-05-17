@@ -109,7 +109,7 @@ extension HCollView {
         ///   - collectionView: 集合视图
         ///   - indexPaths: 索引路径数组
         ///   - animation: 动画类型
-        func safeDeleteItems(at indexPaths: [IndexPath], in collectionView: UICollectionView, with animation: UICollectionView.ItemAnimation) {
+        func safeDeleteItems(at indexPaths: [IndexPath], in collectionView: UICollectionView, with animation: UIView.AnimationOptions) {
             let validIndexPaths = indexPaths.filter { validateIndexPath($0, in: collectionView) }
             if !validIndexPaths.isEmpty {
                 collectionView.deleteItems(at: validIndexPaths)
@@ -121,7 +121,7 @@ extension HCollView {
         ///   - collectionView: 集合视图
         ///   - indexPaths: 索引路径数组
         ///   - animation: 动画类型
-        func safeInsertItems(at indexPaths: [IndexPath], in collectionView: UICollectionView, with animation: UICollectionView.ItemAnimation) {
+        func safeInsertItems(at indexPaths: [IndexPath], in collectionView: UICollectionView, with animation: UIView.AnimationOptions) {
             collectionView.insertItems(at: indexPaths)
         }
         
@@ -233,7 +233,7 @@ extension HCollView {
     /// - Parameters:
     ///   - indexPaths: 索引路径数组
     ///   - animation: 动画类型
-    func safeDeleteItems(at indexPaths: [IndexPath], with animation: UICollectionView.ItemAnimation) {
+    func safeDeleteItems(at indexPaths: [IndexPath], with animation: UIView.AnimationOptions) {
         securityManager.safeDeleteItems(at: indexPaths, in: self, with: animation)
     }
     
@@ -241,7 +241,7 @@ extension HCollView {
     /// - Parameters:
     ///   - indexPaths: 索引路径数组
     ///   - animation: 动画类型
-    func safeInsertItems(at indexPaths: [IndexPath], with animation: UICollectionView.ItemAnimation) {
+    func safeInsertItems(at indexPaths: [IndexPath], with animation: UIView.AnimationOptions) {
         securityManager.safeInsertItems(at: indexPaths, in: self, with: animation)
     }
     

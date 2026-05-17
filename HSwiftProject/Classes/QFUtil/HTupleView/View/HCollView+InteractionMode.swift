@@ -50,6 +50,12 @@ extension HCollView {
             var trailingActions: [UIContextualAction] = []
         }
         
+        /// 滑动位置
+        enum SwipePosition {
+            case leading
+            case trailing
+        }
+        
         /// 滑动操作配置
         var swipeActionsConfig: SwipeActionsConfig = SwipeActionsConfig()
         
@@ -129,7 +135,7 @@ extension HCollView {
         /// - Parameters:
         ///   - actions: 滑动操作
         ///   - position: 操作位置
-        func addSwipeActions(_ actions: [UIContextualAction], position: UICollectionView.SwipeActionsConfiguration.Position) {
+        func addSwipeActions(_ actions: [UIContextualAction], position: SwipePosition) {
             if position == .leading {
                 swipeActionsConfig.leadingActions = actions
             } else {
@@ -211,7 +217,7 @@ extension HCollView {
     /// - Parameters:
     ///   - actions: 滑动操作
     ///   - position: 操作位置
-    func addSwipeActions(_ actions: [UIContextualAction], position: UICollectionView.SwipeActionsConfiguration.Position) {
+    func addSwipeActions(_ actions: [UIContextualAction], position: InteractionManager.SwipePosition) {
         interactionManager.addSwipeActions(actions, position: position)
     }
     
@@ -285,7 +291,7 @@ extension HCollView: UICollectionViewDragDelegate, UICollectionViewDropDelegate 
     /// - Returns: 拖拽项
     func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPaths: [IndexPath]) -> [UIDragItem] {
         return indexPaths.map { indexPath in
-            let itemProvider = NSItemProvider(object: "item")
+            let itemProvider = NSItemProvider(object: "item" as NSString)
             let dragItem = UIDragItem(itemProvider: itemProvider)
             dragItem.localObject = indexPath
             return dragItem
