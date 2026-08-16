@@ -67,7 +67,7 @@ class HPullController: HViewController, HTupleViewDelegate {
             return HTupleViewLayout(.vertical, .manual)
         }
         tupleView.backgroundColor = UIColor.clear
-        tupleView.setCornerRadiiOnTop(16)
+        tupleView.roundTopCorners(16)
         tupleView.isScrollEnabled = false
         tupleView.disableBounce()
         return tupleView

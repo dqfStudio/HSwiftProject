@@ -8,6 +8,17 @@
 
 import UIKit
 
+private let kCollAlertMessageInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+
+private func HCollAlertLayoutMessage(_ cell: HCollFreeCell, font: UIFont, text: String) {
+    cell.label.frame = cell.contentBounds.inset(by: kCollAlertMessageInsets)
+    cell.label.font = font
+    cell.label.numberOfLines = 0
+    cell.label.textAlignment = .center
+    cell.label.textColor = .white
+    cell.label.text = text
+}
+
 extension HCollAlertVC {
     // 注销账号
     @discardableResult
@@ -27,16 +38,11 @@ extension HCollAlertVC {
             return 48
         }
         alertVC.itemBlock = { (coll: HCollView, indexPath: IndexPath) in
-            let cell = coll.reuseCell(HCollLabelCell.self, true, indexPath) as! HCollLabelCell
-            cell.edgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
             if indexPath.row == 0 {
-                //cell.setBottomLine(withColor: UIColor.border2, lineHeight: 0.5)
-                cell.label.font = messageFont
-                cell.label.numberOfLines = 0
-                cell.label.textAlignment = .center
-                cell.label.textColor = UIColor.white
-                cell.label.text = message
-            }else {
+                let cell = coll.reuseCell(HCollFreeCell.self, true, indexPath) as! HCollFreeCell
+                HCollAlertLayoutMessage(cell, font: messageFont, text: message)
+            } else {
+                let cell = coll.reuseCell(HCollLabelCell.self, true, indexPath) as! HCollLabelCell
                 cell.label.font = UIFont.font(ofSize: 17, weight: .medium)
                 cell.label.textAlignment = .center
                 cell.label.numberOfLines = 0
@@ -69,17 +75,11 @@ extension HCollAlertVC {
         }
         alertVC.itemBlock = { (coll: HCollView, indexPath: IndexPath) in
             if indexPath.row == 0 {
-                let cell = coll.reuseCell(HCollLabelCell.self, true, indexPath) as! HCollLabelCell
-                cell.edgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
-                //cell.setBottomLine(withColor: UIColor.border2, lineHeight: 0.5)
-                cell.label.font = messageFont
-                cell.label.numberOfLines = 0
-                cell.label.textAlignment = .center
-                cell.label.textColor = UIColor.white
-                cell.label.text = message
+                let cell = coll.reuseCell(HCollFreeCell.self, true, indexPath) as! HCollFreeCell
+                HCollAlertLayoutMessage(cell, font: messageFont, text: message)
             }else {
                 let cell = coll.reuseCell(HCollFreeCell.self, true, indexPath) as! HCollFreeCell
-                let frame = cell.layoutViewBounds
+                let frame = cell.contentBounds
                 let halfWidth = frame.width / 2
                 
                 cell.buttonView.frame = CGRect(x: 0, y: 0, width: halfWidth, height: frame.height)
@@ -124,17 +124,11 @@ extension HCollAlertVC {
         }
         alertVC.itemBlock = { (coll: HCollView, indexPath: IndexPath) in
             if indexPath.row == 0 {
-                let cell = coll.reuseCell(HCollLabelCell.self, true, indexPath) as! HCollLabelCell
-                cell.edgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
-                //cell.setBottomLine(withColor: UIColor.border2, lineHeight: 0.5)
-                cell.label.font = messageFont
-                cell.label.numberOfLines = 0
-                cell.label.textAlignment = .center
-                cell.label.textColor = UIColor.white
-                cell.label.text = message
+                let cell = coll.reuseCell(HCollFreeCell.self, true, indexPath) as! HCollFreeCell
+                HCollAlertLayoutMessage(cell, font: messageFont, text: message)
             }else {
                 let cell = coll.reuseCell(HCollFreeCell.self, true, indexPath) as! HCollFreeCell
-                let frame = cell.layoutViewBounds
+                let frame = cell.contentBounds
                 let halfWidth = frame.width / 2
                 
                 cell.buttonView.frame = CGRect(x: 0, y: 0, width: halfWidth, height: frame.height)
@@ -181,18 +175,12 @@ extension HCollAlertVC {
         alertVC.itemBlock = { [weak alertVC] (coll, indexPath) in
             guard let alertVC = alertVC else { return }
             if indexPath.row == 0 {
-                let cell = coll.reuseCell(HCollLabelCell.self, true, indexPath) as! HCollLabelCell
-                cell.edgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
-                //cell.setBottomLine(withColor: UIColor.border2, lineHeight: 0.5)
-                cell.label.font = UIFont.font(ofSize: 17, weight: .medium)
-                cell.label.numberOfLines = 0
-                cell.label.textAlignment = .center
-                cell.label.textColor = UIColor.white
-                cell.label.text = message
+                let cell = coll.reuseCell(HCollFreeCell.self, true, indexPath) as! HCollFreeCell
+                HCollAlertLayoutMessage(cell, font: UIFont.font(ofSize: 17, weight: .medium), text: message)
             }else {
                 let cell = coll.reuseCell(HCollFreeCell.self, true, indexPath) as! HCollFreeCell
-                let frame = cell.layoutViewBounds
-                let halfWidth = cell.layoutViewBounds.width / 2
+                let frame = cell.contentBounds
+                let halfWidth = cell.contentBounds.width / 2
                 
                 cell.buttonView.frame = CGRect(x: 0, y: 0, width: halfWidth, height: frame.height)
                 cell.buttonView.textFont = UIFont.font(ofSize: 17, weight: .medium)

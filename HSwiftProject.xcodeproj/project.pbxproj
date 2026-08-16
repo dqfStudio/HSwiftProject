@@ -124,7 +124,7 @@
 		A2A814BC274D694E00FAB929 /* UIViewController+HAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814BB274D694E00FAB929 /* UIViewController+HAnimation.swift */; };
 		A2A814BE274D6C3000FAB929 /* HPushAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814BD274D6C3000FAB929 /* HPushAnimation.swift */; };
 		A2A814C0274E030100FAB929 /* HSheetController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814BF274E030100FAB929 /* HSheetController.swift */; };
-		A2A814C5274F56C400FAB929 /* UIView+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814C4274F56C400FAB929 /* UIView+HUtil.swift */; };
+		EBAA54111FB9E1FC004DF5D8 /* UIView+HUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA54101FB9E1FC004DF5D8 /* UIView+HUtil.swift */; };
 		A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2A814D6275007EB00FAB929 /* NSString+HSize.swift */; };
 		A2B42FCC237CED5A00795605 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B42FCB237CED5A00795605 /* AppDelegate.swift */; };
 		A2B42FCE237CED5A00795605 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2B42FCD237CED5A00795605 /* SceneDelegate.swift */; };
@@ -167,7 +167,7 @@
 		A2CC441123B360AE00DB095F /* HTupleRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2CC441023B360AE00DB095F /* HTupleRefresh.swift */; };
 		D21B4874780840369106F789 /* HTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A803975014A6432D909B07EE /* HTextFieldView.swift */; };
 		EB05976B2A09F02B0016ACD8 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05976A2A09F02B0016ACD8 /* CGRect.swift */; };
-		EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */; };
+		EB05976D2A0A17430016ACD8 /* HCollSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05976C2A0A17420016ACD8 /* HCollSeparator.swift */; };
 		EB0597712A0B6B990016ACD8 /* HNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0597702A0B6B990016ACD8 /* HNavigationBar.swift */; };
 		EB05977C2A0DF18F0016ACD8 /* HChatTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB05977B2A0DF18F0016ACD8 /* HChatTableView.swift */; };
 		EB1209712A7CD45500E5F045 /* HGroupAvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */; };
@@ -625,7 +625,7 @@
 		A2A814BB274D694E00FAB929 /* UIViewController+HAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+HAnimation.swift"; sourceTree = "<group>"; };
 		A2A814BD274D6C3000FAB929 /* HPushAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HPushAnimation.swift; sourceTree = "<group>"; };
 		A2A814BF274E030100FAB929 /* HSheetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSheetController.swift; sourceTree = "<group>"; };
-		A2A814C4274F56C400FAB929 /* UIView+HUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+HUtil.swift"; sourceTree = "<group>"; };
+		EBAA54101FB9E1FC004DF5D8 /* UIView+HUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+HUtil.swift"; sourceTree = "<group>"; };
 		A2A814D6275007EB00FAB929 /* NSString+HSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSString+HSize.swift"; sourceTree = "<group>"; };
 		A2B42FC8237CED5A00795605 /* HSwiftProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HSwiftProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2B42FCB237CED5A00795605 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -670,7 +670,7 @@
 		A2CC441023B360AE00DB095F /* HTupleRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleRefresh.swift; sourceTree = "<group>"; };
 		A803975014A6432D909B07EE /* HTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTextFieldView.swift; sourceTree = "<group>"; };
 		EB05976A2A09F02B0016ACD8 /* CGRect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
-		EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCellApexSeparator.swift; sourceTree = "<group>"; };
+		EB05976C2A0A17420016ACD8 /* HCollSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollSeparator.swift; sourceTree = "<group>"; };
 		EB0597702A0B6B990016ACD8 /* HNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationBar.swift; sourceTree = "<group>"; };
 		EB05977B2A0DF18F0016ACD8 /* HChatTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatTableView.swift; sourceTree = "<group>"; };
 		EB1209702A7CD45500E5F045 /* HGroupAvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGroupAvatarView.swift; sourceTree = "<group>"; };
@@ -1187,8 +1187,6 @@
 		A2892394238B72F800E4AB75 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				EBEF301B2D8C67B900930730 /* HCollViewApex */,
-				EBEF301C2D8C67B900930730 /* HCollViewCell */,
 				A2892395238B72F800E4AB75 /* HTupleViewApex */,
 				A2892397238B72F800E4AB75 /* HTupleViewCell */,
 				A2892399238B72F800E4AB75 /* HTupleCommon */,
@@ -1235,8 +1233,6 @@
 				EB869F602B610B4900076A5D /* HTupleAttributes.swift */,
 				A289239C238B72F800E4AB75 /* NSIndexPath+HUtil.swift */,
 				A2CC441023B360AE00DB095F /* HTupleRefresh.swift */,
-				A2A814C4274F56C400FAB929 /* UIView+HUtil.swift */,
-				EB05976C2A0A17420016ACD8 /* HCellApexSeparator.swift */,
 				EB80B6732A15C8ED0016648A /* HLabel.swift */,
 				EB80B66B2A1130E00016648A /* HToolbar.swift */,
 				EB80B66D2A122A940016648A /* HScrollbar.swift */,
@@ -1553,6 +1549,7 @@
 				EBD0FB2729CC91AF00808EDA /* UIImage+QRCode.swift */,
 				A26D431C2384177900F457AE /* UIScreen+HUtil.swift */,
 				A26D432023842C9400F457AE /* UIGestureRecognizer+HUtil.swift */,
+				EBAA54101FB9E1FC004DF5D8 /* UIView+HUtil.swift */,
 				A26D4322238526BA00F457AE /* UIViewController+HUtil.swift */,
 				A26D43382386C0A000F457AE /* UINavigationController+HUtil.swift */,
 			);
@@ -1952,9 +1949,20 @@
 			children = (
 				EBAA53011FB9E1FC004DF5D8 /* Core */,
 				EBAA53021FB9E1FC004DF5D8 /* Features */,
+				EBEF301C2D8C67B900930730 /* Cells */,
+				EBEF301B2D8C67B900930730 /* Apex */,
+				EBAA54001FB9E1FC004DF5D8 /* Common */,
 				EBAA53331FB9E1FC004DF5D8 /* Kits */,
 			);
 			path = HCollView;
+			sourceTree = "<group>";
+		};
+		EBAA54001FB9E1FC004DF5D8 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				EB05976C2A0A17420016ACD8 /* HCollSeparator.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 		EBAA53011FB9E1FC004DF5D8 /* Core */ = {
@@ -2332,7 +2340,7 @@
 			path = HUserModel;
 			sourceTree = "<group>";
 		};
-		EBEF301B2D8C67B900930730 /* HCollViewApex */ = {
+		EBEF301B2D8C67B900930730 /* Apex */ = {
 			isa = PBXGroup;
 			children = (
 				EBEF302B2D8C684200930730 /* HCollBaseApex.swift */,
@@ -2344,10 +2352,10 @@
 				EBEF30302D8C684200930730 /* HCollRowApex.swift */,
 				EBEF30312D8C684200930730 /* HCollTileApex.swift */,
 			);
-			path = HCollViewApex;
+			path = Apex;
 			sourceTree = "<group>";
 		};
-		EBEF301C2D8C67B900930730 /* HCollViewCell */ = {
+		EBEF301C2D8C67B900930730 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				EBEF301D2D8C683200930730 /* HCollBaseCell.swift */,
@@ -2359,7 +2367,7 @@
 				EBEF30222D8C683200930730 /* HCollRowCell.swift */,
 				EBEF30232D8C683200930730 /* HCollTileCell.swift */,
 			);
-			path = HCollViewCell;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -2834,7 +2842,7 @@
 				A2A7A93923FE2E150090EFD3 /* HAbstractDotView.swift in Sources */,
 				A26D43392386C0A000F457AE /* UINavigationController+HUtil.swift in Sources */,
 				A2B4308523823B9000795605 /* HCommonBlock.swift in Sources */,
-				A2A814C5274F56C400FAB929 /* UIView+HUtil.swift in Sources */,
+				EBAA54111FB9E1FC004DF5D8 /* UIView+HUtil.swift in Sources */,
 				EBD0FB7929D02B9600808EDA /* HDefaultsBase.swift in Sources */,
 				A28C314923EBB4D80050CDA1 /* HVerifyCodeView.swift in Sources */,
 				EBC3071F2BF8AEF000EF8ABD /* XAlertController.swift in Sources */,
@@ -2932,7 +2940,7 @@
 				A2B43076237FF2B100795605 /* UIWindow+HPrinter.swift in Sources */,
 				EBD0FB9229DA97C000808EDA /* HMainController6+UIExt.swift in Sources */,
 				A26D432523852DB700F457AE /* NSDate+HUtil.swift in Sources */,
-				EB05976D2A0A17430016ACD8 /* HCellApexSeparator.swift in Sources */,
+				EB05976D2A0A17430016ACD8 /* HCollSeparator.swift in Sources */,
 				EB3541E92BEA0073003B1D69 /* HUserLoginRequest.swift in Sources */,
 				A2A814D7275007EB00FAB929 /* NSString+HSize.swift in Sources */,
 				A265DA072394BF12001F39B0 /* HTabBar+HSubView.swift in Sources */,

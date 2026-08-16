@@ -48,16 +48,11 @@ class HFlowBaseCell: UITableViewCell {
         self.initUI()
     }
     
-    /// The edge insets of the cell.
-    @objc override var edgeInsets: UIEdgeInsets {
-        get {
-            let edgeInsetsString = self.getAssociatedValueForKey(&kViewEdgeInsetsKey) as? String ?? NSCoder.string(for: UIEdgeInsets.zero)
-            return NSCoder.uiEdgeInsets(for: edgeInsetsString)
-        }
-        set {
-            if edgeInsets != newValue {
-                layoutView.frame = self.bounds.inset(by: newValue)
-                self.setAssociateValue(NSCoder.string(for: newValue), key: &kViewEdgeInsetsKey)
+    /// 内容边距。会同步缩小 `layoutView` 的 frame。
+    @objc var edgeInsets: UIEdgeInsets = .zero {
+        didSet {
+            if edgeInsets != oldValue {
+                setNeedsLayout()
             }
         }
     }
@@ -98,8 +93,8 @@ class HFlowBaseCell: UITableViewCell {
     }()
 
     /// The separator view loaded on the content view
-    lazy var separatorView: HCellApexSeparator = {
-        let separator = HCellApexSeparator(frame: self.bounds)
+    lazy var separatorView: HCollSeparator = {
+        let separator = HCollSeparator(frame: self.bounds)
         self.contentView.addSubview(separator)
         return separator
     }()
@@ -124,11 +119,12 @@ class HFlowBaseCell: UITableViewCell {
     
     /// The frame and bounds of the layout view
     var layoutViewFrame: CGRect {
-        return layoutView.frame
+        contentView.bounds.inset(by: edgeInsets)
     }
 
     var layoutViewBounds: CGRect {
-        return layoutView.bounds
+        let inset = contentView.bounds.inset(by: edgeInsets)
+        return CGRect(origin: .zero, size: inset.size)
     }
     
     func HLayoutTableCell(_ v: UIView) {
@@ -136,6 +132,11 @@ class HFlowBaseCell: UITableViewCell {
         if !v.frame.equalTo(frame) {
             v.frame = frame
         }
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layoutView.frame = contentView.bounds.inset(by: edgeInsets)
     }
     
     ///cell初始化是调用的方法

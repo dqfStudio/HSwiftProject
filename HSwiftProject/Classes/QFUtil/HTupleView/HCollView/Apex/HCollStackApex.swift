@@ -18,12 +18,12 @@ class HCollStackApex: HCollBaseApex {
         return stack
     }()
 
-    private var _separatorView: HCellApexSeparator?
-    var separatorView: HCellApexSeparator {
+    private var _separatorView: HCollSeparator?
+    var separatorView: HCollSeparator {
         if let separator = _separatorView {
             return separator
         }
-        let separator = HCellApexSeparator(frame: .zero)
+        let separator = HCollSeparator(frame: .zero)
         separator.isHidden = true
         addSubview(separator)
         _separatorView = separator
@@ -41,14 +41,6 @@ class HCollStackApex: HCollBaseApex {
         return indicator
     }
 
-    override var layoutViewFrame: CGRect {
-        layoutView.frame
-    }
-
-    override var layoutViewBounds: CGRect {
-        layoutView.bounds
-    }
-
     override func initUI() {
         addSubview(layoutView)
     }
@@ -59,7 +51,7 @@ class HCollStackApex: HCollBaseApex {
     }
 
     override func prepareLayout() {
-        layoutView.frame = contentBounds.inset(by: contentInsets)
+        layoutView.frame = bounds
         layoutSeparatorIfNeeded()
         centerActivityIfNeeded()
     }
@@ -134,26 +126,22 @@ class HCollStackApex: HCollBaseApex {
             return imageView.imageSize
         }
         let rowHeight = max(layoutView.bounds.size.height, 1)
-        let inset = imageView.edgeInsets
-        return CGSize(
-            width: max(rowHeight - inset.left - inset.right, 1),
-            height: max(rowHeight - inset.top - inset.bottom, 1)
-        )
+        return CGSize(width: rowHeight, height: rowHeight)
     }
 
     private func layoutSeparatorIfNeeded() {
         guard let separator = _separatorView else { return }
         let height = 1.0 / max(contentScaleFactor, 1)
         separator.frame = CGRect(
-            x: contentInsets.left,
-            y: contentBounds.size.height - height,
-            width: max(contentBounds.size.width - contentInsets.left - contentInsets.right, 0),
+            x: 0,
+            y: bounds.size.height - height,
+            width: bounds.size.width,
             height: height
         )
     }
 
     private func centerActivityIfNeeded() {
         guard let activity = _activity else { return }
-        activity.center = CGPoint(x: contentBounds.midX, y: contentBounds.midY)
+        activity.center = CGPoint(x: bounds.midX, y: bounds.midY)
     }
 }

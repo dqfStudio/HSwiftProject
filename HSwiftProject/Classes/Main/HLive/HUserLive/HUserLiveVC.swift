@@ -41,10 +41,10 @@ class HUserLiveVC: HViewController, HTupleViewDelegate {
         inputField.rightLabel.font = .systemFont(ofSize: 17.0)
 //        inputField.setRightView(inputField.rightLabel, width: 60)
 
-        inputField.rightLabel.addSingleTapGesture(withBlock: { sender in
+        inputField.rightLabel.addSingleTap { sender in
             // Force hide keyboard
             UIApplication.shared.sendAction(#selector(UIApplication.resignFirstResponder), to: nil, from: nil, for: nil)
-        })
+        }
         return inputField
     }()
     

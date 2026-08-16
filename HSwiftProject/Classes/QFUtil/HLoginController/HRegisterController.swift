@@ -142,7 +142,7 @@ class HRegisterController: HViewController, HTupleViewDelegate {
 //        let toolbar = cell.viewWithTag(12345) as? HToolbar
 //        if toolbar == nil {
 //            cell.addSubview(self.toolbar)
-//            self.toolbar.centerInSuperView()
+//            self.toolbar.centerInSuperview()
 //        }
     }
 

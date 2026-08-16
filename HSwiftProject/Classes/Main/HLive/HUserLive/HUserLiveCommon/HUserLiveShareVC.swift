@@ -103,7 +103,7 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
     }
     func tupleFooter(_ tuple: HTupleView, atIndexPath indexPath: IndexPath) {
         let cell = tuple.reuseFooter(HTupleButtonApex.self, nil, true, indexPath) as! HTupleButtonApex
-        cell.setTopLine(withColor: UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
+        cell.setTopLine(color: UIColor(white: 0.1, alpha: 0.2), paddingLeft: 0, paddingRight: 0)
         cell.buttonView.backgroundColor = UIColor.white
         cell.buttonView.textColor = UIColor.black
         cell.buttonView.text = "取消"

@@ -16,31 +16,6 @@ class HCollBaseApex: UICollectionReusableView {
 
     var willDisplayBlock: (() -> Void)?
 
-    /// 内容边距。只参与子视图布局，不会改自身 frame。
-    var contentInsets: UIEdgeInsets = .zero {
-        didSet {
-            if contentInsets != oldValue {
-                setNeedsLayout()
-            }
-        }
-    }
-
-    /// 兼容旧调用。语义与 `contentInsets` 相同，不会 inset 自身 frame。
-    @objc override var edgeInsets: UIEdgeInsets {
-        get { contentInsets }
-        set { contentInsets = newValue }
-    }
-
-    var layoutViewFrame: CGRect {
-        contentBounds.inset(by: contentInsets)
-    }
-
-    var layoutViewBounds: CGRect {
-        CGRect(origin: .zero, size: layoutViewFrame.size)
-    }
-
-    var contentBounds: CGRect { bounds }
-
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         backgroundColor = .clear
@@ -58,7 +33,7 @@ class HCollBaseApex: UICollectionReusableView {
     func relayoutSubviews() {}
 
     func fillContent(_ view: UIView) {
-        let frame = contentBounds.inset(by: contentInsets)
+        let frame = bounds
         if view.frame != frame {
             view.frame = frame
         }
@@ -87,7 +62,6 @@ class HCollBaseApex: UICollectionReusableView {
         willDisplayBlock = nil
         indexPath = nil
         isHeader = false
-        contentInsets = .zero
     }
 
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {

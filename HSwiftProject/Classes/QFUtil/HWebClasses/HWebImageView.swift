@@ -21,6 +21,9 @@ typealias HWebGetImageBlock = (_ sender: Any?, _ data: Any?, _ style: HWebGetIma
 
 class HWebImageView: UIImageView {
     
+    /// 供父视图排版读取。不改自身 frame；真正内缩由调用方对 frame 做 inset。
+    @objc var edgeInsets: UIEdgeInsets = .zero
+
     var imageSize: CGSize = .zero {
         didSet {
             if imageSize != oldValue, superview != nil {

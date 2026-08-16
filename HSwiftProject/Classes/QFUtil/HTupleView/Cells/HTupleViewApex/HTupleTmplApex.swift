@@ -10,45 +10,31 @@ import UIKit
 
 class HTupleTmplApex: HTupleBaseApex {
 
-    /// The edge insets of the cell.
-    @objc override var edgeInsets: UIEdgeInsets {
-        get {
-            let edgeInsetsString = self.getAssociatedValueForKey(&kViewEdgeInsetsKey) as? String ?? NSCoder.string(for: UIEdgeInsets.zero)
-            return NSCoder.uiEdgeInsets(for: edgeInsetsString)
-        }
-        set {
-            if edgeInsets != newValue {
-                self.setAssociateValue(NSCoder.string(for: newValue), key: &kViewEdgeInsetsKey)
-                self.setNeedsLayout()
-            }
-        }
-    }
-
     /// The layout view loaded on the content view
     lazy var layoutView: UIStackView = {
         let stackView = UIStackView(frame: self.bounds)
         stackView.axis = .horizontal
         stackView.distribution = .fill
         stackView.alignment = .fill
-        stackView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         self.addSubview(stackView)
         return stackView
     }()
 
     /// The separator view loaded on the content view
-    lazy var separatorView: HCellApexSeparator = {
-        let separator = HCellApexSeparator(frame: self.bounds)
+    lazy var separatorView: HCollSeparator = {
+        let separator = HCollSeparator(frame: self.bounds)
         self.addSubview(separator)
         return separator
     }()
 
-    /// The frame and bounds of the layout view
+    /// 扣除边距后的排版区域。不读 `layoutView.frame`，避免 layout 之前拿到旧尺寸。
     override var layoutViewFrame: CGRect {
-        return layoutView.frame
+        bounds.inset(by: edgeInsets)
     }
 
     override var layoutViewBounds: CGRect {
-        return layoutView.bounds
+        let inset = bounds.inset(by: edgeInsets)
+        return CGRect(origin: .zero, size: inset.size)
     }
 
     private var _activity: UIActivityIndicatorView?

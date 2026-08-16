@@ -56,7 +56,7 @@ class HCollDropVC: HViewController, HCollViewDelegate {
         let collView = HCollView(frame: frame)
         collView.backgroundColor = UIColor.black
         collView.isScrollEnabled = false
-        collView.setCornerRadiiOnBottom(16)
+        collView.roundBottomCorners(16)
         collView.disableBounce()
         return collView
     }()

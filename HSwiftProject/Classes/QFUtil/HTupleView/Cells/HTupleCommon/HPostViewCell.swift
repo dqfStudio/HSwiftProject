@@ -577,7 +577,7 @@ class HPostCustomViewCell: HTupleTmplCell {
         self.postTextView.textView.isSelectable = true
         self.postTextView.textView.backgroundColor = .blue
         
-        let textHeight = self.postTextView.textView.textHeight(with: cellWidth)
+        let textHeight = self.postTextView.textView.textHeight(constrainedToWidth: cellWidth)
         self.postTextView.makeFrame {
             var frame = CGRect.zero
             frame.y = self.postHeaderView.maxY + 10

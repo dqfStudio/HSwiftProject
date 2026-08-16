@@ -40,26 +40,22 @@ class HTupleBaseCell: UICollectionViewCell {
         self.initUI()
     }
     
-    /// The edge insets of the cell.
-    @objc override var edgeInsets: UIEdgeInsets {
-        get {
-            let edgeInsetsString = self.getAssociatedValueForKey(&kViewEdgeInsetsKey) as? String ?? NSCoder.string(for: UIEdgeInsets.zero)
-            return NSCoder.uiEdgeInsets(for: edgeInsetsString)
-        }
-        set {
-            if edgeInsets != newValue {
-                self.setAssociateValue(NSCoder.string(for: newValue), key: &kViewEdgeInsetsKey)
+    /// 内容边距。只参与子视图布局，不改 cell 自身 frame。
+    @objc var edgeInsets: UIEdgeInsets = .zero {
+        didSet {
+            if edgeInsets != oldValue {
+                setNeedsLayout()
             }
         }
     }
     
-    /// The frame and bounds of layoutView
+    /// 扣除 `edgeInsets` 后的排版区域（contentView 坐标系）。
     var layoutViewFrame: CGRect {
-        return self.frame
+        contentView.bounds.inset(by: edgeInsets)
     }
 
     var layoutViewBounds: CGRect {
-        return self.bounds
+        contentView.bounds.inset(by: edgeInsets)
     }
     
     /// Refresh the current cell
@@ -69,8 +65,9 @@ class HTupleBaseCell: UICollectionViewCell {
     }
     
     func HLayoutTupleCell(_ v: UIView) {
-        if !v.frame.equalTo(self.bounds) {
-            v.frame = self.bounds
+        let frame = contentView.bounds.inset(by: edgeInsets)
+        if !v.frame.equalTo(frame) {
+            v.frame = frame
         }
     }
     

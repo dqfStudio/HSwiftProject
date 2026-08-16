@@ -42,8 +42,8 @@ extension HAdvertsVC {
                 frame.height = 200
                 return frame
             }
-            self.videoView.setTopLine(withColor: UIColor.white, lineHeight: 2)
-            //self.videoView.setBottomLine(withColor: UIColor.white, lineHeight: 2)
+            self.videoView.setTopLine(color: UIColor.white, lineHeight: 2)
+            //self.videoView.setBottomLine(color: UIColor.white, lineHeight: 2)
             cell.contentView.addSubview(self.videoView)
         }
         
@@ -115,8 +115,8 @@ extension HAdvertsVC {
                 frame.height = 200
                 return frame
             }
-            self.videoView.setTopLine(withColor: UIColor.white, lineHeight: 2)
-            //self.videoView.setBottomLine(withColor: UIColor.white, lineHeight: 2)
+            self.videoView.setTopLine(color: UIColor.white, lineHeight: 2)
+            //self.videoView.setBottomLine(color: UIColor.white, lineHeight: 2)
             cell.contentView.addSubview(self.videoView)
         }
         

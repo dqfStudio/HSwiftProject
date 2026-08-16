@@ -56,7 +56,7 @@ class HCollSheetVC: HViewController, HCollViewDelegate {
         let collView = HCollView(frame: frame)
         collView.backgroundColor = UIColor.black
         collView.isScrollEnabled = false
-        collView.setCornerRadiiOnTop(16)
+        collView.roundTopCorners(16)
         collView.disableBounce()
         return collView
     }()

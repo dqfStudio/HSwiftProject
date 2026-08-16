@@ -19,42 +19,21 @@ class HCollBaseCell: UICollectionViewCell {
     /// 业务在配置 cell 时写入，框架在 willDisplay 时预取尺寸。
     var prefetchImageURLs: [String] = []
 
-    /// cell 内容边距。只参与子视图布局，不会改 cell 自身 frame。
-    var contentInsets: UIEdgeInsets = .zero {
-        didSet {
-            if contentInsets != oldValue {
-                setNeedsLayout()
-            }
-        }
-    }
-
-    /// 兼容旧调用。语义与 `contentInsets` 相同，不会 inset 自身 frame。
-    @objc override var edgeInsets: UIEdgeInsets {
-        get { contentInsets }
-        set { contentInsets = newValue }
-    }
-
-    var layoutViewFrame: CGRect {
-        contentBounds.inset(by: contentInsets)
-    }
-
-    var layoutViewBounds: CGRect {
-        CGRect(origin: .zero, size: layoutViewFrame.size)
-    }
-
-    /// 复用后 `contentView.bounds` 可能仍是上一格的尺寸，和当前 `bounds` 对不上时用 cell 自己的 bounds。
+    /// 复用后 `contentView.bounds` 可能仍是上一格的尺寸。子视图加在 contentView 上，原点归零；尺寸与 cell 对得上才用 contentView。
     var contentBounds: CGRect {
-        let content = contentView.bounds
-        let cell = bounds
-        if content.size.width > 0 && content.size.height > 0
-            && abs(content.size.width - cell.size.width) <= 1
-            && abs(content.size.height - cell.size.height) <= 1 {
-            return content
+        let cellSize = bounds.size
+        let contentSize = contentView.bounds.size
+        let size: CGSize
+        if contentSize.width > 0, contentSize.height > 0,
+           abs(contentSize.width - cellSize.width) <= 1,
+           abs(contentSize.height - cellSize.height) <= 1 {
+            size = contentSize
+        } else if cellSize.width > 0, cellSize.height > 0 {
+            size = cellSize
+        } else {
+            size = contentSize
         }
-        if cell.size.width > 0 && cell.size.height > 0 {
-            return cell
-        }
-        return content
+        return CGRect(origin: .zero, size: size)
     }
 
     required init?(coder: NSCoder) {
@@ -74,9 +53,9 @@ class HCollBaseCell: UICollectionViewCell {
     /// 子类在这里排子视图。由 `layoutSubviews` 调用，不依赖列表是否记得调。
     func relayoutSubviews() {}
 
-    /// 把 `view` 铺满内容区（已扣除 `contentInsets`）。
+    /// 把 `view` 铺满内容区。
     func fillContent(_ view: UIView) {
-        let frame = contentBounds.inset(by: contentInsets)
+        let frame = contentBounds
         if view.frame != frame {
             view.frame = frame
         }
@@ -108,7 +87,6 @@ class HCollBaseCell: UICollectionViewCell {
         selectBlock = nil
         prefetchImageURLs = []
         indexPath = nil
-        contentInsets = .zero
     }
 
     /// HCollView 用 `sizeForItem` 定高，默认不在这里改尺寸。

@@ -78,9 +78,9 @@ class HPostVC: HViewController, HTupleViewDelegate {
     
     func willDisplayCell(_ cell: HTupleBaseCell, atIndexPath indexPath: IndexPath) {
         if indexPath.row != postList.count - 1 {
-            cell.setBottomLine(withColor: .red, paddingLeft: 16, paddingRight: 16)
+            cell.setBottomLine(color: .red, paddingLeft: 16, paddingRight: 16)
         } else {
-            cell.bottomLineLayer?.removeFromSuperlayer()
+            cell.removeBottomLine()
         }
     }
 

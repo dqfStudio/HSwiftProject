@@ -369,14 +369,13 @@ struct HCollViewTests {
         #expect(stub.selected)
     }
 
-    @Test @MainActor func testContentInsetsDoesNotShrinkCellFrame() {
+    @Test @MainActor func testFillContentUsesFullCellBounds() {
         let cell = HCollLabelCell(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
         _ = cell.label
-        cell.contentInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
-        #expect(cell.width == 200)
         cell.layoutIfNeeded()
-        #expect(cell.label.x == 24)
-        #expect(abs(cell.label.width - 152) < 0.5)
+        #expect(cell.width == 200)
+        #expect(cell.label.x == 0)
+        #expect(abs(cell.label.width - 200) < 0.5)
     }
 
     @Test @MainActor func testValueRowPutsDetailOnTheTrailingSide() {
@@ -426,21 +425,19 @@ struct HCollViewTests {
         #expect(header is HCollLabelApex)
     }
 
-    @Test @MainActor func testApexContentInsetsDoesNotShrinkFrame() {
+    @Test @MainActor func testApexFillContentUsesFullBounds() {
         let apex = HCollLabelApex(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
         _ = apex.label
-        apex.contentInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
-        #expect(apex.width == 200)
         apex.layoutIfNeeded()
-        #expect(apex.label.x == 16)
-        #expect(abs(apex.label.width - 168) < 0.5)
+        #expect(apex.width == 200)
+        #expect(apex.label.x == 0)
+        #expect(abs(apex.label.width - 200) < 0.5)
     }
 
     @Test @MainActor func testApplyLayoutGivesStackLayoutViewANonZeroFrame() {
         let cell = HCollStackCell(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
-        cell.contentInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         cell.applyLayout()
-        #expect(abs(cell.layoutView.width - 300) < 0.5)
+        #expect(abs(cell.layoutView.width - 320) < 0.5)
         #expect(abs(cell.layoutView.height - 44) < 0.5)
     }
 

@@ -96,9 +96,9 @@ class HPostCommentVC: HViewController, HTupleViewDelegate {
     func willDisplayCell(_ cell: HTupleTmplCell, atIndexPath indexPath: IndexPath) {
         // 添加间隔线
         if indexPath.row != 3 - 1 {
-            cell.setBottomLine(withColor: .red, paddingLeft: 76, paddingRight: 16)
+            cell.setBottomLine(color: .red, paddingLeft: 76, paddingRight: 16)
         } else {
-            cell.bottomLineLayer?.removeFromSuperlayer()
+            cell.removeBottomLine()
         }
     }
 

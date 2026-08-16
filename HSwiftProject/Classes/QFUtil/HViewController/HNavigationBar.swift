@@ -97,7 +97,7 @@ class HNavigationBar: UIStackView, HTupleViewDelegate {
     var lineBarColor: UIColor = .clear {
         didSet {
             if lineBarColor != oldValue {
-                self.setBottomLine(withColor: lineBarColor)
+                self.setBottomLine(color: lineBarColor)
             }
         }
     }

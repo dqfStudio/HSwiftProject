@@ -126,7 +126,7 @@
 //            }
 //            // 设置间隔
 //            if let lastView = self.arrangedSubviews.last {
-//                let textWidth = nameLabel.textWidth(with: self.height)
+//                let textWidth = nameLabel.textWidth(constrainedToHeight: self.height)
 //                let spaceWidth = self.width - textWidth - authWidth
 //                if spaceWidth > 0 {
 //                    self.setCustomSpacing(spaceWidth, after: lastView)
