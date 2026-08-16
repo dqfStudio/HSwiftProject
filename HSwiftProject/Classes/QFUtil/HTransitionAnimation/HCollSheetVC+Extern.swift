@@ -23,13 +23,13 @@ extension HCollSheetVC {
         }
         sheetVC.itemBlock = { (coll: HCollView, indexPath: IndexPath) in
             if indexPath.row == 0 {
-                let cell = coll.reuseCell(HCollViewCell.self, nil, true, indexPath) as! HCollViewCell
+                let cell = coll.reuseCell(HCollViewCell.self, true, indexPath) as! HCollViewCell
                 let frame = cell.layoutViewBounds
                 cell.label.frame = CGRect(x: (frame.width - 38) / 2, y: 8, width: 38, height: 4)
                 //cell.label.backgroundColor = UIColor.color272729
                 cell.label.cornerRadius = 2
             }else {
-                let cell = coll.reuseCell(HCollLabelCell.self, nil, true, indexPath) as! HCollLabelCell
+                let cell = coll.reuseCell(HCollLabelCell.self, true, indexPath) as! HCollLabelCell
                 cell.edgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 8)
                 cell.label.font = UIFont.font(ofSize: 16, weight: .regular)
                 cell.label.textAlignment = .center

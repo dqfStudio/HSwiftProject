@@ -24,9 +24,6 @@ class HCollBaseCell: UICollectionViewCell {
     /// Callback when a cell is clicked
     var selectBlock: HCollCellSelectBlock?
 
-    /// Signal callback
-    var signalBlock: HCollCellSignalBlock?
-    
     /// 当前 cell 中用到的图片 URL 列表，设置后框架会自动预取其尺寸
     /// 业务方在配置 cell 时设置此属性，框架在 willDisplay 时自动预取
     var prefetchImageURLs: [String] = []

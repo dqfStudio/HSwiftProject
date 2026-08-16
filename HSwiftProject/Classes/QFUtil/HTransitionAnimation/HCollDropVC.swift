@@ -104,7 +104,7 @@ extension HCollDropVC {
     }
     
     func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
-        let width = self.collView.width(forSection: indexPath.section)
+        let width = self.collView.width(for: indexPath.section)
         let height = self.heightBlock?(indexPath.row) ?? 1.0
         return CGSize(width: width, height: height)
     }

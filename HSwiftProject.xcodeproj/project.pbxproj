@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EBAA53311FB9E1FC004DF5D8 /* HCollView+Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA53301FB9E1FC004DF5D8 /* HCollView+Example.swift */; };
 		56DDBA7CCDB9BFB82A6C14A8 /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E58A288F46164A2F70B398C /* Pods_HSwiftProject.framework */; };
 		A2188795238FD3CC005C20BF /* HGameCategoryVC+HSection0.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2188794238FD3CC005C20BF /* HGameCategoryVC+HSection0.swift */; };
 		A2188797238FD3D6005C20BF /* HGameCategoryVC+HSection1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2188796238FD3D6005C20BF /* HGameCategoryVC+HSection1.swift */; };
@@ -352,46 +353,13 @@
 		EBAA51692FB8543E004DF5D8 /* HWebLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51632FB8543E004DF5D8 /* HWebLayoutManager.swift */; };
 		EBAA516A2FB8543E004DF5D8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EBAA51642FB8543E004DF5D8 /* README.md */; };
 		EBAA51762FB9B43E004DF5D8 /* HTextFieldView_UsageGuide.md in Resources */ = {isa = PBXBuildFile; fileRef = EBAA51752FB9B43E004DF5D8 /* HTextFieldView_UsageGuide.md */; };
-		EBAA519F2FB9E1FC004DF5D8 /* HCollView+InteractionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51862FB9E1FC004DF5D8 /* HCollView+InteractionMode.swift */; };
-		EBAA51A02FB9E1FC004DF5D8 /* HCollView+SmartPreloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51962FB9E1FC004DF5D8 /* HCollView+SmartPreloading.swift */; };
-		EBAA51A12FB9E1FC004DF5D8 /* HCollView+MemoryOptimization.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA518A2FB9E1FC004DF5D8 /* HCollView+MemoryOptimization.swift */; };
-		EBAA51A22FB9E1FC004DF5D8 /* HCollView+Plugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51902FB9E1FC004DF5D8 /* HCollView+Plugin.swift */; };
+		EBAA53211FB9E1FC004DF5D8 /* HCollView+FeatureHooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA53201FB9E1FC004DF5D8 /* HCollView+FeatureHooks.swift */; };
+		EBAA53431FB9E1FC004DF5D8 /* HCollView+LRU.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA53421FB9E1FC004DF5D8 /* HCollView+LRU.swift */; };
 		EBAA51A32FB9E1FC004DF5D8 /* HCollView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51782FB9E1FC004DF5D8 /* HCollView+Animation.swift */; };
-		EBAA51A42FB9E1FC004DF5D8 /* HCollView+Documentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA517F2FB9E1FC004DF5D8 /* HCollView+Documentation.swift */; };
-		EBAA51A52FB9E1FC004DF5D8 /* HCollView+StartupPerformance.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51982FB9E1FC004DF5D8 /* HCollView+StartupPerformance.swift */; };
-		EBAA51A62FB9E1FC004DF5D8 /* HCollView+PreRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51912FB9E1FC004DF5D8 /* HCollView+PreRendering.swift */; };
-		EBAA51A72FB9E1FC004DF5D8 /* HCollView+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA519C2FB9E1FC004DF5D8 /* HCollView+Theme.swift */; };
-		EBAA51A82FB9E1FC004DF5D8 /* HCollView+Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA518C2FB9E1FC004DF5D8 /* HCollView+Networking.swift */; };
-		EBAA51A92FB9E1FC004DF5D8 /* HCollView+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51992FB9E1FC004DF5D8 /* HCollView+SwiftUI.swift */; };
-		EBAA51AA2FB9E1FC004DF5D8 /* HCollView+ObjectPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA518E2FB9E1FC004DF5D8 /* HCollView+ObjectPool.swift */; };
 		EBAA51AB2FB9E1FC004DF5D8 /* HCollView+Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA518F2FB9E1FC004DF5D8 /* HCollView+Performance.swift */; };
-		EBAA51AC2FB9E1FC004DF5D8 /* HCollView+TemplateMarket.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA519A2FB9E1FC004DF5D8 /* HCollView+TemplateMarket.swift */; };
-		EBAA51AD2FB9E1FC004DF5D8 /* HCollView+DataProcessing.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA517D2FB9E1FC004DF5D8 /* HCollView+DataProcessing.swift */; };
-		EBAA51AE2FB9E1FC004DF5D8 /* HCollView+LayoutPresets.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51872FB9E1FC004DF5D8 /* HCollView+LayoutPresets.swift */; };
-		EBAA51AF2FB9E1FC004DF5D8 /* HCollView+Stability.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51972FB9E1FC004DF5D8 /* HCollView+Stability.swift */; };
-		EBAA51B02FB9E1FC004DF5D8 /* HCollView+VirtualScrolling.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA519E2FB9E1FC004DF5D8 /* HCollView+VirtualScrolling.swift */; };
-		EBAA51B12FB9E1FC004DF5D8 /* HCollView+IndustrySolutions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51842FB9E1FC004DF5D8 /* HCollView+IndustrySolutions.swift */; };
-		EBAA51B22FB9E1FC004DF5D8 /* HCollView+HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51822FB9E1FC004DF5D8 /* HCollView+HapticFeedback.swift */; };
-		EBAA51B32FB9E1FC004DF5D8 /* HCollView+SmartCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51952FB9E1FC004DF5D8 /* HCollView+SmartCache.swift */; };
-		EBAA51B42FB9E1FC004DF5D8 /* HCollView+DeviceAdaptation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA517E2FB9E1FC004DF5D8 /* HCollView+DeviceAdaptation.swift */; };
-		EBAA51B52FB9E1FC004DF5D8 /* HCollView+Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51932FB9E1FC004DF5D8 /* HCollView+Security.swift */; };
-		EBAA51B62FB9E1FC004DF5D8 /* HCollView+Extensibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51812FB9E1FC004DF5D8 /* HCollView+Extensibility.swift */; };
-		EBAA51B72FB9E1FC004DF5D8 /* HCollView+ViewReuse.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA519D2FB9E1FC004DF5D8 /* HCollView+ViewReuse.swift */; };
 		EBAA51B82FB9E1FC004DF5D8 /* HCollView+Interaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51852FB9E1FC004DF5D8 /* HCollView+Interaction.swift */; };
 		EBAA51B92FB9E1FC004DF5D8 /* HCollView+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA517A2FB9E1FC004DF5D8 /* HCollView+Config.swift */; };
-		EBAA51BA2FB9E1FC004DF5D8 /* HCollView+MicroInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA518B2FB9E1FC004DF5D8 /* HCollView+MicroInteraction.swift */; };
-		EBAA51BB2FB9E1FC004DF5D8 /* HCollView+Testing.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA519B2FB9E1FC004DF5D8 /* HCollView+Testing.swift */; };
-		EBAA51BC2FB9E1FC004DF5D8 /* HCollView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51772FB9E1FC004DF5D8 /* HCollView+Accessibility.swift */; };
 		EBAA51BD2FB9E1FC004DF5D8 /* HCollView+ImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51832FB9E1FC004DF5D8 /* HCollView+ImageSize.swift */; };
-		EBAA51BE2FB9E1FC004DF5D8 /* HCollView+NetworkOptimization.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA518D2FB9E1FC004DF5D8 /* HCollView+NetworkOptimization.swift */; };
-		EBAA51BF2FB9E1FC004DF5D8 /* HCollView+LayoutSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51882FB9E1FC004DF5D8 /* HCollView+LayoutSystem.swift */; };
-		EBAA51C02FB9E1FC004DF5D8 /* HCollView+AsyncLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51792FB9E1FC004DF5D8 /* HCollView+AsyncLayout.swift */; };
-		EBAA51C12FB9E1FC004DF5D8 /* HCollView+Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51892FB9E1FC004DF5D8 /* HCollView+Localization.swift */; };
-		EBAA51C22FB9E1FC004DF5D8 /* HCollView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51922FB9E1FC004DF5D8 /* HCollView+Rx.swift */; };
-		EBAA51C32FB9E1FC004DF5D8 /* HCollView+ContentDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA517B2FB9E1FC004DF5D8 /* HCollView+ContentDisplay.swift */; };
-		EBAA51C42FB9E1FC004DF5D8 /* HCollView+Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51802FB9E1FC004DF5D8 /* HCollView+Example.swift */; };
-		EBAA51C52FB9E1FC004DF5D8 /* HCollView+CrossPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA517C2FB9E1FC004DF5D8 /* HCollView+CrossPlatform.swift */; };
-		EBAA51C62FB9E1FC004DF5D8 /* HCollView+Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAA51942FB9E1FC004DF5D8 /* HCollView+Skeleton.swift */; };
 		EBBCF3D92E2FE30F00421DB8 /* DPMStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBCF3D82E2FE30F00421DB8 /* DPMStackView.swift */; };
 		EBBCF40D2E536C2500421DB8 /* WaterfallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBCF40C2E536C2400421DB8 /* WaterfallViewController.swift */; };
 		EBC306CD2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */; };
@@ -504,7 +472,6 @@
 		EBEF30362D8C684200930730 /* HCollViewApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF302F2D8C684200930730 /* HCollViewApex.swift */; };
 		EBEF30372D8C684200930730 /* HCollViewApexVertValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30312D8C684200930730 /* HCollViewApexVertValue.swift */; };
 		EBEF30382D8C684200930730 /* HCollTextImageApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF302D2D8C684200930730 /* HCollTextImageApex.swift */; };
-		EBEF303A2D8C6BA100930730 /* HCollSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30392D8C6BA100930730 /* HCollSignal.swift */; };
 		EBEF303E2D8C755E00930730 /* HCollTmplCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF303D2D8C755E00930730 /* HCollTmplCell.swift */; };
 		EBEF30402D8D379D00930730 /* HCollLayoutCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF303F2D8D379D00930730 /* HCollLayoutCell.swift */; };
 		EBEF30422D8D389500930730 /* HCollLayoutApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30412D8D389500930730 /* HCollLayoutApex.swift */; };
@@ -513,8 +480,6 @@
 		EBEF30742DA2679800930730 /* HGlobalObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30732DA2679800930730 /* HGlobalObserver.swift */; };
 		EBEF30762DA2746400930730 /* HCollView+Align.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30752DA2746400930730 /* HCollView+Align.swift */; };
 		EBEF307A2DA283DF00930730 /* HCollView+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30792DA283DF00930730 /* HCollView+Observer.swift */; };
-		EBEF307C2DA2842D00930730 /* HCollView+Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF307B2DA2842D00930730 /* HCollView+Header.swift */; };
-		EBEF30802DA284E800930730 /* HCollView+Signal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF307F2DA284E800930730 /* HCollView+Signal.swift */; };
 		EBEF30822DA28B7D00930730 /* HCollView+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30812DA28B7D00930730 /* HCollView+Refresh.swift */; };
 		EBEF30842DA28B7D00930730 /* HCollView+Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30832DA28B7D00930730 /* HCollView+Core.swift */; };
 		EBEF308B2DA28B7D00930730 /* HCollView+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30852DA28B7D00930730 /* HCollView+DataSource.swift */; };
@@ -524,7 +489,6 @@
 		EBEF308F2DA28B7D00930730 /* HCollView+Reload.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30892DA28B7D00930730 /* HCollView+Reload.swift */; };
 		EBEF30902DA28B7D00930730 /* HCollView+Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF308A2DA28B7D00930730 /* HCollView+Scroll.swift */; };
 		EBEF30922DA28B7D00930730 /* HCollView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30912DA28B7D00930730 /* HCollView+Utils.swift */; };
-		EBEF30942DA28B7D00930730 /* HCollView+LRU.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30932DA28B7D00930730 /* HCollView+LRU.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -545,6 +509,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EBAA53301FB9E1FC004DF5D8 /* HCollView+Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Example.swift"; sourceTree = "<group>"; };
 		1BB82D7ADBAE5E81293195A4 /* Pods-HSwiftProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSwiftProject.release.xcconfig"; path = "Target Support Files/Pods-HSwiftProject/Pods-HSwiftProject.release.xcconfig"; sourceTree = "<group>"; };
 		3E58A288F46164A2F70B398C /* Pods_HSwiftProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HSwiftProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FCF4A64524E92AA18844373 /* Pods-HSwiftProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSwiftProject.debug.xcconfig"; path = "Target Support Files/Pods-HSwiftProject/Pods-HSwiftProject.debug.xcconfig"; sourceTree = "<group>"; };
@@ -894,46 +859,13 @@
 		EBAA51632FB8543E004DF5D8 /* HWebLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWebLayoutManager.swift; sourceTree = "<group>"; };
 		EBAA51642FB8543E004DF5D8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		EBAA51752FB9B43E004DF5D8 /* HTextFieldView_UsageGuide.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = HTextFieldView_UsageGuide.md; sourceTree = "<group>"; };
-		EBAA51772FB9E1FC004DF5D8 /* HCollView+Accessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Accessibility.swift"; sourceTree = "<group>"; };
+		EBAA53201FB9E1FC004DF5D8 /* HCollView+FeatureHooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+FeatureHooks.swift"; sourceTree = "<group>"; };
+		EBAA53421FB9E1FC004DF5D8 /* HCollView+LRU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+LRU.swift"; sourceTree = "<group>"; };
 		EBAA51782FB9E1FC004DF5D8 /* HCollView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Animation.swift"; sourceTree = "<group>"; };
-		EBAA51792FB9E1FC004DF5D8 /* HCollView+AsyncLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+AsyncLayout.swift"; sourceTree = "<group>"; };
 		EBAA517A2FB9E1FC004DF5D8 /* HCollView+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Config.swift"; sourceTree = "<group>"; };
-		EBAA517B2FB9E1FC004DF5D8 /* HCollView+ContentDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+ContentDisplay.swift"; sourceTree = "<group>"; };
-		EBAA517C2FB9E1FC004DF5D8 /* HCollView+CrossPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+CrossPlatform.swift"; sourceTree = "<group>"; };
-		EBAA517D2FB9E1FC004DF5D8 /* HCollView+DataProcessing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+DataProcessing.swift"; sourceTree = "<group>"; };
-		EBAA517E2FB9E1FC004DF5D8 /* HCollView+DeviceAdaptation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+DeviceAdaptation.swift"; sourceTree = "<group>"; };
-		EBAA517F2FB9E1FC004DF5D8 /* HCollView+Documentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Documentation.swift"; sourceTree = "<group>"; };
-		EBAA51802FB9E1FC004DF5D8 /* HCollView+Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Example.swift"; sourceTree = "<group>"; };
-		EBAA51812FB9E1FC004DF5D8 /* HCollView+Extensibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Extensibility.swift"; sourceTree = "<group>"; };
-		EBAA51822FB9E1FC004DF5D8 /* HCollView+HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+HapticFeedback.swift"; sourceTree = "<group>"; };
 		EBAA51832FB9E1FC004DF5D8 /* HCollView+ImageSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+ImageSize.swift"; sourceTree = "<group>"; };
-		EBAA51842FB9E1FC004DF5D8 /* HCollView+IndustrySolutions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+IndustrySolutions.swift"; sourceTree = "<group>"; };
 		EBAA51852FB9E1FC004DF5D8 /* HCollView+Interaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Interaction.swift"; sourceTree = "<group>"; };
-		EBAA51862FB9E1FC004DF5D8 /* HCollView+InteractionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+InteractionMode.swift"; sourceTree = "<group>"; };
-		EBAA51872FB9E1FC004DF5D8 /* HCollView+LayoutPresets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+LayoutPresets.swift"; sourceTree = "<group>"; };
-		EBAA51882FB9E1FC004DF5D8 /* HCollView+LayoutSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+LayoutSystem.swift"; sourceTree = "<group>"; };
-		EBAA51892FB9E1FC004DF5D8 /* HCollView+Localization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Localization.swift"; sourceTree = "<group>"; };
-		EBAA518A2FB9E1FC004DF5D8 /* HCollView+MemoryOptimization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+MemoryOptimization.swift"; sourceTree = "<group>"; };
-		EBAA518B2FB9E1FC004DF5D8 /* HCollView+MicroInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+MicroInteraction.swift"; sourceTree = "<group>"; };
-		EBAA518C2FB9E1FC004DF5D8 /* HCollView+Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Networking.swift"; sourceTree = "<group>"; };
-		EBAA518D2FB9E1FC004DF5D8 /* HCollView+NetworkOptimization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+NetworkOptimization.swift"; sourceTree = "<group>"; };
-		EBAA518E2FB9E1FC004DF5D8 /* HCollView+ObjectPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+ObjectPool.swift"; sourceTree = "<group>"; };
 		EBAA518F2FB9E1FC004DF5D8 /* HCollView+Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Performance.swift"; sourceTree = "<group>"; };
-		EBAA51902FB9E1FC004DF5D8 /* HCollView+Plugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Plugin.swift"; sourceTree = "<group>"; };
-		EBAA51912FB9E1FC004DF5D8 /* HCollView+PreRendering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+PreRendering.swift"; sourceTree = "<group>"; };
-		EBAA51922FB9E1FC004DF5D8 /* HCollView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Rx.swift"; sourceTree = "<group>"; };
-		EBAA51932FB9E1FC004DF5D8 /* HCollView+Security.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Security.swift"; sourceTree = "<group>"; };
-		EBAA51942FB9E1FC004DF5D8 /* HCollView+Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Skeleton.swift"; sourceTree = "<group>"; };
-		EBAA51952FB9E1FC004DF5D8 /* HCollView+SmartCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+SmartCache.swift"; sourceTree = "<group>"; };
-		EBAA51962FB9E1FC004DF5D8 /* HCollView+SmartPreloading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+SmartPreloading.swift"; sourceTree = "<group>"; };
-		EBAA51972FB9E1FC004DF5D8 /* HCollView+Stability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Stability.swift"; sourceTree = "<group>"; };
-		EBAA51982FB9E1FC004DF5D8 /* HCollView+StartupPerformance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+StartupPerformance.swift"; sourceTree = "<group>"; };
-		EBAA51992FB9E1FC004DF5D8 /* HCollView+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+SwiftUI.swift"; sourceTree = "<group>"; };
-		EBAA519A2FB9E1FC004DF5D8 /* HCollView+TemplateMarket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+TemplateMarket.swift"; sourceTree = "<group>"; };
-		EBAA519B2FB9E1FC004DF5D8 /* HCollView+Testing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Testing.swift"; sourceTree = "<group>"; };
-		EBAA519C2FB9E1FC004DF5D8 /* HCollView+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Theme.swift"; sourceTree = "<group>"; };
-		EBAA519D2FB9E1FC004DF5D8 /* HCollView+ViewReuse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+ViewReuse.swift"; sourceTree = "<group>"; };
-		EBAA519E2FB9E1FC004DF5D8 /* HCollView+VirtualScrolling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+VirtualScrolling.swift"; sourceTree = "<group>"; };
 		EBBCF3D82E2FE30F00421DB8 /* DPMStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMStackView.swift; sourceTree = "<group>"; };
 		EBBCF40C2E536C2400421DB8 /* WaterfallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallViewController.swift; sourceTree = "<group>"; };
 		EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extern.swift"; sourceTree = "<group>"; };
@@ -1046,7 +978,6 @@
 		EBEF302F2D8C684200930730 /* HCollViewApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollViewApex.swift; sourceTree = "<group>"; };
 		EBEF30302D8C684200930730 /* HCollViewApexHoriValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollViewApexHoriValue.swift; sourceTree = "<group>"; };
 		EBEF30312D8C684200930730 /* HCollViewApexVertValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollViewApexVertValue.swift; sourceTree = "<group>"; };
-		EBEF30392D8C6BA100930730 /* HCollSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollSignal.swift; sourceTree = "<group>"; };
 		EBEF303D2D8C755E00930730 /* HCollTmplCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollTmplCell.swift; sourceTree = "<group>"; };
 		EBEF303F2D8D379D00930730 /* HCollLayoutCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollLayoutCell.swift; sourceTree = "<group>"; };
 		EBEF30412D8D389500930730 /* HCollLayoutApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollLayoutApex.swift; sourceTree = "<group>"; };
@@ -1057,8 +988,6 @@
 		EBEF30732DA2679800930730 /* HGlobalObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HGlobalObserver.swift; sourceTree = "<group>"; };
 		EBEF30752DA2746400930730 /* HCollView+Align.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Align.swift"; sourceTree = "<group>"; };
 		EBEF30792DA283DF00930730 /* HCollView+Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Observer.swift"; sourceTree = "<group>"; };
-		EBEF307B2DA2842D00930730 /* HCollView+Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Header.swift"; sourceTree = "<group>"; };
-		EBEF307F2DA284E800930730 /* HCollView+Signal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Signal.swift"; sourceTree = "<group>"; };
 		EBEF30812DA28B7D00930730 /* HCollView+Refresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Refresh.swift"; sourceTree = "<group>"; };
 		EBEF30832DA28B7D00930730 /* HCollView+Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Core.swift"; sourceTree = "<group>"; };
 		EBEF30852DA28B7D00930730 /* HCollView+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+DataSource.swift"; sourceTree = "<group>"; };
@@ -1068,7 +997,6 @@
 		EBEF30892DA28B7D00930730 /* HCollView+Reload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Reload.swift"; sourceTree = "<group>"; };
 		EBEF308A2DA28B7D00930730 /* HCollView+Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Scroll.swift"; sourceTree = "<group>"; };
 		EBEF30912DA28B7D00930730 /* HCollView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Utils.swift"; sourceTree = "<group>"; };
-		EBEF30932DA28B7D00930730 /* HCollView+LRU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+LRU.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -1254,6 +1182,7 @@
 				A28923AC238B74F000E4AB75 /* TextField */,
 				A28923A0238B72F800E4AB75 /* HSelector */,
 				A2892394238B72F800E4AB75 /* Cells */,
+				EBAA53001FB9E1FC004DF5D8 /* HCollView */,
 				A289239D238B72F800E4AB75 /* View */,
 			);
 			path = HTupleView;
@@ -1307,7 +1236,6 @@
 				A289239A238B72F800E4AB75 /* HGeometry.swift */,
 				A2A814B3274C0E2000FAB929 /* HTupleHeader.swift */,
 				A289239B238B72F800E4AB75 /* HTupleSignal.swift */,
-				EBEF30392D8C6BA100930730 /* HCollSignal.swift */,
 				EB869F602B610B4900076A5D /* HTupleAttributes.swift */,
 				A289239C238B72F800E4AB75 /* NSIndexPath+HUtil.swift */,
 				A2CC441023B360AE00DB095F /* HTupleRefresh.swift */,
@@ -1348,65 +1276,9 @@
 			isa = PBXGroup;
 			children = (
 				A289239E238B72F800E4AB75 /* HTupleView.swift */,
-				EBEF30152D8C5C1400930730 /* HCollView.swift */,
-				EBEF30832DA28B7D00930730 /* HCollView+Core.swift */,
-				EBEF30852DA28B7D00930730 /* HCollView+DataSource.swift */,
-				EBEF30862DA28B7D00930730 /* HCollView+Delegate.swift */,
-				EBEF30752DA2746400930730 /* HCollView+Align.swift */,
-				EBEF30872DA28B7D00930730 /* HCollView+EmptyView.swift */,
-				EBEF307F2DA284E800930730 /* HCollView+Signal.swift */,
-				EBEF307B2DA2842D00930730 /* HCollView+Header.swift */,
-				EBEF30812DA28B7D00930730 /* HCollView+Refresh.swift */,
-				EBEF30882DA28B7D00930730 /* HCollView+Memory.swift */,
-				EBAA51772FB9E1FC004DF5D8 /* HCollView+Accessibility.swift */,
-				EBAA51782FB9E1FC004DF5D8 /* HCollView+Animation.swift */,
-				EBAA51792FB9E1FC004DF5D8 /* HCollView+AsyncLayout.swift */,
-				EBAA517A2FB9E1FC004DF5D8 /* HCollView+Config.swift */,
-				EBAA517B2FB9E1FC004DF5D8 /* HCollView+ContentDisplay.swift */,
-				EBAA517C2FB9E1FC004DF5D8 /* HCollView+CrossPlatform.swift */,
-				EBAA517D2FB9E1FC004DF5D8 /* HCollView+DataProcessing.swift */,
-				EBAA517E2FB9E1FC004DF5D8 /* HCollView+DeviceAdaptation.swift */,
-				EBAA517F2FB9E1FC004DF5D8 /* HCollView+Documentation.swift */,
-				EBAA51802FB9E1FC004DF5D8 /* HCollView+Example.swift */,
-				EBAA51812FB9E1FC004DF5D8 /* HCollView+Extensibility.swift */,
-				EBAA51822FB9E1FC004DF5D8 /* HCollView+HapticFeedback.swift */,
-				EBAA51832FB9E1FC004DF5D8 /* HCollView+ImageSize.swift */,
-				EBAA51842FB9E1FC004DF5D8 /* HCollView+IndustrySolutions.swift */,
-				EBAA51852FB9E1FC004DF5D8 /* HCollView+Interaction.swift */,
-				EBAA51862FB9E1FC004DF5D8 /* HCollView+InteractionMode.swift */,
-				EBAA51872FB9E1FC004DF5D8 /* HCollView+LayoutPresets.swift */,
-				EBAA51882FB9E1FC004DF5D8 /* HCollView+LayoutSystem.swift */,
-				EBAA51892FB9E1FC004DF5D8 /* HCollView+Localization.swift */,
-				EBAA518A2FB9E1FC004DF5D8 /* HCollView+MemoryOptimization.swift */,
-				EBAA518B2FB9E1FC004DF5D8 /* HCollView+MicroInteraction.swift */,
-				EBAA518C2FB9E1FC004DF5D8 /* HCollView+Networking.swift */,
-				EBAA518D2FB9E1FC004DF5D8 /* HCollView+NetworkOptimization.swift */,
-				EBAA518E2FB9E1FC004DF5D8 /* HCollView+ObjectPool.swift */,
-				EBAA518F2FB9E1FC004DF5D8 /* HCollView+Performance.swift */,
-				EBAA51902FB9E1FC004DF5D8 /* HCollView+Plugin.swift */,
-				EBAA51912FB9E1FC004DF5D8 /* HCollView+PreRendering.swift */,
-				EBAA51922FB9E1FC004DF5D8 /* HCollView+Rx.swift */,
-				EBAA51932FB9E1FC004DF5D8 /* HCollView+Security.swift */,
-				EBAA51942FB9E1FC004DF5D8 /* HCollView+Skeleton.swift */,
-				EBAA51952FB9E1FC004DF5D8 /* HCollView+SmartCache.swift */,
-				EBAA51962FB9E1FC004DF5D8 /* HCollView+SmartPreloading.swift */,
-				EBAA51972FB9E1FC004DF5D8 /* HCollView+Stability.swift */,
-				EBAA51982FB9E1FC004DF5D8 /* HCollView+StartupPerformance.swift */,
-				EBAA51992FB9E1FC004DF5D8 /* HCollView+SwiftUI.swift */,
-				EBAA519A2FB9E1FC004DF5D8 /* HCollView+TemplateMarket.swift */,
-				EBAA519B2FB9E1FC004DF5D8 /* HCollView+Testing.swift */,
-				EBAA519C2FB9E1FC004DF5D8 /* HCollView+Theme.swift */,
-				EBAA519D2FB9E1FC004DF5D8 /* HCollView+ViewReuse.swift */,
-				EBAA519E2FB9E1FC004DF5D8 /* HCollView+VirtualScrolling.swift */,
-				EBEF30892DA28B7D00930730 /* HCollView+Reload.swift */,
-				EBEF308A2DA28B7D00930730 /* HCollView+Scroll.swift */,
-				EBEF30912DA28B7D00930730 /* HCollView+Utils.swift */,
-				EBEF30932DA28B7D00930730 /* HCollView+LRU.swift */,
-				EBEF30792DA283DF00930730 /* HCollView+Observer.swift */,
 				EB90BC292CC245BD00C392C4 /* HTupleLayout.swift */,
 				EBD11E4C2CA6F7C500E1E6BF /* HTupleTmplView.swift */,
 				A289239F238B72F800E4AB75 /* HTupleViewLayout.swift */,
-				EBEF30172D8C63E600930730 /* HCollViewLayout.swift */,
 				EB5148972AE283A70075F737 /* HTupleViewFlowLayout.swift */,
 			);
 			path = View;
@@ -2072,6 +1944,146 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		EBAA53001FB9E1FC004DF5D8 /* HCollView */ = {
+			isa = PBXGroup;
+			children = (
+				EBAA53011FB9E1FC004DF5D8 /* Core */,
+				EBAA53021FB9E1FC004DF5D8 /* Features */,
+				EBAA53331FB9E1FC004DF5D8 /* Kits */,
+			);
+			path = HCollView;
+			sourceTree = "<group>";
+		};
+		EBAA53331FB9E1FC004DF5D8 /* Kits */ = {
+			isa = PBXGroup;
+			children = (
+				EBAA53321FB9E1FC004DF5D8 /* Docs */,
+			);
+			path = Kits;
+			sourceTree = "<group>";
+		};
+		EBAA53321FB9E1FC004DF5D8 /* Docs */ = {
+			isa = PBXGroup;
+			children = (
+				EBAA53301FB9E1FC004DF5D8 /* HCollView+Example.swift */,
+			);
+			path = Docs;
+			sourceTree = "<group>";
+		};
+		EBAA53011FB9E1FC004DF5D8 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				EBEF30152D8C5C1400930730 /* HCollView.swift */,
+				EBEF30172D8C63E600930730 /* HCollViewLayout.swift */,
+				EBEF30832DA28B7D00930730 /* HCollView+Core.swift */,
+				EBEF30852DA28B7D00930730 /* HCollView+DataSource.swift */,
+				EBEF30862DA28B7D00930730 /* HCollView+Delegate.swift */,
+				EBEF30892DA28B7D00930730 /* HCollView+Reload.swift */,
+				EBEF308A2DA28B7D00930730 /* HCollView+Scroll.swift */,
+				EBEF30912DA28B7D00930730 /* HCollView+Utils.swift */,
+				EBAA53421FB9E1FC004DF5D8 /* HCollView+LRU.swift */,
+				EBAA53201FB9E1FC004DF5D8 /* HCollView+FeatureHooks.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		EBAA53021FB9E1FC004DF5D8 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				EBAA53041FB9E1FC004DF5D8 /* Refresh */,
+				EBAA53051FB9E1FC004DF5D8 /* EmptyView */,
+				EBAA53061FB9E1FC004DF5D8 /* Align */,
+				EBAA53071FB9E1FC004DF5D8 /* Observer */,
+				EBAA530A1FB9E1FC004DF5D8 /* Memory */,
+				EBAA530B1FB9E1FC004DF5D8 /* Interaction */,
+				EBAA530C1FB9E1FC004DF5D8 /* Animation */,
+				EBAA53121FB9E1FC004DF5D8 /* Config */,
+				EBAA53131FB9E1FC004DF5D8 /* ImageSize */,
+				EBAA53181FB9E1FC004DF5D8 /* Performance */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		EBAA53041FB9E1FC004DF5D8 /* Refresh */ = {
+			isa = PBXGroup;
+			children = (
+				EBEF30812DA28B7D00930730 /* HCollView+Refresh.swift */,
+			);
+			path = Refresh;
+			sourceTree = "<group>";
+		};
+		EBAA53051FB9E1FC004DF5D8 /* EmptyView */ = {
+			isa = PBXGroup;
+			children = (
+				EBEF30872DA28B7D00930730 /* HCollView+EmptyView.swift */,
+			);
+			path = EmptyView;
+			sourceTree = "<group>";
+		};
+		EBAA53061FB9E1FC004DF5D8 /* Align */ = {
+			isa = PBXGroup;
+			children = (
+				EBEF30752DA2746400930730 /* HCollView+Align.swift */,
+			);
+			path = Align;
+			sourceTree = "<group>";
+		};
+		EBAA53071FB9E1FC004DF5D8 /* Observer */ = {
+			isa = PBXGroup;
+			children = (
+				EBEF30792DA283DF00930730 /* HCollView+Observer.swift */,
+			);
+			path = Observer;
+			sourceTree = "<group>";
+		};
+		EBAA530A1FB9E1FC004DF5D8 /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				EBEF30882DA28B7D00930730 /* HCollView+Memory.swift */,
+			);
+			path = Memory;
+			sourceTree = "<group>";
+		};
+		EBAA530B1FB9E1FC004DF5D8 /* Interaction */ = {
+			isa = PBXGroup;
+			children = (
+				EBAA51852FB9E1FC004DF5D8 /* HCollView+Interaction.swift */,
+			);
+			path = Interaction;
+			sourceTree = "<group>";
+		};
+		EBAA530C1FB9E1FC004DF5D8 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				EBAA51782FB9E1FC004DF5D8 /* HCollView+Animation.swift */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
+		EBAA53121FB9E1FC004DF5D8 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				EBAA517A2FB9E1FC004DF5D8 /* HCollView+Config.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		EBAA53131FB9E1FC004DF5D8 /* ImageSize */ = {
+			isa = PBXGroup;
+			children = (
+				EBAA51832FB9E1FC004DF5D8 /* HCollView+ImageSize.swift */,
+			);
+			path = ImageSize;
+			sourceTree = "<group>";
+		};
+		EBAA53181FB9E1FC004DF5D8 /* Performance */ = {
+			isa = PBXGroup;
+			children = (
+				EBAA518F2FB9E1FC004DF5D8 /* HCollView+Performance.swift */,
+			);
+			path = Performance;
+			sourceTree = "<group>";
+		};
 		EBC307172BF8ACA600EF8ABD /* XTransitionAnimation */ = {
 			isa = PBXGroup;
 			children = (
@@ -2659,46 +2671,11 @@
 				A28923A7238B72F800E4AB75 /* HTupleView.swift in Sources */,
 				EBD0FB4029CD4E4400808EDA /* AppDelegate+RotateService.swift in Sources */,
 				EBD0FB0929CA90EB00808EDA /* HAssetManager.swift in Sources */,
-				EBAA519F2FB9E1FC004DF5D8 /* HCollView+InteractionMode.swift in Sources */,
-				EBAA51A02FB9E1FC004DF5D8 /* HCollView+SmartPreloading.swift in Sources */,
-				EBAA51A12FB9E1FC004DF5D8 /* HCollView+MemoryOptimization.swift in Sources */,
-				EBAA51A22FB9E1FC004DF5D8 /* HCollView+Plugin.swift in Sources */,
 				EBAA51A32FB9E1FC004DF5D8 /* HCollView+Animation.swift in Sources */,
-				EBAA51A42FB9E1FC004DF5D8 /* HCollView+Documentation.swift in Sources */,
-				EBAA51A52FB9E1FC004DF5D8 /* HCollView+StartupPerformance.swift in Sources */,
-				EBAA51A62FB9E1FC004DF5D8 /* HCollView+PreRendering.swift in Sources */,
-				EBAA51A72FB9E1FC004DF5D8 /* HCollView+Theme.swift in Sources */,
-				EBAA51A82FB9E1FC004DF5D8 /* HCollView+Networking.swift in Sources */,
-				EBAA51A92FB9E1FC004DF5D8 /* HCollView+SwiftUI.swift in Sources */,
-				EBAA51AA2FB9E1FC004DF5D8 /* HCollView+ObjectPool.swift in Sources */,
 				EBAA51AB2FB9E1FC004DF5D8 /* HCollView+Performance.swift in Sources */,
-				EBAA51AC2FB9E1FC004DF5D8 /* HCollView+TemplateMarket.swift in Sources */,
-				EBAA51AD2FB9E1FC004DF5D8 /* HCollView+DataProcessing.swift in Sources */,
-				EBAA51AE2FB9E1FC004DF5D8 /* HCollView+LayoutPresets.swift in Sources */,
-				EBAA51AF2FB9E1FC004DF5D8 /* HCollView+Stability.swift in Sources */,
-				EBAA51B02FB9E1FC004DF5D8 /* HCollView+VirtualScrolling.swift in Sources */,
-				EBAA51B12FB9E1FC004DF5D8 /* HCollView+IndustrySolutions.swift in Sources */,
-				EBAA51B22FB9E1FC004DF5D8 /* HCollView+HapticFeedback.swift in Sources */,
-				EBAA51B32FB9E1FC004DF5D8 /* HCollView+SmartCache.swift in Sources */,
-				EBAA51B42FB9E1FC004DF5D8 /* HCollView+DeviceAdaptation.swift in Sources */,
-				EBAA51B52FB9E1FC004DF5D8 /* HCollView+Security.swift in Sources */,
-				EBAA51B62FB9E1FC004DF5D8 /* HCollView+Extensibility.swift in Sources */,
-				EBAA51B72FB9E1FC004DF5D8 /* HCollView+ViewReuse.swift in Sources */,
 				EBAA51B82FB9E1FC004DF5D8 /* HCollView+Interaction.swift in Sources */,
 				EBAA51B92FB9E1FC004DF5D8 /* HCollView+Config.swift in Sources */,
-				EBAA51BA2FB9E1FC004DF5D8 /* HCollView+MicroInteraction.swift in Sources */,
-				EBAA51BB2FB9E1FC004DF5D8 /* HCollView+Testing.swift in Sources */,
-				EBAA51BC2FB9E1FC004DF5D8 /* HCollView+Accessibility.swift in Sources */,
 				EBAA51BD2FB9E1FC004DF5D8 /* HCollView+ImageSize.swift in Sources */,
-				EBAA51BE2FB9E1FC004DF5D8 /* HCollView+NetworkOptimization.swift in Sources */,
-				EBAA51BF2FB9E1FC004DF5D8 /* HCollView+LayoutSystem.swift in Sources */,
-				EBAA51C02FB9E1FC004DF5D8 /* HCollView+AsyncLayout.swift in Sources */,
-				EBAA51C12FB9E1FC004DF5D8 /* HCollView+Localization.swift in Sources */,
-				EBAA51C22FB9E1FC004DF5D8 /* HCollView+Rx.swift in Sources */,
-				EBAA51C32FB9E1FC004DF5D8 /* HCollView+ContentDisplay.swift in Sources */,
-				EBAA51C42FB9E1FC004DF5D8 /* HCollView+Example.swift in Sources */,
-				EBAA51C52FB9E1FC004DF5D8 /* HCollView+CrossPlatform.swift in Sources */,
-				EBAA51C62FB9E1FC004DF5D8 /* HCollView+Skeleton.swift in Sources */,
 				EB3541E72BE9FF5B003B1D69 /* HNetworkResponse.swift in Sources */,
 				EBD0FB6929D02B1000808EDA /* HUserDefaults2.swift in Sources */,
 				EBD11E4B2CA6F1B200E1E6BF /* HTupleTmplApex.swift in Sources */,
@@ -2871,8 +2848,6 @@
 				EBD0FBA229DB00DE00808EDA /* HMainController6+Cell.swift in Sources */,
 				EB3541B62BE7C760003B1D69 /* HActiveNaviController.swift in Sources */,
 				A28A022623EE55EB000556A2 /* HTextLoopView.swift in Sources */,
-				EBEF307C2DA2842D00930730 /* HCollView+Header.swift in Sources */,
-				EBEF30802DA284E800930730 /* HCollView+Signal.swift in Sources */,
 				EBEF30442D8DA95300930730 /* HCollMultiCell.swift in Sources */,
 				A2B43073237FF2B100795605 /* HCommonDefine.swift in Sources */,
 				EB5998E22C0DAD500021241C /* SLNodeTableViewCell.swift in Sources */,
@@ -2924,6 +2899,7 @@
 				EBAA51682FB8543E004DF5D8 /* HWebCompositeViewTests.swift in Sources */,
 				EBAA51692FB8543E004DF5D8 /* HWebLayoutManager.swift in Sources */,
 				EBEF30162D8C5C1400930730 /* HCollView.swift in Sources */,
+				EBAA53311FB9E1FC004DF5D8 /* HCollView+Example.swift in Sources */,
 				EBEF30842DA28B7D00930730 /* HCollView+Core.swift in Sources */,
 				EBEF308B2DA28B7D00930730 /* HCollView+DataSource.swift in Sources */,
 				EBEF308C2DA28B7D00930730 /* HCollView+Delegate.swift in Sources */,
@@ -2936,7 +2912,8 @@
 				EBEF308F2DA28B7D00930730 /* HCollView+Reload.swift in Sources */,
 				EBEF30902DA28B7D00930730 /* HCollView+Scroll.swift in Sources */,
 				EBEF30922DA28B7D00930730 /* HCollView+Utils.swift in Sources */,
-				EBEF30942DA28B7D00930730 /* HCollView+LRU.swift in Sources */,
+				EBAA53211FB9E1FC004DF5D8 /* HCollView+FeatureHooks.swift in Sources */,
+				EBAA53431FB9E1FC004DF5D8 /* HCollView+LRU.swift in Sources */,
 				EB1209872A84CC8300E5F045 /* HPostVM.swift in Sources */,
 				EB12097F2A827AF200E5F045 /* HPostFooter.swift in Sources */,
 				A26D43192383E23300F457AE /* NSString+HUtil.swift in Sources */,
@@ -2998,7 +2975,6 @@
 				EBA167BE2D16CC0E00DD2088 /* VideoRequestLoader.swift in Sources */,
 				EBC8145B29AA53AD00A81431 /* HSendAudioVC+HStatus2.swift in Sources */,
 				EBEF30332D8C684200930730 /* HCollTmplApex.swift in Sources */,
-				EBEF303A2D8C6BA100930730 /* HCollSignal.swift in Sources */,
 				EBEF30342D8C684200930730 /* HCollBaseApex.swift in Sources */,
 				EBEF30352D8C684200930730 /* HCollViewApexHoriValue.swift in Sources */,
 				EBEF30362D8C684200930730 /* HCollViewApex.swift in Sources */,

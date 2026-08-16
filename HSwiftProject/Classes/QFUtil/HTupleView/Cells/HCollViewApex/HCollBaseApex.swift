@@ -18,10 +18,7 @@ class HCollBaseApex: UICollectionReusableView {
     
     /// The indexPath where the cell is located
     var indexPath: IndexPath?
-    
-    /// Signal block
-    var signalBlock: HCollCellSignalBlock?
-    
+
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)

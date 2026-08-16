@@ -27,7 +27,7 @@ extension HCollAlertVC {
             return 48
         }
         alertVC.itemBlock = { (coll: HCollView, indexPath: IndexPath) in
-            let cell = coll.reuseCell(HCollLabelCell.self, nil, true, indexPath) as! HCollLabelCell
+            let cell = coll.reuseCell(HCollLabelCell.self, true, indexPath) as! HCollLabelCell
             cell.edgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
             if indexPath.row == 0 {
                 //cell.setBottomLine(withColor: UIColor.border2, lineHeight: 0.5)
@@ -69,7 +69,7 @@ extension HCollAlertVC {
         }
         alertVC.itemBlock = { (coll: HCollView, indexPath: IndexPath) in
             if indexPath.row == 0 {
-                let cell = coll.reuseCell(HCollLabelCell.self, nil, true, indexPath) as! HCollLabelCell
+                let cell = coll.reuseCell(HCollLabelCell.self, true, indexPath) as! HCollLabelCell
                 cell.edgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
                 //cell.setBottomLine(withColor: UIColor.border2, lineHeight: 0.5)
                 cell.label.font = messageFont
@@ -78,7 +78,7 @@ extension HCollAlertVC {
                 cell.label.textColor = UIColor.white
                 cell.label.text = message
             }else {
-                let cell = coll.reuseCell(HCollViewCell.self, nil, true, indexPath) as! HCollViewCell
+                let cell = coll.reuseCell(HCollViewCell.self, true, indexPath) as! HCollViewCell
                 let frame = cell.layoutViewBounds
                 let halfWidth = frame.width / 2
                 
@@ -124,7 +124,7 @@ extension HCollAlertVC {
         }
         alertVC.itemBlock = { (coll: HCollView, indexPath: IndexPath) in
             if indexPath.row == 0 {
-                let cell = coll.reuseCell(HCollLabelCell.self, nil, true, indexPath) as! HCollLabelCell
+                let cell = coll.reuseCell(HCollLabelCell.self, true, indexPath) as! HCollLabelCell
                 cell.edgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
                 //cell.setBottomLine(withColor: UIColor.border2, lineHeight: 0.5)
                 cell.label.font = messageFont
@@ -133,7 +133,7 @@ extension HCollAlertVC {
                 cell.label.textColor = UIColor.white
                 cell.label.text = message
             }else {
-                let cell = coll.reuseCell(HCollViewCell.self, nil, true, indexPath) as! HCollViewCell
+                let cell = coll.reuseCell(HCollViewCell.self, true, indexPath) as! HCollViewCell
                 let frame = cell.layoutViewBounds
                 let halfWidth = frame.width / 2
                 
@@ -181,7 +181,7 @@ extension HCollAlertVC {
         alertVC.itemBlock = { [weak alertVC] (coll, indexPath) in
             guard let alertVC = alertVC else { return }
             if indexPath.row == 0 {
-                let cell = coll.reuseCell(HCollLabelCell.self, nil, true, indexPath) as! HCollLabelCell
+                let cell = coll.reuseCell(HCollLabelCell.self, true, indexPath) as! HCollLabelCell
                 cell.edgeInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
                 //cell.setBottomLine(withColor: UIColor.border2, lineHeight: 0.5)
                 cell.label.font = UIFont.font(ofSize: 17, weight: .medium)
@@ -190,7 +190,7 @@ extension HCollAlertVC {
                 cell.label.textColor = UIColor.white
                 cell.label.text = message
             }else {
-                let cell = coll.reuseCell(HCollViewCell.self, nil, true, indexPath) as! HCollViewCell
+                let cell = coll.reuseCell(HCollViewCell.self, true, indexPath) as! HCollViewCell
                 let frame = cell.layoutViewBounds
                 let halfWidth = cell.layoutViewBounds.width / 2
                 
