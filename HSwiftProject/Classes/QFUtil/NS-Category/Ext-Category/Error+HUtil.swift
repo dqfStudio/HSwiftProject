@@ -19,19 +19,21 @@ let kAsyncCanelErrorCode : Int = -1029
 
 extension NSError {
     
-    static func errorWithDomain(_ domain: String, code: NSInteger) -> AnyObject {
+    static func errorWithDomain(_ domain: String, code: NSInteger) -> NSError {
         return NSError(domain: domain, code: code, userInfo: nil)
     }
     
-    static func errorWithDomain(_ domain: String, code: NSInteger, description: String) -> AnyObject {
+    static func errorWithDomain(_ domain: String, code: NSInteger, description: String) -> NSError {
         return NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey : description])
     }
     
-    static func errorWithDomain(_ domain: String, code: NSInteger, description: String, reason: String) -> AnyObject {
-        let dict: NSDictionary = [NSLocalizedDescriptionKey : description, NSLocalizedFailureReasonErrorKey : reason]
-        return NSError(domain: domain, code: code, userInfo: dict as? [String : Any])
+    static func errorWithDomain(_ domain: String, code: NSInteger, description: String, reason: String) -> NSError {
+        return NSError(domain: domain, code: code, userInfo: [
+            NSLocalizedDescriptionKey: description,
+            NSLocalizedFailureReasonErrorKey: reason
+        ])
     }
     
 }
 
-func herr(_ theCode: NSInteger, desc: String) -> NSError { return NSError.errorWithDomain("\(#file)", code: theCode, description: desc) as! NSError }
+func herr(_ theCode: NSInteger, desc: String) -> NSError { return NSError.errorWithDomain("\(#file)", code: theCode, description: desc) }

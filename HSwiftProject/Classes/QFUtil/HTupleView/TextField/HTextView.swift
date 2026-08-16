@@ -89,7 +89,7 @@ class HTextView: UITextView, UITextViewDelegate {
     }
 
     /// 是否拦截 Return（不插入换行，触发 `returnBlock`）。
-    /// `nil` 时：仅当设置了 `returnBlock` 且 `returnKeyType` 不是 `.default` / `.newline` 才拦截。
+    /// `nil` 时：仅当设置了 `returnBlock` 且 `returnKeyType` 不是 `.default` 才拦截。
     var interceptReturnKey: Bool?
 
     // MARK: - Callbacks
@@ -124,7 +124,7 @@ class HTextView: UITextView, UITextViewDelegate {
         if let interceptReturnKey { return interceptReturnKey }
         guard returnBlock != nil else { return false }
         switch returnKeyType {
-        case .default, .newline:
+        case .default:
             return false
         default:
             return true

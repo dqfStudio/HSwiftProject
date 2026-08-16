@@ -47,9 +47,7 @@ extension NSDate {
     }
     
     static func dateWithFormat(_ format: NSDateFormat) -> String {
-        let formatString = self.stringWithFormat(format)
-        let formatter = DateFormatter()
-        formatter.dateFormat = formatString
+        let formatter = makeFormatter(format)
         if #available(iOS 13.0, *) {
             return formatter.string(from: NSDate.now)
         } else {
@@ -58,21 +56,18 @@ extension NSDate {
     }
     
     static func dateWithString(_ aString: String, format: NSDateFormat) -> NSDate? {
-        let formatString = self.stringWithFormat(format)
-        let formatter = DateFormatter()
-        formatter.dateFormat = formatString
+        let formatter = makeFormatter(format)
         return formatter.date(from: aString) as? NSDate
     }
     
-    static func weekdayFromDate(_ date: NSDate) -> NSDate? {
-        let weekdays = NSArray(array: ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"])
-        if let calendar = NSCalendar(calendarIdentifier: NSCalendar.Identifier.chinese),
-           let timeZone = NSTimeZone(name: "Asia/Shanghai") {
-            calendar.timeZone = timeZone as TimeZone
-            let theComponents = calendar.components(in: timeZone as TimeZone, from: date as Date) as NSDateComponents
-            return weekdays.object(at: theComponents.weekday) as? NSDate
-        }
-        return nil
+    static func weekdayFromDate(_ date: NSDate) -> String? {
+        let weekdays = ["星期天", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"]
+        var calendar = Calendar(identifier: .gregorian)
+        calendar.timeZone = TimeZone(identifier: "Asia/Shanghai") ?? .current
+        let weekday = calendar.component(.weekday, from: date as Date)
+        let index = weekday - 1
+        guard weekdays.indices.contains(index) else { return nil }
+        return weekdays[index]
     }
     
     static func pastWithDays(_ days: Int, format: NSDateFormat) -> String {
@@ -84,9 +79,7 @@ extension NSDate {
     }
     
     static func pastWithDate(_ date: NSDate, days: Int, format: NSDateFormat) -> String {
-        let formatString = self.stringWithFormat(format)
-        let formatter = DateFormatter()
-        formatter.dateFormat = formatString
+        let formatter = makeFormatter(format)
         let pastDay = self.pastWithDate(date, days: days)
         return formatter.string(from: pastDay as Date)
     }
@@ -104,6 +97,14 @@ extension NSDate {
         return date.addingTimeInterval(-time)
     }
     
+    static private func makeFormatter(_ format: NSDateFormat) -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.dateFormat = stringWithFormat(format)
+        return formatter
+    }
+
     static private func stringWithFormat(_ format: NSDateFormat) -> String {
         var formatString: String
         switch format {

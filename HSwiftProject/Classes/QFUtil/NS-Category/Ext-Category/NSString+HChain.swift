@@ -23,28 +23,32 @@ extension String {
         return String(describing: cls)
     }
     func toClass() -> AnyClass? {
-        return NSClassFromString(self)
+        if let cls = NSClassFromString(self) { return cls }
+        if let module = Bundle.main.object(forInfoDictionaryKey: "CFBundleName") as? String {
+            return NSClassFromString("\(module).\(self)")
+        }
+        return nil
     }
     static func fromRect(_ rect: CGRect) -> String {
-        return String(describing: rect)
+        return NSCoder.string(for: rect)
     }
     func toRect() -> CGRect {
         return NSCoder.cgRect(for: self)
     }
     static func fromSize(_ size: CGSize) -> String {
-        return String(describing: size)
+        return NSCoder.string(for: size)
     }
     func toSize() -> CGSize {
         return NSCoder.cgSize(for: self)
     }
     static func fromPoint(_ point: CGPoint) -> String {
-        return String(describing: point)
+        return NSCoder.string(for: point)
     }
     func toPoint() -> CGPoint {
         return NSCoder.cgPoint(for: self)
     }
     static func fromRange(_ range: NSRange) -> String {
-        return String(describing: range)
+        return NSStringFromRange(range)
     }
     func toRange() -> NSRange {
         return NSRangeFromString(self)
@@ -105,7 +109,7 @@ extension String {
         return self + String(describing: obj)
     }
     func appendFormat(_ format: String, _ arguments: CVarArg...) -> String {
-        return String(format: format, arguments: arguments)
+        return self + String(format: format, arguments: arguments)
     }
     static func appendCount(_ org: String, _ count: Int) -> String {
         var mutableStr = ""
@@ -135,7 +139,7 @@ extension String {
         return self == org
     }
     func isClass(_ aClass: AnyClass) -> Bool {
-        return self.isKind(of: aClass)
+        return toClass() == aClass
     }
     func componentsByString(_ separator: String) -> [String] {
         return self.components(separatedBy: separator)

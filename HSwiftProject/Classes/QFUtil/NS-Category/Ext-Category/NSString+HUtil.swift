@@ -91,27 +91,22 @@ extension String {
 //    }
     
     func subString(to: Int) -> String {
-        var to = to
-        if to > self.count {
-            to = self.count
-        }
+        guard to > 0 else { return "" }
         return String(self.prefix(to))
     }
 
     func subString(from: Int) -> String {
-        if from >= self.count { return "" }
+        guard from >= 0, from < count else { return "" }
         let startIndex = self.index(self.startIndex, offsetBy: from)
-        let endIndex = self.endIndex
-        return String(self[startIndex..<endIndex])
+        return String(self[startIndex..<self.endIndex])
     }
 
     func subString(start: Int, end: Int) -> String {
-        if start < end {
-            let startIndex = self.index(self.startIndex, offsetBy: start)
-            let endIndex = self.index(self.startIndex, offsetBy: end)
-            return String(self[startIndex..<endIndex])
-        }
-        return ""
+        guard start >= 0, end >= start, start < count else { return "" }
+        let clampedEnd = min(end, count)
+        let startIndex = self.index(self.startIndex, offsetBy: start)
+        let endIndex = self.index(self.startIndex, offsetBy: clampedEnd)
+        return String(self[startIndex..<endIndex])
     }
 
 }

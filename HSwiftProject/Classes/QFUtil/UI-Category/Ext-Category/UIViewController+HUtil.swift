@@ -14,7 +14,9 @@ extension UIViewController {
     *  将UIViewController的类名作为NibName，使用initWithNibName方法，返回UIViewController对象
     */
     static func viewWithNibName(nibName: String) -> UIViewController {
-        return self.init(nibName:NSStringFromClass(self.classForCoder()), bundle: nil)
+        let className = String(describing: self)
+        let name = nibName.isEmpty ? className : nibName
+        return self.init(nibName: name, bundle: nil)
     }
 
     /**
@@ -36,14 +38,12 @@ extension UIViewController {
         if self.isViewInBackground() {
             return
         }
-        guard let userInfo = notification.userInfo as? [String: Any],
-              let aValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-              let animationDurationValue = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSValue else {
+        guard let userInfo = notification.userInfo,
+              let aValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
             return
         }
         let keyboardRect = aValue.cgRectValue
-        var animationDuration: TimeInterval = 0
-        animationDurationValue.getValue(&animationDuration)
+        let animationDuration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
         
         self.keyboardWillShowWithRect(keyboardRect, animationDuration: CGFloat(animationDuration))
     }
@@ -54,13 +54,11 @@ extension UIViewController {
             return
         }
         guard let userInfo = notification.userInfo,
-              let aValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue,
-              let animationDurationValue = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSValue else {
+              let aValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
             return
         }
         let keyboardRect: CGRect = aValue.cgRectValue
-        var animationDuration: TimeInterval = 0
-        animationDurationValue.getValue(&animationDuration)
+        let animationDuration = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.doubleValue ?? 0
         
         self.keyboardWillHideWithRect(keyboardRect, animationDuration: CGFloat(animationDuration))
     }

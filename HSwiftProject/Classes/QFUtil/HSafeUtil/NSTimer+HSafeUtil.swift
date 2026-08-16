@@ -8,38 +8,22 @@
 
 import UIKit
 
-private typealias HBlockInvoke = (_ timer: Timer) -> Void
-
 extension Timer {
 
     static func safe_scheduledTimerWithTimeInterval(_ interval: TimeInterval, repeats: Bool, block: @escaping (_ timer: Timer) -> Void) -> Timer {
-        return self.scheduledTimer(timeInterval: interval,
-                                   target: self,
-                                   selector: #selector(safe_blockInvoke(_:)),
-                                   userInfo: block,
-                                   repeats: repeats)
-    }
-
-    @objc
-    private static func safe_blockInvoke(_ timer: Timer) {
-        let block: HBlockInvoke = timer.userInfo as! HBlockInvoke
-        block(timer)
+        Timer.scheduledTimer(withTimeInterval: interval, repeats: repeats, block: block)
     }
 
     ///恢复
     func safe_resume() {
-        if self.isValid == false { return }
-        if #available(iOS 13.0, *) {
-            self.fireDate = NSDate.now
-        } else {
-            self.fireDate = NSDate() as Date
-        }
+        guard isValid else { return }
+        fireDate = Date()
     }
     
     ///暂停
     func safe_pause() {
-        if self.isValid == false { return }
-        self.fireDate = NSDate.distantFuture
+        guard isValid else { return }
+        fireDate = Date.distantFuture
     }
     
 }

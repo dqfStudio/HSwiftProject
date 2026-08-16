@@ -16,7 +16,7 @@ extension CALayer {
         shadowOpacity = alpha
         shadowOffset = CGSize(width: x, height: y)
         shadowRadius = blur / 2.0
-        if spread == 0 {
+        if spread == 0 || bounds.isEmpty {
             shadowPath = nil
         }else {
             let dx = -spread

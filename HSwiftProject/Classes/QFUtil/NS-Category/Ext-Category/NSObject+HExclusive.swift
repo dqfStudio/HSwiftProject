@@ -28,42 +28,53 @@ extension NSObject {
 
     func exclusive(exc: String, block: () -> Void) {
         let excString = String(format: "%p%@", self, exc)
-        if !self.exclusiveSet.contains(excString) {
-            self.exclusiveSet.add(excString)
+        objc_sync_enter(exclusiveSet)
+        let canRun = !exclusiveSet.contains(excString)
+        if canRun {
+            exclusiveSet.add(excString)
+        }
+        objc_sync_exit(exclusiveSet)
+        if canRun {
             block()
         }
     }
     
     func exclusive(exc: String, block: () -> Void, elseBlock: () -> Void) {
         let excString = String(format: "%p%@", self, exc)
-        if !self.exclusiveSet.contains(excString) {
-            self.exclusiveSet.add(excString)
+        objc_sync_enter(exclusiveSet)
+        let canRun = !exclusiveSet.contains(excString)
+        if canRun {
+            exclusiveSet.add(excString)
+        }
+        objc_sync_exit(exclusiveSet)
+        if canRun {
             block()
-        }else {
+        } else {
             elseBlock()
         }
     }
     
     func exclusive(exc: String, delay interval: TimeInterval, block: () -> Void) {
         let excString = String(format: "%p%@", self, exc)
-        if !self.exclusiveSet.contains(excString) {
-            self.exclusiveSet.add(excString)
-            if interval > 0 {
-                DispatchQueue.global().asyncAfter(deadline: .now() + interval) {
-                    if self.exclusiveSet.contains(excString) {
-                        self.exclusiveSet.remove(excString)
-                    }
-                }
-            }
-            block()
+        objc_sync_enter(exclusiveSet)
+        let canRun = !exclusiveSet.contains(excString)
+        if canRun {
+            exclusiveSet.add(excString)
+        }
+        objc_sync_exit(exclusiveSet)
+        guard canRun else { return }
+        block()
+        guard interval > 0 else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + interval) { [weak self] in
+            self?.removeExclusive(exc: exc)
         }
     }
     
     func removeExclusive(exc: String) {
         let excString = String(format: "%p%@", self, exc)
-        if self.exclusiveSet.contains(excString) {
-            self.exclusiveSet.remove(excString)
-        }
+        objc_sync_enter(exclusiveSet)
+        exclusiveSet.remove(excString)
+        objc_sync_exit(exclusiveSet)
     }
 
 }

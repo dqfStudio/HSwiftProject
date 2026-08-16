@@ -75,13 +75,6 @@ extension String {
     var stringValue: String? {
         return self
     }
-    var isEmpty: Bool {
-        let string = self.trimmingCharacters(in: .whitespacesAndNewlines)
-        if string.count == 0 {
-            return true
-        }
-        return false
-    }
 }
 
 extension Dictionary {
@@ -97,12 +90,6 @@ extension Dictionary {
     var length: Int {
         return self.count
     }
-    var isEmpty: Bool {
-        if self.count == 0 {
-            return true
-        }
-        return false
-    }
 }
 
 extension Array {
@@ -114,11 +101,5 @@ extension Array {
     }
     var length: Int {
         return self.count
-    }
-    var isEmpty: Bool {
-        if self.count == 0 {
-            return true
-        }
-        return false
     }
 }

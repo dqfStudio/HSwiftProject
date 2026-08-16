@@ -11,20 +11,11 @@ import Foundation
 extension NSDictionary {
 
     func containsObject(_ anObject: String) -> Bool {
-        self.allKeys.contains(where: { (object) -> Bool in
-            let objectStr = object as! String
-            if anObject == objectStr {
-                return true
-            }
-            return false
-        })
+        allKeys.contains { ($0 as? String) == anObject }
     }
 
     func objectForKey(_ aKey: String) -> String? {
-        if self.containsObject(aKey) {
-            self.object(forKey: aKey)
-        }
-        return nil
+        object(forKey: aKey) as? String
     }
 
 }

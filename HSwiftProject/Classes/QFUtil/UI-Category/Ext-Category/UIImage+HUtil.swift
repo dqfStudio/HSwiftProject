@@ -93,6 +93,7 @@ extension UIImage {
                           width: mixImageWidth,
                           height: mixImageHeight)
 
+        imageSource.draw(in: CGRect(origin: .zero, size: imageSourceSize))
         tagertImage.draw(in: rect)
 
         let resultImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -176,7 +177,7 @@ extension UIImage {
     }
 
     func scaleImage(_ size: CGSize) -> UIImage? {
-        UIGraphicsBeginImageContext(size)
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
         self.draw(in: CGRect(origin: .zero, size: size))
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -184,9 +185,11 @@ extension UIImage {
     }
 
     func clipCircleImage() -> UIImage? {
-        UIGraphicsBeginImageContext(self.size)
+        let length = min(self.size.width, self.size.height)
+        guard length > 0 else { return nil }
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: length, height: length), false, scale)
         let ctx = UIGraphicsGetCurrentContext()
-        let rect = CGRect(x: 0, y: 0, width: self.size.width, height: self.size.width)
+        let rect = CGRect(x: 0, y: 0, width: length, height: length)
         ctx?.addEllipse(in: rect)
         ctx?.clip()
         self.draw(in: rect)
@@ -196,6 +199,7 @@ extension UIImage {
     }
 
     func getImageHightWidthScale() -> CGFloat {
+        guard self.size.width > 0 else { return 0 }
         return self.size.height / self.size.width
     }
 
@@ -267,6 +271,7 @@ extension UIImage {
 
     static func thumbnailWithImage(_ originalImage: UIImage, size: CGSize) -> UIImage? {
         let originalsize = originalImage.size
+        let scale = originalImage.scale
         if originalsize.width < size.width && originalsize.height < size.height { //原图长宽均小于标准长宽的，不作处理返回原图
             return originalImage
         }else if originalsize.width > size.width && originalsize.height > size.height { //原图长宽均大于标准长宽的，按比例缩小至最大适应值
@@ -277,13 +282,13 @@ extension UIImage {
             var imageRef: CGImage?
 
             if heightRate > widthRate {
-                imageRef = originalImage.cgImage?.cropping(to: CGRect(x: 0, y: originalsize.height / 2 - size.height * rate / 2, width: originalsize.width, height: size.height * rate))//获取图片整体部分
+                imageRef = originalImage.cgImage?.cropping(to: CGRect(x: 0, y: (originalsize.height / 2 - size.height * rate / 2) * scale, width: originalsize.width * scale, height: size.height * rate * scale))
             }else {
-                imageRef = originalImage.cgImage?.cropping(to: CGRect(x: originalsize.width / 2 - size.width * rate / 2, y: 0, width: size.width * rate, height: originalsize.height))//获取图片整体部分
+                imageRef = originalImage.cgImage?.cropping(to: CGRect(x: (originalsize.width / 2 - size.width * rate / 2) * scale, y: 0, width: size.width * rate * scale, height: originalsize.height * scale))
             }
 
             if let imageRef = imageRef {
-                UIGraphicsBeginImageContext(size)//指定要绘画图片的大小
+                UIGraphicsBeginImageContextWithOptions(size, false, scale)
                 let con = UIGraphicsGetCurrentContext()
 
                 con?.translateBy(x: 0.0, y: size.height)
@@ -301,20 +306,19 @@ extension UIImage {
         else if originalsize.height > size.height || originalsize.width > size.width {
             var imageRef: CGImage?
             if originalsize.height > size.height {
-                imageRef = originalImage.cgImage?.cropping(to: CGRect(x: 0, y: originalsize.height / 2 - size.height / 2, width: originalsize.width, height: size.height))//获取图片整体部分
+                imageRef = originalImage.cgImage?.cropping(to: CGRect(x: 0, y: (originalsize.height / 2 - size.height / 2) * scale, width: originalsize.width * scale, height: size.height * scale))
             }else if originalsize.width > size.width {
-                imageRef = originalImage.cgImage?.cropping(to: CGRect(x: originalsize.width / 2 - size.width / 2, y: 0, width: size.width, height: originalsize.height))//获取图片整体部分
+                imageRef = originalImage.cgImage?.cropping(to: CGRect(x: (originalsize.width / 2 - size.width / 2) * scale, y: 0, width: size.width * scale, height: originalsize.height * scale))
             }
 
             if let imageRef = imageRef {
-                UIGraphicsBeginImageContext(size)//指定要绘画图片的大小
+                UIGraphicsBeginImageContextWithOptions(size, false, scale)
                 let con = UIGraphicsGetCurrentContext()
                 con?.translateBy(x: 0.0, y: size.height)
                 con?.scaleBy(x: 1.0, y: -1.0)
                 con?.draw(imageRef, in: CGRect(x: 0, y: 0, width: size.width, height: size.height))
 
                 let standardImage = UIGraphicsGetImageFromCurrentImageContext()
-                //NSLog(@"改变后图片的宽度为%f,图片的高度为%f",[standardImage size].width,[standardImage size].height);
                 UIGraphicsEndImageContext()
 
                 return standardImage
@@ -322,7 +326,6 @@ extension UIImage {
             
             return nil
         }
-        //原图为标准长宽的，不做处理
         else {
             return originalImage
         }
@@ -354,6 +357,7 @@ extension UIImage {
         //获取原图片的大小尺寸
         let imageSize = sourceImage.size
         let width = imageSize.width
+        guard width > 0 else { return sourceImage }
         let height = imageSize.height
         //根据目标图片的宽度计算目标图片的高度
         let targetHeight = (targetWidth / width) * height

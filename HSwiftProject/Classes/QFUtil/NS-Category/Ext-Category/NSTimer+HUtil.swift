@@ -11,63 +11,53 @@ import UIKit
 extension Timer {
 
     static func scheduledTimerWithTimeInterval(_ interval: TimeInterval, times: TimeInterval, block: @escaping (Timer) -> Void) {
-        var count: TimeInterval = 0
-        Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { timer in
-            count += interval
-            if count < interval * times {
-                block(timer)
-            }else if count >= interval * times {
-                timer.invalidate()
-                block(timer)
-            }
-        }
+        scheduleRepeating(interval: interval, times: times, fireImmediately: false, block: block, completion: nil)
     }
     
     static func scheduledTimerWithTimeInterval(_ interval: TimeInterval, times: TimeInterval, block: @escaping (Timer) -> Void, completion: @escaping () -> Void) {
-        var count: TimeInterval = 0
-        Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { timer in
-            count += interval
-            if count <= interval * times {
-                block(timer)
-            }else if count > interval * times {
-                timer.invalidate()
-                completion()
-            }
-        }
+        scheduleRepeating(interval: interval, times: times, fireImmediately: false, block: block, completion: completion)
     }
 
     static func scheduledTimerImmediatelyWithTimeInterval(_ interval: TimeInterval, times: TimeInterval, block: @escaping (Timer) -> Void) {
-        var count: TimeInterval = 0
-        let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { timer in
-            count += interval
-            if count < interval * times {
-                block(timer)
-            }else if count == interval * times {
-                timer.invalidate()
-                block(timer)
-            }else if count > interval * times {
-                timer.invalidate()
-            }
-        }
-        //先调用一次
-        count += interval
-        block(timer)
+        scheduleRepeating(interval: interval, times: times, fireImmediately: true, block: block, completion: nil)
     }
 
     static func scheduledTimerImmediatelyWithTimeInterval(_ interval: TimeInterval, times: TimeInterval, block: @escaping (Timer) -> Void, completion: @escaping () -> Void) {
-        var count: TimeInterval = 0
+        scheduleRepeating(interval: interval, times: times, fireImmediately: true, block: block, completion: completion)
+    }
+
+    private static func scheduleRepeating(interval: TimeInterval, times: TimeInterval, fireImmediately: Bool, block: @escaping (Timer) -> Void, completion: (() -> Void)?) {
+        let total = max(Int(times), 0)
+        guard interval > 0, total > 0 else {
+            completion?()
+            return
+        }
+        var count = 0
+        var finished = false
+        let finish: (Timer) -> Void = { timer in
+            guard !finished else { return }
+            finished = true
+            timer.invalidate()
+            completion?()
+        }
         let timer = Timer.scheduledTimer(withTimeInterval: interval, repeats: true) { timer in
-            count += interval
-            if count <= interval * times {
-                block(timer)
-            }else if count > interval * times {
+            guard !finished else {
                 timer.invalidate()
-                completion()
+                return
+            }
+            count += 1
+            block(timer)
+            if count >= total {
+                finish(timer)
             }
         }
-        //先调用一次
-        count += interval
-        block(timer)
+        if fireImmediately {
+            count += 1
+            block(timer)
+            if count >= total {
+                finish(timer)
+            }
+        }
     }
     
 }

@@ -21,7 +21,7 @@ extension UIDevice {
 
     /// 判断设备是否为模拟器
     static var isSimulator: Bool = {
-    #if TARGET_OS_SIMULATOR
+    #if targetEnvironment(simulator)
         return true
     #else
         return false

@@ -41,26 +41,24 @@ extension UIScreen {
         }
     }()
     
-    static var isIPhoneX: Bool = {
-        var iPhoneXSeries: Bool = false
-        if UIDevice.current.userInterfaceIdiom == .phone {
-            if #available(iOS 11.0, *) {
-                if !iPhoneXSeries, UIScreen.statusBarHeight >= 44 {
-                    iPhoneXSeries = true
-                }
-            }
+    static var isIPhoneX: Bool {
+        guard UIDevice.current.userInterfaceIdiom == .phone else { return false }
+        if let bottom = UIApplication.getKeyWindow?.safeAreaInsets.bottom, bottom > 0 {
+            return true
         }
-        return iPhoneXSeries
-    }()
+        let bounds = UIScreen.main.bounds.size
+        let native = UIScreen.main.nativeBounds.size
+        return max(bounds.width, bounds.height) >= 812
+            || max(native.width, native.height) >= 2436
+    }
     
     static var statusBarHeight: CGFloat {
-        var height: CGFloat = 0.0
         if #available(iOS 13.0, *) {
-            height = UIApplication.shared.windows.first?.windowScene?.statusBarManager?.statusBarFrame.size.height ?? 0.0
-        } else {
-            height = UIApplication.shared.statusBarFrame.size.height
+            return UIApplication.getKeyWindow?.windowScene?.statusBarManager?.statusBarFrame.size.height
+                ?? UIApplication.getKeyWindow?.safeAreaInsets.top
+                ?? 0
         }
-        return height
+        return UIApplication.shared.statusBarFrame.size.height
     }
     
     static var naviBarHeight: CGFloat {
@@ -72,6 +70,9 @@ extension UIScreen {
     }
     
     static var bottomBarHeight: CGFloat {
+        if let bottom = UIApplication.getKeyWindow?.safeAreaInsets.bottom {
+            return bottom
+        }
         return UIScreen.isIPhoneX ? 34.0 : 0.0
     }
 

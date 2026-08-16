@@ -78,7 +78,8 @@ private extension NSDecimalNumber {
 
             //去掉分组分隔符
             stringValue = NSDecimalNumber.clear(symbol: "[,]", withText: stringValue)
-            //去掉正负号
+            //去掉正负号前先记住符号，unFormatter 不能把负数变成正数
+            let isNegative = stringValue.contains("-")
             stringValue = NSDecimalNumber.clear(symbol: "[+-]", withText: stringValue)
             //去掉一些货币符号
             stringValue = NSDecimalNumber.clear(symbol: "[R$￥₫₹]", withText: stringValue)
@@ -93,7 +94,7 @@ private extension NSDecimalNumber {
                 multiplyingString = "1000000000000"
             }else if stringValue.contains("B") {
                 appendString = "B"
-                multiplyingString = "100000000"
+                multiplyingString = "1000000000"
             }else if stringValue.contains("M") {
                 appendString = "M"
                 multiplyingString = "1000000"
@@ -109,6 +110,9 @@ private extension NSDecimalNumber {
             selfNumber = selfNumber.multiplying(by: decimalNumber)
 
             stringValue = selfNumber.stringValue
+            if isNegative, !stringValue.hasPrefix("-") {
+                stringValue = "-" + stringValue
+            }
 
             //根据地区显示正确的小数分隔符
             /*
@@ -249,9 +253,9 @@ class HNumberFormatter: NSObject {
             if length >= 13 {
                 appendString = "T"
                 dividendString = "1000000000000"
-            }else if length >= 9 {
+            }else if length >= 10 {
                 appendString = "B"
-                dividendString = "100000000"
+                dividendString = "1000000000"
             }else if length >= 7 {
                 appendString = "M"
                 dividendString = "1000000"
@@ -294,6 +298,9 @@ extension String {
     func dividingBy(_ value: String) -> String {
         let activeNumber = NSDecimalNumber.activeNumber(withText: self, operationMode: .dividing)
         let unactiveNumber = NSDecimalNumber.unactiveNumber(withText: value, operationMode: .dividing)
+        if unactiveNumber.compare(NSDecimalNumber.zero) == .orderedSame {
+            return "0"
+        }
         return activeNumber.dividing(by: unactiveNumber).stringValue
     }
     //格式化

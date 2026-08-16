@@ -47,19 +47,19 @@ extension UIGestureRecognizer {
     
     func removeAllActionBlocks() {
         let targets = self.allGestureRecognizerBlockTargets()
-        targets.enumerateObjects { (target, idx, stop) in
-            self.removeTarget(targets, action: NSSelectorFromString("invoke:"))
+        targets.enumerateObjects { (target, _, _) in
+            self.removeTarget(target, action: NSSelectorFromString("invoke:"))
         }
         targets.removeAllObjects()
     }
 
     func allGestureRecognizerBlockTargets() -> NSMutableArray {
-        var targets = objc_getAssociatedObject(self, &gesture_block_key) as? NSMutableArray
-        if targets == nil {
-            targets = NSMutableArray()
-            objc_setAssociatedObject(self, &gesture_block_key, targets, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        if let targets = objc_getAssociatedObject(self, &gesture_block_key) as? NSMutableArray {
+            return targets
         }
-        return targets!
+        let targets = NSMutableArray()
+        objc_setAssociatedObject(self, &gesture_block_key, targets, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        return targets
     }
 
 }

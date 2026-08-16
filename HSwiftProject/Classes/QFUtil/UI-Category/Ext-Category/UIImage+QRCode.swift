@@ -78,20 +78,22 @@ extension UIImage {
      *  @param logoImageBorderColor     logo 外边框颜色
      */
     class func generateQRCode(with data: String, size: CGFloat, logoImage: UIImage?, ratio: CGFloat, logoImageCornerRadius: CGFloat, logoImageBorderWidth: CGFloat, logoImageBorderColor: UIColor) -> UIImage? {
-        let image = generateQRCode(with: data, size: size, color: UIColor.black, backgroundColor: UIColor.white)
-        if logoImage == nil { return image }
+        guard let image = generateQRCode(with: data, size: size, color: UIColor.black, backgroundColor: UIColor.white) else { return nil }
+        guard let logoImage else { return image }
         var ratio = ratio
         if ratio < 0.0 || ratio > 0.5 {
             ratio = 0.25
         }
         let logoImageW = ratio * size
         let logoImageH = logoImageW
-        let logoImageX = 0.5 * (image?.size.width ?? 0 - logoImageW)
-        let logoImageY = 0.5 * (image?.size.height ?? 0 - logoImageH)
+        let imageW = image.size.width
+        let imageH = image.size.height
+        let logoImageX = 0.5 * (imageW - logoImageW)
+        let logoImageY = 0.5 * (imageH - logoImageH)
         let logoImageRect = CGRect(x: logoImageX, y: logoImageY, width: logoImageW, height: logoImageH)
-        // 绘制logo
-        UIGraphicsBeginImageContextWithOptions(image?.size ?? CGSize.zero, false, UIScreen.main.scale)
-        image?.draw(in: CGRect(x: 0, y: 0, width: image?.size.width ?? 0, height: image?.size.height ?? 0))
+        guard imageW > 0, imageH > 0 else { return image }
+        UIGraphicsBeginImageContextWithOptions(image.size, false, UIScreen.main.scale)
+        image.draw(in: CGRect(x: 0, y: 0, width: imageW, height: imageH))
         var logoImageCornerRadius = logoImageCornerRadius
         if logoImageCornerRadius < 0.0 || logoImageCornerRadius > 10 {
             logoImageCornerRadius = 5
@@ -105,7 +107,7 @@ extension UIImage {
         logoImageBorderColor.setStroke()
         path.stroke()
         path.addClip()
-        logoImage?.draw(in: logoImageRect)
+        logoImage.draw(in: logoImageRect)
         let QRCodeImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return QRCodeImage
@@ -118,19 +120,20 @@ extension UIImage {
      @return 清晰的二维码图片
      */
     class func createNonInterpolatedUIImageFormCIImage(image: CIImage, withSize size: CGFloat) -> UIImage? {
+        guard size > 0 else { return nil }
         let extent = image.extent.integral
+        guard extent.width > 0, extent.height > 0 else { return nil }
         let scale = min(size / extent.width, size / extent.height)
-        // 1.创建bitmap;
-        let width = extent.width * scale
-        let height = extent.height * scale
-        let cs = CGColorSpaceCreateDeviceGray()
-        if let bitmapRef = CGContext(data: nil, width: Int(width), height: Int(height), bitsPerComponent: 8, bytesPerRow: 0, space: cs, bitmapInfo: CGImageAlphaInfo.none.rawValue) {
+        let width = max(1, Int((extent.width * scale).rounded(.down)))
+        let height = max(1, Int((extent.height * scale).rounded(.down)))
+        let cs = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGImageAlphaInfo.premultipliedLast.rawValue
+        if let bitmapRef = CGContext(data: nil, width: width, height: height, bitsPerComponent: 8, bytesPerRow: 0, space: cs, bitmapInfo: bitmapInfo) {
             let context = CIContext(options: nil)
             if let bitmapImage = context.createCGImage(image, from: extent) {
                 bitmapRef.interpolationQuality = .none
                 bitmapRef.scaleBy(x: scale, y: scale)
                 bitmapRef.draw(bitmapImage, in: extent)
-                // 2.保存bitmap到图片
                 if let scaledImage = bitmapRef.makeImage() {
                     return UIImage(cgImage: scaledImage)
                 }
@@ -171,25 +174,10 @@ extension UIImage {
     func image(withWidth defineWidth: CGFloat) -> CGSize {
         let imageSize = size
         let width = imageSize.width
+        guard width > 0 else { return .zero }
         let height = imageSize.height
         let targetWidth = defineWidth
         let targetHeight = height / (width / targetWidth)
-        var size = CGSize(width: targetWidth, height: targetHeight)
-        var scaleFactor: CGFloat = 0.0
-        //var scaledWidth = targetWidth
-        var scaledHeight = targetHeight
-        if imageSize.equalTo(size) == false {
-            let widthFactor = targetWidth / width
-            let heightFactor = targetHeight / height
-            if widthFactor > heightFactor {
-                scaleFactor = widthFactor
-            }else {
-                scaleFactor = heightFactor
-            }
-            //scaledWidth = width * scaleFactor
-            scaledHeight = height * scaleFactor
-        }
-        size = CGSize(width: width, height: scaledHeight)
-        return size
+        return CGSize(width: targetWidth, height: targetHeight)
     }
 }

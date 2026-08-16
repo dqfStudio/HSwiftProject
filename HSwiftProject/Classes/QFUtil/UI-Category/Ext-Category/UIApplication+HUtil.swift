@@ -30,9 +30,17 @@ extension UIApplication {
         return UIApplication.shared.getKeyWindow
     }
 
-    ///get Window 0
+    ///get key window
     var getKeyWindow: UIWindow? {
-        return self.windows.first
+        if #available(iOS 13.0, *) {
+            let sceneWindows = connectedScenes
+                .compactMap { $0 as? UIWindowScene }
+                .flatMap { $0.windows }
+            if let window = sceneWindows.first(where: { $0.isKeyWindow }) ?? sceneWindows.first {
+                return window
+            }
+        }
+        return windows.first(where: { $0.isKeyWindow }) ?? windows.first
     }
     
     ///get root VC of window 0
@@ -79,7 +87,7 @@ extension UIApplication {
     */
     static func statusBarOrientation() -> UIInterfaceOrientation? {
         if #available(iOS 13.0, *) {
-            return UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+            return UIApplication.getKeyWindow?.windowScene?.interfaceOrientation
         } else {
             return UIApplication.shared.statusBarOrientation
         }
@@ -110,14 +118,14 @@ extension UIApplication {
     *  版本名称，例如：1.2.0
     */
     static var appVersionName: String? {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
     }
 
     /**
     *  版本号，例如：123
     */
     static var appShortVersionString: String? {
-        return Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+        return Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String
     }
 
     /**
@@ -158,18 +166,7 @@ extension UIApplication {
     *  根据app状态栏获取网络状态
     */
     static var networkStatusFromStateBar: HANetworkStatus {
-        let objc = UIApplication.shared.value(forKey: "statusBar") as AnyObject
-        let arr: Array<UIView> = objc.value(forKeyPath: "foregroundView") as? Array ?? []
-        for view in arr {
-            let itemView: AnyClass? = NSClassFromString("UIStatusBarDataNetworkItemView")
-            if let itemView = itemView, view.isKind(of:itemView.self) {
-                let value: String? = view.value(forKeyPath: "dataNetworkType") as? String
-                if let value = value, let intValue = Int(value), let status = HANetworkStatus(rawValue: intValue) {
-                    return status
-                }
-            }
-        }
-        return .Unknown
+        .Unknown
     }
     /**
     *  判断程序是否为从AppStore安装

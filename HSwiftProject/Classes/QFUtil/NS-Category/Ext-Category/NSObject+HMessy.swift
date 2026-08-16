@@ -8,18 +8,38 @@
 
 import UIKit
 
+private final class HWeakBox: NSObject {
+    weak var object: AnyObject?
+    init(_ object: AnyObject) {
+        self.object = object
+        super.init()
+    }
+}
+
 extension NSObject {
     func setAssociateValue(_ value: Any?, key: UnsafeRawPointer) {
         objc_setAssociatedObject(self, key, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     func setAssociateWeakValue(_ value: Any?, key: UnsafeRawPointer) {
-        objc_setAssociatedObject(self, key, value, .OBJC_ASSOCIATION_ASSIGN)
+        guard let value else {
+            objc_setAssociatedObject(self, key, nil, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            return
+        }
+        if Swift.type(of: value) is AnyClass {
+            objc_setAssociatedObject(self, key, HWeakBox(value as AnyObject), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        } else {
+            objc_setAssociatedObject(self, key, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
     }
     func setAssociateCopyValue(_ value: Any?, key: UnsafeRawPointer) {
         objc_setAssociatedObject(self, key, value, .OBJC_ASSOCIATION_COPY_NONATOMIC)
     }
     func getAssociatedValueForKey(_ key: UnsafeRawPointer) -> Any? {
-        return objc_getAssociatedObject(self, key)
+        let value = objc_getAssociatedObject(self, key)
+        if let box = value as? HWeakBox {
+            return box.object
+        }
+        return value
     }
     func removeAssociatedValues() {
         objc_removeAssociatedObjects(self)
@@ -29,13 +49,25 @@ extension NSObject {
         objc_setAssociatedObject(self, key, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
     static func setAssociateWeakValue(_ value: Any?, key: UnsafeRawPointer) {
-        objc_setAssociatedObject(self, key, value, .OBJC_ASSOCIATION_ASSIGN)
+        guard let value else {
+            objc_setAssociatedObject(self, key, nil, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            return
+        }
+        if Swift.type(of: value) is AnyClass {
+            objc_setAssociatedObject(self, key, HWeakBox(value as AnyObject), .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        } else {
+            objc_setAssociatedObject(self, key, value, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
     }
     static func setAssociateCopyValue(_ value: Any?, key: UnsafeRawPointer) {
         objc_setAssociatedObject(self, key, value, .OBJC_ASSOCIATION_COPY_NONATOMIC)
     }
     static func getAssociatedValueForKey(_ key: UnsafeRawPointer) -> Any? {
-        return objc_getAssociatedObject(self, key)
+        let value = objc_getAssociatedObject(self, key)
+        if let box = value as? HWeakBox {
+            return box.object
+        }
+        return value
     }
     static func removeAssociatedValues() {
         objc_removeAssociatedObjects(self)
@@ -51,15 +83,13 @@ extension NSDictionary {
 
     //将字典转化成字符串 如：rn=1&tt=3&rr=4
     var linkString: NSString {
-        let mutableString = NSMutableString()
-        for key in self.allKeys {
+        var parts: [String] = []
+        parts.reserveCapacity(count)
+        for key in allKeys {
             let value = self[key]
-            mutableString.append(key as! String)
-            mutableString.append("=")
-            mutableString.append(value as! String)
-            mutableString.append("&")
+            parts.append("\(key)=\(value.map { "\($0)" } ?? "")")
         }
-        return mutableString.substring(to: mutableString.length - 1) as NSString
+        return parts.joined(separator: "&") as NSString
     }
     
     //将字典转化成json字符串
@@ -87,15 +117,12 @@ extension Dictionary {
 
     //将字典转化成字符串 如：rn=1&tt=3&rr=4
     var linkString: String {
-        let mutableString = NSMutableString()
-        for key in self.keys {
-            let value = self[key]
-            mutableString.append(key as! String)
-            mutableString.append("=")
-            mutableString.append(value as! String)
-            mutableString.append("&")
+        var parts: [String] = []
+        parts.reserveCapacity(count)
+        for (key, value) in self {
+            parts.append("\(key)=\(value)")
         }
-        return mutableString.substring(to: mutableString.length - 1)
+        return parts.joined(separator: "&")
     }
     
     //将字典转化成json字符串

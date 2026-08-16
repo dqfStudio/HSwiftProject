@@ -71,7 +71,7 @@ extension UINavigationItem {
     
     /// 标题项（会替换系统 title。普通标题请用 `navigationItem.title`）
     var titleItem: UILabel {
-        let labelView = createOrGetAssociatedObject(key: &kHVCNaviTitleItemKey) {
+        let labelView: UILabel = createOrGetAssociatedObject(key: &kHVCNaviTitleItemKey) {
             let labelView = UILabel(frame: CGRect(x: 0, y: 0, width: 180, height: 44))
             labelView.font = UIFont.font(ofSize: 17, weight: .medium)
             labelView.textColor = .black

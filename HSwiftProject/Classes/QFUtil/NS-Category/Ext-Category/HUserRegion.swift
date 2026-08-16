@@ -26,56 +26,19 @@ class HUserRegion: NSObject {
     private var _regionCode: String?
     var regionCode: String {
         get {
-            // 1、如果有值直接返回
             if let regionCode = _regionCode {
                 return regionCode
             }
-
-            // 2、如果数据库里有值直接返回
-            _regionCode = UserDefaults.standard.object(forKey: kRegionCodeKey) as? String
-            if let regionCode = _regionCode {
-                return regionCode
-            }
-
-            // 3、如果用户没有设置区域，读取“设置-通用-地区”中默认的区域
-            _regionCode = NSLocale.autoupdatingCurrent.currencyCode
-
-            // 4、如果用户没有设置区域，读取区域json文件中最后一项
-            if let regionCode = _regionCode, let supportedRegions = self.supportedRegions, !(supportedRegions.allKeys as NSArray).contains(regionCode) {
-                _regionCode = supportedRegions.allKeys.last as? String
-            }
-
-            // 5、保存新的值
-            UserDefaults.standard.set(_regionCode, forKey: kRegionCodeKey)
-            UserDefaults.standard.synchronize()
-
-            return _regionCode!
+            let stored = UserDefaults.standard.string(forKey: kRegionCodeKey)
+            let resolved = fallbackRegionCode(stored)
+            persistRegion(resolved, previous: stored)
+            return resolved
         }
         
         set {
-            // 1、如果没有新的直接返回
-            guard _regionCode != newValue else {
-                return
-            }
-
-            // 2、赋予新的值
-            _regionCode = newValue
-
-            // 3、如果有值直接返回
-            if _regionCode == nil {
-                // 4、如果用户没有设置区域，读取“设置-通用-地区”中默认的区域
-                _regionCode = NSLocale.autoupdatingCurrent.currencyCode
-            }
-
-            // 5、如果用户没有设置区域，读取区域json文件中最后一项
-            if let regionCode = _regionCode, let supportedRegions = self.supportedRegions, !(supportedRegions.allKeys as NSArray).contains(regionCode) {
-                _regionCode = supportedRegions.allKeys.last as? String
-            }
-
-            // 6、保存新的值
-            UserDefaults.standard.set(_regionCode, forKey: kRegionCodeKey)
-            UserDefaults.standard.synchronize()
-
+            let resolved = fallbackRegionCode(newValue)
+            guard _regionCode != resolved else { return }
+            persistRegion(resolved, previous: UserDefaults.standard.string(forKey: kRegionCodeKey))
         }
     }
     
@@ -89,13 +52,15 @@ class HUserRegion: NSObject {
         return nil
     }
     
-    //支持的区域列表
+    private var _supportedRegions: NSDictionary?
     var supportedRegions: NSDictionary? {
+        if let cached = _supportedRegions { return cached }
         guard let path = Bundle.main.path(forResource: "HSupportedRegions", ofType: "json"),
               let data = NSData(contentsOfFile: path) else {
             return nil
         }
-        return try? JSONSerialization.jsonObject(with: data as Data, options: .allowFragments) as? NSDictionary
+        _supportedRegions = try? JSONSerialization.jsonObject(with: data as Data, options: .allowFragments) as? NSDictionary
+        return _supportedRegions
     }
     
     //获取不同的语言文件内容
@@ -113,56 +78,19 @@ class HUserRegion: NSObject {
     private var _languageCode: String?
     var languageCode: String {
         get {
-            // 1、如果有值直接返回
             if let languageCode = _languageCode {
                 return languageCode
             }
-
-            // 2、如果数据库里有值直接返回
-            _languageCode = UserDefaults.standard.object(forKey: kLanguageCodeKey) as? String
-            if let languageCode = _languageCode {
-                return languageCode
-            }
-
-            // 3、如果用户没有设置语言，读取“设置-通用-语言”中默认的语言
-            _languageCode = NSLocale.preferredLanguages.first
-
-            // 4、如果用户没有设置语言，读取语言json文件中最后一项
-            if let languageCode = _languageCode, let supportedLanguages = self.supportedLanguages, !(supportedLanguages.allKeys as NSArray).contains(languageCode) {
-                _languageCode = supportedLanguages.allKeys.last as? String
-            }
-
-            // 5、保存新的值
-            UserDefaults.standard.set(_languageCode, forKey: kLanguageCodeKey)
-            UserDefaults.standard.synchronize()
-
-            return _languageCode!
+            let stored = UserDefaults.standard.string(forKey: kLanguageCodeKey)
+            let resolved = fallbackLanguageCode(stored)
+            persistLanguage(resolved, previous: stored)
+            return resolved
         }
         
         set {
-            // 1、如果没有新的直接返回
-            guard _languageCode != newValue else {
-                return
-            }
-
-            // 2、赋予新的值
-            _languageCode = newValue
-
-            // 3、如果有值直接返回
-            if _languageCode == nil {
-                // 3、如果用户没有设置语言，读取“设置-通用-语言”中默认的语言
-                _languageCode = NSLocale.preferredLanguages.first
-            }
-
-            // 5、如果用户没有设置语言，读取语言json文件中最后一项
-            if let languageCode = _languageCode, let supportedLanguages = self.supportedLanguages, !(supportedLanguages.allKeys as NSArray).contains(languageCode) {
-                _languageCode = supportedLanguages.allKeys.last as? String
-            }
-
-            // 6、保存新的值
-            UserDefaults.standard.set(_languageCode, forKey: kLanguageCodeKey)
-            UserDefaults.standard.synchronize()
-
+            let resolved = fallbackLanguageCode(newValue)
+            guard _languageCode != resolved else { return }
+            persistLanguage(resolved, previous: UserDefaults.standard.string(forKey: kLanguageCodeKey))
         }
     }
 
@@ -176,13 +104,15 @@ class HUserRegion: NSObject {
         return nil
     }
     
-    //支持的语言列表
+    private var _supportedLanguages: NSDictionary?
     var supportedLanguages: NSDictionary? {
+        if let cached = _supportedLanguages { return cached }
         guard let path = Bundle.main.path(forResource: "HSupportedLanguages", ofType: "json"),
               let data = NSData(contentsOfFile: path) else {
             return nil
         }
-        return try? JSONSerialization.jsonObject(with: data as Data, options: .allowFragments) as? NSDictionary
+        _supportedLanguages = try? JSONSerialization.jsonObject(with: data as Data, options: .allowFragments) as? NSDictionary
+        return _supportedLanguages
     }
     
     //货币符号
@@ -279,6 +209,67 @@ class HUserRegion: NSObject {
     var sceneLanguageCodeIndex: Int {
         guard let supportedLanguages = self.supportedLanguages else { return NSNotFound }
         return (supportedLanguages.allKeys as NSArray).index(of: self.languageCode)
+    }
+
+    private func persistRegion(_ code: String, previous: String?) {
+        _regionCode = code
+        if previous != code {
+            UserDefaults.standard.set(code, forKey: kRegionCodeKey)
+        }
+    }
+
+    private func persistLanguage(_ code: String, previous: String?) {
+        _languageCode = code
+        if previous != code {
+            UserDefaults.standard.set(code, forKey: kLanguageCodeKey)
+        }
+    }
+
+    private func currentRegionIdentifier() -> String? {
+        if #available(iOS 16.0, *) {
+            return Locale.autoupdatingCurrent.region?.identifier
+        }
+        return Locale.autoupdatingCurrent.regionCode
+    }
+
+    private func firstSupportedKey(_ dict: NSDictionary?) -> String? {
+        dict?.allKeys.compactMap { $0 as? String }.sorted().first
+    }
+
+    private func fallbackRegionCode(_ candidate: String?) -> String {
+        let supported = supportedRegions
+        if let candidate, supported?.object(forKey: candidate) != nil {
+            return candidate
+        }
+        if let current = currentRegionIdentifier() {
+            if supported == nil || supported?.object(forKey: current) != nil {
+                return current
+            }
+        }
+        return firstSupportedKey(supported) ?? candidate ?? "CN"
+    }
+
+    private func fallbackLanguageCode(_ candidate: String?) -> String {
+        let preferred = candidate ?? Locale.preferredLanguages.first ?? "en"
+        guard let supported = supportedLanguages, supported.count > 0 else {
+            return preferred
+        }
+        if let matched = matchLanguage(preferred, keys: supported.allKeys) {
+            return matched
+        }
+        return firstSupportedKey(supported) ?? preferred
+    }
+
+    private func matchLanguage(_ preferred: String, keys: [Any]) -> String? {
+        let stringKeys = keys.compactMap { $0 as? String }
+        if stringKeys.contains(preferred) { return preferred }
+        var parts = preferred.split(separator: "-").map(String.init)
+        while parts.count > 1 {
+            parts.removeLast()
+            let candidate = parts.joined(separator: "-")
+            if stringKeys.contains(candidate) { return candidate }
+        }
+        return nil
     }
     
 }
