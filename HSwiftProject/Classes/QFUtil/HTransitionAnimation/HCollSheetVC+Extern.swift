@@ -23,7 +23,7 @@ extension HCollSheetVC {
         }
         sheetVC.itemBlock = { (coll: HCollView, indexPath: IndexPath) in
             if indexPath.row == 0 {
-                let cell = coll.reuseCell(HCollViewCell.self, true, indexPath) as! HCollViewCell
+                let cell = coll.reuseCell(HCollFreeCell.self, true, indexPath) as! HCollFreeCell
                 let frame = cell.layoutViewBounds
                 cell.label.frame = CGRect(x: (frame.width - 38) / 2, y: 8, width: 38, height: 4)
                 //cell.label.backgroundColor = UIColor.color272729

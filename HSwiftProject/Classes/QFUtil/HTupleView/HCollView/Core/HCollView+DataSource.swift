@@ -31,6 +31,7 @@ extension HCollView: UICollectionViewDataSource {
 
         if let cell = pendingReuseCell {
             pendingReuseCell = nil
+            cell.applyLayout()
             return cell
         }
 
@@ -46,6 +47,7 @@ extension HCollView: UICollectionViewDataSource {
 
         cell.indexPath = indexPath
         cell.coll = self
+        cell.applyLayout()
         return cell
     }
 
@@ -56,6 +58,7 @@ extension HCollView: UICollectionViewDataSource {
             collDelegate?.collHeader?(self, atIndexPath: indexPath)
             if let header = pendingReuseHeader {
                 pendingReuseHeader = nil
+                header.applyLayout()
                 return header
             }
         } else {
@@ -63,13 +66,21 @@ extension HCollView: UICollectionViewDataSource {
             collDelegate?.collFooter?(self, atIndexPath: indexPath)
             if let footer = pendingReuseFooter {
                 pendingReuseFooter = nil
+                footer.applyLayout()
                 return footer
             }
         }
 
         let apexIdentifier = NSStringFromClass(HCollBaseApex.self)
         registerIfNeeded(apexIdentifier, forCell: false, forKind: kind)
-        return dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: apexIdentifier, for: indexPath)
+        let view = dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: apexIdentifier, for: indexPath)
+        if let apex = view as? HCollBaseApex {
+            apex.indexPath = indexPath
+            apex.isHeader = isHeader
+            apex.coll = self
+            apex.applyLayout()
+        }
+        return view
     }
 
     private func registerIfNeeded(_ identifier: String, forCell: Bool, forKind: String? = nil) {

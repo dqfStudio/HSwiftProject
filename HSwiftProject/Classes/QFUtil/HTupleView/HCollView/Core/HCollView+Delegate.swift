@@ -16,13 +16,26 @@ extension HCollView: UICollectionViewDelegate, HCollViewLayoutDelegate {
 
     internal func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? HCollBaseCell {
+            cell.willDisplayBlock?()
             collDelegate?.willDisplayCell?(cell, atIndexPath: indexPath)
         }
         invokeFeature(HCollFeatureSelector.imageSizeWillDisplay, with: indexPath)
     }
 
+    internal func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
+        if let apex = view as? HCollBaseApex {
+            apex.willDisplayBlock?()
+            if elementKind == UICollectionView.elementKindSectionHeader {
+                collDelegate?.willDisplayHeader?(apex, atIndexPath: indexPath)
+            } else if elementKind == UICollectionView.elementKindSectionFooter {
+                collDelegate?.willDisplayFooter?(apex, atIndexPath: indexPath)
+            }
+        }
+    }
+
     internal func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = cellForItem(at: indexPath) as? HCollBaseCell {
+            cell.selectBlock?()
             collDelegate?.didSelectCell?(cell, atIndexPath: indexPath)
         }
     }
@@ -91,7 +104,7 @@ extension HCollView: UICollectionViewDelegate, HCollViewLayoutDelegate {
         return self.collDelegate?.minimumInteritemSpacingForSectionAt?(section) ?? 0.0
     }
 
-    /// 使用 `numberOfItems` 时缓存的 insets；未实现或尚未询问时再问一次代理。
+    /// 每次向代理要 insets，并写入缓存供 `width(for:)` / `height(for:)` 使用。
     internal func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if let insets = collDelegate?.insetForSection?(section) {
             allSectionInsets[section] = insets

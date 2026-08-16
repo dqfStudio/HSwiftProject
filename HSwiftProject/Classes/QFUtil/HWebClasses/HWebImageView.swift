@@ -102,6 +102,18 @@ class HWebImageView: UIImageView {
         self.contentMode = .scaleAspectFill
         self.layer.masksToBounds = true
     }
+
+    /// 取消进行中的下载，并清掉尺寸 / 回调，避免复用后闪旧图或按旧 `imageSize` 排版。
+    func resetForReuse() {
+        kf.cancelDownloadTask()
+        lastURL = ""
+        image = nil
+        imageSize = .zero
+        renderColor = nil
+        pressed = nil
+        didGetImage = nil
+        didGetError = nil
+    }
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()

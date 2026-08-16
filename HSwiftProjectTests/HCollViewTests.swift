@@ -344,4 +344,223 @@ struct HCollViewTests {
         ])
         #expect(valid == [IndexPath(item: 0, section: 0)])
     }
+
+    @Test @MainActor func testSelectBlockIsInvokedOnDidSelect() {
+        final class Stub: NSObject, HCollViewDelegate {
+            var selected = false
+            func numberOfItemsInSection(_ section: Int) -> Int { 1 }
+            func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> CGSize {
+                CGSize(width: 320, height: 44)
+            }
+            func collItem(_ coll: HCollView, atIndexPath indexPath: IndexPath) {
+                let cell = coll.reuseCell(HCollLabelCell.self, false, indexPath)
+                cell.selectBlock = { [weak self] in self?.selected = true }
+            }
+        }
+
+        let collView = makeCollView()
+        let stub = Stub()
+        let window = UIWindow(frame: CGRect(x: 0, y: 0, width: 320, height: 480))
+        window.addSubview(collView)
+        collView.delegate = stub
+        collView.reloadData()
+        collView.layoutIfNeeded()
+        collView.collectionView(collView, didSelectItemAt: IndexPath(item: 0, section: 0))
+        #expect(stub.selected)
+    }
+
+    @Test @MainActor func testContentInsetsDoesNotShrinkCellFrame() {
+        let cell = HCollLabelCell(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
+        _ = cell.label
+        cell.contentInsets = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
+        #expect(cell.width == 200)
+        cell.layoutIfNeeded()
+        #expect(cell.label.x == 24)
+        #expect(abs(cell.label.width - 152) < 0.5)
+    }
+
+    @Test @MainActor func testValueRowPutsDetailOnTheTrailingSide() {
+        let packed = HCollPackedRowCell(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+        packed.label.text = "Title"
+        packed.detailLabel.text = "Value"
+        packed.relayoutSubviews()
+
+        let value = HCollValueRowCell(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+        value.label.text = "Title"
+        value.detailLabel.text = "Value"
+        value.relayoutSubviews()
+
+        #expect(!packed.textLayoutView.arrangedSubviews.contains(packed.textSpacer))
+        #expect(value.textLayoutView.arrangedSubviews.contains(value.textSpacer))
+        #expect(value.textLayoutView.arrangedSubviews.first === value.label)
+        #expect(value.textLayoutView.arrangedSubviews.last === value.detailLabel)
+    }
+
+    @Test @MainActor func testReuseHeaderIsReturnedFromDataSource() {
+        final class Stub: NSObject, HCollViewDelegate {
+            var lastHeader: HCollBaseApex?
+            func numberOfItemsInSection(_ section: Int) -> Int { 1 }
+            func sizeForItemAtIndexPath(_ indexPath: IndexPath) -> CGSize {
+                CGSize(width: 320, height: 44)
+            }
+            func sizeForHeaderInSection(_ section: Int) -> CGSize {
+                CGSize(width: 320, height: 30)
+            }
+            func collHeader(_ coll: HCollView, atIndexPath indexPath: IndexPath) {
+                let header = coll.reuseHeader(HCollLabelApex.self, false, indexPath)
+                header.label.text = "Header"
+                lastHeader = header
+            }
+        }
+
+        let collView = makeCollView()
+        let stub = Stub()
+        collView.delegate = stub
+        collView.reloadData()
+        let header = collView.collectionView(
+            collView,
+            viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader,
+            at: IndexPath(item: 0, section: 0)
+        )
+        #expect(header === stub.lastHeader)
+        #expect(header is HCollLabelApex)
+    }
+
+    @Test @MainActor func testApexContentInsetsDoesNotShrinkFrame() {
+        let apex = HCollLabelApex(frame: CGRect(x: 0, y: 0, width: 200, height: 30))
+        _ = apex.label
+        apex.contentInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        #expect(apex.width == 200)
+        apex.layoutIfNeeded()
+        #expect(apex.label.x == 16)
+        #expect(abs(apex.label.width - 168) < 0.5)
+    }
+
+    @Test @MainActor func testApplyLayoutGivesStackLayoutViewANonZeroFrame() {
+        let cell = HCollStackCell(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+        cell.contentInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        cell.applyLayout()
+        #expect(abs(cell.layoutView.width - 300) < 0.5)
+        #expect(abs(cell.layoutView.height - 44) < 0.5)
+    }
+
+    @Test @MainActor func testFreeCellHidesUnusedControlsAfterReuse() {
+        let cell = HCollFreeCell(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+        let label = cell.label
+        let detail = cell.detailLabel
+        #expect(label.isHidden == false)
+        #expect(detail.isHidden == false)
+        cell.prepareForReuse()
+        #expect(label.isHidden)
+        #expect(detail.isHidden)
+        _ = cell.label
+        #expect(label.isHidden == false)
+        #expect(detail.isHidden)
+    }
+
+    @Test @MainActor func testStackFreeCellArrangesOnlyAccessedViewsAfterReuse() {
+        let cell = HCollStackFreeCell(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+        let label = cell.label
+        let detail = cell.detailLabel
+        #expect(cell.layoutView.arrangedSubviews.count == 2)
+        cell.prepareForReuse()
+        #expect(cell.layoutView.arrangedSubviews.isEmpty)
+        _ = cell.detailLabel
+        #expect(cell.layoutView.arrangedSubviews.count == 1)
+        #expect(cell.layoutView.arrangedSubviews.first === detail)
+        #expect(label.superview == nil)
+    }
+
+    @Test @MainActor func testPackedRowDropsUnusedImageAfterReuse() {
+        let cell = HCollPackedRowCell(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+        let image = cell.imageView
+        cell.label.text = "A"
+        cell.relayoutSubviews()
+        #expect(cell.layoutView.arrangedSubviews.contains(image))
+        cell.prepareForReuse()
+        cell.label.text = "B"
+        cell.relayoutSubviews()
+        #expect(!cell.layoutView.arrangedSubviews.contains(image))
+    }
+
+    @Test @MainActor func testCenterBarArrangesOnlyAccessedViewsAfterReuse() {
+        let cell = HCollCenterBarCell(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+        _ = cell.label
+        let detail = cell.detailLabel
+        cell.relayoutSubviews()
+        #expect(cell.layoutView.arrangedSubviews.contains(detail))
+        cell.prepareForReuse()
+        _ = cell.label
+        cell.relayoutSubviews()
+        #expect(!cell.layoutView.arrangedSubviews.contains(detail))
+    }
+
+    @Test @MainActor func testTileArrangesOnlyAccessedLabelsAfterReuse() {
+        let cell = HCollTileCell(frame: CGRect(x: 0, y: 0, width: 160, height: 200))
+        _ = cell.label
+        let detail = cell.detailLabel
+        cell.relayoutSubviews()
+        #expect(cell.layoutView.arrangedSubviews.contains(detail))
+        cell.prepareForReuse()
+        _ = cell.label
+        cell.relayoutSubviews()
+        #expect(!cell.layoutView.arrangedSubviews.contains(detail))
+        #expect(cell.layoutView.arrangedSubviews.contains(cell.imageView))
+    }
+
+    @Test @MainActor func testStackFreeApexArrangesOnlyAccessedViewsAfterReuse() {
+        let apex = HCollStackFreeApex(frame: CGRect(x: 0, y: 0, width: 320, height: 30))
+        _ = apex.label
+        let detail = apex.detailLabel
+        #expect(apex.layoutView.arrangedSubviews.count == 2)
+        apex.prepareForReuse()
+        #expect(apex.layoutView.arrangedSubviews.isEmpty)
+        _ = apex.detailLabel
+        #expect(apex.layoutView.arrangedSubviews.count == 1)
+        #expect(apex.layoutView.arrangedSubviews.first === detail)
+    }
+
+    @Test @MainActor func testCustomSpacingResetsAfterReuse() {
+        let cell = HCollPackedRowCell(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+        let image = cell.imageView
+        cell.spacingAfterImage = 8
+        cell.relayoutSubviews()
+        #expect(abs(cell.layoutView.customSpacing(after: image) - 8) < 0.5)
+        cell.prepareForReuse()
+        _ = cell.imageView
+        cell.relayoutSubviews()
+        #expect(cell.layoutView.customSpacing(after: image) == UIStackView.spacingUseDefault)
+    }
+
+    @Test @MainActor func testImageSizeResetsAfterReuse() {
+        let cell = HCollPackedRowCell(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+        cell.imageView.imageSize = CGSize(width: 40, height: 40)
+        cell.prepareForReuse()
+        #expect(cell.imageView.imageSize == .zero)
+    }
+
+    @Test @MainActor func testLabelStyleResetsAfterReuse() {
+        let cell = HCollLabelCell(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
+        cell.label.numberOfLines = 0
+        cell.label.textAlignment = .center
+        cell.label.font = .boldSystemFont(ofSize: 20)
+        cell.prepareForReuse()
+        #expect(cell.label.numberOfLines == 1)
+        #expect(cell.label.textAlignment == .natural)
+        #expect(cell.label.font == .systemFont(ofSize: 14))
+    }
+
+    @Test @MainActor func testSeparatorStartsHidden() {
+        let cell = HCollStackCell(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+        #expect(cell.separatorView.isShow == false)
+        #expect(cell.separatorView.isHidden)
+    }
+
+    @Test @MainActor func testButtonSetImageNilClearsImage() {
+        let button = HWebButtonView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        button.setImage(UIImage())
+        #expect(button.image(for: .normal) != nil)
+        button.setImage(nil)
+        #expect(button.image(for: .normal) == nil)
+    }
 }

@@ -205,11 +205,24 @@ extension HWebButtonView {
         }
     }
     func setImage(_ image: UIImage?) {
-        if image != nil {
-            self.setImage(image, for: .normal)
-            self.adjustsImageWhenHighlighted = false
-            updateSubviews()
-        }
+        self.setImage(image, for: .normal)
+        self.adjustsImageWhenHighlighted = false
+        updateSubviews()
+    }
+
+    /// 取消进行中的下载，并清掉尺寸 / 点击，避免复用后仍响应上一格或按旧 `imageSize` 排版。
+    func resetForReuse() {
+        _webImageView?.kf.cancelDownloadTask()
+        _webImageView?.image = nil
+        lastURL = ""
+        pressed = nil
+        didGetImage = nil
+        didGetError = nil
+        text = nil
+        setImage(nil, for: .normal)
+        imageSize = .zero
+        imageSpace = 0
+        renderColor = nil
     }
     
     override var image: UIImage? {

@@ -78,7 +78,7 @@ extension HCollAlertVC {
                 cell.label.textColor = UIColor.white
                 cell.label.text = message
             }else {
-                let cell = coll.reuseCell(HCollViewCell.self, true, indexPath) as! HCollViewCell
+                let cell = coll.reuseCell(HCollFreeCell.self, true, indexPath) as! HCollFreeCell
                 let frame = cell.layoutViewBounds
                 let halfWidth = frame.width / 2
                 
@@ -133,7 +133,7 @@ extension HCollAlertVC {
                 cell.label.textColor = UIColor.white
                 cell.label.text = message
             }else {
-                let cell = coll.reuseCell(HCollViewCell.self, true, indexPath) as! HCollViewCell
+                let cell = coll.reuseCell(HCollFreeCell.self, true, indexPath) as! HCollFreeCell
                 let frame = cell.layoutViewBounds
                 let halfWidth = frame.width / 2
                 
@@ -190,7 +190,7 @@ extension HCollAlertVC {
                 cell.label.textColor = UIColor.white
                 cell.label.text = message
             }else {
-                let cell = coll.reuseCell(HCollViewCell.self, true, indexPath) as! HCollViewCell
+                let cell = coll.reuseCell(HCollFreeCell.self, true, indexPath) as! HCollFreeCell
                 let frame = cell.layoutViewBounds
                 let halfWidth = cell.layoutViewBounds.width / 2
                 

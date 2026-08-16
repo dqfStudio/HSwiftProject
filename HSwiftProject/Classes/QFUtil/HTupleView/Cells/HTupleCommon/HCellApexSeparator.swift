@@ -19,6 +19,7 @@ class HCellApexSeparator: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor(hex: "#E9E9E9")
+        self.isHidden = true
     }
     
     @available(*, unavailable)

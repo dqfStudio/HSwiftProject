@@ -84,6 +84,12 @@ import UIKit
     optional func willDisplayCell(_ cell: HCollBaseCell, atIndexPath indexPath: IndexPath)
 
     @objc
+    optional func willDisplayHeader(_ header: HCollBaseApex, atIndexPath indexPath: IndexPath)
+
+    @objc
+    optional func willDisplayFooter(_ footer: HCollBaseApex, atIndexPath indexPath: IndexPath)
+
+    @objc
     optional func didSelectCell(_ cell: HCollBaseCell, atIndexPath indexPath: IndexPath)
 
     // MARK: - 选中

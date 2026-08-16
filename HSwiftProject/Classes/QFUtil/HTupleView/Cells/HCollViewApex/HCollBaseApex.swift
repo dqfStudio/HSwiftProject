@@ -9,62 +9,88 @@
 import UIKit
 
 class HCollBaseApex: UICollectionReusableView {
-    
-    /// Coll view where the cell is located
-    weak var coll: UICollectionView?
-    
-    /// Whether the cell is a section header
+
+    weak var coll: HCollView?
     var isHeader: Bool = false
-    
-    /// The indexPath where the cell is located
     var indexPath: IndexPath?
 
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        self.backgroundColor = .clear
-        self.initUI()
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.backgroundColor = .clear
-        self.initUI()
-    }
-    
-    /// The edge insets of the cell.
-    @objc override var edgeInsets: UIEdgeInsets {
-        get {
-            let edgeInsetsString = self.getAssociatedValueForKey(&kViewEdgeInsetsKey) as? String ?? NSCoder.string(for: UIEdgeInsets.zero)
-            return NSCoder.uiEdgeInsets(for: edgeInsetsString)
-        }
-        set {
-            if edgeInsets != newValue {
-                self.setAssociateValue(NSCoder.string(for: newValue), key: &kViewEdgeInsetsKey)
+    var willDisplayBlock: (() -> Void)?
+
+    /// 内容边距。只参与子视图布局，不会改自身 frame。
+    var contentInsets: UIEdgeInsets = .zero {
+        didSet {
+            if contentInsets != oldValue {
+                setNeedsLayout()
             }
         }
     }
-    
-    /// The frame and bounds of layoutView
+
+    /// 兼容旧调用。语义与 `contentInsets` 相同，不会 inset 自身 frame。
+    @objc override var edgeInsets: UIEdgeInsets {
+        get { contentInsets }
+        set { contentInsets = newValue }
+    }
+
     var layoutViewFrame: CGRect {
-        return self.frame
+        contentBounds.inset(by: contentInsets)
     }
 
     var layoutViewBounds: CGRect {
-        return self.bounds
+        CGRect(origin: .zero, size: layoutViewFrame.size)
     }
-    
-    func HLayoutCollApex(_ v: UIView) {
-        if !v.frame.equalTo(self.bounds) {
-            v.frame = self.bounds
+
+    var contentBounds: CGRect { bounds }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        backgroundColor = .clear
+        initUI()
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .clear
+        initUI()
+    }
+
+    func initUI() {}
+
+    func relayoutSubviews() {}
+
+    func fillContent(_ view: UIView) {
+        let frame = contentBounds.inset(by: contentInsets)
+        if view.frame != frame {
+            view.frame = frame
         }
     }
 
-    /// Method called during cell initialization
-    func initUI() { }
-    
-    /// Used by subclasses to update subview layout
-    @objc
-    func relayoutSubviews() { }
+    func reloadSupplementaryData() {
+        guard let collection = coll ?? (superview as? UICollectionView),
+              let section = indexPath?.section else { return }
+        collection.reloadSections(IndexSet(integer: section))
+    }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        applyLayout()
+    }
+
+    func prepareLayout() {}
+
+    func applyLayout() {
+        prepareLayout()
+        relayoutSubviews()
+    }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        willDisplayBlock = nil
+        indexPath = nil
+        isHeader = false
+        contentInsets = .zero
+    }
+
+    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+        layoutAttributes
+    }
 }
