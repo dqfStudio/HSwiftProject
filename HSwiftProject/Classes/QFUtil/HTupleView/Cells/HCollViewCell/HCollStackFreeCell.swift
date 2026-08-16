@@ -25,19 +25,19 @@ class HCollStackFreeCell: HCollStackCell {
     private var _accessoryText: HTextView?
     var accessoryText: HTextView { makeTextView(&_accessoryText) }
 
-    private var _buttonView: HWebButtonView?
-    var buttonView: HWebButtonView { makeButton(&_buttonView) }
-    private var _detailButton: HWebButtonView?
-    var detailButton: HWebButtonView { makeButton(&_detailButton) }
-    private var _accessoryButton: HWebButtonView?
-    var accessoryButton: HWebButtonView { makeButton(&_accessoryButton) }
+    private var _buttonView: HImageTextView?
+    var buttonView: HImageTextView { makeButton(&_buttonView) }
+    private var _detailButton: HImageTextView?
+    var detailButton: HImageTextView { makeButton(&_detailButton) }
+    private var _accessoryButton: HImageTextView?
+    var accessoryButton: HImageTextView { makeButton(&_accessoryButton) }
 
-    private var _imageView: HWebImageView?
-    var imageView: HWebImageView { makeImage(&_imageView) }
-    private var _detailImageView: HWebImageView?
-    var detailImageView: HWebImageView { makeImage(&_detailImageView) }
-    private var _accessoryImageView: HWebImageView?
-    var accessoryImageView: HWebImageView { makeImage(&_accessoryImageView) }
+    private var _imageView: HImageTextView?
+    var imageView: HImageTextView { makeImage(&_imageView) }
+    private var _detailImageView: HImageTextView?
+    var detailImageView: HImageTextView { makeImage(&_detailImageView) }
+    private var _accessoryImageView: HImageTextView?
+    var accessoryImageView: HImageTextView { makeImage(&_accessoryImageView) }
 
     private var _textField: HTextField?
     var textField: HTextField { makeField(&_textField) }
@@ -93,23 +93,23 @@ class HCollStackFreeCell: HCollStackCell {
         return textView
     }
 
-    private func makeButton(_ storage: inout HWebButtonView?) -> HWebButtonView {
+    private func makeButton(_ storage: inout HImageTextView?) -> HImageTextView {
         if let button = storage {
             attach(button)
             return button
         }
-        let button = HWebButtonView()
+        let button = HImageTextView()
         storage = button
         attach(button)
         return button
     }
 
-    private func makeImage(_ storage: inout HWebImageView?) -> HWebImageView {
+    private func makeImage(_ storage: inout HImageTextView?) -> HImageTextView {
         if let imageView = storage {
             attach(imageView)
             return imageView
         }
-        let imageView = HWebImageView()
+        let imageView = HImageTextView()
         storage = imageView
         attach(imageView)
         return imageView

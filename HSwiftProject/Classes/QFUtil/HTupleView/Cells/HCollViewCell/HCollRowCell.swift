@@ -52,14 +52,14 @@ class HCollRowChrome: HCollStackCell {
         return view
     }()
 
-    private var _imageView: HWebImageView?
-    var imageView: HWebImageView {
+    private var _imageView: HImageTextView?
+    var imageView: HImageTextView {
         if !usesImage {
             usesImage = true
             setNeedsLayout()
         }
         if let imageView = _imageView { return imageView }
-        let imageView = HWebImageView()
+        let imageView = HImageTextView()
         _imageView = imageView
         return imageView
     }
@@ -96,14 +96,14 @@ class HCollRowChrome: HCollStackCell {
         return label
     }
 
-    private var _detailImageView: HWebImageView?
-    var detailImageView: HWebImageView {
+    private var _detailImageView: HImageTextView?
+    var detailImageView: HImageTextView {
         if !usesDetailImage {
             usesDetailImage = true
             setNeedsLayout()
         }
         if let imageView = _detailImageView { return imageView }
-        let imageView = HWebImageView()
+        let imageView = HImageTextView()
         _detailImageView = imageView
         return imageView
     }

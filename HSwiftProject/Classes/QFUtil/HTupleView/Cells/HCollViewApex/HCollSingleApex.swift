@@ -56,10 +56,10 @@ class HCollTextViewApex: HCollBaseApex {
 }
 
 class HCollButtonApex: HCollBaseApex {
-    private var _buttonView: HWebButtonView?
-    var buttonView: HWebButtonView {
+    private var _buttonView: HImageTextView?
+    var buttonView: HImageTextView {
         if let buttonView = _buttonView { return buttonView }
-        let buttonView = HWebButtonView()
+        let buttonView = HImageTextView()
         addSubview(buttonView)
         _buttonView = buttonView
         setNeedsLayout()
@@ -79,10 +79,10 @@ class HCollButtonApex: HCollBaseApex {
 }
 
 class HCollImageApex: HCollBaseApex {
-    private var _webImageView: HWebImageView?
-    var webImageView: HWebImageView {
+    private var _webImageView: HImageTextView?
+    var webImageView: HImageTextView {
         if let imageView = _webImageView { return imageView }
-        let imageView = HWebImageView()
+        let imageView = HImageTextView()
         addSubview(imageView)
         _webImageView = imageView
         setNeedsLayout()

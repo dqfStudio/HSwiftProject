@@ -1,6 +1,6 @@
-# HWebCompositeView
+# HImageTextView
 
-HWebCompositeView 是一个功能强大的 iOS 自定义视图类，集成了图片展示、文本显示、交互处理等多种功能，支持链式调用 API，提供了丰富的配置选项。
+HImageTextView 是一个功能强大的 iOS 自定义视图类，集成了图片展示、文本显示、交互处理等多种功能，支持链式调用 API，提供了丰富的配置选项。
 
 ## 功能特性
 
@@ -13,7 +13,7 @@ HWebCompositeView 是一个功能强大的 iOS 自定义视图类，集成了图
 - **渐变背景**：支持设置渐变色背景
 
 ### 2. 布局选项
-- **图片位置**：支持 top、left、bottom、right、center、textWrap 等多种位置
+- **图片位置**：支持 top、left、bottom、right、center、leadingTop
 - **图片大小**：可自定义图片尺寸
 - **图片间距**：可自定义图片与文本的间距
 - **文本属性**：支持设置字体、颜色、对齐方式、行数等
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // 创建基本的图文组合视图
-        let compositeView = HWebCompositeView(frame: CGRect(x: 50, y: 100, width: 200, height: 100))
+        let compositeView = HImageTextView(frame: CGRect(x: 50, y: 100, width: 200, height: 100))
             .text("Hello HWeb")
             .textColor(.black)
             .imageSize(CGSize(width: 44, height: 44))
@@ -85,7 +85,7 @@ class ViewController: UIViewController {
 ### 网络图片加载
 
 ```swift
-let compositeView = HWebCompositeView(frame: CGRect(x: 50, y: 250, width: 200, height: 100))
+let compositeView = HImageTextView(frame: CGRect(x: 50, y: 250, width: 200, height: 100))
     .text("Network Image")
     .imageSize(CGSize(width: 44, height: 44))
     .imagePosition(.left)
@@ -111,7 +111,7 @@ view.addSubview(compositeView)
 ### 手势支持
 
 ```swift
-let gestureView = HWebCompositeView(frame: CGRect(x: 50, y: 400, width: 200, height: 100))
+let gestureView = HImageTextView(frame: CGRect(x: 50, y: 400, width: 200, height: 100))
     .text("Gestures Example")
     .imageSize(CGSize(width: 44, height: 44))
     .imagePosition(.left)
@@ -159,7 +159,7 @@ view.addSubview(gestureView)
 
 ```swift
 // 图片居中布局
-let centerView = HWebCompositeView(frame: CGRect(x: 50, y: 550, width: 200, height: 200))
+let centerView = HImageTextView(frame: CGRect(x: 50, y: 550, width: 200, height: 200))
     .text("Center Image")
     .imageSize(CGSize(width: 80, height: 80))
     .imagePosition(.center)
@@ -171,11 +171,11 @@ centerView.setImage(WithName: "logo")
 view.addSubview(centerView)
 
 // 文字环绕布局
-let wrapView = HWebCompositeView(frame: CGRect(x: 50, y: 780, width: 250, height: 100))
+let wrapView = HImageTextView(frame: CGRect(x: 50, y: 780, width: 250, height: 100))
     .text("This is a long text that will wrap around the image. It demonstrates the text wrap layout option.")
     .textNumberOfLines(0)
     .imageSize(CGSize(width: 60, height: 60))
-    .imagePosition(.textWrap)
+    .imagePosition(.leadingTop)
     .cornerRadius(8)
     .borderWidth(1)
     .borderColor(.lightGray)
@@ -187,7 +187,7 @@ view.addSubview(wrapView)
 ### 状态管理
 
 ```swift
-let stateView = HWebCompositeView(frame: CGRect(x: 50, y: 920, width: 200, height: 100))
+let stateView = HImageTextView(frame: CGRect(x: 50, y: 920, width: 200, height: 100))
     .text("State Example")
     .imageSize(CGSize(width: 44, height: 44))
     .imagePosition(.left)
@@ -208,7 +208,7 @@ stateView.state = .selected  // 选中状态
 ### 渐变背景
 
 ```swift
-let gradientView = HWebCompositeView(frame: CGRect(x: 50, y: 1070, width: 200, height: 100))
+let gradientView = HImageTextView(frame: CGRect(x: 50, y: 1070, width: 200, height: 100))
     .text("Gradient Background")
     .textColor(.white)
     .imageSize(CGSize(width: 44, height: 44))
@@ -288,7 +288,7 @@ view.addSubview(gradientView)
 1. **依赖管理**：确保项目中已安装 SnapKit 和 Kingfisher
 2. **图片资源**：使用本地图片时，确保图片已添加到项目中
 3. **网络权限**：使用网络图片时，确保项目已添加网络权限
-4. **性能优化**：对于大量使用 HWebCompositeView 的场景，建议使用图片预加载功能
+4. **性能优化**：对于大量使用 HImageTextView 的场景，建议使用图片预加载功能
 
 ## 版本历史
 

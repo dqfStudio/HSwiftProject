@@ -557,10 +557,10 @@ struct HCollViewTests {
     }
 
     @Test @MainActor func testButtonSetImageNilClearsImage() {
-        let button = HWebButtonView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
+        let button = HImageTextView(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         button.setImage(UIImage())
-        #expect(button.image(for: .normal) != nil)
+        #expect(button.image != nil)
         button.setImage(nil)
-        #expect(button.image(for: .normal) == nil)
+        #expect(button.image == nil)
     }
 }

@@ -56,10 +56,10 @@ class HCollTextViewCell: HCollBaseCell {
 }
 
 class HCollButtonCell: HCollBaseCell {
-    private var _buttonView: HWebButtonView?
-    var buttonView: HWebButtonView {
+    private var _buttonView: HImageTextView?
+    var buttonView: HImageTextView {
         if let buttonView = _buttonView { return buttonView }
-        let buttonView = HWebButtonView()
+        let buttonView = HImageTextView()
         contentView.addSubview(buttonView)
         _buttonView = buttonView
         setNeedsLayout()
@@ -79,10 +79,10 @@ class HCollButtonCell: HCollBaseCell {
 }
 
 class HCollImageCell: HCollBaseCell {
-    private var _webImageView: HWebImageView?
-    var webImageView: HWebImageView {
+    private var _webImageView: HImageTextView?
+    var webImageView: HImageTextView {
         if let imageView = _webImageView { return imageView }
-        let imageView = HWebImageView()
+        let imageView = HImageTextView()
         contentView.addSubview(imageView)
         _webImageView = imageView
         setNeedsLayout()

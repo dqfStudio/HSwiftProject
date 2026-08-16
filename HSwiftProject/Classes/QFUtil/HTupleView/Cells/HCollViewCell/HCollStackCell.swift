@@ -130,7 +130,7 @@ class HCollStackCell: HCollBaseCell {
         )
     }
 
-    func resolvedImageSize(for imageView: HWebImageView) -> CGSize {
+    func resolvedImageSize(for imageView: HImageTextView) -> CGSize {
         if imageView.imageSize != .zero {
             return imageView.imageSize
         }

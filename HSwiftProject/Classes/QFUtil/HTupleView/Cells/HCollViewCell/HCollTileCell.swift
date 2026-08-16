@@ -27,10 +27,10 @@ class HCollTileChrome: HCollStackCell {
     private var usesDetailLabel = false
     private var usesAccessoryLabel = false
 
-    private var _imageView: HWebImageView?
-    var imageView: HWebImageView {
+    private var _imageView: HImageTextView?
+    var imageView: HImageTextView {
         if let imageView = _imageView { return imageView }
-        let imageView = HWebImageView()
+        let imageView = HImageTextView()
         imageView.clipsToBounds = true
         _imageView = imageView
         setNeedsLayout()
@@ -73,10 +73,10 @@ class HCollTileChrome: HCollStackCell {
         return label
     }
 
-    private var _topView: HWebImageView?
-    var topView: HWebImageView {
+    private var _topView: HImageTextView?
+    var topView: HImageTextView {
         if let view = _topView { return view }
-        let view = HWebImageView()
+        let view = HImageTextView()
         imageView.addSubview(view)
         _topView = view
         return view
@@ -91,10 +91,10 @@ class HCollTileChrome: HCollStackCell {
         return label
     }
 
-    private var _bottomView: HWebImageView?
-    var bottomView: HWebImageView {
+    private var _bottomView: HImageTextView?
+    var bottomView: HImageTextView {
         if let view = _bottomView { return view }
-        let view = HWebImageView()
+        let view = HImageTextView()
         imageView.addSubview(view)
         _bottomView = view
         return view
@@ -112,7 +112,7 @@ class HCollTileChrome: HCollStackCell {
     var createdLabel: UILabel? { usesLabel ? _label : nil }
     var createdDetailLabel: UILabel? { usesDetailLabel ? _detailLabel : nil }
     var createdAccessoryLabel: UILabel? { usesAccessoryLabel ? _accessoryLabel : nil }
-    var createdImageView: HWebImageView? { _imageView }
+    var createdImageView: HImageTextView? { _imageView }
 
     private var labelHeightConstraint: NSLayoutConstraint?
     private var detailHeightConstraint: NSLayoutConstraint?
@@ -210,6 +210,7 @@ class HCollTileChrome: HCollStackCell {
         if container.superview !== imageView {
             imageView.addSubview(container)
         }
+        imageView.bringSubviewToFront(container)
         container.translatesAutoresizingMaskIntoConstraints = false
         if constraints.isEmpty {
             let heightAnchor = container.heightAnchor.constraint(equalToConstant: height)
