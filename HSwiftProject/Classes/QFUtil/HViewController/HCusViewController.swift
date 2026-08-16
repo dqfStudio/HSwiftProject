@@ -18,12 +18,20 @@ class HCusViewController<VM: DPMBaseViewModel>: HBaseController {
     
     var disposeBag: DisposeBag? = DisposeBag()
     
-    /// 导航栏的样式
+    /// 导航栏的样式。默认值不会触发 didSet，真正应用发生在 viewDidLoad。
     var navShowStyle: HNaviShowStyle = .normal {
         didSet {
-            updateNavigationBarAppearance()
-            setupBackButton()
+            guard isViewLoaded, oldValue != navShowStyle else { return }
+            setNeedsNavigationBarAppearanceUpdate()
         }
+    }
+    
+    override var managesSystemNavigationBar: Bool {
+        true
+    }
+    
+    override var prefersSystemNavigationBarHidden: Bool {
+        true
     }
     
     // MARK: - UI Components
@@ -47,6 +55,13 @@ class HCusViewController<VM: DPMBaseViewModel>: HBaseController {
         navigationView.navigationLine
     }
     
+    override var title: String? {
+        didSet {
+            guard isViewLoaded else { return }
+            navigationItem.title = title
+        }
+    }
+    
     // MARK: - Initialization
     
     init(viewModel: VM) {
@@ -63,21 +78,28 @@ class HCusViewController<VM: DPMBaseViewModel>: HBaseController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navShowStyle = .normal
         setupNavigationLayout()
+        if let title = title, !title.isEmpty {
+            navigationItem.title = title
+        }
         addSubviews()
         bindViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        // 系统导航栏也会占用 navigationItem；隐藏系统栏后把 item 抢回自定义栏
+        if navigationBar.topItem !== navigationItem {
+            navigationBar.setItems([navigationItem], animated: false)
+        }
         view.bringSubviewToFront(navigationView)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: false)
+    override func vcWillDisappear(_ type: HVCDisappearType) {
+        super.vcWillDisappear(type)
+        if type == .pop || type == .dismiss {
+            destroy()
+        }
     }
     
     // MARK: - Navigation Bar
@@ -85,68 +107,9 @@ class HCusViewController<VM: DPMBaseViewModel>: HBaseController {
     /// 设置导航栏布局
     private func setupNavigationLayout() {
         view.addSubview(navigationView)
-        
         navigationView.snp.makeConstraints { make in
             make.top.left.right.equalToSuperview()
-            make.height.equalTo(UIScreen.topBarHeight)
-        }
-    }
-    
-    /// 更新导航栏外观
-    private func updateNavigationBarAppearance() {
-        let (titleColor, backgroundColor) = getNavigationBarColors(for: navShowStyle)
-        let attributes = createTitleAttributes(with: titleColor)
-        
-        if #available(iOS 15.0, *) {
-            let barApp = UINavigationBarAppearance()
-            barApp.titleTextAttributes = attributes
-            barApp.backgroundColor = backgroundColor
-            barApp.backgroundEffect = nil
-            barApp.shadowColor = nil
-            navigationBar.scrollEdgeAppearance = barApp
-            navigationBar.standardAppearance = barApp
-        } else {
-            navigationBar.shadowImage = UIImage()
-            navigationBar.setBackgroundImage(UIImage(), for: .default)
-            navigationBar.titleTextAttributes = attributes
-        }
-        
-        navigationView.backgroundColor = backgroundColor
-        navigationBar.backgroundColor = backgroundColor
-        navigationBar.isTranslucent = backgroundColor == .clear
-    }
-    
-    /// 获取导航栏颜色
-    private func getNavigationBarColors(for style: HNaviShowStyle) -> (titleColor: UIColor, backgroundColor: UIColor) {
-        switch style {
-        case .grey:
-            return (.black, UIColor(hex: "#F8F9FE"))
-        case .clearBgWhiteBackArrow:
-            return (.white, .clear)
-        case .clearBgBlackBackArrow:
-            return (.black, .clear)
-        default:
-            return (.black, .white)
-        }
-    }
-    
-    /// 创建标题属性
-    private func createTitleAttributes(with color: UIColor) -> [NSAttributedString.Key: Any] {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        paragraphStyle.lineSpacing = 1
-        
-        return [
-            .foregroundColor: color,
-            .paragraphStyle: paragraphStyle
-        ]
-    }
-    
-    /// 设置返回按钮
-    private func setupBackButton() {
-        navigationItem.leftItem.image = UIImage(named: "hvc_back_icon")
-        navigationItem.leftItem.pressed = { [weak self] in
-            self?.naviBack()
+            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.top).offset(UIScreen.naviBarHeight)
         }
     }
     
@@ -154,9 +117,11 @@ class HCusViewController<VM: DPMBaseViewModel>: HBaseController {
     override func setNeedsNavigationBarAppearanceUpdate() {
         navigationController?.setNavigationBarHidden(true, animated: false)
         navigationView.isHidden = prefersNavigationBarHidden
-        navigationView.backgroundColor = preferredNavigationBarColor
+        let colors = applyNavigationBarAppearance(navigationBar, style: navShowStyle)
+        navigationView.backgroundColor = colors.backgroundColor
         navigationLine.backgroundColor = preferredNavigationLineBarColor
         navigationLine.isHidden = prefersNavigationLineBarHidden
+        configureBackItem(navigationItem.leftItem, style: navShowStyle)
         navigationItem.leftItem.isHidden = prefersNavigationLeftItemHidden
     }
     
@@ -170,9 +135,10 @@ class HCusViewController<VM: DPMBaseViewModel>: HBaseController {
     /// 绑定视图模型
     func bindViewModel() {
         viewModel.naviTitleRelay
+            .compactMap { $0 }
+            .filter { !$0.isEmpty }
             .subscribe(onNext: { [weak self] title in
-                guard let self = self, let title = title, !title.isEmpty else { return }
-                self.navigationItem.title = title
+                self?.title = title
             })
             => disposeBag
     }

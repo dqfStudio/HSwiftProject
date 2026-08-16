@@ -14,43 +14,46 @@ import RxCocoa
 infix operator <~> : DefaultPrecedence
 
 /// Bidirectional bind between a `ControlProperty` and a `BehaviorRelay`.
-/// - Important: Use this only when both sides represent the same source of truth.
+/// UI 侧 skip(1)，避免 ControlProperty 订阅时的当前值把 Relay 盖掉并形成回环。
 @discardableResult
 public func <~><T>(property: ControlProperty<T>, relay: BehaviorRelay<T>) -> Disposable {
-    let bindToUIDisposable = relay.bind(to: property)
-    let bindToRelay = property.bind(to: relay)
-    
-    return Disposables.create(bindToUIDisposable, bindToRelay)
+    bidirectionalBind(property: property, relay: relay)
 }
 
 @discardableResult
 public func <~><T>(relay: BehaviorRelay<T>, property: ControlProperty<T>) -> Disposable {
-    let bindToUIDisposable = relay.bind(to: property)
-    let bindToRelay = property.bind(to: relay)
-    
-    return Disposables.create(bindToUIDisposable, bindToRelay)
+    bidirectionalBind(property: property, relay: relay)
 }
 
-/// Bidirectional bind with duplicate-value suppression on UI -> relay stream.
 @discardableResult
 public func <~><T: Equatable>(property: ControlProperty<T>, relay: BehaviorRelay<T>) -> Disposable {
-    let bindToUIDisposable = relay.bind(to: property)
-    let bindToRelay = property
-        .distinctUntilChanged()
-        .bind(to: relay)
-
-    return Disposables.create(bindToUIDisposable, bindToRelay)
+    bidirectionalBindEquatable(property: property, relay: relay)
 }
 
-/// Bidirectional bind with duplicate-value suppression on UI -> relay stream.
 @discardableResult
 public func <~><T: Equatable>(relay: BehaviorRelay<T>, property: ControlProperty<T>) -> Disposable {
-    let bindToUIDisposable = relay.bind(to: property)
-    let bindToRelay = property
-        .distinctUntilChanged()
-        .bind(to: relay)
+    bidirectionalBindEquatable(property: property, relay: relay)
+}
 
-    return Disposables.create(bindToUIDisposable, bindToRelay)
+private func bidirectionalBind<T>(property: ControlProperty<T>, relay: BehaviorRelay<T>) -> Disposable {
+    let bindToUI = relay.bind(to: property)
+    let bindToRelay = property
+        .skip(1)
+        .subscribe(onNext: { relay.accept($0) })
+    return Disposables.create(bindToUI, bindToRelay)
+}
+
+private func bidirectionalBindEquatable<T: Equatable>(property: ControlProperty<T>, relay: BehaviorRelay<T>) -> Disposable {
+    let bindToUI = relay.bind(to: property)
+    let bindToRelay = property
+        .skip(1)
+        .distinctUntilChanged()
+        .subscribe(onNext: { newValue in
+            if relay.value != newValue {
+                relay.accept(newValue)
+            }
+        })
+    return Disposables.create(bindToUI, bindToRelay)
 }
 
 // MARK: - One way binding shorthand
@@ -61,76 +64,76 @@ infix operator ~>: DefaultPrecedence
 @available(*, deprecated, message: "Use explicit overloads (to Binder/Relay/ControlProperty) to avoid ambiguous type inference.")
 @discardableResult
 public func ~><T, R>(source: Observable<T>, binder: (Observable<T>) -> R) -> R {
-    return source.bind(to: binder)
+    source.bind(to: binder)
 }
 
 @discardableResult
 public func ~><T>(source: Observable<T>, binder: Binder<T>) -> Disposable {
-    return source.bind(to: binder)
+    source.bind(to: binder)
 }
 
 @discardableResult
 public func ~><T>(source: Observable<T>, relay: BehaviorRelay<T>) -> Disposable {
-    return source.bind(to: relay)
+    source.bind(to: relay)
 }
 
 @discardableResult
 public func ~><T>(source: Observable<T>, relay: BehaviorRelay<T?>) -> Disposable {
-    return source.bind(to: relay)
+    source.bind(to: relay)
 }
 
 @discardableResult
 public func ~><T>(source: BehaviorRelay<T>, relay: BehaviorRelay<T?>) -> Disposable {
-    return source.bind(to: relay)
+    source.bind(to: relay)
 }
 
 @discardableResult
 public func ~><T>(source: BehaviorRelay<T>, relay: BehaviorRelay<T>) -> Disposable {
-    return source.bind(to: relay)
+    source.bind(to: relay)
 }
 
 /// Single
 @discardableResult
 public func ~><T>(source: Single<T>, relay: BehaviorRelay<T?>) -> Disposable {
-    return source.subscribe(onSuccess: relay.accept)
+    source.subscribe(onSuccess: relay.accept)
 }
 
 /// Driver
 @discardableResult
 public func ~><T>(source: Driver<T>, relay: BehaviorRelay<T?>) -> Disposable {
-    return source.drive(onNext: relay.accept)
+    source.drive(onNext: relay.accept)
 }
 
 @discardableResult
 public func ~><T>(source: Driver<T>, binder: Binder<T>) -> Disposable {
-    return source.drive(onNext: binder.onNext)
+    source.drive(binder)
 }
 
 @discardableResult
 public func ~><T>(source: Observable<T>, property: ControlProperty<T>) -> Disposable {
-    return source.bind(to: property)
+    source.bind(to: property)
 }
 
 /// BehaviorRelay
 @discardableResult
 public func ~><T>(relay: BehaviorRelay<T>, observer: Binder<T>) -> Disposable {
-    return relay.bind(to: observer)
+    relay.bind(to: observer)
 }
 
 @discardableResult
 public func ~><T>(relay: BehaviorRelay<T>, property: ControlProperty<T>) -> Disposable {
-    return relay.bind(to: property)
+    relay.bind(to: property)
 }
 
 @discardableResult
 public func ~><T>(property: ControlProperty<T>, relay: BehaviorRelay<T>) -> Disposable {
-    return property.bind(to: relay)
+    property.bind(to: relay)
 }
 
 /// ControlEvent
 @discardableResult
 public func ~><T>(event: ControlEvent<T>, relay: BehaviorRelay<T>) -> Disposable {
-    return event.bind(to: relay)
+    event.bind(to: relay)
 }
 
 // MARK: - Add to dispose bag shorthand
@@ -148,7 +151,10 @@ public func =>(disposable: Disposable, bag: DisposeBag) -> Disposable {
 }
 
 public func =>(disposable: Disposable?, bag: DisposeBag?) {
-    if let dispose = disposable, let disposeBag = bag {
-        dispose.disposed(by: disposeBag)
+    guard let disposable else { return }
+    guard let bag else {
+        assertionFailure("DisposeBag is nil, subscription will leak")
+        return
     }
+    disposable.disposed(by: bag)
 }

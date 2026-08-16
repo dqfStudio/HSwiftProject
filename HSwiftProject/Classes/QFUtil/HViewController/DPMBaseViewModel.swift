@@ -6,35 +6,25 @@
 //  Copyright © 2026 wind. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import RxCocoa
 import RxSwift
 
-/// 基础视图模型类
+/// 基础视图模型
 ///
-/// 提供视图模型的通用功能，如导航栏标题管理和资源释放
+/// 提供导航标题和订阅生命周期。子类若重写 `destroy()` 必须调用 `super.destroy()`。
 class DPMBaseViewModel {
     
-    // MARK: - Properties
-    
-    /// 导航栏标题的 Relay
+    /// 导航栏标题
     let naviTitleRelay = BehaviorRelay<String?>(value: nil)
     
-    /// 用于管理 RxSwift 订阅
-    var disposeBag = DisposeBag()
+    /// VM 内部订阅。外部只应通过 `destroy()` 重置，不要直接赋值。
+    private(set) var disposeBag = DisposeBag()
     
-    // MARK: - Initialization
+    init() {}
     
-    init() {
-    }
-    
-    // MARK: - Cleanup
-    
-    /// 销毁资源
-    ///
-    /// 释放所有订阅和资源，防止内存泄漏
+    /// 释放订阅。页面 pop / dismiss 时应调用，可重复调用。
     func destroy() {
         disposeBag = DisposeBag()
     }
-    
 }

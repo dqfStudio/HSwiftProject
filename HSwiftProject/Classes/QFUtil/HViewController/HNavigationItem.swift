@@ -19,8 +19,14 @@ class HNavigationItem: UIButton {
     
     // MARK: - Properties
     
-    /// 点击时间间隔
-    private var pressedInterval: TimeInterval = 0.0
+    /// 上次点击时间（单调时钟，避免系统时间回拨）
+    private var lastPressedTime: TimeInterval = 0
+    
+    /// 点击节流间隔
+    private let pressedThrottle: TimeInterval = 0.5
+    
+    /// 批量更新时抑制 refresh，避免 title/image 互相清空导致重复回调
+    private var isBatchUpdating = false
     
     /// 刷新回调
     var refresh: HNavigationItemBlock?
@@ -33,48 +39,60 @@ class HNavigationItem: UIButton {
     
     /// 禁用状态文字颜色
     var disableTextColor: UIColor?
+    
+    /// 启用态背景色
+    private var storedBackgroundColor: UIColor?
+    
+    /// 启用态文字颜色
+    private var storedTitleColor: UIColor?
 
-    /// 标题
+    /// 标题（与图片互斥）
     var title: String? {
         get { title(for: .normal) }
-        set { 
-            setTitle(newValue, for: .normal)
-            setTitle(newValue, for: .highlighted)
-            setImage(nil, for: .normal)
-            setImage(nil, for: .highlighted)
+        set {
+            performBatchUpdate {
+                setTitle(newValue, for: .normal)
+                setTitle(newValue, for: .highlighted)
+                setImage(nil, for: .normal)
+                setImage(nil, for: .highlighted)
+            }
         }
     }
 
-    /// 图片
+    /// 图片（与标题互斥）
     override var image: UIImage? {
         get { image(for: .normal) }
-        set { 
-            setTitle(nil, for: .normal)
-            setTitle(nil, for: .highlighted)
-            setImage(newValue, for: .normal)
-            setImage(newValue, for: .highlighted)
+        set {
+            performBatchUpdate {
+                setTitle(nil, for: .normal)
+                setTitle(nil, for: .highlighted)
+                setImage(newValue, for: .normal)
+                setImage(newValue, for: .highlighted)
+            }
         }
     }
-
-    // MARK: - Overrides
     
-    /// 原始背景色
-    private var originalBgColor: UIColor?
-    
-    /// 原始文字颜色
-    private var originalTextColor: UIColor?
-    
-    /// 禁用状态
+    /// 禁用状态：只在 true→false 时保存颜色，避免连续 disable 覆盖原始值
     override var isEnabled: Bool {
         didSet {
+            guard oldValue != isEnabled else { return }
             updateEnabledState()
         }
     }
     
+    override var intrinsicContentSize: CGSize {
+        let size = super.intrinsicContentSize
+        return CGSize(width: max(size.width, 44), height: max(size.height, 44))
+    }
+
     // MARK: - Initialization
     
-    required init() {
-        super.init(frame: .zero)
+    convenience init() {
+        self.init(frame: .zero)
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
     }
 
@@ -83,19 +101,16 @@ class HNavigationItem: UIButton {
         setup()
     }
 
-    required override init(frame: CGRect) {
-        super.init(frame: frame)
-        setup()
-    }
-
     // MARK: - Setup
     
     private func setup() {
         backgroundColor = .clear
         layer.masksToBounds = true
+        adjustsImageWhenHighlighted = false
         imageView?.contentMode = .scaleAspectFit
         titleLabel?.font = .systemFont(ofSize: 17.0)
         titleLabel?.adjustsFontSizeToFitWidth = true
+        titleLabel?.minimumScaleFactor = 0.8
         addTarget(self, action: #selector(buttonPressed), for: .touchUpInside)
     }
     
@@ -104,47 +119,54 @@ class HNavigationItem: UIButton {
     @objc
     private func buttonPressed() {
         guard let pressed = pressed else { return }
-        
-        // 防抖动处理
-        let currentTime = Date().timeIntervalSince1970
-        guard currentTime - pressedInterval > 0.5 else { return }
-        
-        pressedInterval = currentTime
+        let now = CACurrentMediaTime()
+        guard now - lastPressedTime > pressedThrottle else { return }
+        lastPressedTime = now
         pressed()
     }
     
     // MARK: - Private Methods
     
-    /// 更新启用状态
+    private func performBatchUpdate(_ updates: () -> Void) {
+        isBatchUpdating = true
+        updates()
+        isBatchUpdating = false
+        refresh?()
+        invalidateIntrinsicContentSize()
+    }
+    
     private func updateEnabledState() {
         if isEnabled {
-            // 恢复原始颜色
-            backgroundColor = originalBgColor ?? .clear
-            if let originalTextColor = originalTextColor {
-                setTitleColor(originalTextColor, for: .normal)
+            backgroundColor = storedBackgroundColor ?? .clear
+            if let storedTitleColor = storedTitleColor {
+                setTitleColor(storedTitleColor, for: .normal)
             }
         } else {
-            // 保存原始颜色
-            originalBgColor = backgroundColor
-            originalTextColor = currentTitleColor
-            // 设置禁用颜色
-            backgroundColor = disableBgColor ?? backgroundColor
-            let titleColor = disableTextColor ?? currentTitleColor
-            setTitleColor(titleColor, for: .normal)
+            storedBackgroundColor = backgroundColor
+            storedTitleColor = titleColor(for: .normal)
+            if let disableBgColor = disableBgColor {
+                backgroundColor = disableBgColor
+            }
+            if let disableTextColor = disableTextColor {
+                setTitleColor(disableTextColor, for: .normal)
+            }
         }
-        isUserInteractionEnabled = isEnabled
     }
     
     // MARK: - Overrides
     
     override func setTitle(_ title: String?, for state: UIControl.State) {
         super.setTitle(title, for: state)
+        guard !isBatchUpdating else { return }
         refresh?()
+        invalidateIntrinsicContentSize()
     }
     
     override func setImage(_ image: UIImage?, for state: UIControl.State) {
         super.setImage(image, for: state)
+        guard !isBatchUpdating else { return }
         refresh?()
+        invalidateIntrinsicContentSize()
     }
 
 }

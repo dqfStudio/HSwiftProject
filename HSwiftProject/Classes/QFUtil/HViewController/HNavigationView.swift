@@ -33,13 +33,22 @@ class HNavigationView: UIView {
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
         paragraphStyle.lineSpacing = 1
-        
         let attributes: [NSAttributedString.Key: Any] = [
             .foregroundColor: UIColor.black,
             .paragraphStyle: paragraphStyle
         ]
-        
         naviBar.titleTextAttributes = attributes
+        
+        if #available(iOS 13.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.backgroundColor = .white
+            appearance.shadowColor = .clear
+            appearance.titleTextAttributes = attributes
+            naviBar.standardAppearance = appearance
+            naviBar.scrollEdgeAppearance = appearance
+            naviBar.compactAppearance = appearance
+        }
         return naviBar
     }()
     
@@ -68,21 +77,18 @@ class HNavigationView: UIView {
         backgroundColor = .white
         addSubview(navigationBar)
         addSubview(navigationLine)
-    }
-    
-    // MARK: - Layout
-    
-    override func updateConstraints() {
+        
+        // 只安装一次约束。原先写在 updateConstraints + makeConstraints 中，
+        // 每次布局都会叠加约束并触发冲突。
         navigationBar.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(UIScreen.statusBarHeight)
+            make.top.equalTo(safeAreaLayoutGuide.snp.top)
             make.left.right.equalToSuperview()
             make.height.equalTo(UIScreen.naviBarHeight)
         }
         
         navigationLine.snp.makeConstraints { make in
             make.left.right.bottom.equalToSuperview()
-            make.height.equalTo(0.5)
+            make.height.equalTo(UIScreen.onePixel)
         }
-        super.updateConstraints()
     }
 }

@@ -25,89 +25,78 @@ enum AdapterType: Int {
 @objcMembers
 final class HAdapterUtils: NSObject {
     
-    ///默认是屏幕适配
-    ///（外部可全局设置，设置none为全局禁止屏幕适配，默认是屏幕适配）
-     static var fitType: AdapterType = AdapterType.flex
+    /// 默认是屏幕适配
+    ///（外部可全局设置，设置 none 为全局禁止屏幕适配）
+    static var fitType: AdapterType = .flex
     
-    /// 按照屏幕宽适配 默认是iphone6 适配标准 可自行修改 适配的标准以宽度为准
-    /// 如果修改适配标准，推荐在启动程序时就设置，以免在设置之前使用不准确问题
-     static var fitWidth: Double = 375.0
+    /// 按照屏幕宽适配，默认 iPhone 6 宽度。必须 > 0。
+    static var fitWidth: Double = 375.0 {
+        didSet {
+            if fitWidth <= 0 {
+                fitWidth = oldValue > 0 ? oldValue : 375.0
+            }
+        }
+    }
 }
 
 // MARK: - Int CGFloat Double CGSize CGRect UIEdgeInsets扩展的分类
 extension Int {
-    /// Int 屏幕尺寸大小适配
-     var fitFloat: CGFloat { return CGFloat(self)|~| }
-    
-    /// Int 屏幕尺寸大小适配 取整计算
-     var fitInt: Int { return Int(CGFloat(self)|~|) }
+    var fitFloat: CGFloat { CGFloat(self)|~| }
+    var fitInt: Int { Int((CGFloat(self)|~|).rounded()) }
 }
 
 extension CGFloat {
-    /// CGFloat 屏幕尺寸大小适配
-     var fitFloat: CGFloat { self|~| }
+    var fitFloat: CGFloat { self|~| }
 }
 
 extension Double {
-    /// Double 屏幕尺寸大小适配
-     var fitDouble: Double { self|~| }
+    var fitDouble: Double { self|~| }
 }
 
 extension CGSize {
-    /// CGSize 屏幕尺寸大小适配
-     var fitSize: CGSize { self|~| }
+    var fitSize: CGSize { self|~| }
 }
 
 extension CGRect {
-    /// CGRect 屏幕尺寸大小适配
-     var fitRect: CGRect { self|~| }
+    var fitRect: CGRect { self|~| }
 }
 
 extension CGPoint {
-    /// CGPoint 屏幕尺寸大小适配
-     var fitPoint: CGPoint { self|~| }
+    var fitPoint: CGPoint { self|~| }
 }
 
 extension UIEdgeInsets {
-    /// UIEdgeInsets 屏幕尺寸大小适配
-     var fitEdgeInset: UIEdgeInsets { self|~| }
+    var fitEdgeInset: UIEdgeInsets { self|~| }
+}
+
+extension UIFont {
+    var fitFont: UIFont { withSize(pointSize.fitFloat) }
 }
 
 // MARK: - 屏幕尺寸适配 扩展的分类 可以通过类方法调用，也可以通过以上的分类调用，更方便快捷
 extension HAdapterUtils {
-    /// Int 屏幕尺寸大小适配
     static func fitInt(_ value: Int) -> CGFloat { value.fitFloat }
-    
-    /// CGFloat 屏幕尺寸大小适配
     static func fitFloat(_ value: CGFloat) -> CGFloat { value.fitFloat }
-    
-    /// Double 屏幕尺寸大小适配
     static func fitDouble(_ value: Double) -> Double { value.fitDouble }
-    
-    /// CGPoint 屏幕尺寸大小适配
-    static func fitFoint(_ value: CGPoint) -> CGPoint { value.fitPoint }
-    
-    /// CGSize 屏幕尺寸大小适配
+    static func fitPoint(_ value: CGPoint) -> CGPoint { value.fitPoint }
+    /// 历史拼写错误，保留以免外部调用编译失败
+    static func fitFoint(_ value: CGPoint) -> CGPoint { fitPoint(value) }
     static func fitSize(_ value: CGSize) -> CGSize { value.fitSize }
-    
-    /// CGRect 屏幕尺寸大小适配
     static func fitRect(_ value: CGRect) -> CGRect { value.fitRect }
-    
-    /// UIEdgeInsets 屏幕尺寸大小适配
     static func fitEdgeInsets(_ value: UIEdgeInsets) -> UIEdgeInsets { value.fitEdgeInset }
+    static func fitFont(_ font: UIFont) -> UIFont { font.fitFont }
 }
 
 // MARK: - 屏幕尺寸适配的api 当前文件可访问
 fileprivate extension HAdapterUtils {
     
-    /// 尺寸适配
-    ///
-    /// - Parameters:
-    ///   - value: 尺寸大小
-    static func fitSize( _ value: Double) -> Double {
-        switch HAdapterUtils.fitType {
-        case .none: return value
-        case .flex: return value * Double(UIScreen.main.bounds.width) / HAdapterUtils.fitWidth
+    static func fitSize(_ value: Double) -> Double {
+        switch fitType {
+        case .none:
+            return value
+        case .flex:
+            let width = fitWidth > 0 ? fitWidth : 375.0
+            return value * Double(UIScreen.main.bounds.width) / width
         }
     }
 }
@@ -115,17 +104,16 @@ fileprivate extension HAdapterUtils {
 // MARK: - 自定义运算符 operator |~|
 postfix operator |~|
 
-/// 重载运算符
 fileprivate postfix func |~| (value: Double) -> Double {
-    HAdapterUtils.fitSize(Double(value))
+    HAdapterUtils.fitSize(value)
 }
 
 fileprivate postfix func |~| (font: UIFont) -> UIFont {
-    font.withSize(CGFloat(font.pointSize)|~|)
+    font.fitFont
 }
 
 fileprivate postfix func |~| (value: Int) -> Int {
-    Int(Double(value)|~|)
+    Int((Double(value)|~|).rounded())
 }
 
 fileprivate postfix func |~| (value: CGFloat) -> CGFloat {
@@ -133,26 +121,27 @@ fileprivate postfix func |~| (value: CGFloat) -> CGFloat {
 }
 
 fileprivate postfix func |~| (value: CGPoint) -> CGPoint {
-    CGPoint(x: Double(value.x)|~|,
-            y: Double(value.y)|~|)
+    CGPoint(x: Double(value.x)|~|, y: Double(value.y)|~|)
 }
 
 fileprivate postfix func |~| (value: CGSize) -> CGSize {
-    CGSize(width:value.width|~|,
-           height: value.height|~|)
-    
+    CGSize(width: value.width|~|, height: value.height|~|)
 }
 
 fileprivate postfix func |~| (value: CGRect) -> CGRect {
-    CGRect(x:value.origin.x|~|,
-           y: value.origin.y|~|,
-           width:value.size.width|~|,
-           height: value.size.height|~|)
+    CGRect(
+        x: value.origin.x|~|,
+        y: value.origin.y|~|,
+        width: value.size.width|~|,
+        height: value.size.height|~|
+    )
 }
 
 fileprivate postfix func |~| (value: UIEdgeInsets) -> UIEdgeInsets {
-    UIEdgeInsets(top: value.top|~|,
-                 left: value.left|~|,
-                 bottom: value.bottom|~|,
-                 right: value.right|~|)
+    UIEdgeInsets(
+        top: value.top|~|,
+        left: value.left|~|,
+        bottom: value.bottom|~|,
+        right: value.right|~|
+    )
 }

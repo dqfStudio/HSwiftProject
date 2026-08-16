@@ -24,10 +24,8 @@ class HCollAlertVC: HBaseController, HCollViewDelegate {
     var itemBlock: HCollAlertItemBlock?
     
     override var containerSize: CGSize {
-        // 执行block
-        self.performBlocks()
-        // 计算高度
-        let height = self.itemsHeight.allValues.reduce(0, { $0 + ($1 as! CGFloat) })
+        performBlocks()
+        let height = itemsHeight.allValues.reduce(CGFloat(0)) { $0 + (($1 as? CGFloat) ?? 0) }
         return CGSize(width: kCollAlertWidth, height: height)
     }
     
@@ -65,19 +63,20 @@ class HCollAlertVC: HBaseController, HCollViewDelegate {
     }
 
     override func vcWillDisappear(_ type: HVCDisappearType) {
+        super.vcWillDisappear(type)
         if type == .pop || type == .dismiss {
-            self.collView.releaseCollBlock()
+            collView.releaseCollBlock()
         }
     }
     
     // 执行block
     func performBlocks() {
-        // 调用代理
-        let items = self.numberBlock?() ?? 0
-        self.itemsHeight.removeAllObjects()
-        for item in 0...items - 1 {
-            let height = self.heightBlock?(item) ?? 0
-            self.itemsHeight.setObject(height, forKey: "\(item)" as NSCopying)
+        let items = max(numberBlock?() ?? 0, 0)
+        itemsHeight.removeAllObjects()
+        guard items > 0 else { return }
+        for item in 0..<items {
+            let height = heightBlock?(item) ?? 0
+            itemsHeight.setObject(height, forKey: "\(item)" as NSCopying)
         }
     }
 

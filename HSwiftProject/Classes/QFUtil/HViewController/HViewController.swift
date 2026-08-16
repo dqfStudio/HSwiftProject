@@ -12,56 +12,46 @@ class HViewController: HBaseController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Add custom navigation bar
-        self.view.addSubview(self.navigationBar)
+        view.addSubview(navigationBar)
+        navigationBar.titleItem.text = title
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.view.bringSubviewToFront(self.navigationBar)
+        view.bringSubviewToFront(navigationBar)
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        self.navigationController?.setNavigationBarHidden(false, animated: false)
-    }
-    
-//    override func viewWillLayoutSubviews() {
-//        super.viewWillLayoutSubviews()
-//        //Reset the frame of the top bar
-//        if self.orientation != UIDevice.current.orientation {
-//            self.orientation = UIDevice.current.orientation
-//            // Refresh the navigation bar
-//            let width = self.view.width
-//            let height = UIScreen.topBarHeight
-//            let frame = CGRect(x: 0, y: 0, width: width, height: height)
-//            self.navigationBar.frame = frame
-//        }
-//    }
     
     override var title: String? {
         didSet {
-            guard self.isViewLoaded else { return }
-            self.navigationBar.titleItem.text = title
+            guard isViewLoaded else { return }
+            navigationBar.titleItem.text = title
         }
     }
     
     // Navigation bar
     lazy var navigationBar: HNavigationBar = {
-        let width = self.view.width
+        let width = view.width
         let height = UIScreen.topBarHeight
         let frame = CGRect(x: 0, y: 0, width: width, height: height)
         return HNavigationBar(frame: frame)
     }()
     
+    override var managesSystemNavigationBar: Bool {
+        true
+    }
+    
+    override var prefersSystemNavigationBarHidden: Bool {
+        true
+    }
+    
     /// Navigation bar status control
     override func setNeedsNavigationBarAppearanceUpdate() {
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
-        self.navigationBar.isHidden = self.prefersNavigationBarHidden
-        self.navigationBar.backgroundColor = self.preferredNavigationBarColor
-        self.navigationBar.lineBarColor = self.preferredNavigationLineBarColor
-        self.navigationBar.leftItem.image = UIImage(named: "hvc_back_icon")
+        navigationController?.setNavigationBarHidden(true, animated: false)
+        navigationBar.isHidden = prefersNavigationBarHidden
+        navigationBar.backgroundColor = preferredNavigationBarColor
+        navigationBar.lineBarColor = prefersNavigationLineBarHidden ? .clear : preferredNavigationLineBarColor
+        navigationBar.leftItem.isHidden = prefersNavigationLeftItemHidden
+        configureBackItem(navigationBar.leftItem, style: .normal)
     }
 
 }

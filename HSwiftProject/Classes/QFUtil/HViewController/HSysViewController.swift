@@ -18,20 +18,28 @@ class HSysViewController<VM: DPMBaseViewModel>: HBaseController {
     
     var disposeBag: DisposeBag? = DisposeBag()
     
-    /// 导航栏的样式
+    /// 导航栏的样式。默认值不会触发 didSet，真正应用发生在 viewDidLoad。
     var navShowStyle: HNaviShowStyle = .normal {
         didSet {
-            updateNavigationBarAppearance()
-            setupBackButton()
+            guard isViewLoaded, oldValue != navShowStyle else { return }
+            setNeedsNavigationBarAppearanceUpdate()
         }
     }
 
     // MARK: - Navigation Bar
     
+    override var managesSystemNavigationBar: Bool {
+        true
+    }
+    
+    override var prefersSystemNavigationBarHidden: Bool {
+        prefersNavigationBarHidden
+    }
+    
     override var title: String? {
         didSet {
             guard isViewLoaded else { return }
-            navigationItem.titleItem.text = title
+            navigationItem.title = title
         }
     }
 
@@ -52,72 +60,54 @@ class HSysViewController<VM: DPMBaseViewModel>: HBaseController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        if let title = title, !title.isEmpty {
+            navigationItem.title = title
+        }
+        bindViewModel()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // viewDidLoad 时可能尚未加入 UINavigationController，需在此补应用外观
+        if let navigationBar = navigationBar {
+            applyNavigationBarAppearance(navigationBar, style: navShowStyle)
+        }
+    }
+    
+    override func vcWillDisappear(_ type: HVCDisappearType) {
+        super.vcWillDisappear(type)
+        if type == .pop || type == .dismiss {
+            destroy()
+        }
+    }
+    
     // MARK: - Navigation Bar
-    
-    /// 更新导航栏外观
-    private func updateNavigationBarAppearance() {
-        guard let navigationBar = navigationBar else { return }
-        
-        let (titleColor, backgroundColor) = getNavigationBarColors(for: navShowStyle)
-        let attributes = createTitleAttributes(with: titleColor)
-        
-        if #available(iOS 15.0, *) {
-            let barApp = UINavigationBarAppearance()
-            barApp.titleTextAttributes = attributes
-            barApp.backgroundColor = backgroundColor
-            barApp.backgroundEffect = nil
-            barApp.shadowColor = nil
-            navigationBar.scrollEdgeAppearance = barApp
-            navigationBar.standardAppearance = barApp
-        } else {
-            navigationBar.shadowImage = UIImage()
-            navigationBar.setBackgroundImage(UIImage(), for: .default)
-            navigationBar.titleTextAttributes = attributes
-        }
-        
-        navigationBar.backgroundColor = backgroundColor
-        navigationBar.isTranslucent = backgroundColor == .clear
-    }
-    
-    /// 获取导航栏颜色
-    private func getNavigationBarColors(for style: HNaviShowStyle) -> (titleColor: UIColor, backgroundColor: UIColor) {
-        switch style {
-        case .grey:
-            return (.black, UIColor(hex: "#F8F9FE"))
-        case .clearBgWhiteBackArrow:
-            return (.white, .clear)
-        case .clearBgBlackBackArrow:
-            return (.black, .clear)
-        default:
-            return (.black, .white)
-        }
-    }
-    
-    /// 创建标题属性
-    private func createTitleAttributes(with color: UIColor) -> [NSAttributedString.Key: Any] {
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        paragraphStyle.lineSpacing = 1
-        
-        return [
-            .foregroundColor: color,
-            .paragraphStyle: paragraphStyle
-        ]
-    }
-    
-    /// 设置返回按钮
-    private func setupBackButton() {
-        navigationItem.leftItem.image = UIImage(named: "hvc_back_icon")
-        navigationItem.leftItem.pressed = { [weak self] in
-            self?.naviBack()
-        }
-    }
     
     /// Navigation bar status control
     override func setNeedsNavigationBarAppearanceUpdate() {
-        navigationBar?.isHidden = prefersNavigationBarHidden
-        navigationBar?.backgroundColor = preferredNavigationBarColor
+        navigationController?.setNavigationBarHidden(prefersNavigationBarHidden, animated: false)
+        if let navigationBar = navigationBar {
+            applyNavigationBarAppearance(navigationBar, style: navShowStyle)
+        }
+        configureBackItem(navigationItem.leftItem, style: navShowStyle)
         navigationItem.leftItem.isHidden = prefersNavigationLeftItemHidden
+    }
+    
+    // MARK: - View Setup
+    
+    /// 绑定视图模型
+    func bindViewModel() {
+        viewModel.naviTitleRelay
+            .compactMap { $0 }
+            .filter { !$0.isEmpty }
+            .subscribe(onNext: { [weak self] title in
+                self?.title = title
+            })
+            => disposeBag
     }
     
     // MARK: - Cleanup

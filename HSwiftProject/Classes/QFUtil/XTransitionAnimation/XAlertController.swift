@@ -85,6 +85,7 @@ class XAlertController: HBaseController, HTupleViewDelegate {
     }
 
     override func vcWillDisappear(_ type: HVCDisappearType) {
+        super.vcWillDisappear(type)
         if type == .pop || type == .dismiss {
             self.tupleView.releaseTupleBlock()
         }
@@ -152,7 +153,7 @@ extension XAlertController {
 
     @objc
     func tupleExa1_numberOfItemsInSection(_ section: Any) -> Any {
-        return actions.count + (actions.count - 1)
+        return max(actions.count * 2 - 1, 0)
     }
     @objc
     func tupleExa1_sizeForItemAtIndexPath(_ indexPath: IndexPath) -> Any {
