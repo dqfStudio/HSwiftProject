@@ -40,9 +40,8 @@
 //     填充后通过 `onOTPFilled` 回调通知。
 //
 //  3. **自动提交** (iOS 17+)
-//     设置 `autoSubmitOTP(true)` 后，验证码自动填入且达到 maxLength 时，
-//     自动触发 `onOTPFilled` 回调并将 autoSubmit 标记置为 true，
-//     外部可在 onOTPFilled 中执行提交逻辑。
+//     设置 `autoSubmitOTP(true)` 后，验证码自动填入或手动输入达到 maxLength 时，
+//     触发 `onOTPFilled`（同一内容不会重复回调）。
 //
 
 import UIKit
@@ -67,17 +66,26 @@ final class HTextFieldConfigurator {
 
     @discardableResult
     func font(_ font: UIFont) -> Self {
-        textField.font = font; return self
+        textField.font = font
+        return self
     }
 
     @discardableResult
     func textColor(_ color: UIColor) -> Self {
-        textField.textColor = color; return self
+        textField.textColor = color
+        return self
     }
 
     @discardableResult
     func alignment(_ alignment: NSTextAlignment) -> Self {
-        textField.textAlignment = alignment; return self
+        textField.textAlignment = alignment
+        return self
+    }
+
+    @discardableResult
+    func textAlignment(_ alignment: NSTextAlignment) -> Self {
+        textField.textAlignment = alignment
+        return self
     }
 
     @discardableResult
@@ -105,46 +113,55 @@ final class HTextFieldConfigurator {
 
     @discardableResult
     func maxLength(_ length: Int) -> Self {
-        owner._maxLength = length; return self
+        owner._maxLength = max(0, length)
+        owner.clampTextIfNeeded()
+        return self
     }
 
     @discardableResult
     func forbidPaste(_ forbid: Bool) -> Self {
-        owner._forbidPaste = forbid; return self
+        owner._forbidPaste = forbid
+        return self
     }
 
     @discardableResult
     func forbidWhitespace(_ forbid: Bool) -> Self {
-        owner._forbidWhitespace = forbid; return self
+        owner._forbidWhitespace = forbid
+        return self
     }
 
     @discardableResult
     func editable(_ editable: Bool) -> Self {
-        owner._editable = editable; return self
+        owner._editable = editable
+        return self
     }
 
     // MARK: - 键盘
 
     @discardableResult
     func keyboard(_ type: UIKeyboardType) -> Self {
-        textField.keyboardType = type; return self
+        textField.keyboardType = type
+        return self
     }
 
     @discardableResult
     func returnKey(_ type: UIReturnKeyType) -> Self {
-        textField.returnKeyType = type; return self
+        textField.returnKeyType = type
+        return self
     }
 
     @discardableResult
     func secure(_ secure: Bool) -> Self {
-        textField.isSecureTextEntry = secure; return self
+        textField.isSecureTextEntry = secure
+        return self
     }
 
     // MARK: - 容器边距
 
     @discardableResult
     func contentInsets(_ insets: UIEdgeInsets) -> Self {
-        owner._contentInsets = insets; return self
+        owner._contentInsets = insets
+        return self
     }
 
     @discardableResult
@@ -171,7 +188,7 @@ final class HTextFieldConfigurator {
     @discardableResult
     func leftIcon(_ image: UIImage?, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
         let iv = UIImageView(image: image)
-        iv.contentMode = .center
+        iv.contentMode = .scaleAspectFit
         let cfg = HSideViewConfig(width: 24)
         block?(cfg)
         pendingLeft.append(PendingSideView(view: iv, config: cfg))
@@ -236,7 +253,7 @@ final class HTextFieldConfigurator {
     @discardableResult
     func rightIcon(_ image: UIImage?, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
         let iv = UIImageView(image: image)
-        iv.contentMode = .center
+        iv.contentMode = .scaleAspectFit
         let cfg = HSideViewConfig(width: 24)
         block?(cfg)
         pendingRight.append(PendingSideView(view: iv, config: cfg))
@@ -302,6 +319,15 @@ final class HTextFieldConfigurator {
         return self
     }
 
+    /// 清空已有侧边视图。默认二次 `config` 不会抹掉未重新声明的侧边视图。
+    @discardableResult
+    func clearSideViews() -> Self {
+        owner.removeSideViews()
+        pendingLeft.removeAll()
+        pendingRight.removeAll()
+        return self
+    }
+
     // MARK: - 验证码自动填充
 
     /// 启用验证码自动填充（textContentType = .oneTimeCode）
@@ -309,13 +335,20 @@ final class HTextFieldConfigurator {
     func autoFillOTP(_ enable: Bool = true) -> Self {
         owner._otpEnabled = enable
         if enable {
-            owner.textField.textContentType = .oneTimeCode
+            textField.textContentType = .oneTimeCode
+            textField.autocorrectionType = .no
+            textField.spellCheckingType = .no
+            textField.smartDashesType = .no
+            textField.smartQuotesType = .no
+            textField.smartInsertDeleteType = .no
+        } else {
+            textField.textContentType = nil
         }
         return self
     }
 
     /// 自动填充完成后自动触发提交判断。
-    /// 当验证码自动填入且长度达到 maxLength 时，自动触发 onOTPFilled。
+    /// 当验证码填入且长度达到 maxLength 时，触发 onOTPFilled。
     @discardableResult
     func autoSubmitOTP(_ enable: Bool = true) -> Self {
         owner._autoSubmitOTP = enable
@@ -325,21 +358,15 @@ final class HTextFieldConfigurator {
     // MARK: - 内部
 
     fileprivate func apply() {
-        owner.removeSideViews()
-
-        owner._sideViews.removeAll()
-        for p in pendingLeft {
-            let sv = HTextFieldSideView(view: p.view, side: .left, config: p.config)
-            owner._sideViews.append(sv)
-            owner.addSubview(p.view)
+        if !pendingLeft.isEmpty {
+            owner.replaceSideViews(.left, with: pendingLeft)
+            pendingLeft.removeAll()
         }
-        for p in pendingRight {
-            let sv = HTextFieldSideView(view: p.view, side: .right, config: p.config)
-            owner._sideViews.append(sv)
-            owner.addSubview(p.view)
+        if !pendingRight.isEmpty {
+            owner.replaceSideViews(.right, with: pendingRight)
+            pendingRight.removeAll()
         }
-        pendingLeft.removeAll()
-        pendingRight.removeAll()
+        owner.invalidateIntrinsicContentSize()
         owner.setNeedsLayout()
     }
 }
@@ -347,6 +374,8 @@ final class HTextFieldConfigurator {
 // MARK: - HSideViewConfig
 
 /// 侧边视图的精细配置，支持链式调用。
+///
+/// `insets` 是视图外侧边距，不从 `width` / `height` 中扣除。
 final class HSideViewConfig {
     /// 视图宽度（0 = 自动取 intrinsicContentSize）
     var width: CGFloat = 0
@@ -366,6 +395,12 @@ final class HSideViewConfig {
 
     @discardableResult
     func size(_ w: CGFloat, _ h: CGFloat) -> Self { width = w; height = h; return self }
+
+    @discardableResult
+    func width(_ w: CGFloat) -> Self { width = w; return self }
+
+    @discardableResult
+    func height(_ h: CGFloat) -> Self { height = h; return self }
 
     @discardableResult
     func insets(_ value: CGFloat) -> Self { insets = UIEdgeInsets(top: 0, left: value, bottom: 0, right: value); return self }
@@ -413,15 +448,33 @@ struct HTextFieldSideView {
 /// 布局配置通过 `config { c in ... }` 链式调用完成。
 /// 业务回调通过属性赋值完成（如 `input.onOTPFilled = { ... }`），
 /// 配置与逻辑分离，避免大量业务代码堆在 config 闭包中。
-class HTextFieldView: UIView {
+final class HTextFieldView: UIView {
+
+    /// 真正承接菜单 / 粘贴事件的内部输入框。
+    /// 禁止粘贴必须拦在 UITextField 上，拦容器无效。
+    private final class InnerTextField: UITextField {
+        weak var container: HTextFieldView?
+
+        override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+            if container?._forbidPaste == true, action == #selector(paste(_:)) {
+                return false
+            }
+            return super.canPerformAction(action, withSender: sender)
+        }
+
+        override func paste(_ sender: Any?) {
+            if container?._forbidPaste == true { return }
+            super.paste(sender)
+        }
+    }
 
     // MARK: - Subview
 
     /// 内部文本输入框
     let textField: UITextField = {
-        let tf = UITextField()
+        let tf = InnerTextField()
         tf.backgroundColor = .clear
-        tf.translatesAutoresizingMaskIntoConstraints = false
+        tf.font = .systemFont(ofSize: 14)
         return tf
     }()
 
@@ -432,7 +485,7 @@ class HTextFieldView: UIView {
 
     func sideView(at index: Int, side: HTextFieldSideView.Side) -> UIView? {
         let filtered = _sideViews.filter { $0.side == side }
-        guard index < filtered.count else { return nil }
+        guard index >= 0, index < filtered.count else { return nil }
         return filtered[index].view
     }
 
@@ -452,6 +505,7 @@ class HTextFieldView: UIView {
 
     fileprivate var _otpEnabled: Bool = false
     fileprivate var _autoSubmitOTP: Bool = false
+    private var _lastSubmittedOTP: String?
 
     // MARK: - 回调用属性（非链式，配置与逻辑分离）
 
@@ -464,8 +518,8 @@ class HTextFieldView: UIView {
     /// 开始编辑前回调（返回 false 阻止编辑）
     var onShouldBeginEditing: (() -> Bool)?
     /// 验证码自动填充回调。
-    /// - autoSubmitOTP(false，默认)：每次编辑变化都触发
-    /// - autoSubmitOTP(true)：仅长度达到 maxLength 时触发一次
+    /// - autoSubmitOTP(false，默认)：检测到系统 OTP 整段填入时触发
+    /// - autoSubmitOTP(true)：长度达到 maxLength 时触发（同一内容不重复）
     var onOTPFilled: ((String) -> Void)?
 
     // 侧边视图之间的间距
@@ -488,7 +542,10 @@ class HTextFieldView: UIView {
 
     var text: String? {
         get { textField.text }
-        set { textField.text = newValue }
+        set {
+            textField.text = clamped(newValue)
+            resetOTPIfNeeded()
+        }
     }
 
     // MARK: - Init
@@ -504,12 +561,27 @@ class HTextFieldView: UIView {
     }
 
     private func commonInit() {
+        (textField as? InnerTextField)?.container = self
         addSubview(textField)
         textField.delegate = self
         textField.addTarget(self, action: #selector(textDidChange), for: .editingChanged)
     }
 
     // MARK: - Internal
+
+    fileprivate func replaceSideViews(_ side: HTextFieldSideView.Side, with pending: [PendingSideView]) {
+        for sv in _sideViews where sv.side == side {
+            sv.view.removeFromSuperview()
+        }
+        _sideViews.removeAll { $0.side == side }
+        for p in pending {
+            if p.config.interactive {
+                p.view.isUserInteractionEnabled = true
+            }
+            _sideViews.append(HTextFieldSideView(view: p.view, side: side, config: p.config))
+            addSubview(p.view)
+        }
+    }
 
     fileprivate func removeSideViews() {
         _sideViews.forEach { $0.view.removeFromSuperview() }
@@ -532,79 +604,202 @@ class HTextFieldView: UIView {
         textField.attributedPlaceholder = attr
     }
 
+    fileprivate func clampTextIfNeeded() {
+        let current = textField.text
+        let limited = clamped(current)
+        if limited != current {
+            textField.text = limited
+        }
+    }
+
+    private func clamped(_ value: String?) -> String? {
+        guard let value else { return nil }
+        guard _maxLength > 0, value.count > _maxLength else { return value }
+        return String(value.prefix(_maxLength))
+    }
+
+    private func sanitized(_ string: String) -> String {
+        guard _forbidWhitespace else { return string }
+        return string.filter { !$0.isWhitespace && !$0.isNewline }
+    }
+
+    private func utf16Length(_ string: String) -> Int {
+        (string as NSString).length
+    }
+
+    private func isValidReplacementRange(_ range: NSRange, in string: String) -> Bool {
+        range.location != NSNotFound && range.location + range.length <= utf16Length(string)
+    }
+
+    /// 按 Unicode 字符数截断替换结果，保留 range 前缀，再尽量填入 incoming / 后缀。
+    private func clampedReplacement(current: String, range: NSRange, incoming: String) -> String {
+        let ns = current as NSString
+        let loc = min(range.location, ns.length)
+        let end = min(range.location + range.length, ns.length)
+        let prefix = ns.substring(to: loc)
+        let suffix = ns.substring(from: end)
+        guard _maxLength > 0 else { return prefix + incoming + suffix }
+
+        var result = prefix
+        let incomingBudget = _maxLength - result.count
+        if incomingBudget > 0 {
+            result += String(incoming.prefix(incomingBudget))
+        }
+        let suffixBudget = _maxLength - result.count
+        if suffixBudget > 0 {
+            result += String(suffix.prefix(suffixBudget))
+        }
+        return result
+    }
+
+    private func insertedPortion(current: String, range: NSRange, incoming: String) -> String {
+        let prefix = (current as NSString).substring(to: min(range.location, utf16Length(current)))
+        if _maxLength <= 0 { return incoming }
+        return String(incoming.prefix(max(0, _maxLength - prefix.count)))
+    }
+
+    private func applyText(_ newText: String, cursorUTF16: Int? = nil, notify: Bool = true) {
+        textField.text = newText
+        if let cursorUTF16 {
+            moveCursor(to: cursorUTF16)
+        }
+        if notify {
+            onTextChange?(newText)
+        }
+        handleOTPAutoSubmit(newText)
+    }
+
+    private func moveCursor(to utf16Offset: Int) {
+        let field = textField
+        let offset = max(0, min(utf16Offset, utf16Length(field.text ?? "")))
+        DispatchQueue.main.async { [weak field] in
+            guard let field,
+                  let pos = field.position(from: field.beginningOfDocument, offset: offset) else { return }
+            field.selectedTextRange = field.textRange(from: pos, to: pos)
+        }
+    }
+
+    private func emitOTPFilled(_ code: String) {
+        guard _lastSubmittedOTP != code else { return }
+        _lastSubmittedOTP = code
+        onOTPFilled?(code)
+    }
+
+    private func resetOTPIfNeeded() {
+        let value = textField.text ?? ""
+        if _maxLength <= 0 || value.count < _maxLength {
+            _lastSubmittedOTP = nil
+        }
+    }
+
+    private func handleOTPAutoSubmit(_ value: String) {
+        guard _otpEnabled, _autoSubmitOTP, _maxLength > 0, value.count >= _maxLength else { return }
+        emitOTPFilled(String(value.prefix(_maxLength)))
+    }
+
     // MARK: - Layout
+
+    override var intrinsicContentSize: CGSize {
+        let font = textField.font ?? .systemFont(ofSize: 14)
+        let lineH = ceil(font.lineHeight)
+        let height = lineH + _contentInsets.top + _contentInsets.bottom
+        return CGSize(width: UIView.noIntrinsicMetric, height: max(height, 32))
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        let bounds = self.bounds
         let insets = _contentInsets
         let cr = bounds.inset(by: insets)
         let ch = cr.height
         guard ch > 0 else { return }
 
-        // 左侧视图布局
         let lefts = _sideViews.filter { $0.side == .left }
         var lo = cr.minX
         for (i, sv) in lefts.enumerated() {
             let cfg = sv.config
-            let w = cfg.width > 0 ? cfg.width : sv.view.intrinsicContentSize.width
-            let h: CGFloat
-            if cfg.height > 0 { h = min(cfg.height, ch) }
-            else { h = ch - cfg.insets.top - cfg.insets.bottom }
-            let y: CGFloat
-            switch cfg.alignment {
-            case .top:    y = cr.minY + cfg.insets.top
-            case .center: y = cr.minY + (ch - h) * 0.5
-            case .bottom: y = cr.maxY - h - cfg.insets.bottom
-            }
-            sv.view.frame = CGRect(x: lo + cfg.insets.left,
-                                   y: y,
-                                   width: max(w - cfg.insets.left - cfg.insets.right, 0),
-                                   height: max(h, 0))
+            let size = resolvedSize(for: sv, containerHeight: ch)
+            lo += cfg.insets.left
+            sv.view.frame = CGRect(
+                x: lo,
+                y: alignedY(cfg: cfg, height: size.height, in: cr),
+                width: size.width,
+                height: size.height
+            )
             lo = sv.view.frame.maxX + cfg.insets.right
             if i < lefts.count - 1 { lo += leftSpacing }
         }
         let lt = lo - cr.minX
 
-        // 右侧视图布局
         let rights = _sideViews.filter { $0.side == .right }
         var ro = cr.maxX
         for (i, sv) in rights.reversed().enumerated() {
             let cfg = sv.config
-            let w = cfg.width > 0 ? cfg.width : sv.view.intrinsicContentSize.width
-            let h: CGFloat
-            if cfg.height > 0 { h = min(cfg.height, ch) }
-            else { h = ch - cfg.insets.top - cfg.insets.bottom }
-            let y: CGFloat
-            switch cfg.alignment {
-            case .top:    y = cr.minY + cfg.insets.top
-            case .center: y = cr.minY + (ch - h) * 0.5
-            case .bottom: y = cr.maxY - h - cfg.insets.bottom
-            }
-            ro -= (w + cfg.insets.right)
-            sv.view.frame = CGRect(x: ro + cfg.insets.left,
-                                   y: y,
-                                   width: max(w - cfg.insets.left - cfg.insets.right, 0),
-                                   height: max(h, 0))
-            ro -= cfg.insets.left
+            let size = resolvedSize(for: sv, containerHeight: ch)
+            ro -= cfg.insets.right
+            sv.view.frame = CGRect(
+                x: ro - size.width,
+                y: alignedY(cfg: cfg, height: size.height, in: cr),
+                width: size.width,
+                height: size.height
+            )
+            ro = sv.view.frame.minX - cfg.insets.left
             if i < rights.count - 1 { ro -= rightSpacing }
         }
         let rt = cr.maxX - ro
 
-        // 文本区域
         let tx = cr.minX + lt + (lt > 0 ? leftTextSpacing : 0)
         let tw = cr.width - lt - rt
-                - (lt > 0 ? leftTextSpacing : 0)
-                - (rt > 0 ? rightTextSpacing : 0)
+            - (lt > 0 ? leftTextSpacing : 0)
+            - (rt > 0 ? rightTextSpacing : 0)
 
         textField.frame = CGRect(x: tx, y: cr.minY, width: max(tw, 0), height: ch)
+    }
+
+    private func resolvedSize(for sv: HTextFieldSideView, containerHeight: CGFloat) -> CGSize {
+        let cfg = sv.config
+        let intrinsic = sv.view.intrinsicContentSize
+        let width: CGFloat
+        if cfg.width > 0 {
+            width = cfg.width
+        } else if intrinsic.width > 0 && intrinsic.width != UIView.noIntrinsicMetric {
+            width = intrinsic.width
+        } else {
+            width = 0
+        }
+        let availableH = max(containerHeight - cfg.insets.top - cfg.insets.bottom, 0)
+        let height: CGFloat
+        if cfg.height > 0 {
+            height = min(cfg.height, availableH)
+        } else {
+            height = availableH
+        }
+        return CGSize(width: width, height: height)
+    }
+
+    private func alignedY(cfg: HSideViewConfig, height: CGFloat, in cr: CGRect) -> CGFloat {
+        switch cfg.alignment {
+        case .top:
+            return cr.minY + cfg.insets.top
+        case .bottom:
+            return cr.maxY - height - cfg.insets.bottom
+        case .center:
+            let top = cr.minY + cfg.insets.top
+            let usable = cr.height - cfg.insets.top - cfg.insets.bottom
+            return top + (usable - height) * 0.5
+        }
     }
 
     // MARK: - Event
 
     @objc private func textDidChange() {
-        onTextChange?(textField.text ?? "")
+        if textField.markedTextRange == nil {
+            clampTextIfNeeded()
+        }
+        let value = textField.text ?? ""
+        resetOTPIfNeeded()
+        onTextChange?(value)
+        handleOTPAutoSubmit(value)
     }
 }
 
@@ -613,68 +808,76 @@ class HTextFieldView: UIView {
 extension HTextFieldView: UITextFieldDelegate {
 
     func textFieldShouldBeginEditing(_: UITextField) -> Bool {
-        onShouldBeginEditing?() ?? _editable
+        guard _editable else { return false }
+        return onShouldBeginEditing?() ?? true
     }
 
-    func textField(_: UITextField,
+    func textField(_ textField: UITextField,
                    shouldChangeCharactersIn range: NSRange,
                    replacementString string: String) -> Bool {
-        if _forbidWhitespace,
-           string.count == 1,
-           string.contains(where: { $0.isWhitespace || $0.isNewline }) {
+        // 拼音等 marked text 由系统合成，长度限制放到 editingChanged 再截。
+        if textField.markedTextRange != nil {
+            return true
+        }
+
+        if _forbidWhitespace, string.count == 1, string.contains(where: { $0.isWhitespace || $0.isNewline }) {
             return false
         }
 
-        // OTP 自动填充检测：
-        // oneTimeCode 填充时 replacementString 是完整的验证码（如 "123456"），
-        // range.location == 0，range.length == 当前 text 长度。
-        // 此时 string.count 通常 == 验证码长度，但稳妥起见标记为 OTP 填充。
+        let current = textField.text ?? ""
+        guard isValidReplacementRange(range, in: current) else { return false }
+
+        let incoming = sanitized(string)
+        if _forbidWhitespace, incoming.isEmpty, !string.isEmpty {
+            return false
+        }
+
         let isOTPAutoFill = _otpEnabled
-                            && !string.isEmpty
-                            && range.location == 0
-                            && range.length == (textField.text?.count ?? 0)
-                            && string.count > 1
+            && !incoming.isEmpty
+            && range.location == 0
+            && range.length == utf16Length(current)
+            && incoming.count > 1
+
+        if _forbidPaste, !isOTPAutoFill, incoming.count > 1 {
+            return false
+        }
+
+        let unrestricted = (current as NSString).replacingCharacters(in: range, with: incoming)
+        let proposed = clampedReplacement(current: current, range: range, incoming: incoming)
+        let didMutate = incoming != string || proposed != unrestricted
 
         if isOTPAutoFill {
-            let code = string
-            if _autoSubmitOTP && _maxLength > 0 && code.count >= _maxLength {
-                textField.text = String(code.prefix(_maxLength))
-                onOTPFilled?(String(code.prefix(_maxLength)))
-                return false
-            } else {
-                onOTPFilled?(code)
-                // 仍然让系统处理填入
-                return true
+            if didMutate {
+                applyText(proposed, cursorUTF16: utf16Length(proposed))
             }
+            if !_autoSubmitOTP {
+                onOTPFilled?(proposed)
+            }
+            return !didMutate
         }
 
-        guard _maxLength > 0, let ct = textField.text else { return true }
-        let nl = ct.count - range.length + string.count
-        guard nl > _maxLength else { return true }
-
-        if string.count > 1 {
-            let safe = string.trimmingCharacters(in: .whitespacesAndNewlines)
-            textField.text = String((ct + safe).prefix(_maxLength))
-            DispatchQueue.main.async {
-                if let pos = self.textField.position(from: self.textField.beginningOfDocument,
-                                                offset: ct.count) {
-                    self.textField.selectedTextRange = self.textField.textRange(from: pos, to: pos)
-                }
-            }
-        } else {
-            textField.text = String((ct + string).prefix(_maxLength))
+        if didMutate {
+            if proposed == current { return false }
+            let inserted = insertedPortion(current: current, range: range, incoming: incoming)
+            applyText(proposed, cursorUTF16: min(range.location, utf16Length(current)) + utf16Length(inserted))
+            return false
         }
-        return false
+
+        return true
     }
 
     func textFieldDidEndEditing(_: UITextField) {
+        let before = textField.text ?? ""
+        var result = before
         if _forbidWhitespace {
-            textField.text = textField.text?
-                .replacingOccurrences(of: " ", with: "")
-                .replacingOccurrences(of: "\n", with: "")
+            result = result.filter { !$0.isWhitespace && !$0.isNewline }
         }
-        textField.text = textField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        onDidEndEditing?(textField.text ?? "")
+        result = result.trimmingCharacters(in: .whitespacesAndNewlines)
+        if result != before {
+            textField.text = result
+            onTextChange?(result)
+        }
+        onDidEndEditing?(result)
     }
 
     func textFieldShouldReturn(_: UITextField) -> Bool {
@@ -684,30 +887,9 @@ extension HTextFieldView: UITextFieldDelegate {
     }
 }
 
-// MARK: - HitTest & Paste
+// MARK: - First responder
 
 extension HTextFieldView {
-
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        for sv in _sideViews where sv.config.interactive {
-            if sv.view.frame.contains(point) {
-                return sv.view.hitTest(convert(point, to: sv.view), with: event)
-            }
-        }
-        if textField.frame.contains(point) { return textField }
-        return super.hitTest(point, with: event)
-    }
-
-    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
-        if _forbidPaste {
-            DispatchQueue.main.async {
-                UIMenuController.shared.hideMenu()
-            }
-            return false
-        }
-        return super.canPerformAction(action, withSender: sender)
-    }
-
     override var canBecomeFirstResponder: Bool { textField.canBecomeFirstResponder }
     @discardableResult
     override func becomeFirstResponder() -> Bool { textField.becomeFirstResponder() }
