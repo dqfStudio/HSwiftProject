@@ -311,17 +311,15 @@ c.contentInsets(top: 0, left: 12, bottom: 0, right: 12)  // 便捷
 | 方法 | 位置 | 默认宽 | 说明 |
 |------|------|--------|------|
 | `leftLabel(text:)` | 左 | auto | 文字标签 |
-| `leftIcon(image:)` | 左 | 24 | 图标 |
+| `leftIcon(image:)` | 左 | 24 | 本地图标 |
 | `leftButton(title:)` | 左 | 60 | 可点击按钮 |
-| `leftWebImage()` | 左 | 24 | HWebImageView |
-| `leftWebButton(title:)` | 左 | 60 | HWebButtonView |
+| `leftImageText(text:)` | 左 | 24 / 60 | HImageTextView（无文案当图标，有文案当按钮） |
 | `leftView(view:)` | 左 | auto | 自定义视图 |
 | `rightLabel(text:)` | 右 | auto | 文字标签 |
-| `rightIcon(image:)` | 右 | 24 | 图标 |
+| `rightIcon(image:)` | 右 | 24 | 本地图标 |
 | `rightButton(title:)` | 右 | 60 | 可点击按钮 |
 | `rightCountdown()` | 右 | 90 | 倒计时按钮 |
-| `rightWebImage()` | 右 | 24 | HWebImageView |
-| `rightWebButton(title:)` | 右 | 60 | HWebButtonView |
+| `rightImageText(text:)` | 右 | 24 / 60 | HImageTextView（无文案当图标，有文案当按钮） |
 | `rightVerifyCode(width:)` | 右 | 100 | 验证码视图 |
 | `rightView(view:)` | 右 | auto | 自定义视图 |
 

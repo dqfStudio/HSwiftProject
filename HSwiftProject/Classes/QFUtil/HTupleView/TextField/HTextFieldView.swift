@@ -206,24 +206,13 @@ final class HTextFieldConfigurator {
         return self
     }
 
+    /// 左侧图文（`HImageTextView`）。
+    /// 无文案按图标（宽 24，不可点）；有文案按按钮（宽 60，可点）。
+    /// 图片请在 `config` 之后通过 `sideView(at:side:)` 拿到视图再设。
+    /// 无文案但需要点击时，在 block 里 `.interactive(true)`。
     @discardableResult
-    func leftWebImage(block: ((HSideViewConfig) -> Void)? = nil) -> Self {
-        let iv = HWebImageView()
-        iv.contentMode = .scaleAspectFit
-        let cfg = HSideViewConfig(width: 24)
-        block?(cfg)
-        pendingLeft.append(PendingSideView(view: iv, config: cfg))
-        return self
-    }
-
-    @discardableResult
-    func leftWebButton(_ title: String? = nil, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
-        let btn = HWebButtonView()
-        btn.textFont = .systemFont(ofSize: 14)
-        if let title = title { btn.setTitle(title, for: .normal) }
-        let cfg = HSideViewConfig(width: 60, interactive: true)
-        block?(cfg)
-        pendingLeft.append(PendingSideView(view: btn, config: cfg))
+    func leftImageText(_ text: String? = nil, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
+        pendingLeft.append(makeImageTextSide(text, block: block))
         return self
     }
 
@@ -281,24 +270,10 @@ final class HTextFieldConfigurator {
         return self
     }
 
+    /// 右侧图文（`HImageTextView`）。规则同 `leftImageText`。
     @discardableResult
-    func rightWebImage(block: ((HSideViewConfig) -> Void)? = nil) -> Self {
-        let iv = HWebImageView()
-        iv.contentMode = .scaleAspectFit
-        let cfg = HSideViewConfig(width: 24)
-        block?(cfg)
-        pendingRight.append(PendingSideView(view: iv, config: cfg))
-        return self
-    }
-
-    @discardableResult
-    func rightWebButton(_ title: String? = nil, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
-        let btn = HWebButtonView()
-        btn.textFont = .systemFont(ofSize: 14)
-        if let title = title { btn.setTitle(title, for: .normal) }
-        let cfg = HSideViewConfig(width: 60, interactive: true)
-        block?(cfg)
-        pendingRight.append(PendingSideView(view: btn, config: cfg))
+    func rightImageText(_ text: String? = nil, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
+        pendingRight.append(makeImageTextSide(text, block: block))
         return self
     }
 
@@ -356,6 +331,20 @@ final class HTextFieldConfigurator {
     }
 
     // MARK: - 内部
+
+    /// 无文案：宽 24、不可点，图片铺满侧边区域；有文案：宽 60、可点。
+    private func makeImageTextSide(_ text: String?, block: ((HSideViewConfig) -> Void)?) -> PendingSideView {
+        let view = HImageTextView()
+        view.contentMode = .scaleAspectFit
+        let hasText = !(text ?? "").isEmpty
+        if hasText {
+            view.textFont = .systemFont(ofSize: 14)
+            view.text = text
+        }
+        let cfg = HSideViewConfig(width: hasText ? 60 : 24, interactive: hasText)
+        block?(cfg)
+        return PendingSideView(view: view, config: cfg)
+    }
 
     fileprivate func apply() {
         if !pendingLeft.isEmpty {
@@ -628,7 +617,7 @@ final class HTextFieldView: UIView {
     }
 
     private func isValidReplacementRange(_ range: NSRange, in string: String) -> Bool {
-        range.location != NSNotFound && range.location + range.length <= utf16Length(string)
+        range.location != NSNotFound && NSMaxRange(range) <= utf16Length(string)
     }
 
     /// 按 Unicode 字符数截断替换结果，保留 range 前缀，再尽量填入 incoming / 后缀。
