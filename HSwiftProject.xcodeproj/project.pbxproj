@@ -514,12 +514,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		047C671B2E1161BF00CB491A /* HCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollectionView.swift; sourceTree = "<group>"; };
-		047C671D2E1162CE00CB491A /* HCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HCollectionViewLayout.swift; sourceTree = "<group>"; };
 		1BB82D7ADBAE5E81293195A4 /* Pods-HSwiftProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSwiftProject.release.xcconfig"; path = "Target Support Files/Pods-HSwiftProject/Pods-HSwiftProject.release.xcconfig"; sourceTree = "<group>"; };
 		2379687B2EC5D3020017DF70 /* DPMViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMViewModelProtocol.swift; sourceTree = "<group>"; };
 		2379687D2EC5D31C0017DF70 /* DPMReactiveViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMReactiveViewProtocol.swift; sourceTree = "<group>"; };
-		2379687F2EC5D3510017DF70 /* DPMBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMBaseViewModel.swift; sourceTree = "<group>"; };
 		237968812EC5D3CF0017DF70 /* DPMBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMBaseView.swift; sourceTree = "<group>"; };
 		237968832EC5D3EC0017DF70 /* DPMBaseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMBaseTableCell.swift; sourceTree = "<group>"; };
 		237968852EC5D4200017DF70 /* DPMBaseCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMBaseCollectionCell.swift; sourceTree = "<group>"; };
@@ -1069,7 +1066,6 @@
 			isa = PBXGroup;
 			children = (
 				237968762EC5D2EE0017DF70 /* BaseViewControllers */,
-				237968772EC5D2EE0017DF70 /* BaseViewModel */,
 				237968782EC5D2EE0017DF70 /* BaseViews */,
 				237968792EC5D2EE0017DF70 /* Network */,
 				2379687A2EC5D2EE0017DF70 /* Protocol */,
@@ -1082,14 +1078,6 @@
 			children = (
 			);
 			path = BaseViewControllers;
-			sourceTree = "<group>";
-		};
-		237968772EC5D2EE0017DF70 /* BaseViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				2379687F2EC5D3510017DF70 /* DPMBaseViewModel.swift */,
-			);
-			path = BaseViewModel;
 			sourceTree = "<group>";
 		};
 		237968782EC5D2EE0017DF70 /* BaseViews */ = {
@@ -1363,8 +1351,6 @@
 			isa = PBXGroup;
 			children = (
 				A289239E238B72F800E4AB75 /* HTupleView.swift */,
-				047C671B2E1161BF00CB491A /* HCollectionView.swift */,
-				047C671D2E1162CE00CB491A /* HCollectionViewLayout.swift */,
 				EB90BC292CC245BD00C392C4 /* HTupleLayout.swift */,
 				EBD11E4C2CA6F7C500E1E6BF /* HTupleTmplView.swift */,
 				A289239F238B72F800E4AB75 /* HTupleViewLayout.swift */,
