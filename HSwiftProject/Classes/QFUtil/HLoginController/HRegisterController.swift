@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HRegisterController: HViewController, HTupleViewDelegate {
+class HRegisterController: HCusViewController, HTupleViewDelegate {
 
     lazy var tupleView: HTupleView = {
         let tupleView = HTupleView.splitFrame {
@@ -26,6 +26,10 @@ class HRegisterController: HViewController, HTupleViewDelegate {
         return tupleView
     }()
 
+    override var prefersNavigationLeftItemHidden: Bool {
+        true
+    }
+
     override func vcWillDisappear(_ type: HVCDisappearType) {
         if type == .pop || type == .dismiss {
             self.tupleView.releaseTupleBlock()
@@ -35,7 +39,6 @@ class HRegisterController: HViewController, HTupleViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "注册"
-        self.navigationBar.leftItem.isHidden = true
         
         self.tupleView.delegate = self
         self.view.addSubview(self.tupleView)

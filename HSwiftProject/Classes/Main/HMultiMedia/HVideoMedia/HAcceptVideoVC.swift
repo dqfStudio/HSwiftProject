@@ -19,7 +19,7 @@ var kAcceptVideoHeight1: CGFloat = 55.0
 var kAcceptVideoHeight2: CGFloat = 65.0
 
 ///视频来电
-class HAcceptVideoVC: HViewController, HTupleViewDelegate {
+class HAcceptVideoVC: HCusViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
         let tupleView = HTupleView.splitFrame({

@@ -13,7 +13,7 @@ typealias HCollDropInsetBlock = () -> UIEdgeInsets
 typealias HCollDropHeightBlock = (_ index: Int) -> CGFloat
 typealias HCollDropItemBlock = (_ coll: HCollView, _ indexPath: IndexPath) -> Void
 
-class HCollDropVC: HViewController, HCollViewDelegate {
+class HCollDropVC: HCusViewController, HCollViewDelegate {
     
     let itemsHeight = NSMutableDictionary()
     var numberBlock: HCollDropNumberBlock?
@@ -21,6 +21,10 @@ class HCollDropVC: HViewController, HCollViewDelegate {
     var heightBlock: HCollDropHeightBlock?
     var itemBlock: HCollDropItemBlock?
     var topHeight = UIScreen.statusBarHeight
+
+    override var prefersNavigationBarHidden: Bool {
+        true
+    }
 
     init(topSpacing: CGFloat) {
         self.topHeight += topSpacing
@@ -65,7 +69,6 @@ class HCollDropVC: HViewController, HCollViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
-        self.navigationBar.isHidden = true
         self.collView.delegate = self
         self.view.addSubview(self.collView)
     }

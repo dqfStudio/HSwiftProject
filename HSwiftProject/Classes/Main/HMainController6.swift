@@ -10,10 +10,13 @@ import UIKit
 
 class HMainController6: HFlowController {
 
+    override var prefersNavigationBarHidden: Bool {
+        true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.navigationBar.isHidden = true
         self.flowView.delegate = self
         self.topExtendedLayout = false
     }

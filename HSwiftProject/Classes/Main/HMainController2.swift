@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HMainController2: HViewController {
+class HMainController2: HCusViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

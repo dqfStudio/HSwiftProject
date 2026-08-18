@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
+class HUserLiveNoteVC : HCusViewController, HTupleViewDelegate {
 
     private lazy var visualView: UIVisualEffectView = {
         let blur = UIBlurEffect(style: .extraLight)
@@ -38,11 +38,14 @@ class HUserLiveNoteVC : HViewController, HTupleViewDelegate {
         return CGSize(width: 270, height: 86 + self.noteSize.height)
     }
 
+    override var prefersNavigationBarHidden: Bool {
+        true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .clear
-        self.navigationBar.isHidden = true
         if self.hideVisualView {
             self.tupleView.backgroundColor = UIColor.white
             self.view.addSubview(self.tupleView)

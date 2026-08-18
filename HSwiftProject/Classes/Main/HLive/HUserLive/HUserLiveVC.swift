@@ -13,7 +13,7 @@ enum HLiveStatus: Int {
     case liveing = 1
 }
 
-class HUserLiveVC: HViewController, HTupleViewDelegate {
+class HUserLiveVC: HCusViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
         var frame = UIScreen.bound

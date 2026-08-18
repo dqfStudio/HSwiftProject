@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HGameCategoryVC : HViewController, HTupleViewDelegate {
+class HGameCategoryVC : HCusViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
         let tupleView = HTupleView.splitFrame {

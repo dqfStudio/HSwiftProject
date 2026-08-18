@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HAcceptAudioVC: HViewController, HTupleViewDelegate {
+class HAcceptAudioVC: HCusViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
         var frame = UIScreen.bound

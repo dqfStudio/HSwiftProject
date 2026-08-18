@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2379687C2EC5D3020017DF70 /* DPMViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379687B2EC5D3020017DF70 /* DPMViewModelProtocol.swift */; };
-		2379687E2EC5D31C0017DF70 /* DPMReactiveViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379687D2EC5D31C0017DF70 /* DPMReactiveViewProtocol.swift */; };
-		237968822EC5D3CF0017DF70 /* DPMBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237968812EC5D3CF0017DF70 /* DPMBaseView.swift */; };
-		237968842EC5D3EC0017DF70 /* DPMBaseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237968832EC5D3EC0017DF70 /* DPMBaseTableCell.swift */; };
-		237968862EC5D4200017DF70 /* DPMBaseCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237968852EC5D4200017DF70 /* DPMBaseCollectionCell.swift */; };
-		237968882EC5D4520017DF70 /* DPMBaseHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237968872EC5D4520017DF70 /* DPMBaseHeaderFooterView.swift */; };
-		2379688A2EC5D4770017DF70 /* DPMBaseReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237968892EC5D4770017DF70 /* DPMBaseReusableView.swift */; };
-		2379688C2EC5D4940017DF70 /* DPMBaseStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379688B2EC5D4940017DF70 /* DPMBaseStackView.swift */; };
+		2379687C2EC5D3020017DF70 /* HViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379687B2EC5D3020017DF70 /* HViewModelProtocol.swift */; };
+		2379687E2EC5D31C0017DF70 /* HReactiveViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379687D2EC5D31C0017DF70 /* HReactiveViewProtocol.swift */; };
+		237968822EC5D3CF0017DF70 /* HBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237968812EC5D3CF0017DF70 /* HBaseView.swift */; };
+		237968842EC5D3EC0017DF70 /* HBaseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237968832EC5D3EC0017DF70 /* HBaseTableCell.swift */; };
+		237968862EC5D4200017DF70 /* HBaseCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237968852EC5D4200017DF70 /* HBaseCollectionCell.swift */; };
+		237968882EC5D4520017DF70 /* HBaseHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237968872EC5D4520017DF70 /* HBaseHeaderFooterView.swift */; };
+		2379688A2EC5D4770017DF70 /* HBaseReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 237968892EC5D4770017DF70 /* HBaseReusableView.swift */; };
+		2379688C2EC5D4940017DF70 /* HBaseStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2379688B2EC5D4940017DF70 /* HBaseStackView.swift */; };
 		56DDBA7CCDB9BFB82A6C14A8 /* Pods_HSwiftProject.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E58A288F46164A2F70B398C /* Pods_HSwiftProject.framework */; };
 		A2188795238FD3CC005C20BF /* HGameCategoryVC+HSection0.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2188794238FD3CC005C20BF /* HGameCategoryVC+HSection0.swift */; };
 		A2188797238FD3D6005C20BF /* HGameCategoryVC+HSection1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2188796238FD3D6005C20BF /* HGameCategoryVC+HSection1.swift */; };
@@ -193,7 +193,7 @@
 		EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DAC42A00D69300C96CAC /* HViewController2.swift */; };
 		EB23DACD2A027D6C00C96CAC /* HSheetAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */; };
 		EB3541962BD61A75003B1D69 /* HBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541952BD61A75003B1D69 /* HBaseController.swift */; };
-		EB3541982BD61A75003B1D69 /* DPMBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541972BD61A75003B1D69 /* DPMBaseViewModel.swift */; };
+		EB3541982BD61A75003B1D69 /* HBaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541972BD61A75003B1D69 /* HBaseViewModel.swift */; };
 		EB35419E2BD90E39003B1D69 /* HActivebar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB35419D2BD90E39003B1D69 /* HActivebar.swift */; };
 		EB3541A02BDA2CFA003B1D69 /* HActiveView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB35419F2BDA2CFA003B1D69 /* HActiveView2.swift */; };
 		EB3541B62BE7C760003B1D69 /* HActiveNaviController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3541B52BE7C75F003B1D69 /* HActiveNaviController.swift */; };
@@ -503,14 +503,14 @@
 
 /* Begin PBXFileReference section */
 		1BB82D7ADBAE5E81293195A4 /* Pods-HSwiftProject.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSwiftProject.release.xcconfig"; path = "Target Support Files/Pods-HSwiftProject/Pods-HSwiftProject.release.xcconfig"; sourceTree = "<group>"; };
-		2379687B2EC5D3020017DF70 /* DPMViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMViewModelProtocol.swift; sourceTree = "<group>"; };
-		2379687D2EC5D31C0017DF70 /* DPMReactiveViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMReactiveViewProtocol.swift; sourceTree = "<group>"; };
-		237968812EC5D3CF0017DF70 /* DPMBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMBaseView.swift; sourceTree = "<group>"; };
-		237968832EC5D3EC0017DF70 /* DPMBaseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMBaseTableCell.swift; sourceTree = "<group>"; };
-		237968852EC5D4200017DF70 /* DPMBaseCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMBaseCollectionCell.swift; sourceTree = "<group>"; };
-		237968872EC5D4520017DF70 /* DPMBaseHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMBaseHeaderFooterView.swift; sourceTree = "<group>"; };
-		237968892EC5D4770017DF70 /* DPMBaseReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMBaseReusableView.swift; sourceTree = "<group>"; };
-		2379688B2EC5D4940017DF70 /* DPMBaseStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMBaseStackView.swift; sourceTree = "<group>"; };
+		2379687B2EC5D3020017DF70 /* HViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewModelProtocol.swift; sourceTree = "<group>"; };
+		2379687D2EC5D31C0017DF70 /* HReactiveViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HReactiveViewProtocol.swift; sourceTree = "<group>"; };
+		237968812EC5D3CF0017DF70 /* HBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseView.swift; sourceTree = "<group>"; };
+		237968832EC5D3EC0017DF70 /* HBaseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseTableCell.swift; sourceTree = "<group>"; };
+		237968852EC5D4200017DF70 /* HBaseCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseCollectionCell.swift; sourceTree = "<group>"; };
+		237968872EC5D4520017DF70 /* HBaseHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseHeaderFooterView.swift; sourceTree = "<group>"; };
+		237968892EC5D4770017DF70 /* HBaseReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseReusableView.swift; sourceTree = "<group>"; };
+		2379688B2EC5D4940017DF70 /* HBaseStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseStackView.swift; sourceTree = "<group>"; };
 		3E58A288F46164A2F70B398C /* Pods_HSwiftProject.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HSwiftProject.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FCF4A64524E92AA18844373 /* Pods-HSwiftProject.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HSwiftProject.debug.xcconfig"; path = "Target Support Files/Pods-HSwiftProject/Pods-HSwiftProject.debug.xcconfig"; sourceTree = "<group>"; };
 		A2188794238FD3CC005C20BF /* HGameCategoryVC+HSection0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HGameCategoryVC+HSection0.swift"; sourceTree = "<group>"; };
@@ -692,7 +692,7 @@
 		EB23DAC42A00D69300C96CAC /* HViewController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HViewController2.swift; sourceTree = "<group>"; };
 		EB23DACC2A027D6C00C96CAC /* HSheetAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSheetAction.swift; sourceTree = "<group>"; };
 		EB3541952BD61A75003B1D69 /* HBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseController.swift; sourceTree = "<group>"; };
-		EB3541972BD61A75003B1D69 /* DPMBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMBaseViewModel.swift; sourceTree = "<group>"; };
+		EB3541972BD61A75003B1D69 /* HBaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HBaseViewModel.swift; sourceTree = "<group>"; };
 		EB35419D2BD90E39003B1D69 /* HActivebar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActivebar.swift; sourceTree = "<group>"; };
 		EB35419F2BDA2CFA003B1D69 /* HActiveView2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveView2.swift; sourceTree = "<group>"; };
 		EB3541B52BE7C75F003B1D69 /* HActiveNaviController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HActiveNaviController.swift; sourceTree = "<group>"; };
@@ -1039,12 +1039,12 @@
 		237968782EC5D2EE0017DF70 /* BaseViews */ = {
 			isa = PBXGroup;
 			children = (
-				237968812EC5D3CF0017DF70 /* DPMBaseView.swift */,
-				237968832EC5D3EC0017DF70 /* DPMBaseTableCell.swift */,
-				237968852EC5D4200017DF70 /* DPMBaseCollectionCell.swift */,
-				237968872EC5D4520017DF70 /* DPMBaseHeaderFooterView.swift */,
-				237968892EC5D4770017DF70 /* DPMBaseReusableView.swift */,
-				2379688B2EC5D4940017DF70 /* DPMBaseStackView.swift */,
+				237968812EC5D3CF0017DF70 /* HBaseView.swift */,
+				237968832EC5D3EC0017DF70 /* HBaseTableCell.swift */,
+				237968852EC5D4200017DF70 /* HBaseCollectionCell.swift */,
+				237968872EC5D4520017DF70 /* HBaseHeaderFooterView.swift */,
+				237968892EC5D4770017DF70 /* HBaseReusableView.swift */,
+				2379688B2EC5D4940017DF70 /* HBaseStackView.swift */,
 			);
 			path = BaseViews;
 			sourceTree = "<group>";
@@ -1059,8 +1059,8 @@
 		2379687A2EC5D2EE0017DF70 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				2379687B2EC5D3020017DF70 /* DPMViewModelProtocol.swift */,
-				2379687D2EC5D31C0017DF70 /* DPMReactiveViewProtocol.swift */,
+				2379687B2EC5D3020017DF70 /* HViewModelProtocol.swift */,
+				2379687D2EC5D31C0017DF70 /* HReactiveViewProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -1670,7 +1670,7 @@
 				EB47CC2F2F94BF9C00EB5391 /* HSysViewController.swift */,
 				EB3541BB2BE86151003B1D69 /* HActiveTabbarVC.swift */,
 				EB3541952BD61A75003B1D69 /* HBaseController.swift */,
-				EB3541972BD61A75003B1D69 /* DPMBaseViewModel.swift */,
+				EB3541972BD61A75003B1D69 /* HBaseViewModel.swift */,
 				A2B4307F237FF57C00795605 /* HViewController.swift */,
 				EB23DAC42A00D69300C96CAC /* HViewController2.swift */,
 				A258395823B4E70F00881941 /* HFlowController.swift */,
@@ -2760,14 +2760,14 @@
 				EBFL02072FB9E1FC004DF5D8 /* HFlowView+Config.swift in Sources */,
 				EBFL02082FB9E1FC004DF5D8 /* HFlowView+Interaction.swift in Sources */,
 				EBFL02092FB9E1FC004DF5D8 /* HFlowView+ImageSize.swift in Sources */,
-				2379687C2EC5D3020017DF70 /* DPMViewModelProtocol.swift in Sources */,
-				2379687E2EC5D31C0017DF70 /* DPMReactiveViewProtocol.swift in Sources */,
-				237968822EC5D3CF0017DF70 /* DPMBaseView.swift in Sources */,
-				237968842EC5D3EC0017DF70 /* DPMBaseTableCell.swift in Sources */,
-				237968862EC5D4200017DF70 /* DPMBaseCollectionCell.swift in Sources */,
-				237968882EC5D4520017DF70 /* DPMBaseHeaderFooterView.swift in Sources */,
-				2379688A2EC5D4770017DF70 /* DPMBaseReusableView.swift in Sources */,
-				2379688C2EC5D4940017DF70 /* DPMBaseStackView.swift in Sources */,
+				2379687C2EC5D3020017DF70 /* HViewModelProtocol.swift in Sources */,
+				2379687E2EC5D31C0017DF70 /* HReactiveViewProtocol.swift in Sources */,
+				237968822EC5D3CF0017DF70 /* HBaseView.swift in Sources */,
+				237968842EC5D3EC0017DF70 /* HBaseTableCell.swift in Sources */,
+				237968862EC5D4200017DF70 /* HBaseCollectionCell.swift in Sources */,
+				237968882EC5D4520017DF70 /* HBaseHeaderFooterView.swift in Sources */,
+				2379688A2EC5D4770017DF70 /* HBaseReusableView.swift in Sources */,
+				2379688C2EC5D4940017DF70 /* HBaseStackView.swift in Sources */,
 				A2B4308323801C4E00795605 /* HWebButtonView.swift in Sources */,
 				A26D43172383DE5800F457AE /* UIColor+HUtil.swift in Sources */,
 				EB80B66E2A122A940016648A /* HScrollbar.swift in Sources */,
@@ -2879,7 +2879,7 @@
 				EB43241229C2EB3F00EDDB64 /* NSObject+HLanguage.swift in Sources */,
 				A229488E239756770058B939 /* HFlowBaseApex.swift in Sources */,
 				EB3541962BD61A75003B1D69 /* HBaseController.swift in Sources */,
-				EB3541982BD61A75003B1D69 /* DPMBaseViewModel.swift in Sources */,
+				EB3541982BD61A75003B1D69 /* HBaseViewModel.swift in Sources */,
 				EB23DAC52A00D69300C96CAC /* HViewController2.swift in Sources */,
 				EBA167BB2D16CC0E00DD2088 /* VideoDownloader.swift in Sources */,
 				EB1C8D7B2C02CDFD00ADF411 /* HPostCommentViewApex.swift in Sources */,

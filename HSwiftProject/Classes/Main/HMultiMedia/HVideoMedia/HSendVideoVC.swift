@@ -20,7 +20,7 @@ enum HSendVideoStatus: Int {
 var kSendVideoHeight1: CGFloat = 55.0
 var kSendVideoHeight2: CGFloat = 65.0
 
-class HSendVideoVC: HViewController, HTupleViewDelegate {
+class HSendVideoVC: HCusViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
         let tupleView = HTupleView.splitFrame({

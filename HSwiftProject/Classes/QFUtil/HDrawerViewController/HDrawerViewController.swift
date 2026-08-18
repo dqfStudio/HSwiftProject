@@ -34,7 +34,7 @@ let kDefaultVisibleMenuWidth: CGFloat = 315.0
 }
 
 // 抽屉控制器
-class HDrawerViewController: HViewController, UIGestureRecognizerDelegate {
+class HDrawerViewController: HCusViewController, UIGestureRecognizerDelegate {
     
     // 拖拽手势
     private lazy var panGesture: UIPanGestureRecognizer = {

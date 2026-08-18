@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 typealias HTableCellSelectBlock = () -> Void
 
@@ -135,5 +136,32 @@ class HFlowBaseCell: UITableViewCell {
         edgeInsets = .zero
         accessoryView = nil
         super.accessoryType = .none
+    }
+}
+
+/// 带 ViewModel 绑定的 `HFlowBaseCell`。
+///
+/// UIKit 复用时无法在 `init` 里注入 VM，需在 `flowRow` 里调用 `bindViewModel(_:)`。
+/// 只重置 cell 自己的订阅，不要在这里 `viewModel.destroy()`。
+class HFlowBindableCell<VM: HBaseViewModel>: HFlowBaseCell {
+
+    private(set) var viewModel: VM?
+
+    var disposeBag: DisposeBag? = DisposeBag()
+
+    /// 先换 bag 再赋值，避免同一次配置被调两次时叠订阅。
+    func bindViewModel(_ viewModel: VM) {
+        disposeBag = DisposeBag()
+        self.viewModel = viewModel
+        bindViewModel()
+    }
+
+    /// 子类订阅 Relays。子视图仍走 `initUI()`。
+    func bindViewModel() {}
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+        viewModel = nil
     }
 }

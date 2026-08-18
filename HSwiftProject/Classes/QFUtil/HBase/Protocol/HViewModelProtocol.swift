@@ -1,5 +1,5 @@
 //
-//  DPMViewModelProtocol.swift
+//  HViewModelProtocol.swift
 //  HSwiftProject
 //
 //  Created by windy on 2025/11/13.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc protocol DPMViewModelProtocol: NSObjectProtocol {
+@objc protocol HViewModelProtocol: NSObjectProtocol {
     /// 初始化
-    func dpm_initialize()
+    func dm_initialize()
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HPostVC: HViewController, HTupleViewDelegate {
+class HPostVC: HCusViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
         var frame = UIScreen.bound
@@ -31,9 +31,12 @@ class HPostVC: HViewController, HTupleViewDelegate {
     
     var postList: [HPostVM] = [HPostVM]()
     
+    override var prefersNavigationBarHidden: Bool {
+        true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBar.isHidden = true
         self.tupleView.delegate = self
         self.view.addSubview(self.tupleView)
         self.tupleView.snp.makeConstraints { make in

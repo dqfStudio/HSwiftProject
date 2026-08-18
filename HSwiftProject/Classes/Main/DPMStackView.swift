@@ -9,7 +9,7 @@
 //import UIKit
 //
 //// 组件基类（所有具体组件需继承）
-//class DPMBaseComponentView: DPMBaseView {
+//class DPMBaseComponentView: HBaseView {
 //    // 复用标识（子类需重写）
 //    class var reuseIdentifier: String {
 //        return String(describing: self)

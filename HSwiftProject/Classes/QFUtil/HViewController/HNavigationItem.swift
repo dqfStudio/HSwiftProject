@@ -80,6 +80,12 @@ class HNavigationItem: UIButton {
         }
     }
     
+    override var isHighlighted: Bool {
+        didSet {
+            imageView?.alpha = 1.0
+        }
+    }
+
     override var intrinsicContentSize: CGSize {
         let size = super.intrinsicContentSize
         return CGSize(width: max(size.width, 44), height: max(size.height, 44))
@@ -106,7 +112,6 @@ class HNavigationItem: UIButton {
     private func setup() {
         backgroundColor = .clear
         layer.masksToBounds = true
-        adjustsImageWhenHighlighted = false
         imageView?.contentMode = .scaleAspectFit
         titleLabel?.font = .systemFont(ofSize: 17.0)
         titleLabel?.adjustsFontSizeToFitWidth = true

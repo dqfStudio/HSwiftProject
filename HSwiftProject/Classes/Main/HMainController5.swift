@@ -62,7 +62,7 @@ private let kTabBarHeight: CGFloat = 50.0
 //
 //}
 
-class HMainController5: HViewController {
+class HMainController5: HCusViewController {
     
     lazy var activeBar: HActivebar = {
         let activeWidth = self.view.width

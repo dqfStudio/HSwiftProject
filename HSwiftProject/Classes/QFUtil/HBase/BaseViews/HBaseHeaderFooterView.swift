@@ -1,5 +1,5 @@
 //
-//  DPMBaseView.swift
+//  HBaseHeaderFooterView.swift
 //  HSwiftProject
 //
 //  Created by windy on 2025/11/13.
@@ -11,33 +11,30 @@ import RxCocoa
 import RxSwift
 
 @objcMembers
-class DPMBaseView: UIView, DPMReactiveViewProtocol {
+class HBaseHeaderFooterView: UITableViewHeaderFooterView, HReactiveViewProtocol {
     
     var disposeBag: DisposeBag? = DisposeBag()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        self.dpm_setupViews()
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
+        self.dm_setupViews()
     }
-    
+
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func dpm_setupViews() {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
+    
+    func dm_setupViews() {
         
     }
     
-    func dpm_bindViewModel(_ viewModel:Any?) {
-        
-    }
-    
-    func dpm_destroy() {
-        
-    }
-    
-    deinit {
+    func dm_bindViewModel(_ viewModel: Any?) {
         
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HChatsMsgVC: HViewController {
+class HChatsMsgVC: HCusViewController {
     lazy var tableView: UITableView = {
         let table = UITableView()
         table.backgroundColor = .clear
@@ -52,10 +52,13 @@ class HChatsMsgVC: HViewController {
         return table
     }()
     
+    override var prefersNavigationBarHidden: Bool {
+        true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Add custom navigation bar
-        self.navigationBar.isHidden = true
         self.view.addSubview(self.tableView)
 //        self.view.addSubview(tableView)
 //        self.view.addSubview(chatBarBackgroundView)

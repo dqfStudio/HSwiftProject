@@ -1,5 +1,5 @@
 //
-//  DPMReactiveViewProtocol.swift
+//  HReactiveViewProtocol.swift
 //  HSwiftProject
 //
 //  Created by windy on 2025/11/13.
@@ -8,9 +8,9 @@
 
 import Foundation
 
-@objc protocol DPMReactiveViewProtocol: NSObjectProtocol {
+@objc protocol HReactiveViewProtocol: NSObjectProtocol {
     /// 添加控件 最好最后加上[self.view setNeedsUpdateConstraints]和[self.view updateConstraintsIfNeeded]，以防不调用updateViewConstraints
-    func dpm_setupViews()
+    func dm_setupViews()
     /// 绑定VM
-    func dpm_bindViewModel(_ viewModel: Any?)
+    func dm_bindViewModel(_ viewModel: Any?)
 }

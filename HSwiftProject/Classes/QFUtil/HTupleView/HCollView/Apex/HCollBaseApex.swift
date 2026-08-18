@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class HCollBaseApex: UICollectionReusableView {
 
@@ -66,5 +67,32 @@ class HCollBaseApex: UICollectionReusableView {
 
     override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
         layoutAttributes
+    }
+}
+
+/// 带 ViewModel 绑定的 `HCollBaseApex`。
+///
+/// UIKit 复用时无法在 `init` 里注入 VM，需在配置 header / footer 时调用 `bindViewModel(_:)`。
+/// 只重置自身订阅，不要在这里 `viewModel.destroy()`。
+class HCollBindableApex<VM: HBaseViewModel>: HCollBaseApex {
+
+    private(set) var viewModel: VM?
+
+    var disposeBag: DisposeBag? = DisposeBag()
+
+    /// 先换 bag 再赋值，避免同一次配置被调两次时叠订阅。
+    func bindViewModel(_ viewModel: VM) {
+        disposeBag = DisposeBag()
+        self.viewModel = viewModel
+        bindViewModel()
+    }
+
+    /// 子类订阅 Relays。子视图仍走 `initUI()`。
+    func bindViewModel() {}
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+        viewModel = nil
     }
 }

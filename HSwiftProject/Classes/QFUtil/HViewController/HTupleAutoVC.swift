@@ -8,7 +8,11 @@
 
 import UIKit
 
-class HTupleAutoVC: HViewController {
+class HTupleAutoVC: HCusViewController {
+    
+    override var prefersNavigationBarHidden: Bool {
+        true
+    }
     
     lazy var tupleView: HTupleView = {
         return HTupleView.tupleFrame {
@@ -23,7 +27,6 @@ class HTupleAutoVC: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Add custom navigation bar
-        self.navigationBar.isHidden = true
         self.tupleView.delegate = self
         self.view.addSubview(self.tupleView)
         self.tupleView.snp.makeConstraints { make in

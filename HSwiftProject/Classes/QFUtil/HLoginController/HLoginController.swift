@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HLoginController: HViewController, HTupleViewDelegate {
+class HLoginController: HCusViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
         var frame = UIScreen.bound
@@ -17,9 +17,12 @@ class HLoginController: HViewController, HTupleViewDelegate {
         return HTupleView(frame: frame)
     }()
 
+    override var prefersNavigationLeftItemHidden: Bool {
+        true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationBar.leftItem.isHidden = true
         self.title = "登录"
         self.tupleView.delegate = self
         self.view.addSubview(self.tupleView)

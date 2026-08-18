@@ -1,5 +1,5 @@
 //
-//  DPMBaseCollectionCell.swift
+//  HBaseCollectionCell.swift
 //  HSwiftProject
 //
 //  Created by windy on 2025/11/13.
@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 @objcMembers
-class DPMBaseCollectionCell: UICollectionViewCell, DPMReactiveViewProtocol {
+class HBaseCollectionCell: UICollectionViewCell, HReactiveViewProtocol {
     
     var disposeBag: DisposeBag? = DisposeBag()
     
@@ -48,7 +48,7 @@ class DPMBaseCollectionCell: UICollectionViewCell, DPMReactiveViewProtocol {
         super.init(frame: frame)
         self.backgroundColor = .clear
         self.contentView.backgroundColor = .clear
-        self.dpm_setupViews()
+        self.dm_setupViews()
     }
     
     @available(*, unavailable)
@@ -61,11 +61,11 @@ class DPMBaseCollectionCell: UICollectionViewCell, DPMReactiveViewProtocol {
         disposeBag = DisposeBag()
     }
     
-    func dpm_setupViews() {
+    func dm_setupViews() {
         
     }
     
-    func dpm_bindViewModel(_ viewModel: Any?) {
+    func dm_bindViewModel(_ viewModel: Any?) {
         
     }
     

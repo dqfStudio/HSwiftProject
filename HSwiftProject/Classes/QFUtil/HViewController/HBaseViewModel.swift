@@ -1,5 +1,5 @@
 //
-//  DPMBaseViewModel.swift
+//  HBaseViewModel.swift
 //  HSwiftProject
 //
 //  Created by owner on 2026/4/19.
@@ -13,7 +13,7 @@ import RxSwift
 /// 基础视图模型
 ///
 /// 提供导航标题和订阅生命周期。子类若重写 `destroy()` 必须调用 `super.destroy()`。
-class DPMBaseViewModel {
+class HBaseViewModel {
     
     /// 导航栏标题
     let naviTitleRelay = BehaviorRelay<String?>(value: nil)

@@ -11,7 +11,7 @@ import UIKit
 private let kTabBarHeight: CGFloat = 50.0
 
 //class HMainController1: HTupleController {
-class HMainController1: HViewController {
+class HMainController1: HCusViewController {
     
     lazy var activeBar: HActivebar = {
         let activeWidth = self.view.width
@@ -71,6 +71,10 @@ class HMainController1: HViewController {
         return activeBar
     }()
     
+    override var prefersNavigationBarHidden: Bool {
+        true
+    }
+    
     func add(_ a: Int, _ b: Int) -> Int {
         return a + b
     }
@@ -78,7 +82,6 @@ class HMainController1: HViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.navigationBar.isHidden = true
         self.view.addSubview(activeBar)
         
         let activeY = UIScreen.statusBarHeight + kTabBarHeight

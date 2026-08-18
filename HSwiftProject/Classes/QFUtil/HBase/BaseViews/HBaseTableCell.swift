@@ -1,5 +1,5 @@
 //
-//  DPMBaseTableCell.swift
+//  HBaseTableCell.swift
 //  HSwiftProject
 //
 //  Created by windy on 2025/11/13.
@@ -11,7 +11,7 @@ import RxCocoa
 import RxSwift
 
 @objcMembers
-class DPMBaseTableCell: UITableViewCell, DPMReactiveViewProtocol {
+class HBaseTableCell: UITableViewCell, HReactiveViewProtocol {
 
     var disposeBag: DisposeBag? = DisposeBag()
     
@@ -30,7 +30,7 @@ class DPMBaseTableCell: UITableViewCell, DPMReactiveViewProtocol {
         self.selectionStyle = .none
         self.backgroundColor = .clear
         self.contentView.backgroundColor = .clear
-        self.dpm_setupViews()
+        self.dm_setupViews()
     }
     
     @available(*, unavailable)
@@ -44,11 +44,11 @@ class DPMBaseTableCell: UITableViewCell, DPMReactiveViewProtocol {
     }
 
     
-    func dpm_setupViews() {
+    func dm_setupViews() {
         
     }
     
-    func dpm_bindViewModel(_ viewModel: Any?) {
+    func dm_bindViewModel(_ viewModel: Any?) {
         
     }
     

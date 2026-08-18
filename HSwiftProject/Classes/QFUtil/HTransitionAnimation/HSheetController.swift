@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HSheetController: HViewController, HTupleViewDelegate {
+class HSheetController: HCusViewController, HTupleViewDelegate {
 
     // 标题
     private var _title: String?
@@ -43,6 +43,10 @@ class HSheetController: HViewController, HTupleViewDelegate {
     
     override var isShadowDismiss: Bool {
         return true
+    }
+
+    override var prefersNavigationBarHidden: Bool {
+        true
     }
 
     private lazy var visualView: UIVisualEffectView = {
@@ -82,7 +86,6 @@ class HSheetController: HViewController, HTupleViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
-        self.navigationBar.isHidden = true
         
         //是否隐藏视觉展示效果，如毛玻璃效果
         if self.hideVisualView {

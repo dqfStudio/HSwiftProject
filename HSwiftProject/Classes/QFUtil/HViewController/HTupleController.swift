@@ -8,7 +8,11 @@
 
 import UIKit
 
-class HTupleController: HViewController, HTupleViewDelegate {
+class HTupleController: HCusViewController, HTupleViewDelegate {
+    
+    override var prefersNavigationBarHidden: Bool {
+        true
+    }
     
     lazy var tupleView: HTupleView = {
         var frame = UIScreen.bound
@@ -19,7 +23,6 @@ class HTupleController: HViewController, HTupleViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional.tup after loading the view.
-        self.navigationBar.isHidden = true
         self.tupleView.delegate = self
 //        self.tupleView.tupleStatus = .block
         self.view.addSubview(self.tupleView)

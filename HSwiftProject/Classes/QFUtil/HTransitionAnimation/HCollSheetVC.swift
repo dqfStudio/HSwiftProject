@@ -13,7 +13,7 @@ typealias HCollSheetInsetBlock = () -> UIEdgeInsets
 typealias HCollSheetHeightBlock = (_ index: Int) -> CGFloat
 typealias HCollSheetItemBlock = (_ coll: HCollView, _ indexPath: IndexPath) -> Void
 
-class HCollSheetVC: HViewController, HCollViewDelegate {
+class HCollSheetVC: HCusViewController, HCollViewDelegate {
     
     let itemsHeight = NSMutableDictionary()
     var numberBlock: HCollSheetNumberBlock?
@@ -21,6 +21,10 @@ class HCollSheetVC: HViewController, HCollViewDelegate {
     var heightBlock: HCollSheetHeightBlock?
     var itemBlock: HCollSheetItemBlock?
     var bottomHeight = UIScreen.bottomBarHeight
+
+    override var prefersNavigationBarHidden: Bool {
+        true
+    }
 
     init(bottomSpacing: CGFloat) {
         self.bottomHeight += bottomSpacing
@@ -65,7 +69,6 @@ class HCollSheetVC: HViewController, HCollViewDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.clear
-        self.navigationBar.isHidden = true
         self.collView.delegate = self
         self.view.addSubview(self.collView)
     }

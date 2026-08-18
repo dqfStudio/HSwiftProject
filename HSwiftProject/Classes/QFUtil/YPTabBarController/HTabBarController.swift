@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HTabBarController : HViewController, HTabContentViewDelegate {
+class HTabBarController : HCusViewController, HTabContentViewDelegate {
 
     var tabBar: HTabBar {
         return self.tabContentView.tabBar

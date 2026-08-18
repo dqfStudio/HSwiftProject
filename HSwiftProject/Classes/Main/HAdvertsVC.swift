@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class HAdvertsVC: HViewController, HTupleViewDelegate {
+class HAdvertsVC: HCusViewController, HTupleViewDelegate {
     
     lazy var promptButton: HWebButtonView = {
         var frame = CGRect(x: 8, y: 50, width: UIScreen.width - 16, height: 280)
@@ -56,10 +56,13 @@ class HAdvertsVC: HViewController, HTupleViewDelegate {
         return tupleView
     }()
     
+    override var prefersNavigationBarHidden: Bool {
+        true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional.tup after loading the view.
-        self.navigationBar.isHidden = true
         self.tupleView.delegate = self
         self.view.addSubview(self.tupleView)
         self.view.addSubview(promptButton)

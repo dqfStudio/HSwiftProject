@@ -12,12 +12,15 @@ var kSidebar: CGFloat = 80
 
 class HMainController4: HTabBarController {
 
+    override var prefersNavigationLeftItemHidden: Bool {
+        true
+    }
+
     override func viewDidLoad() {
 
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.title = "第四页"
-        self.navigationBar.leftItem.isHidden = true
         
         let screenSize: CGSize = UIScreen.main.bounds.size
         self.setTabBarFrame(CGRect(x: 0, y: 0, width: kSidebar, height: screenSize.height),

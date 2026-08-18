@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HMainController7: HViewController, HTupleViewDelegate {
+class HMainController7: HCusViewController, HTupleViewDelegate {
     
 //    var cellHeights: [CGFloat] = [100, 200, 300, 200, 400, 150, 200, 300, 500, 400]
     var cellHeights: [CGFloat] = [400, 500, 600, 500, 700, 450]
@@ -33,10 +33,13 @@ class HMainController7: HViewController, HTupleViewDelegate {
     
     var postList: [HPostVM] = [HPostVM]()
 
+    override var prefersNavigationBarHidden: Bool {
+        true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "第五页"
-        self.navigationBar.isHidden = true
         self.tupleView.delegate = self
         self.view.addSubview(self.tupleView)
         
@@ -583,7 +586,7 @@ extension HPengCell {
 }
 
 
-//class HMainController7: HViewController, UICollectionViewDelegate {
+//class HMainController7: HCusViewController, UICollectionViewDelegate {
 //    var collectionView: UICollectionView!
 //    var items: [String] = [] // 用于存储数据
 //

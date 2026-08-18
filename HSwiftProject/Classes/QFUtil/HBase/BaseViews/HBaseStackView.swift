@@ -1,5 +1,5 @@
 //
-//  DPMBaseReusableView.swift
+//  HBaseStackView.swift
 //  HSwiftProject
 //
 //  Created by windy on 2025/11/13.
@@ -11,30 +11,29 @@ import RxCocoa
 import RxSwift
 
 @objcMembers
-class DPMBaseReusableView: UICollectionReusableView, DPMReactiveViewProtocol {
+class HBaseStackView: UIStackView, HReactiveViewProtocol {
     
     var disposeBag: DisposeBag? = DisposeBag()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.dpm_setupViews()
+        self.dm_setupViews()
     }
     
     @available(*, unavailable)
-    required init?(coder: NSCoder) {
+    required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        disposeBag = DisposeBag()
-    }
-    
-    func dpm_setupViews() {
+    func dm_setupViews() {
         
     }
     
-    func dpm_bindViewModel(_ viewModel: Any?) {
+    func dm_bindViewModel(_ viewModel: Any?) {
+        
+    }
+    
+    deinit {
         
     }
     

@@ -10,13 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-class HCusViewController<VM: DPMBaseViewModel>: HBaseController {
-    
-    // MARK: - Properties
-    
-    let viewModel: VM
-    
-    var disposeBag: DisposeBag? = DisposeBag()
+class HCusViewController: HBaseController {
     
     /// 导航栏的样式。默认值不会触发 didSet，真正应用发生在 viewDidLoad。
     var navShowStyle: HNaviShowStyle = .normal {
@@ -33,8 +27,6 @@ class HCusViewController<VM: DPMBaseViewModel>: HBaseController {
     override var prefersSystemNavigationBarHidden: Bool {
         true
     }
-    
-    // MARK: - UI Components
     
     /// 导航栏视图
     private lazy var navigationView: HNavigationView = {
@@ -62,20 +54,6 @@ class HCusViewController<VM: DPMBaseViewModel>: HBaseController {
         }
     }
     
-    // MARK: - Initialization
-    
-    init(viewModel: VM) {
-        self.viewModel = viewModel
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupNavigationLayout()
@@ -83,7 +61,6 @@ class HCusViewController<VM: DPMBaseViewModel>: HBaseController {
             navigationItem.title = title
         }
         addSubviews()
-        bindViewModel()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -94,15 +71,6 @@ class HCusViewController<VM: DPMBaseViewModel>: HBaseController {
         }
         view.bringSubviewToFront(navigationView)
     }
-    
-    override func vcWillDisappear(_ type: HVCDisappearType) {
-        super.vcWillDisappear(type)
-        if type == .pop || type == .dismiss {
-            destroy()
-        }
-    }
-    
-    // MARK: - Navigation Bar
     
     /// 设置导航栏布局
     private func setupNavigationLayout() {
@@ -125,14 +93,41 @@ class HCusViewController<VM: DPMBaseViewModel>: HBaseController {
         navigationItem.leftItem.isHidden = prefersNavigationLeftItemHidden
     }
     
-    // MARK: - View Setup
-    
     /// 添加子视图
     func addSubviews() {
         
     }
+
+}
+
+class HCusBindableController<VM: HBaseViewModel>: HCusViewController {
     
-    /// 绑定视图模型
+    let viewModel: VM
+    
+    var disposeBag: DisposeBag? = DisposeBag()
+    
+    init(viewModel: VM) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        bindViewModel()
+    }
+    
+    override func vcWillDisappear(_ type: HVCDisappearType) {
+        super.vcWillDisappear(type)
+        if type == .pop || type == .dismiss {
+            destroy()
+        }
+    }
+    
     func bindViewModel() {
         viewModel.naviTitleRelay
             .compactMap { $0 }
@@ -143,9 +138,6 @@ class HCusViewController<VM: DPMBaseViewModel>: HBaseController {
             => disposeBag
     }
     
-    // MARK: - Cleanup
-    
-    /// 销毁资源
     func destroy() {
         disposeBag = DisposeBag()
         viewModel.destroy()

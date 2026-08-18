@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HPostCommentVC: HViewController, HTupleViewDelegate {
+class HPostCommentVC: HCusViewController, HTupleViewDelegate {
     
     lazy var tupleView: HTupleView = {
         var frame = UIScreen.bound

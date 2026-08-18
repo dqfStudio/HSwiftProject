@@ -11,7 +11,7 @@ import UIKit
 private var kItemHeight = 80.0
 private var kFooterHeight = 50.0
 
-class HUserLiveShareVC : HViewController, HTupleViewDelegate {
+class HUserLiveShareVC : HCusViewController, HTupleViewDelegate {
 
     private lazy var visualView: UIVisualEffectView = {
         let blur = UIBlurEffect(style: .extraLight)
@@ -42,11 +42,14 @@ class HUserLiveShareVC : HViewController, HTupleViewDelegate {
         return .sheet
     }
 
+    override var prefersNavigationBarHidden: Bool {
+        true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = .clear
-        self.navigationBar.isHidden = true
         if self.hideVisualView {
             self.tupleView.backgroundColor = .white
             self.view.addSubview(self.tupleView)

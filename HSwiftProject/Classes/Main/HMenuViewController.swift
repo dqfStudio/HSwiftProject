@@ -14,10 +14,13 @@ private let kTabBarHeight: CGFloat = 50.0
 
 class HMenuViewController: HTabBarController {
 
+    override var prefersNavigationBarHidden: Bool {
+        true
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.navigationBar.isHidden = true
         self.initViewControllers()
         self.addSpecialItem()
         self.setupFrameOfTabBarAndContentView()
