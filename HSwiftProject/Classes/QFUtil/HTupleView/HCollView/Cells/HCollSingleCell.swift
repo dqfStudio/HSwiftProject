@@ -102,10 +102,10 @@ class HCollImageCell: HCollBaseCell {
 }
 
 class HCollTextFieldCell: HCollBaseCell {
-    private var _textField: HTextField?
-    var textField: HTextField {
+    private var _textField: HTextFieldView?
+    var textField: HTextFieldView {
         if let textField = _textField { return textField }
-        let textField = HTextField()
+        let textField = HTextFieldView()
         contentView.addSubview(textField)
         _textField = textField
         setNeedsLayout()

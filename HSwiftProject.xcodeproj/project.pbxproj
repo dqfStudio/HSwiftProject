@@ -23,18 +23,17 @@
 		A21887A823900832005C20BF /* HKeychainSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21887A523900832005C20BF /* HKeychainSwift.swift */; };
 		A21887A923900832005C20BF /* HTegKeychainConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A21887A623900832005C20BF /* HTegKeychainConstants.swift */; };
 		A229488E239756770058B939 /* HFlowBaseApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2294887239756770058B939 /* HFlowBaseApex.swift */; };
-		A229488F239756770058B939 /* HFlowSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2294889239756770058B939 /* HFlowSignal.swift */; };
 		A2294890239756770058B939 /* HFlowBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229488B239756770058B939 /* HFlowBaseCell.swift */; };
 		A2294891239756770058B939 /* HFlowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229488D239756770058B939 /* HFlowView.swift */; };
-		A2294893239756A10058B939 /* HFlowViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2294892239756A10058B939 /* HFlowViewCell.swift */; };
-		A229489523975A900058B939 /* HFlowViewApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489423975A900058B939 /* HFlowViewApex.swift */; };
+		A2294893239756A10058B939 /* HFlowSingleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2294892239756A10058B939 /* HFlowSingleCell.swift */; };
+		A229489523975A900058B939 /* HFlowSingleApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489423975A900058B939 /* HFlowSingleApex.swift */; };
 		A229489723975AE80058B939 /* HTupleViewApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489623975AE80058B939 /* HTupleViewApex.swift */; };
 		A229489923975BA80058B939 /* HTupleViewApexVertValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489823975BA80058B939 /* HTupleViewApexVertValue.swift */; };
 		A229489B23975C2E0058B939 /* HTupleViewApexHoriValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489A23975C2E0058B939 /* HTupleViewApexHoriValue.swift */; };
-		A229489D23975CE40058B939 /* HFlowViewCellVertValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489C23975CE40058B939 /* HFlowViewCellVertValue.swift */; };
-		A229489F23975D850058B939 /* HFlowViewCellHoriValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489E23975D850058B939 /* HFlowViewCellHoriValue.swift */; };
-		A22948A123975F500058B939 /* HFlowViewApexVertValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948A023975F500058B939 /* HFlowViewApexVertValue.swift */; };
-		A22948A323975FB10058B939 /* HFlowViewApexHoriValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948A223975FB10058B939 /* HFlowViewApexHoriValue.swift */; };
+		A229489D23975CE40058B939 /* HFlowFreeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489C23975CE40058B939 /* HFlowFreeCell.swift */; };
+		A229489F23975D850058B939 /* HFlowRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A229489E23975D850058B939 /* HFlowRowCell.swift */; };
+		A22948A123975F500058B939 /* HFlowFreeApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948A023975F500058B939 /* HFlowFreeApex.swift */; };
+		A22948A323975FB10058B939 /* HFlowRowApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948A223975FB10058B939 /* HFlowRowApex.swift */; };
 		A22948A5239798000058B939 /* HMainController1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948A4239798000058B939 /* HMainController1.swift */; };
 		A22948A72397980A0058B939 /* HMainController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948A62397980A0058B939 /* HMainController2.swift */; };
 		A22948A92397985B0058B939 /* HMainController3.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22948A82397985B0058B939 /* HMainController3.swift */; };
@@ -263,36 +262,18 @@
 		EB47CC362F94BF9C00EB5391 /* HNavigationItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC2D2F94BF9C00EB5391 /* HNavigationItem.swift */; };
 		EB47CC4F2F94F04B00EB5391 /* HFlowView+Performance.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC472F94F04B00EB5391 /* HFlowView+Performance.swift */; };
 		EB47CC502F94F04B00EB5391 /* HFlowView+Core.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC3B2F94F04B00EB5391 /* HFlowView+Core.swift */; };
-		EB47CC512F94F04B00EB5391 /* HFlowView+SmartPreloading.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC4B2F94F04B00EB5391 /* HFlowView+SmartPreloading.swift */; };
 		EB47CC522F94F04B00EB5391 /* HFlowView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC4E2F94F04B00EB5391 /* HFlowView+Utils.swift */; };
-		EB47CC532F94F04B00EB5391 /* HFlowCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC372F94F04B00EB5391 /* HFlowCacheManager.swift */; };
 		EB47CC542F94F04B00EB5391 /* HFlowView+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC392F94F04B00EB5391 /* HFlowView+Animation.swift */; };
-		EB47CC552F94F04B00EB5391 /* HFlowView+Documentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC3D2F94F04B00EB5391 /* HFlowView+Documentation.swift */; };
 		EB47CC562F94F04B00EB5391 /* HFlowView+Observer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC452F94F04B00EB5391 /* HFlowView+Observer.swift */; };
-		EB47CC572F94F04B00EB5391 /* HFlowView+AsyncLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC3A2F94F04B00EB5391 /* HFlowView+AsyncLayout.swift */; };
 		EB47CC582F94F04B00EB5391 /* HFlowView+EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC3E2F94F04B00EB5391 /* HFlowView+EmptyView.swift */; };
 		EB47CC592F94F04B00EB5391 /* HFlowView+Refresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC492F94F04B00EB5391 /* HFlowView+Refresh.swift */; };
-		EB47CC5A2F94F04B00EB5391 /* HFlowView+Accessibility.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC382F94F04B00EB5391 /* HFlowView+Accessibility.swift */; };
-		EB47CC5B2F94F04B00EB5391 /* HFlowView+DeviceAdaptation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC3C2F94F04B00EB5391 /* HFlowView+DeviceAdaptation.swift */; };
 		EB47CC5C2F94F04B00EB5391 /* HFlowView+LRU.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC412F94F04B00EB5391 /* HFlowView+LRU.swift */; };
-		EB47CC5D2F94F04B00EB5391 /* HFlowView+MicroInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC422F94F04B00EB5391 /* HFlowView+MicroInteraction.swift */; };
-		EB47CC5E2F94F04B00EB5391 /* HFlowView+NetworkOptimization.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC432F94F04B00EB5391 /* HFlowView+NetworkOptimization.swift */; };
-		EB47CC5F2F94F04B00EB5391 /* HFlowView+SwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC4C2F94F04B00EB5391 /* HFlowView+SwiftUI.swift */; };
-		EB47CC602F94F04B00EB5391 /* HFlowView+HapticFeedback.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC402F94F04B00EB5391 /* HFlowView+HapticFeedback.swift */; };
-		EB47CC612F94F04B00EB5391 /* HFlowView+Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC4D2F94F04B00EB5391 /* HFlowView+Theme.swift */; };
 		EB47CC622F94F04B00EB5391 /* HFlowView+Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC3F2F94F04B00EB5391 /* HFlowView+Example.swift */; };
-		EB47CC632F94F04B00EB5391 /* HFlowView+Skeleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC4A2F94F04B00EB5391 /* HFlowView+Skeleton.swift */; };
-		EB47CC642F94F04B00EB5391 /* HFlowView+ObjectPool.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC442F94F04B00EB5391 /* HFlowView+ObjectPool.swift */; };
 		EB47CC652F94F04B00EB5391 /* HFlowView+PreRendering.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC482F94F04B00EB5391 /* HFlowView+PreRendering.swift */; };
-		EB47CC662F94F04B00EB5391 /* HFlowView+Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC462F94F04B00EB5391 /* HFlowView+Pagination.swift */; };
-		EB47CC6F2F94F06600EB5391 /* HFlowRefreshManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC692F94F06600EB5391 /* HFlowRefreshManager.swift */; };
-		EB47CC722F94F06600EB5391 /* ImageCacheProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC6D2F94F06600EB5391 /* ImageCacheProtocol.swift */; };
-		EB47CC732F94F06600EB5391 /* HFlowPreloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC682F94F06600EB5391 /* HFlowPreloadManager.swift */; };
-		EB47CC742F94F06600EB5391 /* HFlowRefreshable.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB47CC6B2F94F06600EB5391 /* HFlowRefreshable.swift */; };
 		EB5042892A2C31E2007E9FC7 /* HTupleTextImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5042882A2C31E2007E9FC7 /* HTupleTextImageCell.swift */; };
 		EB50428B2A2C33F6007E9FC7 /* HTupleTextImageApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428A2A2C33F6007E9FC7 /* HTupleTextImageApex.swift */; };
-		EB50428D2A2C343C007E9FC7 /* HFlowTextImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428C2A2C343C007E9FC7 /* HFlowTextImageCell.swift */; };
-		EB50428F2A2C348D007E9FC7 /* HFlowTextImageApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428E2A2C348D007E9FC7 /* HFlowTextImageApex.swift */; };
+		EB50428D2A2C343C007E9FC7 /* HFlowStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428C2A2C343C007E9FC7 /* HFlowStackCell.swift */; };
+		EB50428F2A2C348D007E9FC7 /* HFlowStackApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428E2A2C348D007E9FC7 /* HFlowStackApex.swift */; };
 		EB5148982AE283A70075F737 /* HTupleViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5148972AE283A70075F737 /* HTupleViewFlowLayout.swift */; };
 		EB5998DE2C0DAC980021241C /* HNodeModelTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5998DD2C0DAC980021241C /* HNodeModelTableView.swift */; };
 		EB5998E02C0DACB40021241C /* SLNodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5998DF2C0DACB40021241C /* SLNodeModel.swift */; };
@@ -368,7 +349,6 @@
 		EBBCF3D92E2FE30F00421DB8 /* DPMStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBCF3D82E2FE30F00421DB8 /* DPMStackView.swift */; };
 		EBBCF40D2E536C2500421DB8 /* WaterfallViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBCF40C2E536C2400421DB8 /* WaterfallViewController.swift */; };
 		EBC306CD2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */; };
-		EBC306FB2BEE6BEC00EF8ABD /* HChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC306FA2BEE6BEC00EF8ABD /* HChatView.swift */; };
 		EBC307142BF8914000EF8ABD /* HTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307132BF8914000EF8ABD /* HTransitionAnimator.swift */; };
 		EBC307162BF8A65A00EF8ABD /* HTransitionAnimator2.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC307152BF8A65A00EF8ABD /* HTransitionAnimator2.swift */; };
 		EBC3071B2BF8ACF800EF8ABD /* XPresentAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3071A2BF8ACF800EF8ABD /* XPresentAnimation.swift */; };
@@ -382,7 +362,6 @@
 		EBC3072F2BF8F1EF00EF8ABD /* HCollSheetVC+Extern.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3072E2BF8F1EF00EF8ABD /* HCollSheetVC+Extern.swift */; };
 		EBC3073B2BF9B1DD00EF8ABD /* HTupleAutoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC3073A2BF9B1DD00EF8ABD /* HTupleAutoVC.swift */; };
 		EBC7385A2CC351C800A01E71 /* HUserAuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC738592CC351C800A01E71 /* HUserAuthView.swift */; };
-		EBC7386E2CC6014400A01E71 /* HTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC7386D2CC6014300A01E71 /* HTableView.swift */; };
 		EBC738702CC6027100A01E71 /* HFlowRefresh.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC7386F2CC6027100A01E71 /* HFlowRefresh.swift */; };
 		EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F229AA48C000A81431 /* HLRDefine.swift */; };
 		EBC8140229AA48C000A81431 /* HUserLiveNoteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */; };
@@ -494,6 +473,15 @@
 		EBEF308F2DA28B7D00930730 /* HCollView+Reload.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30892DA28B7D00930730 /* HCollView+Reload.swift */; };
 		EBEF30902DA28B7D00930730 /* HCollView+Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF308A2DA28B7D00930730 /* HCollView+Scroll.swift */; };
 		EBEF30922DA28B7D00930730 /* HCollView+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBEF30912DA28B7D00930730 /* HCollView+Utils.swift */; };
+		EBFL02012FB9E1FC004DF5D8 /* HFlowView+FeatureHooks.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFL01012FB9E1FC004DF5D8 /* HFlowView+FeatureHooks.swift */; };
+		EBFL02022FB9E1FC004DF5D8 /* HFlowView+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFL01022FB9E1FC004DF5D8 /* HFlowView+DataSource.swift */; };
+		EBFL02032FB9E1FC004DF5D8 /* HFlowView+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFL01032FB9E1FC004DF5D8 /* HFlowView+Delegate.swift */; };
+		EBFL02042FB9E1FC004DF5D8 /* HFlowView+Reload.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFL01042FB9E1FC004DF5D8 /* HFlowView+Reload.swift */; };
+		EBFL02052FB9E1FC004DF5D8 /* HFlowView+Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFL01052FB9E1FC004DF5D8 /* HFlowView+Scroll.swift */; };
+		EBFL02062FB9E1FC004DF5D8 /* HFlowView+Memory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFL01062FB9E1FC004DF5D8 /* HFlowView+Memory.swift */; };
+		EBFL02072FB9E1FC004DF5D8 /* HFlowView+Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFL01072FB9E1FC004DF5D8 /* HFlowView+Config.swift */; };
+		EBFL02082FB9E1FC004DF5D8 /* HFlowView+Interaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFL01082FB9E1FC004DF5D8 /* HFlowView+Interaction.swift */; };
+		EBFL02092FB9E1FC004DF5D8 /* HFlowView+ImageSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFL01092FB9E1FC004DF5D8 /* HFlowView+ImageSize.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -532,18 +520,17 @@
 		A21887A523900832005C20BF /* HKeychainSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HKeychainSwift.swift; sourceTree = "<group>"; };
 		A21887A623900832005C20BF /* HTegKeychainConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTegKeychainConstants.swift; sourceTree = "<group>"; };
 		A2294887239756770058B939 /* HFlowBaseApex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowBaseApex.swift; sourceTree = "<group>"; };
-		A2294889239756770058B939 /* HFlowSignal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowSignal.swift; sourceTree = "<group>"; };
 		A229488B239756770058B939 /* HFlowBaseCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowBaseCell.swift; sourceTree = "<group>"; };
 		A229488D239756770058B939 /* HFlowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HFlowView.swift; sourceTree = "<group>"; };
-		A2294892239756A10058B939 /* HFlowViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowViewCell.swift; sourceTree = "<group>"; };
-		A229489423975A900058B939 /* HFlowViewApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowViewApex.swift; sourceTree = "<group>"; };
+		A2294892239756A10058B939 /* HFlowSingleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowSingleCell.swift; sourceTree = "<group>"; };
+		A229489423975A900058B939 /* HFlowSingleApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowSingleApex.swift; sourceTree = "<group>"; };
 		A229489623975AE80058B939 /* HTupleViewApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewApex.swift; sourceTree = "<group>"; };
 		A229489823975BA80058B939 /* HTupleViewApexVertValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewApexVertValue.swift; sourceTree = "<group>"; };
 		A229489A23975C2E0058B939 /* HTupleViewApexHoriValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewApexHoriValue.swift; sourceTree = "<group>"; };
-		A229489C23975CE40058B939 /* HFlowViewCellVertValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowViewCellVertValue.swift; sourceTree = "<group>"; };
-		A229489E23975D850058B939 /* HFlowViewCellHoriValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowViewCellHoriValue.swift; sourceTree = "<group>"; };
-		A22948A023975F500058B939 /* HFlowViewApexVertValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowViewApexVertValue.swift; sourceTree = "<group>"; };
-		A22948A223975FB10058B939 /* HFlowViewApexHoriValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowViewApexHoriValue.swift; sourceTree = "<group>"; };
+		A229489C23975CE40058B939 /* HFlowFreeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowFreeCell.swift; sourceTree = "<group>"; };
+		A229489E23975D850058B939 /* HFlowRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowRowCell.swift; sourceTree = "<group>"; };
+		A22948A023975F500058B939 /* HFlowFreeApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowFreeApex.swift; sourceTree = "<group>"; };
+		A22948A223975FB10058B939 /* HFlowRowApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowRowApex.swift; sourceTree = "<group>"; };
 		A22948A4239798000058B939 /* HMainController1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMainController1.swift; sourceTree = "<group>"; };
 		A22948A62397980A0058B939 /* HMainController2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMainController2.swift; sourceTree = "<group>"; };
 		A22948A82397985B0058B939 /* HMainController3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HMainController3.swift; sourceTree = "<group>"; };
@@ -772,38 +759,20 @@
 		EB47CC2D2F94BF9C00EB5391 /* HNavigationItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationItem.swift; sourceTree = "<group>"; };
 		EB47CC2E2F94BF9C00EB5391 /* HNavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNavigationView.swift; sourceTree = "<group>"; };
 		EB47CC2F2F94BF9C00EB5391 /* HSysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HSysViewController.swift; sourceTree = "<group>"; };
-		EB47CC372F94F04B00EB5391 /* HFlowCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowCacheManager.swift; sourceTree = "<group>"; };
-		EB47CC382F94F04B00EB5391 /* HFlowView+Accessibility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Accessibility.swift"; sourceTree = "<group>"; };
 		EB47CC392F94F04B00EB5391 /* HFlowView+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Animation.swift"; sourceTree = "<group>"; };
-		EB47CC3A2F94F04B00EB5391 /* HFlowView+AsyncLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+AsyncLayout.swift"; sourceTree = "<group>"; };
 		EB47CC3B2F94F04B00EB5391 /* HFlowView+Core.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Core.swift"; sourceTree = "<group>"; };
-		EB47CC3C2F94F04B00EB5391 /* HFlowView+DeviceAdaptation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+DeviceAdaptation.swift"; sourceTree = "<group>"; };
-		EB47CC3D2F94F04B00EB5391 /* HFlowView+Documentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Documentation.swift"; sourceTree = "<group>"; };
 		EB47CC3E2F94F04B00EB5391 /* HFlowView+EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+EmptyView.swift"; sourceTree = "<group>"; };
 		EB47CC3F2F94F04B00EB5391 /* HFlowView+Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Example.swift"; sourceTree = "<group>"; };
-		EB47CC402F94F04B00EB5391 /* HFlowView+HapticFeedback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+HapticFeedback.swift"; sourceTree = "<group>"; };
 		EB47CC412F94F04B00EB5391 /* HFlowView+LRU.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+LRU.swift"; sourceTree = "<group>"; };
-		EB47CC422F94F04B00EB5391 /* HFlowView+MicroInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+MicroInteraction.swift"; sourceTree = "<group>"; };
-		EB47CC432F94F04B00EB5391 /* HFlowView+NetworkOptimization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+NetworkOptimization.swift"; sourceTree = "<group>"; };
-		EB47CC442F94F04B00EB5391 /* HFlowView+ObjectPool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+ObjectPool.swift"; sourceTree = "<group>"; };
 		EB47CC452F94F04B00EB5391 /* HFlowView+Observer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Observer.swift"; sourceTree = "<group>"; };
-		EB47CC462F94F04B00EB5391 /* HFlowView+Pagination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Pagination.swift"; sourceTree = "<group>"; };
 		EB47CC472F94F04B00EB5391 /* HFlowView+Performance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Performance.swift"; sourceTree = "<group>"; };
 		EB47CC482F94F04B00EB5391 /* HFlowView+PreRendering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+PreRendering.swift"; sourceTree = "<group>"; };
 		EB47CC492F94F04B00EB5391 /* HFlowView+Refresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Refresh.swift"; sourceTree = "<group>"; };
-		EB47CC4A2F94F04B00EB5391 /* HFlowView+Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Skeleton.swift"; sourceTree = "<group>"; };
-		EB47CC4B2F94F04B00EB5391 /* HFlowView+SmartPreloading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+SmartPreloading.swift"; sourceTree = "<group>"; };
-		EB47CC4C2F94F04B00EB5391 /* HFlowView+SwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+SwiftUI.swift"; sourceTree = "<group>"; };
-		EB47CC4D2F94F04B00EB5391 /* HFlowView+Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Theme.swift"; sourceTree = "<group>"; };
 		EB47CC4E2F94F04B00EB5391 /* HFlowView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Utils.swift"; sourceTree = "<group>"; };
-		EB47CC682F94F06600EB5391 /* HFlowPreloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowPreloadManager.swift; sourceTree = "<group>"; };
-		EB47CC692F94F06600EB5391 /* HFlowRefreshManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowRefreshManager.swift; sourceTree = "<group>"; };
-		EB47CC6B2F94F06600EB5391 /* HFlowRefreshable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowRefreshable.swift; sourceTree = "<group>"; };
-		EB47CC6D2F94F06600EB5391 /* ImageCacheProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheProtocol.swift; sourceTree = "<group>"; };
 		EB5042882A2C31E2007E9FC7 /* HTupleTextImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleTextImageCell.swift; sourceTree = "<group>"; };
 		EB50428A2A2C33F6007E9FC7 /* HTupleTextImageApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleTextImageApex.swift; sourceTree = "<group>"; };
-		EB50428C2A2C343C007E9FC7 /* HFlowTextImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowTextImageCell.swift; sourceTree = "<group>"; };
-		EB50428E2A2C348D007E9FC7 /* HFlowTextImageApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowTextImageApex.swift; sourceTree = "<group>"; };
+		EB50428C2A2C343C007E9FC7 /* HFlowStackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowStackCell.swift; sourceTree = "<group>"; };
+		EB50428E2A2C348D007E9FC7 /* HFlowStackApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowStackApex.swift; sourceTree = "<group>"; };
 		EB5148972AE283A70075F737 /* HTupleViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewFlowLayout.swift; sourceTree = "<group>"; };
 		EB5998DD2C0DAC980021241C /* HNodeModelTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeModelTableView.swift; sourceTree = "<group>"; };
 		EB5998DF2C0DACB40021241C /* SLNodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLNodeModel.swift; sourceTree = "<group>"; };
@@ -881,7 +850,6 @@
 		EBBCF3D82E2FE30F00421DB8 /* DPMStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPMStackView.swift; sourceTree = "<group>"; };
 		EBBCF40C2E536C2400421DB8 /* WaterfallViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaterfallViewController.swift; sourceTree = "<group>"; };
 		EBC306CC2BEDB9BC00EF8ABD /* DispatchQueue+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+Extern.swift"; sourceTree = "<group>"; };
-		EBC306FA2BEE6BEC00EF8ABD /* HChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HChatView.swift; sourceTree = "<group>"; };
 		EBC307132BF8914000EF8ABD /* HTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTransitionAnimator.swift; sourceTree = "<group>"; };
 		EBC307152BF8A65A00EF8ABD /* HTransitionAnimator2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTransitionAnimator2.swift; sourceTree = "<group>"; };
 		EBC3071A2BF8ACF800EF8ABD /* XPresentAnimation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XPresentAnimation.swift; sourceTree = "<group>"; };
@@ -895,7 +863,6 @@
 		EBC3072E2BF8F1EF00EF8ABD /* HCollSheetVC+Extern.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollSheetVC+Extern.swift"; sourceTree = "<group>"; };
 		EBC3073A2BF9B1DD00EF8ABD /* HTupleAutoVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTupleAutoVC.swift; sourceTree = "<group>"; };
 		EBC738592CC351C800A01E71 /* HUserAuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUserAuthView.swift; sourceTree = "<group>"; };
-		EBC7386D2CC6014300A01E71 /* HTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTableView.swift; sourceTree = "<group>"; };
 		EBC7386F2CC6027100A01E71 /* HFlowRefresh.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowRefresh.swift; sourceTree = "<group>"; };
 		EBC813F229AA48C000A81431 /* HLRDefine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HLRDefine.swift; sourceTree = "<group>"; };
 		EBC813F329AA48C000A81431 /* HUserLiveNoteVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUserLiveNoteVC.swift; sourceTree = "<group>"; };
@@ -1009,31 +976,20 @@
 		EBEF30892DA28B7D00930730 /* HCollView+Reload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Reload.swift"; sourceTree = "<group>"; };
 		EBEF308A2DA28B7D00930730 /* HCollView+Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Scroll.swift"; sourceTree = "<group>"; };
 		EBEF30912DA28B7D00930730 /* HCollView+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HCollView+Utils.swift"; sourceTree = "<group>"; };
+		EBFL01012FB9E1FC004DF5D8 /* HFlowView+FeatureHooks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+FeatureHooks.swift"; sourceTree = "<group>"; };
+		EBFL01022FB9E1FC004DF5D8 /* HFlowView+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+DataSource.swift"; sourceTree = "<group>"; };
+		EBFL01032FB9E1FC004DF5D8 /* HFlowView+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Delegate.swift"; sourceTree = "<group>"; };
+		EBFL01042FB9E1FC004DF5D8 /* HFlowView+Reload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Reload.swift"; sourceTree = "<group>"; };
+		EBFL01052FB9E1FC004DF5D8 /* HFlowView+Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Scroll.swift"; sourceTree = "<group>"; };
+		EBFL01062FB9E1FC004DF5D8 /* HFlowView+Memory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Memory.swift"; sourceTree = "<group>"; };
+		EBFL01072FB9E1FC004DF5D8 /* HFlowView+Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Config.swift"; sourceTree = "<group>"; };
+		EBFL01082FB9E1FC004DF5D8 /* HFlowView+Interaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+Interaction.swift"; sourceTree = "<group>"; };
+		EBFL01092FB9E1FC004DF5D8 /* HFlowView+ImageSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HFlowView+ImageSize.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		EBEF30502D9A46C300930730 /* HSwiftProjectTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = HSwiftProjectTests;
-			sourceTree = "<group>";
-		};
-		EBEF305D2D9A46F200930730 /* HSwiftProjectUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-			);
-			explicitFileTypes = {
-			};
-			explicitFolders = (
-			);
-			path = HSwiftProjectUITests;
-			sourceTree = "<group>";
-		};
+		EBEF30502D9A46C300930730 /* HSwiftProjectTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = HSwiftProjectTests; sourceTree = "<group>"; };
+		EBEF305D2D9A46F200930730 /* HSwiftProjectUITests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = HSwiftProjectUITests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1133,89 +1089,46 @@
 		A229487A23965D880058B939 /* HFlowView */ = {
 			isa = PBXGroup;
 			children = (
-				EB47CC6A2F94F06600EB5391 /* Managers */,
-				EB47CC6E2F94F06600EB5391 /* Protocols */,
-				A2294885239756770058B939 /* Cells */,
-				A229488C239756770058B939 /* View */,
+				EBFL03012FB9E1FC004DF5D8 /* Core */,
+				EBFL03022FB9E1FC004DF5D8 /* Features */,
+				A229488A239756770058B939 /* Cells */,
+				A2294886239756770058B939 /* Apex */,
+				A2294888239756770058B939 /* Common */,
+				EBFL03132FB9E1FC004DF5D8 /* Kits */,
 			);
 			path = HFlowView;
 			sourceTree = "<group>";
 		};
-		A2294885239756770058B939 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				A2294886239756770058B939 /* HFlowViewApex */,
-				A2294888239756770058B939 /* HFlowCommon */,
-				A229488A239756770058B939 /* HFlowViewCell */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		A2294886239756770058B939 /* HFlowViewApex */ = {
+		A2294886239756770058B939 /* Apex */ = {
 			isa = PBXGroup;
 			children = (
 				A2294887239756770058B939 /* HFlowBaseApex.swift */,
-				A229489423975A900058B939 /* HFlowViewApex.swift */,
-				EB50428E2A2C348D007E9FC7 /* HFlowTextImageApex.swift */,
-				A22948A023975F500058B939 /* HFlowViewApexVertValue.swift */,
-				A22948A223975FB10058B939 /* HFlowViewApexHoriValue.swift */,
+				A229489423975A900058B939 /* HFlowSingleApex.swift */,
+				EB50428E2A2C348D007E9FC7 /* HFlowStackApex.swift */,
+				A22948A023975F500058B939 /* HFlowFreeApex.swift */,
+				A22948A223975FB10058B939 /* HFlowRowApex.swift */,
 			);
-			path = HFlowViewApex;
+			path = Apex;
 			sourceTree = "<group>";
 		};
-		A2294888239756770058B939 /* HFlowCommon */ = {
+		A2294888239756770058B939 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				A2294889239756770058B939 /* HFlowSignal.swift */,
 				EBC7386F2CC6027100A01E71 /* HFlowRefresh.swift */,
 			);
-			path = HFlowCommon;
+			path = Common;
 			sourceTree = "<group>";
 		};
-		A229488A239756770058B939 /* HFlowViewCell */ = {
+		A229488A239756770058B939 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				A229488B239756770058B939 /* HFlowBaseCell.swift */,
-				A2294892239756A10058B939 /* HFlowViewCell.swift */,
-				EB50428C2A2C343C007E9FC7 /* HFlowTextImageCell.swift */,
-				A229489C23975CE40058B939 /* HFlowViewCellVertValue.swift */,
-				A229489E23975D850058B939 /* HFlowViewCellHoriValue.swift */,
+				A2294892239756A10058B939 /* HFlowSingleCell.swift */,
+				EB50428C2A2C343C007E9FC7 /* HFlowStackCell.swift */,
+				A229489C23975CE40058B939 /* HFlowFreeCell.swift */,
+				A229489E23975D850058B939 /* HFlowRowCell.swift */,
 			);
-			path = HFlowViewCell;
-			sourceTree = "<group>";
-		};
-		A229488C239756770058B939 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				A229488D239756770058B939 /* HFlowView.swift */,
-				EB47CC372F94F04B00EB5391 /* HFlowCacheManager.swift */,
-				EB47CC382F94F04B00EB5391 /* HFlowView+Accessibility.swift */,
-				EB47CC392F94F04B00EB5391 /* HFlowView+Animation.swift */,
-				EB47CC3A2F94F04B00EB5391 /* HFlowView+AsyncLayout.swift */,
-				EB47CC3B2F94F04B00EB5391 /* HFlowView+Core.swift */,
-				EB47CC3C2F94F04B00EB5391 /* HFlowView+DeviceAdaptation.swift */,
-				EB47CC3D2F94F04B00EB5391 /* HFlowView+Documentation.swift */,
-				EB47CC3E2F94F04B00EB5391 /* HFlowView+EmptyView.swift */,
-				EB47CC3F2F94F04B00EB5391 /* HFlowView+Example.swift */,
-				EB47CC402F94F04B00EB5391 /* HFlowView+HapticFeedback.swift */,
-				EB47CC412F94F04B00EB5391 /* HFlowView+LRU.swift */,
-				EB47CC422F94F04B00EB5391 /* HFlowView+MicroInteraction.swift */,
-				EB47CC432F94F04B00EB5391 /* HFlowView+NetworkOptimization.swift */,
-				EB47CC442F94F04B00EB5391 /* HFlowView+ObjectPool.swift */,
-				EB47CC452F94F04B00EB5391 /* HFlowView+Observer.swift */,
-				EB47CC462F94F04B00EB5391 /* HFlowView+Pagination.swift */,
-				EB47CC472F94F04B00EB5391 /* HFlowView+Performance.swift */,
-				EB47CC482F94F04B00EB5391 /* HFlowView+PreRendering.swift */,
-				EB47CC492F94F04B00EB5391 /* HFlowView+Refresh.swift */,
-				EB47CC4A2F94F04B00EB5391 /* HFlowView+Skeleton.swift */,
-				EB47CC4B2F94F04B00EB5391 /* HFlowView+SmartPreloading.swift */,
-				EB47CC4C2F94F04B00EB5391 /* HFlowView+SwiftUI.swift */,
-				EB47CC4D2F94F04B00EB5391 /* HFlowView+Theme.swift */,
-				EB47CC4E2F94F04B00EB5391 /* HFlowView+Utils.swift */,
-				EBC306FA2BEE6BEC00EF8ABD /* HChatView.swift */,
-				EBC7386D2CC6014300A01E71 /* HTableView.swift */,
-			);
-			path = View;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		A22948B6239798DF0058B939 /* HLoginController */ = {
@@ -1918,24 +1831,6 @@
 			path = HAtrribute;
 			sourceTree = "<group>";
 		};
-		EB47CC6A2F94F06600EB5391 /* Managers */ = {
-			isa = PBXGroup;
-			children = (
-				EB47CC682F94F06600EB5391 /* HFlowPreloadManager.swift */,
-				EB47CC692F94F06600EB5391 /* HFlowRefreshManager.swift */,
-			);
-			path = Managers;
-			sourceTree = "<group>";
-		};
-		EB47CC6E2F94F06600EB5391 /* Protocols */ = {
-			isa = PBXGroup;
-			children = (
-				EB47CC6B2F94F06600EB5391 /* HFlowRefreshable.swift */,
-				EB47CC6D2F94F06600EB5391 /* ImageCacheProtocol.swift */,
-			);
-			path = Protocols;
-			sourceTree = "<group>";
-		};
 		EBA1678C2D16CC0E00DD2088 /* GSPlayer */ = {
 			isa = PBXGroup;
 			children = (
@@ -2454,6 +2349,135 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		EBFL03012FB9E1FC004DF5D8 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				A229488D239756770058B939 /* HFlowView.swift */,
+				EB47CC3B2F94F04B00EB5391 /* HFlowView+Core.swift */,
+				EBFL01022FB9E1FC004DF5D8 /* HFlowView+DataSource.swift */,
+				EBFL01032FB9E1FC004DF5D8 /* HFlowView+Delegate.swift */,
+				EBFL01042FB9E1FC004DF5D8 /* HFlowView+Reload.swift */,
+				EBFL01052FB9E1FC004DF5D8 /* HFlowView+Scroll.swift */,
+				EB47CC4E2F94F04B00EB5391 /* HFlowView+Utils.swift */,
+				EB47CC412F94F04B00EB5391 /* HFlowView+LRU.swift */,
+				EBFL01012FB9E1FC004DF5D8 /* HFlowView+FeatureHooks.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		EBFL03022FB9E1FC004DF5D8 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				EBFL03032FB9E1FC004DF5D8 /* Refresh */,
+				EBFL03042FB9E1FC004DF5D8 /* EmptyView */,
+				EBFL03052FB9E1FC004DF5D8 /* Observer */,
+				EBFL03062FB9E1FC004DF5D8 /* Memory */,
+				EBFL03072FB9E1FC004DF5D8 /* Interaction */,
+				EBFL03082FB9E1FC004DF5D8 /* Animation */,
+				EBFL03092FB9E1FC004DF5D8 /* Config */,
+				EBFL03102FB9E1FC004DF5D8 /* ImageSize */,
+				EBFL03112FB9E1FC004DF5D8 /* Performance */,
+				EBFL03122FB9E1FC004DF5D8 /* PreRendering */,
+			);
+			path = Features;
+			sourceTree = "<group>";
+		};
+		EBFL03032FB9E1FC004DF5D8 /* Refresh */ = {
+			isa = PBXGroup;
+			children = (
+				EB47CC492F94F04B00EB5391 /* HFlowView+Refresh.swift */,
+			);
+			path = Refresh;
+			sourceTree = "<group>";
+		};
+		EBFL03042FB9E1FC004DF5D8 /* EmptyView */ = {
+			isa = PBXGroup;
+			children = (
+				EB47CC3E2F94F04B00EB5391 /* HFlowView+EmptyView.swift */,
+			);
+			path = EmptyView;
+			sourceTree = "<group>";
+		};
+		EBFL03052FB9E1FC004DF5D8 /* Observer */ = {
+			isa = PBXGroup;
+			children = (
+				EB47CC452F94F04B00EB5391 /* HFlowView+Observer.swift */,
+			);
+			path = Observer;
+			sourceTree = "<group>";
+		};
+		EBFL03062FB9E1FC004DF5D8 /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				EBFL01062FB9E1FC004DF5D8 /* HFlowView+Memory.swift */,
+			);
+			path = Memory;
+			sourceTree = "<group>";
+		};
+		EBFL03072FB9E1FC004DF5D8 /* Interaction */ = {
+			isa = PBXGroup;
+			children = (
+				EBFL01082FB9E1FC004DF5D8 /* HFlowView+Interaction.swift */,
+			);
+			path = Interaction;
+			sourceTree = "<group>";
+		};
+		EBFL03082FB9E1FC004DF5D8 /* Animation */ = {
+			isa = PBXGroup;
+			children = (
+				EB47CC392F94F04B00EB5391 /* HFlowView+Animation.swift */,
+			);
+			path = Animation;
+			sourceTree = "<group>";
+		};
+		EBFL03092FB9E1FC004DF5D8 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				EBFL01072FB9E1FC004DF5D8 /* HFlowView+Config.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		EBFL03102FB9E1FC004DF5D8 /* ImageSize */ = {
+			isa = PBXGroup;
+			children = (
+				EBFL01092FB9E1FC004DF5D8 /* HFlowView+ImageSize.swift */,
+			);
+			path = ImageSize;
+			sourceTree = "<group>";
+		};
+		EBFL03112FB9E1FC004DF5D8 /* Performance */ = {
+			isa = PBXGroup;
+			children = (
+				EB47CC472F94F04B00EB5391 /* HFlowView+Performance.swift */,
+			);
+			path = Performance;
+			sourceTree = "<group>";
+		};
+		EBFL03122FB9E1FC004DF5D8 /* PreRendering */ = {
+			isa = PBXGroup;
+			children = (
+				EB47CC482F94F04B00EB5391 /* HFlowView+PreRendering.swift */,
+			);
+			path = PreRendering;
+			sourceTree = "<group>";
+		};
+		EBFL03132FB9E1FC004DF5D8 /* Kits */ = {
+			isa = PBXGroup;
+			children = (
+				EBFL03142FB9E1FC004DF5D8 /* Docs */,
+			);
+			path = Kits;
+			sourceTree = "<group>";
+		};
+		EBFL03142FB9E1FC004DF5D8 /* Docs */ = {
+			isa = PBXGroup;
+			children = (
+				EB47CC3F2F94F04B00EB5391 /* HFlowView+Example.swift */,
+			);
+			path = Docs;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2707,9 +2731,13 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HSwiftProject/Pods-HSwiftProject-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
+			inputPaths = (
+			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-HSwiftProject/Pods-HSwiftProject-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2723,6 +2751,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBFL02012FB9E1FC004DF5D8 /* HFlowView+FeatureHooks.swift in Sources */,
+				EBFL02022FB9E1FC004DF5D8 /* HFlowView+DataSource.swift in Sources */,
+				EBFL02032FB9E1FC004DF5D8 /* HFlowView+Delegate.swift in Sources */,
+				EBFL02042FB9E1FC004DF5D8 /* HFlowView+Reload.swift in Sources */,
+				EBFL02052FB9E1FC004DF5D8 /* HFlowView+Scroll.swift in Sources */,
+				EBFL02062FB9E1FC004DF5D8 /* HFlowView+Memory.swift in Sources */,
+				EBFL02072FB9E1FC004DF5D8 /* HFlowView+Config.swift in Sources */,
+				EBFL02082FB9E1FC004DF5D8 /* HFlowView+Interaction.swift in Sources */,
+				EBFL02092FB9E1FC004DF5D8 /* HFlowView+ImageSize.swift in Sources */,
 				2379687C2EC5D3020017DF70 /* DPMViewModelProtocol.swift in Sources */,
 				2379687E2EC5D31C0017DF70 /* DPMReactiveViewProtocol.swift in Sources */,
 				237968822EC5D3CF0017DF70 /* DPMBaseView.swift in Sources */,
@@ -2755,7 +2792,7 @@
 				EB3541BE2BE86484003B1D69 /* HSkeletonView2.swift in Sources */,
 				EB43241829C3569800EDDB64 /* HFormController.swift in Sources */,
 				EBC307252BF8F06C00EF8ABD /* HCollAlertVC.swift in Sources */,
-				A22948A123975F500058B939 /* HFlowViewApexVertValue.swift in Sources */,
+				A22948A123975F500058B939 /* HFlowFreeApex.swift in Sources */,
 				A28B652323FD26CE00B6B638 /* HNetworkManager.swift in Sources */,
 				EBD0FB3829CCA8D800808EDA /* HRemoteNotification.swift in Sources */,
 				EB9358F52AF4E5FC00716728 /* HMainController7.swift in Sources */,
@@ -2765,7 +2802,7 @@
 				EB4323F029B988C100EDDB64 /* HAlertFormatter.swift in Sources */,
 				A26D434323877F0A00F457AE /* UIControl+HSafeUtil.swift in Sources */,
 				EB1209712A7CD45500E5F045 /* HGroupAvatarView.swift in Sources */,
-				A229489523975A900058B939 /* HFlowViewApex.swift in Sources */,
+				A229489523975A900058B939 /* HFlowSingleApex.swift in Sources */,
 				A28923A7238B72F800E4AB75 /* HTupleView.swift in Sources */,
 				EBD0FB4029CD4E4400808EDA /* AppDelegate+RotateService.swift in Sources */,
 				EBD0FB0929CA90EB00808EDA /* HAssetManager.swift in Sources */,
@@ -2779,7 +2816,7 @@
 				EBD11E4B2CA6F1B200E1E6BF /* HTupleTmplApex.swift in Sources */,
 				EB90BC2A2CC245BE00C392C4 /* HTupleLayout.swift in Sources */,
 				EBEF30462D8DA9D200930730 /* HCollSingleApex.swift in Sources */,
-				A2294893239756A10058B939 /* HFlowViewCell.swift in Sources */,
+				A2294893239756A10058B939 /* HFlowSingleCell.swift in Sources */,
 				EB43240729B9DF9D00EDDB64 /* HResultView.swift in Sources */,
 				EBA167B52D16CC0E00DD2088 /* VideoCacheAction.swift in Sources */,
 				EBC8140729AA48C000A81431 /* HUserLiveCell.swift in Sources */,
@@ -2848,7 +2885,7 @@
 				EB1C8D7B2C02CDFD00ADF411 /* HPostCommentViewApex.swift in Sources */,
 				A22948B1239798960058B939 /* HMainController4.swift in Sources */,
 				EBD213CF2A6535D800C31E2D /* UINavigationItem+HNaviBar.swift in Sources */,
-				A229489D23975CE40058B939 /* HFlowViewCellVertValue.swift in Sources */,
+				A229489D23975CE40058B939 /* HFlowFreeCell.swift in Sources */,
 				A26D431523839C2800F457AE /* UIApplication+HUtil.swift in Sources */,
 				A21887A923900832005C20BF /* HTegKeychainConstants.swift in Sources */,
 				EBA167B22D16CC0E00DD2088 /* URL+Extensions.swift in Sources */,
@@ -2892,28 +2929,14 @@
 				EBD11E492CA6F08A00E1E6BF /* HTupleTmplCell.swift in Sources */,
 				EB47CC4F2F94F04B00EB5391 /* HFlowView+Performance.swift in Sources */,
 				EB47CC502F94F04B00EB5391 /* HFlowView+Core.swift in Sources */,
-				EB47CC512F94F04B00EB5391 /* HFlowView+SmartPreloading.swift in Sources */,
 				EB47CC522F94F04B00EB5391 /* HFlowView+Utils.swift in Sources */,
-				EB47CC532F94F04B00EB5391 /* HFlowCacheManager.swift in Sources */,
 				EB47CC542F94F04B00EB5391 /* HFlowView+Animation.swift in Sources */,
-				EB47CC552F94F04B00EB5391 /* HFlowView+Documentation.swift in Sources */,
 				EB47CC562F94F04B00EB5391 /* HFlowView+Observer.swift in Sources */,
-				EB47CC572F94F04B00EB5391 /* HFlowView+AsyncLayout.swift in Sources */,
 				EB47CC582F94F04B00EB5391 /* HFlowView+EmptyView.swift in Sources */,
 				EB47CC592F94F04B00EB5391 /* HFlowView+Refresh.swift in Sources */,
-				EB47CC5A2F94F04B00EB5391 /* HFlowView+Accessibility.swift in Sources */,
-				EB47CC5B2F94F04B00EB5391 /* HFlowView+DeviceAdaptation.swift in Sources */,
 				EB47CC5C2F94F04B00EB5391 /* HFlowView+LRU.swift in Sources */,
-				EB47CC5D2F94F04B00EB5391 /* HFlowView+MicroInteraction.swift in Sources */,
-				EB47CC5E2F94F04B00EB5391 /* HFlowView+NetworkOptimization.swift in Sources */,
-				EB47CC5F2F94F04B00EB5391 /* HFlowView+SwiftUI.swift in Sources */,
-				EB47CC602F94F04B00EB5391 /* HFlowView+HapticFeedback.swift in Sources */,
-				EB47CC612F94F04B00EB5391 /* HFlowView+Theme.swift in Sources */,
 				EB47CC622F94F04B00EB5391 /* HFlowView+Example.swift in Sources */,
-				EB47CC632F94F04B00EB5391 /* HFlowView+Skeleton.swift in Sources */,
-				EB47CC642F94F04B00EB5391 /* HFlowView+ObjectPool.swift in Sources */,
 				EB47CC652F94F04B00EB5391 /* HFlowView+PreRendering.swift in Sources */,
-				EB47CC662F94F04B00EB5391 /* HFlowView+Pagination.swift in Sources */,
 				EBA337AC2CDF3D9A005CF023 /* DBManager.swift in Sources */,
 				EBA53C322A3210FB0077158D /* HMultiButtonView.swift in Sources */,
 				EB3541BC2BE86152003B1D69 /* HActiveTabbarVC.swift in Sources */,
@@ -2936,7 +2959,7 @@
 				EBC3071F2BF8AEF000EF8ABD /* XAlertController.swift in Sources */,
 				EB1209812A827E1900E5F045 /* HPostHeader.swift in Sources */,
 				A28923A8238B72F800E4AB75 /* HTupleViewLayout.swift in Sources */,
-				EB50428D2A2C343C007E9FC7 /* HFlowTextImageCell.swift in Sources */,
+				EB50428D2A2C343C007E9FC7 /* HFlowStackCell.swift in Sources */,
 				EB50428B2A2C33F6007E9FC7 /* HTupleTextImageApex.swift in Sources */,
 				EBC8140429AA48C000A81431 /* HUserLiveCell+HSection2.swift in Sources */,
 				A2B43071237FF2B100795605 /* Swifty.m in Sources */,
@@ -2985,7 +3008,7 @@
 				EBC307272BF8F10500EF8ABD /* HCollAlertVC+Extern.swift in Sources */,
 				A26D432723853F2900F457AE /* NSObject+HMessy.swift in Sources */,
 				EBBCF40D2E536C2500421DB8 /* WaterfallViewController.swift in Sources */,
-				A229489F23975D850058B939 /* HFlowViewCellHoriValue.swift in Sources */,
+				A229489F23975D850058B939 /* HFlowRowCell.swift in Sources */,
 				EB1C8D912C04751600ADF411 /* HTupleMultiApex.swift in Sources */,
 				A2A814B4274C0E2000FAB929 /* HTupleHeader.swift in Sources */,
 				EBA53C3A2A3B47240077158D /* HWebImageView2.swift in Sources */,
@@ -3001,10 +3024,6 @@
 				EBEF308C2DA28B7D00930730 /* HCollView+Delegate.swift in Sources */,
 				EBEF308D2DA28B7D00930730 /* HCollView+EmptyView.swift in Sources */,
 				EBEF308E2DA28B7D00930730 /* HCollView+Memory.swift in Sources */,
-				EB47CC6F2F94F06600EB5391 /* HFlowRefreshManager.swift in Sources */,
-				EB47CC722F94F06600EB5391 /* ImageCacheProtocol.swift in Sources */,
-				EB47CC732F94F06600EB5391 /* HFlowPreloadManager.swift in Sources */,
-				EB47CC742F94F06600EB5391 /* HFlowRefreshable.swift in Sources */,
 				EBEF308F2DA28B7D00930730 /* HCollView+Reload.swift in Sources */,
 				EBEF30902DA28B7D00930730 /* HCollView+Scroll.swift in Sources */,
 				EBEF30922DA28B7D00930730 /* HCollView+Utils.swift in Sources */,
@@ -3037,7 +3056,7 @@
 				A229489923975BA80058B939 /* HTupleViewApexVertValue.swift in Sources */,
 				EBD0FB0B29CA938900808EDA /* HAssetModel.swift in Sources */,
 				A229489B23975C2E0058B939 /* HTupleViewApexHoriValue.swift in Sources */,
-				EB50428F2A2C348D007E9FC7 /* HFlowTextImageApex.swift in Sources */,
+				EB50428F2A2C348D007E9FC7 /* HFlowStackApex.swift in Sources */,
 				EBA167BD2D16CC0E00DD2088 /* VideoInfo.swift in Sources */,
 				EB3541DD2BE9B8AA003B1D69 /* HNetworkHeader.swift in Sources */,
 				A265D9FB2390B8EB001F39B0 /* HTabItem.swift in Sources */,
@@ -3097,7 +3116,6 @@
 				EB1209852A8365E500E5F045 /* HPostVC.swift in Sources */,
 				A2B43080237FF57C00795605 /* HViewController.swift in Sources */,
 				A2294890239756770058B939 /* HFlowBaseCell.swift in Sources */,
-				A229488F239756770058B939 /* HFlowSignal.swift in Sources */,
 				EBA6472B2A875D1B00897D76 /* HStackBar.swift in Sources */,
 				EB3541A02BDA2CFA003B1D69 /* HActiveView2.swift in Sources */,
 				EBA167B12D16CC0E00DD2088 /* AVPlayerItem+Extensions.swift in Sources */,
@@ -3105,7 +3123,6 @@
 				A21887A723900832005C20BF /* HKeychainSwiftAccessOptions.swift in Sources */,
 				EBD0FB7B29D02B9600808EDA /* HUserCore.swift in Sources */,
 				A2A814B8274CCA7200FAB929 /* HPresentAnimation.swift in Sources */,
-				EBC7386E2CC6014400A01E71 /* HTableView.swift in Sources */,
 				EBC8145D29AA53B500A81431 /* HSendAudioVC+HStatus3.swift in Sources */,
 				EBD0FB2A29CC935D00808EDA /* NSString+HChain.swift in Sources */,
 				EBC8140129AA48C000A81431 /* HLRDefine.swift in Sources */,
@@ -3114,10 +3131,9 @@
 				A2A7A93D23FE3A790090EFD3 /* HDotView.swift in Sources */,
 				A2B43075237FF2B100795605 /* HPrinterManager.swift in Sources */,
 				EBEF30402D8D379D00930730 /* HCollStackFreeCell.swift in Sources */,
-				A22948A323975FB10058B939 /* HFlowViewApexHoriValue.swift in Sources */,
+				A22948A323975FB10058B939 /* HFlowRowApex.swift in Sources */,
 				EBC307162BF8A65A00EF8ABD /* HTransitionAnimator2.swift in Sources */,
 				A2A7A94923FE8A400090EFD3 /* HCycleScrollView.swift in Sources */,
-				EBC306FB2BEE6BEC00EF8ABD /* HChatView.swift in Sources */,
 				EB12098D2A85DA2A00E5F045 /* HPostCommentHeader.swift in Sources */,
 				EBC8145729AA538B00A81431 /* HAcceptAudioVC.swift in Sources */,
 				EBC8140329AA48C000A81431 /* HUserLiveShareVC.swift in Sources */,

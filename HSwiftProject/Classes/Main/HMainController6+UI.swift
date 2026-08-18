@@ -9,108 +9,61 @@
 import UIKit
 
 extension HMainController6 {
-    
-    func numberOfSectionsInFlowView() -> Any {
-        return 1
+
+    func numberOfSectionsInFlowView() -> Int {
+        1
     }
-    func numberOfRowsInSection(_ section: Any) -> Any {
-        return 8
+
+    func numberOfRowsInSection(_ section: Int) -> Int {
+        8
     }
-    func heightForRowAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return 65
+
+    func heightForRowAtIndexPath(_ indexPath: IndexPath) -> CGFloat {
+        65
     }
-    func edgeInsetsForRowAtIndexPath(_ indexPath: IndexPath) -> Any {
-        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    }
-    func flowRow(_ flow: HFlowView, atIndexPath indexPath: IndexPath) -> UITableViewCell? {
-        switch (indexPath.row) {
+
+    func flowRow(_ flow: HFlowView, atIndexPath indexPath: IndexPath) {
+        switch indexPath.row {
         case 0:
-            let cell = HFlowViewCellHoriValue2(style: .default, reuseIdentifier: "HFlowViewCellHoriValue2")
+            let cell = flow.reuseCell(HFlowValueRowCell.self, false, indexPath)
             cell.backgroundColor = UIColor.gray
-            
-//            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
-            
-            cell.imageView.backgroundColor = UIColor.red
-            cell.imageView.setImage(named: "icon_no_server")
-
-            cell.detailView.backgroundColor = UIColor.red
-            cell.detailView.setImage(named: "icon_no_server")
-
-//            cell.detailWidth = 100
-//            cell.accessoryWidth = 100
-            
-            cell.isShowAccsryArrow = true
-            
-//            cell.labelInterval = 0
-            
+            cell.contentImageView.backgroundColor = UIColor.red
+            cell.contentImageView.setImage(named: "icon_no_server")
+            cell.detailImageView.backgroundColor = UIColor.red
+            cell.detailImageView.setImage(named: "icon_no_server")
+            cell.showsAccessoryArrow = true
             cell.label.backgroundColor = UIColor.red
             cell.label.text = "wwwwwwwwwwwwww"
-//            cell.label.text = "wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww"
-//            cell.label.text = "wwwwwwwwwwwwwwwwwwww"
-//            cell.label.text = "wwwwwwwwwwwwwwwwwww"
-            
             cell.detailLabel.backgroundColor = UIColor.yellow
             cell.detailLabel.text = "qqqqqqqqqqqqq"
-//            cell.detailLabel.text = "qqqqqqqqqqqqqqqqqqqqqqqq"
-
-//            cell.accsryLabel.backgroundColor = UIColor.green
-            
-            //接收信
-            cell.signalBlock = { (target: Any, signal: Any) in
-                let cell = target as! HFlowViewCellHoriValue2
+            cell.selectBlock = {
                 NSLog("选中%@", cell.label.text ?? "")
             }
-            return cell
         case 1:
-            let cell = HFlowViewCellHoriValue2(style: .default, reuseIdentifier: "HFlowViewCellHoriValue2")
+            let cell = flow.reuseCell(HFlowValueRowCell.self, false, indexPath)
             cell.backgroundColor = UIColor.gray
-            
-//            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
-            
-            cell.imageView.backgroundColor = UIColor.red
-            cell.imageView.setImage(named: "icon_no_server")
-            
+            cell.contentImageView.backgroundColor = UIColor.red
+            cell.contentImageView.setImage(named: "icon_no_server")
             cell.label.backgroundColor = UIColor.red
             cell.label.text = "wwwwwwwwwwwwww"
-
             cell.detailLabel.backgroundColor = UIColor.yellow
             cell.detailLabel.text = "qqqqqqqqqqqqq"
-            
-            //接收信号
-            cell.signalBlock = { (target: Any, signal: Any) in
-                let cell = target as! HFlowViewCellHoriValue2
+            cell.selectBlock = {
                 NSLog("选中%@", cell.label.text ?? "")
             }
-            return cell
         case 2:
-            let cell = HFlowViewCellHoriValue2(style: .default, reuseIdentifier: "HFlowViewCellHoriValue2")
+            let cell = flow.reuseCell(HFlowValueRowCell.self, false, indexPath)
             cell.backgroundColor = UIColor.gray
-            
-//            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
-            
-//            cell.isShowAccsryArrow = true
-
-            cell.imageView.backgroundColor = UIColor.red
-            cell.imageView.setImage(named: "icon_no_server")
-
-            cell.detailView.backgroundColor = UIColor.red
-            cell.detailView.setImage(named: "icon_no_server")
-
+            cell.contentImageView.backgroundColor = UIColor.red
+            cell.contentImageView.setImage(named: "icon_no_server")
+            cell.detailImageView.backgroundColor = UIColor.red
+            cell.detailImageView.setImage(named: "icon_no_server")
             cell.label.backgroundColor = UIColor.red
             cell.label.text = "wwwwwwwwwwwwww"
-
             cell.detailLabel.backgroundColor = UIColor.yellow
             cell.detailLabel.text = "qqqqqqqqqqqqq"
-            return cell
         default:
-            return UITableViewCell(style: .default, reuseIdentifier: "DefaultCell")
+            _ = flow.reuseCell(HFlowBaseCell.self, false, indexPath)
         }
-        
     }
-    func didSelectRowAtIndexPath(_ indexPath: IndexPath) {
-        
-    }
-    
 }
-
-

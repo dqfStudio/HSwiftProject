@@ -26,25 +26,25 @@ class HCollFreeCell: HCollBaseCell {
     var accessoryText: HTextView { makeTextView(&_accessoryText) }
 
     private var _buttonView: HImageTextView?
-    var buttonView: HImageTextView { makeButton(&_buttonView) }
+    var buttonView: HImageTextView { makeImageText(&_buttonView) }
     private var _detailButton: HImageTextView?
-    var detailButton: HImageTextView { makeButton(&_detailButton) }
+    var detailButton: HImageTextView { makeImageText(&_detailButton) }
     private var _accessoryButton: HImageTextView?
-    var accessoryButton: HImageTextView { makeButton(&_accessoryButton) }
+    var accessoryButton: HImageTextView { makeImageText(&_accessoryButton) }
 
     private var _imageView: HImageTextView?
-    var imageView: HImageTextView { makeImage(&_imageView) }
+    var imageView: HImageTextView { makeImageText(&_imageView) }
     private var _detailImageView: HImageTextView?
-    var detailImageView: HImageTextView { makeImage(&_detailImageView) }
+    var detailImageView: HImageTextView { makeImageText(&_detailImageView) }
     private var _accessoryImageView: HImageTextView?
-    var accessoryImageView: HImageTextView { makeImage(&_accessoryImageView) }
+    var accessoryImageView: HImageTextView { makeImageText(&_accessoryImageView) }
 
-    private var _textField: HTextField?
-    var textField: HTextField { makeField(&_textField) }
-    private var _detailField: HTextField?
-    var detailField: HTextField { makeField(&_detailField) }
-    private var _accessoryField: HTextField?
-    var accessoryField: HTextField { makeField(&_accessoryField) }
+    private var _textField: HTextFieldView?
+    var textField: HTextFieldView { makeField(&_textField) }
+    private var _detailField: HTextFieldView?
+    var detailField: HTextFieldView { makeField(&_detailField) }
+    private var _accessoryField: HTextFieldView?
+    var accessoryField: HTextFieldView { makeField(&_accessoryField) }
 
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -93,34 +93,23 @@ class HCollFreeCell: HCollBaseCell {
         return textView
     }
 
-    private func makeButton(_ storage: inout HImageTextView?) -> HImageTextView {
-        if let button = storage {
-            button.isHidden = false
-            return button
+    private func makeImageText(_ storage: inout HImageTextView?) -> HImageTextView {
+        if let view = storage {
+            view.isHidden = false
+            return view
         }
-        let button = HImageTextView()
-        contentView.addSubview(button)
-        storage = button
-        return button
+        let view = HImageTextView()
+        contentView.addSubview(view)
+        storage = view
+        return view
     }
 
-    private func makeImage(_ storage: inout HImageTextView?) -> HImageTextView {
-        if let imageView = storage {
-            imageView.isHidden = false
-            return imageView
-        }
-        let imageView = HImageTextView()
-        contentView.addSubview(imageView)
-        storage = imageView
-        return imageView
-    }
-
-    private func makeField(_ storage: inout HTextField?) -> HTextField {
+    private func makeField(_ storage: inout HTextFieldView?) -> HTextFieldView {
         if let field = storage {
             field.isHidden = false
             return field
         }
-        let field = HTextField()
+        let field = HTextFieldView()
         contentView.addSubview(field)
         storage = field
         return field

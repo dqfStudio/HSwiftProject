@@ -18,7 +18,7 @@
 //  let input = HTextFieldView().config { c in
 //      c.placeholder("请输入验证码")
 //      c.maxLength(6).keyboard(.numberPad)
-//      c.leftIcon(UIImage(named: "sms")) { v in
+//      c.leftImageText(image: UIImage(named: "sms")) { v in
 //          v.size(20, 20).insets(left: 12, right: 8)
 //      }
 //      c.rightCountdown { v in
@@ -172,47 +172,12 @@ final class HTextFieldConfigurator {
 
     // MARK: - 侧边视图（左）
 
-    @discardableResult
-    func leftLabel(_ text: String, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
-        let l = UILabel()
-        l.text = text
-        l.font = .systemFont(ofSize: 14)
-        l.textColor = .darkGray
-        l.sizeToFit()
-        let cfg = HSideViewConfig(width: l.bounds.width)
-        block?(cfg)
-        pendingLeft.append(PendingSideView(view: l, config: cfg))
-        return self
-    }
-
-    @discardableResult
-    func leftIcon(_ image: UIImage?, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
-        let iv = UIImageView(image: image)
-        iv.contentMode = .scaleAspectFit
-        let cfg = HSideViewConfig(width: 24)
-        block?(cfg)
-        pendingLeft.append(PendingSideView(view: iv, config: cfg))
-        return self
-    }
-
-    @discardableResult
-    func leftButton(_ title: String? = nil, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
-        let btn = UIButton(type: .system)
-        btn.titleLabel?.font = .systemFont(ofSize: 14)
-        if let title = title { btn.setTitle(title, for: .normal) }
-        let cfg = HSideViewConfig(width: 60, interactive: true)
-        block?(cfg)
-        pendingLeft.append(PendingSideView(view: btn, config: cfg))
-        return self
-    }
-
     /// 左侧图文（`HImageTextView`）。
-    /// 无文案按图标（宽 24，不可点）；有文案按按钮（宽 60，可点）。
-    /// 图片请在 `config` 之后通过 `sideView(at:side:)` 拿到视图再设。
-    /// 无文案但需要点击时，在 block 里 `.interactive(true)`。
+    /// 无文案按图标（宽 24）；有文案按按钮区（宽 60）。默认不拦截点击。
+    /// 需要点击时给视图设 `pressed`，或在 block 里 `.interactive(true)`。
     @discardableResult
-    func leftImageText(_ text: String? = nil, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
-        pendingLeft.append(makeImageTextSide(text, block: block))
+    func leftImageText(_ text: String? = nil, image: UIImage? = nil, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
+        appendImageText(.left, text: text, image: image, block: block)
         return self
     }
 
@@ -227,29 +192,6 @@ final class HTextFieldConfigurator {
     // MARK: - 侧边视图（右）
 
     @discardableResult
-    func rightLabel(_ text: String, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
-        let l = UILabel()
-        l.text = text
-        l.font = .systemFont(ofSize: 14)
-        l.textColor = .darkGray
-        l.sizeToFit()
-        let cfg = HSideViewConfig(width: l.bounds.width)
-        block?(cfg)
-        pendingRight.append(PendingSideView(view: l, config: cfg))
-        return self
-    }
-
-    @discardableResult
-    func rightIcon(_ image: UIImage?, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
-        let iv = UIImageView(image: image)
-        iv.contentMode = .scaleAspectFit
-        let cfg = HSideViewConfig(width: 24)
-        block?(cfg)
-        pendingRight.append(PendingSideView(view: iv, config: cfg))
-        return self
-    }
-
-    @discardableResult
     func rightCountdown(block: ((HSideViewConfig) -> Void)? = nil) -> Self {
         let btn = HCountDownButton()
         btn.titleLabel?.font = .systemFont(ofSize: 14)
@@ -259,21 +201,10 @@ final class HTextFieldConfigurator {
         return self
     }
 
-    @discardableResult
-    func rightButton(_ title: String? = nil, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
-        let btn = UIButton(type: .system)
-        btn.titleLabel?.font = .systemFont(ofSize: 14)
-        if let title = title { btn.setTitle(title, for: .normal) }
-        let cfg = HSideViewConfig(width: 60, interactive: true)
-        block?(cfg)
-        pendingRight.append(PendingSideView(view: btn, config: cfg))
-        return self
-    }
-
     /// 右侧图文（`HImageTextView`）。规则同 `leftImageText`。
     @discardableResult
-    func rightImageText(_ text: String? = nil, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
-        pendingRight.append(makeImageTextSide(text, block: block))
+    func rightImageText(_ text: String? = nil, image: UIImage? = nil, block: ((HSideViewConfig) -> Void)? = nil) -> Self {
+        appendImageText(.right, text: text, image: image, block: block)
         return self
     }
 
@@ -332,8 +263,18 @@ final class HTextFieldConfigurator {
 
     // MARK: - 内部
 
-    /// 无文案：宽 24、不可点，图片铺满侧边区域；有文案：宽 60、可点。
-    private func makeImageTextSide(_ text: String?, block: ((HSideViewConfig) -> Void)?) -> PendingSideView {
+    private enum SideSlot { case left, right }
+
+    private func appendImageText(_ slot: SideSlot, text: String? = nil, image: UIImage? = nil, block: ((HSideViewConfig) -> Void)?) {
+        let pending = makeImageTextSide(text, image: image, block: block)
+        switch slot {
+        case .left: pendingLeft.append(pending)
+        case .right: pendingRight.append(pending)
+        }
+    }
+
+    /// 无文案：宽 24；有文案：宽 60。默认不拦截点击，交互交给 `HImageTextView.pressed`。
+    private func makeImageTextSide(_ text: String?, image: UIImage? = nil, block: ((HSideViewConfig) -> Void)?) -> PendingSideView {
         let view = HImageTextView()
         view.contentMode = .scaleAspectFit
         let hasText = !(text ?? "").isEmpty
@@ -341,7 +282,10 @@ final class HTextFieldConfigurator {
             view.textFont = .systemFont(ofSize: 14)
             view.text = text
         }
-        let cfg = HSideViewConfig(width: hasText ? 60 : 24, interactive: hasText)
+        if let image {
+            view.setImage(image)
+        }
+        let cfg = HSideViewConfig(width: hasText ? 60 : 24)
         block?(cfg)
         return PendingSideView(view: view, config: cfg)
     }
@@ -575,6 +519,14 @@ final class HTextFieldView: UIView {
     fileprivate func removeSideViews() {
         _sideViews.forEach { $0.view.removeFromSuperview() }
         _sideViews.removeAll()
+    }
+
+    func resetForReuse() {
+        resignFirstResponder()
+        text = nil
+        removeSideViews()
+        invalidateIntrinsicContentSize()
+        setNeedsLayout()
     }
 
     fileprivate func _updatePlaceholder() {

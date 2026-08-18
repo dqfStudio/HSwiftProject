@@ -1,5 +1,5 @@
 //
-//  HCollSingleApex.swift
+//  HFlowSingleCell.swift
 //  HSwiftProject
 //
 //  Created by owner on 2025/3/21.
@@ -8,12 +8,43 @@
 
 import UIKit
 
-class HCollLabelApex: HCollBaseApex {
+/// 系统 `.value1` 样式薄封装。
+class HFlowCellValue1: HFlowBaseCell {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .value1, reuseIdentifier: reuseIdentifier)
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+}
+
+/// 系统 `.value2` 样式薄封装。
+class HFlowCellValue2: HFlowBaseCell {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .value2, reuseIdentifier: reuseIdentifier)
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+}
+
+/// 系统 `.subtitle` 样式薄封装。
+class HFlowCellSubtitle: HFlowBaseCell {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+}
+
+/// 单 Label，铺满内容区；访问 `label` 时才创建。
+class HFlowLabelCell: HFlowBaseCell {
     private var _label: UILabel?
     var label: UILabel {
         if let label = _label { return label }
         let label = HCollMakeLabel()
-        addSubview(label)
+        contentView.addSubview(label)
         _label = label
         setNeedsLayout()
         return label
@@ -31,13 +62,14 @@ class HCollLabelApex: HCollBaseApex {
     }
 }
 
-class HCollTextViewApex: HCollBaseApex {
+/// 单 HTextView，铺满内容区。
+class HFlowTextViewCell: HFlowBaseCell {
     private var _textView: HTextView?
     var textView: HTextView {
         if let textView = _textView { return textView }
         let textView = HTextView()
         textView.font = .systemFont(ofSize: 14)
-        addSubview(textView)
+        contentView.addSubview(textView)
         _textView = textView
         setNeedsLayout()
         return textView
@@ -55,12 +87,13 @@ class HCollTextViewApex: HCollBaseApex {
     }
 }
 
-class HCollButtonApex: HCollBaseApex {
+/// 单 HImageTextView 按钮区，铺满内容区。
+class HFlowButtonCell: HFlowBaseCell {
     private var _buttonView: HImageTextView?
     var buttonView: HImageTextView {
         if let buttonView = _buttonView { return buttonView }
         let buttonView = HImageTextView()
-        addSubview(buttonView)
+        contentView.addSubview(buttonView)
         _buttonView = buttonView
         setNeedsLayout()
         return buttonView
@@ -78,12 +111,13 @@ class HCollButtonApex: HCollBaseApex {
     }
 }
 
-class HCollImageApex: HCollBaseApex {
+/// 单图 cell。用 `webImageView` 避开 UITableViewCell.imageView。
+class HFlowImageCell: HFlowBaseCell {
     private var _webImageView: HImageTextView?
     var webImageView: HImageTextView {
         if let imageView = _webImageView { return imageView }
         let imageView = HImageTextView()
-        addSubview(imageView)
+        contentView.addSubview(imageView)
         _webImageView = imageView
         setNeedsLayout()
         return imageView
@@ -101,35 +135,13 @@ class HCollImageApex: HCollBaseApex {
     }
 }
 
-class HCollAnimatedImageApex: HCollBaseApex {
-    private var _imageView: HAnimatedImageView?
-    var imageView: HAnimatedImageView {
-        if let imageView = _imageView { return imageView }
-        let imageView = HAnimatedImageView()
-        addSubview(imageView)
-        _imageView = imageView
-        setNeedsLayout()
-        return imageView
-    }
-
-    override func relayoutSubviews() {
-        if let imageView = _imageView {
-            fillContent(imageView)
-        }
-    }
-
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        _imageView?.image = nil
-    }
-}
-
-class HCollTextFieldApex: HCollBaseApex {
+/// 单 HTextFieldView，铺满内容区。
+class HFlowTextFieldCell: HFlowBaseCell {
     private var _textField: HTextFieldView?
     var textField: HTextFieldView {
         if let textField = _textField { return textField }
         let textField = HTextFieldView()
-        addSubview(textField)
+        contentView.addSubview(textField)
         _textField = textField
         setNeedsLayout()
         return textField

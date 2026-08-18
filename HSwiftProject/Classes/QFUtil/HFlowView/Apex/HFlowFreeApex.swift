@@ -1,15 +1,15 @@
 //
-//  HCollStackFreeCell.swift
+//  HFlowFreeApex.swift
 //  HSwiftProject
 //
-//  Created by owner on 2025/3/21.
-//  Copyright © 2025 wind. All rights reserved.
+//  Created by Wind on 2019/12/4.
+//  Copyright © 2019 wind. All rights reserved.
 //
 
 import UIKit
 
-/// 自由组合：访问顺序即 Stack 排列顺序。
-class HCollStackFreeCell: HCollStackCell {
+/// 自由组合：访问哪个控件就创建哪个，调用方自己设 frame。
+class HFlowFreeApex: HFlowBaseApex {
 
     private var _label: UILabel?
     var label: UILabel { makeLabel(&_label) }
@@ -32,8 +32,9 @@ class HCollStackFreeCell: HCollStackCell {
     private var _accessoryButton: HImageTextView?
     var accessoryButton: HImageTextView { makeImageText(&_accessoryButton) }
 
-    private var _imageView: HImageTextView?
-    var imageView: HImageTextView { makeImageText(&_imageView) }
+    private var _contentImageView: HImageTextView?
+    /// 对应 HCollFreeApex.imageView；与 Cell 侧命名对齐。
+    var contentImageView: HImageTextView { makeImageText(&_contentImageView) }
     private var _detailImageView: HImageTextView?
     var detailImageView: HImageTextView { makeImageText(&_detailImageView) }
     private var _accessoryImageView: HImageTextView?
@@ -48,70 +49,70 @@ class HCollStackFreeCell: HCollStackCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        [_label, _detailLabel, _accessoryLabel].forEach { HCollResetLabel($0) }
-        [_textView, _detailText, _accessoryText].forEach { HCollResetTextView($0) }
-        [_textField, _detailField, _accessoryField].forEach { HCollResetTextField($0) }
-        [_buttonView, _detailButton, _accessoryButton].forEach { $0?.resetForReuse() }
-        [_imageView, _detailImageView, _accessoryImageView].forEach { $0?.resetForReuse() }
-        detachArranged()
-    }
-
-    private func detachArranged() {
-        for view in layoutView.arrangedSubviews {
-            layoutView.removeArrangedSubview(view)
-            view.removeFromSuperview()
+        [_label, _detailLabel, _accessoryLabel].forEach {
+            HCollResetLabel($0)
+            $0?.isHidden = true
         }
-    }
-
-    private func attach(_ view: UIView) {
-        if view.superview !== layoutView {
-            layoutView.addArrangedSubview(view)
+        [_textView, _detailText, _accessoryText].forEach {
+            HCollResetTextView($0)
+            $0?.isHidden = true
         }
-        setNeedsLayout()
+        [_textField, _detailField, _accessoryField].forEach {
+            HCollResetTextField($0)
+            $0?.isHidden = true
+        }
+        [_buttonView, _detailButton, _accessoryButton].forEach {
+            $0?.resetForReuse()
+            $0?.isHidden = true
+        }
+        [_contentImageView, _detailImageView, _accessoryImageView].forEach {
+            $0?.resetForReuse()
+            $0?.isHidden = true
+        }
     }
 
     private func makeLabel(_ storage: inout UILabel?) -> UILabel {
         if let label = storage {
-            attach(label)
+            label.isHidden = false
             return label
         }
         let label = HCollMakeLabel()
+        contentView.addSubview(label)
         storage = label
-        attach(label)
         return label
     }
 
     private func makeTextView(_ storage: inout HTextView?) -> HTextView {
         if let textView = storage {
-            attach(textView)
+            textView.isHidden = false
             return textView
         }
         let textView = HTextView()
         textView.font = .systemFont(ofSize: 14)
+        contentView.addSubview(textView)
         storage = textView
-        attach(textView)
         return textView
     }
 
     private func makeImageText(_ storage: inout HImageTextView?) -> HImageTextView {
         if let view = storage {
-            attach(view)
+            view.isHidden = false
             return view
         }
         let view = HImageTextView()
+        contentView.addSubview(view)
         storage = view
-        attach(view)
         return view
     }
 
     private func makeField(_ storage: inout HTextFieldView?) -> HTextFieldView {
         if let field = storage {
-            attach(field)
+            field.isHidden = false
             return field
         }
         let field = HTextFieldView()
+        contentView.addSubview(field)
         storage = field
-        attach(field)
         return field
     }
 }

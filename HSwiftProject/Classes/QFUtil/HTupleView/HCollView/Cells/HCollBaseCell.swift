@@ -116,7 +116,6 @@ func HCollResetTextView(_ textView: HTextView?) {
     textView?.text = nil
 }
 
-func HCollResetTextField(_ field: HTextField?) {
-    field?.resignFirstResponder()
-    field?.text = nil
+func HCollResetTextField(_ field: HTextFieldView?) {
+    field?.resetForReuse()
 }

@@ -13,7 +13,7 @@ import UIKit
 //    func ext_flowRow(_ flow: HFlowView, atIndexPath indexPath: IndexPath) {
 //        switch (indexPath.row) {
 //        case 3:
-//            let cell = flow.cell(HFlowViewCellHoriValue1.self, nil, true, indexPath) as! HFlowViewCellHoriValue1
+//            let cell = flow.reuseCell(HFlowPackedRowCell.self, false, indexPath)
 //            cell.backgroundColor = UIColor.gray
 ////            cell.separatorView.separatorInset = UILREdgeInsets(left: 10, right: 10)
 //            
@@ -25,12 +25,12 @@ import UIKit
 //            cell.detailLabel.text = "detailLabel"
 //            cell.detailLabel.textAlignment = .center
 //            
-//            cell.accsryLabel.backgroundColor = UIColor.yellow
-//            cell.accsryLabel.text = "accessoryLabel"
+//            cell.accessoryLabel.backgroundColor = UIColor.yellow
+//            cell.accessoryLabel.text = "accessoryLabel"
 //            cell.accsryLabel.textAlignment = .center
 //            break
 //        case 4:
-//            let cell = flow.cell(HFlowFieldCell.self, nil, true, indexPath) as! HFlowFieldCell
+//            let cell = flow.reuseCell(HFlowTextFieldCell.self, false, indexPath)
 //            cell.backgroundColor = UIColor.gray
 //            cell.textField.backgroundColor = UIColor.red
 //            
