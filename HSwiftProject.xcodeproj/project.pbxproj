@@ -275,6 +275,7 @@
 		EB50428D2A2C343C007E9FC7 /* HFlowStackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428C2A2C343C007E9FC7 /* HFlowStackCell.swift */; };
 		EB50428F2A2C348D007E9FC7 /* HFlowStackApex.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB50428E2A2C348D007E9FC7 /* HFlowStackApex.swift */; };
 		EB5148982AE283A70075F737 /* HTupleViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5148972AE283A70075F737 /* HTupleViewFlowLayout.swift */; };
+		EB52D2DF3035EE2C0043153A /* AppleIAPService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB52D2DD3035EE2C0043153A /* AppleIAPService.swift */; };
 		EB5998DE2C0DAC980021241C /* HNodeModelTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5998DD2C0DAC980021241C /* HNodeModelTableView.swift */; };
 		EB5998E02C0DACB40021241C /* SLNodeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5998DF2C0DACB40021241C /* SLNodeModel.swift */; };
 		EB5998E22C0DAD500021241C /* SLNodeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB5998E12C0DAD500021241C /* SLNodeTableViewCell.swift */; };
@@ -774,6 +775,7 @@
 		EB50428C2A2C343C007E9FC7 /* HFlowStackCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowStackCell.swift; sourceTree = "<group>"; };
 		EB50428E2A2C348D007E9FC7 /* HFlowStackApex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HFlowStackApex.swift; sourceTree = "<group>"; };
 		EB5148972AE283A70075F737 /* HTupleViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTupleViewFlowLayout.swift; sourceTree = "<group>"; };
+		EB52D2DD3035EE2C0043153A /* AppleIAPService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppleIAPService.swift; sourceTree = "<group>"; };
 		EB5998DD2C0DAC980021241C /* HNodeModelTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HNodeModelTableView.swift; sourceTree = "<group>"; };
 		EB5998DF2C0DACB40021241C /* SLNodeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLNodeModel.swift; sourceTree = "<group>"; };
 		EB5998E12C0DAD500021241C /* SLNodeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SLNodeTableViewCell.swift; sourceTree = "<group>"; };
@@ -1481,6 +1483,7 @@
 		A2B43058237FF2B100795605 /* QFUtil */ = {
 			isa = PBXGroup;
 			children = (
+				EB52D2DE3035EE2C0043153A /* AppleIAPService */,
 				EBA1678C2D16CC0E00DD2088 /* GSPlayer */,
 				EB3541C52BE8C7D3003B1D69 /* HChat */,
 				EB05977A2A0DF1820016ACD8 /* HChatTableView */,
@@ -1829,6 +1832,14 @@
 				EB43243529C588A400EDDB64 /* NSMutableAttributedString+HUtil.swift */,
 			);
 			path = HAtrribute;
+			sourceTree = "<group>";
+		};
+		EB52D2DE3035EE2C0043153A /* AppleIAPService */ = {
+			isa = PBXGroup;
+			children = (
+				EB52D2DD3035EE2C0043153A /* AppleIAPService.swift */,
+			);
+			path = AppleIAPService;
 			sourceTree = "<group>";
 		};
 		EBA1678C2D16CC0E00DD2088 /* GSPlayer */ = {
@@ -2847,6 +2858,7 @@
 				A265DA032394B24C001F39B0 /* HTabBarController.swift in Sources */,
 				A2A814BC274D694E00FAB929 /* UIViewController+HAnimation.swift in Sources */,
 				A2294891239756770058B939 /* HFlowView.swift in Sources */,
+				EB52D2DF3035EE2C0043153A /* AppleIAPService.swift in Sources */,
 				EB3541C92BE8C895003B1D69 /* MessageCellAble.swift in Sources */,
 				EB1209892A85D87700E5F045 /* HPostCommentVC.swift in Sources */,
 				EBC8140D29AA528D00A81431 /* HAnchorLiveVC.swift in Sources */,
